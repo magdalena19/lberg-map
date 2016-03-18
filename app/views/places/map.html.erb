@@ -1,0 +1,3 @@
+<div style='height: 300px;' id='map'> map </div>
+
+<script> window.places = <%= @places.map { |p| [p.latitude, p.longitude] } %> </script>

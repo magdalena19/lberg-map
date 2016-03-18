@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
-  def index
+  def map
+    @places = Place.all
   end
 
   def about

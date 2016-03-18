@@ -16,12 +16,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <div class="navbar-header"><%= link_to "Lichtenberg map", root_path, class: 'logo' %></div>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li>
-              <%= link_to 'HOME', root_path %>
+              <%= link_to 'edit places', places_path %>
             </li>
             <li>
               <%= link_to 'about', static_pages_about_path %>
@@ -34,8 +34,7 @@
     <div class="container main-container">
 
       <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-          <%= yield %>
+        <%= yield %>
       </div>
 
     </div><!-- /.container -->

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'places#index'
+  root 'static_pages#map'
 
   get 'static_pages/about' => 'static_pages#about'
   resources :places

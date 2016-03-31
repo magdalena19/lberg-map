@@ -9,12 +9,14 @@ var all = function() {
     map.addLayer(baselayer);
     map.setView([52.513, 13.474], 12);
 
-    jQuery.each(window.places, function( index, value ) {
-      L.circle(value, 500, {
-              color: 'red',
-              fillColor: '#f03',
-              fillOpacity: 0.5
-          }).addTo(map);
+    jQuery.each(window.places, function( index, props ) {
+      var openPopup = function(e) {
+        jQuery('.popup').remove();
+        jQuery('#map').append("<div class='popup'>" + props[2] + "</div>");
+      };
+      L.circleMarker(props, {radius: 8, fillOpacity: 0.5})
+        .on('click', openPopup)
+        .addTo(map);
     });
 }
 

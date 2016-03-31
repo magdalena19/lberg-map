@@ -4125,3 +4125,442 @@ Processing by PlacesController#index as HTML
   [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
   Rendered places/index.html.haml within layouts/application (9.3ms)
 Completed 200 OK in 61ms (Views: 59.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/places" for 127.0.0.1 at 2016-03-31 17:53:56 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PlacesController#index as HTML
+  [1m[35mPlace Load (0.5ms)[0m  SELECT "places".* FROM "places"
+  Rendered places/index.html.haml within layouts/application (16.0ms)
+Completed 200 OK in 271ms (Views: 253.7ms | ActiveRecord: 3.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 17:54:04 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (3.1ms)
+Completed 200 OK in 72ms (Views: 70.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 17:54:46 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.4ms)
+Completed 200 OK in 50ms (Views: 48.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 17:54:58 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (2.9ms)
+Completed 200 OK in 156ms (Views: 155.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/map.self-1a5952ca1bb92dbd0375cd2a6719ae9d90f8b7e1cec63008426cd767abb13ad3.js?body=1" for 127.0.0.1 at 2016-03-31 17:54:58 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 17:56:47 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (0.9ms)
+Completed 200 OK in 112ms (Views: 111.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-c3bb2d7128289bb15a84d5634a5838e043a7ef28e556f36a771c810d588c1617.js?body=1" for 127.0.0.1 at 2016-03-31 17:56:48 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 17:57:35 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.2ms)
+Completed 200 OK in 118ms (Views: 117.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-1b87502949c98be8297a8bc4dc4c8348fb2ab367156194ab62cab14bcae8400a.js?body=1" for 127.0.0.1 at 2016-03-31 17:57:36 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 17:58:05 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 125ms (Views: 124.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/map.self-11741279034547f6927503a74db7bdb497038b3c1552ba951f2307ba15e93d07.js?body=1" for 127.0.0.1 at 2016-03-31 17:58:05 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 17:58:18 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 116ms (Views: 115.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/map.self-9aba00fe0c199070c4f341291bff44f6e414623a591bf3c97e71e2222b3c7b72.js?body=1" for 127.0.0.1 at 2016-03-31 17:58:18 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 17:58:25 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (6.7ms)
+Completed 200 OK in 52ms (Views: 51.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 17:59:44 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 119ms (Views: 118.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-5c186305f61c8be87617b1d86b0c771149dc6d65cb5c29273054aee7e073a524.js?body=1" for 127.0.0.1 at 2016-03-31 17:59:44 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:00:08 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 121ms (Views: 120.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-aa3e34a3701292cd3feadfd366a80c983f940cb931213985af3d6a398d9f90d3.js?body=1" for 127.0.0.1 at 2016-03-31 18:00:08 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:00:52 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 119ms (Views: 118.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-e61e8f29cf89c742b29aeab0b4f3b1291bab7c2938f4e777f62315a86fe4d394.js?body=1" for 127.0.0.1 at 2016-03-31 18:00:52 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:02:05 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 123ms (Views: 122.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-00ac88520f532cbcd91afde78987c19bca3897fb9cfea59011e2cbc2dc4271a0.js?body=1" for 127.0.0.1 at 2016-03-31 18:02:06 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:02:14 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 118ms (Views: 117.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/map.self-7e4369ce07a2a946fe136261cada06743b545dd0f9ba5b2e709c298018b28eb3.js?body=1" for 127.0.0.1 at 2016-03-31 18:02:14 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:03:13 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 127ms (Views: 126.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-86c48945a329ecda0deeca4a497584e01b5257e2a43b896f8bad0abd8abd8b8c.js?body=1" for 127.0.0.1 at 2016-03-31 18:03:13 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:03:40 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (0.9ms)
+Completed 200 OK in 122ms (Views: 121.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-daf6bae27d0bd415afb82e8a591c9d9deda0e53dbc608f94ac7716b6ae253083.js?body=1" for 127.0.0.1 at 2016-03-31 18:03:41 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:04:00 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 51ms (Views: 50.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:04:21 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (0.9ms)
+Completed 200 OK in 120ms (Views: 119.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-f0fcf57c48bda3a9b60fbfd29cd20b1e83bc2fb0a3fc006b90bc541917427261.js?body=1" for 127.0.0.1 at 2016-03-31 18:04:21 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:04:34 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 51ms (Views: 50.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:05:38 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (0.9ms)
+Completed 200 OK in 119ms (Views: 118.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-efbff39240f427bf2d133bd62fdb07783678aa37ce5fd08ddc61926ac82ec055.js?body=1" for 127.0.0.1 at 2016-03-31 18:05:39 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:05:45 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 133ms (Views: 132.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-e015586fc558f2b32c4324caed1a3361d1f7c308c122bf01e7a0555f0087af78.js?body=1" for 127.0.0.1 at 2016-03-31 18:05:45 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:05:56 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 159ms (Views: 158.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/map.self-2b52510afaa611ea09a04f93d32a1adecec660bd2f4b26760de19d6302449542.js?body=1" for 127.0.0.1 at 2016-03-31 18:05:56 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:06:19 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (0.9ms)
+Completed 200 OK in 139ms (Views: 137.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-0238f05e1f2ae54da5d0c5ee007dd2aac2b21e6266e3b6a99d4aa4975a5594be.js?body=1" for 127.0.0.1 at 2016-03-31 18:06:19 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:06:33 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 123ms (Views: 122.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/map.self-ced3e8e8b7758c0137e8b2d19be11300bd0f0bf8b6bc078612e5291d31b8f38c.js?body=1" for 127.0.0.1 at 2016-03-31 18:06:33 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:07:12 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.2ms)
+Completed 200 OK in 53ms (Views: 52.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:07:24 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.1ms)
+Completed 200 OK in 120ms (Views: 119.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-f8762e655d0c9370098cc156b5f90b57e1ee7e6a43e6db049a83e3341b966b8d.js?body=1" for 127.0.0.1 at 2016-03-31 18:07:24 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:09:04 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.1ms)
+Completed 200 OK in 124ms (Views: 123.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/map.self-b833e16ba9cb500140299de18b30c6159805fd122f95ff7174e4a44fedad3673.js?body=1" for 127.0.0.1 at 2016-03-31 18:09:04 +0200
+
+
+Started GET "/places" for 127.0.0.1 at 2016-03-31 18:09:59 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered places/index.html.haml within layouts/application (8.2ms)
+Completed 200 OK in 54ms (Views: 53.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:10:02 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 46ms (Views: 45.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/places" for 127.0.0.1 at 2016-03-31 18:10:04 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered places/index.html.haml within layouts/application (6.4ms)
+Completed 200 OK in 52ms (Views: 50.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:10:05 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 44ms (Views: 43.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:10:05 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.4ms)
+Completed 200 OK in 54ms (Views: 53.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:10:43 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 44ms (Views: 43.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/static_pages/about" for 127.0.0.1 at 2016-03-31 18:10:51 +0200
+Processing by StaticPagesController#about as HTML
+  Rendered static_pages/about.html within layouts/application (0.3ms)
+Completed 200 OK in 51ms (Views: 50.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/places" for 127.0.0.1 at 2016-03-31 18:10:52 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered places/index.html.haml within layouts/application (5.9ms)
+Completed 200 OK in 59ms (Views: 58.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:11:01 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 41ms (Views: 40.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:11:54 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (0.9ms)
+Completed 200 OK in 114ms (Views: 113.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-c26e425bca41f6e63455095ef8f46d6d81f6d9abe567aee0286fef12383f5760.js?body=1" for 127.0.0.1 at 2016-03-31 18:11:54 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:13:13 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.3ms)
+Completed 200 OK in 1148ms (Views: 1147.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/places.self-6b5e34d0fd028e3d150f144320c6a3329156338cfb8e752998061ea3b0699bd3.css?body=1" for 127.0.0.1 at 2016-03-31 18:13:14 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:14:46 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 1242ms (Views: 1241.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/places.self-ddbad7a2c2683cf39c7a651c0523a26638d33ca4b0941946442fc7ba6e04f715.css?body=1" for 127.0.0.1 at 2016-03-31 18:14:47 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:14:55 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (0.9ms)
+Completed 200 OK in 1212ms (Views: 1211.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/places.self-354f031c284daa16359b3cc23c7a191eeb85aa896e4b3f8d576d29a53f553055.css?body=1" for 127.0.0.1 at 2016-03-31 18:14:56 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:15:07 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 116ms (Views: 115.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-7fa1fbbea01dc0226a324ea6f47494c9b8f3ecd010addcb2b7fb6f0dca92013b.js?body=1" for 127.0.0.1 at 2016-03-31 18:15:07 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:15:46 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 1125ms (Views: 1124.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/places.self-4edfadd8f6420d3cfee3107aa2151af6f00d2009cccfbf00250c255bd6c1b23b.css?body=1" for 127.0.0.1 at 2016-03-31 18:15:47 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:15:57 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.1ms)
+Completed 200 OK in 1384ms (Views: 1383.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/places.self-23e72e7c10507f5ed486071eb27db092fb78a993de78dc2c18ac86cdc0b766bd.css?body=1" for 127.0.0.1 at 2016-03-31 18:15:58 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:16:14 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (0.9ms)
+Completed 200 OK in 1098ms (Views: 1096.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/places.self-09ec53e8a4b5f04d79fddc9a2294a2c06bd4fceba0c6ac5e2ce5e32c7d33f466.css?body=1" for 127.0.0.1 at 2016-03-31 18:16:16 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:16:28 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (0.9ms)
+Completed 200 OK in 1181ms (Views: 1180.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/places.self-5b63a986cdb0f30ef570e5ee110c6a42ceabc3e116a3d9bb49cd2aeed6e302ed.css?body=1" for 127.0.0.1 at 2016-03-31 18:16:29 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:16:57 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (0.9ms)
+Completed 200 OK in 111ms (Views: 110.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/map.self-d37e2de7c0f79e10702bd650fb3a7ba4147e025d82b4dabfc8c44089d95e5b83.js?body=1" for 127.0.0.1 at 2016-03-31 18:16:57 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:17:46 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (2.0ms)
+Completed 200 OK in 42ms (Views: 41.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:19:30 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 117ms (Views: 116.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/map.self-79511f9217ea1a5a97ffcad46ba6ce0a5949b9166787a1d01dcd6f21ebe9bd3f.js?body=1" for 127.0.0.1 at 2016-03-31 18:19:30 +0200
+
+
+Started GET "/" for 127.0.0.1 at 2016-03-31 18:19:51 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 1149ms (Views: 1148.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/places.self-d4815833706af6347bcf276467696f9416c8bcdad610648ebeb3f6545b1b7775.css?body=1" for 127.0.0.1 at 2016-03-31 18:19:52 +0200

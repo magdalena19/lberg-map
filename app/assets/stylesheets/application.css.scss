@@ -29,18 +29,31 @@
   margin-top: 60px;
 }
 
+.margin-below {
+  margin-bottom: 20px;
+}
+
 .logo {
-  @include animation(1s);
-  float: left;
-  margin-right: 10px;
-  font-size: 1.7em;
+  font-size: 24px;
   color: white;
-  text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
-  font-weight: bold;
   &:hover {
-    color: grey;
+    color: white;
     text-decoration: none;
   }
+}
+
+.logo-left {
+  margin-left: 10px;
+  float: left;
+  font-size: 24px;
+}
+
+.logo-right {
+  float: left;
+  font-size: 25px;
+  padding-left: 3px;
+  margin-top: -1px;
+  font-weight: bold;
 }

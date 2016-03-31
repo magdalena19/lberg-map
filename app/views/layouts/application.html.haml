@@ -1,0 +1,30 @@
+!!!
+%html
+  %head
+    %title LbergMap
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a{href: root_path}
+            .navbar-header.logo.logo-left
+              LBERG
+            .navbar-header.logo.logo-right
+              MAP
+        #navbar.collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li.pull-right
+              = link_to 'edit places', places_path
+            %li.pull-right
+              = link_to 'about', static_pages_about_path
+    .container.main-container
+      .starter-template
+        = yield

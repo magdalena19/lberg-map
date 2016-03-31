@@ -1,25 +1,32 @@
 .row
   .col-xs-12
+    %h4 Create new place
     .col-xs-12.margin-below
-    .col-xs-12.margin-below
-
-      %h4 Create new place
       = form_for :place, url: places_path do |f|
-        = f.label :latitude
-        = f.text_field :latitude
-        = f.label :longitude
-        = f.text_field :longitude
-        = f.submit 'Create', class: 'btn btn-sm btn-default'
-      %br
-      %br
-      %h4 Edit places
-      - @places.each do |t|
-        = form_for(t) do |f|
-          = f.label :latitude
-          = f.text_field :latitude
-          = f.label :longitude
-          = f.text_field :longitude
-          = f.submit 'Save', class: 'btn btn-sm btn-default', data: { confirm: 'Do you really want to change the place?' }
-          = link_to 'Delete', place_path(t), method: :delete, class: 'btn btn-sm btn-default', data: { confirm: 'Do you really want to delete the place?' }
+        .col-xs-12
+          .col-xs-2
+            = f.label :latitude
+          .col-xs-2
+            = f.label :longitude
+        .col-xs-12
+          .col-xs-2
+            = f.text_field :latitude
+          .col-xs-2
+            = f.text_field :longitude
+          .col-xs-2
+            = f.submit 'Create', class: 'btn btn-sm btn-default'
 
-      %br
+  .col-xs-12.margin-below
+    %h4 Edit places
+    - @places.each do |t|
+      = form_for(t) do |f|
+        .col-xs-12.margin-below
+          .col-xs-12
+            .col-xs-2
+              = f.text_field :latitude
+            .col-xs-2
+              = f.text_field :longitude
+            .col-xs-2
+              = f.submit 'Save', class: 'btn btn-sm btn-default', data: { confirm: 'Do you really want to change the place?' }
+            .col-xs-2
+              = link_to 'Delete', place_path(t), method: :delete, class: 'btn btn-sm btn-default', data: { confirm: 'Do you really want to delete the place?' }

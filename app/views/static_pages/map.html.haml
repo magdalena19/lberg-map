@@ -1,3 +1,4 @@
 #map{:style => "height: 300px;"} map
+
 :javascript
-  window.places =  @places.map { |p| [p.latitude, p.longitude] }
+  window.places = #{@places.map { |p| [p.latitude, p.longitude] }}

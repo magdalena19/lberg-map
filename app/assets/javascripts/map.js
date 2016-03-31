@@ -2,23 +2,27 @@ var all = function() {
 
   map = L.map('map');
   map.options.minZoom = 2;
-  url = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
+  url = '//tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png';
   baselayer = L.tileLayer(url, {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   });
   map.addLayer(baselayer);
   map.setView([52.513, 13.474], 12);
 
-  jQuery.each(window.places, function( index, props ) {
+  jQuery.each(window.placesJson, function( index, feature ) {
     var openPopup = function(e) {
       jQuery('.popup').remove();
-      jQuery('#map').append("<div class='popup'>" + props[2] + "</div>");
+      jQuery('#map').append("<div class='popup'>" +
+                                feature.properties.name +
+                                ' (' + feature.properties.categories + ')' +
+                            "</div>");
     };
-    L.circleMarker(props, {radius: 8, fillOpacity: 0.5})
+    L.circleMarker(feature.geometry.coordinates, {radius: 8, fillOpacity: 0.5})
       .on('click', openPopup)
       .addTo(map);
   });
+  console.log(window.placesJson[0]);
 }
 
-jQuery( function() { all(); });
+jQuery(function() { all(); });
 jQuery(document).on('page:load', all);

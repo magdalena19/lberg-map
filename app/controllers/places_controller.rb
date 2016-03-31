@@ -4,7 +4,6 @@ class PlacesController < ApplicationController
   def index
     @place = Place.new
     @places = Place.all
-
     @errors = []
   end
 

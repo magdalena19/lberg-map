@@ -1,4 +1,6 @@
 class Place < ActiveRecord::Base
+  has_many :descriptions
+  
   def geojson
     {
       type: 'Feature',

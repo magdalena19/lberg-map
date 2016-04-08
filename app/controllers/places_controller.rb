@@ -29,7 +29,7 @@ class PlacesController < ApplicationController
 
   def destroy
     @place = Place.find(params[:id])
-    @place.delete
+    @place.destroy
 
     redirect_to action: 'index'
   end

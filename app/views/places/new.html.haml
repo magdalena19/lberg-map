@@ -1,11 +1,5 @@
 = form_for @place do |f|
   .col-xs-12
-    = f.fields_for :descriptions do |d|
-      .col-xs-2
-        = d.text_field :language
-      .col-xs-2
-        = d.text_field :text
-  .col-xs-12
     .col-xs-2
       = f.label :name
     .col-xs-2
@@ -23,5 +17,20 @@
       = f.text_field :longitude
     .col-xs-2
       = f.text_field :categories
+  .col-xs-12
+    = f.fields_for :descriptions do |d|
+      .col-xs-1
+        eng:
+        = d.hidden_field :language, value: 'eng'
+      .col-xs-7
+        = d.text_area :text
+  .col-xs-12
+    = f.fields_for :descriptions do |d|
+      .col-xs-1
+        ger:
+        = d.hidden_field :language, value: 'ger'
+      .col-xs-7
+        = d.text_area :text
+  .col-xs-12
     .col-xs-2
       = f.submit 'Create', class: 'btn btn-sm btn-default'

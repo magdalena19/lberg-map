@@ -1,25 +1,25 @@
 .row
   .col-xs-12
-    = link_to 'NEW PLACE >>>', new_place_path 
-  .col-xs-12.margin-below
+    = link_to 'Add place', new_place_path 
+  .col-xs-12
     %h4 Edit places
     - @places.each do |p|
       = form_for(p) do |f|
         .col-xs-12.margin-below
-          .col-xs-12
-            .col-xs-2
-              = f.text_field :name
-            .col-xs-2
-              = f.text_field :latitude
-            .col-xs-2
-              = f.text_field :longitude
-            .col-xs-2
-              = f.text_field :categories
-            = f.fields_for :descriptions do |d|
-              .col-xs-2
-                = d.text_field :language
-              .col-xs-2
-                = d.text_field :text
+          .col-xs-2
+            = f.text_field :name
+          .col-xs-2
+            = f.text_field :latitude
+          .col-xs-2
+            = f.text_field :longitude
+          .col-xs-2
+            = f.text_field :categories
+          = f.fields_for :descriptions do |d|
+            .col-xs-12
+              .col-xs-1
+                = d.object.language
+              .col-xs-7
+                = d.text_area :text
           .col-xs-12
             .col-xs-1
               = f.submit 'Save', class: 'btn btn-sm btn-default', data: { confirm: 'Do you really want to change the place?' }

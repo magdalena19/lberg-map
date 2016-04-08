@@ -1,5 +1,5 @@
 class Place < ActiveRecord::Base
-  has_many :descriptions
+  has_many :descriptions, :dependent => :delete_all
   accepts_nested_attributes_for :descriptions
   
   def geojson

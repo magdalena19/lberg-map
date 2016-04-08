@@ -14,6 +14,11 @@ class PlacesController < ApplicationController
     redirect_to action: 'index'
   end
 
+  def new
+    @place = Place.new
+    @place.descriptions.build
+  end
+
   def create
     @place = Place.new(place_params)
     @place.save
@@ -32,6 +37,6 @@ class PlacesController < ApplicationController
   private
 
   def place_params
-    params.require(:place).permit(:name, :latitude, :longitude, :categories)
+    params.require(:place).permit(:name, :latitude, :longitude, :categories, descriptions_attributes: [:id, :language, :text])
   end
 end

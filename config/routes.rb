@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   root 'static_pages#map'
 
   get 'static_pages/about' => 'static_pages#about'
-  resources :places
+  resources :places do
+    resources :descriptions
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

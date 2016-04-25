@@ -6,6 +6,10 @@ class PlacesController < ApplicationController
     @errors = []
   end
 
+  def edit
+    @place = Place.find(params[:id])
+  end
+
   def update
     @place = Place.find(params[:id])
     @place.update(place_params)
@@ -37,6 +41,6 @@ class PlacesController < ApplicationController
   private
 
   def place_params
-    params.require(:place).permit(:name, :latitude, :longitude, :categories, descriptions_attributes: [:id, :language, :text])
+    params.require(:place).permit(:name, :street, :house_number, :postal_code, :city, :latitude, :longitude, :categories, descriptions_attributes: [:id, :language, :text])
   end
 end

@@ -4,7 +4,7 @@
     .col-xs-3
       = f.label :name
       = f.text_field :name
-  %fieldset.form-group
+  %fieldset.form-group.form-inline
     .col-xs-3
       = f.label 'Street and house number'
       = f.text_field :street
@@ -32,4 +32,3 @@
   .col-xs-4
     = f.submit 'Save', class: 'btn btn-xs btn-success'
     = link_to 'Zurück', root_path, class: 'btn btn-xs btn-success'
-

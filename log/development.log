@@ -9942,3 +9942,851 @@ Processing by PlacesController#index as HTML
   Rendered places/index.html.haml within layouts/application (2.7ms)
   Rendered layouts/_navbar.html.haml (0.9ms)
 Completed 200 OK in 126ms (Views: 123.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/places/5/edit" for ::1 at 2016-04-25 19:55:21 +0200
+Processing by PlacesController#edit as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mPlace Load (0.4ms)[0m  [1mSELECT  "places".* FROM "places" WHERE "places"."id" = $1 LIMIT 1[0m  [["id", 5]]
+  [1m[35mDescription Load (0.7ms)[0m  SELECT "descriptions".* FROM "descriptions" WHERE "descriptions"."place_id" = $1  [["place_id", 5]]
+  Rendered places/_form.html.haml (16.1ms)
+  Rendered places/edit.html.haml within layouts/application (21.4ms)
+  Rendered layouts/_navbar.html.haml (0.6ms)
+Completed 200 OK in 157ms (Views: 154.1ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/" for ::1 at 2016-04-25 19:55:23 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[36mPlace Load (0.6ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "places".* FROM "places"
+  Rendered static_pages/map.html.haml within layouts/application (1.5ms)
+  Rendered layouts/_navbar.html.haml (1.4ms)
+Completed 200 OK in 113ms (Views: 110.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/places" for ::1 at 2016-04-25 19:55:24 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mPlace Load (0.6ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered places/index.html.haml within layouts/application (2.1ms)
+  Rendered layouts/_navbar.html.haml (0.8ms)
+Completed 200 OK in 108ms (Views: 106.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/places/5/edit" for ::1 at 2016-04-25 19:55:26 +0200
+Processing by PlacesController#edit as HTML
+  Parameters: {"id"=>"5"}
+  [1m[35mPlace Load (0.7ms)[0m  SELECT  "places".* FROM "places" WHERE "places"."id" = $1 LIMIT 1  [["id", 5]]
+  [1m[36mDescription Load (0.6ms)[0m  [1mSELECT "descriptions".* FROM "descriptions" WHERE "descriptions"."place_id" = $1[0m  [["place_id", 5]]
+  Rendered places/_form.html.haml (8.2ms)
+  Rendered places/edit.html.haml within layouts/application (11.5ms)
+  Rendered layouts/_navbar.html.haml (1.0ms)
+Completed 200 OK in 126ms (Views: 122.6ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/places/5/edit" for ::1 at 2016-04-25 19:58:02 +0200
+Processing by PlacesController#edit as HTML
+  Parameters: {"id"=>"5"}
+  [1m[35mPlace Load (0.4ms)[0m  SELECT  "places".* FROM "places" WHERE "places"."id" = $1 LIMIT 1  [["id", 5]]
+  [1m[36mDescription Load (0.5ms)[0m  [1mSELECT "descriptions".* FROM "descriptions" WHERE "descriptions"."place_id" = $1[0m  [["place_id", 5]]
+  Rendered places/_form.html.haml (13.7ms)
+  Rendered places/edit.html.haml within layouts/application (16.7ms)
+  Rendered layouts/_navbar.html.haml (1.0ms)
+Completed 200 OK in 169ms (Views: 166.5ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/assets/leaflet.self-2e2b6bf86ee638b934bfe34da4a9e03da91a6a7b17e8bc3a28633fe3db805533.css?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/places.self-efef88da09feb5a1a708cf5d698d30117bdba03dcfdc1083faf7b0c8122c27c0.css?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/static_pages.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/application.self-d63a339e3572b5b46e69c649ace12be4dd759c81396288ab2544350745843754.css?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap/affix.self-3555752f8a930795ee9e56751a52e6871104ae85d01b3ab8363da3802a5ecc78.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap/alert.self-d8b7bd612b3dcfdefb7b5539b9d5848d66ccbd3e7af8bb8d48bfb3288aaa7be8.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap.self-d0e973a52d36a01036265aeefaf2d1ae3499d2cb231a9be3bd846432daf231de.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap/carousel.self-35d204878d906298e55bc24553e11fd89b980fc4ffe5792fe36af8c0da289c54.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap/button.self-e74d33ba39500940a78d6fa4d2d64f6ca7fd86d60a2149641f7fde7ba711d8a1.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap/collapse.self-056c40532d9f0f126ec17e839f60c942f573fbd61a086e7f156306e3fc5e8c1f.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap/dropdown.self-e56c2ffee4618411d43ecf15c89273f6223847ad756e1cd17545d04afa732ed4.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap/modal.self-62463080dba6b9d024ff0a3192da0e76eacbc683194f3395047c6f5cfa0acb59.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap/tab.self-dad0d5c377f9fae26394484535ebb23ccf68afae084f896af6ea4cdf8c9f6ae0.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy.self-52afd90e8ba97d9f08617a13986e8869d6c4a45751c0bff59a6f91241e722aca.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap/transition.self-3b268d4cd8c79e46ded7392885f72f64ffb5b0d49948a12b8cf9779f6163e13a.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap/tooltip.self-facdc69246a072acb927ded77ff655f7c27a518b9357fddd45d119fbc8a0ab9f.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap/popover.self-210cff1fb4b72b71a29b5122180cb5937c8145cd13a934dc838280f1d9607a3e.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/leaflet.self-d646df01ee1ea93db86e594b00c26443e1282b9e1359bcc29807f91e8cb274a3.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/map.self-237616ae24e6c959eb1f16cca12a7d6c5f6f6694dcfe375c44d82e5780383a1b.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/places.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/static_pages.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/assets/application.self-44dc72337fbefc4f8c73fc8781b922cf9e4f99f8d068e6563c3820851d9390f6.js?body=1" for ::1 at 2016-04-25 19:58:03 +0200
+
+
+Started GET "/places" for ::1 at 2016-04-25 19:58:36 +0200
+Processing by PlacesController#index as HTML
+  [1m[35mPlace Load (0.6ms)[0m  SELECT "places".* FROM "places"
+  Rendered places/index.html.haml within layouts/application (2.8ms)
+  Rendered layouts/_navbar.html.haml (1.5ms)
+Completed 200 OK in 132ms (Views: 130.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/places" for ::1 at 2016-04-25 20:00:13 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mPlace Load (0.7ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered places/index.html.haml within layouts/application (7.1ms)
+  Rendered layouts/_navbar.html.haml (1.0ms)
+Completed 200 OK in 152ms (Views: 150.1ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/leaflet.self-2e2b6bf86ee638b934bfe34da4a9e03da91a6a7b17e8bc3a28633fe3db805533.css?body=1" for ::1 at 2016-04-25 20:00:13 +0200
+
+
+Started GET "/assets/places.self-efef88da09feb5a1a708cf5d698d30117bdba03dcfdc1083faf7b0c8122c27c0.css?body=1" for ::1 at 2016-04-25 20:00:13 +0200
+
+
+Started GET "/assets/static_pages.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-04-25 20:00:13 +0200
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-25 20:00:13 +0200
+
+
+Started GET "/assets/application.self-d63a339e3572b5b46e69c649ace12be4dd759c81396288ab2544350745843754.css?body=1" for ::1 at 2016-04-25 20:00:13 +0200
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-25 20:00:13 +0200
+
+
+Started GET "/assets/bootstrap.self-d0e973a52d36a01036265aeefaf2d1ae3499d2cb231a9be3bd846432daf231de.js?body=1" for ::1 at 2016-04-25 20:00:13 +0200
+
+
+Started GET "/assets/bootstrap/affix.self-3555752f8a930795ee9e56751a52e6871104ae85d01b3ab8363da3802a5ecc78.js?body=1" for ::1 at 2016-04-25 20:00:13 +0200
+
+
+Started GET "/assets/bootstrap/alert.self-d8b7bd612b3dcfdefb7b5539b9d5848d66ccbd3e7af8bb8d48bfb3288aaa7be8.js?body=1" for ::1 at 2016-04-25 20:00:13 +0200
+
+
+Started GET "/assets/bootstrap/button.self-e74d33ba39500940a78d6fa4d2d64f6ca7fd86d60a2149641f7fde7ba711d8a1.js?body=1" for ::1 at 2016-04-25 20:00:13 +0200
+
+
+Started GET "/assets/bootstrap/carousel.self-35d204878d906298e55bc24553e11fd89b980fc4ffe5792fe36af8c0da289c54.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/bootstrap/collapse.self-056c40532d9f0f126ec17e839f60c942f573fbd61a086e7f156306e3fc5e8c1f.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/bootstrap/dropdown.self-e56c2ffee4618411d43ecf15c89273f6223847ad756e1cd17545d04afa732ed4.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/bootstrap/modal.self-62463080dba6b9d024ff0a3192da0e76eacbc683194f3395047c6f5cfa0acb59.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy.self-52afd90e8ba97d9f08617a13986e8869d6c4a45751c0bff59a6f91241e722aca.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/bootstrap/tab.self-dad0d5c377f9fae26394484535ebb23ccf68afae084f896af6ea4cdf8c9f6ae0.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/bootstrap/transition.self-3b268d4cd8c79e46ded7392885f72f64ffb5b0d49948a12b8cf9779f6163e13a.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/bootstrap/tooltip.self-facdc69246a072acb927ded77ff655f7c27a518b9357fddd45d119fbc8a0ab9f.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/bootstrap/popover.self-210cff1fb4b72b71a29b5122180cb5937c8145cd13a934dc838280f1d9607a3e.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/leaflet.self-d646df01ee1ea93db86e594b00c26443e1282b9e1359bcc29807f91e8cb274a3.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/places.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/static_pages.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/map.self-237616ae24e6c959eb1f16cca12a7d6c5f6f6694dcfe375c44d82e5780383a1b.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/assets/application.self-44dc72337fbefc4f8c73fc8781b922cf9e4f99f8d068e6563c3820851d9390f6.js?body=1" for ::1 at 2016-04-25 20:00:14 +0200
+
+
+Started GET "/places" for ::1 at 2016-04-25 20:00:29 +0200
+Processing by PlacesController#index as HTML
+  [1m[35mPlace Load (1.4ms)[0m  SELECT "places".* FROM "places"
+  Rendered places/index.html.haml within layouts/application (13.6ms)
+  Rendered layouts/_navbar.html.haml (1.0ms)
+Completed 200 OK in 144ms (Views: 141.7ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/assets/leaflet.self-2e2b6bf86ee638b934bfe34da4a9e03da91a6a7b17e8bc3a28633fe3db805533.css?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/application.self-d63a339e3572b5b46e69c649ace12be4dd759c81396288ab2544350745843754.css?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/static_pages.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/places.self-efef88da09feb5a1a708cf5d698d30117bdba03dcfdc1083faf7b0c8122c27c0.css?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap.self-d0e973a52d36a01036265aeefaf2d1ae3499d2cb231a9be3bd846432daf231de.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap/affix.self-3555752f8a930795ee9e56751a52e6871104ae85d01b3ab8363da3802a5ecc78.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap/alert.self-d8b7bd612b3dcfdefb7b5539b9d5848d66ccbd3e7af8bb8d48bfb3288aaa7be8.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap/carousel.self-35d204878d906298e55bc24553e11fd89b980fc4ffe5792fe36af8c0da289c54.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap/button.self-e74d33ba39500940a78d6fa4d2d64f6ca7fd86d60a2149641f7fde7ba711d8a1.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap/collapse.self-056c40532d9f0f126ec17e839f60c942f573fbd61a086e7f156306e3fc5e8c1f.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap/dropdown.self-e56c2ffee4618411d43ecf15c89273f6223847ad756e1cd17545d04afa732ed4.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap/modal.self-62463080dba6b9d024ff0a3192da0e76eacbc683194f3395047c6f5cfa0acb59.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy.self-52afd90e8ba97d9f08617a13986e8869d6c4a45751c0bff59a6f91241e722aca.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap/tab.self-dad0d5c377f9fae26394484535ebb23ccf68afae084f896af6ea4cdf8c9f6ae0.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap/transition.self-3b268d4cd8c79e46ded7392885f72f64ffb5b0d49948a12b8cf9779f6163e13a.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap/tooltip.self-facdc69246a072acb927ded77ff655f7c27a518b9357fddd45d119fbc8a0ab9f.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/bootstrap/popover.self-210cff1fb4b72b71a29b5122180cb5937c8145cd13a934dc838280f1d9607a3e.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/leaflet.self-d646df01ee1ea93db86e594b00c26443e1282b9e1359bcc29807f91e8cb274a3.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/map.self-237616ae24e6c959eb1f16cca12a7d6c5f6f6694dcfe375c44d82e5780383a1b.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/places.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/static_pages.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/assets/application.self-44dc72337fbefc4f8c73fc8781b922cf9e4f99f8d068e6563c3820851d9390f6.js?body=1" for ::1 at 2016-04-25 20:00:29 +0200
+
+
+Started GET "/places" for ::1 at 2016-04-25 20:01:50 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mPlace Load (0.6ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered places/index.html.haml within layouts/application (8.5ms)
+  Rendered layouts/_navbar.html.haml (1.1ms)
+Completed 200 OK in 148ms (Views: 146.1ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/leaflet.self-2e2b6bf86ee638b934bfe34da4a9e03da91a6a7b17e8bc3a28633fe3db805533.css?body=1" for ::1 at 2016-04-25 20:01:50 +0200
+
+
+Started GET "/assets/static_pages.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-04-25 20:01:50 +0200
+
+
+Started GET "/assets/places.self-efef88da09feb5a1a708cf5d698d30117bdba03dcfdc1083faf7b0c8122c27c0.css?body=1" for ::1 at 2016-04-25 20:01:50 +0200
+
+
+Started GET "/assets/bootstrap.self-d0e973a52d36a01036265aeefaf2d1ae3499d2cb231a9be3bd846432daf231de.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/application.self-d63a339e3572b5b46e69c649ace12be4dd759c81396288ab2544350745843754.css?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap/affix.self-3555752f8a930795ee9e56751a52e6871104ae85d01b3ab8363da3802a5ecc78.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap/alert.self-d8b7bd612b3dcfdefb7b5539b9d5848d66ccbd3e7af8bb8d48bfb3288aaa7be8.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap/button.self-e74d33ba39500940a78d6fa4d2d64f6ca7fd86d60a2149641f7fde7ba711d8a1.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap/carousel.self-35d204878d906298e55bc24553e11fd89b980fc4ffe5792fe36af8c0da289c54.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap/collapse.self-056c40532d9f0f126ec17e839f60c942f573fbd61a086e7f156306e3fc5e8c1f.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap/dropdown.self-e56c2ffee4618411d43ecf15c89273f6223847ad756e1cd17545d04afa732ed4.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap/modal.self-62463080dba6b9d024ff0a3192da0e76eacbc683194f3395047c6f5cfa0acb59.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy.self-52afd90e8ba97d9f08617a13986e8869d6c4a45751c0bff59a6f91241e722aca.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap/tab.self-dad0d5c377f9fae26394484535ebb23ccf68afae084f896af6ea4cdf8c9f6ae0.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap/transition.self-3b268d4cd8c79e46ded7392885f72f64ffb5b0d49948a12b8cf9779f6163e13a.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap/tooltip.self-facdc69246a072acb927ded77ff655f7c27a518b9357fddd45d119fbc8a0ab9f.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap/popover.self-210cff1fb4b72b71a29b5122180cb5937c8145cd13a934dc838280f1d9607a3e.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/leaflet.self-d646df01ee1ea93db86e594b00c26443e1282b9e1359bcc29807f91e8cb274a3.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/map.self-237616ae24e6c959eb1f16cca12a7d6c5f6f6694dcfe375c44d82e5780383a1b.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/places.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/static_pages.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/assets/application.self-44dc72337fbefc4f8c73fc8781b922cf9e4f99f8d068e6563c3820851d9390f6.js?body=1" for ::1 at 2016-04-25 20:01:51 +0200
+
+
+Started GET "/places" for ::1 at 2016-04-25 20:01:55 +0200
+Processing by PlacesController#index as HTML
+  [1m[35mPlace Load (0.6ms)[0m  SELECT "places".* FROM "places"
+  Rendered places/index.html.haml within layouts/application (6.4ms)
+  Rendered layouts/_navbar.html.haml (1.0ms)
+Completed 200 OK in 121ms (Views: 118.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/places" for ::1 at 2016-04-25 20:02:35 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mPlace Load (0.6ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered places/index.html.haml within layouts/application (2.8ms)
+  Rendered layouts/_navbar.html.haml (14.3ms)
+Completed 200 OK in 135ms (Views: 132.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/leaflet.self-2e2b6bf86ee638b934bfe34da4a9e03da91a6a7b17e8bc3a28633fe3db805533.css?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/places.self-efef88da09feb5a1a708cf5d698d30117bdba03dcfdc1083faf7b0c8122c27c0.css?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/static_pages.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/application.self-d63a339e3572b5b46e69c649ace12be4dd759c81396288ab2544350745843754.css?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap.self-d0e973a52d36a01036265aeefaf2d1ae3499d2cb231a9be3bd846432daf231de.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap/affix.self-3555752f8a930795ee9e56751a52e6871104ae85d01b3ab8363da3802a5ecc78.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap/alert.self-d8b7bd612b3dcfdefb7b5539b9d5848d66ccbd3e7af8bb8d48bfb3288aaa7be8.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap/button.self-e74d33ba39500940a78d6fa4d2d64f6ca7fd86d60a2149641f7fde7ba711d8a1.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap/carousel.self-35d204878d906298e55bc24553e11fd89b980fc4ffe5792fe36af8c0da289c54.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap/collapse.self-056c40532d9f0f126ec17e839f60c942f573fbd61a086e7f156306e3fc5e8c1f.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap/dropdown.self-e56c2ffee4618411d43ecf15c89273f6223847ad756e1cd17545d04afa732ed4.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap/modal.self-62463080dba6b9d024ff0a3192da0e76eacbc683194f3395047c6f5cfa0acb59.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy.self-52afd90e8ba97d9f08617a13986e8869d6c4a45751c0bff59a6f91241e722aca.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap/transition.self-3b268d4cd8c79e46ded7392885f72f64ffb5b0d49948a12b8cf9779f6163e13a.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap/tab.self-dad0d5c377f9fae26394484535ebb23ccf68afae084f896af6ea4cdf8c9f6ae0.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap/tooltip.self-facdc69246a072acb927ded77ff655f7c27a518b9357fddd45d119fbc8a0ab9f.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap/popover.self-210cff1fb4b72b71a29b5122180cb5937c8145cd13a934dc838280f1d9607a3e.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/leaflet.self-d646df01ee1ea93db86e594b00c26443e1282b9e1359bcc29807f91e8cb274a3.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/map.self-237616ae24e6c959eb1f16cca12a7d6c5f6f6694dcfe375c44d82e5780383a1b.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/places.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/static_pages.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/assets/application.self-44dc72337fbefc4f8c73fc8781b922cf9e4f99f8d068e6563c3820851d9390f6.js?body=1" for ::1 at 2016-04-25 20:02:35 +0200
+
+
+Started GET "/" for ::1 at 2016-04-25 20:02:37 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.5ms)[0m  SELECT "places".* FROM "places"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.2ms)
+  Rendered layouts/_navbar.html.haml (9.5ms)
+Completed 200 OK in 165ms (Views: 162.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/places" for ::1 at 2016-04-25 20:02:39 +0200
+Processing by PlacesController#index as HTML
+  [1m[35mPlace Load (0.6ms)[0m  SELECT "places".* FROM "places"
+  Rendered places/index.html.haml within layouts/application (2.9ms)
+  Rendered layouts/_navbar.html.haml (0.9ms)
+Completed 200 OK in 117ms (Views: 114.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/places" for ::1 at 2016-04-25 20:02:55 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mPlace Load (1.4ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered places/index.html.haml within layouts/application (22.4ms)
+  Rendered layouts/_navbar.html.haml (13.5ms)
+Completed 200 OK in 278ms (Views: 274.9ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/assets/places.self-efef88da09feb5a1a708cf5d698d30117bdba03dcfdc1083faf7b0c8122c27c0.css?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/static_pages.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/application.self-d63a339e3572b5b46e69c649ace12be4dd759c81396288ab2544350745843754.css?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap/affix.self-3555752f8a930795ee9e56751a52e6871104ae85d01b3ab8363da3802a5ecc78.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap.self-d0e973a52d36a01036265aeefaf2d1ae3499d2cb231a9be3bd846432daf231de.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/leaflet.self-2e2b6bf86ee638b934bfe34da4a9e03da91a6a7b17e8bc3a28633fe3db805533.css?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap/alert.self-d8b7bd612b3dcfdefb7b5539b9d5848d66ccbd3e7af8bb8d48bfb3288aaa7be8.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap/button.self-e74d33ba39500940a78d6fa4d2d64f6ca7fd86d60a2149641f7fde7ba711d8a1.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap/carousel.self-35d204878d906298e55bc24553e11fd89b980fc4ffe5792fe36af8c0da289c54.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap/collapse.self-056c40532d9f0f126ec17e839f60c942f573fbd61a086e7f156306e3fc5e8c1f.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap/dropdown.self-e56c2ffee4618411d43ecf15c89273f6223847ad756e1cd17545d04afa732ed4.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap/modal.self-62463080dba6b9d024ff0a3192da0e76eacbc683194f3395047c6f5cfa0acb59.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy.self-52afd90e8ba97d9f08617a13986e8869d6c4a45751c0bff59a6f91241e722aca.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap/tab.self-dad0d5c377f9fae26394484535ebb23ccf68afae084f896af6ea4cdf8c9f6ae0.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap/transition.self-3b268d4cd8c79e46ded7392885f72f64ffb5b0d49948a12b8cf9779f6163e13a.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap/tooltip.self-facdc69246a072acb927ded77ff655f7c27a518b9357fddd45d119fbc8a0ab9f.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap/popover.self-210cff1fb4b72b71a29b5122180cb5937c8145cd13a934dc838280f1d9607a3e.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/leaflet.self-d646df01ee1ea93db86e594b00c26443e1282b9e1359bcc29807f91e8cb274a3.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/map.self-237616ae24e6c959eb1f16cca12a7d6c5f6f6694dcfe375c44d82e5780383a1b.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/places.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/static_pages.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/assets/application.self-44dc72337fbefc4f8c73fc8781b922cf9e4f99f8d068e6563c3820851d9390f6.js?body=1" for ::1 at 2016-04-25 20:02:56 +0200
+
+
+Started GET "/places" for ::1 at 2016-04-25 20:03:54 +0200
+Processing by PlacesController#index as HTML
+  [1m[35mPlace Load (0.6ms)[0m  SELECT "places".* FROM "places"
+  Rendered places/index.html.haml within layouts/application (2.2ms)
+  Rendered layouts/_navbar.html.haml (7.3ms)
+Completed 200 OK in 117ms (Views: 115.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/places" for ::1 at 2016-04-25 20:03:55 +0200
+Processing by PlacesController#index as HTML
+  [1m[36mPlace Load (0.6ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered places/index.html.haml within layouts/application (3.7ms)
+  Rendered layouts/_navbar.html.haml (1.1ms)
+Completed 200 OK in 171ms (Views: 169.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/places/new" for ::1 at 2016-04-25 20:03:56 +0200
+Processing by PlacesController#new as HTML
+  Rendered places/_form.html.haml (11.4ms)
+  Rendered places/new.html.haml within layouts/application (15.0ms)
+  Rendered layouts/_navbar.html.haml (1.3ms)
+Completed 200 OK in 210ms (Views: 208.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2016-04-25 20:03:58 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.6ms)[0m  SELECT "places".* FROM "places"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.2ms)
+  Rendered layouts/_navbar.html.haml (1.3ms)
+Completed 200 OK in 200ms (Views: 197.7ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/static_pages/about" for ::1 at 2016-04-25 20:04:07 +0200
+Processing by StaticPagesController#about as HTML
+  Rendered static_pages/about.html within layouts/application (0.7ms)
+  Rendered layouts/_navbar.html.haml (1.4ms)
+Completed 200 OK in 128ms (Views: 127.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2016-04-25 20:04:07 +0200
+Processing by StaticPagesController#map as HTML
+  [1m[35mPlace Load (0.7ms)[0m  SELECT "places".* FROM "places"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "places".* FROM "places"[0m
+  Rendered static_pages/map.html.haml within layouts/application (1.7ms)
+  Rendered layouts/_navbar.html.haml (1.3ms)
+Completed 200 OK in 160ms (Views: 155.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/places" for ::1 at 2016-04-25 20:04:08 +0200
+Processing by PlacesController#index as HTML
+  [1m[35mPlace Load (0.6ms)[0m  SELECT "places".* FROM "places"
+  Rendered places/index.html.haml within layouts/application (2.3ms)
+  Rendered layouts/_navbar.html.haml (1.0ms)
+Completed 200 OK in 162ms (Views: 160.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/places/new" for ::1 at 2016-04-25 20:04:15 +0200
+Processing by PlacesController#new as HTML
+  Rendered places/_form.html.haml (5.4ms)
+  Rendered places/new.html.haml within layouts/application (8.6ms)
+  Rendered layouts/_navbar.html.haml (1.2ms)
+Completed 200 OK in 118ms (Views: 115.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/places/new" for ::1 at 2016-04-25 20:27:35 +0200
+Processing by PlacesController#new as HTML
+  Rendered places/_form.html.haml (5.4ms)
+  Rendered places/new.html.haml within layouts/application (8.3ms)
+  Rendered layouts/_navbar.html.haml (10.7ms)
+Completed 200 OK in 161ms (Views: 158.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/leaflet.self-2e2b6bf86ee638b934bfe34da4a9e03da91a6a7b17e8bc3a28633fe3db805533.css?body=1" for ::1 at 2016-04-25 20:27:35 +0200
+
+
+Started GET "/assets/places.self-efef88da09feb5a1a708cf5d698d30117bdba03dcfdc1083faf7b0c8122c27c0.css?body=1" for ::1 at 2016-04-25 20:27:35 +0200
+
+
+Started GET "/assets/static_pages.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-04-25 20:27:35 +0200
+
+
+Started GET "/assets/application.self-d63a339e3572b5b46e69c649ace12be4dd759c81396288ab2544350745843754.css?body=1" for ::1 at 2016-04-25 20:27:35 +0200
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap.self-d0e973a52d36a01036265aeefaf2d1ae3499d2cb231a9be3bd846432daf231de.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap/affix.self-3555752f8a930795ee9e56751a52e6871104ae85d01b3ab8363da3802a5ecc78.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap/alert.self-d8b7bd612b3dcfdefb7b5539b9d5848d66ccbd3e7af8bb8d48bfb3288aaa7be8.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap/button.self-e74d33ba39500940a78d6fa4d2d64f6ca7fd86d60a2149641f7fde7ba711d8a1.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap/carousel.self-35d204878d906298e55bc24553e11fd89b980fc4ffe5792fe36af8c0da289c54.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap/collapse.self-056c40532d9f0f126ec17e839f60c942f573fbd61a086e7f156306e3fc5e8c1f.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap/dropdown.self-e56c2ffee4618411d43ecf15c89273f6223847ad756e1cd17545d04afa732ed4.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap/modal.self-62463080dba6b9d024ff0a3192da0e76eacbc683194f3395047c6f5cfa0acb59.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap/tab.self-dad0d5c377f9fae26394484535ebb23ccf68afae084f896af6ea4cdf8c9f6ae0.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap/transition.self-3b268d4cd8c79e46ded7392885f72f64ffb5b0d49948a12b8cf9779f6163e13a.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy.self-52afd90e8ba97d9f08617a13986e8869d6c4a45751c0bff59a6f91241e722aca.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap/tooltip.self-facdc69246a072acb927ded77ff655f7c27a518b9357fddd45d119fbc8a0ab9f.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap/popover.self-210cff1fb4b72b71a29b5122180cb5937c8145cd13a934dc838280f1d9607a3e.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/leaflet.self-d646df01ee1ea93db86e594b00c26443e1282b9e1359bcc29807f91e8cb274a3.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/map.self-237616ae24e6c959eb1f16cca12a7d6c5f6f6694dcfe375c44d82e5780383a1b.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/places.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/static_pages.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/assets/application.self-44dc72337fbefc4f8c73fc8781b922cf9e4f99f8d068e6563c3820851d9390f6.js?body=1" for ::1 at 2016-04-25 20:27:36 +0200
+
+
+Started GET "/places/new" for ::1 at 2016-04-25 20:27:45 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PlacesController#new as HTML
+  Rendered places/_form.html.haml (30.0ms)
+  Rendered places/new.html.haml within layouts/application (39.2ms)
+  Rendered layouts/_navbar.html.haml (14.4ms)
+Completed 200 OK in 856ms (Views: 768.1ms | ActiveRecord: 9.1ms)
+
+
+Started GET "/assets/leaflet.self-2e2b6bf86ee638b934bfe34da4a9e03da91a6a7b17e8bc3a28633fe3db805533.css?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/application.self-d63a339e3572b5b46e69c649ace12be4dd759c81396288ab2544350745843754.css?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/places.self-efef88da09feb5a1a708cf5d698d30117bdba03dcfdc1083faf7b0c8122c27c0.css?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/static_pages.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap.self-d0e973a52d36a01036265aeefaf2d1ae3499d2cb231a9be3bd846432daf231de.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap/alert.self-d8b7bd612b3dcfdefb7b5539b9d5848d66ccbd3e7af8bb8d48bfb3288aaa7be8.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap/button.self-e74d33ba39500940a78d6fa4d2d64f6ca7fd86d60a2149641f7fde7ba711d8a1.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap/affix.self-3555752f8a930795ee9e56751a52e6871104ae85d01b3ab8363da3802a5ecc78.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap/carousel.self-35d204878d906298e55bc24553e11fd89b980fc4ffe5792fe36af8c0da289c54.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap/collapse.self-056c40532d9f0f126ec17e839f60c942f573fbd61a086e7f156306e3fc5e8c1f.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap/dropdown.self-e56c2ffee4618411d43ecf15c89273f6223847ad756e1cd17545d04afa732ed4.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap/modal.self-62463080dba6b9d024ff0a3192da0e76eacbc683194f3395047c6f5cfa0acb59.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy.self-52afd90e8ba97d9f08617a13986e8869d6c4a45751c0bff59a6f91241e722aca.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap/tab.self-dad0d5c377f9fae26394484535ebb23ccf68afae084f896af6ea4cdf8c9f6ae0.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap/transition.self-3b268d4cd8c79e46ded7392885f72f64ffb5b0d49948a12b8cf9779f6163e13a.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap/tooltip.self-facdc69246a072acb927ded77ff655f7c27a518b9357fddd45d119fbc8a0ab9f.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap/popover.self-210cff1fb4b72b71a29b5122180cb5937c8145cd13a934dc838280f1d9607a3e.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/leaflet.self-d646df01ee1ea93db86e594b00c26443e1282b9e1359bcc29807f91e8cb274a3.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/map.self-237616ae24e6c959eb1f16cca12a7d6c5f6f6694dcfe375c44d82e5780383a1b.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/places.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/static_pages.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started GET "/assets/application.self-44dc72337fbefc4f8c73fc8781b922cf9e4f99f8d068e6563c3820851d9390f6.js?body=1" for ::1 at 2016-04-25 20:27:47 +0200
+
+
+Started POST "/places" for ::1 at 2016-04-25 20:28:12 +0200
+Processing by PlacesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Z/q1sBMp+NxrDCC4VRPcO8j7qsVmbrrWp89ySRu2+nj2hvzxJ1UILoY4+QyhI5+tdocl9ANBNsmNtTdmnR0TgQ==", "place"=>{"name"=>"Meine Mutters altes Haus", "street"=>"Falkenberger Straße", "house_number"=>"145", "postal_code"=>"13088", "city"=>"Berlin", "categories"=>"dummesZeug", "descriptions_attributes"=>{"0"=>{"text"=>""}}}, "commit"=>"Save"}
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (1.5ms)[0m  [1mINSERT INTO "places" ("name", "street", "house_number", "postal_code", "city", "categories", "latitude", "longitude", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["name", "Meine Mutters altes Haus"], ["street", "Falkenberger Straße"], ["house_number", "145"], ["postal_code", "13088"], ["city", "Berlin"], ["categories", "dummesZeug"], ["latitude", 52.5550138], ["longitude", 13.4682569], ["created_at", "2016-04-25 18:28:12.608144"], ["updated_at", "2016-04-25 18:28:12.608144"]]
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "descriptions" ("text", "place_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["text", ""], ["place_id", 6], ["created_at", "2016-04-25 18:28:12.620471"], ["updated_at", "2016-04-25 18:28:12.620471"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/places
+Completed 302 Found in 249ms (ActiveRecord: 3.9ms)
+
+
+Started GET "/places" for ::1 at 2016-04-25 20:28:12 +0200
+Processing by PlacesController#index as HTML
+  [1m[35mPlace Load (1.2ms)[0m  SELECT "places".* FROM "places"
+  Rendered places/index.html.haml within layouts/application (8.0ms)
+  Rendered layouts/_navbar.html.haml (1.1ms)
+Completed 200 OK in 119ms (Views: 116.7ms | ActiveRecord: 1.2ms)

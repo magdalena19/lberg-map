@@ -1,21 +1,25 @@
 .container
   %table.table.table-condensed.table-hover
     %thead
-      %th
+      %th.col-md-1
       %th Name
       %th Adresse
-      %th Latitude
-      %th Longitude
+      %th Categories
+      %th.col-md-1 Latitude
+      %th.col-md-1 Longitude
     %tbody
     - @places.each do |place|
       %tr
         %td
+          = link_to 'details', ''
           = link_to 'edit', edit_place_path(place)
           = link_to 'delete', place_path(place), {method: "delete", data: { confirm: "Bist du dir sicher, dass du den Eintrag löschen willst?" }}
         %td
           = place.name
         %td
           = place.address
+        %td
+          = place.categories
         %td
           = place.latitude
         %td

@@ -9,19 +9,15 @@
 
   %table.table.table-condensed.table-hover
     %thead
-      %th.col-md-1
       %th Name
       %th Adresse
       %th Categories
       %th.col-md-1 Latitude
       %th.col-md-1 Longitude
+      %th.col-md-1
     %tbody
     - @places.each do |place|
       %tr
-        %td
-          = link_to 'details', ''
-          = link_to 'edit', edit_place_path(place)
-          = link_to 'delete', place_path(place), {method: "delete", data: { confirm: "Bist du dir sicher, dass du den Eintrag löschen willst?" }}
         %td
           = place.name
         %td
@@ -33,3 +29,8 @@
           = place.latitude
         %td
           = place.longitude
+        %td
+          = link_to '', '', class: 'glyphicon btn-glyphicon glyphicon-search'
+          = link_to '', edit_place_path(place), class: 'glyphicon btn-glyphicon glyphicon-pencil'
+          = link_to '', place_path(place), {method: "delete", data: { confirm: "Bist du dir sicher, dass du den Eintrag löschen willst?" }, class: 'glyphicon btn-glyphicon glyphicon-trash' }
+

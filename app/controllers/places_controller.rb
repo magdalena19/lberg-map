@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-  http_basic_authenticate_with name: 'admin', password: 'secret'
+  # http_basic_authenticate_with name: 'admin', password: 'secret'
 
   def index
     @places = Place.all
@@ -12,10 +12,13 @@ class PlacesController < ApplicationController
 
   def update
     @place = Place.find(params[:id])
-    @place.update(place_params)
-    @errors = @place.errors
-
-    redirect_to action: 'index'
+    if @place.update_attributes(place_params)
+      flash[:success] = 'Changes successful!'
+      redirect_to places_path
+    else
+      @errors = @place.errors
+      render :edit
+    end
   end
 
   def new
@@ -25,10 +28,13 @@ class PlacesController < ApplicationController
 
   def create
     @place = Place.new(place_params)
-    @place.save
-    @errors = @place.errors
-
-    redirect_to action: 'index'
+    if @place.save
+      flash[:danger] = ''
+      redirect_to action: 'index'
+    else
+      @errors = @place.errors
+      render :new
+    end
   end
 
   def destroy

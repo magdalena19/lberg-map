@@ -26,7 +26,7 @@ Geocoder.configure(
 
   # geocoding service (see below for supported options):
   :lookup => :nominatim,
-  :timeout => 1,
+  :timeout => 5,
   :units => :km,
 
 )

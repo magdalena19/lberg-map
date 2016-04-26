@@ -5,10 +5,14 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'static_pages#map'
 
-  get 'static_pages/about' => 'static_pages#about'
+  get '/tags/:tag' => 'places#index', as: :tag
+
+  get '/about' => 'static_pages#about'
+
   resources :places do
     resources :descriptions
   end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

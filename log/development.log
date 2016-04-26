@@ -10880,3 +10880,89 @@ Completed 200 OK in 171ms (Views: 155.6ms | ActiveRecord: 7.1ms)
   [1m[35mPlace Load (0.8ms)[0m  SELECT  "places".* FROM "places" WHERE "places"."name" = $1 LIMIT 1  [["name", "Magdalenenstraße"]]
   [1m[36mPlace Load (1.0ms)[0m  [1mSELECT  "places".* FROM "places" WHERE "places"."name" = $1 LIMIT 1[0m  [["name", "Magdalenenstraße"]]
   [1m[35mPlace Load (0.6ms)[0m  SELECT  "places".* FROM "places" WHERE "places"."street" = $1 LIMIT 1  [["street", "Magdalenenstraße"]]
+
+
+Started GET "/places" for ::1 at 2016-04-26 15:25:08 +0200
+Processing by PlacesController#index as HTML
+  [1m[35mPlace Load (0.8ms)[0m  SELECT "places".* FROM "places"
+  Rendered places/index.html.haml within layouts/application (34.1ms)
+  Rendered layouts/_navbar.html.haml (15.1ms)
+Completed 200 OK in 244ms (Views: 222.8ms | ActiveRecord: 6.0ms)
+
+
+Started GET "/assets/leaflet.self-2e2b6bf86ee638b934bfe34da4a9e03da91a6a7b17e8bc3a28633fe3db805533.css?body=1" for ::1 at 2016-04-26 15:25:08 +0200
+
+
+Started GET "/assets/places.self-efef88da09feb5a1a708cf5d698d30117bdba03dcfdc1083faf7b0c8122c27c0.css?body=1" for ::1 at 2016-04-26 15:25:08 +0200
+
+
+Started GET "/assets/application.self-d63a339e3572b5b46e69c649ace12be4dd759c81396288ab2544350745843754.css?body=1" for ::1 at 2016-04-26 15:25:08 +0200
+
+
+Started GET "/assets/static_pages.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap/affix.self-3555752f8a930795ee9e56751a52e6871104ae85d01b3ab8363da3802a5ecc78.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap.self-d0e973a52d36a01036265aeefaf2d1ae3499d2cb231a9be3bd846432daf231de.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap/alert.self-d8b7bd612b3dcfdefb7b5539b9d5848d66ccbd3e7af8bb8d48bfb3288aaa7be8.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap/button.self-e74d33ba39500940a78d6fa4d2d64f6ca7fd86d60a2149641f7fde7ba711d8a1.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap/carousel.self-35d204878d906298e55bc24553e11fd89b980fc4ffe5792fe36af8c0da289c54.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap/collapse.self-056c40532d9f0f126ec17e839f60c942f573fbd61a086e7f156306e3fc5e8c1f.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap/dropdown.self-e56c2ffee4618411d43ecf15c89273f6223847ad756e1cd17545d04afa732ed4.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap/modal.self-62463080dba6b9d024ff0a3192da0e76eacbc683194f3395047c6f5cfa0acb59.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy.self-52afd90e8ba97d9f08617a13986e8869d6c4a45751c0bff59a6f91241e722aca.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap/tab.self-dad0d5c377f9fae26394484535ebb23ccf68afae084f896af6ea4cdf8c9f6ae0.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap/transition.self-3b268d4cd8c79e46ded7392885f72f64ffb5b0d49948a12b8cf9779f6163e13a.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap/tooltip.self-facdc69246a072acb927ded77ff655f7c27a518b9357fddd45d119fbc8a0ab9f.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap/popover.self-210cff1fb4b72b71a29b5122180cb5937c8145cd13a934dc838280f1d9607a3e.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/leaflet.self-d646df01ee1ea93db86e594b00c26443e1282b9e1359bcc29807f91e8cb274a3.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/map.self-237616ae24e6c959eb1f16cca12a7d6c5f6f6694dcfe375c44d82e5780383a1b.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/places.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/static_pages.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200
+
+
+Started GET "/assets/application.self-44dc72337fbefc4f8c73fc8781b922cf9e4f99f8d068e6563c3820851d9390f6.js?body=1" for ::1 at 2016-04-26 15:25:09 +0200

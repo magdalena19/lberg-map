@@ -13,7 +13,7 @@ class Place < ActiveRecord::Base
   validates :categories, presence: true
 
   def address
-    [self.street, self.house_number, self.postal_code, self.city].join(", ")
+    ["#{self.street} #{self.house_number}", self.postal_code, self.city].join(", ")
   end
 
   def geojson

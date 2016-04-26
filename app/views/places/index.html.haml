@@ -1,4 +1,12 @@
 .container
+  %h4 Available categories
+  %ul
+    - all_categories.each do |category|
+      %li
+        = link_to category, tag_path(category)
+.container
+  %h4 Available POIs
+
   %table.table.table-condensed.table-hover
     %thead
       %th.col-md-1
@@ -19,7 +27,8 @@
         %td
           = place.address
         %td
-          = place.categories
+          - place.tag_list.map do |tag|
+            = link_to tag, tag_path(tag)
         %td
           = place.latitude
         %td

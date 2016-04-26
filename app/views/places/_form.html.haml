@@ -19,8 +19,8 @@
       = f.text_field :city
   %fieldset.form-group
     .col-xs-3
-      = f.label :categories
-      = f.text_field :categories
+      = f.label 'Categories (separate with comma)'
+      = f.text_field :tag_list
   %fieldset.form-group
     .col-xs-3
       = f.fields_for :descriptions do |d|

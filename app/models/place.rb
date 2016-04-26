@@ -1,7 +1,10 @@
 class Place < ActiveRecord::Base
   has_many :descriptions, :dependent => :delete_all
+
   geocoded_by :address # <- virtual attribute defined below
   after_validation :geocode
+
+  acts_as_taggable
 
   accepts_nested_attributes_for :descriptions
 

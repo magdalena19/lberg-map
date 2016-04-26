@@ -4,8 +4,13 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-# one: {}
-# # column: value
-# #
-# two: {}
-# #  column: value
+Magda19:
+  name: Hausprojekt Magdalenenstraße 19
+  street: Magdalenenstraße
+  house_number: 19
+  postal_code: 10365
+  city: Berlin
+  categories: Hausprojekt
+  latitude: 52.5143794
+  longitude: 13.4885203
+

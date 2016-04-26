@@ -1,34 +1,26 @@
-.row
-  .col-xs-12
-    %h4= link_to 'Add place', new_place_path 
-  .col-xs-12
-    - @places.each do |p|
-      = form_for(p) do |f|
-        .col-xs-12.margin-below.place-form-container
-          .col-xs-3
-            = f.label :name
-          .col-xs-3
-            = f.label :latitude
-          .col-xs-3
-            = f.label :longitude
-          .col-xs-3
-            = f.label :categories
-          .col-xs-3
-            = f.text_field :name
-          .col-xs-3
-            = f.text_field :latitude
-          .col-xs-3
-            = f.text_field :longitude
-          .col-xs-3
-            = f.text_field :categories
-          = f.fields_for :descriptions do |d|
-            .col-xs-12
-              .col-xs-1
-                %b= d.object.language
-              .col-xs-11
-                = d.text_area :text
-          .col-xs-12
-            .col-xs-2.pull-right
-              = link_to 'Delete', place_path(p), method: :delete, class: 'btn btn-sm btn-default', data: { confirm: 'Do you really want to delete the place?' }
-            .col-xs-2.pull-right
-              = f.submit 'Save', class: 'btn btn-sm btn-success', data: { confirm: 'Do you really want to overwrite?' }
+.container
+  %table.table.table-condensed.table-hover
+    %thead
+      %th.col-md-1
+      %th Name
+      %th Adresse
+      %th Categories
+      %th.col-md-1 Latitude
+      %th.col-md-1 Longitude
+    %tbody
+    - @places.each do |place|
+      %tr
+        %td
+          = link_to 'details', ''
+          = link_to 'edit', edit_place_path(place)
+          = link_to 'delete', place_path(place), {method: "delete", data: { confirm: "Bist du dir sicher, dass du den Eintrag löschen willst?" }}
+        %td
+          = place.name
+        %td
+          = place.address
+        %td
+          = place.categories
+        %td
+          = place.latitude
+        %td
+          = place.longitude

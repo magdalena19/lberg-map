@@ -18,3 +18,5 @@ visualization/
 .sass-cache
 tmp/**/*
 
+# Ignore Byebug command history file.
+.byebug_history

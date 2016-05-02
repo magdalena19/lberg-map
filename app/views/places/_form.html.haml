@@ -1,0 +1,33 @@
+= form_for(@place) do |f|
+  %fieldset.form-group
+    .col-xs-3
+      = f.label :name
+      = f.text_field :name
+  %fieldset.form-group.form-inline
+    .col-xs-3
+      = f.label 'Street and house number'
+      = f.text_field :street
+      = f.text_field :house_number
+  %fieldset.form-group
+    .col-xs-3
+      = f.label :postal_code
+      = f.text_field :postal_code
+  %fieldset.form-group
+    .col-xs-3
+      = f.label :city
+      = f.text_field :city
+  %fieldset.form-group
+    .col-xs-3
+      = f.label :categories
+      = f.text_field :categories
+  %fieldset.form-group
+    .col-xs-3
+      = f.fields_for :descriptions do |d|
+        .col-xs-12
+          .col-xs-1
+            %b= d.object.language
+          .col-xs-11
+            = d.text_area :text
+  .col-xs-4
+    = f.submit 'Save', class: 'btn btn-xs btn-success'
+    = link_to 'Zurück', root_path, class: 'btn btn-xs btn-success'

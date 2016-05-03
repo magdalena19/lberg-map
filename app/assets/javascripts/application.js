@@ -17,3 +17,7 @@
 //= require leaflet
 //= require turbolinks
 //= require_tree .
+
+jQuery(function() {
+  jQuery('#flash-messages').delay(2000).fadeOut(800)
+});

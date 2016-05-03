@@ -1,0 +1,3 @@
+- flash.each do |type, msg|
+  .alert{class: "alert-#{type}", role: 'alert', id: 'flash-messages'}
+    = msg

@@ -13,10 +13,10 @@ class PlacesController < ApplicationController
   def update
     @place = Place.find(params[:id])
     if @place.update_attributes(place_params)
-      flash[:success] = 'Changes successful!'
+      flash.now[:success] = 'Point successfully changed!'
       redirect_to places_path
     else
-      @errors = @place.errors
+      flash.now[:danger] = @place.errors.full_messages.to_sentence
       render :edit
     end
   end
@@ -33,10 +33,10 @@ class PlacesController < ApplicationController
   def create
     @place = Place.new(place_params)
     if @place.save
-      flash[:danger] = ''
+      flash[:success] = 'Point successfully created!'
       redirect_to action: 'index'
     else
-      @errors = @place.errors
+      flash.now[:danger] = @place.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -44,7 +44,6 @@ class PlacesController < ApplicationController
   def destroy
     @place = Place.find(params[:id])
     @place.destroy
-
     redirect_to action: 'index'
   end
 

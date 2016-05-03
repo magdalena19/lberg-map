@@ -6,16 +6,16 @@
   %fieldset.form-group.form-inline
     .col-xs-3
       = f.label 'Street and house number'
-      = f.text_field :street, value: @geocoded_address ? @geocoded_address['road'] : nil
-      = f.text_field :house_number, value: @geocoded_address ? @geocoded_address['house_number'] : nil
+      = f.text_field :street, value: @geocoded ? @geocoded['road'] : @place.street
+      = f.text_field :house_number, value: @geocoded ? @geocoded['house_number'] : @place.house_number
   %fieldset.form-group
     .col-xs-3
       = f.label :postal_code
-      = f.text_field :postal_code, value: @geocoded_address ? @geocoded_address['postcode'] : nil
+      = f.text_field :postal_code, value: @geocoded ? @geocoded['postcode'] : @place.postal_code
   %fieldset.form-group
     .col-xs-3
       = f.label :city
-      = f.text_field :city, value: @geocoded_address ? @geocoded_address['village'] ||  @geocoded_address['town'] ||  @geocoded_address['state']  : nil
+      = f.text_field :city, value: @geocoded ? @geocoded['village'] || @geocoded['town'] || @geocoded['state'] : @place.city
   %fieldset.form-group
     .col-xs-3
       = f.label :categories

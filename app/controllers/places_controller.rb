@@ -24,7 +24,7 @@ class PlacesController < ApplicationController
   def new
     if params[:longitude] && params[:latitude]
       query = params[:latitude].to_s + "," + params[:longitude].to_s
-      @geocoded_address = Geocoder.search(query).first.data['address']
+      @geocoded = Geocoder.search(query).first.data['address']
     end
     @place = Place.new
     @place.descriptions.build

@@ -1,0 +1,28 @@
+AllCops:
+  Exclude:
+    - 'bin/**'
+    - 'db/**/*'
+Style/Documentation:
+  Exclude:
+    - 'app/**/*'
+    - 'spec/**/*'
+    - 'test/**/*'
+    - 'config/**/*'
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%w': '[]'
+    '%i': '[]'
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/CyclomaticComplexity:
+  Max: 20
+

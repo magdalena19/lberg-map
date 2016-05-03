@@ -1,4 +1,6 @@
-#map{:style => "height: 300px;"} map
+#map
+.geocode-button
+  Point to a new place
 
 :javascript
   window.places = #{@places.map { |p| [p.latitude, p.longitude, p.name] }}

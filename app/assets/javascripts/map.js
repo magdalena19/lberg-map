@@ -18,14 +18,13 @@ var all = function() {
     jQuery.each(window.placesJson, function( index, feature ) {
       var openPopup = function(e) {
         jQuery('.popup').remove();
-        jQuery('#map').append("<div class='popup'>" +
-                                  feature.properties.name +
-                                  ' (' + feature.properties.categories + ')' +
-                              "</div>");
+        jQuery('#place-modal').modal('show')
+        jQuery('.modal-title').html(feature.properties.name);
+        jQuery('.modal-body').html(feature.properties.address + '<br><br>' + feature.properties.description);
       };
-      L.circleMarker(feature.geometry.coordinates, {radius: 8, fillOpacity: 0.5})
-        .on('click', openPopup)
-        .addTo(map);
+      var marker = L.circleMarker(feature.geometry.coordinates, {radius: 8, fillOpacity: 0.5});
+      marker.on('click', openPopup);
+      marker.addTo(map);
     });
 
     // REVERSE GEOCODING

@@ -28,10 +28,17 @@ class Place < ActiveRecord::Base
         type: 'Point',
         coordinates: [self.latitude, self.longitude],
       },
-      properties: {
-        name: self.name,
-        categories: self.categories,
-      },
+      properties: properties,
     }
+  end
+
+  def properties
+    self.attributes.each do |key, value|
+      { key: value }
+    end.merge!({ address: address, description: description_texts })
+  end
+
+  def description_texts
+    self.descriptions.map(&:text)
   end
 end

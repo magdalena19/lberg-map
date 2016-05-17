@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   get '/about' => 'static_pages#about'
 
+  get '/category/:category' => 'places#index', as: :category
+
   resources :places do
     resources :descriptions
   end

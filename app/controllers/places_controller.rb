@@ -44,6 +44,7 @@ class PlacesController < ApplicationController
 
   def destroy
     @place = Place.find(params[:id])
+    @place.categorizings.destroy_all
     @place.destroy
     redirect_to action: 'index'
   end

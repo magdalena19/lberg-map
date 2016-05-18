@@ -32,7 +32,7 @@ var all = function() {
       $('#map').toggleClass('active');
       $(this).toggleClass('active');
       if ($(this).hasClass('active')) {
-        $(this).html('Cancel')
+        $(this).html("<div class='glyphicon glyphicon-remove-circle'></div>")
         jQuery('#map').css('cursor','crosshair');
         map.on('click', function(e) {
           var params = 'longitude=' + e.latlng.lng + '&' + 'latitude=' +  e.latlng.lat;

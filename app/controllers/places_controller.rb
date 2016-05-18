@@ -28,7 +28,6 @@ class PlacesController < ApplicationController
       @geocoded = Geocoder.search(query).first.data['address']
     end
     @place = Place.new
-    @place.descriptions.build
   end
 
   def create
@@ -52,6 +51,6 @@ class PlacesController < ApplicationController
   private
 
   def place_params
-    params.require(:place).permit(:name, :street, :house_number, :postal_code, :city, :categories_list, descriptions_attributes: [:id, :language, :text])
+    params.require(:place).permit(:name, :street, :house_number, :postal_code, :city, :categories_list, :description_en, :description_de)
   end
 end

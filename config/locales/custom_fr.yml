@@ -1,0 +1,27 @@
+fr:
+  point_to_place: 'Point to an new place'
+  description: 'Description'
+  close: 'Fermer'
+  back: 'Retour'
+  delete: 'Löschen'
+  edit: 'Modifier'
+  new_place: 'Ajouter une place'
+  index_places: 'Tous les places'
+  about: 'Info'
+  activerecord:
+    models:
+      place: 'place'
+    attributes:
+      place:
+        name: 'name'
+        street: 'street'
+        house_number: 'house number'
+        postal_code: 'postal code'
+        city: 'city'
+        categories: 'categories'
+        longitude: 'longitude'
+        latitude: 'latitude'
+    errors:
+      messages:
+        no_valid_postal_code: 'must have 5 digits'
+        address_not_found: 'could not be found'

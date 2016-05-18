@@ -14,11 +14,12 @@
           MAP
     #navbar.collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li.pull-right
-          = link_to 'Add new place', new_place_path
-        %li.pull-right
-          = link_to 'Index Places', places_path
-        %li.pull-right
-          = link_to 'Show map', root_path
-        %li.pull-right
-          = link_to 'About', about_path
+        %li
+          = link_to t('new_place'), new_place_path
+        %li
+          = link_to t('index_places'), places_path
+        %li
+          = link_to t('about'), about_path
+      %ul.nav.navbar-nav.pull-right.locale-switch
+        - I18n.available_locales.each do |locale|
+          = link_to locale.to_s, locale: locale.to_s      

@@ -28,5 +28,4 @@ class PlaceTest < ActiveSupport::TestCase
   test 'duplicate entries not valid' do
      # TODO: Check whether entry is already in DB
   end
-
 end

@@ -2,13 +2,15 @@ class Place < ActiveRecord::Base
   ## RELATIONS
   has_many :categorizings
   has_many :categories, through: :categorizings
-  has_many :descriptions, :dependent => :delete_all
-  accepts_nested_attributes_for :descriptions
 
   ## VALIDATIONS
   validates_presence_of :name, :street, :city, :postal_code, :categories_list
   validates :postal_code, format: { with: /\d{5}/, message: "Supply valid postal code (5 digits)" }
   validate :has_valid_geocode?
+
+  ## TRANSLATION
+  translates :description
+  globalize_accessors
 
   ## CALLBACKS
   geocoded_by :address
@@ -36,12 +38,12 @@ class Place < ActiveRecord::Base
     address = Geocoder.search(address_string).first
 
     unless address && address.type == "house"
-      errors.add(:address, "could not be found!")
+      errors.add(:address, :address_not_found)
     end
   end
 
   def address
-    "#{street} #{house_number}, #{postal_code}, #{city}"
+    "#{street} #{house_number}, #{postal_code} #{city}"
   end
 
   def address_changed?
@@ -66,6 +68,6 @@ class Place < ActiveRecord::Base
   end
 
   def description_texts
-    self.descriptions.map(&:text)
+    self.description
   end
 end

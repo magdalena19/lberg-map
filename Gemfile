@@ -1,16 +1,17 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-#custon gems
+# custon gems
 gem 'pg'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'haml-rails'
 gem 'haml'
+gem 'globalize'
+gem 'globalize-accessors'
 
 gem 'geocoder', '~> 1.3.4'
 
@@ -57,4 +58,6 @@ group :test do
   gem 'minitest-rails-capybara'
   gem 'guard'
   gem 'guard-minitest'
+  gem 'capybara-webkit' # headless javascript testing
+  gem 'launchy' # open screenshots automatically
 end

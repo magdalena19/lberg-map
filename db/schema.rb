@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160427151413) do
+ActiveRecord::Schema.define(version: 20160517141742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categorizings", force: :cascade do |t|
+    t.integer  "place_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "categorizings", ["category_id"], name: "index_categorizings_on_category_id", using: :btree
+  add_index "categorizings", ["place_id"], name: "index_categorizings_on_place_id", using: :btree
 
   create_table "descriptions", force: :cascade do |t|
     t.integer  "place_id"
@@ -27,17 +43,18 @@ ActiveRecord::Schema.define(version: 20160427151413) do
   add_index "descriptions", ["place_id"], name: "index_descriptions_on_place_id", using: :btree
 
   create_table "places", force: :cascade do |t|
-    t.float    "latitude",                                     null: false
-    t.float    "longitude",                                    null: false
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.string   "name",                                         null: false
-    t.string   "categories",                                   null: false
-    t.string   "postal_code",                                  null: false
-    t.string   "street",                                       null: false
+    t.float    "latitude",     null: false
+    t.float    "longitude",    null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "name",         null: false
+    t.string   "postal_code",  null: false
+    t.string   "street",       null: false
     t.string   "house_number"
-    t.string   "city",                                         null: false
+    t.string   "city",         null: false
   end
 
+  add_foreign_key "categorizings", "categories"
+  add_foreign_key "categorizings", "places"
   add_foreign_key "descriptions", "places"
 end

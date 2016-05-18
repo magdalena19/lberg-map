@@ -8,8 +8,8 @@ class PlaceTest < ActiveSupport::TestCase
       street: 'Schulze-Boysen-Straße',
       house_number: '13',
       postal_code: '10365',
-      city: 'Berlin',
-      categories: 'Treffpunkt')
+      city: 'Berlin')
+    @place.categories_list = "Hausprojekt, Kieztreff"
   end
 
   test 'valid place is valid' do
@@ -22,11 +22,6 @@ class PlaceTest < ActiveSupport::TestCase
 
   test 'name should not be blank' do
     @place.name = ''
-    assert_not @place.valid?
-  end
-
-  test 'categories should not be blank' do
-    @place.categories = ''
     assert_not @place.valid?
   end
 

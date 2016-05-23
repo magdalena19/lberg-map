@@ -32,10 +32,10 @@
       %span.help-block= f.object.errors[:categories].join(", ")
 
   = t 'description'
-  - Place.globalize_attribute_names.each do |attribute|
-    %fieldset{class: 'form-group row'}
+  %fieldset{class: 'form-group row'}
+    - Place.globalize_attribute_names.each do |attribute|
       .col-xs-3
-        = f.text_field attribute, class: 'form-control', placeholder: attribute.to_s.split('_').last
+        = f.text_area attribute, id: 'description-area', class: 'form-control', value: @place.send(attribute) || attribute.to_s.split('_').last
 
   .row
     .col-xs-2

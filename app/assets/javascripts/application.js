@@ -11,10 +11,12 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require leaflet
+//= require nicEdit.js
 //= require turbolinks
 //= require_tree .
 

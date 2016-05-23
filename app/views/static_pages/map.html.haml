@@ -5,5 +5,4 @@
 = render 'modal'
 
 :javascript
-  window.places = #{@places.map { |p| [p.latitude, p.longitude, p.name] }}
   window.placesJson = #{raw(@placesJson.to_json)};

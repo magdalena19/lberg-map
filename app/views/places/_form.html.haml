@@ -16,15 +16,13 @@
       .col-xs-7
         = f.text_field :city, class: 'form-control', placeholder: Place.human_attribute_name('city'), value: @geocoded ? @geocoded['village'] || @geocoded['town'] || @geocoded['state'] : @place.city
 
-    %fieldset{:class => "form-group row #{"has-error" if f.object.errors.include?(:categories_list)}"}
-      .col-xs-12
-        = f.text_field :categories_list, class: 'form-control', placeholder: Place.human_attribute_name('categories')
-
     .row.margin-below
-      .col-xs-4
-        = f.submit class: 'btn btn-primary btn-success'
-      .col-xs-2
-        = link_to t('back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger'
+      - Category.all.each do |category|
+        .col-xs-4
+          = category.name
+        .col-xs-2
+          = hidden_field_tag 'place[category_ids][]', nil
+          = check_box_tag 'place[category_ids][]', category.id, f.object.categories.include?(category)
 
   .col-xs-12.col-md-6
     %fieldset{class: 'form-group row'}
@@ -33,3 +31,9 @@
           = t attribute.to_s
         .col-xs-12.margin-below
           = f.text_area attribute, class: 'form-control description-area'
+
+  .row.margin-below
+    .col-xs-4
+      = f.submit class: 'btn btn-primary btn-success'
+    .col-xs-2
+      = link_to t('back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger'

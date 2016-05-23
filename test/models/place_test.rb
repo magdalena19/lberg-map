@@ -11,7 +11,6 @@ class PlaceTest < ActiveSupport::TestCase
                         city: 'Berlin',
                         description_en: '<center><b>This is the description.</b></center>',
                       )
-    @place.categories_list = 'Hausprojekt, Kieztreff'
   end
 
   test 'valid place is valid' do

@@ -5,7 +5,7 @@ class Place < ActiveRecord::Base
   has_many :categories, through: :categorizings
 
   ## VALIDATIONS
-  validates_presence_of :name, :street, :city, :postal_code, :categories_list
+  validates_presence_of :name, :street, :city, :postal_code
   validates :postal_code, format: { with: /\d{5}/, message: "Supply valid postal code (5 digits)" }
   validate :has_valid_geocode?
 
@@ -19,19 +19,20 @@ class Place < ActiveRecord::Base
   before_validation :sanitize_descriptions, on: [:create, :update]
 
   ## CATEGORY TAGGING
-  def categories_list=(names)
-    self.categories = names.split(',').map do |c|
-      Category.where(name: c.strip).first_or_create!
+  def category_ids=(ids)
+    clean_ids = ids.reject(&:empty?)
+    if clean_ids == []
+      self.categories.destroy_all
+    else
+      self.categories = clean_ids.map do |id|
+        Category.where(id: id.to_i).first
+      end
     end
   end
 
-  def categories_list
-    self.categories.map { |c| c.name }
-  end
-
-  def self.tagged_with(category_name)
-    obj = Category.find_by_name(category_name)
-    obj && obj.places
+  def self.tagged_with(id)
+    category = Category.find(id)
+    category && category.places
   end
 
   ## GEOCODING

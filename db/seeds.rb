@@ -7,10 +7,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Place.new(  name: 'Seed Place',
-            street: 'Bartokstr.',
-            house_number: 30,
-            postal_code: '45772',
-            city: 'Marl',
+            street: 'Magdalenenstr.',
+            house_number: 22,
+            postal_code: '10365',
+            city: 'Berlin',
             categories_list: 'foo, bar',
             description_en: 'English description...',
             description_de: 'Deutsche Beschreibung...',

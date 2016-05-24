@@ -11,9 +11,12 @@ Place.new(  name: 'Seed Place',
             house_number: 22,
             postal_code: '10365',
             city: 'Berlin',
-            categories_list: 'foo, bar',
             description_en: 'English description...',
             description_de: 'Deutsche Beschreibung...',
             description_fr: 'Description francaise...',
             description_ar: 'وصف العربي',
-            ).save
+          ).save
+
+Category.new( name_en: 'Playground', name_de: 'Spielplatz', name_fr: 'Spielplatz', name_ar: 'Spielplatz' ).save
+Category.new( name_en: 'Library', name_de: 'Bibliothek', name_fr: 'Bibliothek', name_ar: 'Bibliothek' ).save
+Category.new( name_en: 'Free Wlan', name_de: 'Kostenloses Wlan', name_fr: 'Kostenloses Wlan', name_ar: 'Kostenloses Wlan' ).save

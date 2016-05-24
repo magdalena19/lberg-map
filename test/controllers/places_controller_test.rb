@@ -1,10 +1,8 @@
 require 'test_helper'
 
 class PlacesControllerTest < ActionController::TestCase
-
   def setup
     @place = places :Magda19
-    @place.categories_list = "cat1, cat2, cat3"
   end
 
   # CRUD and REST tests
@@ -25,7 +23,7 @@ class PlacesControllerTest < ActionController::TestCase
                              house_number: '15',
                              postal_code: '10365',
                              city: 'Berlin',
-                             categories_list: "cat1, cat2" }
+                            }
     end
 
     assert_redirected_to places_path
@@ -38,7 +36,7 @@ class PlacesControllerTest < ActionController::TestCase
                              house_number: '15',
                              postal_code: '10365',
                              city: 'Berlin',
-                             categories_list: "cat1, cat2" }
+                            }
     end
   end
 
@@ -53,7 +51,7 @@ class PlacesControllerTest < ActionController::TestCase
                                          house_number: '15',
                                          postal_code: '10365',
                                          city: 'Berlin',
-                                         categories_list: "cat1, cat2" }
+                                        }
     @place.reload.name
     assert_equal 'Blubb', @place.name
   end
@@ -64,16 +62,15 @@ class PlacesControllerTest < ActionController::TestCase
                                          house_number: '15',
                                          postal_code: '10365',
                                          city: 'Berlin',
-                                         categories_list: "cat1, cat2" }
+                                        }
     @place.reload.name
     assert_equal 'Hausprojekt Magdalenenstraße 19', @place.name
   end
 
   test 'should delete place' do
     assert_difference 'Place.count', -1 do
-      delete :destroy, id:@place.id
+      delete :destroy, id: @place.id
     end
     assert_redirected_to places_path
   end
-
 end

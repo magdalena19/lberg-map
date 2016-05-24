@@ -25,8 +25,7 @@ Geocoder.configure(
   # Limitations: Please limit request rate to 1 per second and include your contact information in User-Agent headers (eg: Geocoder.configure(:http_headers => { "User-Agent" => "your contact info" })). Data licensed under Open Database License (ODbL) (you must provide attribution).
 
   # geocoding service (see below for supported options):
-  :lookup => :nominatim,
-  :timeout => 5,
-  :units => :km,
-
+  lookup: :nominatim,
+  timeout: 5,
+  units: :km,
 )

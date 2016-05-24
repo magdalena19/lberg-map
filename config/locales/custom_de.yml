@@ -1,4 +1,8 @@
 de:
+  description_en: 'Englische Beschreibung'
+  description_de: 'Deutsche Beschreibung'
+  description_fr: 'Französische Beschreibung'
+  description_ar: 'Arabische Beschreibung'
   point_to_place: 'Zeige einen neuen Ort'
   description: 'Beschreibung'
   close: 'Schließen'

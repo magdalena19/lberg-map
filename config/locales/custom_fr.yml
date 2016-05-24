@@ -1,4 +1,8 @@
 fr:
+  description_en: 'English description'
+  description_de: 'German description'
+  description_fr: 'French description'
+  description_ar: 'Arabic description'
   point_to_place: 'Point to an new place'
   description: 'Description'
   close: 'Fermer'

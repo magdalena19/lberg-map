@@ -20,4 +20,10 @@ jQuery(function() {
       ],
     }
   );
+
+  // responsive width
+  $( window ).resize(function() {
+    $('.nicEdit-panelContain').parent().css('width', '100%');
+    $('.nicEdit-main').parent().css('width', '100%');
+  });
 });

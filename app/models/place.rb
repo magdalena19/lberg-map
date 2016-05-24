@@ -1,5 +1,4 @@
 class Place < ActiveRecord::Base
-  require 'sanitize'
 
   ## RELATIONS
   has_many :categorizings

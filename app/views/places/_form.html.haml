@@ -1,44 +1,35 @@
 = form_for(@place) do |f|
-  %fieldset{:class => "form-group row #{"has-error" if f.object.errors.include?(:name)}"}
-    .col-xs-3
-      = f.text_field :name, class: 'form-control', placeholder: Place.human_attribute_name('name')
-    .col-xs-3
-      %span.help-block= f.object.errors[:name].join(", ")
+  .col-xs-12.col-md-6
+    %fieldset{:class => "form-group row #{"has-error" if f.object.errors.include?(:name)}"}
+      .col-xs-12
+        = f.text_field :name, class: 'form-control', placeholder: Place.human_attribute_name('name')
 
-  %fieldset{:class => "form-group row #{"has-error" if f.object.errors.include?(:street)}"}
-    .col-xs-2
-      = f.text_field :street, class: 'form-control', placeholder: Place.human_attribute_name('street'), value: @geocoded ? @geocoded['road'] : @place.street
-    .col-xs-1
-      = f.text_field :house_number, class: 'form-control', placeholder: 'nr.', value: @geocoded ? @geocoded['house_number'] : @place.house_number
-    .col-xs-3
-      %span.help-block= f.object.errors[:street].join(", ")
+    %fieldset{:class => "form-group row #{"has-error" if f.object.errors.include?(:street)}"}
+      .col-xs-8
+        = f.text_field :street, class: 'form-control', placeholder: Place.human_attribute_name('street'), value: @geocoded ? @geocoded['road'] : @place.street
+      .col-xs-4
+        = f.text_field :house_number, class: 'form-control', placeholder: 'Nr.', value: @geocoded ? @geocoded['house_number'] : @place.house_number
 
-  %fieldset{:class => "form-group row #{"has-error" if f.object.errors.include?(:postal_code)}"}
-    .col-xs-3
-      = f.text_field :postal_code, class: 'form-control', placeholder: Place.human_attribute_name('postal_code'), value: @geocoded ? @geocoded['postcode'] : @place.postal_code
-    .col-xs-3
-      %span.help-block= f.object.errors[:postal_code].join(", ")
+    %fieldset{:class => "form-group row #{"has-error" if f.object.errors.include?(:postal_code) || f.object.errors.include?(:city)}"}
+      .col-xs-5
+        = f.text_field :postal_code, class: 'form-control', placeholder: Place.human_attribute_name('postal_code'), value: @geocoded ? @geocoded['postcode'] : @place.postal_code
+      .col-xs-7
+        = f.text_field :city, class: 'form-control', placeholder: Place.human_attribute_name('city'), value: @geocoded ? @geocoded['village'] || @geocoded['town'] || @geocoded['state'] : @place.city
 
-  %fieldset{:class => "form-group row #{"has-error" if f.object.errors.include?(:city)}"}
-    .col-xs-3
-      = f.text_field :city, class: 'form-control', placeholder: Place.human_attribute_name('city'), value: @geocoded ? @geocoded['village'] || @geocoded['town'] || @geocoded['state'] : @place.city
-    .col-xs-3
-      %span.help-block= f.object.errors[:city].join(", ")
+    %fieldset{:class => "form-group row #{"has-error" if f.object.errors.include?(:categories_list)}"}
+      .col-xs-12
+        = f.text_field :categories_list, class: 'form-control', placeholder: Place.human_attribute_name('categories')
 
-  %fieldset{:class => "form-group row #{"has-error" if f.object.errors.include?(:categories)}"}
-    .col-xs-3
-      = f.text_field :categories_list, class: 'form-control', placeholder: Place.human_attribute_name('categories')
-    .col-xs-3
-      %span.help-block= f.object.errors[:categories].join(", ")
+    .row.margin-below
+      .col-xs-4
+        = f.submit class: 'btn btn-primary btn-success'
+      .col-xs-2
+        = link_to t('back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger'
 
-  = t 'description'
-  %fieldset{class: 'form-group row'}
-    - Place.globalize_attribute_names.each do |attribute|
-      .col-xs-3
-        = f.text_area attribute, id: 'description-area', class: 'form-control', value: @place.send(attribute) || attribute.to_s.split('_').last
-
-  .row
-    .col-xs-2
-      = f.submit class: 'btn btn-primary btn-success'
-    .col-xs-2
-      = link_to t('back'), root_path, class: 'btn btn-primary btn-danger'
+  .col-xs-12.col-md-6
+    %fieldset{class: 'form-group row'}
+      - Place.globalize_attribute_names.each do |attribute|
+        .col-xs-12
+          = t attribute.to_s
+        .col-xs-12.margin-below
+          = f.text_area attribute, class: 'form-control description-area'

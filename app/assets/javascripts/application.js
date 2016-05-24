@@ -21,5 +21,5 @@
 //= require_tree .
 
 jQuery(function() {
-  jQuery('#flash-messages').delay(2000).fadeOut(800)
+  jQuery('#flash-messages').delay(8000).fadeOut(800)
 });

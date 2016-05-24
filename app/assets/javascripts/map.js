@@ -1,4 +1,4 @@
-var all = function() {
+jQuery(function() {
   jQuery('#map').each(function() {
 
     jQuery(window).resize(function(){
@@ -45,7 +45,4 @@ var all = function() {
       };
     });
   });
-};
-
-jQuery(function() { all(); });
-jQuery(document).on('page:load', all);
+});

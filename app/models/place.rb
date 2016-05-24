@@ -1,4 +1,5 @@
 class Place < ActiveRecord::Base
+
   ## RELATIONS
   has_many :categorizings
   has_many :categories, through: :categorizings
@@ -15,6 +16,7 @@ class Place < ActiveRecord::Base
   ## CALLBACKS
   geocoded_by :address
   before_validation :geocode, :if => :address_changed?, on: [:create, :update]
+  before_validation :sanitize_descriptions, on: [:create, :update]
 
   ## CATEGORY TAGGING
   def categories_list=(names)
@@ -50,6 +52,23 @@ class Place < ActiveRecord::Base
     street_changed? || city_changed? || house_number_changed? || postal_code_changed?
   end
 
+  ## SANITIZE
+  def sanitize_descriptions
+    I18n.available_locales.each do |locale|
+      column = "description_#{locale.to_s}"
+      self.send(column+'=',sanitize(self.send(column)))
+    end
+  end
+
+  def sanitize(html)
+    Rails::Html::WhiteListSanitizer.new.sanitize(
+      html,
+      tags: %w(u i b li ol hr font),
+      attributes: %w(align color size)
+    )
+  end
+
+  ## PROPERTIES
   def geojson
     {
       type: 'Feature',

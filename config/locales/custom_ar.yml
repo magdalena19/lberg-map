@@ -1,17 +1,17 @@
-en:
+ar:
   description_en: 'English description'
   description_de: 'German description'
   description_fr: 'French description'
   description_ar: 'Arabic description'
-  point_to_place: 'Point to a new place'
+  point_to_place: 'Point to an new place'
   description: 'Description'
-  close: 'Close'
-  back: 'Back'
-  delete: 'delete'
-  edit: 'edit'
-  new_place: 'New place'
-  index_places: 'All places'
-  about: 'About'
+  close: 'Fermer'
+  back: 'Retour'
+  delete: 'Löschen'
+  edit: 'Modifier'
+  new_place: 'Ajouter une place'
+  index_places: 'Tous les places'
+  about: 'Info'
   activerecord:
     models:
       place: 'place'

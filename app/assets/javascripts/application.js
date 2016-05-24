@@ -11,13 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require leaflet
+//= require nicEdit.js
 //= require turbolinks
 //= require_tree .
 
 jQuery(function() {
-  jQuery('#flash-messages').delay(2000).fadeOut(800)
+  jQuery('#flash-messages').delay(8000).fadeOut(800)
 });

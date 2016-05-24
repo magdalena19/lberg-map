@@ -12,6 +12,35 @@
     -o-transition: all 2s ease;
     transition: all 2s ease;
   }
+  .overlay {
+    position: absolute;
+    z-index: 999;
+    button {
+      margin: 3px;
+      background: rgba(255, 255, 255, 0.5);
+      border: none;
+      width: 100px;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+      &:hover {
+        background: rgba(255, 255, 255, 1);
+      }
+      &.active {
+        font-weight: bold;
+      }
+    }
+  }
+  .category-button-container {
+    bottom: 8px;
+    left: 8px;
+  }
+  .place-button-container {
+    right: 8px;
+    bottom: 8px;
+  }
+}
+
+.leaflet-control-attribution {
+  display: none;
 }
 
 .geocode-button {

@@ -68,10 +68,11 @@ class Place < ActiveRecord::Base
   ## PROPERTIES
   def geojson
     {
+      id: id,
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates: [self.latitude, self.longitude],
+        coordinates: [self.longitude, self.latitude],
       },
       properties: properties,
     }
@@ -80,10 +81,6 @@ class Place < ActiveRecord::Base
   def properties
     self.attributes.each do |_key, value|
       { key: value }
-    end.merge!(address: address, description: description_texts)
-  end
-
-  def description_texts
-    self.description
+    end.merge!(address: address, description: description)
   end
 end

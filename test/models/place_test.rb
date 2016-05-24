@@ -2,14 +2,14 @@ require 'test_helper'
 
 class PlaceTest < ActiveSupport::TestCase
   def setup
-    @place = Place.new( latitude: 12.0,
-                        longitude: 52.0,
-                        name: 'Kiezspinne',
-                        street: 'Schulze-Boysen-Straße',
-                        house_number: '13',
-                        postal_code: '10365',
-                        city: 'Berlin',
-                        description_en: '<center><b>This is the description.</b></center>',
+    @place = Place.new(latitude: 12.0,
+                       longitude: 52.0,
+                       name: 'Kiezspinne',
+                       street: 'Schulze-Boysen-Straße',
+                       house_number: '13',
+                       postal_code: '10365',
+                       city: 'Berlin',
+                       description_en: '<center><b>This is the description.</b></center>',
                       )
   end
 
@@ -33,7 +33,7 @@ class PlaceTest < ActiveSupport::TestCase
     assert_equal(saved_description, '<b>This is the description.</b>')
   end
 
+  # TODO: Check whether entry is already in DB
   test 'duplicate entries not valid' do
-     # TODO: Check whether entry is already in DB
   end
 end

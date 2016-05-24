@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class PlacesControllerTest < ActionController::TestCase
-
   def setup
     @place = places :Magda19
   end
@@ -70,9 +69,8 @@ class PlacesControllerTest < ActionController::TestCase
 
   test 'should delete place' do
     assert_difference 'Place.count', -1 do
-      delete :destroy, id:@place.id
+      delete :destroy, id: @place.id
     end
     assert_redirected_to places_path
   end
-
 end

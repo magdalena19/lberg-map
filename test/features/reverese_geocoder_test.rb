@@ -20,7 +20,7 @@ feature 'Reverese geocoder' do
 
   def point_to_new_place
     find('.geocode-button').click
-    find("#map").click
+    find('#map').click
   end
 
   def see_prefilled_form_for_new_place

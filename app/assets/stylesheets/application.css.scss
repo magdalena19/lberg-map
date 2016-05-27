@@ -37,6 +37,16 @@
   }
 }
 
+.nav-pills {
+  li {
+    a {
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+  }
+}
+
+
 .logo-left {
   margin-left: 10px;
   float: left;
@@ -49,17 +59,4 @@
   padding-left: 3px;
   margin-top: -1px;
   font-weight: bold;
-}
-
-.locale-switch {
-  padding: 13px;
-  a {
-    color: white !important;
-    font-size: 12px !important;
-    padding: 5px;
-    &:hover {
-      text-decoration: none;
-      color: lightgrey !important;
-    };
-  }
 }

@@ -1,8 +1,20 @@
 #map
+  .overlay.category-button-container
+    = button_tag('*', type: 'button', class: 'category-button', id: 'all')
+    %br
+    - @categories.each do |category|
+      = button_tag(category.name, type: 'button', class: 'category-button', id: category.id)
+      %br
+  .overlay.place-button-container
+    - @places.each do |place|
+      = button_tag(place.name, type: 'button', class: 'place-button', id: place.id)
+      %br
+
 .geocode-button
   = t('point_to_place')
 
 = render 'modal'
 
 :javascript
+  window.locale = '#{locale}';
   window.placesJson = #{raw(@places_json.to_json)};

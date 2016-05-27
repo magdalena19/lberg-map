@@ -15,16 +15,58 @@ jQuery(function() {
     map.addLayer(baselayer);
     map.setView([52.513, 13.474], 12);
 
-    jQuery.each(window.placesJson, function( index, feature ) {
-      var openPopup = function(e) {
+    var onEachFeature = function(feature, layer) {
+      console.log(feature.id);
+      layer._leaflet_id = feature.id; // for 'getLayer' function
+      layer.on('click', function(e) {
         jQuery('.popup').remove();
-        jQuery('#place-modal').modal('show')
         jQuery('.modal-title').html(feature.properties.name);
         jQuery('.modal-body').html(feature.properties.address + '<br><br>' + feature.properties.description);
-      };
-      var marker = L.circleMarker(feature.geometry.coordinates, {radius: 8, fillOpacity: 0.5});
-      marker.on('click', openPopup);
-      marker.addTo(map);
+        jQuery('#place-modal').modal('show');
+      });
+    };
+
+    var addPlaces = function(json) {
+      marker = L.geoJson(json, {
+        pointToLayer: function (feature, latlng) {
+          return L.circleMarker(latlng);
+        },
+        onEachFeature: onEachFeature
+      }).addTo(map);
+    };
+    addPlaces(window.placesJson);
+
+    // CATEGORY AND PLACE BUTTONS
+    jQuery('.place-button')
+      .hover(function() {
+        clickedPlace = marker.getLayer(this.id);
+        map.setView(clickedPlace.getLatLng(), 14, {animate: true});
+      })
+      .click(function() {
+        properties = marker.getLayer(this.id).feature.properties;
+        jQuery('.modal-title').html(properties.name);
+        jQuery('.modal-body').html(properties.address + '<br><br>' + properties.description);
+        jQuery('#place-modal').modal('show');
+      });
+
+
+    jQuery('.category-button#all').addClass('active');
+
+    jQuery('.category-button').click( function() {
+      jQuery('.category-button').removeClass('active');
+      jQuery(this).addClass('active');
+      var categoryId = jQuery(this).attr('id');
+      $.ajax({
+        url: "/",
+        data: {
+                category: categoryId,
+                locale: window.locale,
+              },
+        success: function(result){
+          map.removeLayer(marker);
+          addPlaces(result);
+        }
+      });
     });
 
     // REVERSE GEOCODING

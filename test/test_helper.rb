@@ -6,7 +6,11 @@ require 'minitest/reporters'
 require 'minitest/rails/capybara'
 
 reporter_options = { color: true }
-Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(reporter_options)]
+Minitest::Reporters.use!(
+  Minitest::Reporters::DefaultReporter.new(reporter_options),
+  ENV,
+  Minitest.backtrace_filter
+  )
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.

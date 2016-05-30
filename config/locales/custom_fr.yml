@@ -1,4 +1,8 @@
 fr:
+  auto_translation_prefix_en: 'Automatic translation:'
+  auto_translation_prefix_de: 'Automatische Übersetzung:'
+  auto_translation_prefix_fr: 'Traduction automatique:'
+  auto_translation_prefix_ar: 'الترجمة الآلية'
   description_en: 'English description'
   description_de: 'German description'
   description_fr: 'French description'

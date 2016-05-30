@@ -2,11 +2,11 @@ class PlacesController < ApplicationController
   # http_basic_authenticate_with name: 'admin', password: 'secret'
 
   def index
-    @places = if params[:category]
-                Place.tagged_with(params[:category])
-              else
-                @places = Place.all
-              end
+    if params[:category]
+      @places = Place.tagged_with(params[:category])
+    else
+      @places = Place.all
+    end
   end
 
   def edit
@@ -54,9 +54,9 @@ class PlacesController < ApplicationController
 
   def place_params
     params.require(:place).permit(
-      :name, :street, :house_number, :postal_code, :city,
-      :description_en, :description_de, :description_fr, :description_ar,
-      category_ids: []
+    :name, :street, :house_number, :postal_code, :city,
+    :description_en, :description_de, :description_fr, :description_ar,
+    category_ids: []
     )
   end
 end

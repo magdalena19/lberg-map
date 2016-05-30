@@ -60,8 +60,8 @@ class Place < ActiveRecord::Base
   def sanitize(html)
     Rails::Html::WhiteListSanitizer.new.sanitize(
       html,
-      tags: %w[u i b li ol hr font],
-      attributes: %w[align color size]
+      tags: %w[br u i b li ul ol hr font a],
+      attributes: %w[align color size href]
     )
   end
 

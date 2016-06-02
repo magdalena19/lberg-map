@@ -1,5 +1,6 @@
 class PlacesController < ApplicationController
   # http_basic_authenticate_with name: 'admin', password: 'secret'
+  include SimpleCaptcha::ControllerHelpers
 
   def index
     if params[:category]
@@ -15,11 +16,10 @@ class PlacesController < ApplicationController
 
   def update
     @place = Place.find(params[:id])
-    if @place.update_attributes(place_params)
-      flash.now[:success] = 'Point successfully changed!'
-      redirect_to places_path
+    if simple_captcha_valid?
+      save_update
     else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
+      flash.now[:danger] = 'Captcha not valid!'
       render :edit
     end
   end
@@ -34,11 +34,10 @@ class PlacesController < ApplicationController
 
   def create
     @place = Place.new(place_params)
-    if @place.save
-      flash[:success] = 'Point successfully created!'
-      redirect_to action: 'index'
+    if simple_captcha_valid?
+      save_new
     else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
+      flash.now[:danger] = 'Captcha not valid!'
       render :new
     end
   end
@@ -51,6 +50,26 @@ class PlacesController < ApplicationController
   end
 
   private
+
+  def save_update
+    if @place.update_attributes(place_params)
+      flash.now[:success] = 'Point successfully changed!'
+      redirect_to places_path
+    else
+      flash.now[:danger] = @place.errors.full_messages.to_sentence
+      render :edit
+    end
+  end
+
+  def save_new
+    if @place.save
+      flash[:success] = 'Point successfully created!'
+      redirect_to action: 'index'
+    else
+      flash.now[:danger] = @place.errors.full_messages.to_sentence
+      render :new
+    end
+  end
 
   def place_params
     params.require(:place).permit(

@@ -248,6 +248,8 @@ GEM
       rdoc (~> 4.0)
     sexp_processor (4.6.0)
     shellany (0.0.1)
+    simple_captcha2 (0.4.0)
+      rails (>= 4.1)
     slop (3.6.0)
     socksify (1.7.0)
     spring (1.6.4)
@@ -313,6 +315,7 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  simple_captcha2
   spring
   sqlite3
   turbolinks

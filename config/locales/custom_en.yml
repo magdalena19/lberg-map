@@ -1,4 +1,7 @@
 en:
+  simple_captcha:
+    placeholder: 'Captcha text'
+    refresh_button_text: 'Reload'
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'
   auto_translation_prefix_fr: 'Traduction automatique:'

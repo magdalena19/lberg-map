@@ -34,6 +34,9 @@
 
   .row.margin-below
     .col-xs-4
-      = f.submit class: 'btn btn-primary btn-success'
-    .col-xs-2
-      = link_to t('back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger'
+      = show_simple_captcha
+    .col-xs-8
+      .col-xs-6
+        = f.submit class: 'btn btn-primary btn-success place-form-button'
+      .col-xs-6
+        = link_to t('back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger place-form-button'

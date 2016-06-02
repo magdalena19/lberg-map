@@ -2,6 +2,11 @@ ar:
   simple_captcha:
     placeholder: 'Captcha-Text'
     refresh_button_text: 'Neu laden'
+  user_session:
+    email_placeholder: ''
+    name_placeholder: ''
+    password_placeholder: ''
+    password_confirm_placeholder: ''
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'
   auto_translation_prefix_fr: 'Traduction automatique:'
@@ -16,6 +21,7 @@ ar:
   back: 'Retour'
   delete: 'Löschen'
   edit: 'Modifier'
+  submit: ''
   new_place: 'Ajouter une place'
   index_places: 'Tous les places'
   about: 'Info'

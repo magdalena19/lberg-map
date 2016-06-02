@@ -2,6 +2,11 @@ en:
   simple_captcha:
     placeholder: 'Captcha text'
     refresh_button_text: 'Reload'
+  user_session:
+    email_placeholder: 'User email'
+    name_placeholder: 'User name'
+    password_placeholder: 'Password'
+    password_confirm_placeholder: 'Confirm password'
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'
   auto_translation_prefix_fr: 'Traduction automatique:'
@@ -16,6 +21,7 @@ en:
   back: 'Back'
   delete: 'delete'
   edit: 'edit'
+  submit: 'Submit'
   new_place: 'New place'
   index_places: 'All places'
   about: 'About'

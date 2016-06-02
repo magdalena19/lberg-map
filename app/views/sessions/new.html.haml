@@ -1,0 +1,10 @@
+= form_for(:sessions, url: login_path) do |f|
+  .row
+    %fieldset{:class => 'form-group'}
+      .col-xs-12.col-md-6
+        = f.text_field :email, placeholder: t('email_placeholder', scope: 'user_session')
+        = f.password_field :password, placeholder: t('password_placeholder', scope: 'user_session')
+  .row
+    %fieldset{:class => 'form-group'}
+      .col-xs-2.col-md-2.col-lg-2
+        = f.submit 'Login', class: 'btn btn-primary btn-success'

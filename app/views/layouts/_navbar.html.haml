@@ -24,3 +24,8 @@
         - I18n.available_locales.each do |l|
           %li{class: "#{'active' if l == locale}"}
             = link_to l.to_s, locale: l.to_s
+        - if session[:user_id]
+          %li
+            = link_to 'User settings', edit_user_path(session[:user_id])
+          %li
+            = link_to 'logout', logout_path

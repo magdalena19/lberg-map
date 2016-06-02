@@ -1,0 +1,24 @@
+= form_for(@user) do |f|
+  .row
+    %fieldset{ class: "form-group row #{"has-error" if f.object.errors.include?(:name)}" }
+      .col-xs-12.col-md-6
+        = f.text_field :name, placeholder: t('name_placeholder', scope: 'user_session')
+
+    %fieldset{ class: "form-group row #{"has-error" if f.object.errors.include?(:email)}" }
+      .col-xs-12.col-md-6
+        = f.text_field :email, placeholder: t('email_placeholder', scope: 'user_session')
+
+    %fieldset{ class: "form-group row #{"has-error" if f.object.errors.include?(:password)}" }
+      .col-xs-12.col-md-6
+        = f.password_field :password
+
+    %fieldset{ class: "form-group row #{"has-error" if f.object.errors.include?(:password_confirmation)}" }
+      .col-xs-12.col-md-6
+        = f.password_field :password_confirmation
+
+  .row
+    %fieldset{class: 'form-group'}
+      .col-xs-2.col-md-2.col-lg-2
+        = f.submit t('submit'), class: 'btn btn-primary btn-success'
+      .col-xs-2.col-md-2.col-lg-2
+        = link_to t('back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger'

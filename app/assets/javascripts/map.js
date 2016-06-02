@@ -16,7 +16,6 @@ jQuery(function() {
     map.setView([52.513, 13.474], 12);
 
     var onEachFeature = function(feature, layer) {
-      console.log(feature.id);
       layer._leaflet_id = feature.id; // for 'getLayer' function
       layer.on('click', function(e) {
         jQuery('.popup').remove();
@@ -55,18 +54,17 @@ jQuery(function() {
     jQuery('.category-button').click( function() {
       jQuery('.category-button').removeClass('active');
       jQuery(this).addClass('active');
-      var categoryId = jQuery(this).attr('id');
-      $.ajax({
-        url: "/",
-        data: {
-                category: categoryId,
-                locale: window.locale,
-              },
-        success: function(result){
-          map.removeLayer(marker);
-          addPlaces(result);
-        }
-      });
+      map.removeLayer(marker);
+      var id = jQuery(this).attr('id');
+      if (id == 'all') {
+        addPlaces(window.placesJson);
+      } else {
+        var filteredPlaces = jQuery.grep(window.placesJson, function (feature){
+          var categories = feature.properties.categories;
+          return jQuery.inArray(parseInt(id), categories) > -1;
+        });
+        addPlaces(filteredPlaces);
+      };
     });
 
     // REVERSE GEOCODING

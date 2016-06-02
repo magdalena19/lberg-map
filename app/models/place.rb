@@ -81,6 +81,9 @@ class Place < ActiveRecord::Base
   def properties
     self.attributes.each do |_key, value|
       { key: value }
-    end.merge!(address: address, description: description)
+    end.merge!( address: address,
+                description: description,
+                categories: categories.map { |c| c.id }
+              )
   end
 end

@@ -16,5 +16,21 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  Geocoder.configure(:lookup => :test)
+  Geocoder::Lookup::Test.set_default_stub(
+    [
+      {
+        'latitude' => 52,
+        'longitude' => 12,
+        'address' => {
+          'road' => 'Magdalenenstr.',
+          'house_number' => '19',
+          'postcode' => '10365',
+          'town' => 'Berlin',
+        },
+        'type' => 'house',
+      }
+    ]
+  )
   # Add more helper methods to be used by all tests here...
 end

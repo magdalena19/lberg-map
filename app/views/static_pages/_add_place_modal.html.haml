@@ -1,0 +1,12 @@
+#place-modal.modal.fade.add-place-modal{role: 'dialog'}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{'data-dismiss': 'modal', type: 'button'} &times;
+        %h4.modal-title
+          =t('how_to_add_place?')
+      .modal-footer
+        %button.add-place-via-location.btn.btn-default{'data-dismiss': 'modal', type: 'button'}
+          = t('add_place_via_location')
+        %button.type-in-address.btn.btn-default{'data-dismiss': 'modal', type: 'button'}
+          = t('type-in_address')

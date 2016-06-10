@@ -1,4 +1,6 @@
 de:
+  all: 'Alle'
+  locate_me: 'Mein Standort'
   simple_captcha:
     placeholder: 'Captcha-Text'
     refresh_button_text: 'Neu laden'

@@ -1,12 +1,17 @@
 require 'test_helper'
 
-feature 'Index page' do
+feature 'Create place' do
   scenario 'create valid place' do
     visit '/places/new'
     fill_in_valid_place_information
     click_on('Create place')
     page.must_have_css('.glyphicon-trash')
     page.must_have_content('Any place')
+  end
+
+  scenario 'visit new place view with coordinate parameters' do
+    visit '/places/new?longitude=1&latitude=1' # coordinate values do not matter, because response is mocked
+    assert find_field('place_city').value == 'Berlin'
   end
 
   def fill_in_valid_place_information

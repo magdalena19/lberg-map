@@ -1,0 +1,9 @@
+Norbert:
+  name: Norbert
+  email: nor@bert.de
+  password_digest: <%= BCrypt::Password.create('asdasd', cost: 4) %>
+
+Susanne:
+  name: Susanne
+  email: su@sanne.de
+  password_digest: <%= BCrypt::Password.create('asdasd', cost: 4) %>

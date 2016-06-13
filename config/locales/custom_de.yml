@@ -2,6 +2,11 @@ de:
   simple_captcha:
     placeholder: 'Captcha-Text'
     refresh_button_text: 'Neu laden'
+  user_session:
+    email_placeholder: 'User email'
+    name_placeholder: 'Nutzer_innen-Name'
+    password_placeholder: 'Passwort'
+    password_confirm_placeholder: 'Passwort bestätigen'
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'
   auto_translation_prefix_fr: 'Traduction automatique:'
@@ -16,6 +21,7 @@ de:
   back: 'Zurück'
   delete: 'Löschen'
   edit: 'Bearbeiten'
+  submit: 'Abschicken'
   new_place: 'Neuer Ort'
   index_places: 'Alle Orte'
   about: 'Info'

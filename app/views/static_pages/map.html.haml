@@ -2,14 +2,18 @@
   .col-xs-12.overlay.confirmation-button-container
     = t('correct_location?')
     %br
-    = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-ok', id: 'confirmation-button-yes')
-    = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-remove', id: 'confirmation-button-no')
-  .overlay.add-place-button-container
+    = button_tag('', type: 'button', class: 'glyphicon glyphicon-ok', id: 'confirmation-button-yes')
+    = button_tag('', type: 'button', class: 'glyphicon glyphicon-remove', id: 'confirmation-button-no')
+  .overlay.control-container.zoom-container
+    = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-plus zoom-in')
+    %br
+    = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-minus zoom-out')
+  .overlay.control-container.place-control-container
     = button_tag('', type: 'button', title: t('new_place'), class: 'btn btn-default glyphicon glyphicon-plus-sign add-place-button')
-  .overlay.show-categories-container
-    = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-th-large show-categories')
-  .overlay.show-places-container
-    = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-list show-places')
+    %br
+    = button_tag('', type: 'button', class: 'glyphicon glyphicon-th-large show-categories')
+    %br
+    = button_tag('', type: 'button', class: 'glyphicon glyphicon-list show-places')
   .overlay.category-indicator
 
 = render('place_modal')

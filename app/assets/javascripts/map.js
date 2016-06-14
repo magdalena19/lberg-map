@@ -5,12 +5,14 @@ jQuery(function() {
       jQuery('#map').height(innerHeight);
     }).resize();
 
-    map = L.map('map');
-    map.options.minZoom = 2;
-    url = '//tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png';
-    baselayer = L.tileLayer(url, {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    map = L.map('map', {
+      zoomControl: false,
+      minZoom: 5,
     });
+    jQuery('.zoom-in').click(function() {map.zoomIn()});
+    jQuery('.zoom-out').click(function() {map.zoomOut()});
+    url = '//tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+    baselayer = L.tileLayer(url, {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
     map.addLayer(baselayer);
     map.setView([52.513, 13.474], 12);
 

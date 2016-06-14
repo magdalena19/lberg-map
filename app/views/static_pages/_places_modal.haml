@@ -9,9 +9,9 @@
         .row
           - @places.each do |place|
             %div.place-container{class: place.category_ids}
-              .col-xs-10
+              .col-xs-9.col-xs-md-10
                 %b= place.name
-              .col-xs-2
+              .col-xs-3.col-xs-md-2
                 = button_tag('', type: 'button', id: place.id, class: 'btn btn-default glyphicon glyphicon-search zoom-to-place')
               .col-xs-12
                 = place.description.html_safe if place.description

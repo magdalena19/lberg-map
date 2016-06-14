@@ -11,11 +11,10 @@ ar:
     password_confirm_placeholder: ''
   flash_messages:
     captcha_invalid: ''
-    point_changed: ''
+    changes_successful: ''
     point_created: ''
     login_error: ''
     welcome_user: ''
-    user_creds_changed: ''
     cannot_change_other_users_creds: ''
     access_restricted: ''
   auto_translation_prefix_en: 'Automatic translation:'

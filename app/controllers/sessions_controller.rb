@@ -4,10 +4,10 @@ class SessionsController < ApplicationController
 
     if @user && @user.authenticate(params[:sessions][:password])
       session[:user_id] = @user.id
-      flash.now[:success] = 'Welcome!'
+      flash.now[:success] = t('welcome_user', scope: :flash_messages)
       redirect_to root_path
     else
-      flash.now[:danger] = 'Username and password do not match!'
+      flash.now[:danger] = t('login_error', scope: :flash_messages)
       render :new
     end
   end

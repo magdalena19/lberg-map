@@ -11,7 +11,7 @@ de:
     password_confirm_placeholder: 'Passwort bestätigen'
   flash_messages:
     captcha_invalid: 'Captcha nicht richtig ausgefüllt!'
-    changes_successfull: 'Änderungen erfolgreich übernommen!'
+    changes_successful: 'Änderungen erfolgreich übernommen!'
     point_created: 'Punkt erfolgreich erstellt!'
     login_error: 'Nutzer_innen-Name und Passwort stimmen nicht überein!'
     welcome_user: 'Willkommen!'

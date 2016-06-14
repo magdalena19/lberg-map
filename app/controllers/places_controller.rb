@@ -27,7 +27,7 @@ class PlacesController < ApplicationController
     if simple_captcha_valid? || signed_in?
       save_update
     else
-      flash.now[:danger] = 'Captcha not valid!'
+      flash.now[:danger] = t('captcha_invalid', scope: :flash_messages)
       render :edit
     end
   end
@@ -48,7 +48,7 @@ class PlacesController < ApplicationController
     if simple_captcha_valid? || signed_in?
       save_new
     else
-      flash.now[:danger] = 'Captcha not valid!'
+      flash.now[:danger] = t('captcha_invalid', scope: :flash_messages)
       render :new
     end
   end
@@ -64,7 +64,7 @@ class PlacesController < ApplicationController
 
   def save_update
     if @place.update_attributes(place_params)
-      flash.now[:success] = 'Point successfully changed!'
+      flash.now[:success] = t('point_changed', scope: :flash_messages)
       redirect_to places_path
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
@@ -74,7 +74,7 @@ class PlacesController < ApplicationController
 
   def save_new
     if @place.save
-      flash[:success] = 'Point successfully created!'
+      flash[:success] = t('point_created', scope: :flash_messages)
       redirect_to action: 'index'
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence

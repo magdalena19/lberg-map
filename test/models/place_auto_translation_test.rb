@@ -24,7 +24,7 @@ class PlaceTest < ActiveSupport::TestCase
     assert_nil invalid_translator.bing_translator
 
     invalid_translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['wrong_microsoft_account_key'])
-    assert_equal '', invalid_translator.failsafe_translate("Dies ist ein Test", 'en', 'de')
+    assert_equal '', invalid_translator.failsafe_translate('Dies ist ein Test', 'en', 'de')
   end
 
   test "return '' if too many characters to translate" do

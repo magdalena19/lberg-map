@@ -1,12 +1,9 @@
 require_relative '../test_helper'
+require 'auto_translator'
 
 class PlaceTest < ActiveSupport::TestCase
-  include Place::AutoTranslator
-
   def setup
-    @place = Place.new(latitude: 12.0,
-                       longitude: 52.0,
-                       name: 'Kiezspinne',
+    @place = Place.new(name: 'Kiezspinne',
                        street: 'Schulze-Boysen-Straße',
                        house_number: '13',
                        postal_code: '10365',
@@ -15,6 +12,7 @@ class PlaceTest < ActiveSupport::TestCase
   end
 
   test 'valid place is valid' do
+    @place.geocode
     assert @place.valid?
   end
 

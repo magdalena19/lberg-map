@@ -1,0 +1,11 @@
+#place-modal.modal.fade.category-modal{role: 'dialog'}
+  .modal-dialog
+    .modal-content
+      .modal-body{dir: "#{text_direction}"}
+        .row
+          .col-xs-12
+            = button_tag("#{t('all')} (#{Place.count})", type: 'button', class: 'category-button btn btn-default', id: 'all')
+            %br
+          - @categories.each do |category|
+            .col-xs-12
+              = button_tag("#{category.name} (#{category.places.count})", type: 'button', class: 'category-button btn btn-default', id: category.id)

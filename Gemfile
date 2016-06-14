@@ -58,11 +58,12 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner'
   gem 'minitest-reporters'
   gem 'minitest-rails-capybara'
   gem 'guard'
   gem 'guard-minitest'
   gem 'selenium-webdriver' # non-headless javascript testing
   gem 'capybara-webkit' # headless javascript testing
-  gem 'launchy' # open screenshots automatically
+  gem 'capybara-screenshot'
 end

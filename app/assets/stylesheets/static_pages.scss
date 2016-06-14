@@ -15,37 +15,72 @@
   .overlay {
     position: absolute;
     z-index: 999;
-    button {
-      margin: 3px;
-      background: rgba(255, 255, 255, 0.5);
-      border: none;
-      width: 100px;
-      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-      &:hover {
-        background: rgba(255, 255, 255, 1);
-      }
+    .filter-button {
+      width: 130px !important;
       &.active {
         font-weight: bold;
       }
     }
   }
-  .category-button-container {
-    bottom: 8px;
-    left: 8px;
-  }
+
   .place-button-container {
     right: 8px;
     bottom: 8px;
+  }
+
+  .confirmation-button-container {
+    top: 10px;
+    display: none;
+    text-align: center;
+    button {
+      font-size: 35px;
+    }
+  }
+
+  .add-place-button-container {
+    bottom: 95px;
+    right: 10px;
+    .add-place-button {
+      padding: 5px 9px 5px 9px;
+      font-size: 23px;
+    }
+  }
+
+  .show-categories-container {
+    bottom: 10px;
+    left: 10px;
+    button {
+      font-size: 45px;
+    }  
+  }
+
+  .show-places-container {
+    bottom: 10px;
+    right: 10px;
+    button {
+      font-size: 45px;
+    }  
+  }
+
+  .category-indicator {
+    bottom: 30px;
+    left: 87px;
+    font-size: 23px;
+  }
+}
+
+.category-button {
+  width: 100%;
+  margin: 5px;
+}
+
+.places-modal {
+  .modal-footer {
+    padding-top: none;
+    border-style: none;
   }
 }
 
 .leaflet-control-attribution {
   display: none;
-}
-
-.geocode-button {
-  cursor: pointer;
-  &.active {
-    color: green;
-  }
 }

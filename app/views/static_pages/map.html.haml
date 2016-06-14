@@ -1,19 +1,21 @@
 #map
-  .overlay.category-button-container
-    = button_tag('*', type: 'button', class: 'category-button', id: 'all')
+  .col-xs-12.overlay.confirmation-button-container
+    = t('correct_location?')
     %br
-    - @categories.each do |category|
-      = button_tag(category.name, type: 'button', class: 'category-button', id: category.id)
-      %br
-  .overlay.place-button-container
-    - @places.each do |place|
-      = button_tag(place.name, type: 'button', class: 'place-button', id: place.id)
-      %br
+    = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-ok', id: 'confirmation-button-yes')
+    = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-remove', id: 'confirmation-button-no')
+  .overlay.add-place-button-container
+    = button_tag('', type: 'button', title: t('new_place'), class: 'btn btn-default glyphicon glyphicon-plus-sign add-place-button')
+  .overlay.show-categories-container
+    = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-th-large show-categories')
+  .overlay.show-places-container
+    = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-list show-places')
+  .overlay.category-indicator
 
-.geocode-button
-  = t('point_to_place')
-
-= render 'modal'
+= render('place_modal')
+= render('places_modal')
+= render('category_modal')
+= render('add_place_modal')
 
 :javascript
   window.locale = '#{locale}';

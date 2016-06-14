@@ -8,7 +8,7 @@ class Place < ActiveRecord::Base
   ## VALIDATIONS
   validates_presence_of :name, :street, :city, :postal_code
   validates :postal_code, format: { with: /\d{5}/, message: 'upply valid postal code (5 digits)' }
-  validate :valid_geocode?
+  validate :can_find_lat_lon?
 
   ## TRANSLATION
   translates :description
@@ -16,7 +16,7 @@ class Place < ActiveRecord::Base
 
   ## CALLBACKS
   geocoded_by :address
-  before_validation :geocode, if: :address_changed?, on: [:create, :update]
+  after_validation :geocode_with_nodes, if: :address_changed?, on: [:create, :update]
   after_create :auto_translate
   before_validation :sanitize_descriptions, on: [:create, :update]
 
@@ -59,10 +59,10 @@ class Place < ActiveRecord::Base
   end
 
   ## GEOCODING
-  def valid_geocode?
+  def can_find_lat_lon?
     address_string = "#{street} #{house_number}, #{postal_code}, #{city}"
-    address = Geocoder.search(address_string).first
-    errors.add(:address, :address_not_found) unless address && address.type == 'house'
+    results = Geocoder.search(address_string)
+    errors.add(:address, :address_not_found) unless results.any?
   end
 
   def address
@@ -71,6 +71,19 @@ class Place < ActiveRecord::Base
 
   def address_changed?
     street_changed? || city_changed? || house_number_changed? || postal_code_changed?
+  end
+
+  def geocode_with_nodes
+    results = Geocoder.search(address)
+    node_geoms = results.select { |result| result.type == 'node' }
+    other_geoms = results - node_geoms
+    if node_geoms.any?
+      self.latitude = node_geoms.first.latitude
+      self.longitude = node_geoms.first.longitude
+    else
+      self.latitude = other_geoms.first.latitude
+      self.longitude = other_geoms.first.longitude
+    end
   end
 
   ## SANITIZE

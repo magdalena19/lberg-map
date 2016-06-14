@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
     if @user && @user.authenticate(params[:sessions][:password])
       session[:user_id] = @user.id
-      flash.now[:success] = "Welcome #{@user.name}!"
+      flash.now[:success] = 'Welcome!'
       redirect_to root_path
     else
       flash.now[:danger] = 'Username and password do not match!'

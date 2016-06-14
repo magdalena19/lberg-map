@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       flash.now[:success] = 'Successfully changed user credentials'
       redirect_to root_path
     else
-      flash.now[:danger] = 'Changes could not be submitted'
+      flash.now[:danger] = @user.errors.full_messages.to_sentence
       render 'edit'
     end
   end

@@ -4,21 +4,24 @@
       .modal-header
         %button.close{'data-dismiss': 'modal', type: 'button'} &times;
         %h4.modal-title
-          = t('places')
+          .category
       .modal-body{dir: "#{text_direction}"}
         .row
-          - @places.each do |place|
-            %div.place-container{class: place.category_ids}
-              .col-xs-10
-                %b= place.name
-              .col-xs-2
-                = button_tag('', type: 'button', id: place.id, class: 'btn btn-default glyphicon glyphicon-search zoom-to-place')
-              .col-xs-12
-                = place.description.html_safe if place.description
-              .col-xs-12
-                %i= place.address
-              .col-xs-12
-                %hr
+          #accordion.panel-group.col-xs-12
+            - @places.each do |place|
+              .panel.panel-default
+                .panel-heading
+                  %h4.panel-title
+                    %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse_#{place.id}"}
+                      %b= place.name
+                .panel-collapse.collapse{id: "collapse_#{place.id}"}
+                  .panel-body                      
+                    .col-xs-12.margin-below
+                      = place.description.html_safe if place.description
+                    .col-xs-9
+                      %i= place.address
+                    .col-xs-3
+                      = button_tag('', type: 'button', id: place.id, class: 'btn btn-default glyphicon glyphicon-search zoom-to-place')
 
       .modal-footer
         %button.btn.btn-default{'data-dismiss': 'modal', type: 'button'}

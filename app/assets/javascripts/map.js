@@ -1,16 +1,18 @@
 jQuery(function() {
   jQuery('#map').each(function() {
     jQuery(window).resize(function(){
-      var innerHeight = jQuery(window).height() - jQuery('.navbar').outerHeight() - 50;
+      var innerHeight = jQuery(window).height() - jQuery('.navbar').outerHeight() + 15;
       jQuery('#map').height(innerHeight);
     }).resize();
 
-    map = L.map('map');
-    map.options.minZoom = 2;
-    url = '//tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png';
-    baselayer = L.tileLayer(url, {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    map = L.map('map', {
+      zoomControl: false,
+      minZoom: 5,
     });
+    jQuery('.zoom-in').click(function() {map.zoomIn()});
+    jQuery('.zoom-out').click(function() {map.zoomOut()});
+    url = '//tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+    baselayer = L.tileLayer(url, {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
     map.addLayer(baselayer);
     map.setView([52.513, 13.474], 12);
 
@@ -18,9 +20,9 @@ jQuery(function() {
     var onEachFeature = function(feature, layer) {
       layer._leaflet_id = feature.id; // for 'getLayer' function
       layer.on('click', function(e) {
-        jQuery('.popup').remove();
         placeModal.find('.modal-title').html(feature.properties.name);
-        placeModal.find('.modal-body').html(feature.properties.address + '<br><br>' + feature.properties.description);
+        placeModal.find('.place-description').html(feature.properties.description);
+        placeModal.find('.place-address').html('<i>' + feature.properties.address + '</i>');
         placeModal.modal('show');
       });
     };
@@ -69,7 +71,7 @@ jQuery(function() {
         jQuery('.places-modal').find('.place-container').hide();
         jQuery('.places-modal').find('.' + id).show();
       };
-      jQuery('.places-modal').find('.modal-header').html(category);
+      jQuery('.places-modal').find('.category').html(category);
       jQuery('.category-indicator').html(category);
     });
 

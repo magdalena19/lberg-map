@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #map {
-  height: 500px;
+  margin-top: -12px;
   border: 2px solid white;
   &.active {
     border: 2px solid green;
@@ -23,9 +23,35 @@
     }
   }
 
-  .place-button-container {
-    right: 8px;
-    bottom: 8px;
+  .control-container {
+    button {
+      margin: 3px;
+      border: none;
+      border-radius: 7px;
+      background-color: rgba(0,0,0,0.3);
+      float: right;
+      padding: 6px 9px 9px 9px;
+    }
+  }
+
+  .zoom-container {
+    right: -7px;
+    top: 20px;
+    button {
+      font-size: 25px;
+      width: 50px;
+      height: 45px;
+    }
+  }
+
+  .place-control-container {
+    right: -7px;
+    bottom: 25px;
+    button {
+      font-size: 35px;
+      width: 70px;
+      height: 60px;
+    }
   }
 
   .confirmation-button-container {
@@ -37,36 +63,24 @@
     }
   }
 
-  .add-place-button-container {
-    bottom: 95px;
-    right: 10px;
-    .add-place-button {
-      padding: 5px 9px 5px 9px;
-      font-size: 23px;
-    }
-  }
-
-  .show-categories-container {
-    bottom: 10px;
-    left: 10px;
-    button {
-      font-size: 45px;
-    }  
-  }
-
-  .show-places-container {
-    bottom: 10px;
-    right: 10px;
-    button {
-      font-size: 45px;
-    }  
-  }
-
   .category-indicator {
-    bottom: 30px;
-    left: 87px;
-    font-size: 23px;
+    bottom: 42px;
+    right: 75px;
+    font-size: 20px;
   }
+}
+
+.panel-group {
+  margin-bottom: 0 !important;
+}
+
+.zoom-to-place {
+  width: 100%;
+}
+
+.add-place-buttons {
+  width: 100%;
+  margin: 5px;
 }
 
 .category-button {
@@ -77,7 +91,6 @@
 .places-modal {
   .modal-footer {
     padding-top: none;
-    border-style: none;
   }
 }
 

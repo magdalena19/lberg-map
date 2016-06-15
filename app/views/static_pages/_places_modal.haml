@@ -12,8 +12,12 @@
               .panel.panel-default.one-place{class: place.category_ids}
                 .panel-heading
                   %h4.panel-title
-                    %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse_#{place.id}"}
+                    %a{'data-parent': '#accordion', 'data-toggle': 'collapse', href: "#collapse_#{place.id}"}
                       %b= place.name
+                    .place-list-header-buttons
+                      - if is_admin?
+                        %button.edit-place.btn.btn-default.glyphicon.glyphicon-pencil{type: 'button', place_id: place.id}
+                      %button.btn.btn-default.glyphicon.glyphicon-search.zoom-to-place{type: 'button', id: place.id}
                 .panel-collapse.collapse{id: "collapse_#{place.id}"}
                   .panel-body                      
                     .col-xs-12.margin-below
@@ -21,8 +25,6 @@
                     .col-xs-9
                       %i= place.address
                     .col-xs-3
-                      = button_tag('', type: 'button', id: place.id, class: 'btn btn-default glyphicon glyphicon-search zoom-to-place')
-
       .modal-footer
         %button.btn.btn-default{'data-dismiss': 'modal', type: 'button'}
           = t('close')

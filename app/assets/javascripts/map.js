@@ -20,6 +20,7 @@ jQuery(function() {
     var onEachFeature = function(feature, layer) {
       layer._leaflet_id = feature.id; // for 'getLayer' function
       layer.on('click', function(e) {
+        placeModal.find('.edit-place').attr('place_id', feature.properties.id);
         placeModal.find('.modal-title').html(feature.properties.name);
         placeModal.find('.place-description').html(feature.properties.description);
         placeModal.find('.place-address').html('<i>' + feature.properties.address + '</i>');
@@ -107,6 +108,12 @@ jQuery(function() {
       } else {
         console.log('Geolocation is not supported by this browser.');
       };
+    });
+
+    // ADMIN BUTTONS
+    jQuery('.edit-place').click(function() {
+      var placeId = jQuery(this).attr('place_id');
+      window.location.href = 'places/' + placeId + '/edit';
     });
   });
 });

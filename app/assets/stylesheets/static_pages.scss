@@ -74,10 +74,6 @@
   margin-bottom: 0 !important;
 }
 
-.zoom-to-place {
-  width: 100%;
-}
-
 .add-place-buttons {
   width: 100%;
   margin: 5px;
@@ -96,4 +92,9 @@
 
 .leaflet-control-attribution {
   display: none;
+}
+
+.place-list-header-buttons {
+  float: right;
+  margin-top: -9px;
 }

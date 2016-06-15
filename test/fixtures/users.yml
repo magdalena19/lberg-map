@@ -1,9 +1,15 @@
 Norbert:
   name: Norbert
-  email: nor@bert.de
-  password_digest: <%= BCrypt::Password.create('asdasd', cost: 4) %>
+  email: norbert@example.com
+  password_digest: <%= BCrypt::Password.create('secret', cost: 4) %>
 
 Susanne:
   name: Susanne
-  email: su@sanne.de
-  password_digest: <%= BCrypt::Password.create('asdasd', cost: 4) %>
+  email: susanne@example.com
+  password_digest: <%= BCrypt::Password.create('secret', cost: 4) %>
+
+Admin:
+  name: Susanne
+  email: admin@example.com
+  password_digest: <%= BCrypt::Password.create('secret', cost: 4) %>
+  is_admin: true

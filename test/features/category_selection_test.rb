@@ -15,7 +15,6 @@ feature 'Category selection' do
     sleep(1)
     page.find('.show-places').click
     sleep(1)
-    screenshot_and_open_image
     page.must_have_content('Magda')
   end
 
@@ -27,6 +26,7 @@ feature 'Category selection' do
     sleep(1)
     page.find('.show-places').click
     sleep(1)
+    #screenshot_and_open_image
     page.wont_have_content('Magda')
   end
 

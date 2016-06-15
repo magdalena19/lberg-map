@@ -1,4 +1,4 @@
-#place-modal.modal.fade.places-modal{role: 'dialog'}
+.modal.fade.places-modal{role: 'dialog'}
   .modal-dialog
     .modal-content
       .modal-header
@@ -9,7 +9,7 @@
         .row
           #accordion.panel-group.col-xs-12
             - @places.each do |place|
-              .panel.panel-default
+              .panel.panel-default.one-place{class: place.category_ids}
                 .panel-heading
                   %h4.panel-title
                     %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse_#{place.id}"}

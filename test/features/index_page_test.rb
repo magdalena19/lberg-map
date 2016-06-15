@@ -13,7 +13,7 @@ feature 'Index page' do
   end
 
   def see_german_link
-    page.must_have_content('Neuer Ort')
+    page.must_have_content('Alle')
   end
 
   def switch_to_german

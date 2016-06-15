@@ -4,7 +4,10 @@
       .modal-header
         %button.close{'data-dismiss': 'modal', type: 'button'} &times;
         %h4.modal-title
-      .modal-body{dir: "#{text_direction}"}
+      .modal-body
+        .row
+          .col-xs-12.place-description.margin-below{dir: text_direction}
+          .col-xs-12.place-address{dir: text_direction}
       .modal-footer
         %button.btn.btn-default{'data-dismiss': 'modal', type: 'button'}
           = t('close')

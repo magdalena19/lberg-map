@@ -22,7 +22,8 @@ jQuery(function() {
       layer.on('click', function(e) {
         jQuery('.popup').remove();
         placeModal.find('.modal-title').html(feature.properties.name);
-        placeModal.find('.modal-body').html(feature.properties.address + '<br><br>' + feature.properties.description);
+        placeModal.find('.place-description').html(feature.properties.description);
+        placeModal.find('.place-address').html('<i>' + feature.properties.address + '</i>');
         placeModal.modal('show');
       });
     };

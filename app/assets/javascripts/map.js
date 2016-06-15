@@ -1,7 +1,7 @@
 jQuery(function() {
   jQuery('#map').each(function() {
     jQuery(window).resize(function(){
-      var innerHeight = jQuery(window).height() - jQuery('.navbar').outerHeight() - 50;
+      var innerHeight = jQuery(window).height() - jQuery('.navbar').outerHeight() + 20;
       jQuery('#map').height(innerHeight);
     }).resize();
 

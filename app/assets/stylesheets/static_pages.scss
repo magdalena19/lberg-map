@@ -46,7 +46,7 @@
 
   .place-control-container {
     right: -7px;
-    bottom: 20px;
+    bottom: 25px;
     button {
       font-size: 35px;
       width: 70px;
@@ -64,10 +64,14 @@
   }
 
   .category-indicator {
-    bottom: 37px;
+    bottom: 42px;
     right: 75px;
     font-size: 20px;
   }
+}
+
+.panel-group {
+  margin-bottom: 0 !important;
 }
 
 .zoom-to-place {
@@ -87,7 +91,6 @@
 .places-modal {
   .modal-footer {
     padding-top: none;
-    border-style: none;
   }
 }
 

@@ -1,7 +1,7 @@
 jQuery(function() {
   jQuery('#map').each(function() {
     jQuery(window).resize(function(){
-      var innerHeight = jQuery(window).height() - jQuery('.navbar').outerHeight() + 20;
+      var innerHeight = jQuery(window).height() - jQuery('.navbar').outerHeight() + 15;
       jQuery('#map').height(innerHeight);
     }).resize();
 
@@ -20,7 +20,6 @@ jQuery(function() {
     var onEachFeature = function(feature, layer) {
       layer._leaflet_id = feature.id; // for 'getLayer' function
       layer.on('click', function(e) {
-        jQuery('.popup').remove();
         placeModal.find('.modal-title').html(feature.properties.name);
         placeModal.find('.place-description').html(feature.properties.description);
         placeModal.find('.place-address').html('<i>' + feature.properties.address + '</i>');
@@ -72,7 +71,7 @@ jQuery(function() {
         jQuery('.places-modal').find('.place-container').hide();
         jQuery('.places-modal').find('.' + id).show();
       };
-      jQuery('.places-modal').find('.modal-header').html(category);
+      jQuery('.places-modal').find('.category').html(category);
       jQuery('.category-indicator').html(category);
     });
 

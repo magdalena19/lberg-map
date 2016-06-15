@@ -1,5 +1,5 @@
 = form_for(@place) do |f|
-  .col-xs-12.col-md-6
+  .col-md-6.margin-below
     %fieldset{class: "form-group row #{"has-error" if f.object.errors.include?(:name)}"}
       .col-xs-12
         = f.text_field :name, placeholder: Place.human_attribute_name('name'), class: 'form-control'
@@ -16,7 +16,8 @@
       .col-xs-7
         = f.text_field :city, placeholder: Place.human_attribute_name('city'), class: 'form-control', value: @geocoded ? @geocoded['village'] || @geocoded['town'] || @geocoded['state'] : @place.city
 
-    .row.margin-below
+  .col-md-6.margin-below
+    .row
       - Category.all.each do |category|
         .col-xs-4
           = category.name
@@ -24,19 +25,20 @@
           = hidden_field_tag 'place[category_ids][]', nil
           = check_box_tag 'place[category_ids][]', category.id, f.object.categories.include?(category)
 
-  .col-xs-12.col-md-6
+  .col-xs-12
     %fieldset{class: 'form-group row'}
       - Place.globalize_attribute_names.each do |attribute|
-        .col-xs-12
+        .col-md-6.margin-below
           = t attribute.to_s
-        .col-xs-12.margin-below
           = f.text_area attribute, class: 'description-area'
 
-  .row.margin-below
-    .col-xs-4
-      = show_simple_captcha
-    .col-xs-8
-      .col-xs-6
-        = f.submit class: 'btn btn-primary btn-success place-form-button'
-      .col-xs-6
-        = link_to t('back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger place-form-button'
+  .col-md-6
+    .row
+      .col-xs-4
+        = show_simple_captcha
+      .col-xs-8
+        .row
+          .col-xs-6
+            = f.submit class: 'btn btn-primary btn-success place-form-button'
+          .col-xs-6
+            = link_to t('back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger place-form-button'

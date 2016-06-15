@@ -68,7 +68,7 @@ jQuery(function() {
           return jQuery.inArray(parseInt(id), categories) > -1;
         });
         addPlaces(filteredPlaces);
-        jQuery('.places-modal').find('.place-container').hide();
+        jQuery('.places-modal').find('.one-place').hide();
         jQuery('.places-modal').find('.' + id).show();
       };
       jQuery('.places-modal').find('.category').html(category);

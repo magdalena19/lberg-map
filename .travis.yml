@@ -1,3 +1,8 @@
+before_script:
+  - psql -c 'create database lberg-map_test;' -U postgres
 language: ruby
 rvm:
   - 2.3.0
+  test:
+    adapter: postgresql
+    database: travis_ci_test

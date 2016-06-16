@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/magdalena19/lberg-map.svg?branch=master)](https://travis-ci.org/magdalena19/lberg-map)
+
 ***Local Development Environment***
 
 Some Dependencies you need:

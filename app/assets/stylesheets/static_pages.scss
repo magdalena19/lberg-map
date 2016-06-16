@@ -1,9 +1,10 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'colors'; 
 
 #map {
-  margin-top: -12px;
+  margin-top: -60px;
   border: 2px solid white;
   &.active {
     border: 2px solid green;
@@ -28,7 +29,6 @@
       margin: 3px;
       border: none;
       border-radius: 7px;
-      background-color: rgba(0,0,0,0.3);
       float: right;
       padding: 6px 9px 9px 9px;
     }
@@ -36,8 +36,9 @@
 
   .zoom-container {
     right: -7px;
-    top: 20px;
+    top: 60px;
     button {
+      background: rgba($green,0.5);
       font-size: 25px;
       width: 50px;
       height: 45px;
@@ -48,6 +49,7 @@
     right: -7px;
     bottom: 25px;
     button {
+      background: rgba($lilac,0.5);
       font-size: 35px;
       width: 70px;
       height: 60px;
@@ -55,7 +57,7 @@
   }
 
   .confirmation-button-container {
-    top: 10px;
+    top: 60px;
     display: none;
     text-align: center;
     button {
@@ -74,19 +76,38 @@
   margin-bottom: 0 !important;
 }
 
+.panel-title {
+  color: $green !important;
+}
+
 .add-place-buttons {
   width: 100%;
-  margin: 5px;
+  margin-bottom: 4px !important;
 }
 
 .category-button {
   width: 100%;
-  margin: 5px;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .places-modal {
   .modal-footer {
-    padding-top: none;
+    padding-top: 3px !important;
+  }
+}
+
+.place-modal {
+  .modal-body {
+    margin: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .modal-footer {
+    padding-top: 3px !important;
   }
 }
 
@@ -96,5 +117,5 @@
 
 .place-list-header-buttons {
   float: right;
-  margin-top: -9px;
+  cursor: pointer;
 }

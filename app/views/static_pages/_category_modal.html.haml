@@ -1,6 +1,10 @@
 .modal.fade.category-modal{role: 'dialog'}
   .modal-dialog
     .modal-content
+      .modal-header
+        %button.close{'data-dismiss': 'modal', type: 'button'} &times;
+        %h4.modal-title
+          =t('which_category?')
       .modal-body{dir: "#{text_direction}"}
         .row
           .col-xs-12

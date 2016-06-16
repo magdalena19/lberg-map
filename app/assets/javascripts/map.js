@@ -1,8 +1,7 @@
 jQuery(function() {
   jQuery('#map').each(function() {
     jQuery(window).resize(function(){
-      var innerHeight = jQuery(window).height() - jQuery('.navbar').outerHeight() + 15;
-      jQuery('#map').height(innerHeight);
+      jQuery('#map').height(jQuery(window).height() + 10);
     }).resize();
 
     map = L.map('map', {
@@ -31,7 +30,7 @@ jQuery(function() {
     var addPlaces = function(json) {
       marker = L.geoJson(json, {
         pointToLayer: function (feature, latlng) {
-          return L.circleMarker(latlng);
+          return L.circleMarker(latlng, {color: 'black'});
         },
         onEachFeature: onEachFeature
       }).addTo(map);
@@ -115,5 +114,15 @@ jQuery(function() {
       var placeId = jQuery(this).attr('place_id');
       window.location.href = 'places/' + placeId + '/edit';
     });
+
+    $('.navbar-collapse')
+      .on('show.bs.collapse', function() {
+        jQuery('.zoom-in').hide();
+        jQuery('.zoom-out').hide();
+      })
+      .on('hide.bs.collapse', function() {
+        jQuery('.zoom-in').show();
+        jQuery('.zoom-out').show();
+      });
   });
 });

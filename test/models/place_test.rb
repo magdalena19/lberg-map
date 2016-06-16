@@ -1,18 +1,17 @@
 require_relative '../test_helper'
-require 'auto_translator'
 
 class PlaceTest < ActiveSupport::TestCase
   def setup
+    @valid_translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
     @place = Place.new(name: 'Kiezspinne',
                        street: 'Schulze-Boysen-Straße',
                        house_number: '13',
                        postal_code: '10365',
                        city: 'Berlin',
-                       description_en: 'This is a test')
+                       description: '<center><b>This is the description.</b></center>')
   end
 
   test 'valid place is valid' do
-    @place.geocode
     assert @place.valid?
   end
 
@@ -26,10 +25,9 @@ class PlaceTest < ActiveSupport::TestCase
   end
 
   test 'html should be sanitized' do
-    @place.description_en = '<center><b>This is the description.</b></center>'
     @place.save
     saved_description = Place.find_by(name: 'Kiezspinne').description_en
-    assert_equal(saved_description, '<b>This is the description.</b>')
+    assert_equal '<b>This is the description.</b>', saved_description
   end
 
   # TODO: Check whether entry is already in DB

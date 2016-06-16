@@ -3,6 +3,6 @@ before_script:
 language: ruby
 rvm:
   - 2.3.0
-  test:
-    adapter: postgresql
-    database: travis_ci_test
+test:
+  adapter: postgresql
+  database: travis_ci_test

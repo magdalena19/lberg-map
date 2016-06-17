@@ -4,20 +4,20 @@ require 'rails/test_help'
 require 'minitest/rails'
 require 'minitest/reporters'
 require 'minitest/rails/capybara'
+require 'capybara/poltergeist'
 
 reporter_options = { color: true }
 Minitest::Reporters.use!(
   Minitest::Reporters::DefaultReporter.new(reporter_options),
   ENV,
-  Minitest.backtrace_filter
-  )
+  Minitest.backtrace_filter)
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 end
 
-Geocoder.configure(:lookup => :test)
+Geocoder.configure(lookup: :test)
 Geocoder::Lookup::Test.set_default_stub(
   [
     {
@@ -45,7 +45,7 @@ class Capybara::Rails::TestCase
 
   before do
     if metadata[:js]
-      Capybara.javascript_driver = :webkit
+      Capybara.javascript_driver = :poltergeist
       Capybara.current_driver = Capybara.javascript_driver
       DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.start

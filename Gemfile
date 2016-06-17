@@ -5,7 +5,7 @@ gem 'rails', '4.2.5.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-# custon gems
+# custom gems
 gem 'pg'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'haml-rails'
@@ -15,6 +15,7 @@ gem 'globalize-accessors'
 gem 'rails-html-sanitizer'
 gem 'geocoder', '~> 1.3.4'
 gem 'simple_captcha2', require: 'simple_captcha'
+gem 'pry'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -63,6 +64,7 @@ group :test do
   gem 'minitest-rails-capybara'
   gem 'guard'
   gem 'guard-minitest'
+  gem 'poltergeist'
   gem 'selenium-webdriver' # non-headless javascript testing
   gem 'capybara-webkit' # headless javascript testing
   gem 'capybara-screenshot'

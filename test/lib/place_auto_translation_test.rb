@@ -1,17 +1,14 @@
-require_relative '../test_helper'
-require 'auto_translator'
+# require_relative '../test_helper'
 
-class PlaceTest < ActiveSupport::TestCase
+class AutoTranslatorTest < ActiveSupport::TestCase
   def setup
     @valid_translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
-    @place = Place.new(latitude: 12.0,
-                       longitude: 52.0,
-                       name: 'Kiezspinne',
+    @place = Place.new(name: 'Kiezspinne',
                        street: 'Schulze-Boysen-Straße',
                        house_number: '13',
                        postal_code: '10365',
                        city: 'Berlin',
-                       description_en: 'This is a test')
+                       description: 'This is a test')
   end
 
   # AUTO TRANSLATION WRAPPER TESTS
@@ -35,11 +32,5 @@ class PlaceTest < ActiveSupport::TestCase
   test 'should translate text below character limit' do
     text = 'This is a test'
     assert_equal 'Automatische Übersetzung: Dies ist ein Test', @valid_translator.failsafe_translate(text, 'en', 'de')
-  end
-
-  test 'should autotranslate after_create' do
-    @place.save
-    @place.reload
-    assert_equal "Automatische Übersetzung: Dies ist ein Test", @place.description_de
   end
 end

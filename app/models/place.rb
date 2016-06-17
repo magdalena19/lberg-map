@@ -40,7 +40,6 @@ class Place < ActiveRecord::Base
     end
   end
 
-
   ## CATEGORY TAGGING
   def category_ids=(ids)
     clean_ids = ids.reject(&:empty?)

@@ -3,12 +3,6 @@ require_relative '../test_helper'
 class AutoTranslatorTest < ActiveSupport::TestCase
   def setup
     @valid_translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
-    @place = Place.new(name: 'Kiezspinne',
-                       street: 'Schulze-Boysen-Straße',
-                       house_number: '13',
-                       postal_code: '10365',
-                       city: 'Berlin',
-                       description: 'This is a test')
   end
 
   # AUTO TRANSLATION WRAPPER TESTS

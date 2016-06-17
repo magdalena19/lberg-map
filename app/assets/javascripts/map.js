@@ -11,7 +11,7 @@ jQuery(function() {
     });
     jQuery('.zoom-in').click(function() {map.zoomIn()});
     jQuery('.zoom-out').click(function() {map.zoomOut()});
-    url = '//tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+    url = 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg';
     baselayer = L.tileLayer(url, {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
     map.addLayer(baselayer);
     map.setView([52.513, 13.474], 12);

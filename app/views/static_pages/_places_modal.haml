@@ -15,7 +15,7 @@
                     %a{'data-parent': '#accordion', 'data-toggle': 'collapse', href: "#collapse_#{place.id}"}
                       %b= place.name
                     .place-list-header-buttons
-                      - if is_admin?
+                      - if signed_in?
                         .glyphicon.glyphicon-pencil.edit-place{place_id: place.id}
                       .glyphicon.glyphicon-search.zoom-to-place{id: place.id}
                 .panel-collapse.collapse{id: "collapse_#{place.id}"}

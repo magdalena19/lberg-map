@@ -9,7 +9,7 @@
           .col-xs-12.place-description.margin-below
           .col-xs-12.place-address
       .modal-footer
-        - if is_admin?
+        - if signed_in?
           %button.edit-place.btn.btn-success.glyphicon.glyphicon-pencil{type: 'button'}
         %button.btn.btn-default{'data-dismiss': 'modal', type: 'button'}
           = t('close')

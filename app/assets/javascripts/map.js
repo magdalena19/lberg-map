@@ -115,7 +115,7 @@ jQuery(function() {
       window.location.href = 'places/' + placeId + '/edit';
     });
 
-    // MOVE ZOOM BUTTONS ON COLLAPSE
+    // FRONTEND STUFF
     jQuery('.navbar-collapse')
       .on('show.bs.collapse', function() {
         jQuery('.zoom-container').animate({top:115}, 300);
@@ -123,5 +123,15 @@ jQuery(function() {
       .on('hide.bs.collapse', function() {
         jQuery('.zoom-container').animate({top:60}, 300);
       });
+
+    var toggleTriangle = function(e) {
+        jQuery(e.target)
+            .prev('.panel-heading')
+            .find('.triangle')
+            .toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
+    }
+    jQuery('#accordion')
+      .on('hidden.bs.collapse', toggleTriangle)
+      .on('shown.bs.collapse', toggleTriangle);
   });
 });

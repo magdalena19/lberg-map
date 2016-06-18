@@ -13,6 +13,7 @@
                 .panel-heading
                   %h4.panel-title
                     %a{'data-parent': '#accordion', 'data-toggle': 'collapse', href: "#collapse_#{place.id}"}
+                      .triangle.glyphicon.glyphicon-triangle-bottom
                       %b= place.name
                     .place-list-header-buttons
                       - if signed_in?

@@ -7,26 +7,25 @@ feature 'Category selection' do
 
   scenario 'Place is shown when \'all\' was clicked', js: true do
     visit root_path
-    page.find('.show-categories').click
+    page.find('.show-categories').trigger('click')
     sleep(1)
     page.must_have_content('All')
     page.must_have_content('Playground')
     click_on('All')
     sleep(1)
-    page.find('.show-places').click
+    page.find('.show-places').trigger('click')
     sleep(1)
     page.must_have_content('Magda')
   end
 
   scenario 'Place is not shown when other category was clicked', js: true do
     visit root_path
-    page.find('.show-categories').click
+    page.find('.show-categories').trigger('click')
     sleep(1)
     click_on('Playground')
     sleep(1)
-    page.find('.show-places').click
+    page.find('.show-places').trigger('click')
     sleep(1)
-    #screenshot_and_open_image
     page.wont_have_content('Magda')
   end
 

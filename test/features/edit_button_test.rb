@@ -3,7 +3,7 @@ require 'test_helper'
 feature 'edit buttons' do
   scenario 'are not visible when not logged in', js: true do
     visit root_path
-    page.find('.show-places').click
+    page.find('.show-places').trigger('click')
     sleep(1)
     page.wont_have_css('.edit-place')
     page.wont_have_css('.glyphicon-pencil')
@@ -11,7 +11,7 @@ feature 'edit buttons' do
 
   scenario 'are visible when logged in', js: true do
     login
-    page.find('.show-places').click
+    page.find('.show-places').trigger('click')
     sleep(1)
     page.must_have_css('.edit-place')
   end

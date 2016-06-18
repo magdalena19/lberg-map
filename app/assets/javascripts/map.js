@@ -10,10 +10,22 @@ jQuery(function() {
     });
     jQuery('.zoom-in').click(function() {map.zoomIn()});
     jQuery('.zoom-out').click(function() {map.zoomOut()});
-    url = 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg';
-    baselayer = L.tileLayer(url, {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
-    map.addLayer(baselayer);
-    map.setView([52.513, 13.474], 12);
+
+    var addMap = function(url) {
+      baselayer = L.tileLayer(url, {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'});
+      map.addLayer(baselayer);
+      map.setView([52.513, 13.474], 12);
+    };
+
+     $.ajax({
+        url: 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/1/1/1.jpg',
+        success: function(result) {
+          addMap('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg');
+        },     
+        error: function(result) {
+          addMap('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
+        }
+     });
 
     var placeModal = jQuery('.place-modal');
     var onEachFeature = function(feature, layer) {

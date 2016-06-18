@@ -98,7 +98,7 @@
 }
 
 .modal-content {
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(white,0.8);
 }
 
 .modal-header {
@@ -107,7 +107,7 @@
   border-radius: 5px 5px 0px 0px;
   background: linear-gradient(to right, rgba(black,0.8), rgba($lilac,0.4));
   h4 {
-    color: lighten($lilac, 30%);
+    color: rgba(white,0.5);
   }
 }
 

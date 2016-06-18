@@ -115,15 +115,13 @@ jQuery(function() {
       window.location.href = 'places/' + placeId + '/edit';
     });
 
-    // HIDE ZOOM BUTTONS ON COLLAPSE
-    $('.navbar-collapse')
+    // MOVE ZOOM BUTTONS ON COLLAPSE
+    jQuery('.navbar-collapse')
       .on('show.bs.collapse', function() {
-        jQuery('.zoom-in').hide();
-        jQuery('.zoom-out').hide();
+        jQuery('.zoom-container').animate({top:115}, 300);
       })
       .on('hide.bs.collapse', function() {
-        jQuery('.zoom-in').show();
-        jQuery('.zoom-out').show();
+        jQuery('.zoom-container').animate({top:60}, 300);
       });
   });
 });

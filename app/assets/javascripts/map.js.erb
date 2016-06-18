@@ -39,10 +39,15 @@ jQuery(function() {
       });
     };
 
+    var icon =  L.icon({
+      iconUrl: '<%= image_path 'marker.png' %>',
+      iconSize: [40, 40],
+    });
+
     var addPlaces = function(json) {
       marker = L.geoJson(json, {
         pointToLayer: function (feature, latlng) {
-          return L.circleMarker(latlng, {color: 'black'});
+          return L.marker(latlng, {icon: icon});
         },
         onEachFeature: onEachFeature
       }).addTo(map);

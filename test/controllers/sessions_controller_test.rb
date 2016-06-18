@@ -8,7 +8,8 @@ class SessionsControllerTest < ActionController::TestCase
   test 'can login' do
     post :create, sessions: {
       email: @user.email,
-      password: 'asdasd' }
+      password: 'secret'
+    }
     assert_equal session[:user_id], @user.id
   end
 

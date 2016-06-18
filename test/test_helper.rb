@@ -34,10 +34,6 @@ Geocoder::Lookup::Test.set_default_stub(
   ]
 )
 
-# allow tile loading from foreign server
-Capybara::Webkit.configure do |config|
-  %w[a b c].each { |x| config.allow_url("tile-#{x}.openstreetmap.fr") }
-end
 # While testing with Javascript flag, test runs in another thread,
 # thus created fixtures are not available without the following setup
 class Capybara::Rails::TestCase

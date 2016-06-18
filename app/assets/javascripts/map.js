@@ -1,8 +1,8 @@
 jQuery(function() {
   jQuery('#map').each(function() {
     jQuery(window).resize(function(){
-      jQuery('#map').height(jQuery(window).height() + 10);
-    }).resize();
+      jQuery('#map').height(jQuery(window).height());
+    }); // initial size is set in CSS, because curiously did not work properly here
 
     map = L.map('map', {
       zoomControl: false,
@@ -72,7 +72,7 @@ jQuery(function() {
         jQuery('.places-modal').find('.' + id).show();
       };
       jQuery('.places-modal').find('.category').html(category);
-      jQuery('.category-indicator').html(category);
+      jQuery('.show-categories-text').html(category);
     });
 
     jQuery('.category-button#all').click();
@@ -115,6 +115,7 @@ jQuery(function() {
       window.location.href = 'places/' + placeId + '/edit';
     });
 
+    // HIDE ZOOM BUTTONS ON COLLAPSE
     $('.navbar-collapse')
       .on('show.bs.collapse', function() {
         jQuery('.zoom-in').hide();

@@ -54,13 +54,9 @@
   margin-right: 20px;
 }
 
-.nav-pills {
-  li {
-    a {
-      padding-left: 4px;
-      padding-right: 4px;
-    }
-  }
+.nav-pills li a {
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .nav-pills.pull-left li a {
@@ -68,14 +64,14 @@
 }
 
 .nav-pills.pull-right li {
-  a { color: black !important; }
+  a { color: $green !important; }
   &.active {
-    a { color: $green !important;}
+    a { color: $lilac !important;}
   }
 }
 
 .navbar-inverse  {
-  background: linear-gradient(to right, rgba(0,0,0,0.9), rgba($green,0.6));
+  background: rgba(0,0,0,0.7);
   border: none;
   .glyphicon {
     font-size: 18px;
@@ -105,9 +101,9 @@
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 5px 5px 0px 0px;
-  background: linear-gradient(to right, rgba(black,0.8), rgba($lilac,0.4));
+  background: rgba(darken($lilac, 20%),0.6);
   h4 {
-    color: rgba(white,0.5);
+    color: white;
   }
 }
 

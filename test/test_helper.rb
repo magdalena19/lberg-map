@@ -30,6 +30,7 @@ Geocoder::Lookup::Test.set_default_stub(
         'town' => 'Berlin',
       },
       'type' => 'house',
+      'boundingbox' => [52.5, 52.3, 13.0, 12.5],
     }
   ]
 )

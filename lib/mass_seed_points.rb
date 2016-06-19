@@ -21,7 +21,8 @@ module MassSeedPoints
   end
 
   def self.bbox_from_cityname(cityname)
-    Geocoder.search(cityname).first.boundingbox
+      result = Geocoder.search(cityname).first
+      result && results.boundingbox.map(&:to_f) || nil
   end
 
   def self.random_point_inside_bbox(bbox)
@@ -62,7 +63,7 @@ module MassSeedPoints
   end
 
   def self.generate_category
-    id_nr = Category.any && (Category.all.map(&:id).max + 1) || 1
+    id_nr = Category.any? && (Category.all.map(&:id).max + 1) || 1
     Category.create(id: id_nr,
                     name_en: random_latin_string,
                     name_de: random_latin_string,
@@ -73,7 +74,11 @@ module MassSeedPoints
 
   def self.generate(number_of_points:, city:)
     @cityname = city
-    bbox = bbox_from_cityname(@cityname).map(&:to_f)
+    unless bbox = bbox_from_cityname(@cityname)
+      error = "No boundingbox found in which to insert points! Have you supplied a geolocation (city, district, ...)?"
+      puts error
+      return error
+    end
 
     # Create up to 10 categories
     amount_of_new_categories = 10 - Category.all.count

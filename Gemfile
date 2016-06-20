@@ -15,7 +15,6 @@ gem 'globalize-accessors'
 gem 'rails-html-sanitizer'
 gem 'geocoder', '~> 1.3.4'
 gem 'simple_captcha2', require: 'simple_captcha'
-gem 'pry'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

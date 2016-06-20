@@ -331,7 +331,6 @@ DEPENDENCIES
   minitest-reporters
   pg
   poltergeist
-  pry
   rails (= 4.2.5.1)
   rails-html-sanitizer
   rubocop

@@ -21,8 +21,8 @@ module MassSeedPoints
   end
 
   def self.bbox_from_cityname(cityname)
-      result = Geocoder.search(cityname).first
-      result && results.boundingbox.map(&:to_f) || nil
+    result = Geocoder.search(cityname).first
+    result && result.boundingbox.map(&:to_f) || nil
   end
 
   def self.random_point_inside_bbox(bbox)
@@ -54,6 +54,7 @@ module MassSeedPoints
               description_de: latin_lorem_ipsum(rand(10..90)),
               description_fr: latin_lorem_ipsum(rand(10..90)),
               description_ar: arab_lorem_ipsum(rand(10..90)),
+              reviewed: [true,false].sample
              ).save(validate: false)
 
     no_of_categories.times do

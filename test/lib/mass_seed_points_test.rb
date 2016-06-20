@@ -11,7 +11,7 @@ class MassSeedPointsTest < ActiveSupport::TestCase
     end
   end
 
-  test '0 Points returns error message' do
+  test '0 as points parameter creates no' do
     assert 'Place.count', 0 do
       MassSeedPoints.generate(number_of_points: 0, city: 'Berlin, Lichtenberg')
     end

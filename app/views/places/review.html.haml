@@ -1,0 +1,27 @@
+.container
+  %h4
+    Unreviewed points
+  %table.table.table-condensed.table-hover
+    %thead
+      %th.col-md-1
+      %th= Place.human_attribute_name('name')
+      %th= Place.human_attribute_name('address')
+      %th= Place.human_attribute_name('categories')
+      %th= Place.human_attribute_name('updated_at')
+    %tbody
+    - @places.each do |place|
+      %tr{class: "#{place.edit_status}-point"}
+        %td
+          = link_to edit_place_path(place) do
+            %span{class: 'glyphicon glyphicon-pencil'}
+          = link_to place_path(place), {method: "delete", data: { confirm: "Bist du dir sicher, dass du den Eintrag löschen willst?" }} do
+            %span{class: 'glyphicon glyphicon-trash'}
+        %td
+          = place.name
+        %td
+          = place.address
+        %td
+          = generate_categories_filter_links place
+        %td
+          = place.updated_at.to_s(:long)
+  = will_paginate

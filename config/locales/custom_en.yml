@@ -40,6 +40,8 @@ en:
         categories: 'categories'
         longitude: 'longitude'
         latitude: 'latitude'
+        created_at: 'created at'
+        updated_at: 'updated at'
     errors:
       messages:
         no_valid_postal_code: 'must have 5 digits'

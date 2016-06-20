@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20160616205645_add_reviewd_to_places.rb

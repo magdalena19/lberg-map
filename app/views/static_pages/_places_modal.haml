@@ -5,7 +5,7 @@
         %button.close{'data-dismiss': 'modal', type: 'button'} &times;
         %h4.modal-title
           .category
-      .modal-body{dir: "#{text_direction}"}
+      .modal-body
         .row
           #accordion.panel-group.col-xs-12
             - @places.each do |place|
@@ -13,18 +13,18 @@
                 .panel-heading
                   %h4.panel-title
                     %a{'data-parent': '#accordion', 'data-toggle': 'collapse', href: "#collapse_#{place.id}"}
+                      .triangle.glyphicon.glyphicon-triangle-bottom
                       %b= place.name
                     .place-list-header-buttons
-                      - if is_admin?
-                        %button.edit-place.btn.btn-default.glyphicon.glyphicon-pencil{type: 'button', place_id: place.id}
-                      %button.btn.btn-default.glyphicon.glyphicon-search.zoom-to-place{type: 'button', id: place.id}
+                      - if signed_in?
+                        .glyphicon.glyphicon-pencil.edit-place{place_id: place.id}
+                      .glyphicon.glyphicon-search.zoom-to-place{id: place.id}
                 .panel-collapse.collapse{id: "collapse_#{place.id}"}
-                  .panel-body                      
+                  .panel-body{dir: "#{text_direction}"}
                     .col-xs-12.margin-below
                       = place.description.html_safe if place.description
-                    .col-xs-9
+                    .col-xs-12
                       %i= place.address
-                    .col-xs-3
       .modal-footer
         %button.btn.btn-default{'data-dismiss': 'modal', type: 'button'}
           = t('close')

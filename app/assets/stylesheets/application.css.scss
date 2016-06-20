@@ -15,8 +15,9 @@
  *= require_self
  */
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'colors'; 
 
 .main-container {
   margin-top: 60px;
@@ -31,36 +32,85 @@
 }
 
 .logo {
-  font-size: 24px;
-  color: white;
+  font-size: 30px;
+  font-weight: bold;
   letter-spacing: -1px;
-  padding-top: 9px;
+  padding-top: 5px;
   &:hover {
-    color: white;
     text-decoration: none;
   }
 }
 
-.nav-pills {
-  li {
-    a {
-      padding-left: 4px;
-      padding-right: 4px;
-    }
-  }
-}
-
-
 .logo-left {
+  color: $lilac;
   margin-left: 10px;
   float: left;
-  font-size: 24px;
 }
 
 .logo-right {
+  color: $green;
   float: left;
-  font-size: 25px;
   padding-left: 3px;
-  margin-top: -1px;
-  font-weight: bold;
+  margin-right: 20px;
+}
+
+.nav-pills li a {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.nav-pills.pull-left li a {
+  color: $green !important;
+}
+
+.nav-pills.pull-right li {
+  a { color: $green !important; }
+  &.active {
+    a { color: $lilac !important;}
+  }
+}
+
+.navbar-inverse  {
+  background: rgba(0,0,0,0.7);
+  border: none;
+  .glyphicon {
+    font-size: 18px;
+    top: -1px;
+  }
+}
+
+.navbar-collapse {
+  border: none;
+  margin: 0 !important;
+}
+
+.navbar-toggle {
+  margin-right: 4px;
+  border: none;
+  background: none !important;
+  .icon-bar {
+    background: black !important;    
+  }
+}
+
+.modal-content {
+  background-color: rgba(white,0.8);
+}
+
+.modal-header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px 5px 0px 0px;
+  background: rgba(darken($lilac, 20%),0.6);
+  h4 {
+    color: white;
+  }
+}
+
+.btn-success {
+  background: $green !important;
+}
+
+.btn-danger {
+  background: $lilac !important;
 }

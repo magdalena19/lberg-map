@@ -1,16 +1,16 @@
 = form_for(@place) do |f|
   .col-md-6.margin-below
-    %fieldset{class: "form-group row #{"has-error" if f.object.errors.include?(:name)}"}
+    %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
       .col-xs-12
         = f.text_field :name, placeholder: Place.human_attribute_name('name'), class: 'form-control'
 
-    %fieldset{class: "form-group row #{"has-error" if f.object.errors.include?(:street)}"}
+    %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:street)}"}
       .col-xs-8
         = f.text_field :street, placeholder: Place.human_attribute_name('street'), class: 'form-control', value: @geocoded ? @geocoded['road'] : @place.street
       .col-xs-4
         = f.text_field :house_number, placeholder: 'Nr.', class: 'form-control', value: @geocoded ? @geocoded['house_number'] : @place.house_number
 
-    %fieldset{class: "form-group row #{"has-error" if f.object.errors.include?(:postal_code) || f.object.errors.include?(:city)}"}
+    %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:postal_code) || f.object.errors.include?(:city)}"}
       .col-xs-5
         = f.text_field :postal_code, placeholder: Place.human_attribute_name('postal_code'), class: 'form-control', value: @geocoded ? @geocoded['postcode'] : @place.postal_code
       .col-xs-7
@@ -19,7 +19,7 @@
   .col-md-6.margin-below
     .row
       - Category.all.each do |category|
-        .col-xs-4
+        .col-xs-4{dir: "#{text_direction}"}
           = category.name
         .col-xs-2
           = hidden_field_tag 'place[category_ids][]', nil
@@ -28,17 +28,16 @@
   .col-xs-12
     %fieldset{class: 'form-group row'}
       - Place.globalize_attribute_names.each do |attribute|
-        .col-md-6.margin-below
+        .col-md-6.margin-below{dir: "#{'rtl' if attribute.to_s == 'description_ar'}"}
           = t attribute.to_s
           = f.text_area attribute, class: 'description-area'
 
-  .col-md-6
+  .col-xs-12.margin-below
     .row
-      .col-xs-4
+      .col-md-6
         = show_simple_captcha
-      .col-xs-8
-        .row
-          .col-xs-6
-            = f.submit class: 'btn btn-primary btn-success place-form-button'
-          .col-xs-6
-            = link_to t('back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger place-form-button'
+    .row
+      .col-xs-6
+        = f.submit class: 'btn btn-primary btn-success place-form-button'
+      .col-xs-6.col-md-2
+        = link_to t('back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger place-form-button'

@@ -40,6 +40,8 @@ de:
         categories: 'Kategorien'
         longitude: 'Längengrad'
         latitude: 'Breitengrad'
+        created_at: 'Erstellt am'
+        updated_at: 'Geändert am'
     errors:
       messages:
         no_valid_postal_code: 'muss aus 5 Ziffern bestehen'

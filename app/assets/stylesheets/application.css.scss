@@ -114,3 +114,13 @@
 .btn-danger {
   background: $lilac !important;
 }
+
+// Review table style
+
+.edited-point {
+  background-color: lighten(rgb(223, 155, 99), 25);
+}
+
+.new-point {
+  background-color: lighten(rgb(124, 223, 99), 25);
+}

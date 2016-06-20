@@ -11,5 +11,6 @@ Rails.application.routes.draw do
       resources :descriptions
     end
     resources :users
+    get '/review' => 'places#review'
   end
 end

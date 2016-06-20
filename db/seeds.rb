@@ -14,6 +14,7 @@ Place.new(id: 1001,
           description_de: lorem_ipsum,
           description_fr: lorem_ipsum,
           description_ar: lorem_ipsum_arabic,
+          reviewed: false
          ).save(validate: false)
 
 Place.new(id: 1002,
@@ -28,6 +29,7 @@ Place.new(id: 1002,
           description_de: lorem_ipsum,
           description_fr: lorem_ipsum,
           description_ar: lorem_ipsum_arabic,
+          reviewed: true
          ).save(validate: false)
 
 Place.new(id: 1003,
@@ -42,6 +44,7 @@ Place.new(id: 1003,
           description_de: lorem_ipsum,
           description_fr: lorem_ipsum,
           description_ar: lorem_ipsum_arabic,
+          reviewed: false
          ).save(validate: false)
 
 Category.create(id: 1,

@@ -119,7 +119,15 @@ class Place < ActiveRecord::Base
       { key: value }
     end.merge!( address: address,
                 description: description,
-                categories: categories.map { |c| c.id }
+                categories: categories.map(&:id)
               )
+  end
+
+  def edit_status
+    if created_at == updated_at
+      'new'
+    else
+      'edited'
+    end
   end
 end

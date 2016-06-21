@@ -24,7 +24,7 @@ class PlacesController < ApplicationController
   def update
     @place = Place.find(params[:id])
     @place.reviewed = true if signed_in?
-    if simple_captcha_valid?
+    if simple_captcha_valid? || signed_in?
       save_update
     else
       flash.now[:danger] = 'Captcha not valid!'
@@ -45,7 +45,7 @@ class PlacesController < ApplicationController
   def create
     @place = Place.new(place_params)
     @place.reviewed = true if signed_in?
-    if simple_captcha_valid?
+    if simple_captcha_valid? || signed_in?
       save_new
     else
       flash.now[:danger] = 'Captcha not valid!'
@@ -91,7 +91,7 @@ class PlacesController < ApplicationController
   end
 
   def require_login
-    unless session[:user_id]
+    unless signed_in?
       flash.now[:danger] = 'Access to this page has been restricted. Please login first!'
       redirect_to login_path
     end

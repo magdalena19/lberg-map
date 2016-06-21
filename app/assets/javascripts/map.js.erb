@@ -45,12 +45,16 @@ jQuery(function() {
     });
 
     var addPlaces = function(json) {
+      var cluster = L.markerClusterGroup({
+      });
       marker = L.geoJson(json, {
         pointToLayer: function (feature, latlng) {
           return L.marker(latlng, {icon: icon});
         },
         onEachFeature: onEachFeature
-      }).addTo(map);
+      });
+      cluster.addLayer(marker);
+      map.addLayer(cluster);
     };
     addPlaces(window.placesJson);
 

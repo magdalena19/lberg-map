@@ -21,11 +21,17 @@
             = link_to('', new_place_path, class: 'glyphicon glyphicon-plus-sign')
           %li{class: "#{'active' if current_page?(places_path)}"}
             = link_to('', places_path, class: 'glyphicon glyphicon-pencil')
-          %li{class: "#{'active' if current_page?(edit_user_path(session[:user_id]))}"}
-            = link_to('', edit_user_path(session[:user_id]), class: 'glyphicon glyphicon-user')
-          %li
-            = link_to('', logout_path, class: 'glyphicon glyphicon-log-out')
       %ul.nav.navbar-nav.nav-pills.pull-right
-        - I18n.available_locales.each do |l|
-          %li{class: "#{'active' if l == locale}"}
-            = link_to l.to_s, locale: l.to_s
+        %li.dropdown
+          %span.caret
+          = link_to 'Settings', '#', { "data-toggle" => "dropdown", class: "dropdown-toggle"}
+          %ul.dropdown-menu
+            - I18n.available_locales.each do |l|
+              %li{class: "#{'active' if l == locale}"}
+                = link_to l.to_s, locale: l.to_s
+            %li.divider
+            - if signed_in?
+              %li
+                = link_to('', edit_user_path(session[:user_id]), class: 'glyphicon glyphicon-user')
+              %li
+                = link_to('', logout_path, class: 'glyphicon glyphicon-log-out')

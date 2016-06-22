@@ -162,14 +162,6 @@ jQuery(function() {
     });
 
     // FRONTEND STUFF
-    jQuery('.navbar-collapse')
-      .on('show.bs.collapse', function() {
-        jQuery('.zoom-container').animate({top:115}, 300);
-      })
-      .on('hide.bs.collapse', function() {
-        jQuery('.zoom-container').animate({top:60}, 300);
-      });
-
     var toggleTriangle = function(e) {
       jQuery(e.target)
         .prev('.panel-heading')

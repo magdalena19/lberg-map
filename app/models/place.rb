@@ -119,7 +119,9 @@ class Place < ActiveRecord::Base
       { key: value }
     end.merge!( address: address,
                 description: description,
-                categories: categories.map(&:id)
+                categories: categories.map(&:id),
+                longitude: longitude,
+                latitude: latitude,
               )
   end
 

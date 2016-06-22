@@ -33,7 +33,8 @@
 }
 
 .logo {
-  font-size: 40px;
+  margin-top: 6px;
+  font-size: 30px;
   font-weight: bold;
   letter-spacing: -1px;
   &:hover {
@@ -43,7 +44,6 @@
 
 .logo-left {
   color: $lilac;
-  margin-left: 10px;
   float: left;
 }
 
@@ -51,7 +51,7 @@
   color: $green;
   float: left;
   padding-left: 3px;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .navbar-inverse  {
@@ -61,8 +61,7 @@
   .glyphicon {
     margin-top: 15px;
     color: $green;
-    font-size: 26px;
-    top: -1px;
+    font-size: 20px;
   }
 }
 

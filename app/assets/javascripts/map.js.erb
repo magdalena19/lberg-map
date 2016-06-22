@@ -106,6 +106,10 @@ jQuery(function() {
 
     jQuery('.category-button').click( function() {
       jQuery('.loading').show();
+<<<<<<< HEAD
+=======
+      jQuery('.control-container').hide();
+>>>>>>> fced333... category filter via ajax
       jQuery('.category-modal').modal('hide');
       jQuery('.category-button').removeClass('active');
       jQuery('.category-button').removeClass('active');
@@ -124,6 +128,10 @@ jQuery(function() {
           updatePlaces(result);
           updatePlacesList(result);
           jQuery('.loading').hide();
+<<<<<<< HEAD
+=======
+          jQuery('.control-container').fadeIn();
+>>>>>>> fced333... category filter via ajax
         }
       });      
     });

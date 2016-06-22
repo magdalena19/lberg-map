@@ -35,7 +35,7 @@
   .col-xs-12.margin-below
     .row
       .col-md-6
-        = show_simple_captcha
+        = show_simple_captcha unless signed_in?
     .row
       .col-xs-6
         = f.submit class: 'btn btn-primary btn-success place-form-button'

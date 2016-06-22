@@ -59,7 +59,7 @@
     right: -7px;
     bottom: 25px;
     button {
-      background: rgba(darken($lilac, 25%),0.5);
+      background: rgba(darken($lilac, 15%),0.5);
       font-size: 35px;
       width: 70px;
       height: 60px;
@@ -81,7 +81,7 @@
       left: -50%;
       margin: 3px;
       border: none;
-      background: rgba(darken($lilac, 25%),0.5);
+      background: rgba(darken($lilac, 15%),0.5);
       font-size: 20px;
       .show-categories-text {
         float: left;

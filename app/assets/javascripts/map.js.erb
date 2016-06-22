@@ -47,7 +47,13 @@ jQuery(function() {
       if (typeof cluster !== 'undefined') {
         map.removeLayer(cluster);
       };
-      cluster = L.markerClusterGroup({});
+      cluster = L.markerClusterGroup({
+        polygonOptions: {
+          fillColor: 'rgb(109, 73, 129)',
+          weight: 0,
+          fillOpacity: 0.3
+        }
+      });
       var marker = L.geoJson(json, {
         pointToLayer: function (feature, latlng) {
           return L.marker(latlng, {icon: icon});
@@ -100,7 +106,6 @@ jQuery(function() {
 
     jQuery('.category-button').click( function() {
       jQuery('.loading').show();
-      jQuery('.control-container').hide();
       jQuery('.category-modal').modal('hide');
       jQuery('.category-button').removeClass('active');
       jQuery('.category-button').removeClass('active');
@@ -119,7 +124,6 @@ jQuery(function() {
           updatePlaces(result);
           updatePlacesList(result);
           jQuery('.loading').hide();
-          jQuery('.control-container').fadeIn();
         }
       });      
     });

@@ -32,10 +32,9 @@
 }
 
 .logo {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: bold;
   letter-spacing: -1px;
-  padding-top: 5px;
   &:hover {
     text-decoration: none;
   }
@@ -54,47 +53,23 @@
   margin-right: 20px;
 }
 
-.nav-pills li a {
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-.nav-pills.pull-left li a {
-  color: $green !important;
-}
-
-.nav-pills.pull-right li {
-  a { color: $green !important; }
-  &.active {
-    a { color: $lilac !important;}
-  }
-}
-
 .navbar-inverse  {
+  line-height: 70px;
+  height: 70px;
+  min-width: 350px;
   background: rgba(0,0,0,0.7);
   border: none;
   .glyphicon {
-    font-size: 18px;
+    margin-top: 22px;
+    color: $green;
+    font-size: 26px;
     top: -1px;
   }
 }
 
-.navbar-collapse {
-  border: none;
-  margin: 0 !important;
-}
-
-.navbar-toggle {
-  margin-right: 4px;
-  border: none;
-  background: none !important;
-  .icon-bar {
-    background: black !important;    
-  }
-}
-
-.dropdown-menu {
-  background-color: black;
+.navbar-dropdown > a {
+  color: $green;
+  margin-left: 15px;
 }
 
 .modal-content {

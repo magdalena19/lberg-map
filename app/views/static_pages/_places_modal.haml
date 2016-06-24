@@ -7,24 +7,23 @@
           .category
       .modal-body
         .row
-          #accordion.panel-group.col-xs-12
-            - @places.each do |place|
-              .panel.panel-default.one-place{class: place.category_ids}
-                .panel-heading
-                  %h4.panel-title
-                    %a{'data-parent': '#accordion', 'data-toggle': 'collapse', href: "#collapse_#{place.id}"}
-                      .triangle.glyphicon.glyphicon-triangle-bottom
-                      %b= place.name
-                    .place-list-header-buttons
-                      - if signed_in?
-                        .glyphicon.glyphicon-pencil.edit-place{place_id: place.id}
-                      .glyphicon.glyphicon-search.zoom-to-place{id: place.id}
-                .panel-collapse.collapse{id: "collapse_#{place.id}"}
-                  .panel-body{dir: "#{text_direction}"}
-                    .col-xs-12.margin-below
-                      = place.description.html_safe if place.description
-                    .col-xs-12
-                      %i= place.address
+          #accordion.panel-group.col-xs-12.places-list
+            / the template goes here
       .modal-footer
         %button.btn.btn-default{'data-dismiss': 'modal', type: 'button'}
           = t('close')
+
+.panel.panel-default.accordion-panel-template
+  .panel-heading
+    %h4.panel-title
+      %a.accordion-toggle{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseId"}
+        .triangle.glyphicon.glyphicon-triangle-bottom
+        %b.name
+      .place-list-header-buttons
+        - if signed_in?
+          .glyphicon.glyphicon-pencil.edit-place
+        .glyphicon.glyphicon-search.zoom-to-place
+  #collapseOne.panel-collapse.collapse.in
+    .panel-body{dir: "#{text_direction}"}
+      .col-xs-12.margin-below.description
+      %i.col-xs-12.address

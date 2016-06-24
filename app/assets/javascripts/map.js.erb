@@ -29,7 +29,6 @@ jQuery(function() {
 
     var placeModal = jQuery('.place-modal');
     var onEachFeature = function(feature, layer) {
-      layer._leaflet_id = feature.id; // for 'getLayer' function
       layer.on('click', function(e) {
         placeModal.find('.edit-place').attr('place_id', feature.properties.id);
         placeModal.find('.modal-title').html(feature.properties.name);
@@ -44,23 +43,59 @@ jQuery(function() {
       iconSize: [40, 40],
     });
 
-    var addPlaces = function(json) {
-      marker = L.geoJson(json, {
+    var updatePlaces = function(json) {
+      if (typeof cluster !== 'undefined') {
+        map.removeLayer(cluster);
+      };
+      cluster = L.markerClusterGroup({
+        polygonOptions: {
+          fillColor: 'rgb(109, 73, 129)',
+          weight: 0,
+          fillOpacity: 0.3
+        }
+      });
+      var marker = L.geoJson(json, {
         pointToLayer: function (feature, latlng) {
           return L.marker(latlng, {icon: icon});
         },
         onEachFeature: onEachFeature
-      }).addTo(map);
+      });
+      cluster.addLayer(marker);
+      map.addLayer(cluster);
     };
-    addPlaces(window.placesJson);
+
+    var updatePlacesList = function(json) {
+      jQuery('.places-list').html('');
+      var $template = jQuery('.accordion-panel-template');
+      var accordion_id = 0;
+      jQuery.each(json, function(id, place) {
+        var prop = place.properties;
+        var $newPanel = $template.clone();
+        $newPanel.find(".collapse").removeClass("in");
+        $newPanel.find(".accordion-toggle").attr("href",  "#" + (++accordion_id))
+        $newPanel.find(".name").html(place.properties.name);
+        $newPanel.find(".panel-collapse").attr("id", accordion_id).addClass("collapse").removeClass("in");
+        $newPanel.find('.description').html(place.properties.description);
+        $newPanel.find('.address').html(place.properties.address);
+        $newPanel.find('.zoom-to-place').attr('longitude', place.properties.longitude);
+        $newPanel.find('.zoom-to-place').attr('latitude', place.properties.latitude);
+        $newPanel.find('.edit-place').attr('place_id', place.id);
+        jQuery('.places-list').append($newPanel.show());
+      });
+
+      jQuery('.zoom-to-place').click(function() {
+        jQuery('.places-modal').modal('hide');
+        coordinates = [jQuery(this).attr('latitude'), jQuery(this).attr('longitude')];
+        map.setView(coordinates, 16, {animate: true});
+      });
+
+      jQuery('.edit-place').click(function() {
+        var placeId = jQuery(this).attr('place_id');
+        window.location.href = 'places/' + placeId + '/edit';
+      });
+    };
 
     // CATEGORY AND PLACE BUTTONS
-    jQuery('.zoom-to-place').click(function() {
-      jQuery('.places-modal').modal('hide');
-      clickedPlace = marker.getLayer(this.id);
-      map.setView(clickedPlace.getLatLng(), 15, {animate: true});
-    });
-
     jQuery('.show-places').click(function() {
       jQuery('.places-modal').modal('show');
     });
@@ -70,28 +105,28 @@ jQuery(function() {
     });
 
     jQuery('.category-button').click( function() {
+      jQuery('.loading').show();
       jQuery('.category-modal').modal('hide');
       jQuery('.category-button').removeClass('active');
+      jQuery('.category-button').removeClass('active');
       jQuery(this).addClass('active');
-      map.removeLayer(marker);
-      var id = jQuery(this).attr('id');
+      var categoryId = jQuery(this).attr('id');
       var category = jQuery(this).text();
-      if (id == 'all') {
-        addPlaces(window.placesJson);
-        jQuery('.places-modal').find('.place-container').show();
-      } else {
-        var filteredPlaces = jQuery.grep(window.placesJson, function (feature){
-          var categories = feature.properties.categories;
-          return jQuery.inArray(parseInt(id), categories) > -1;
-        });
-        addPlaces(filteredPlaces);
-        jQuery('.places-modal').find('.one-place').hide();
-        jQuery('.places-modal').find('.' + id).show();
-      };
       jQuery('.places-modal').find('.category').html(category);
       jQuery('.show-categories-text').html(category);
+      $.ajax({
+        url: "/",
+        data: {
+          category: categoryId,
+          locale: window.locale,
+        },
+        success: function(result) {
+          updatePlaces(result);
+          updatePlacesList(result);
+          jQuery('.loading').hide();
+        }
+      });      
     });
-
     jQuery('.category-button#all').click();
 
     // ADD PLACE
@@ -126,12 +161,6 @@ jQuery(function() {
       };
     });
 
-    // ADMIN BUTTONS
-    jQuery('.edit-place').click(function() {
-      var placeId = jQuery(this).attr('place_id');
-      window.location.href = 'places/' + placeId + '/edit';
-    });
-
     // FRONTEND STUFF
     jQuery('.navbar-collapse')
       .on('show.bs.collapse', function() {
@@ -142,10 +171,10 @@ jQuery(function() {
       });
 
     var toggleTriangle = function(e) {
-        jQuery(e.target)
-            .prev('.panel-heading')
-            .find('.triangle')
-            .toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
+      jQuery(e.target)
+        .prev('.panel-heading')
+        .find('.triangle')
+        .toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
     }
     jQuery('#accordion')
       .on('hidden.bs.collapse', toggleTriangle)

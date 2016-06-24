@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require leaflet
+//= require leaflet.markercluster
 //= require nicEdit.js
 //= require turbolinks
 //= require_tree .

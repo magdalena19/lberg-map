@@ -20,14 +20,19 @@
     - if signed_in?
       .dropdown.pull-right.navbar-dropdown
         %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-          User
+          = t('places')
           %span.caret
         %ul.dropdown-menu
           %li{class: "#{'active' if current_page?(new_place_path)}"}
-            = link_to('', new_place_path, class: 'glyphicon glyphicon-plus-sign')
+            = link_to(t('new_place'), new_place_path)
           %li{class: "#{'active' if current_page?(places_path)}"}
-            = link_to('', places_path, class: 'glyphicon glyphicon-pencil')
+            = link_to(t('index_places'), places_path)
+      .dropdown.pull-right.navbar-dropdown
+        %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+          = t('user')
+          %span.caret
+        %ul.dropdown-menu
           %li{class: "#{'active' if current_page?(edit_user_path(session[:user_id]))}"}
-            = link_to('', edit_user_path(session[:user_id]), class: 'glyphicon glyphicon-user')
+            = link_to(t('edit_user'), edit_user_path(session[:user_id]))
           %li
-            = link_to('', logout_path, class: 'glyphicon glyphicon-log-out')
+            = link_to(t('log_out'), logout_path)

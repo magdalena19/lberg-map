@@ -54,22 +54,31 @@
 }
 
 .navbar-inverse  {
-  line-height: 70px;
-  height: 70px;
   min-width: 350px;
   background: rgba(0,0,0,0.7);
   border: none;
   .glyphicon {
-    margin-top: 22px;
+    margin-top: 15px;
     color: $green;
     font-size: 26px;
     top: -1px;
   }
 }
 
-.navbar-dropdown > a {
-  color: $green;
+.navbar-dropdown {
+  margin-top: 17px;
   margin-left: 15px;
+  margin-bottom: 15px;
+  a {
+    color: $green !important;
+  }
+  .dropdown-menu {
+    color: $green;
+    .active > a {
+      color: white !important;
+      background: $green !important;      
+    }
+  }
 }
 
 .modal-content {

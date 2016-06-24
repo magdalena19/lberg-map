@@ -7,12 +7,14 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
+
       %a{href: root_path}
         .navbar-header.logo.logo-left
           LBERG
         .navbar-header.logo.logo-right
           MAP
-    #navbar.collapse.navbar-collapse
+
+    %ul#navbar.collapse.navbar-collapse
       %ul.nav.navbar-nav.nav-pills.pull-left
         %li{class: "#{'active' if current_page?(about_path)}"}
           = link_to('', about_path, class: 'glyphicon glyphicon-info-sign')
@@ -21,17 +23,13 @@
             = link_to('', new_place_path, class: 'glyphicon glyphicon-plus-sign')
           %li{class: "#{'active' if current_page?(places_path)}"}
             = link_to('', places_path, class: 'glyphicon glyphicon-pencil')
-      %ul.nav.navbar-nav.nav-pills.pull-right
+
+      .nav.navbar-nav.nav-pills.pull-right
         %li.dropdown
-          %span.caret
-          = link_to 'Settings', '#', { "data-toggle" => "dropdown", class: "dropdown-toggle"}
+          %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            = locale
+            %span.caret
           %ul.dropdown-menu
             - I18n.available_locales.each do |l|
               %li{class: "#{'active' if l == locale}"}
                 = link_to l.to_s, locale: l.to_s
-            %li.divider
-            - if signed_in?
-              %li
-                = link_to('', edit_user_path(session[:user_id]), class: 'glyphicon glyphicon-user')
-              %li
-                = link_to('', logout_path, class: 'glyphicon glyphicon-log-out')

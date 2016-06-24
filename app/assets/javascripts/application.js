@@ -22,4 +22,5 @@
 
 jQuery(function() {
   jQuery('#flash-messages').delay(8000).fadeOut(800)
+  jQuery('.dropdown-toggle').dropdown();
 });

@@ -33,7 +33,6 @@
 }
 
 .logo {
-  margin-top: 6px;
   font-size: 30px;
   font-weight: bold;
   letter-spacing: -1px;
@@ -54,21 +53,20 @@
   margin-right: 10px;
 }
 
-.navbar-inverse  {
-  min-width: 350px;
+.navbar  {
+  min-height: 40px;
   background: rgba(0,0,0,0.7);
   border: none;
   .glyphicon {
-    margin-top: 15px;
+    line-height: 40px;
     color: $green;
     font-size: 20px;
   }
 }
 
 .navbar-dropdown {
-  margin-top: 17px;
+  line-height: 40px;
   margin-left: 15px;
-  margin-bottom: 15px;
   a {
     color: $green !important;
   }

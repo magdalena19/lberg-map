@@ -45,13 +45,13 @@
 
   .zoom-container {
     right: -7px;
-    top: 60px;
+    top: 48px;
     button {
       background: rgba(black,0.6);
       color: $green;
-      font-size: 25px;
-      width: 50px;
-      height: 45px;
+      font-size: 20px;
+      width: 45px;
+      height: 40px;
     }
   }
 
@@ -102,7 +102,7 @@
 }
 
 .accordion-panel-template {
-  visibility: none;
+  display: none;
 }
 
 .panel-group {

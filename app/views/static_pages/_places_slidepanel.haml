@@ -1,24 +1,16 @@
-.modal.fade.places-modal{role: 'dialog'}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{'data-dismiss': 'modal', type: 'button'} &times;
-        %h4.modal-title
-          .category
-      .modal-body
-        .row
-          #accordion.panel-group.col-xs-12.places-list
-            / the template goes here
-      .modal-footer
-        %button.btn.btn-default{'data-dismiss': 'modal', type: 'button'}
-          = t('close')
+.places-slidepanel.slidepanel
+  %h4.slidepanel-title= t('places')
+  .content
+    #accordion.panel-group.col-xs-12.places-list
+  .col-xs-12.hide-slidepanel
+    .glyphicon.glyphicon-triangle-bottom
 
 .panel.panel-default.accordion-panel-template
   .panel-heading
     %h4.panel-title
       %a.accordion-toggle{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseId"}
         .triangle.glyphicon.glyphicon-triangle-bottom
-        %b.name
+        %span.name
       .place-list-header-buttons
         - if signed_in?
           .glyphicon.glyphicon-pencil.edit-place

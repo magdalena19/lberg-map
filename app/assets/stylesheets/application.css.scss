@@ -55,7 +55,7 @@
 
 .navbar  {
   min-height: 40px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(darken($lilac, 50%),0.8);
   border: none;
   .glyphicon {
     line-height: 40px;
@@ -76,20 +76,6 @@
       color: white !important;
       background: $green !important;      
     }
-  }
-}
-
-.modal-content {
-  background-color: rgba(white,0.8);
-}
-
-.modal-header {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-radius: 5px 5px 0px 0px;
-  background: rgba(darken($lilac, 15%),0.6);
-  h4 {
-    color: white;
   }
 }
 

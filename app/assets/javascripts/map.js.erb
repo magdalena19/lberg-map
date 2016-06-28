@@ -1,8 +1,11 @@
+//= require slide_panel
+
 jQuery(function() {
   jQuery('#map').each(function() {
+    // MAP
     jQuery(window).resize(function(){
-      jQuery('#map').height(jQuery(window).height());
-    }); // initial size is set in CSS, because curiously did not work properly here
+      jQuery('.map-container').height(jQuery(window).height());
+    }).resize(); // initial size is set in CSS, because curiously did not work properly here
 
     map = L.map('map', {
       zoomControl: false,
@@ -27,14 +30,14 @@ jQuery(function() {
         }
      });
 
-    var placeModal = jQuery('.place-modal');
+    var placeSlidePanel = jQuery('.place-slidepanel')
     var onEachFeature = function(feature, layer) {
       layer.on('click', function(e) {
-        placeModal.find('.edit-place').attr('place_id', feature.properties.id);
-        placeModal.find('.modal-title').html(feature.properties.name);
-        placeModal.find('.place-description').html(feature.properties.description);
-        placeModal.find('.place-address').html('<i>' + feature.properties.address + '</i>');
-        placeModal.modal('show');
+        placeSlidePanel.find('.edit-place').attr('place_id', feature.properties.id);
+        placeSlidePanel.find('.name').html(feature.properties.name);
+        placeSlidePanel.find('.place-description').html(feature.properties.description);
+        placeSlidePanel.find('.place-address').html('<i>' + feature.properties.address + '</i>');
+        placeSlidePanel.trigger('open');
       });
     };
 
@@ -72,9 +75,9 @@ jQuery(function() {
         var prop = place.properties;
         var $newPanel = $template.clone();
         $newPanel.find(".collapse").removeClass("in");
-        $newPanel.find(".accordion-toggle").attr("href",  "#" + (++accordion_id))
+        $newPanel.find(".accordion-toggle").attr("href",  "#accordion_" + (++accordion_id))
         $newPanel.find(".name").html(place.properties.name);
-        $newPanel.find(".panel-collapse").attr("id", accordion_id).addClass("collapse").removeClass("in");
+        $newPanel.find(".panel-collapse").attr("id", "accordion_" + accordion_id).addClass("collapse").removeClass("in");
         $newPanel.find('.description').html(place.properties.description);
         $newPanel.find('.address').html(place.properties.address);
         $newPanel.find('.zoom-to-place').attr('longitude', place.properties.longitude);
@@ -84,7 +87,7 @@ jQuery(function() {
       });
 
       jQuery('.zoom-to-place').click(function() {
-        jQuery('.places-modal').modal('hide');
+        closeAllPanels();
         coordinates = [jQuery(this).attr('latitude'), jQuery(this).attr('longitude')];
         map.setView(coordinates, 16, {animate: true});
       });
@@ -96,18 +99,10 @@ jQuery(function() {
     };
 
     // CATEGORY AND PLACE BUTTONS
-    jQuery('.show-places').click(function() {
-      jQuery('.places-modal').modal('show');
-    });
-
-    jQuery('.show-categories').click(function() {
-      jQuery('.category-modal').modal('show');
-    });
-
-    jQuery('.category-button').click( function() {
+    jQuery('.category-button').click(function() {
+      closeAllPanels();
+      jQuery('.category-panel').trigger('close');
       jQuery('.loading').show();
-      jQuery('.category-modal').modal('hide');
-      jQuery('.category-button').removeClass('active');
       jQuery('.category-button').removeClass('active');
       jQuery(this).addClass('active');
       var categoryId = jQuery(this).attr('id');
@@ -123,6 +118,7 @@ jQuery(function() {
         success: function(result) {
           updatePlaces(result);
           updatePlacesList(result);
+          resizePanels();
           jQuery('.loading').hide();
         }
       });      
@@ -130,8 +126,8 @@ jQuery(function() {
     jQuery('.category-button#all').click();
 
     // ADD PLACE
-    jQuery('.add-place-button').click(function(){
-     jQuery('.add-place-modal').modal('show');
+    jQuery('.add-place-buttons').click(function(){
+      jQuery('.add-place-slidepanel').trigger('close');
     });
 
     jQuery('.type-in-address').click(function(){
@@ -144,12 +140,14 @@ jQuery(function() {
         var latitude = position.coords.latitude;
         map.setView([latitude, longitude], 18);
         var myLocationMarker = L.circleMarker([latitude, longitude]).addTo(map);
-        jQuery('.confirmation-button-container').show();
+        jQuery('.confirmation-button-container').fadeIn();
         jQuery('#confirmation-button-yes').click(function() {
+          jQuery('.confirmation-button-container').fadeOut();
           var params = 'longitude=' + longitude + '&' + 'latitude=' +  latitude;
           window.location.href = 'places/new?' + params;
         });
         jQuery('#confirmation-button-no').click(function() {
+          jQuery('.confirmation-button-container').fadeOut();
           window.location.href = 'places/new';
         });
       };

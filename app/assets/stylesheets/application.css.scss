@@ -36,7 +36,6 @@
   font-size: 30px;
   font-weight: bold;
   letter-spacing: -1px;
-  padding-top: 5px;
   &:hover {
     text-decoration: none;
   }
@@ -44,7 +43,6 @@
 
 .logo-left {
   color: $lilac;
-  margin-left: 10px;
   float: left;
 }
 
@@ -52,45 +50,32 @@
   color: $green;
   float: left;
   padding-left: 3px;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
-.nav-pills li a {
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-.nav-pills.pull-left li a {
-  color: $green !important;
-}
-
-.nav-pills.pull-right li {
-  a { color: $green !important; }
-  &.active {
-    a { color: $lilac !important;}
-  }
-}
-
-.navbar-inverse  {
+.navbar  {
+  min-height: 40px;
   background: rgba(0,0,0,0.7);
   border: none;
   .glyphicon {
-    font-size: 18px;
-    top: -1px;
+    line-height: 40px;
+    color: $green;
+    font-size: 20px;
   }
 }
 
-.navbar-collapse {
-  border: none;
-  margin: 0 !important;
-}
-
-.navbar-toggle {
-  margin-right: 4px;
-  border: none;
-  background: none !important;
-  .icon-bar {
-    background: black !important;    
+.navbar-dropdown {
+  line-height: 40px;
+  margin-left: 15px;
+  a {
+    color: $green !important;
+  }
+  .dropdown-menu {
+    color: $green;
+    .active > a {
+      color: white !important;
+      background: $green !important;      
+    }
   }
 }
 

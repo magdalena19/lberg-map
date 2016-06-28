@@ -1,31 +1,38 @@
 -# Navigation bar partial
-%nav.navbar.navbar-inverse.navbar-fixed-top
+%nav.navbar.navbar-fixed-top
   .container
-    .navbar-header
-      %button.navbar-toggle.collapsed{'aria-controls' => 'navbar', 'aria-expanded' => 'false', 'data-target' => '#navbar', 'data-toggle' => 'collapse', :type => 'button'}
-        %span.sr-only Toggle navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a{href: root_path}
-        .navbar-header.logo.logo-left
-          LBERG
-        .navbar-header.logo.logo-right
-          MAP
-    #navbar.collapse.navbar-collapse
-      %ul.nav.navbar-nav.nav-pills.pull-left
-        %li{class: "#{'active' if current_page?(about_path)}"}
-          = link_to('', about_path, class: 'glyphicon glyphicon-info-sign')
-        - if signed_in?
-          %li{class: "#{'active' if current_page?(new_place_path)}"}
-            = link_to('', new_place_path, class: 'glyphicon glyphicon-plus-sign')
-          %li{class: "#{'active' if current_page?(places_path)}"}
-            = link_to('', places_path, class: 'glyphicon glyphicon-pencil')
-          %li{class: "#{'active' if current_page?(edit_user_path(session[:user_id]))}"}
-            = link_to('', edit_user_path(session[:user_id]), class: 'glyphicon glyphicon-user')
-          %li
-            = link_to('', logout_path, class: 'glyphicon glyphicon-log-out')
-      %ul.nav.navbar-nav.nav-pills.pull-right
+    %a{href: root_path}
+      .logo.logo-left
+        LBERG
+      .logo.logo-right
+        MAP
+    .info-button.pull-left{class: "#{'active' if current_page?(about_path)}"}
+      = link_to('', about_path, class: 'glyphicon glyphicon-info-sign')
+
+    .dropdown.pull-right.navbar-dropdown
+      %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+        = locale
+        %span.caret
+      %ul.dropdown-menu
         - I18n.available_locales.each do |l|
           %li{class: "#{'active' if l == locale}"}
             = link_to l.to_s, locale: l.to_s
+    - if signed_in?
+      .dropdown.pull-right.navbar-dropdown
+        %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+          = t('places')
+          %span.caret
+        %ul.dropdown-menu
+          %li{class: "#{'active' if current_page?(new_place_path)}"}
+            = link_to(t('new_place'), new_place_path)
+          %li{class: "#{'active' if current_page?(places_path)}"}
+            = link_to(t('index_places'), places_path)
+      .dropdown.pull-right.navbar-dropdown
+        %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+          = t('user')
+          %span.caret
+        %ul.dropdown-menu
+          %li{class: "#{'active' if current_page?(edit_user_path(session[:user_id]))}"}
+            = link_to(t('edit_user'), edit_user_path(session[:user_id]))
+          %li
+            = link_to(t('log_out'), logout_path)

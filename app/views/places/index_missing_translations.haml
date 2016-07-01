@@ -1,0 +1,24 @@
+.container
+  %h4
+    = t('points_with_missing_translations')
+  %table.table.table-condensed.table-hover
+    %thead
+      %th= Place.human_attribute_name('name')
+      %th= Place.human_attribute_name('address')
+      %th= Place.human_attribute_name('categories')
+      %th= Place.human_attribute_name('available_translations')
+      %th= Place.human_attribute_name('missing_translations')
+    %tbody
+    - @places.each do |place|
+      %tr
+        %td
+          = place.name
+        %td
+          = place.address
+        %td
+          = generate_categories_filter_links(place)
+        %td
+          = link_to "#{place.available_descriptions}", contribute_translation_path(place)
+        %td
+          = link_to "#{place.empty_descriptions}", contribute_translation_path(place)
+  = will_paginate

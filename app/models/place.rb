@@ -16,18 +16,51 @@ class Place < ActiveRecord::Base
 
   ## CALLBACKS
   geocoded_by :address
-  after_validation :geocode_with_nodes, if: :address_changed?, on: [:create, :update]
-  after_create :auto_translate
   before_validation :sanitize_descriptions, on: [:create, :update]
+  after_validation :geocode_with_nodes, if: :address_changed?, on: [:create, :update]
+  after_create :clean_description_texts
+  after_create :auto_translate
 
-  ## AUTOTRANSLATE
-  def auto_translate
-    available_locales = I18n.available_locales
+  def clean_description_texts
+    translations.each do |t|
+      d = t.description
+      t.description = nil if (!d.nil? && d.split(' ').length <= 1) || d.nil? || d.empty?
+    end
+  end
+
+  ## REFACTOR!
+  ## Language and autotranslation related stuff
+  def translations_with_descriptions
+    translations - autotranslated_or_empty_descriptions
+  end
+
+  def autotranslated_or_empty_descriptions
+    translations.select { |t| t.auto_translated || t.description.nil? }
+  end
+
+  def available_descriptions
+    translations_with_descriptions.map(&:locale).join(', ')
+  end
+
+  def empty_descriptions
+    autotranslated_or_empty_descriptions.map(&:locale).join(', ')
+  end
+
+
+  def self.places_with_missing_or_empty_translations
+    all.select { |p| p.autotranslated_or_empty_descriptions.any? }
+  end
+
+  def guess_native_language_description
     # GUESS NATIVE LANGUAGE (simple: longest description)
-    translations_with_descriptions = translations.select { |t| !t.description.nil? }
-    native_translation = translations_with_descriptions.sort_by do |t|
+    translations_with_descriptions.sort_by do |t|
       t.description.length
     end.last
+  end
+
+  def auto_translate
+    available_locales = I18n.available_locales
+    native_translation = guess_native_language_description
     translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
     if translator && native_translation
       languages_of_empty_descriptions = available_locales - translations_with_descriptions.map(&:locale)
@@ -35,7 +68,7 @@ class Place < ActiveRecord::Base
         auto_translation = translator.failsafe_translate(native_translation.description,
         native_translation.locale.to_s,
         missing_language.to_s)
-        translations.find_by(locale: missing_language).update(description: auto_translation)
+        translations.find_by(locale: missing_language).update(description: auto_translation, auto_translated: true)
       end
     end
   end

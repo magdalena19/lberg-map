@@ -1,0 +1,21 @@
+.container
+  %h4
+    =t('contribute_translation_for')
+    = "'#{@place.name}'"
+  = form_for(@place) do |f|
+    .col-xs-12
+      %fieldset{class: 'form-group row'}
+        - Place.globalize_attribute_names.each do |attribute|
+          .col-md-6.margin-below{dir: "#{'rtl' if attribute.to_s == 'description_ar'}"}
+            = t attribute.to_s
+            = f.text_area attribute, class: 'description-area'
+
+    .col-xs-12.margin-below
+      .row
+        .col-md-6
+          = show_simple_captcha unless signed_in?
+      .row
+        .col-xs-6
+          = f.submit class: 'btn btn-primary btn-success place-form-button'
+        .col-xs-6.col-md-2
+          = link_to t('back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger place-form-button'

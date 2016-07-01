@@ -12,5 +12,8 @@ Rails.application.routes.draw do
     end
     resources :users
     get '/review' => 'places#review'
+    get '/missing_translations' => 'places#index_missing_translations'
+    get '/contribute_translation/:id' => 'places#contribute_translation', as: 'contribute_translation'
+    put '/contribute_translation/:id' => 'places#update'
   end
 end

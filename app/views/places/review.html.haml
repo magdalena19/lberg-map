@@ -1,6 +1,6 @@
 .container
   %h4
-    Unreviewed points
+    = t('unreviewed_points')
   %table.table.table-condensed.table-hover
     %thead
       %th.col-md-1
@@ -21,7 +21,7 @@
         %td
           = place.address
         %td
-          = generate_categories_filter_links place
+          = generate_categories_filter_links(place)
         %td
           = place.updated_at.to_s(:long)
   = will_paginate

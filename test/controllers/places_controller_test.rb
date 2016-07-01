@@ -75,6 +75,12 @@ class PlacesControllerTest < ActionController::TestCase
     assert_redirected_to places_path
   end
 
+  # Translation contribution stuff
+  test 'Can access translation_contribution' do
+    get :contribute_translation, id: @place.id
+    assert_response :success
+  end
+
   # Review stuff
   test 'can access review if logged in' do
     @place.save
@@ -112,5 +118,28 @@ class PlacesControllerTest < ActionController::TestCase
                            city: 'Berlin',
                           }
     assert_not Place.find_by(name: 'andere katze').reviewed
+  end
+
+  # Autotranslation tests
+  test 'Autotranslate on create' do
+    post :create, place: { name: 'Some place',
+                           street: 'Schulze-Boysen-Straße',
+                           house_number: '15',
+                           postal_code: '10365',
+                           city: 'Berlin',
+                           description_en: 'This is a test'
+                         }
+    assert_equal 'Automatische Übersetzung: Dies ist ein Test', Place.find_by(name: 'Some place').description_de
+  end
+
+  test 'Set autotranslate flag on autocreate' do
+    post :create, place: { name: 'Yet another place',
+                           street: 'Schulze-Boysen-Straße',
+                           house_number: '15',
+                           postal_code: '10365',
+                           city: 'Berlin',
+                           description_en: 'This is a test'
+                          }
+    assert Place.find_by(name: 'Yet another place').translation_for(:de).auto_translated
   end
 end

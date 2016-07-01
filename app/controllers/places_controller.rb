@@ -21,6 +21,16 @@ class PlacesController < ApplicationController
     @places = Place.where(reviewed: false).order('updated_at DESC').paginate(page: params[:page], per_page: 15)
   end
 
+  def index_missing_translations
+    @places = Place.places_with_missing_or_empty_translations.paginate(page: params[:page], per_page: 15)
+  end
+
+  def contribute_translation
+    @place = Place.find(params[:id])
+    flash.now[:warning] = 'You are currently in preview mode, changes you make have to be reviewed before they
+    become published!' unless signed_in?
+  end
+
   def update
     @place = Place.find(params[:id])
     @place.reviewed = true if signed_in?

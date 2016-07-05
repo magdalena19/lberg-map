@@ -5,6 +5,7 @@ jQuery(function() {
     // MAP
     jQuery(window).resize(function(){
       jQuery('.map-container').height(jQuery(window).height());
+      jQuery('.zoom-container').css('top', jQuery('.navbar').height() + 3);
     }).resize(); // initial size is set in CSS, because curiously did not work properly here
 
     map = L.map('map', {
@@ -107,7 +108,6 @@ jQuery(function() {
       jQuery(this).addClass('active');
       var categoryId = jQuery(this).attr('id');
       var category = jQuery(this).text();
-      jQuery('.places-modal').find('.category').html(category);
       jQuery('.show-categories-text').html(category);
       $.ajax({
         url: "/",

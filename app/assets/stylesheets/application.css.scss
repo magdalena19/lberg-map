@@ -64,6 +64,10 @@
   }
 }
 
+.navbar-dropdown-container {
+  float: right; 
+}
+
 .navbar-dropdown {
   line-height: 40px;
   margin-left: 15px;
@@ -71,6 +75,8 @@
     color: $green !important;
   }
   .dropdown-menu {
+    top: 44px;
+    background: rgba(darken($lilac, 50%),0.8);
     color: $green;
     .active > a {
       color: white !important;

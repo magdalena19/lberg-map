@@ -1,0 +1,14 @@
+.place-slidepanel.slidepanel
+  .col-xs-12
+    .col-xs-12.place-slidepanel-header
+      %h4.name
+  .col-xs-12
+    .col-xs-12.content.place-slidepanel-body{dir: text_direction}
+      .place-description.margin-below
+      .place-address
+  .col-xs-12
+    .place-slidepanel-footer.pull-right
+      - if signed_in?
+        %button.edit-place.btn.btn-success.glyphicon.glyphicon-pencil{type: 'button'}
+  .col-xs-12.hide-slidepanel
+    .glyphicon.glyphicon-triangle-bottom

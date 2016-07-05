@@ -1,0 +1,11 @@
+.category-slidepanel.slidepanel
+  %h4.slidepanel-title= t('choose_category')
+  .content
+    .col-lg-6
+      = button_tag(t('all'), type: 'button', class: 'category-button btn btn-dark', id: 'all')
+      %br
+    - @categories.each do |category|
+      .col-lg-6
+        = button_tag(category.name, type: 'button', class: 'category-button btn btn-dark', id: category.id)
+  .col-xs-12.hide-slidepanel
+    .glyphicon.glyphicon-triangle-bottom

@@ -3,119 +3,110 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import 'colors';
 
-#map {
+.map-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
   margin-top: -60px;
-  height:100vh;
-  .overlay {
-    position: absolute;
-    z-index: 999;
-    .filter-button {
-      width: 130px !important;
-      &.active {
-        font-weight: bold;
-      }
-    }
-  }
+};
+#map {
+  height:100%;
+}
 
- .loading {
-    bottom: 50%;
-    left: 50%;
-    .loading-text {
+.overlay {
+  position: absolute !important;
+  z-index: 999;
+  .filter-button {
+    width: 130px !important;
+    &.active {
       font-weight: bold;
-      background: rgba(255,255,255,0.7);
-      border-radius: 7px;
-      padding: 10px;
-      position: relative;
-      left: -50%;
-      bottom: -30px;
-      border: none;
-      font-size: 15px;
     }
   }
+}
 
-  .control-container {
-    button {
-      margin: 3px;
-      border: none;
-      border-radius: 7px;
-      float: right;
-      padding: 6px 9px 9px 9px;
-    }
+.loading {
+  bottom: 50%;
+  left: 50%;
+  .loading-text {
+    font-weight: bold;
+    background: rgba(255,255,255,0.7);
+    border-radius: 7px;
+    padding: 10px;
+    position: relative;
+    left: -50%;
+    bottom: -30px;
+    border: none;
+    font-size: 15px;
   }
+}
 
-  .zoom-container {
-    right: -7px;
-    top: 48px;
-    button {
-      background: rgba(black,0.6);
-      color: $green;
-      font-size: 20px;
-      width: 45px;
-      height: 40px;
-    }
+.control-container {
+  button {
+    margin: 3px;
+    border: none;
+    border-radius: 7px;
+    float: right;
+    padding: 6px 9px 9px 9px;
   }
+}
 
-  .place-control-container {
-    right: -7px;
-    bottom: 25px;
-    button {
-      background: rgba(darken($lilac, 15%),0.5);
-      font-size: 35px;
-      width: 70px;
-      height: 60px;
-    }
-  }
-
-  .category-container {
-    left: 50%;
-    bottom: 0px;
-    .show-categories {
-      cursor: pointer;
-      position: relative;
-      left: -50%;
-      font-size: 30px;
-      .show-categories-text {
-        float: left;
-      }
-      .glyphicon {
-        float: left;
-        top: 5px;
-        left: 5px;
-      }
-    }
-  }
-
-  .confirmation-button-container {
-    top: 60px;
-    display: none;
-    text-align: center;
-    button {
-      font-size: 35px;
-    }
-  }
-
-  .category-indicator {
-    bottom: 42px;
-    right: 75px;
+.zoom-container {
+  right: -7px;
+  top: 48px;
+  button {
+    background: rgba(darken($lilac, 50%),0.8);
+    color: $green;
     font-size: 20px;
+    width: 45px;
+    height: 40px;
   }
 }
 
-.accordion-panel-template {
+.place-control-container {
+  right: -10px;
+  bottom: 25px;
+  .glyphicon {
+    margin: 4px;
+    padding: 15px;
+    border-radius: 7px;
+    background: rgba(darken($lilac, 15%),0.5);
+    font-size: 35px;
+  }
+}
+
+.category-container {
+  left: 50%;
+  bottom: 0px;
+  .show-categories {
+    cursor: pointer;
+    position: relative;
+    left: -50%;
+    font-size: 26px;
+    font-weight:  bold;
+    .show-categories-text {
+      float: left;
+    }
+    .glyphicon {
+      float: left;
+      top: 5px;
+      left: 5px;
+    }
+  }
+}
+
+.confirmation-button-container {
   display: none;
-}
-
-.panel-group {
-  margin-bottom: 0 !important;
-}
-
-.panel-title {
-  color: $green !important;
+  top: 60px;
+  text-align: center;
+  button {
+    font-size: 35px;
+    opacity: 0.8;
+  }
 }
 
 .add-place-buttons {
   width: 100%;
-  margin-bottom: 4px !important;
+  margin-bottom: 10px !important;
 }
 
 .category-button {
@@ -124,24 +115,18 @@
   margin-bottom: 3px;
 }
 
-.places-modal {
-  .modal-footer {
-    padding-top: 3px !important;
+.btn-dark {
+  font-size: 16px !important;
+  color: $green;
+  background: rgba(black, 0.7) !important;
+  &:hover {
+    color: $green !important;
+    background: rgba(black, 0.6) !important;
+  };
+  &.active {
+    background: rgba(black, 0.55) !important;
   }
-}
-
-.place-modal {
-  .modal-body {
-    margin: 10px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-  }
-  .modal-footer {
-    padding-top: 3px !important;
-  }
+  height: 37px;
 }
 
 .leaflet-control-attribution {
@@ -151,4 +136,65 @@
 .place-list-header-buttons {
   float: right;
   cursor: pointer;
+}
+
+.slidepanel {
+  background: rgba(darken($lilac, 15%),0.5);
+  border-radius: 7px;
+  position: absolute;
+  right: 10px;
+  z-index: 9999;
+  .content {
+    overflow-y: auto;
+  }
+  .slidepanel-title {
+    text-align: center;
+    font-size: 20px;
+    color: #333;
+  }
+  .hide-slidepanel {
+    text-align: center;
+    font-size: xx-large;
+    cursor: pointer;
+  }
+}
+
+#accordion {
+  padding: none;
+  margin-bottom: 0;
+}
+
+.accordion-panel-template {
+  border: none !important;
+  background: none !important;
+  display: none;
+  .panel-group {
+    margin-bottom: 0 !important;
+  }
+  .panel-title {
+    color: $green !important;
+  }
+  .panel-heading {
+    border: none !important;
+    background: rgba(black, 0.7) !important;
+  }
+  .panel-body {
+    font-size: small;
+    background: rgba(white, 0.75);
+    border: none !important;
+  }
+}
+
+.place-slidepanel {
+  .place-slidepanel-header {
+    border-radius: 4px 4px 0 0;
+    margin-top: 15px;
+    background: rgba(black, 0.7) !important;
+    color: $green;
+  }
+  .place-slidepanel-body {
+    font-size: small;
+    padding: 20px;
+    background: rgba(white, 0.75);
+  }
 }

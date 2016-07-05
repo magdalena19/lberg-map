@@ -1,29 +1,34 @@
-#map
+.map-container
+  #map
   .col-xs-12.overlay.confirmation-button-container
     = t('correct_location?')
     %br
     = button_tag('', type: 'button', class: 'btn btn-success glyphicon glyphicon-ok', id: 'confirmation-button-yes')
     = button_tag('', type: 'button', class: 'btn btn-danger glyphicon glyphicon-remove', id: 'confirmation-button-no')
+
   .overlay.control-container.zoom-container
     = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-plus zoom-in')
     %br
     = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-minus zoom-out')
+
   .overlay.control-container.place-control-container
-    = button_tag('', type: 'button', title: t('new_place'), class: 'btn btn-default glyphicon glyphicon-plus-sign add-place-button')
+    .glyphicon.glyphicon-plus-sign.add-place-button.slidepanel-button{slidepanel: 'add-place-slidepanel', title: t('new_place')}
     %br
-    = button_tag('', type: 'button', class: 'glyphicon glyphicon-list show-places')
+    .glyphicon.glyphicon-list.show-places.slidepanel-button{slidepanel: 'places-slidepanel'}
+
   .overlay.control-container.category-container
-    .show-categories
+    .show-categories.slidepanel-button{slidepanel: 'category-slidepanel'}
       .show-categories-text
       .glyphicon.glyphicon-triangle-top
+
   .overlay.loading
     .loading-text
       LOADING...
 
-= render('place_modal')
-= render('places_modal')
-= render('category_modal')
-= render('add_place_modal')
+  = render('category_slidepanel')
+  = render('places_slidepanel')
+  = render('place_slidepanel')
+  = render('add_place_slidepanel')
 
 :javascript
   window.locale = '#{locale}';

@@ -4,7 +4,6 @@
     #accordion.panel-group.col-xs-12.places-list
   .col-xs-12.hide-slidepanel
     .glyphicon.glyphicon-triangle-bottom
-
 .panel.panel-default.accordion-panel-template
   .panel-heading
     %h4.panel-title
@@ -12,8 +11,7 @@
         .triangle.glyphicon.glyphicon-triangle-bottom
         %span.name
       .place-list-header-buttons
-        - if signed_in?
-          .glyphicon.glyphicon-pencil.edit-place
+        .glyphicon.glyphicon-pencil.edit-place
         .glyphicon.glyphicon-search.zoom-to-place
   #collapseOne.panel-collapse.collapse.in
     .panel-body{dir: "#{text_direction}"}

@@ -6,9 +6,7 @@ feature 'Category selection' do
   end
 
   scenario 'Place is shown when \'all\' was clicked', js: true do
-    visit root_path
-    page.find('.show-categories').trigger('click')
-    sleep(1)
+    show_category_panel
     page.must_have_content('All')
     page.must_have_content('Playground')
     click_on('All')
@@ -19,14 +17,19 @@ feature 'Category selection' do
   end
 
   scenario 'Place is not shown when other category was clicked', js: true do
-    visit root_path
-    page.find('.show-categories').trigger('click')
-    sleep(1)
+    show_category_panel
     click_on('Playground')
     sleep(1)
     page.find('.show-places').trigger('click')
     sleep(1)
     page.wont_have_content('Magda')
+  end
+
+  def show_category_panel
+    visit root_path
+    page.click_on('language')
+    page.find('.show-categories').trigger('click')
+    sleep(1)
   end
 
 end

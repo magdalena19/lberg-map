@@ -1,4 +1,5 @@
 ar:
+  select_this_language: 'تحديد هذه اللغة'
   activerecord:
     errors:
       messages:

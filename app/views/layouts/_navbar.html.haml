@@ -20,15 +20,6 @@
       - if signed_in?
         .dropdown.pull-right.navbar-dropdown
           %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-            = t('places')
-            %span.caret
-          %ul.dropdown-menu
-            %li{class: "#{'active' if current_page?(new_place_path)}"}
-              = link_to(t('new_place'), new_place_path)
-            %li{class: "#{'active' if current_page?(places_path)}"}
-              = link_to(t('index_places'), places_path)
-        .dropdown.pull-right.navbar-dropdown
-          %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
             = t('user')
             %span.caret
           %ul.dropdown-menu
@@ -36,3 +27,12 @@
               = link_to(t('edit_user'), edit_user_path(session[:user_id]))
             %li
               = link_to(t('log_out'), logout_path)
+        .dropdown.pull-right.navbar-dropdown
+          %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            = t('places')
+            %span.caret
+          %ul.dropdown-menu
+            %li{class: "#{'active' if current_page?(new_place_path)}"}
+              = link_to(t('new_place'), new_place_path)
+            %li{class: "#{'active' if current_page?(places_path)}"}
+              = link_to(t('index_places'), places_path)

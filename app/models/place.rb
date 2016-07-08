@@ -8,7 +8,6 @@ class Place < ActiveRecord::Base
   ## VALIDATIONS
   validates_presence_of :name, :street, :city, :postal_code
   validates :postal_code, format: { with: /\d{5}/, message: 'upply valid postal code (5 digits)' }
-  validate :can_find_lat_lon?
 
   ## TRANSLATION
   translates :description
@@ -16,7 +15,7 @@ class Place < ActiveRecord::Base
 
   ## CALLBACKS
   geocoded_by :address
-  after_validation :geocode_with_nodes, if: :address_changed?, on: [:create, :update]
+  before_validation :geocode_with_nodes, if: :address_changed?, on: [:create, :update]
   after_create :auto_translate
   before_validation :sanitize_descriptions, on: [:create, :update]
 
@@ -58,12 +57,6 @@ class Place < ActiveRecord::Base
   end
 
   ## GEOCODING
-  def can_find_lat_lon?
-    address_string = "#{street} #{house_number}, #{postal_code}, #{city}"
-    results = Geocoder.search(address_string)
-    errors.add(:address, :address_not_found) unless results.any?
-  end
-
   def address
     "#{street} #{house_number}, #{postal_code} #{city}"
   end
@@ -74,11 +67,17 @@ class Place < ActiveRecord::Base
 
   def geocode_with_nodes
     results = Geocoder.search(address)
+    unless results.any?
+      errors.add(:address, :address_not_found)
+      return false
+    end
     node_geoms = results.select { |result| result.type == 'node' }
     other_geoms = results - node_geoms
+    # Prefer point objects (locations, houses, etc.) given by nominatim
     if node_geoms.any?
       self.latitude = node_geoms.first.latitude
       self.longitude = node_geoms.first.longitude
+    # ...else take lat/lon of other geoms (lines, etc.)
     else
       self.latitude = other_geoms.first.latitude
       self.longitude = other_geoms.first.longitude

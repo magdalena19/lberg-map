@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :signed_in?, :is_admin?
 
   def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
+    if params[:locale]
+      I18n.locale = params[:locale]
+    else
+      @local_not_selected = true
+    end
   end
 
   def default_url_options(options = {})

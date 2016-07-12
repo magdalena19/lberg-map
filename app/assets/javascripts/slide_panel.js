@@ -8,11 +8,13 @@ jQuery(function() {
       panel.animate({bottom: '10'}, 300);
       panel.addClass('slidx-open');
       jQuery('.control-container').hide();
+      jQuery('.navbar-dropdown').hide();
     });
     panel.bind('close', function() {
       panel.css('bottom', '-' + panel.outerHeight() + 'px');
       panel.removeClass('slidx-open');
       jQuery('.control-container').show();
+      jQuery('.navbar-dropdown').show();
     });
 
     closeAllPanels = function() {

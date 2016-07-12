@@ -1,0 +1,8 @@
+- if @local_not_selected
+  .locale-slidepanel.slidepanel
+    .content
+      - I18n.available_locales.each do |l|
+        = link_to locale: l.to_s do
+          .col-xs-12
+            .btn.btn-dark.locale-button
+              = t('select_this_language', locale: l)

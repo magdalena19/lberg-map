@@ -1,31 +1,16 @@
 require 'test_helper'
 
 feature 'Index page' do
-  scenario 'Index page is loading' do
-    visit_start_page
-    see_map_and_logo
-  end
-
-  scenario 'language is switched to german' do
-    visit_start_page
-    switch_to_german
-    see_german_link
-  end
-
-  def see_german_link
-    page.must_have_content('Alle')
-  end
-
-  def switch_to_german
-    click_link('de')
-  end
-
-  def visit_start_page
+  scenario 'page has logo and map and language can be switched to german', js: true do
     visit root_path
-  end
-
-  def see_map_and_logo
+    sleep(1)
     page.must_have_css('.logo')
     page.must_have_css('#map')
+    page.click_on('language')
+    sleep(1)
+    page.must_have_content('All')
+    page.find('.dropdown-toggle', text: 'Language').trigger('click')
+    click_link('de')
+    page.must_have_content('Alle')
   end
 end

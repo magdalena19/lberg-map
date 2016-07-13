@@ -2,12 +2,6 @@
 
 jQuery(function() {
   jQuery('#map').each(function() {
-    // MAP
-    jQuery(window).resize(function(){
-      jQuery('.map-container').height(jQuery(window).height());
-      jQuery('.zoom-container').css('top', jQuery('.navbar').height() + 3);
-    }).resize(); // initial size is set in CSS, because curiously did not work properly here
-
     map = L.map('map', {
       zoomControl: false,
       minZoom: 5,

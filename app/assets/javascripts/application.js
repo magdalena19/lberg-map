@@ -22,4 +22,12 @@
 jQuery(function() {
   jQuery('#flash-messages').delay(8000).fadeOut(800)
   jQuery('.dropdown-toggle').dropdown();
+
+  // RESPONSIVE HEIGHT
+  jQuery(window).resize(function(){
+    var navbarHeight = jQuery('.navbar').height();
+    jQuery('.map-container').height(jQuery(window).height()).css('margin-top', - (navbarHeight + 15));
+    jQuery('.zoom-container').css('top', navbarHeight + 3);
+    jQuery('.main-container').css('margin-top', navbarHeight + 15);
+  }).resize();
 });

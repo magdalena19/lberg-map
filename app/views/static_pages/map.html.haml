@@ -7,9 +7,9 @@
     = button_tag('', type: 'button', class: 'btn btn-danger glyphicon glyphicon-remove', id: 'confirmation-button-no')
 
   .overlay.control-container.zoom-container
-    = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-plus zoom-in')
+    .glyphicon.glyphicon-plus.zoom-in
     %br
-    = button_tag('', type: 'button', class: 'btn btn-default glyphicon glyphicon-minus zoom-out')
+    .glyphicon.glyphicon-minus.zoom-out
 
   .overlay.control-container.place-control-container
     .glyphicon.glyphicon-plus-sign.add-place-button.slidepanel-button{slidepanel: 'add-place-slidepanel', title: t('new_place')}

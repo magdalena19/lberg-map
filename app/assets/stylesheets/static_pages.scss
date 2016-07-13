@@ -41,19 +41,17 @@
 }
 
 .control-container {
-  button {
-    margin: 3px;
-    border: none;
-    border-radius: 7px;
-    float: right;
-    padding: 6px 9px 9px 9px;
-  }
+  cursor: pointer;
 }
 
 .zoom-container {
   right: -7px;
   top: 48px;
-  button {
+  .glyphicon {
+    padding-top: 10px;
+    padding-left: 10px;
+    border-radius: 7px;
+    margin-top: 5px;
     background: rgba(darken($lilac, 50%),0.8);
     color: $green;
     font-size: 20px;
@@ -157,15 +155,18 @@
   z-index: 9999;
   .content {
     overflow-y: auto;
+    margin-bottom: 15px;
   }
   .slidepanel-title {
+    padding-left: 35px; /* due to close-button on same line */
     text-align: center;
     font-size: 20px;
     color: #333;
   }
   .hide-slidepanel {
-    text-align: center;
-    font-size: xx-large;
+    font-size: x-large;
+    padding-right: 20px;
+    padding-top: 9px;
     cursor: pointer;
   }
 }

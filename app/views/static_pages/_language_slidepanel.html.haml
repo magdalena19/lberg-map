@@ -1,6 +1,0 @@
-.language-slidepanel.slidepanel
-  %h4.slidepanel-title= t('choose_language')
-  .content
-    - I18n.available_locales.each do |l|
-      .col-xs-12.col-sm-6
-        = button_tag(l.to_s, locale: l.to_s, type: 'button', class: 'language-button btn btn-dark')

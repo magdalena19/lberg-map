@@ -19,14 +19,41 @@ class Place < ActiveRecord::Base
   after_create :auto_translate
   before_validation :sanitize_descriptions, on: [:create, :update]
 
-  ## AUTOTRANSLATE
-  def auto_translate
-    available_locales = I18n.available_locales
+  ## Language and autotranslation related stuff -> URGENTLY REFACTOR!
+  def emptyish?(obj)
+    obj.nil? || obj.empty? || obj.split(' ').length == 1
+  end
+
+  def autotranslated_or_empty_descriptions
+    translations.select { |t| t.auto_translated || emptyish?(t.description) }
+  end
+
+  def translations_with_descriptions
+    translations - autotranslated_or_empty_descriptions
+  end
+
+  def available_descriptions
+    translations_with_descriptions.map(&:locale).join(', ')
+  end
+
+  def empty_descriptions
+    autotranslated_or_empty_descriptions.map(&:locale).join(', ')
+  end
+
+  def self.places_with_missing_or_empty_translations
+    all.select { |p| p.autotranslated_or_empty_descriptions.any? }
+  end
+
+  def guess_native_language_description
     # GUESS NATIVE LANGUAGE (simple: longest description)
-    translations_with_descriptions = translations.select { |t| !t.description.nil? }
-    native_translation = translations_with_descriptions.sort_by do |t|
+    translations_with_descriptions.sort_by do |t|
       t.description.length
     end.last
+  end
+
+  def auto_translate
+    available_locales = I18n.available_locales
+    native_translation = guess_native_language_description
     translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
     if translator && native_translation
       languages_of_empty_descriptions = available_locales - translations_with_descriptions.map(&:locale)
@@ -34,7 +61,7 @@ class Place < ActiveRecord::Base
         auto_translation = translator.failsafe_translate(native_translation.description,
         native_translation.locale.to_s,
         missing_language.to_s)
-        translations.find_by(locale: missing_language).update(description: auto_translation)
+        translations.find_by(locale: missing_language).update(description: auto_translation, auto_translated: true)
       end
     end
   end
@@ -77,7 +104,7 @@ class Place < ActiveRecord::Base
     if node_geoms.any?
       self.latitude = node_geoms.first.latitude
       self.longitude = node_geoms.first.longitude
-    # ...else take lat/lon of other geoms (lines, etc.)
+      # ...else take lat/lon of other geoms (lines, etc.)
     else
       self.latitude = other_geoms.first.latitude
       self.longitude = other_geoms.first.longitude
@@ -94,9 +121,9 @@ class Place < ActiveRecord::Base
 
   def sanitize(html)
     Rails::Html::WhiteListSanitizer.new.sanitize(
-      html,
-      tags: %w[br u i b li ul ol hr font a],
-      attributes: %w[align color size href]
+    html,
+    tags: %w[br u i b li ul ol hr font a],
+    attributes: %w[align color size href]
     )
   end
 
@@ -117,11 +144,11 @@ class Place < ActiveRecord::Base
     attributes.each do |_key, value|
       { key: value }
     end.merge!( address: address,
-                description: description,
-                categories: categories.map(&:id),
-                longitude: longitude,
-                latitude: latitude,
-              )
+    description: description,
+    categories: categories.map(&:id),
+    longitude: longitude,
+    latitude: latitude,
+    )
   end
 
   def edit_status

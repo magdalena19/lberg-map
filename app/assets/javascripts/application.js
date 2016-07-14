@@ -22,6 +22,9 @@
 jQuery(function() {
   jQuery('#flash-messages').delay(8000).fadeOut(800)
   jQuery('.dropdown-toggle').dropdown();
+  jQuery('.back-button').click(function() {
+    window.history.back();
+  });
 
   // RESPONSIVE HEIGHT
   jQuery(window).resize(function(){

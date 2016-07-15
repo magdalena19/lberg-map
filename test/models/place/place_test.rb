@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require 'test_helper'
 
 class PlaceTest < ActiveSupport::TestCase
   def setup
@@ -31,12 +31,42 @@ class PlaceTest < ActiveSupport::TestCase
   end
 
   test 'html should be sanitized' do
-    skip('Passes sometimes, sometimes not...oO')
     @place.save
     assert '<b>This is the description.</b>' == Place.find_by(name: 'Kiezspinne').description_en
   end
 
   test 'duplicate entries not valid' do
     skip('To be defined: Duplicate entries not valid')
+  end
+
+  # Review
+
+  test 'Version is 1 for new points' do
+    @place.save
+    assert_equal 1, Place.find_by_name('Kiezspinne').versions.length
+  end
+
+  test 'Updating a point increases number of versions' do
+    @place.save
+    assert_difference '@place.versions.length' do
+      @place.update(name: 'SomeOtherPlace')
+    end
+  end
+
+  test 'Updating translation record does not increase associated place versions' do
+    @place.save
+    assert_difference '@place.versions.length', 0 do
+      @place.translation.update_attributes(description: 'This is some edit')
+    end
+  end
+
+  test 'return nil for \'reviewed_version\' if no reviewed version' do
+    @place.save
+    assert_not @place.reviewed_version
+  end
+
+  test 'return unreviewed version if \'reviewed\' = false, but no versions' do
+    @place.save
+    assert @place.unreviewed_version
   end
 end

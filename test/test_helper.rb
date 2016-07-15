@@ -8,7 +8,8 @@ require 'capybara/poltergeist'
 
 reporter_options = { color: true }
 Minitest::Reporters.use!(
-  Minitest::Reporters::DefaultReporter.new(reporter_options),
+  # Minitest::Reporters::DefaultReporter.new(reporter_options),
+  Minitest::Reporters::SpecReporter.new,
   ENV,
   Minitest.backtrace_filter)
 

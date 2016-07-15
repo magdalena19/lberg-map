@@ -25,3 +25,20 @@ textarea {
  resize: all;
  overflow-y: auto !important;
 }
+
+.locked-description {
+  border: 1px solid rgb(204, 204, 204);
+  padding: 4px;
+  margin-top: 8px;
+  height: 307px;
+  overflow-y: auto;
+  color: grey;
+}
+
+.grey {
+  color: grey;
+}
+
+.red {
+  color: red;
+}

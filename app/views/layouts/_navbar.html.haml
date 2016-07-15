@@ -1,4 +1,3 @@
--# Navigation bar partial
 %nav.navbar.navbar-fixed-top
   .container
     %a{href: root_path}
@@ -36,3 +35,6 @@
             = link_to(t('new_place'), new_place_path)
           %li{class: "#{'active' if current_page?(places_path)}"}
             = link_to(t('index_places'), places_path)
+          - if signed_in?
+            %li{class: "#{'active' if current_page?(places_review_index_path)}"}
+              = link_to(t('review'), places_review_index_path)

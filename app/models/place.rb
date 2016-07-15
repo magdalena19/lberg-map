@@ -7,10 +7,10 @@ class Place < ActiveRecord::Base
 
   ## VALIDATIONS
   validates_presence_of :name, :street, :city, :postal_code
-  validates :postal_code, format: { with: /\d{5}/, message: 'upply valid postal code (5 digits)' }
+  validates :postal_code, format: { with: /\d{5}/, message: 'supply valid postal code (5 digits)' }
 
   ## TRANSLATION
-  translates :description
+  translates :description, versioning: { gem: :paper_trail, options: { on: [ :update, :create ] } }
   globalize_accessors
 
   ## CALLBACKS
@@ -19,7 +19,25 @@ class Place < ActiveRecord::Base
   after_create :auto_translate
   before_validation :sanitize_descriptions, on: [:create, :update]
 
-  ## Language and autotranslation related stuff -> URGENTLY REFACTOR!
+  ## MODEL AUDITING
+  has_paper_trail on: [:create, :update], ignore: [:reviewed, :description]
+
+  def new?
+    versions.length == 1 && !reviewed
+  end
+
+  def reviewed_version
+    return versions.last.reify  if versions.length > 1  && reviewed
+    return self                 if versions.length == 1 && reviewed
+  end
+
+  def unreviewed_version
+    self if versions.length > 1 || (versions.length == 1 && !reviewed)
+  end
+
+  ## Language and autotranslation related stuff
+  # Maybe refactor
+  # Why obj.split(' ').length == 1 ?? raises error in case of one-word-description (no error handling)
   def emptyish?(obj)
     obj.nil? || obj.empty? || obj.split(' ').length == 1
   end
@@ -28,42 +46,40 @@ class Place < ActiveRecord::Base
     translations.select { |t| t.auto_translated || emptyish?(t.description) }
   end
 
+  def locales_of_empty_descriptions
+    autotranslated_or_empty_descriptions.map(&:locale)
+  end
+
   def translations_with_descriptions
     translations - autotranslated_or_empty_descriptions
   end
 
-  def available_descriptions
-    translations_with_descriptions.map(&:locale).join(', ')
-  end
-
-  def empty_descriptions
-    autotranslated_or_empty_descriptions.map(&:locale).join(', ')
-  end
-
-  def self.places_with_missing_or_empty_translations
-    all.select { |p| p.autotranslated_or_empty_descriptions.any? }
-  end
-
   def guess_native_language_description
-    # GUESS NATIVE LANGUAGE (simple: longest description)
     translations_with_descriptions.sort_by do |t|
       t.description.length
     end.last
   end
 
-  def auto_translate
-    available_locales = I18n.available_locales
-    native_translation = guess_native_language_description
-    translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
-    if translator && native_translation
-      languages_of_empty_descriptions = available_locales - translations_with_descriptions.map(&:locale)
-      languages_of_empty_descriptions.each do |missing_language|
-        auto_translation = translator.failsafe_translate(native_translation.description,
-        native_translation.locale.to_s,
-        missing_language.to_s)
-        translations.find_by(locale: missing_language).update(description: auto_translation, auto_translated: true)
+  def translate_empty_descriptions
+    locales_of_empty_descriptions.each do |missing_locale|
+      auto_translation = @translator.failsafe_translate(
+        @native_translation.description,
+        @native_translation.locale.to_s,
+        missing_locale.to_s
+      )
+      translation = translations.find_by(locale: missing_locale)
+      translation.without_versioning do
+        translation.update_attributes(description: auto_translation,
+                                      auto_translated: true,
+                                      reviewed: false)
       end
     end
+  end
+
+  def auto_translate
+    @native_translation = guess_native_language_description
+    @translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
+    translate_empty_descriptions if @translator && @native_translation
   end
 
   ## CATEGORY TAGGING
@@ -144,11 +160,20 @@ class Place < ActiveRecord::Base
     attributes.each do |_key, value|
       { key: value }
     end.merge!( address: address,
-    description: description,
+    description: reviewed_description.html_safe,
     categories: categories.map(&:id),
     longitude: longitude,
     latitude: latitude,
     )
+  end
+
+  def reviewed_description
+    versions = translations.find_by(locale: I18n.locale).versions
+    if versions.length > 1
+      versions.last.reify.description
+    else
+      description
+    end
   end
 
   def edit_status

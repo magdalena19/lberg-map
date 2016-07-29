@@ -68,13 +68,6 @@ Category.create(id: 3,
                 name_ar: 'واي فاي مجانا'
                )
 
-Categorizing.create(category_id: 1, place_id: 1001)
-Categorizing.create(category_id: 1, place_id: 1002)
-Categorizing.create(category_id: 1, place_id: 1003)
-Categorizing.create(category_id: 2, place_id: 1002)
-Categorizing.create(category_id: 2, place_id: 1003)
-Categorizing.create(category_id: 3, place_id: 1002)
-
 # Users
 User.create(id: 5000,
             name: 'admin',

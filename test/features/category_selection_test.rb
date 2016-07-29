@@ -2,22 +2,22 @@ require 'test_helper'
 
 feature 'Category selection' do
   before do
+    @category = Category.new(name_en: 'Playground')
+    @category.save
+    Category.new(name_en: 'Hospital').save
     @place = Place.new(
       name: 'Magda',
       street: 'Magdalenenstraße',
       house_number: '19',
       postal_code: '10365',
       city: 'Berlin',
+      categories: @category.id,
       description_en: '<center><b>This is the description.</b></center>',
       latitude: 13,
       longitude: 52,
       reviewed: true
     )
     @place.save
-    @category = Category.new(name_en: 'Playground', name_de: 'Spielplatz', name_fr: 'Spielplatz', name_ar: 'Spielplatz')
-    @category.save
-    Category.new(name_en: 'Hospital', name_de: 'Krankenhaus', name_fr: 'Krankenhaus', name_ar: 'Krankenhaus').save
-    Categorizing.new(place_id: @place.id, category_id: @category.id).save
   end
 
   scenario 'Place is shown when \'all\' was clicked', js: true do

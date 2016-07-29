@@ -5,9 +5,9 @@ class StaticPagesController < ApplicationController
     ## reponse for AJAX call
     if params[:category]
       if params[:category] == 'all'
-        render json: Place.all.map(&:reviewed_version).compact.map(&:geojson)
+        render json: Place.reviewed.map(&:geojson)
       else
-        render json: Place.tagged_with(params[:category]).map(&:reviewed_version).map(&:geojson)
+        render json: Place.with_reviewed_category(params[:category]).map(&:geojson)
       end
     end
   end

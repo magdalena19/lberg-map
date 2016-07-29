@@ -6,9 +6,16 @@
       .row
         - if @reviewed_place
           .col-xs-12
-            = @reviewed_place.name
-          .col-xs-12
+            %h4
+              = @reviewed_place.name
+          .col-xs-8
             = address(@reviewed_place)
+          .col-xs-4
+            %b Categories:
+            - if @reviewed_place.category_names.empty?
+              = t('none')
+            - else
+              = @reviewed_place.category_names.join(', ')
         - else
           .col-xs-12
             no reviewed place
@@ -19,9 +26,16 @@
       .row
         - if @unreviewed_place
           .col-xs-12
-            = @unreviewed_place.name
-          .col-xs-12
+            %h4
+              = @unreviewed_place.name
+          .col-xs-8
             = address(@unreviewed_place)
+          .col-xs-4
+            %b Categories:
+            - if @unreviewed_place.category_names.empty?
+              = t('none')
+            - else
+              = @unreviewed_place.category_names.join(', ')
         - else
           .col-xs-12
             no unreviewed place

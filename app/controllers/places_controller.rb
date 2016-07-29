@@ -3,9 +3,9 @@ class PlacesController < ApplicationController
 
   def index
     if params[:category]
-      @places = Place.tagged_with(params[:category]).map(&:reviewed_version).compact
+      @places = Place.with_reviewed_category(params[:category])
     else
-      @places = Place.all.map(&:reviewed_version).compact
+      @places = Place.reviewed
     end
   end
 
@@ -37,7 +37,7 @@ class PlacesController < ApplicationController
   end
 
   def create
-    @place = Place.new(place_params)
+    @place = Place.new(modified_params)
     @place.reviewed = true if signed_in?
     if simple_captcha_valid? || signed_in?
       save_new
@@ -49,7 +49,6 @@ class PlacesController < ApplicationController
 
   def destroy
     @place = Place.find(params[:id])
-    @place.categorizings.destroy_all
     @place.destroy
     redirect_to action: 'index'
   end
@@ -57,7 +56,7 @@ class PlacesController < ApplicationController
   private
 
   def save_update
-    if @place.update_attributes(place_params)
+    if @place.update_attributes(modified_params)
       flash[:success] = 'Changes saved! Wait for review...'
       redirect_to places_path
     else
@@ -76,11 +75,18 @@ class PlacesController < ApplicationController
     end
   end
 
+  def modified_params
+    modified_params ||= place_params
+    category_param = place_params[:categories] || []
+    modified_params[:categories] = category_param.reject(&:empty?).join(',')
+    modified_params
+  end
+
   def place_params
     params.require(:place).permit(
     :name, :street, :house_number, :postal_code, :city,
     :description_en, :description_de, :description_fr, :description_ar, :reviewed,
-    category_ids: []
+    categories: []
     )
   end
 end

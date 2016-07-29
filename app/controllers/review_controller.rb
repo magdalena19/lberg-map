@@ -24,7 +24,7 @@ class ReviewController < ApplicationController
   def refuse_place
     place = Place.find(params[:id])
     if place.new?
-      if place.categorizings.destroy_all && place.destroy
+      if place.destroy
         flash[:success] = 'Point refused!'
       end
     else  

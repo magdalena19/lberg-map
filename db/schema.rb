@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713165510) do
+ActiveRecord::Schema.define(version: 20160715153350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20160713165510) do
     t.datetime "updated_at",                      null: false
     t.text     "description"
     t.boolean  "auto_translated", default: false, null: false
+    t.boolean  "reviewed",        default: false, null: false
   end
 
   add_index "place_translations", ["locale"], name: "index_place_translations_on_locale", using: :btree
@@ -84,6 +85,19 @@ ActiveRecord::Schema.define(version: 20160713165510) do
     t.string   "password_digest"
     t.boolean  "is_admin",        default: false
   end
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+    t.text     "object_changes"
+    t.string   "locale"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   add_foreign_key "categorizings", "categories"
   add_foreign_key "categorizings", "places"

@@ -1,0 +1,30 @@
+.container
+  - @other_translations_reviewed.each do |t|
+    .row
+      .col-xs-12.grey
+        = t.description.html_safe
+        %hr
+
+  .row.margin-below
+    .col-md-6
+      %h3 Reviewed
+      %br
+      - if @reviewed_translation
+        = @reviewed_translation.description.html_safe
+      - else
+        no reviewed translation
+
+    .col-md-6
+      %h3 Unreviewed
+      %br
+      - if @unreviewed_translation
+        = @unreviewed_translation.description.html_safe
+      - else
+        no unreviewed translation
+
+  .row
+    .col-md-6
+    .col-md-6
+      = link_to 'Confirm', confirm_translation_path, class: 'btn btn-primary btn-success'
+      = link_to 'Refuse', refuse_translation_path, class: 'btn btn-primary btn-danger'
+

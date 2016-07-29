@@ -1,24 +1,18 @@
 class PlacesController < ApplicationController
-  # http_basic_authenticate_with name: 'admin', password: 'secret'
   include SimpleCaptcha::ControllerHelpers
-  before_action :require_login, only: [:review]
 
   def index
     if params[:category]
-      @places = Place.tagged_with(params[:category])
+      @places = Place.tagged_with(params[:category]).map(&:reviewed_version).compact
     else
-      @places = Place.all
+      @places = Place.all.map(&:reviewed_version).compact
     end
   end
 
   def edit
     @place = Place.find(params[:id])
-    flash.now[:warning] = 'You are currently in preview mode, changes you make have to be reviewed before they
-    become published!' unless signed_in?
-  end
-
-  def review
-    @places = Place.where(reviewed: false).order('updated_at DESC').paginate(page: params[:page], per_page: 15)
+    flash.now[:warning] = 'You are currently in preview mode, changes you make have
+    to be reviewed before they become published!' unless signed_in?
   end
 
   def update
@@ -38,8 +32,8 @@ class PlacesController < ApplicationController
       @geocoded = Geocoder.search(query).first.data['address']
     end
     @place = Place.new
-    flash.now[:warning] = 'You are currently in preview mode, changes you make have to be reviewed before they
-    become published!' unless signed_in?
+    flash.now[:warning] = 'You are currently in preview mode, changes you make have
+    to be reviewed before they become published!' unless signed_in?
   end
 
   def create
@@ -64,7 +58,7 @@ class PlacesController < ApplicationController
 
   def save_update
     if @place.update_attributes(place_params)
-      flash.now[:success] = 'Point successfully changed!'
+      flash[:success] = 'Changes saved! Wait for review...'
       redirect_to places_path
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
@@ -85,15 +79,8 @@ class PlacesController < ApplicationController
   def place_params
     params.require(:place).permit(
     :name, :street, :house_number, :postal_code, :city,
-    :description_en, :description_de, :description_fr, :description_ar,
+    :description_en, :description_de, :description_fr, :description_ar, :reviewed,
     category_ids: []
     )
-  end
-
-  def require_login
-    unless signed_in?
-      flash.now[:danger] = 'Access to this page has been restricted. Please login first!'
-      redirect_to login_path
-    end
   end
 end

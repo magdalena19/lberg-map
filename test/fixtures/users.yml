@@ -9,7 +9,7 @@ Susanne:
   password_digest: <%= BCrypt::Password.create('secret', cost: 4) %>
 
 Admin:
-  name: Susanne
+  name: Admin
   email: admin@example.com
   password_digest: <%= BCrypt::Password.create('secret', cost: 4) %>
   is_admin: true

@@ -75,23 +75,6 @@ class PlacesControllerTest < ActionController::TestCase
     assert_redirected_to places_path
   end
 
-  # Review stuff
-  test 'can access review if logged in' do
-    @place.save
-    @place.reload
-    session['user_id'] = @user.id
-    get :review, id: @place.id
-    assert_response :success
-  end
-
-  test 'cannot review if not logged in' do
-    session[:user_id] = nil
-    @place.save
-    @place.reload
-    get :review, id: @place.id
-    assert_response :redirect
-  end
-
   test 'review flag true if signed in on create' do
     session[:user_id] = @user.id
     post :create, place: { name: 'katze',

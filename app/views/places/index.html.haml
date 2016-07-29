@@ -1,29 +1,32 @@
 .container
-  %table.table.table-condensed.table-hover
-    %thead
-      %th.col-md-1
-      %th= Place.human_attribute_name('name')
-      %th= Place.human_attribute_name('address')
-      %th= Place.human_attribute_name('categories')
-      %th.col-md-1= Place.human_attribute_name('longitude')
-      %th.col-md-1= Place.human_attribute_name('latitude')
-    %tbody
-    - @places.each do |place|
-      %tr
-        %td
-          = link_to edit_place_path(place) do
-            %span{class: 'glyphicon glyphicon-pencil'}
-          = link_to place_path(place), {method: "delete", data: { confirm: "Bist du dir sicher, dass du den Eintrag löschen willst?" }} do
-            %span{class: 'glyphicon glyphicon-trash'}
-        %td
-          = place.name
-        %td
-          = place.address
-        %td
-          - if place.category_ids
-            - place.category_ids.each do |id|
-              = category_link(id)
-        %td
-          = place.latitude
-        %td
-          = place.longitude
+  .row
+    .col-xs-12
+      %h3 Places
+      .row
+        %hr
+        .col-xs-12
+          .row
+            .col-xs-3
+              %b= t('name')
+            .col-xs-5
+              %b= t('address')
+            .col-xs-3
+              %b= t('categories')
+      .row
+        .col-xs-12
+          - @places.each do |place|
+            .row
+              %hr
+              .col-xs-3
+                = place.name
+              .col-xs-5
+                = address(place)
+              .col-xs-3
+                - if place.category_ids
+                  - place.category_ids.each do |id|
+                    = category_link(id)
+              .col-xs-1
+                = link_to edit_place_path(place) do
+                  %span{class: 'glyphicon glyphicon-pencil'}
+                = link_to place_path(place), {method: "delete", data: { confirm: "Bist du dir sicher, dass du den Eintrag löschen willst?" }} do
+                  %span{class: 'glyphicon glyphicon-trash'}

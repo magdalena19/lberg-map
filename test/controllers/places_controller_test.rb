@@ -24,6 +24,7 @@ class PlacesControllerTest < ActionController::TestCase
                              house_number: '15',
                              postal_code: '10365',
                              city: 'Berlin',
+                             categories: [],
                             }
     end
 
@@ -37,6 +38,7 @@ class PlacesControllerTest < ActionController::TestCase
                              house_number: '15',
                              postal_code: '10365',
                              city: 'Berlin',
+                             categories: [],
                             }
     end
   end
@@ -52,6 +54,7 @@ class PlacesControllerTest < ActionController::TestCase
                                          house_number: '15',
                                          postal_code: '10365',
                                          city: 'Berlin',
+                                         categories: [],
                                         }
     @place.reload.name
     assert_equal 'Blubb', @place.name
@@ -63,6 +66,7 @@ class PlacesControllerTest < ActionController::TestCase
                                          house_number: '15',
                                          postal_code: '10365',
                                          city: 'Berlin',
+                                         categories: [],
                                         }
     @place.reload.name
     assert_equal 'Hausprojekt Magdalenenstraße 19', @place.name
@@ -82,6 +86,7 @@ class PlacesControllerTest < ActionController::TestCase
                            house_number: '15',
                            postal_code: '10365',
                            city: 'Berlin',
+                           categories: [],
                           }
     assert Place.find_by(name: 'katze').reviewed
   end
@@ -93,6 +98,7 @@ class PlacesControllerTest < ActionController::TestCase
                            house_number: '15',
                            postal_code: '10365',
                            city: 'Berlin',
+                           categories: [],
                           }
     assert_not Place.find_by(name: 'andere katze').reviewed
   end

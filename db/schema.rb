@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715153350) do
+ActiveRecord::Schema.define(version: 20160729133330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,16 +20,6 @@ ActiveRecord::Schema.define(version: 20160715153350) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "categorizings", force: :cascade do |t|
-    t.integer  "place_id"
-    t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "categorizings", ["category_id"], name: "index_categorizings_on_category_id", using: :btree
-  add_index "categorizings", ["place_id"], name: "index_categorizings_on_place_id", using: :btree
 
   create_table "category_translations", force: :cascade do |t|
     t.integer  "category_id", null: false
@@ -66,6 +56,7 @@ ActiveRecord::Schema.define(version: 20160715153350) do
     t.string   "house_number"
     t.string   "city",                         null: false
     t.boolean  "reviewed",     default: false, null: false
+    t.text     "categories",   default: ""
   end
 
   create_table "simple_captcha_data", force: :cascade do |t|
@@ -99,6 +90,4 @@ ActiveRecord::Schema.define(version: 20160715153350) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
-  add_foreign_key "categorizings", "categories"
-  add_foreign_key "categorizings", "places"
 end

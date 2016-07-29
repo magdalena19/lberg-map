@@ -20,7 +20,9 @@
         %td
           = place.address
         %td
-          = generate_categories_filter_links place
+          - if place.category_ids
+            - place.category_ids.each do |id|
+              = category_link(id)
         %td
           = place.latitude
         %td

@@ -54,13 +54,9 @@ module MassSeedPoints
               description_de: latin_lorem_ipsum(rand(10..90)),
               description_fr: latin_lorem_ipsum(rand(10..90)),
               description_ar: arab_lorem_ipsum(rand(10..90)),
+              categories: category_ids.shuffle.pop,
               reviewed: [true,false].sample
              ).save(validate: false)
-
-    no_of_categories.times do
-      Categorizing.create(category_id: category_ids.shuffle.pop,
-                          place_id: place_id)
-    end
   end
 
   def self.generate_category

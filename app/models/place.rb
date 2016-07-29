@@ -1,9 +1,13 @@
 require 'auto_translator'
 
 class Place < ActiveRecord::Base
-  ## RELATIONS
-  has_many :categorizings
-  has_many :categories, through: :categorizings
+  def self.reviewed
+    Place.all.map(&:reviewed_version).compact
+  end
+
+  def self.with_reviewed_category(id)
+    Place.all.map(&:reviewed_version).compact.find_all{ |p| p.has_category?(id) }
+  end
 
   ## VALIDATIONS
   validates_presence_of :name, :street, :city, :postal_code
@@ -82,21 +86,17 @@ class Place < ActiveRecord::Base
     translate_empty_descriptions if @translator && @native_translation
   end
 
-  ## CATEGORY TAGGING
-  def category_ids=(ids)
-    clean_ids = ids.reject(&:empty?)
-    if clean_ids == []
-      categories.destroy_all
-    else
-      self.categories = clean_ids.map do |id|
-        Category.where(id: id.to_i).first
-      end
-    end
+  ## CATEGORIES
+  def has_category?(id)
+    category_ids.include?(id.to_s)
   end
 
-  def self.tagged_with(id)
-    category = Category.find(id)
-    category && category.places
+  def category_names
+    category_ids.map { |id| Category.find(id.to_s).name }
+  end
+
+  def category_ids
+    categories.split(',')
   end
 
   ## GEOCODING
@@ -161,7 +161,7 @@ class Place < ActiveRecord::Base
       { key: value }
     end.merge!( address: address,
     description: reviewed_description.html_safe,
-    categories: categories.map(&:id),
+    categories: categories,
     longitude: longitude,
     latitude: latitude,
     )

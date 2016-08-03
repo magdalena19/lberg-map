@@ -22,3 +22,4 @@ tmp/**/*
 .byebug_history
 
 /config/application.yml
+/.idea

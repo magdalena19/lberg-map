@@ -1,0 +1,27 @@
+---
+  version: '2'
+
+  services:
+    lberg-map-web:
+      container_name: lberg-map-web
+      image: lberg-map:latest
+      build: '.'
+      command: bundle exec rails s -p 3000 -b '0.0.0.0'
+      depends_on:
+        - lberg-map-db
+      volumes:
+        - .:/lberg-map
+      ports:
+        - '3000:3000'
+      environment:
+        - RAILS_ENV=docker
+    lberg-map-db:
+      container_name: lberg-map-db
+      image: postgres:latest
+      volumes:
+          - db-data:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_USER=root
+  volumes:
+    db-data:
+      driver: local

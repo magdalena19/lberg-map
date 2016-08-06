@@ -22,4 +22,4 @@ test:
 
 production:
   <<: *default
-  database: lberg-map_development
+  database: lberg-map_production

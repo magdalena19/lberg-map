@@ -129,7 +129,13 @@ jQuery(function() {
     });
 
     jQuery('.add-place-via-location').click(function(){
-      function confirmation(position) {
+      var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      };
+
+      function success(position) {
         var longitude = position.coords.longitude;
         var latitude = position.coords.latitude;
         map.setView([latitude, longitude], 18);
@@ -146,11 +152,11 @@ jQuery(function() {
         });
       };
 
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(confirmation);
-      } else {
-        console.log('Geolocation is not supported by this browser.');
+      function error(err) {
+        console.warn('ERROR(' + err.code + '): ' + err.message);
       };
+
+      navigator.geolocation.getCurrentPosition(success, error, options);
     });
 
     // FRONTEND STUFF

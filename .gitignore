@@ -22,3 +22,6 @@ tmp/**/*
 .byebug_history
 
 /config/application.yml
+
+# unicorn files like logs failures sockets 
+./shared/*

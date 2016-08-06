@@ -8,7 +8,7 @@ Some Dependencies you need:
 
     get the common ruby version e.g. 2.1 at the moment (installation via RVM recommended or according to this post: ryanbigg.com/2014/10/ubuntu-ruby-ruby-install-chruby-and-you// )
 
-    get PostgreSQL 9.3 or a later version
+    get PostgreSQL 9.3 or a later version and libpq-dev
 
 Inside the project folder run:
 

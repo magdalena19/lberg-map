@@ -77,8 +77,11 @@ class PlacesController < ApplicationController
 
   def modified_params
     modified_params ||= place_params
-    category_param = place_params[:categories] || []
-    modified_params[:categories] = category_param.reject(&:empty?).join(',')
+    if place_params[:categories]
+      category_param = place_params[:categories] || []
+      modified_params[:categories] = category_param.reject(&:empty?).join(',')
+    end
+    place_params[:categories]
     modified_params
   end
 

@@ -25,7 +25,6 @@
         .col-xs-4{dir: "#{text_direction}"}
           = category.name
         .col-xs-2
-          = hidden_field_tag 'place[categories][]', nil
           = check_box_tag 'place[categories][]', category.id, f.object.has_category?(category.id), disabled: @place.unreviewed_version
 
 

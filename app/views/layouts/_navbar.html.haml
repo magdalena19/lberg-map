@@ -6,7 +6,7 @@
       .logo.logo-right
         MAP
     .info-button.pull-left{class: "#{'active' if current_page?(about_path)}"}
-      = link_to('', about_path, class: 'glyphicon glyphicon-info-sign')
+      = link_to('', about_path, { class: 'glyphicon glyphicon-info-sign', onclick: 'showAnnouncementPanel()' })
     .navbar-dropdown-container.pull-right
       .dropdown.pull-right.navbar-dropdown
         %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}

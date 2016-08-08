@@ -10,7 +10,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     @announcement.save
   end
 
-  test "Cannot do anything without being logged in" do
+  test 'Cannot do anything without being logged in' do
     session[:user_id] = nil
 
     assert_difference 'Announcement.count', 0 do
@@ -58,7 +58,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     assert_equal 'something', @announcement.reload.header
   end
 
-  test "Can do anything as admin" do
+  test 'Can do anything as admin' do
     session[:user_id] = @admin.id
 
     put :update, id: @announcement.id, announcement: { header: 'Changed!',

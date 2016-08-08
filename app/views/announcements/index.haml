@@ -1,10 +1,12 @@
 .announcements-slidepanel
-  .content
-    - @announcements.each do |announcement|
-      .announcement
-        .announcement-header
-          = announcement.header
-        .announcement-timestamp
-          = announcement.created_at.strftime("%d-%m-%Y")
-        .announcement-body
-          = announcement.content
+  .announcements-slidepanel-header
+    Announcements
+  .announcements-slidepanel-body
+  - @announcements.each do |announcement|
+    .announcement
+      .announcement-header
+        = announcement.header
+      .announcement-timestamp
+        = announcement.created_at.strftime("%d-%m-%Y")
+      .announcement-body
+        = truncate(announcement.content)

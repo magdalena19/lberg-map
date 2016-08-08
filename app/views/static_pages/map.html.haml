@@ -30,7 +30,7 @@
   = render('place_slidepanel')
   = render('add_place_slidepanel')
   = render('locale_slidepanel')
-  = render('announcements_slidepanel')
+  = render template: 'announcements/index'
 
 :javascript
   window.locale = '#{locale}';

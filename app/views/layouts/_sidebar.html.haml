@@ -1,0 +1,21 @@
+.sidebar
+  .glyphicon.glyphicon-remove.pull-right.close-sidebar
+  .announcements-panel
+    - Announcement.all.each do |announcement|
+      .announcement
+        .announcement-header
+          = announcement.header
+        .announcement-timestamp
+          = "created: #{announcement.created_at.strftime("%d-%m-%Y")} by #{announcement.user.name if announcement.user}"
+        .announcement-body
+          = truncate(announcement.content.html_safe, length: 100, escape: false)
+    = link_to 'older announcements', announcements_path
+  .last-points-panel
+    .text-center.h4
+      Last POIs
+    - last_places_created(3).each do |place|
+      .last-point
+        .last-point-header
+          = place.name
+        .last-point-categories
+          = "created: #{place.created_at.strftime("%d-%m-%Y")}"

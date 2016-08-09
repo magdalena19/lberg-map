@@ -6,6 +6,9 @@
     = button_tag('', type: 'button', class: 'btn btn-success glyphicon glyphicon-ok', id: 'confirmation-button-yes')
     = button_tag('', type: 'button', class: 'btn btn-danger glyphicon glyphicon-remove', id: 'confirmation-button-no')
 
+  .overlay.control-container.show-sidebar-container
+    .glyphicon.glyphicon-chevron-right.open-sidebar
+
   .overlay.control-container.zoom-container
     .glyphicon.glyphicon-plus.zoom-in
     %br
@@ -30,7 +33,7 @@
   = render('place_slidepanel')
   = render('add_place_slidepanel')
   = render('locale_slidepanel')
-  = render template: 'announcements/index'
+  = render 'layouts/sidebar'
 
 :javascript
   window.locale = '#{locale}';

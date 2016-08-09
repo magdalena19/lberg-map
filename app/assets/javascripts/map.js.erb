@@ -15,15 +15,15 @@ jQuery(function() {
       map.setView([52.513, 13.474], 12);
     };
 
-     $.ajax({
-        url: 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/1/1/1.jpg',
-        success: function(result) {
-          addMap('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg');
-        },
-        error: function(result) {
-          addMap('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
-        }
-     });
+    $.ajax({
+      url: 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/1/1/1.jpg',
+      success: function(result) {
+        addMap('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg');
+      },
+      error: function(result) {
+        addMap('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
+      }
+    });
 
     var placeSlidePanel = jQuery('.place-slidepanel')
     var onEachFeature = function(feature, layer) {
@@ -93,6 +93,25 @@ jQuery(function() {
       });
     };
 
+    // SIDEBARS
+
+    jQuery('.open-sidebar').click(function(){
+      jQuery('show-sidebar-container').hide()
+      jQuery('.sidebar').show()
+    })
+
+    jQuery('.close-sidebar').click(function(){
+      jQuery('show-sidebar-container').show()
+      jQuery('.sidebar').hide()
+    })
+
+    $('.announcement').each(function() {
+      var a = Math.random() * 5 - 2;
+      $(this).css('transform', 'rotate(' + a + 'deg)');
+    }, function() {
+      $(this).css('transform', 'none');
+    });
+
     // CATEGORY AND PLACE BUTTONS
     jQuery('.category-button').click(function() {
       closeAllPanels();
@@ -156,13 +175,13 @@ jQuery(function() {
     // FRONTEND STUFF
     var toggleTriangle = function(e) {
       jQuery(e.target)
-        .prev('.panel-heading')
-        .find('.triangle')
-        .toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
+      .prev('.panel-heading')
+      .find('.triangle')
+      .toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
     }
     jQuery('#accordion')
-      .on('hidden.bs.collapse', toggleTriangle)
-      .on('shown.bs.collapse', toggleTriangle);
+    .on('hidden.bs.collapse', toggleTriangle)
+    .on('shown.bs.collapse', toggleTriangle);
   });
 
   jQuery('.locale-slidepanel').trigger('open');

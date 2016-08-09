@@ -9,9 +9,12 @@
     padding-top: 10px;
     z-index: 9999;
     .announcements-panel {
-        overflow-y: scroll;
-        overflow-x: hidden;
+        // overflow-y: scroll;
+        overflow: hidden;
         height: 50%;
+    }
+    .sidebar-spacer {
+        padding:inherit;
     }
     .last-points-panel {
         height: 50%;

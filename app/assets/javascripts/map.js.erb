@@ -93,25 +93,6 @@ jQuery(function() {
       });
     };
 
-    // SIDEBARS
-
-    jQuery('.open-sidebar').click(function(){
-      jQuery('show-sidebar-container').hide()
-      jQuery('.sidebar').show()
-    })
-
-    jQuery('.close-sidebar').click(function(){
-      jQuery('show-sidebar-container').show()
-      jQuery('.sidebar').hide()
-    })
-
-    $('.announcement').each(function() {
-      var a = Math.random() * 5 - 2;
-      $(this).css('transform', 'rotate(' + a + 'deg)');
-    }, function() {
-      $(this).css('transform', 'none');
-    });
-
     // CATEGORY AND PLACE BUTTONS
     jQuery('.category-button').click(function() {
       closeAllPanels();

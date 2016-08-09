@@ -1,17 +1,26 @@
 jQuery(function(){
   // SIDEBAR
+
+  closeSidebar = function() {
+    jQuery('.open-sidebar').show();
+    jQuery('.sidebar').hide();
+  };
+
+  showSidebar = function() {
+    jQuery('.open-sidebar').hide();
+    jQuery('.sidebar').show();
+  };
+
   if (jQuery('.sidebar').is(':visible')) {
     jQuery('.open-sidebar').hide();
   }
 
   jQuery('.open-sidebar').click(function(){
-    jQuery('.open-sidebar').hide();
-    jQuery('.sidebar').show();
+    showSidebar();
   });
 
   jQuery('.close-sidebar').click(function(){
-    jQuery('.open-sidebar').show();
-    jQuery('.sidebar').hide();
+    closeSidebar();
   });
 
   // rotate announcement post-its

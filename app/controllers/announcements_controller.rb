@@ -1,9 +1,13 @@
 class AnnouncementsController < ApplicationController
-  before_action :require_authentication, only: [:new, :create, :edit, :update, :destroy]
+  before_action :require_authentication
   before_action :require_to_be_same_user_or_admin, only: [:edit, :update, :destroy]
 
   def index
-    @announcements = Announcement.all
+    @announcements = Announcement.paginate(page: params[:page], per_page: 5).order('created_at DESC')
+  end
+
+  def show
+    @announcement = Announcement.find(params[:id])
   end
 
   def new
@@ -25,10 +29,10 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.find(params[:id])
     if @announcement.update_attributes(announcement_params)
       flash.now[:success] = 'Changes saved!'
-      redirect_to :root
+      redirect_to announcements_path
     else
-      flash.now[:success] = 'Could not save changes, please check your input for errors!'
-      redirect_to :edit
+      flash.now[:danger] = @announcement.errors.full_messages.to_sentence
+      render :edit
     end
   end
 
@@ -46,7 +50,7 @@ class AnnouncementsController < ApplicationController
       flash.now[:success] = 'Announcement published!'
       redirect_to :root
     else
-      flash.now[:danger] = 'Could not create announcement!'
+      flash.now[:danger] = @announcement.errors.full_messages.to_sentence
       render :new
     end
   end

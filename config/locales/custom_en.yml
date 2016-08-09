@@ -10,6 +10,19 @@ en:
     name_placeholder: 'User name'
     password_placeholder: 'Password'
     password_confirm_placeholder: 'Confirm password'
+  manage_announcements:
+    announcements: 'Announcements'
+    announcement_board: 'Announcement board'
+    new_announcement: 'New announcement'
+    title: 'Title'
+    created_at: 'Created at'
+    last_change_at: 'Last change at'
+    created_by: 'Creator'
+    manage: 'Manage announcements'
+    edit_announcement: 'Edit announcement'
+    create_announcement: 'Create new announcement'
+    set_title: 'Announcement title (5-30 characters)'
+    set_content: 'Announcement content'
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'
   auto_translation_prefix_fr: 'Traduction automatique:'
@@ -23,15 +36,24 @@ en:
   close: 'Close'
   back: 'Back'
   delete: 'delete'
+  confirm_delete: 'Are you sure you want to delete that?'
   edit: 'edit'
   submit: 'Submit'
   new_place: 'New place'
   index_places: 'All places'
   about: 'About'
+  will_paginate:
+    previous_label: '&#8592; Previous'
+    next_label: 'Next &#8594;'
+    page_gap: '&hellip'
   activerecord:
     models:
       place: 'place'
+      announcement: 'announcement'
     attributes:
+      announcement:
+        header: 'title'
+        content: 'content'
       place:
         name: 'name'
         street: 'street'

@@ -1,8 +1,8 @@
 .sidebar
   .glyphicon.glyphicon-remove.pull-right.close-sidebar
-  .text-center.h4
-    = t('announcements')
   .announcements-panel
+    .text-center.h4
+      = t('announcements')
     - last_announcements_created(4).each do |announcement|
       .announcement
         .announcement-header

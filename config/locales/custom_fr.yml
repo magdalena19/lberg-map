@@ -10,6 +10,11 @@ fr:
     name_placeholder: ''
     password_placeholder: ''
     password_confirm_placeholder: ''
+  announcement_modifications:
+    edit_announcement: ''
+    create_announcement: ''
+    set_title: ''
+    set_content: ''
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'
   auto_translation_prefix_fr: 'Traduction automatique:'
@@ -31,7 +36,11 @@ fr:
   activerecord:
     models:
       place: 'place'
+      announcement: ''
     attributes:
+      announcement:
+        header: ''
+        content: ''
       place:
         name: 'name'
         street: 'street'

@@ -10,6 +10,11 @@ de:
     name_placeholder: 'Nutzer_innen-Name'
     password_placeholder: 'Passwort'
     password_confirm_placeholder: 'Passwort bestätigen'
+  announcement_modifications:
+    edit_announcement: 'Mitteilung editieren'
+    create_announcement: 'Neue Mitteilung erstellen'
+    set_title: 'Titel der Mitteilung (5-30 Zeichen)'
+    set_content: 'Inhalt der Mitteilung'
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'
   auto_translation_prefix_fr: 'Traduction automatique:'
@@ -31,7 +36,11 @@ de:
   activerecord:
     models:
       place: 'Ort'
+      announcement: 'Mitteilung'
     attributes:
+      announcement:
+        header: 'title'
+        content: 'inhalt'
       place:
         name: 'Name'
         street: 'Straße'

@@ -1,9 +1,10 @@
 @import 'colors';
 .sidebar {
-    background: rgba(darken($lilac, 15%),0.5);
-    position: absolute;
+   position: absolute;
     width: 20%;
-    left: 0;
+    min-width: 300px;
+    max-width: 450px;
+    left: 15px;
     top: 58px;
     bottom: 29px;
     padding-top: 10px;
@@ -13,11 +14,10 @@
         overflow: hidden;
         height: 50%;
     }
-    .sidebar-spacer {
-        padding:inherit;
-    }
     .last-points-panel {
         height: 50%;
+        overflow-y: hidden;
+        color: grey;
     }
 }
 
@@ -26,11 +26,11 @@
     padding: 10px;
     margin: 10px;
     color: #000;
-    -moz-transform: rotate(-3deg);
-    -webkit-transform: rotate(-3deg);
-    -o-transform: rotate(-3deg);
-    -ms-transform: rotate(-3deg);
-    transform: rotate(-3deg);
+    -moz-transform: rotate(-1deg);
+    -webkit-transform: rotate(-1deg);
+    -o-transform: rotate(-1deg);
+    -ms-transform: rotate(-1deg);
+    transform: rotate(-1deg);
     box-shadow: 0 4px 6px #333;
     -moz-box-shadow: 0 4px 6px #333;
     -webkit-box-shadow: 0 4px 6px #333;
@@ -44,30 +44,5 @@
     }
     .announcement-content {
         font-size: medium;
-    }
-}
-
-.last-point {
-    padding: 10px;
-    .last-point-header {
-        border-radius: 4px 4px 0 0;
-        font-size: larger;
-        padding: 8px;
-        background: rgba(black, 0.7) !important;
-        word-wrap: break-word;
-        color: $green;
-    }
-    .last-point-categories {
-        padding: 8px;
-        font-size: smaller;
-        background: rgba(white, 0.75);
-        color: rgb(112, 111, 111);
-        font-style: italic;
-    }
-    .last-point-address {
-        border-radius: 0 0 4px 4px;
-        padding: 0 8px 8px;
-        font-size: small;
-        background: rgba(white, 0.75);
     }
 }

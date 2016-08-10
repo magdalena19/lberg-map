@@ -1,5 +1,5 @@
 module PlacesHelper
-  def  category_link(category_id)
+  def category_link(category_id)
     raw link_to Category.find(category_id).name, category_path(category_id)
   end
 
@@ -7,7 +7,7 @@ module PlacesHelper
     "#{place.street} #{place.house_number}, #{place.postal_code} #{place.city}"
   end
 
-  def last_places_created(n)
-    Place.all.sort_by(&:created_at).reverse[0..n-1].compact
+  def last_places_created
+    Place.all.sort_by(&:created_at).reverse
   end
 end

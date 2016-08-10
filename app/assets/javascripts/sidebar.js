@@ -1,16 +1,17 @@
-jQuery(function(){
+jQuery(function() {
   // SIDEBAR
 
   closeSidebar = function() {
-    jQuery('.open-sidebar').show();
-    jQuery('.sidebar').hide();
+    jQuery('.open-sidebar').show(500);
+    jQuery('.sidebar').hide(500);
   };
 
   showSidebar = function() {
-    jQuery('.open-sidebar').hide();
-    jQuery('.sidebar').show();
+    jQuery('.open-sidebar').hide(500);
+    jQuery('.sidebar').show(500);
   };
 
+  // Prevent displaying button and sidebar at the same time on page landing
   if (jQuery('.sidebar').is(':visible')) {
     jQuery('.open-sidebar').hide();
   }
@@ -21,11 +22,5 @@ jQuery(function(){
 
   jQuery('.close-sidebar').click(function(){
     closeSidebar();
-  });
-
-  // rotate announcement post-its
-  $('.announcement').each(function() {
-    var a = Math.random() * 6 - 2;
-    $(this).css('transform', 'rotate(' + a + 'deg)');
   });
 });

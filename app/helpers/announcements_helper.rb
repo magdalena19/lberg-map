@@ -1,5 +1,5 @@
 module AnnouncementsHelper
-  def last_announcements_created(n)
-    Announcement.all.sort_by(&:created_at).reverse[0..n-1]
+  def last_announcements_created
+    Announcement.all.sort_by(&:created_at).reverse
   end
 end

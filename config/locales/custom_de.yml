@@ -10,7 +10,12 @@ de:
     name_placeholder: 'Nutzer_innen-Name'
     password_placeholder: 'Passwort'
     password_confirm_placeholder: 'Passwort bestätigen'
-  announcement_modifications:
+  manage_announcements:
+    title: 'Überschrift'
+    created_at: 'Erstellt am'
+    last_change_at: 'Letzte Änderung'
+    created_by: 'Erstellt von'
+    manage: 'Mitteilungen verwalten'
     edit_announcement: 'Mitteilung editieren'
     create_announcement: 'Neue Mitteilung erstellen'
     set_title: 'Titel der Mitteilung (5-30 Zeichen)'
@@ -28,19 +33,24 @@ de:
   close: 'Schließen'
   back: 'Zurück'
   delete: 'Löschen'
+  confirm_delete: 'Bist du dir sicher, dass du das löschen möchtest?'
   edit: 'Bearbeiten'
   submit: 'Abschicken'
   new_place: 'Neuer Ort'
   index_places: 'Alle Orte'
   about: 'Info'
+  will_paginate:
+    previous_label: '&#8592; Vorherige'
+    next_label: 'Nächste &#8594;'
+    page_gap: '&hellip'
   activerecord:
     models:
       place: 'Ort'
       announcement: 'Mitteilung'
     attributes:
       announcement:
-        header: 'title'
-        content: 'inhalt'
+        header: 'Überschrift'
+        content: 'Inhalt'
       place:
         name: 'Name'
         street: 'Straße'

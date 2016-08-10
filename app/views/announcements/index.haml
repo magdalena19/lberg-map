@@ -26,18 +26,11 @@
                 = link_to announcement.header, announcement_path(announcement)
               .col-xs-2
                 - if announcement.user
-                  = announcement.user.name
+                  = mail_to announcement.user.email, announcement.user.name
               .col-xs-2.date-field
                 = announcement.created_at.strftime("%d-%m-%Y")
               .col-xs-2.date-field
                 = announcement.updated_at.strftime("%d-%m-%Y")
               .col-xs-3
-                .dropdown
-                  %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-                    = t('modify')
-                    %span.caret
-                  %ul.dropdown-menu
-                    %li
-                      = link_to 'edit', edit_announcement_path(announcement)
-                    %li
-                      = link_to 'remove', announcement_path(announcement), { method: 'delete', data: { confirm: t('confirm_delete')} }
+                - if current_user == announcement.user || is_admin?
+                  = render partial: 'modification_dropdown', locals: { announcement: announcement }

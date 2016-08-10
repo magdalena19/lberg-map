@@ -1,5 +1,6 @@
 jQuery(function() {
   var slidePanels = jQuery('.slidepanel');
+  var sideBar = jQuery('.sidebar');
 
   slidePanels.each(function() {
     var panel = jQuery(this);
@@ -9,6 +10,7 @@ jQuery(function() {
       panel.addClass('slidx-open');
       jQuery('.control-container').hide();
       jQuery('.navbar-dropdown').hide();
+      closeSidebar();
     });
     panel.bind('close', function() {
       panel.css('bottom', '-' + panel.outerHeight() + 'px');
@@ -33,7 +35,7 @@ jQuery(function() {
       panel.width(width);
       if (!panel.hasClass('slidx-open')) {
         panel.css('bottom', '-' + panel.outerHeight() + 'px');
-      };
+      }
     });
   };
 
@@ -42,7 +44,7 @@ jQuery(function() {
   }).resize();
 
   jQuery('.slidepanel-button').click(function() {
-    var panelName = jQuery(this).attr('slidepanel')
+    var panelName = jQuery(this).attr('slidepanel');
     var panel = jQuery('.' + panelName);
     if (!panel.hasClass('slidx-open')) {
       panel.trigger('open');

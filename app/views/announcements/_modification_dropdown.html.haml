@@ -1,0 +1,9 @@
+.dropdown
+  %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+    = t('modify')
+    %span.caret
+  %ul.dropdown-menu
+    %li
+      = link_to 'edit', edit_announcement_path(announcement)
+    %li
+      = link_to 'remove', announcement_path(announcement), { method: 'delete', data: { confirm: t('confirm_delete')} }

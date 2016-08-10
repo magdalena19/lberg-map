@@ -18,7 +18,7 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
-@import 'colors'; 
+@import 'colors';
 
 .container-full {
   width: 100%;
@@ -61,7 +61,7 @@
 }
 
 .navbar-dropdown-container {
-  float: right; 
+  float: right;
 }
 
 .navbar-dropdown {
@@ -76,7 +76,7 @@
     color: $green;
     .active > a {
       color: white !important;
-      background: $green !important;      
+      background: $green !important;
     }
   }
 }
@@ -97,4 +97,10 @@
 
 .new-point {
   background-color: lighten(rgb(124, 223, 99), 25);
+}
+
+// Pagination
+
+.previous_page.disabled {
+  color: $grey;
 }

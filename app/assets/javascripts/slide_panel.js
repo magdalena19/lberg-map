@@ -27,6 +27,7 @@ jQuery(function() {
     };
   });
 
+  // fired when window get resized (application.js)
   resizePanels = function() {
     slidePanels.each(function() {
       var panel = jQuery(this);
@@ -39,10 +40,6 @@ jQuery(function() {
       }
     });
   };
-
-  jQuery(window).resize(function() {
-    resizePanels();
-  }).resize();
 
   jQuery('.slidepanel-button').click(function() {
     var panelName = jQuery(this).attr('slidepanel');

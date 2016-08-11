@@ -1,8 +1,8 @@
 .last-points-panel.announcement
-  .text-center.h4
+  %h4.text-center.header
     = t('Last_pois_inserted')
   - last_places_created.each do |place|
     .last-point
       .last-point-header
         = place.name
-        .glyphicon.glyphicon-search.zoom-to-place.pull-right
+        .glyphicon.glyphicon-search.zoom-to-place.pull-right{longitude: place.longitude, latitude: place.latitude}

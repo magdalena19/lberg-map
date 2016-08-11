@@ -26,48 +26,11 @@ jQuery(function() {
     window.history.back();
   });
 
-  // SIDEBAR
-
-  // Randomly rotate DOM object
-  rotateDOM = function(obj) {
-    var a = Math.random() * 4 - 2;
-    obj.css('transform', 'rotate(' + a + 'deg)');
-  };
-
-  // Balance number of announcements and last points to be displayed and resize panel accordingly
-  balanceSidebar = function() {
-    var cumHeight = 0;
-    var sidebarHeight = $('.sidebar').innerHeight();
-
-    // Throttle size of visible announcements and resize panel accordingly
-    jQuery(function() {
-      var announcementsPanel = $('.announcements-panel');
-      var finalPanelHeight = 0;
-
-      $.each($('.announcement-news'), function(index) {
-        $(this).show();
-        cumHeight += $(this).outerHeight(true);
-        if (cumHeight > announcementsPanel.height()) {
-          $(this).hide();
-        }
-        else {
-          rotateDOM($(this));
-        }
-      });
-
-    });
-  };
-
-  jQuery(function(){
-    balanceSidebar();
-  });
-
   // RESPONSIVE HEIGHT
   jQuery(window).resize(function(){
     var navbarHeight = jQuery('.navbar').height();
     jQuery('.map-container').height(jQuery(window).height()).css('margin-top', - (navbarHeight + 15));
     jQuery('.zoom-container').css('top', navbarHeight + 3);
     jQuery('.main-container').css('margin-top', navbarHeight + 15);
-    balanceSidebar();
   }).resize();
 });

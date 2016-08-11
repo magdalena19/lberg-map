@@ -10,7 +10,8 @@ jQuery(function() {
       panel.addClass('slidx-open');
       jQuery('.control-container').hide();
       jQuery('.navbar-dropdown').hide();
-      closeSidebar();
+      jQuery('.open-sidebar').show(500);
+      jQuery('.sidebar').hide(500);
     });
     panel.bind('close', function() {
       panel.css('bottom', '-' + panel.outerHeight() + 'px');

@@ -19,6 +19,7 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'unicorn'
 gem 'paper_trail'
 gem 'globalize-versioning'
+gem 'differ'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

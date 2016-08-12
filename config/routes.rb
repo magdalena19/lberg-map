@@ -20,5 +20,6 @@ Rails.application.routes.draw do
       resources :descriptions
     end
     resources :users
+    resources :announcements
   end
 end

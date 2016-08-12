@@ -15,15 +15,15 @@ jQuery(function() {
       map.setView([52.513, 13.474], 12);
     };
 
-     $.ajax({
-        url: 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/1/1/1.jpg',
-        success: function(result) {
-          addMap('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg');
-        },     
-        error: function(result) {
-          addMap('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
-        }
-     });
+    $.ajax({
+      url: 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/1/1/1.jpg',
+      success: function(result) {
+        addMap('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg');
+      },
+      error: function(result) {
+        addMap('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
+      }
+    });
 
     var placeSlidePanel = jQuery('.place-slidepanel')
     var onEachFeature = function(feature, layer) {
@@ -115,7 +115,7 @@ jQuery(function() {
           resizePanels();
           jQuery('.loading').hide();
         }
-      });      
+      });
     });
     jQuery('.category-button#all').click();
 
@@ -129,13 +129,7 @@ jQuery(function() {
     });
 
     jQuery('.add-place-via-location').click(function(){
-      var options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-      };
-
-      function success(position) {
+      function confirmation(position) {
         var longitude = position.coords.longitude;
         var latitude = position.coords.latitude;
         map.setView([latitude, longitude], 18);
@@ -152,23 +146,23 @@ jQuery(function() {
         });
       };
 
-      function error(err) {
-        console.warn('ERROR(' + err.code + '): ' + err.message);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(confirmation);
+      } else {
+        console.log('Geolocation is not supported by this browser.');
       };
-
-      navigator.geolocation.getCurrentPosition(success, error, options);
     });
 
     // FRONTEND STUFF
     var toggleTriangle = function(e) {
       jQuery(e.target)
-        .prev('.panel-heading')
-        .find('.triangle')
-        .toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
+      .prev('.panel-heading')
+      .find('.triangle')
+      .toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
     }
     jQuery('#accordion')
-      .on('hidden.bs.collapse', toggleTriangle)
-      .on('shown.bs.collapse', toggleTriangle);
+    .on('hidden.bs.collapse', toggleTriangle)
+    .on('shown.bs.collapse', toggleTriangle);
   });
 
   jQuery('.locale-slidepanel').trigger('open');

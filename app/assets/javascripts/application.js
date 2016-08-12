@@ -20,7 +20,7 @@
 //= require_tree .
 
 jQuery(function() {
-  jQuery('#flash-messages').delay(8000).fadeOut(800)
+  jQuery('#flash-messages').delay(8000).fadeOut(800);
   jQuery('.dropdown-toggle').dropdown();
   jQuery('.back-button').click(function() {
     window.history.back();
@@ -32,5 +32,7 @@ jQuery(function() {
     jQuery('.map-container').height(jQuery(window).height()).css('margin-top', - (navbarHeight + 15));
     jQuery('.zoom-container').css('top', navbarHeight + 3);
     jQuery('.main-container').css('margin-top', navbarHeight + 15);
+    balanceSidebar();
+    resizePanels();
   }).resize();
 });

@@ -1,0 +1,12 @@
+= form_for(@announcement) do |f|
+  .row
+    .col-md-6.col-md-offset-3
+      %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:header)}" }
+        = f.text_field :header, class: 'form-control', placeholder: t('manage_announcements.set_title')
+      %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:content)}" }
+        = f.text_area :content, class: 'form-control', placeholder: t('manage_announcements.set_content')
+  .row
+    .col-xs-3.col-md-offset-3
+      = f.submit t('submit'), class: 'btn btn-primary btn-success'
+    .col-xs-3
+      = link_to t('back'), root_path, class: 'btn btn-primary btn-danger'

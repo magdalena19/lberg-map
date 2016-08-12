@@ -1,0 +1,36 @@
+.container
+  .row
+    .col-xs-12
+      %h3
+        = t('manage_announcements.manage')
+      .row
+        .col-xs-12
+          = will_paginate
+        %hr
+        .col-xs-12
+          .row
+            .col-xs-3
+              %b= t('manage_announcements.title')
+            .col-xs-2
+              %b= t('manage_announcements.created_by')
+            .col-xs-2
+              %b= t('manage_announcements.created_at')
+            .col-xs-2
+              %b= t('manage_announcements.last_change_at')
+      .row
+        .col-xs-12
+          - @announcements.each do |announcement|
+            .row
+              %hr
+              .col-xs-3
+                = link_to announcement.header, announcement_path(announcement)
+              .col-xs-2
+                - if announcement.user
+                  = mail_to announcement.user.email, announcement.user.name
+              .col-xs-2.date-field
+                = announcement.created_at.strftime("%d-%m-%Y")
+              .col-xs-2.date-field
+                = announcement.updated_at.strftime("%d-%m-%Y")
+              .col-xs-3
+                - if current_user == announcement.user || is_admin?
+                  = render partial: 'modification_dropdown', locals: { announcement: announcement }

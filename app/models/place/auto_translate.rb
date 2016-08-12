@@ -2,29 +2,25 @@ class BingTranslatorWrapper
   attr_accessor :bing_translator
 
   def initialize(id, secret, account_key)
-    begin
-      t = BingTranslator.new(id, secret, false, account_key)
-      t.get_access_token
-    rescue
-      Rails.logger.error do
-        "Encountered an error while trying to receive access
-        token for BringTranslator instance. It's probable, that you supplied
-        either an invalid 'id' or 'secret key' (or both)!"
-      end
-      @bing_translator = nil
-    else
-      @bing_translator = t
+    t = BingTranslator.new(id, secret, false, account_key)
+    t.get_access_token
+  rescue
+    Rails.logger.error do
+      "Encountered an error while trying to receive access
+      token for BringTranslator instance. It's probable, that you supplied
+      either an invalid 'id' or 'secret key' (or both)!"
     end
+    @bing_translator = nil
+  else
+    @bing_translator = t
   end
 
   def can_translate?(text)
-    begin
-      @bing_translator.balance >= text.length
-    rescue
-      false
-    else
-      true
-    end
+    @bing_translator.balance >= text.length
+  rescue
+    false
+  else
+    true
   end
 
   def failsafe_translate(text, from, to)

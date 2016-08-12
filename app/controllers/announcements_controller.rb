@@ -1,5 +1,5 @@
 class AnnouncementsController < ApplicationController
-  before_action :require_authentication
+  before_action :require_login
   before_action :require_to_be_same_user_or_admin, only: [:edit, :update, :destroy]
 
   def index
@@ -67,7 +67,7 @@ class AnnouncementsController < ApplicationController
     end
   end
 
-  def require_authentication
+  def require_login
     unless signed_in?
       flash.now[:danger] = 'Access to this page has been restricted. Please login first!'
       redirect_to login_path

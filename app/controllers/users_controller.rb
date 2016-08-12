@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_authentication
+  before_action :require_login
   before_action :require_to_be_same_user
 
   def edit
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def require_authentication
+  def require_login
     unless session[:user_id]
       flash.now[:danger] = 'Access to this page has been restricted. Please login first!'
       redirect_to login_path

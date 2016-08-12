@@ -2,11 +2,8 @@ class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
   def index
-    if params[:category]
-      @places = Place.with_reviewed_category(params[:category])
-    else
-      @places = Place.reviewed
-    end
+    return @places = Place.reviewed unless params[:category]
+    @places = Place.with_reviewed_category(params[:category])
   end
 
   def edit

@@ -88,12 +88,11 @@ class Place < ActiveRecord::Base
   def properties
     attributes.each do |_key, value|
       { key: value }
-    end.merge!( address: address,
-    description: reviewed_description.html_safe,
-    categories: categories,
-    longitude: longitude,
-    latitude: latitude,
-    )
+    end.merge!(address: address,
+               description: reviewed_description.html_safe,
+               categories: categories,
+               longitude: longitude,
+               latitude: latitude)
   end
 
   def reviewed_description

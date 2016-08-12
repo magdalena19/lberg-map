@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
   def map
     @categories = Category.all
     @announcements = Announcement.all
-    
+
     ## reponse for AJAX call
     if params[:category]
       if params[:category] == 'all'

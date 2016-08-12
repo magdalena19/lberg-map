@@ -13,7 +13,6 @@ de:
   manage_announcements:
     announcements: 'Mitteilungen'
     announcement_board: 'Mitteilungs-Board'
-    new_announcement: 'Neue Mitteilung'
     title: 'Überschrift'
     created_at: 'Erstellt am'
     last_change_at: 'Letzte Änderung'

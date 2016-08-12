@@ -13,7 +13,6 @@ en:
   manage_announcements:
     announcements: 'Announcements'
     announcement_board: 'Announcement board'
-    new_announcement: 'New announcement'
     title: 'Title'
     created_at: 'Created at'
     last_change_at: 'Last change at'

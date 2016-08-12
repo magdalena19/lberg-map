@@ -1,0 +1,10 @@
+.announcements-slidepanel
+  .content
+    - @announcements.each do |announcement|
+      .announcement
+        .announcement-header
+          = announcement.header
+        .announcement-timestamp
+          = announcement.created_at.strftime("%d-%m-%Y")
+        .announcement-body
+          = announcement.content

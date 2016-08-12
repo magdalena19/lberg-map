@@ -6,4 +6,8 @@ module PlacesHelper
   def address(place)
     "#{place.street} #{place.house_number}, #{place.postal_code} #{place.city}"
   end
+
+  def last_places_created(n)
+    Place.all.sort_by(&:created_at).reverse[0..n-1].compact
+  end
 end

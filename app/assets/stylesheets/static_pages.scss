@@ -71,6 +71,19 @@
   }
 }
 
+.show-sidebar-container {
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  .glyphicon {
+    margin: 4px;
+    padding: 15px;
+    border-radius: 7px;
+    background: rgba(darken($lilac, 15%),0.5);
+    font-size: 35px;
+  }
+}
+
 .category-container {
   left: 50%;
   bottom: 0px;

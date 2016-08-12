@@ -24,17 +24,17 @@ class AnnouncementsController < ApplicationController
   def update
     @announcement = Announcement.find(params[:id])
     if @announcement.update_attributes(announcement_params)
-      flash[:success] = 'Changes saved!'
+      flash.now[:success] = 'Changes saved!'
       redirect_to :root
     else
-      flash[:success] = 'Could not save changes, please check your input for errors!'
-      render :edit
+      flash.now[:success] = 'Could not save changes, please check your input for errors!'
+      redirect_to :edit
     end
   end
 
   def destroy
     if Announcement.find(params[:id]).destroy
-      flash[:success] = 'Announcement deleted!'
+      flash.now[:success] = 'Announcement deleted!'
       redirect_to :root
     end
   end
@@ -43,11 +43,11 @@ class AnnouncementsController < ApplicationController
 
   def create_announcement
     if @announcement.save
-      flash[:success] = 'Announcement published!'
+      flash.now[:success] = 'Announcement published!'
       redirect_to :root
     else
       flash.now[:danger] = 'Could not create announcement!'
-      redirect_to :edit
+      render :new
     end
   end
 

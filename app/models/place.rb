@@ -24,8 +24,11 @@ class Place < ActiveRecord::Base
   ## CALLBACKS
   geocoded_by :address
   before_validation :geocode_with_nodes, if: :address_changed?, on: [:create, :update]
-  after_create :auto_translate
   before_validation :sanitize_descriptions, on: [:create, :update]
+
+  if Rails.env != 'test'
+    after_create :auto_translate
+  end
 
   ## MODEL AUDITING
   has_paper_trail on: [:create, :update], ignore: [:reviewed, :description]

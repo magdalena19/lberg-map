@@ -1,6 +1,8 @@
 .container
-  - @other_translations_reviewed.each do |t|
-    .row
+  .row
+    .col-xs-12.margin-below
+      %h3= t('descriptions')
+    - @other_translations_reviewed.each do |t|
       .col-xs-12.grey
         = t.description.html_safe if t.description
         %hr

@@ -45,3 +45,11 @@
     .col-md-6
       = link_to 'Confirm', confirm_place_path, class: 'btn btn-primary btn-success'
       = link_to 'Refuse', refuse_place_path, class: 'btn btn-primary btn-danger'
+
+  .row
+    .col-xs-12.margin-below
+      %h3= t('descriptions')
+    .col-xs-12.grey
+      - @unreviewed_place.translations.each do |t|
+        = t.description
+        %hr

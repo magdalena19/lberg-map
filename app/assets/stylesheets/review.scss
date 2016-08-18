@@ -1,0 +1,9 @@
+@import 'colors';
+
+.unreviewed-container {
+  padding: 0 20px 20px 20px;
+  border: 2px solid $green;
+  h3 {
+    color: $green;
+  }
+}

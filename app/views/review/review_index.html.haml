@@ -23,7 +23,7 @@
         .row
           %hr
           .col-xs-3
-            = Place.find(t.place_id).name
+            = Place.find(t.place_id).reviewed_version.name
           .col-xs-1
             = t.locale
           .col-xs-6

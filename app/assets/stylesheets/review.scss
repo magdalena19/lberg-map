@@ -2,7 +2,8 @@
 
 .unreviewed-container {
   padding: 0 20px 20px 20px;
-  border: 2px solid $green;
+  border: 3px solid $green;
+  border-radius: 4px;
   h3 {
     color: $green;
   }

@@ -1,9 +1,7 @@
 .container
-  - @other_translations_reviewed.each do |t|
-    .row
-      .col-xs-12.grey
-        = t.description.html_safe
-        %hr
+  .row
+    .col-xs-12.margin-below
+      %h3= Place.find(@unreviewed_translation.place_id).reviewed_version.name
 
   .row.margin-below
     .col-md-6
@@ -14,11 +12,11 @@
       - else
         no reviewed translation
 
-    .col-md-6
+    .col-md-6.unreviewed-container
       %h3 Unreviewed
       %br
       - if @unreviewed_translation
-        = @unreviewed_translation.description.html_safe
+        = raw diff_to_reviewed
       - else
         no unreviewed translation
 
@@ -28,3 +26,10 @@
       = link_to 'Confirm', confirm_translation_path, class: 'btn btn-primary btn-success'
       = link_to 'Refuse', refuse_translation_path, class: 'btn btn-primary btn-danger'
 
+  .row
+    .col-xs-12.margin-below
+      %h3= t('other_descriptions')
+    - @other_translations_reviewed.each do |t|
+      .col-xs-12.grey
+        = t.description.html_safe if t.description
+        %hr

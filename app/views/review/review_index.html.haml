@@ -20,15 +20,14 @@
     .col-xs-12
       %h3 Translations
       - @unreviewed_translations.each do |t|
-        - t.each do |t|
-          .row
-            %hr
-            .col-xs-3
-              = Place.find(t.place_id).name
-            .col-xs-1
-              = t.locale
-            .col-xs-6
-              = t.description[0..200].html_safe + '...'
-            .col-xs-2
-              = link_to review_translation_path(t.id) do
-                review
+        .row
+          %hr
+          .col-xs-3
+            = Place.find(t.place_id).reviewed_version.name
+          .col-xs-1
+            = t.locale
+          .col-xs-6
+            = t.description[0..200].html_safe + '...' if t.description
+          .col-xs-2
+            = link_to review_translation_path(t.id) do
+              review

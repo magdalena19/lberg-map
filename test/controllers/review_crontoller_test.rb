@@ -3,28 +3,28 @@ require 'test_helper'
 class ReviewControllerTest < ActionController::TestCase
   def setup
     @new_place = Place.new(
-      name: 'Kiezspinne',
-      street: 'Schulze-Boysen-Straße',
-      house_number: '13',
-      postal_code: '10365',
-      city: 'Berlin',
-      description_en: 'bla bli blubs',
-      latitude: 13,
-      longitude: 52,
-      reviewed: false
-    )
+                    name: 'Kiezspinne',
+                    street: 'Schulze-Boysen-Straße',
+                    house_number: '13',
+                    postal_code: '10365',
+                    city: 'Berlin',
+                    description_en: 'bla bli blubs',
+                    latitude: 13,
+                    longitude: 52,
+                    reviewed: false
+                  )
     @new_place.save
     @place_with_unreviewed_changes = Place.new(
-                                      name: 'Magda19',
-                                      street: 'Magdalenenstraße',
-                                      house_number: '19',
-                                      postal_code: '10365',
-                                      city: 'Berlin',
-                                      description_en: 'This is an description.',
-                                      latitude: 13,
-                                      longitude: 52,
-                                      reviewed: true
-                                    )
+                                        name: 'Magda19',
+                                        street: 'Magdalenenstraße',
+                                        house_number: '19',
+                                        postal_code: '10365',
+                                        city: 'Berlin',
+                                        description_en: 'This is an description.',
+                                        latitude: 13,
+                                        longitude: 52,
+                                        reviewed: true
+                                      )
     @place_with_unreviewed_changes.save
     @place_with_unreviewed_changes.update(name: 'Magda')
     @place_with_unreviewed_changes.update(description: 'This is an updated description.')
@@ -46,7 +46,7 @@ class ReviewControllerTest < ActionController::TestCase
   test 'Review index shows new and unreviewed places and unreviewed translations' do
     get :review_index
     assert_equal 2, assigns(:places_to_review).length
-    assert_equal assigns(:unreviewed_translations)[0][0].place_id, @place_with_unreviewed_changes.id
+    assert_equal assigns(:unreviewed_translations)[0].place_id, @place_with_unreviewed_changes.id
   end
 
   test 'New place can be confirmed' do

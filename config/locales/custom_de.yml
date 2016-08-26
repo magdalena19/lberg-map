@@ -15,7 +15,7 @@ de:
     announcement_board: 'Mitteilungs-Board'
     title: 'Überschrift'
     created_at: 'Erstellt am'
-    last_change_at: 'Letzte Änderung'
+    last_change_at: 'Letzte Änderung am'
     created_by: 'Erstellt von'
     manage: 'Mitteilungen verwalten'
     edit_announcement: 'Mitteilung editieren'

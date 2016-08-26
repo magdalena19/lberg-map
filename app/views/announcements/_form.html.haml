@@ -6,7 +6,9 @@
       %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:content)}" }
         = f.text_area :content, class: 'form-control', placeholder: t('manage_announcements.set_content')
   .row
-    .col-xs-3.col-md-offset-3
-      = f.submit t('submit'), class: 'btn btn-primary btn-success'
-    .col-xs-3
-      = link_to t('back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
+    .col-xs-2.col-md-offset-3
+      = f.submit t('submit'), class: 'btn btn-success'
+    .col-xs-2
+      = link_to t('back'), '', class: 'btn btn-danger place-form-button back-button'
+    .col-xs-2
+      = link_to t('cancel'), root_path, class: 'btn btn-primary place-form-button cancel-button'

@@ -83,10 +83,17 @@
 
 .btn-success {
   background: $green !important;
+  border: none;
 }
 
 .btn-danger {
   background: $lilac !important;
+  border: none;
+}
+
+.cancel-button {
+  background: $brown !important;
+  border: none;
 }
 
 // Review table style

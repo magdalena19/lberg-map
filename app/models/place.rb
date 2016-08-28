@@ -92,7 +92,9 @@ class Place < ActiveRecord::Base
                description: reviewed_description.html_safe,
                categories: categories,
                longitude: longitude,
-               latitude: latitude)
+               latitude: latitude,
+               reviewed: reviewed,
+              )
   end
 
   def reviewed_description

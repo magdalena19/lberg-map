@@ -52,5 +52,4 @@
     .col-xs-6
       = f.submit class: 'btn btn-primary btn-success place-form-button'
     .col-xs-6.col-md-2
-      .btn.btn-primary.btn-danger.back-button
-        = t('back')
+      = link_to t('back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'

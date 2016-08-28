@@ -19,6 +19,7 @@ class PlacesController < ApplicationController
       save_update
     else
       flash.now[:danger] = 'Captcha not valid!'
+      @place.assign_attributes(modified_params)
       render :edit
     end
   end

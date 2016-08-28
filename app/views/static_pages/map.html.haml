@@ -38,3 +38,4 @@
 :javascript
   window.locale = '#{locale}';
   window.placesJson = #{raw(@places_json.to_json)};
+  window.geolocation_error_message_appendix = '#{t('geolocation_error_message_appendix')}';

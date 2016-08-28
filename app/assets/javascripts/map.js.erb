@@ -146,11 +146,27 @@ jQuery(function() {
         });
       };
 
+      var errorMessageAppendix = window.geolocation_error_message_appendix;
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(confirmation);
-      } else {
-        console.log('Geolocation is not supported by this browser.');
+        navigator.geolocation.getCurrentPosition(
+          confirmation,
+          displayError,
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+      }
+      else {
+        alert('Positioning not available. ' + errorMessageAppendix);
+      }
+
+      function displayError(error) {
+        var errors = {
+          1: 'Permission denied. ',
+          2: 'Position unavailable. ',
+          3: 'Request timeout. '
+        };
+        alert(errors[error.code] + errorMessageAppendix);
       };
+
     });
 
     // FRONTEND STUFF

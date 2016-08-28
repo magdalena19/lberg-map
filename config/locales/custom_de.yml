@@ -22,6 +22,7 @@ de:
     create_announcement: 'Neue Mitteilung erstellen'
     set_title: 'Titel der Mitteilung (5-30 Zeichen)'
     set_content: 'Inhalt der Mitteilung'
+  geolocation_error_message_appendix: 'Diese Funktion funktioniert vor allem auf tragbaren Geräten.'
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'
   auto_translation_prefix_fr: 'Traduction automatique:'

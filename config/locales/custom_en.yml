@@ -22,6 +22,7 @@ en:
     create_announcement: 'Create new announcement'
     set_title: 'Announcement title (5-30 characters)'
     set_content: 'Announcement content'
+  geolocation_error_message_appendix: 'Please note, that this feature is mainly working on mobile devices.'
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'
   auto_translation_prefix_fr: 'Traduction automatique:'

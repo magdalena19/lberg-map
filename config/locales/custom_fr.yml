@@ -22,6 +22,7 @@ fr:
     create_announcement: ''
     set_title: ''
     set_content: ''
+  geolocation_error_message_appendix: ''
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'
   auto_translation_prefix_fr: 'Traduction automatique:'

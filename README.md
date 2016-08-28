@@ -10,7 +10,7 @@ Some Dependencies you need:
 
     get PostgreSQL 9.3 or a later version and libpq-dev
 
-    install nodejs
+    install nodejs, imagemagik
 
 Inside the project folder run:
 

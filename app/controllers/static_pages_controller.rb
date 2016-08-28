@@ -2,6 +2,7 @@ class StaticPagesController < ApplicationController
   def map
     @categories = Category.all
     @announcements = Announcement.all
+    @last_places_created = Place.reviewed.sort_by(&:created_at).reverse
 
     ## reponse for AJAX call
     if params[:category]

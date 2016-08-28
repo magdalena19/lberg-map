@@ -1,7 +1,7 @@
 .last-points-panel.announcement
   %h4.text-center.header
     = t('Last_pois_inserted')
-  - last_places_created.each do |place|
+  - @last_places_created.each do |place|
     .last-point
       .last-point-header
         = place.name

@@ -1,4 +1,52 @@
+// fired when window get resized (application.js)
+slidePanelVisible = false;
+balanceSidebar = function() {
+  var cumHeight = 0;
+  var sidebarHeight = jQuery('.sidebar').innerHeight();
+  jQuery(function() {
+    jQuery.each(jQuery('.announcement-news'), function() {
+      var obj = jQuery(this);
+      cumHeight += obj.outerHeight() + 20;
+      if (cumHeight > jQuery('.announcements-panel').height()) {
+        obj.hide();
+      }
+      else {
+        obj.show();
+      };
+    });
+  });
+
+  if (jQuery(window).height() < 500 || jQuery(window).width() < 800) {
+    jQuery('.sidebar').css('opacity', '0');
+    jQuery('.show-sidebar-container').css('opacity', '0');
+  } else {
+    if (slidePanelVisible == false) {
+      jQuery('.sidebar').css('opacity', '100');
+      jQuery('.show-sidebar-container').css('opacity', '100');
+    };
+  };
+};
+
 jQuery(function() {
+
+  // ANNOUNCEMENTS
+  jQuery('.open-sidebar').click(function(){
+    jQuery('.show-sidebar-container').hide(500);
+    jQuery('.sidebar').show(500);
+  });
+
+  jQuery('.close-sidebar').click(function(){
+    jQuery('.show-sidebar-container').show(500);
+    jQuery('.sidebar').hide(500);
+  });
+  jQuery('.show-sidebar-container').hide();
+
+  jQuery.each(jQuery('.announcement'), function() {
+    var angle = Math.random() * 3 - 2;
+    jQuery(this).css('transform', 'rotate(' + angle + 'deg)');
+  });
+
+  // SLIDE PANELS
   var slidePanels = jQuery('.slidepanel');
   var sideBar = jQuery('.sidebar');
 
@@ -10,14 +58,17 @@ jQuery(function() {
       panel.addClass('slidx-open');
       jQuery('.control-container').hide();
       jQuery('.navbar-dropdown').hide();
-      jQuery('.open-sidebar').show(500);
-      jQuery('.sidebar').hide(500);
+      jQuery('.sidebar').css('opacity', '0');
+      jQuery('.show-sidebar-container').css('opacity', '0');
+      slidePanelVisible = true;
     });
     panel.bind('close', function() {
       panel.css('bottom', '-' + panel.outerHeight() + 'px');
       panel.removeClass('slidx-open');
       jQuery('.control-container').show();
       jQuery('.navbar-dropdown').show();
+      balanceSidebar();
+      slidePanelVisible = false;
     });
 
     closeAllPanels = function() {
@@ -55,4 +106,5 @@ jQuery(function() {
   jQuery('.hide-slidepanel').click(function() {
     closeAllPanels();
   });
+
 });

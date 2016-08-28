@@ -1,6 +1,6 @@
 module Geocoding
   def address
-    "#{street} #{house_number}, #{postal_code} #{city}"
+    ["#{street} #{house_number}", "#{postal_code} #{city}"].compact.join(',')
   end
 
   def address_changed?

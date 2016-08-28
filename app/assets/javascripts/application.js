@@ -20,6 +20,10 @@
 //= require_tree .
 
 jQuery(function() {
+  if (window.history.length == 1) {
+    jQuery('.back-button').hide();
+  }
+
   jQuery('#flash-messages').delay(8000).fadeOut(800);
   jQuery('.dropdown-toggle').dropdown();
   jQuery('.back-button').click(function() {

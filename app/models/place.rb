@@ -16,6 +16,7 @@ class Place < ActiveRecord::Base
   ## VALIDATIONS
   validates :postal_code, format: { with: /\d{5}/, message: 'supply valid postal code (5 digits)' },
     unless: 'postal_code.empty?'
+  validates :name, presence: true
 
   ## TRANSLATION
   translates :description, versioning: { gem: :paper_trail, options: { on: [:update, :create] } }

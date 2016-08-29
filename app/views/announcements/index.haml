@@ -33,4 +33,7 @@
                 = announcement.updated_at.strftime("%d-%m-%Y")
               .col-xs-3
                 - if current_user == announcement.user || is_admin?
-                  = render partial: 'modification_dropdown', locals: { announcement: announcement }
+                  = link_to edit_announcement_path(announcement) do
+                    %span{class: 'glyphicon glyphicon-pencil'}
+                  = link_to announcement_path(announcement), {method: "delete", data: { confirm: t('confirm_delete') }} do
+                    %span{class: 'glyphicon glyphicon-trash'}

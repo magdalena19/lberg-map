@@ -145,22 +145,29 @@ jQuery(function() {
       window.location.href = 'places/new';
     });
 
+    var locationMarker;
+
+    function confirmPlaceInsert(lat, lon) {
+      map.setView([lat, lon], 18);
+      if (locationMarker) {
+        map.removeLayer(locationMarker);
+      }
+      locationMarker = L.circleMarker([lat, lon]).addTo(map);
+      jQuery('.confirmation-button-container').fadeIn();
+      jQuery('#confirmation-button-yes').click(function() {
+        jQuery('.confirmation-button-container').fadeOut();
+        var params = 'longitude=' + lon + '&' + 'latitude=' +  lat;
+        window.location.href = 'places/new?' + params;
+      });
+      jQuery('#confirmation-button-no').click(function() {
+        jQuery('.confirmation-button-container').fadeOut();
+        window.location.href = 'places/new';
+      });
+    };
+
     jQuery('.add-place-via-location').click(function(){
       function confirmation(position) {
-        var longitude = position.coords.longitude;
-        var latitude = position.coords.latitude;
-        map.setView([latitude, longitude], 18);
-        var myLocationMarker = L.circleMarker([latitude, longitude]).addTo(map);
-        jQuery('.confirmation-button-container').fadeIn();
-        jQuery('#confirmation-button-yes').click(function() {
-          jQuery('.confirmation-button-container').fadeOut();
-          var params = 'longitude=' + longitude + '&' + 'latitude=' +  latitude;
-          window.location.href = 'places/new?' + params;
-        });
-        jQuery('#confirmation-button-no').click(function() {
-          jQuery('.confirmation-button-container').fadeOut();
-          window.location.href = 'places/new';
-        });
+        confirmPlaceInsert(position.coords.latitude, position.coords.longitude);
       };
 
       var errorMessageAppendix = window.geolocation_error_message_appendix;
@@ -185,6 +192,14 @@ jQuery(function() {
       };
 
     });
+
+    jQuery('.add_place_via_click').click(function(){
+      jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
+      map.on('click', function(point) {
+        confirmPlaceInsert(point.latlng.lat, point.latlng.lng);
+      });
+    });
+
 
     // FRONTEND STUFF
     var toggleTriangle = function(e) {

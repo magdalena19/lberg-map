@@ -45,14 +45,16 @@ feature 'Category selection' do
     show_category_panel
     click_on('Hospital')
     sleep(1)
+    screenshot_and_open_image
     page.find('.show-places').trigger('click')
     sleep(1)
+    screenshot_and_open_image
     page.wont_have_content('Magda')
   end
 
   def show_category_panel
     visit root_path
-    page.click_on('language')
+    page.find('.btn', text: 'language').trigger('click')
     page.find('.show-categories').trigger('click')
     sleep(1)
   end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     root 'static_pages#map'
     get '/:locale' => 'static_pages#map'
     get '/about' => 'static_pages#about'
+    get '/chronicle' => 'static_pages#chronicle'
     get '/category/:category' => 'places#index', as: :category
     get '/login' => 'sessions#new'
     post '/login' => 'sessions#create'

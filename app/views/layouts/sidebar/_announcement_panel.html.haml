@@ -1,11 +1,11 @@
 .announcements-panel
   - last_announcements_created.each do |announcement|
     .announcement.announcement-news
-      .announcement-header
-        = announcement.header
       .announcement-timestamp
-        = "created: #{announcement.created_at.strftime("%d-%m-%Y")} by #{announcement.user.name if announcement.user}"
+        = "#{announcement.created_at.strftime("%d-%m-%Y")}"
+      .announcement-header
+        %h4= announcement.header
       .announcement-body
-        = truncate(announcement.content.html_safe, length: 100, escape: false)
-  -# .all-announcements-link.text-center
-    -# = link_to 'older announcements', announcements_path
+        = truncate(announcement.content.html_safe, length: 150, escape: false)
+  .pull-right
+    = link_to 'see full chronicle', chronicle_path

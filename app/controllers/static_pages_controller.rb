@@ -16,4 +16,8 @@ class StaticPagesController < ApplicationController
 
   def about
   end
+
+  def chronicle
+    @announcements = Announcement.all
+  end
 end

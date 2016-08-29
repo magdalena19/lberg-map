@@ -1,0 +1,13 @@
+.container
+  .row
+    .col-xs-12.text-center
+      %h2 News
+    .announcements-panel
+      - @announcements.each do |announcement|
+        .col-xs-12
+          .pull-right
+            %i= "#{announcement.created_at.strftime("%d-%m-%Y")}"
+          %h4
+            %b= announcement.header
+          = announcement.content.html_safe
+          %hr

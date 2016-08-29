@@ -2,8 +2,6 @@ slidePanelVisible = false;
 
 // fired when window get resized (application.js)
 balanceSidebar = function() {
-  console.log(jQuery(window).height());
-  console.log(jQuery('.last-points-panel').height());
   jQuery('.announcements-panel').height(jQuery(window).height() - jQuery('.last-points-panel').height() - 150);
   var cumHeight = 0;
   var sidebarHeight = jQuery('.sidebar').innerHeight();

@@ -15,7 +15,7 @@ class Place < ActiveRecord::Base
 
   ## VALIDATIONS
   validates :postal_code, format: { with: /\d{5}/, message: 'supply valid postal code (5 digits)' },
-    unless: 'postal_code.empty?'
+    unless: 'postal_code.nil? || postal_code.empty?'
   validates :name, presence: true
 
   ## TRANSLATION
@@ -25,7 +25,8 @@ class Place < ActiveRecord::Base
   ## CALLBACKS
   geocoded_by :address
   before_validation :sanitize_descriptions, on: [:create, :update]
-  after_validation :geocode_with_nodes, if: :address_changed?, on: [:create, :update]
+  before_save :geocode_with_nodes, unless: 'lat_lon_present?'
+  before_update :geocode_with_nodes, if: 'address_changed?'
   after_create :auto_translate if Rails.env != 'test'
 
   def address

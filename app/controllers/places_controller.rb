@@ -78,6 +78,8 @@ class PlacesController < ApplicationController
   end
 
   def save_new
+    @place.latitude ||= params[:place][:latitude]
+    @place.longitude ||= params[:place][:longitude]
     if @place.save
       if !cookies[:created_places_in_session]
         cookies[:created_places_in_session] = @place.id.to_s
@@ -105,6 +107,7 @@ class PlacesController < ApplicationController
     params.require(:place).permit(
     :name, :street, :house_number, :postal_code, :city,
     :description_en, :description_de, :description_fr, :description_ar, :reviewed,
+    :latitude, :longitude,
     categories: []
     )
   end

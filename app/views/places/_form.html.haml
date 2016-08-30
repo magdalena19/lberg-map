@@ -50,6 +50,8 @@
       = show_simple_captcha unless signed_in?
   .row.margin-below
     .col-xs-6
+      = f.hidden_field :latitude, value: params[:latitude]
+      = f.hidden_field :longitude, value: params[:longitude]
       = f.submit class: 'btn btn-primary btn-success place-form-button'
     .col-xs-6.col-md-2
       = link_to t('back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'

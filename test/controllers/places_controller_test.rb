@@ -30,11 +30,18 @@ class PlacesControllerTest < ActionController::TestCase
                              house_number: '15',
                              postal_code: '10365',
                              city: 'Berlin',
-                             categories: [],
-                            }
+                             categories: [] }
     end
 
     assert_redirected_to root_path(latitude: 52.0, longitude: 12.0)
+  end
+
+  test 'place with lat_lon provided does not need to be geocoded' do
+    assert_difference 'Place.count' do
+      post :create, place: { name: 'SomePlace',
+                             latitude: 13,
+                             longitude: 52 }
+    end
   end
 
   test 'should not create invalid new place' do
@@ -44,8 +51,7 @@ class PlacesControllerTest < ActionController::TestCase
                              house_number: '15',
                              postal_code: '10365',
                              city: 'Berlin',
-                             categories: [],
-                            }
+                             categories: [] }
     end
   end
 
@@ -73,8 +79,7 @@ class PlacesControllerTest < ActionController::TestCase
                                          house_number: '15',
                                          postal_code: '10365',
                                          city: 'Berlin',
-                                         categories: [],
-                                        }
+                                         categories: [] }
     @place.reload.name
     assert_equal 'Blubb', @place.name
   end
@@ -85,8 +90,7 @@ class PlacesControllerTest < ActionController::TestCase
                                          house_number: '15',
                                          postal_code: '10365',
                                          city: 'Berlin',
-                                         categories: [],
-                                        }
+                                         categories: [] }
     @place.reload.name
     assert_equal 'Hausprojekt Magdalenenstraße 19', @place.name
   end
@@ -105,8 +109,7 @@ class PlacesControllerTest < ActionController::TestCase
                            house_number: '15',
                            postal_code: '10365',
                            city: 'Berlin',
-                           categories: [],
-                          }
+                           categories: [] }
     assert Place.find_by(name: 'katze').reviewed
   end
 
@@ -117,8 +120,7 @@ class PlacesControllerTest < ActionController::TestCase
                            house_number: '15',
                            postal_code: '10365',
                            city: 'Berlin',
-                           categories: [],
-                          }
+                           categories: [] }
     assert_not Place.find_by(name: 'andere katze').reviewed
   end
 end

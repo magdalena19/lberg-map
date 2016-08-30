@@ -6,7 +6,7 @@
       - @announcements.each do |announcement|
         .col-xs-12
           .pull-right
-            %i= "#{announcement.created_at.strftime("%d-%m-%Y")}"
+            %i= announcements_chronicle_header(announcement)
           %h4
             %b= announcement.header
           = announcement.content.html_safe

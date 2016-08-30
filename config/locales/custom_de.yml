@@ -16,7 +16,7 @@ de:
     title: 'Überschrift'
     created_at: 'Erstellt am'
     last_change_at: 'Letzte Änderung am'
-    created_by: 'Erstellt von'
+    created_by: 'von'
     manage: 'Mitteilungen verwalten'
     edit_announcement: 'Mitteilung editieren'
     create_announcement: 'Neue Mitteilung erstellen'

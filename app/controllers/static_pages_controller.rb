@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
   def map
     @categories = Category.all
-    @announcements = Announcement.all
+    @announcements = Announcement.all.sort_by(&:created_at).reverse
     @last_places_created = Place.reviewed.sort_by(&:created_at).reverse
 
     ## reponse for AJAX call
@@ -18,6 +18,6 @@ class StaticPagesController < ApplicationController
   end
 
   def chronicle
-    @announcements = Announcement.all
+    @announcements = Announcement.all.sort_by(&:created_at).reverse
   end
 end

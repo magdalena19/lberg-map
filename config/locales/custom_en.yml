@@ -45,7 +45,7 @@ en:
   will_paginate:
     previous_label: '&#8592; Previous'
     next_label: 'Next &#8594;'
-    page_gap: '&hellip'
+    page_gap: '...'
   activerecord:
     models:
       place: 'place'

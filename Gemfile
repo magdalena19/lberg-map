@@ -20,6 +20,7 @@ gem 'unicorn'
 gem 'paper_trail'
 gem 'globalize-versioning'
 gem 'differ'
+gem 'lorem_ipsum_amet'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

@@ -2,22 +2,46 @@ require 'geocoder'
 
 module MassSeedPoints
   # Helpers
-  def self.random_latin_string(characters = 10)
-    (0...characters).map { ('a'..'z').to_a[rand(26)] }.join
+  def self.n_random_digits(n = 5, from = 0, to = 9)
+    n.times.map { rand(from..to) }.join('')
   end
 
-  def self.random_arab_string(characters = 10)
-    (0...characters).map { ('ا'..'غ').to_a[rand(28)] }.join
+  def self.latin_word(min_characters = 10)
+    word_pool = LoremIpsum.text.split(/\.|\,| /).select { |e| !e.empty? }.uniq
+    words = []
+    while words.join('').length < min_characters
+      words << word_pool.sample
+    end
+    words.join(' ').capitalize
   end
 
-  def self.latin_lorem_ipsum(words = 100)
-    lorem_ipsum = (0..words).map { random_latin_string(rand(2..26)) }.join(' ')
-    "<b>#{random_latin_string(rand(5..10))}</b> <br><br>" + lorem_ipsum
+  def self.arab_string(characters = 10)
+    (0...characters).map { ('ا'..'غ').to_a.sample }.join
+  end
+
+  def self.street_name
+    latin_word(rand(3..6)).capitalize + ['-', ' '].sample + ['Straße', 'Weg', 'Platz'].sample
+  end
+
+  def self.house_number
+    n_random_digits(rand(1..2), 1).to_s + ('a'..'h').to_a.sample*rand(0..1)
+  end
+
+  def self.german_postal_code(region = 10)
+    region.to_s + n_random_digits(3).to_s
+  end
+
+  def self.latin_lorem_ipsum(paragraphs = 3)
+    lorem_ipsum = []
+    paragraphs.times do
+      lorem_ipsum << LoremIpsum.random(paragraphs: 1)
+    end
+    lorem_ipsum.join('<br>')
   end
 
   def self.arab_lorem_ipsum(words = 100)
-    lorem_ipsum = (0..words).map { random_arab_string(rand(2..26)) }.join(' ')
-    "<b>#{random_arab_string(rand(5..10))}</b> <br><br>" + lorem_ipsum
+    lorem_ipsum = (0..words).map { arab_string(rand(2..26)) }.join(' ')
+    "<b>#{arab_string(rand(5..10))}</b> <br><br>" + lorem_ipsum
   end
 
   def self.bbox_from_cityname(cityname)
@@ -32,40 +56,41 @@ module MassSeedPoints
       longitude: rand(longitudes.min..longitudes.max) }
   end
 
-  def self.n_random_digits(n = 5, from = 0, to = 9)
-    n.times.map { rand(from..to) }.join('')
-  end
-
   # Generator methods for points and categories
   def self.generate_point(no_of_categories=3, bbox)
     random_point = random_point_inside_bbox(bbox)
     category_ids = Category.all.map(&:id)
-    place_id = Place.last.id + 1
+    place_id = Place.any? ? Place.last.id + 1 : 5000
+
+    updated_at = Date.today - rand(0..365)
+    created_at = updated_at - rand(5..100)
 
     Place.new(id: place_id,
-              name: random_latin_string(rand(10..20)),
-              street: random_latin_string(rand(5..10)).capitalize + '-Straße',
-              house_number: n_random_digits(rand(1..3), 1),
-              postal_code: n_random_digits,
+              name: latin_word(min_characters = rand(10..20)),
+              street: street_name,
+              house_number: house_number,
+              postal_code: german_postal_code,
               city: @cityname,
               latitude: random_point[:latitude],
               longitude: random_point[:longitude],
-              description_en: latin_lorem_ipsum(rand(10..90)),
-              description_de: latin_lorem_ipsum(rand(10..90)),
-              description_fr: latin_lorem_ipsum(rand(10..90)),
-              description_ar: arab_lorem_ipsum(rand(10..90)),
-              categories: category_ids.shuffle.pop,
-              reviewed: [true,false].sample
+              description_en: latin_lorem_ipsum(paragraphs = rand(2..5)),
+              description_de: latin_lorem_ipsum(paragraphs = rand(2..5)),
+              description_fr: latin_lorem_ipsum(paragraphs = rand(2..5)),
+              description_ar: arab_lorem_ipsum(words = rand(10..90)),
+              categories: category_ids.sample(rand(1..5)).join(','),
+              reviewed: [true,false].sample,
+              created_at: created_at,
+              updated_at: updated_at
              ).save(validate: false)
   end
 
   def self.generate_category
-    id_nr = Category.any? && (Category.all.map(&:id).max + 1) || 1
+    id_nr = Category.any? ? Category.last.id + 1 : 1
     Category.create(id: id_nr,
-                    name_en: random_latin_string,
-                    name_de: random_latin_string,
-                    name_fr: random_latin_string,
-                    name_ar: random_arab_string
+                    name_en: latin_word(characters = 5),
+                    name_de: latin_word(characters = 5),
+                    name_fr: latin_word(characters = 5),
+                    name_ar: arab_string(characters = 10)
                    )
   end
 

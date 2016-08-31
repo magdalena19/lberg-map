@@ -2,28 +2,45 @@ require 'geocoder'
 
 module MassSeedAnnouncements
   # Helpers
-  def self.random_latin_string(characters = 10)
-    (0...characters).map { ('a'..'z').to_a[rand(26)] }.join
+  def self.lat_word(characters = 10)
+    word_pool = LoremIpsum.text.split(/\.|\,| /).select { |e| !e.empty? }.uniq
+    words = []
+    while words.join('').length < characters
+      words << word_pool.sample
+    end
+    words.join(' ').capitalize
   end
 
-  def self.random_arab_string(characters = 10)
+  def self.arab_string(characters = 10)
     (0...characters).map { ('ا'..'غ').to_a[rand(28)] }.join
   end
 
-  def self.latin_lorem_ipsum(words = 100)
-    lorem_ipsum = (0..words).map { random_latin_string(rand(2..26)) }.join(' ')
-    "<b>#{random_latin_string(rand(5..10))}</b> <br><br>" + lorem_ipsum
+  def self.latin_lorem_ipsum(paragraphs = 3)
+    lorem_ipsum = []
+    paragraphs.times do
+      lorem_ipsum << LoremIpsum.random(paragraphs: 1)
+    end
+    lorem_ipsum.join('<br>')
   end
 
   def self.arab_lorem_ipsum(words = 100)
-    lorem_ipsum = (0..words).map { random_arab_string(rand(2..26)) }.join(' ')
-    "<b>#{random_arab_string(rand(5..10))}</b> <br><br>" + lorem_ipsum
+    lorem_ipsum = (0..words).map { arab_string(rand(2..26)) }.join(' ')
+    "<b>#{arab_string(rand(5..10))}</b> <br><br>" + lorem_ipsum
   end
 
   # Generator methods for points and categories
   def self.generate_announcement
-    Announcement.new( header: random_latin_string(rand(10..30)),
-                      content: latin_lorem_ipsum(rand(50..300))
+    announcement_id = Announcement.any? ? Announcement.last.id + 1 : 5000
+    updated_at = Date.today - rand(0..365)
+    created_at = updated_at - rand(5..100)
+    user_ids = User.all.map(&:id)
+
+    Announcement.new( header: lat_word(rand(10..30)),
+                      content: latin_lorem_ipsum(rand(5..10)),
+                      id: announcement_id,
+                      created_at: created_at,
+                      updated_at: updated_at,
+                      user_id: user_ids.sample
              ).save(validate: false)
   end
 

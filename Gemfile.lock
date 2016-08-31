@@ -150,6 +150,7 @@ GEM
       ruby_dep (~> 1.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
+    lorem_ipsum_amet (0.6.2)
     lumberjack (1.0.10)
     macaddr (1.7.1)
       systemu (~> 2.6.2)
@@ -344,6 +345,7 @@ DEPENDENCIES
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails
+  lorem_ipsum_amet
   minitest-rails-capybara
   minitest-reporters
   paper_trail

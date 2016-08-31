@@ -1,5 +1,5 @@
 ar:
-  select_this_language: 'Wähle diese Sprache'
+  select_this_language: ''
   all: 'Alle'
   locate_me: 'Mein Standort'
   simple_captcha:

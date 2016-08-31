@@ -57,5 +57,5 @@
       %h3= t('descriptions')
     .col-xs-12.grey
       - @unreviewed_place.translations.each do |t|
-        = t.description
+        = raw t.description
         %hr

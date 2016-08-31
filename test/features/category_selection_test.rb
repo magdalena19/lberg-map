@@ -28,7 +28,6 @@ feature 'Category selection' do
     sleep(1)
     page.find('.show-places').trigger('click')
     sleep(1)
-
     page.must_have_content('Magda')
   end
 
@@ -38,7 +37,9 @@ feature 'Category selection' do
     sleep(1)
     page.find('.show-places').trigger('click')
     sleep(1)
-    page.must_have_content('Magda')
+    within '.places-slidepanel' do
+      assert_content('Magda')
+    end
   end
 
   scenario 'Place is not shown when other category was clicked', js: true do
@@ -47,14 +48,15 @@ feature 'Category selection' do
     sleep(1)
     page.find('.show-places').trigger('click')
     sleep(1)
-    page.wont_have_content('Magda')
+    within '.places-slidepanel' do
+      refute_content('Magda')
+    end
   end
 
   def show_category_panel
     visit root_path
-    page.click_on('language')
+    page.find('.btn', text: 'language').trigger('click')
     page.find('.show-categories').trigger('click')
     sleep(1)
   end
-
 end

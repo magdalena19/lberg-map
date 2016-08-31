@@ -16,7 +16,7 @@ en:
     title: 'Title'
     created_at: 'Created at'
     last_change_at: 'Last change at'
-    created_by: 'Creator'
+    created_by: 'by'
     manage: 'Manage announcements'
     edit_announcement: 'Edit announcement'
     create_announcement: 'Create new announcement'
@@ -45,7 +45,7 @@ en:
   will_paginate:
     previous_label: '&#8592; Previous'
     next_label: 'Next &#8594;'
-    page_gap: '&hellip'
+    page_gap: '...'
   activerecord:
     models:
       place: 'place'

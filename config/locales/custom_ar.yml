@@ -1,5 +1,5 @@
 ar:
-  select_this_language: 'Wähle diese Sprache'
+  select_this_language: ''
   all: 'Alle'
   locate_me: 'Mein Standort'
   simple_captcha:
@@ -45,7 +45,7 @@ ar:
   will_paginate:
     previous_label: ''
     next_label: ''
-    page_gap: '&hellip'
+    page_gap: '...'
   activerecord:
     models:
       place: 'place'

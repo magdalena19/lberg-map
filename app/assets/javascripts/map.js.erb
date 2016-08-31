@@ -39,9 +39,9 @@ jQuery(function() {
         };
         placeSlidePanel.find('.place-description').html(feature.properties.description);
         placeSlidePanel.find('.place-address').html('<i>' + feature.properties.address + '</i>');
-        placeSlidePanel.find('.place-email').html(feature.properties.name);
-        placeSlidePanel.find('.place-homepage').html(feature.properties.name);
-        placeSlidePanel.find('.place-phone').html(feature.properties.name);
+        placeSlidePanel.find('.place-email').html(feature.properties.email);
+        placeSlidePanel.find('.place-homepage').html(feature.properties.homepage);
+        placeSlidePanel.find('.place-phone').html(feature.properties.phone);
         placeSlidePanel.trigger('open');
       });
     };

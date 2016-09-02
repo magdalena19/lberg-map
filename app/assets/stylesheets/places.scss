@@ -1,3 +1,5 @@
+@import 'colors';
+
 input {
   width: 100%;
 }
@@ -32,6 +34,15 @@ textarea {
   margin-top: 8px;
   height: 307px;
   overflow-y: auto;
+  color: grey;
+}
+
+.auto-translated-true {
+  color: $lilac;
+  font-style: italic;
+}
+
+.auto-translated-false {
   color: grey;
 }
 

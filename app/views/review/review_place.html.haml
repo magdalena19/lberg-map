@@ -55,7 +55,9 @@
   .row
     .col-xs-12.margin-below
       %h3= t('descriptions')
-    .col-xs-12.grey
+    .col-xs-12
       - @unreviewed_place.translations.each do |t|
-        = raw t.description
+        %div{class: "auto-translated-#{t.auto_translated}"}
+          = raw "#{t('automatic translation')} <br><br>" if t.auto_translated
+          = raw "#{t.description}"
         %hr

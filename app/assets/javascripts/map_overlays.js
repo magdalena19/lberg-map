@@ -54,7 +54,6 @@ jQuery(function() {
   slidePanels.each(function() {
     var panel = jQuery(this);
     panel.bind('open', function() {
-      closeAllPanels();
       panel.animate({bottom: '10'}, 300);
       panel.addClass('slidx-open');
       jQuery('.control-container').hide();
@@ -68,7 +67,6 @@ jQuery(function() {
       panel.removeClass('slidx-open');
       jQuery('.control-container').show();
       jQuery('.navbar-dropdown').show();
-      balanceSidebar();
       slidePanelVisible = false;
     });
 
@@ -76,6 +74,7 @@ jQuery(function() {
       slidePanels.each(function() {
         jQuery(this).trigger('close');
       });
+      balanceSidebar();
     };
   });
 

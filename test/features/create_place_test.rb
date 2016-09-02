@@ -7,6 +7,7 @@ feature 'Create place' do
     fill_in_valid_place_information
     click_on('Create place')
     #screenshot_and_open_image
+    visit '/places'
     page.must_have_content('Any place')
     page.must_have_css('.glyphicon-trash')
   end

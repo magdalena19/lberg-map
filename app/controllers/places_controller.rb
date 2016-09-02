@@ -1,13 +1,17 @@
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
-  def index
-    return @places = Place.reviewed unless params[:category]
-    @places = Place.with_reviewed_category(params[:category])
+  def index 
+    if params[:category]
+      @places = Place.with_reviewed_category(params[:category]) + places_from_session(params[:category])
+    else
+      @places = Place.reviewed + places_from_session(nil)
+    end
   end
 
   def edit
     @place = Place.find(params[:id])
+    redirect_to root_path if @place.new?
     flash.now[:warning] = 'You are currently in preview mode, changes you make have
     to be reviewed before they become published!' unless signed_in?
   end
@@ -53,6 +57,16 @@ class PlacesController < ApplicationController
 
   private
 
+  def places_from_session(category_id)
+    ids = cookies[:created_places_in_session]
+    array = ids ? ids.split(',') : []
+    if category_id
+      Place.where(id: array ).compact.find_all { |p| p.has_category?(category_id) }
+    else
+      Place.where(id: array )
+    end
+  end
+
   def save_update
     if @place.update_attributes(modified_params)
       flash[:success] = 'Changes saved! Wait for review...'
@@ -65,8 +79,12 @@ class PlacesController < ApplicationController
 
   def save_new
     if @place.save
-      flash[:success] = 'Point successfully created!'
-      redirect_to action: 'index'
+      if !cookies[:created_places_in_session]
+        cookies[:created_places_in_session] = @place.id.to_s
+      else
+        cookies[:created_places_in_session] = cookies[:created_places_in_session] + ',' + @place.id.to_s
+      end
+      redirect_to root_path(latitude: @place.latitude, longitude: @place.longitude)
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
       render :new

@@ -8,7 +8,7 @@
           .row
             .col-xs-3
               %b= t('name')
-            .col-xs-5
+            .col-xs-4
               %b= t('address')
             .col-xs-3
               %b= t('categories')
@@ -19,14 +19,18 @@
               %hr
               .col-xs-3
                 = place.name
-              .col-xs-5
+              .col-xs-4
                 = address(place)
               .col-xs-3
                 - if place.category_ids
                   - place.category_ids.each do |id|
                     = category_link(id)
-              .col-xs-1
-                = link_to edit_place_path(place) do
-                  %span{class: 'glyphicon glyphicon-pencil'}
-                = link_to place_path(place), {method: "delete", data: { confirm: "Bist du dir sicher, dass du den Eintrag löschen willst?" }} do
-                  %span{class: 'glyphicon glyphicon-trash'}
+              .col-xs-2
+                - if place.reviewed?
+                  = link_to edit_place_path(place) do
+                    %span{class: 'glyphicon glyphicon-pencil'}
+                - else
+                  %b{style: 'color: #ff6666;'}= t('waiting for review')
+                - if signed_in?
+                  = link_to place_path(place), {method: "delete", data: { confirm: "Bist du dir sicher, dass du den Eintrag löschen willst?" }} do
+                    %span{class: 'glyphicon glyphicon-trash'}

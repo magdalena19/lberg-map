@@ -3,6 +3,6 @@
     = t('Last_pois_inserted')
   - @last_places_created.each do |place|
     .last-point
-      .last-point-header
+      .last-point-header{style: ('color: #ff6666;' if !place.reviewed)}
         = place.name
         .glyphicon.glyphicon-search.zoom-to-place.pull-right{longitude: place.longitude, latitude: place.latitude}

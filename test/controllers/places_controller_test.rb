@@ -17,6 +17,12 @@ class PlacesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'does not crash with not up-to-date session_places cookie' do
+    @request.cookies[:created_places_in_session] = [1,2,3,4,5,7723487]
+    get :index
+    assert_response :success
+  end
+
   test 'should create valid new place' do
     assert_difference 'Place.count' do
       post :create, place: { name: 'Kiezspinne',
@@ -28,7 +34,7 @@ class PlacesControllerTest < ActionController::TestCase
                             }
     end
 
-    assert_redirected_to places_path
+    assert_redirected_to root_path(latitude: 52.0, longitude: 12.0)
   end
 
   test 'should not create invalid new place' do
@@ -41,6 +47,19 @@ class PlacesControllerTest < ActionController::TestCase
                              categories: [],
                             }
     end
+  end
+
+  test 'should not provide edit action for places waiting for review' do
+    @new_place = Place.new( name: 'New Place',
+                            street: 'Schulze-Boysen-Straße',
+                            house_number: '15',
+                            postal_code: '10365',
+                            city: 'Berlin',
+                            categories: [],
+                          )
+    @new_place.save
+    get :edit, id: @new_place.id
+    assert_redirected_to root_path
   end
 
   test 'should get edit' do

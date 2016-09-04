@@ -1,3 +1,5 @@
+
+
 .container
   .row
     .col-xs-12.margin-below
@@ -13,10 +15,15 @@
         no reviewed translation
 
     .col-md-6.unreviewed-container
-      %h3 Unreviewed
+      %h3
+        Unreviewed
+        .switch-description-view.pull-right DIFF
       %br
       - if @unreviewed_translation
-        = raw diff_to_reviewed
+        .description-diff
+          = raw diff_to_reviewed
+        .description
+          = @unreviewed_translation.description.html_safe
       - else
         no unreviewed translation
 

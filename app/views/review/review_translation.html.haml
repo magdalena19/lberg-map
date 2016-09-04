@@ -22,7 +22,7 @@
       - if @unreviewed_translation
         .description-diff
           = raw diff_to_reviewed
-        .description
+        .description-standard
           = @unreviewed_translation.description.html_safe
       - else
         no unreviewed translation

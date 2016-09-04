@@ -27,8 +27,10 @@ jQuery(function() {
       sideBar.css('z-index', '-1');
       showSidebarContainer.css('z-index', '-1');
     } else {
-      sideBar.css('z-index', '9999');
-      showSidebarContainer.css('z-index', '9999');
+      if (slidePanelVisible == false) {
+        sideBar.css('z-index', '9999');
+        showSidebarContainer.css('z-index', '9999');
+      };
     };
   };
 
@@ -106,5 +108,4 @@ jQuery(function() {
   jQuery('.hide-slidepanel').click(function() {
     closeAllPanels();
   });
-
 });

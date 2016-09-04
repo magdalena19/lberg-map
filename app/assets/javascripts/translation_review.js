@@ -1,5 +1,5 @@
 jQuery(function() {
-  jQuery('.switch-description-view').click(function() {
+  var toggleTranslationView = function() {
     if (jQuery('.description-diff').is(':visible')) {
       jQuery('.description-diff').hide();
       jQuery('.description').show();
@@ -9,5 +9,10 @@ jQuery(function() {
       jQuery('.description').hide();
       jQuery('.switch-description-view').css('opacity', '1');
     };
+  };
+
+  toggleTranslationView();
+  jQuery('.switch-description-view').click(function() {
+    toggleTranslationView();
   });
 });

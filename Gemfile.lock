@@ -208,6 +208,8 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     rack (1.6.4)
+    rack-attack (5.0.1)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5.1)
@@ -351,6 +353,7 @@ DEPENDENCIES
   paper_trail
   pg
   poltergeist
+  rack-attack
   rails (= 4.2.5.1)
   rails-html-sanitizer
   rubocop

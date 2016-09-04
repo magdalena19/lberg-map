@@ -10,5 +10,8 @@
     = render 'layouts/navbar/navbar'
     .container-full.main-container
       .starter-template
+        - if !(action_name == 'map')
+          .header-img
+            %h1= yield :header
         = render 'layouts/flash_messages'
         = yield

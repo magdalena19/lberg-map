@@ -1,9 +1,10 @@
+- content_for :header do
+  = t('log_in')
+
 .container
   = form_for(:sessions, url: login_path) do |f|
     .row
       .col-md-6.col-md-offset-3.text-center
-        %h4
-          = t('log_in')
         %fieldset{class: 'form-group'}
           = f.text_field :email, placeholder: t('email_placeholder', scope: 'user_session'), class: 'form-control'
         %fieldset{class: 'form-group'}

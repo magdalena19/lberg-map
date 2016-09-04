@@ -1,7 +1,8 @@
+- content_for :header do
+  = @announcement.header
+
 .container
   .row.margin-below
-    .text-center.h4
-      = @announcement.header
     = raw @announcement.content
   .row.margin-below
     .col-xs-3.col-md-2

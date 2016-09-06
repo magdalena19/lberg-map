@@ -9,7 +9,7 @@
             %h4
               = @reviewed_place.name
           .col-xs-8
-            = address(@reviewed_place)
+            = @reviewed_place.address
           .col-xs-4
             %b Categories:
             - if @reviewed_place.category_names.empty?
@@ -29,7 +29,7 @@
             %h4
               = @unreviewed_place.name
           .col-xs-8
-            = address(@unreviewed_place)
+            = @unreviewed_place.address
           .col-xs-4
             %b Categories:
             - if @unreviewed_place.category_names.empty?

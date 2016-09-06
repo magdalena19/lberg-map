@@ -14,8 +14,9 @@ class Place < ActiveRecord::Base
   end
 
   ## VALIDATIONS
-  validates_presence_of :name, :street, :city, :postal_code
-  validates :postal_code, format: { with: /\d{5}/, message: 'supply valid postal code (5 digits)' }
+  validates :postal_code, format: { with: /\d{5}/, message: 'supply valid postal code (5 digits)' },
+    unless: 'postal_code.nil? || postal_code.empty?'
+  validates :name, presence: true
 
   ## TRANSLATION
   translates :description, versioning: { gem: :paper_trail, options: { on: [:update, :create] } }
@@ -23,9 +24,14 @@ class Place < ActiveRecord::Base
 
   ## CALLBACKS
   geocoded_by :address
-  before_validation :geocode_with_nodes, if: :address_changed?, on: [:create, :update]
   before_validation :sanitize_descriptions, on: [:create, :update]
+  before_create :geocode_with_nodes, unless: 'lat_lon_present?'
+  before_update :geocode_with_nodes, if: :address_changed?
   after_create :auto_translate if Rails.env != 'test'
+
+  def address
+    ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(',')
+  end
 
   ## MODEL AUDITING
   has_paper_trail on: [:create, :update], ignore: [:reviewed, :description]

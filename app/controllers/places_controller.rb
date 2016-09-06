@@ -68,6 +68,11 @@ class PlacesController < ApplicationController
   end
 
   def save_update
+    # Ugly: lat/lon have to be inserted into modified_params-hash in order to make update_attributes work...
+    if @place.latitude && @place.longitude
+      modified_params[:latitude] = @place.latitude
+      modified_params[:longitude] = @place.longitude
+    end
     if @place.update_attributes(modified_params)
       flash[:success] = 'Changes saved! Wait for review...'
       redirect_to places_path
@@ -78,6 +83,9 @@ class PlacesController < ApplicationController
   end
 
   def save_new
+    # Take lat/lon values from hash passed by create form
+    @place.latitude ||= params[:place][:latitude]
+    @place.longitude ||= params[:place][:longitude]
     if @place.save
       if !cookies[:created_places_in_session]
         cookies[:created_places_in_session] = @place.id.to_s
@@ -97,7 +105,6 @@ class PlacesController < ApplicationController
       category_param = place_params[:categories] || []
       modified_params[:categories] = category_param.reject(&:empty?).join(',')
     end
-    place_params[:categories]
     modified_params
   end
 
@@ -105,6 +112,7 @@ class PlacesController < ApplicationController
     params.require(:place).permit(
     :name, :street, :house_number, :postal_code, :city,
     :description_en, :description_de, :description_fr, :description_ar, :reviewed,
+    :latitude, :longitude,
     categories: []
     )
   end

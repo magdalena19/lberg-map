@@ -33,7 +33,7 @@ class Place < ActiveRecord::Base
   after_create :auto_translate if Rails.env != 'test'
 
   def address
-    ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(',')
+    ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')
   end
 
   ## MODEL AUDITING

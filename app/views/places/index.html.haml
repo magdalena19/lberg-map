@@ -13,7 +13,7 @@
             .col-xs-4
               %b= t('address')
             .col-xs-3
-              %b= t('categories')
+              %b= t('categories', scope: [:activerecord, :attributes, :place])
       .row
         .col-xs-12
           - @places.each do |place|

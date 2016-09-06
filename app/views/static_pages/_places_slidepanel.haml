@@ -14,6 +14,15 @@
         .glyphicon.glyphicon-pencil.edit-place
         .glyphicon.glyphicon-search.zoom-to-place
   #collapseOne.panel-collapse.collapse.in
-    .panel-body{dir: "#{text_direction}"}
-      .col-xs-12.margin-below.description
-      %i.col-xs-12.address
+    .panel-body{dir: text_direction}
+      .row
+        .col-md-4.contact
+          .glyphicon.glyphicon-home.address
+          %br
+          .glyphicon.glyphicon-earphone.phone
+          %br
+          .glyphicon.glyphicon-envelope.email
+          %br
+          .glyphicon.glyphicon-globe.homepage
+        .col-md-8
+          .description.margin-below

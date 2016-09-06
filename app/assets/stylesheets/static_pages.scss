@@ -207,6 +207,16 @@
     background: rgba(white, 0.75);
     border: none !important;
   }
+  .contact {
+    margin-bottom: 10px;
+    .glyphicon {
+      color: $lilac;
+      margin-bottom: 10px;
+    }
+    .glyphicon:before {
+      margin-right: 7px;
+    }
+  }
 }
 
 .place-slidepanel {
@@ -230,5 +240,15 @@
     font-size: small;
     padding: 20px;
     background: rgba(white, 0.75);
+  }
+  .place-slidepanel-contact {
+    margin-bottom: 10px;
+    .glyphicon {
+      color: $lilac;
+      margin-bottom: 10px;
+    }
+    .glyphicon:before {
+      margin-right: 7px;
+    }
   }
 }

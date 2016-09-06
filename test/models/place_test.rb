@@ -45,6 +45,7 @@ class PlaceTest < ActiveSupport::TestCase
     assert @place.update_attributes(phone: '0304858')
     assert @place.update_attributes(email: 'foo@batz.bar')
     assert @place.update_attributes(homepage: 'http://foo.bar')
+    assert @place.update_attributes(homepage: 'https://foo.bar')
     assert @place.update_attributes(homepage: 'www.foo.bar')
     assert @place.update_attributes(homepage: 'foo.bar')
   end

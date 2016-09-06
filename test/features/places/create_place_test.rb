@@ -1,15 +1,25 @@
 require 'test_helper'
 
 feature 'Create place' do
-  scenario 'create valid place', :js do
+  scenario 'create valid place as user', :js do
     login
     visit '/places/new'
     fill_in_valid_place_information
     click_on('Create place')
-    #screenshot_and_open_image
     visit '/places'
     page.must_have_content('Any place')
-    page.must_have_css('.glyphicon-trash')
+    page.must_have_css('.glyphicon-trash', count: 1)
+  end
+
+  scenario 'create valid place as guest', :js do
+    visit '/places/new'
+    fill_in_valid_place_information
+    fill_in('place_name', with: 'Another place')
+    validate_captcha
+    click_on('Create place')
+    visit '/places'
+    page.must_have_content('Another place')
+    page.wont_have_css('.glyphicon-pencil')
   end
 
   scenario 'visit new place view with coordinate parameters' do
@@ -23,6 +33,9 @@ feature 'Create place' do
     fill_in('place_house_number', with: '19')
     fill_in('place_postal_code', with: '10963')
     fill_in('place_city', with: 'Berlin')
+    fill_in('place_email', with: 'schnipp@schnapp.com')
+    fill_in('place_homepage', with: 'http://schnapp.com')
+    fill_in('place_phone', with: '03081763253')
   end
 
   def login

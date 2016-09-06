@@ -30,6 +30,9 @@ en:
     cafe: 'Cafe'
     meeting_point: 'Meeting Point'
     child_play: 'Child Play'
+  reviewing:
+    new: 'New'
+    edited: 'Edited'
   geolocation_error_message_appendix: 'Please note, that this feature is mainly working on mobile devices.'
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'

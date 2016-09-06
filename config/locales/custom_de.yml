@@ -30,6 +30,9 @@ de:
     cafe: 'Cafe'
     meeting_point: 'Treffpunkt'
     child_play: 'JFE'
+  reviewing:
+    new: 'Neu'
+    edited: 'Geändert'
   geolocation_error_message_appendix: 'Diese Funktion funktioniert vor allem auf tragbaren Geräten.'
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'

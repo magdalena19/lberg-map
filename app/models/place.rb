@@ -15,7 +15,7 @@ class Place < ActiveRecord::Base
 
   ## VALIDATIONS
   validates :postal_code, format: { with: /\d{5}/, message: 'supply valid postal code (5 digits)' },
-    unless: 'postal_code.empty?' 
+    unless: 'postal_code.empty?'
 
   ## TRANSLATION
   translates :description, versioning: { gem: :paper_trail, options: { on: [:update, :create] } }
@@ -26,6 +26,10 @@ class Place < ActiveRecord::Base
   before_validation :sanitize_descriptions, on: [:create, :update]
   after_validation :geocode_with_nodes, if: :address_changed?, on: [:create, :update]
   after_create :auto_translate if Rails.env != 'test'
+
+  def address
+    ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(',')
+  end
 
   ## MODEL AUDITING
   has_paper_trail on: [:create, :update], ignore: [:reviewed, :description]

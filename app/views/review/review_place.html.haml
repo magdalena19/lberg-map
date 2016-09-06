@@ -1,3 +1,9 @@
+- content_for :header do
+  - if @reviewed_place
+    = t('review') + ' ' + @reviewed_place.name
+  - else
+    = t('review') + ' ' + @unreviewed_place.name
+
 .container
   .row.margin-below
     .col-md-6

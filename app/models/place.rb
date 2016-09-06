@@ -15,8 +15,11 @@ class Place < ActiveRecord::Base
 
   ## VALIDATIONS
   validates :postal_code, format: { with: /\d{5}/, message: 'supply valid postal code (5 digits)' },
-    unless: 'postal_code.nil? || postal_code.empty?'
+    if: 'postal_code.present?'
   validates :name, presence: true
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, if: 'email.present?'
+  validates :phone, length: { minimum: 3, maximum: 20 }, if: 'phone.present?'
+  validates :homepage, format: { with: /\A((http\:\/\/)|(www\.)|())\w+\.\w{2,}\z/ }, if: 'homepage.present?'
 
   ## TRANSLATION
   translates :description, versioning: { gem: :paper_trail, options: { on: [:update, :create] } }

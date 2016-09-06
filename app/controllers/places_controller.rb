@@ -1,7 +1,7 @@
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
-  def index 
+  def index
     if params[:category]
       @places = Place.with_reviewed_category(params[:category]) + places_from_session(params[:category])
     else
@@ -110,10 +110,11 @@ class PlacesController < ApplicationController
 
   def place_params
     params.require(:place).permit(
-    :name, :street, :house_number, :postal_code, :city,
-    :description_en, :description_de, :description_fr, :description_ar, :reviewed,
-    :latitude, :longitude,
-    categories: []
+      :name, :street, :house_number, :postal_code, :city,
+      :description_en, :description_de, :description_fr, :description_ar, :reviewed,
+      :latitude, :longitude,
+      :phone, :homepage, :email,
+      categories: []
     )
   end
 end

@@ -25,6 +25,6 @@ class AutoTranslatorTest < ActiveSupport::TestCase
 
   test 'should translate text below character limit' do
     text = 'This is a test'
-    assert_equal 'Automatische Übersetzung: Dies ist ein Test', @valid_translator.failsafe_translate(text, 'en', 'de')
+    assert_equal 'Dies ist ein Test', @valid_translator.failsafe_translate(text, 'en', 'de')
   end
 end

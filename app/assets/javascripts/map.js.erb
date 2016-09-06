@@ -37,8 +37,11 @@ jQuery(function() {
         } else {
           placeSlidePanel.find('.name').html(prop.name);
         };
-        placeSlidePanel.find('.place-description').html(prop.description);
-        placeSlidePanel.find('.place-address').html('<i>' + prop.address + '</i>');
+        placeSlidePanel.find('.place-description').html(feature.properties.description);
+        placeSlidePanel.find('.place-address').html('<i>' + feature.properties.address + '</i>');
+        placeSlidePanel.find('.place-email').html(feature.properties.name);
+        placeSlidePanel.find('.place-homepage').html(feature.properties.name);
+        placeSlidePanel.find('.place-phone').html(feature.properties.name);
         placeSlidePanel.trigger('open');
       });
     };

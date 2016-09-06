@@ -6,8 +6,12 @@ module MassSeedPoints
     n.times.map { rand(from..to) }.join('')
   end
 
-  def self.latin_word(min_characters = 10)
-    word_pool = LoremIpsum.text.split(/\.|\,| /).select { |e| !e.empty? }.uniq
+  def self.latin_word_pool
+    LoremIpsum.text.split(/\.|\,| /).select { |e| !e.empty? }.uniq
+  end
+
+  def self.latin_words(min_characters = 10)
+    word_pool = latin_word_pool
     words = []
     while words.join('').length < min_characters
       words << word_pool.sample
@@ -20,7 +24,7 @@ module MassSeedPoints
   end
 
   def self.street_name
-    latin_word(rand(3..6)).capitalize + ['-', ' '].sample + ['Straße', 'Weg', 'Platz'].sample
+    latin_words(rand(3..6)).capitalize + ['-', ' '].sample + ['Straße', 'Weg', 'Platz'].sample
   end
 
   def self.house_number
@@ -29,6 +33,25 @@ module MassSeedPoints
 
   def self.german_postal_code(region = 10)
     region.to_s + n_random_digits(3).to_s
+  end
+
+  def self.german_phone_number
+    area_code = '0' + n_random_digits(1) + '0'
+    mobile = '0' + n_random_digits(3)
+    gap = ['', ' / ', ' - '].sample
+    number = n_random_digits(7)
+
+    [area_code, mobile].sample + gap + number
+  end
+
+  DOMAIN_SUFFIXES = %w[de com org]
+
+  def self.email_and_homepage
+    user = latin_word_pool.sample(rand(1..3)).join('-')
+    domain_name = latin_word_pool.sample(rand(1..3)).join('-')
+    suffix = DOMAIN_SUFFIXES.sample
+    protocol = ['http://', 'www.', ''].sample
+    { email: user + '@' + domain_name + '.' + suffix, homepage: protocol + domain_name + '.' + suffix }
   end
 
   def self.latin_lorem_ipsum(paragraphs = 3)
@@ -60,17 +83,22 @@ module MassSeedPoints
   def self.generate_point(no_of_categories=3, bbox)
     random_point = random_point_inside_bbox(bbox)
     category_ids = Category.all.map(&:id)
+
     place_id = Place.any? ? Place.last.id + 1 : 5000
+    web_presence = email_and_homepage
 
     updated_at = Date.today - rand(0..365)
     created_at = updated_at - rand(5..100)
 
     Place.new(id: place_id,
-              name: latin_word(min_characters = rand(10..20)),
+              name: latin_words(min_characters = rand(10..20)),
               street: street_name,
               house_number: house_number,
               postal_code: german_postal_code,
               city: @cityname,
+              phone: german_phone_number,
+              email: web_presence[:email],
+              homepage: web_presence[:homepage],
               latitude: random_point[:latitude],
               longitude: random_point[:longitude],
               description_en: latin_lorem_ipsum(paragraphs = rand(2..5)),
@@ -84,14 +112,20 @@ module MassSeedPoints
              ).save(validate: false)
   end
 
+  # Quick'n dirty, otherwise parse locale files for categories
+  CATNAMES = ['playground', 'free_wifi', 'hospital', 'lawyer', 'cafe', 'meeting_point', 'child_play']
+
   def self.generate_category
     id_nr = Category.any? ? Category.last.id + 1 : 1
-    Category.create(id: id_nr,
-                    name_en: latin_word(characters = 5),
-                    name_de: latin_word(characters = 5),
-                    name_fr: latin_word(characters = 5),
-                    name_ar: arab_string(characters = 10)
-                   )
+    categories_in_db = Category.all.map(&:name)
+    cat_name = CATNAMES.pop
+    unless categories_in_db.include? cat_name
+      Category.create(id: id_nr,
+                      name_en: I18n.t("categories.#{cat_name}", locale: 'en'),
+                      name_fr: I18n.t("categories.#{cat_name}", locale: 'fr'),
+                      name_de: I18n.t("categories.#{cat_name}", locale: 'de'),
+                      name_ar: I18n.t("categories.#{cat_name}", locale: 'ar'))
+    end
   end
 
   def self.generate(number_of_points:, city:)
@@ -102,9 +136,8 @@ module MassSeedPoints
       return error
     end
 
-    # Create up to 10 categories
-    amount_of_new_categories = 10 - Category.all.count
-    amount_of_new_categories.times { generate_category }
+    # Create all categories listed in translation YAML files
+    generate_category while CATNAMES.any?
 
     # Create n points
     number_of_points.times.with_index do |i|

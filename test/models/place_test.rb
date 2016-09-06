@@ -30,6 +30,25 @@ class PlaceTest < ActiveSupport::TestCase
     assert Place.find_by(name: 'Kiezspinne')
   end
 
+  test 'Invalid place contact data shall be invalid' do
+    assert_not @place.update_attributes(phone: '03')
+    assert_not @place.update_attributes(phone: '03' * 12)
+    assert_not @place.update_attributes(email: 'foo@bar')
+    assert_not @place.update_attributes(email: 'foo@.bar')
+    assert_not @place.update_attributes(email: 'bar@')
+    assert_not @place.update_attributes(homepage: 'http:/heise.de')
+    assert_not @place.update_attributes(homepage: 'http://heise')
+    assert_not @place.update_attributes(homepage: 'ww.heise.de')
+  end
+
+  test 'Valid place contact data shall be valid' do
+    assert @place.update_attributes(phone: '0304858')
+    assert @place.update_attributes(email: 'foo@batz.bar')
+    assert @place.update_attributes(homepage: 'http://foo.bar')
+    assert @place.update_attributes(homepage: 'www.foo.bar')
+    assert @place.update_attributes(homepage: 'foo.bar')
+  end
+
   test 'html should be sanitized' do
     @place.save
     assert '<b>This is the description.</b>' == Place.find_by(name: 'Kiezspinne').description_en

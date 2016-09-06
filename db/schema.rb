@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826153724) do
+ActiveRecord::Schema.define(version: 20160831164812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,9 @@ ActiveRecord::Schema.define(version: 20160826153724) do
     t.string   "city"
     t.boolean  "reviewed",     default: false, null: false
     t.text     "categories",   default: ""
+    t.string   "phone"
+    t.string   "email"
+    t.string   "homepage"
   end
 
   create_table "simple_captcha_data", force: :cascade do |t|

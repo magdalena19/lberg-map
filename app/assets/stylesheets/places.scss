@@ -1,3 +1,5 @@
+@import 'colors';
+
 input {
   width: 100%;
 }
@@ -35,10 +37,31 @@ textarea {
   color: grey;
 }
 
+.auto-translated-true {
+  color: $lilac;
+  font-style: italic;
+}
+
+.submit-process-bar {
+  display: none;
+}
+
+.auto-translated-false {
+  color: grey;
+}
+
 .grey {
   color: grey;
 }
 
 .red {
   color: red;
+}
+
+.green {
+  color: rgb(53, 129, 33);
+}
+
+.dark_yellow {
+  color: rgb(172, 160, 0);
 }

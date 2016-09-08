@@ -3,7 +3,7 @@ class ReviewController < ApplicationController
 
   def review_index
     unreviewed_places = Place.all.find_all(&:unreviewed_version)
-    @places_to_review = unreviewed_places.map { |p| p.reviewed_version || p.unreviewed_version }
+    @places_to_review = unreviewed_places.map { |p| p.reviewed_version || p.unreviewed_version }.sort_by { |e| e.updated_at }.reverse
     @unreviewed_translations = all_unreviewed_translations
   end
 

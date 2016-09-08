@@ -30,6 +30,9 @@ ar:
     cafe: ''
     meeting_point: ''
     child_play: ''
+  reviewing:
+    new: ''
+    edited: ''
   geolocation_error_message_appendix: ''
   auto_translation_prefix_en: 'Automatic translation:'
   auto_translation_prefix_de: 'Automatische Übersetzung:'

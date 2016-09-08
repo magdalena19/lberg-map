@@ -38,7 +38,7 @@ jQuery(function() {
           placeSlidePanel.find('.name').html(prop.name);
         };
         placeSlidePanel.find('.place-description').html(feature.properties.description);
-        placeSlidePanel.find('.place-address').html('<i>' + feature.properties.address + '</i>');
+        placeSlidePanel.find('.place-address').html(feature.properties.address);
         placeSlidePanel.find('.place-email').html(feature.properties.email);
         placeSlidePanel.find('.place-homepage').html(feature.properties.homepage);
         placeSlidePanel.find('.place-phone').html(feature.properties.phone);
@@ -95,6 +95,9 @@ jQuery(function() {
         $newPanel.find(".panel-collapse").attr("id", "accordion_" + accordion_id).addClass("collapse").removeClass("in");
         $newPanel.find('.description').html(prop.description);
         $newPanel.find('.address').html(prop.address);
+        $newPanel.find('.email').html(prop.email);
+        $newPanel.find('.homepage').html(prop.homepage);
+        $newPanel.find('.phone').html(prop.phone);
         $newPanel.find('.zoom-to-place').attr('longitude', prop.longitude);
         $newPanel.find('.zoom-to-place').attr('latitude', prop.latitude);
         $newPanel.find('.edit-place').attr('place_id', place.id);

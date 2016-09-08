@@ -30,8 +30,7 @@ class BingTranslatorWrapper
       rescue
         ''
       else
-        prefix = I18n.send('translate', "auto_translation_prefix_#{to}")
-        "#{prefix} #{translation}"
+        translation
       end
     else
       ''

@@ -18,7 +18,12 @@
     overflow-y: hidden;
     color: grey;
     .header {
-      color: black !important;
+    }
+    .last-point {
+      line-height: 27px;
+      .glyphicon {
+        line-height: 27px;
+      }
     }
     .zoom-to-place {
       cursor: pointer;

@@ -24,6 +24,19 @@
   width: 100%;
 }
 
+.header-img {
+  margin-top: -58px;
+  margin-bottom: 25px;
+  padding-top: 50px;
+  width: 100%;
+  height: 160px;
+  background: url(image_path('header'));
+  h1 {
+    background-size: 100% 100%;
+    text-align: center;
+  }
+}
+
 .margin-below {
   margin-bottom: 20px;
 }

@@ -3,9 +3,9 @@ class PlacesController < ApplicationController
 
   def index
     if params[:category]
-      @places = Place.with_reviewed_category(params[:category]) + places_from_session(params[:category])
+      @places = (Place.with_reviewed_category(params[:category]) + places_from_session(params[:category])).uniq
     else
-      @places = Place.reviewed + places_from_session(nil)
+      @places = (Place.reviewed + places_from_session(nil)).uniq
     end
   end
 
@@ -87,15 +87,19 @@ class PlacesController < ApplicationController
     @place.latitude ||= params[:place][:latitude]
     @place.longitude ||= params[:place][:longitude]
     if @place.save
-      if !cookies[:created_places_in_session]
-        cookies[:created_places_in_session] = @place.id.to_s
-      else
-        cookies[:created_places_in_session] = cookies[:created_places_in_session] + ',' + @place.id.to_s
-      end
+      save_in_cookie
       redirect_to root_path(latitude: @place.latitude, longitude: @place.longitude)
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
       render :new
+    end
+  end
+
+  def save_in_cookie
+    if !cookies[:created_places_in_session]
+      cookies[:created_places_in_session] = @place.id.to_s
+    else
+      cookies[:created_places_in_session] = cookies[:created_places_in_session] + ',' + @place.id.to_s
     end
   end
 

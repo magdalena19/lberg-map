@@ -37,7 +37,11 @@ jQuery(function() {
         } else {
           placeSlidePanel.find('.name').html(prop.name);
         };
-        placeSlidePanel.find('.place-description').html(feature.properties.description);
+        if (prop.auto_translated) {
+          placeSlidePanel.find('.place-description').html("<a href ='places/" + prop.id + "/edit'>" + window.autotranslated_prefix + prop.description + "</a");
+        } else {
+          placeSlidePanel.find('.place-description').html(prop.description);
+        };
         placeSlidePanel.find('.place-address').html(feature.properties.address);
         placeSlidePanel.find('.place-email').html(feature.properties.email);
         placeSlidePanel.find('.place-homepage').html(feature.properties.homepage);
@@ -93,7 +97,11 @@ jQuery(function() {
           $newPanel.find('.name').html(prop.name);
         };
         $newPanel.find(".panel-collapse").attr("id", "accordion_" + accordion_id).addClass("collapse").removeClass("in");
-        $newPanel.find('.description').html(prop.description);
+        if (prop.auto_translated) {
+          $newPanel.find('.description').html("<a href ='places/" + place.id + "/edit'>" + window.autotranslated_prefix + prop.description + "</a");
+        } else {
+          $newPanel.find('.description').html(prop.description);
+        };
         $newPanel.find('.address').html(prop.address);
         $newPanel.find('.email').html(prop.email);
         $newPanel.find('.homepage').html(prop.homepage);

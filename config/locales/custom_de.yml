@@ -30,6 +30,7 @@ de:
     cafe: 'Cafe'
     meeting_point: 'Treffpunkt'
     child_play: 'JFE'
+    all_categories: 'Alle Kategorien'
   reviewing:
     new: 'Neu'
     edited: 'Geändert'

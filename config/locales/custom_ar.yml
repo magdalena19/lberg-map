@@ -30,6 +30,7 @@ ar:
     cafe: ''
     meeting_point: ''
     child_play: ''
+    all_categories: ''
   reviewing:
     new: ''
     edited: ''

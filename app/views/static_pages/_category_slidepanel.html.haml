@@ -3,7 +3,7 @@
   %h4.slidepanel-title= t('choose_category')
   .content
     .col-lg-6
-      = button_tag(t('all'), type: 'button', class: 'category-button btn btn-dark', id: 'all')
+      = button_tag(t('all_categories', scope: [:categories]), type: 'button', class: 'category-button btn btn-dark', id: 'all')
       %br
     - @categories.each do |category|
       .col-lg-6

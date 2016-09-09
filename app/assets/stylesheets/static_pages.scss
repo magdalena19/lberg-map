@@ -86,8 +86,13 @@
 
 .category-container {
   left: 50%;
-  bottom: 0px;
+  bottom: -10px;
   .show-categories {
+    border-radius: 7px;
+    background: rgba(darken($lilac, 15%),0.5);
+    font-size: 35px;
+    padding: 5px 20px 0 20px;
+    height: 60px;
     cursor: pointer;
     position: relative;
     left: -50%;

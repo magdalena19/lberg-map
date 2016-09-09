@@ -86,23 +86,29 @@
 
 .category-container {
   left: 50%;
+  width: 50%;
+  max-width: 400px;
   bottom: -10px;
+  height: 52px;
   .show-categories {
+    height: 52px;
     border-radius: 7px;
     background: rgba(darken($lilac, 15%),0.5);
-    font-size: 35px;
     padding: 5px 20px 0 20px;
-    height: 60px;
     cursor: pointer;
     position: relative;
     left: -50%;
-    font-size: 26px;
+    font-size: 22px;
     font-weight:  bold;
     .show-categories-text {
+      width: 80%;
       float: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .glyphicon {
-      float: left;
+      float: right;
       top: 5px;
       left: 5px;
     }

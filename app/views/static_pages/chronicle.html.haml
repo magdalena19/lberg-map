@@ -1,7 +1,8 @@
+- content_for :header do
+  = t('news')
+
 .container
   .row
-    .col-xs-12.text-center
-      %h2 News
     .announcements-panel
       - @announcements.each do |announcement|
         .col-xs-12

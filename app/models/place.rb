@@ -99,6 +99,7 @@ class Place < ActiveRecord::Base
       { key: value }
     end.merge!(address: address,
                description: reviewed_description.html_safe,
+               auto_translated: auto_translated,
                categories: categories,
                longitude: longitude,
                latitude: latitude,
@@ -106,13 +107,21 @@ class Place < ActiveRecord::Base
               )
   end
 
+  def auto_translated
+    translation_from_current_locale.auto_translated
+  end
+
   def reviewed_description
-    versions = translations.find_by(locale: I18n.locale).versions
+    versions = translation_from_current_locale.versions
     if versions.length > 1
       versions.last.reify.description
     else
       description
     end
+  end
+
+  def translation_from_current_locale
+    translations.find_by(locale: I18n.locale)
   end
 
   def edit_status

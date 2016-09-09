@@ -21,11 +21,11 @@
           = f.text_field :city, placeholder: Place.human_attribute_name('city'), class: 'form-control', value: @geocoded ? @geocoded['village'] || @geocoded['town'] || @geocoded['state'] : @place.city, disabled: @place.unreviewed_version
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:phone) || f.object.errors.include?(:email) || f.object.errors.include?(:homepage)}"}
-        .col-xs-4
+        .col-sm-4
           = f.text_field :phone, placeholder: Place.human_attribute_name('phone'), class: 'form-control', disabled: @place.unreviewed_version
-        .col-xs-4
+        .col-sm-4
           = f.text_field :email, placeholder: Place.human_attribute_name('email'), class: 'form-control', disabled: @place.unreviewed_version
-        .col-xs-4
+        .col-sm-4
           = f.text_field :homepage, placeholder: Place.human_attribute_name('Homepage'), class: 'form-control', disabled: @place.unreviewed_version
 
     .col-md-6.margin-below
@@ -47,11 +47,15 @@
               = t column
               - if translation && translation.versions.length > 1
                 %br
-                .red currently under review
+                .red= t('currently_under_review')
                 .locked-description
                   = translation.description.html_safe
               - else
-                = f.text_area column.to_sym, class: 'description-area'
+                - if translation && translation.auto_translated
+                  (#{t('auto_translated')})
+                  = f.text_area column.to_sym, class: 'description-area'
+                - else
+                  = f.text_area column.to_sym, class: 'description-area'
 
   .row
     .col-md-6

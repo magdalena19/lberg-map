@@ -6,6 +6,10 @@ require 'minitest/reporters'
 require 'minitest/rails/capybara'
 require 'capybara/poltergeist'
 
+def validate_captcha
+  fill_in 'captcha', with: SimpleCaptcha::SimpleCaptchaData.first.value
+end
+
 reporter_options = { color: true }
 Minitest::Reporters.use!(
   # Minitest::Reporters::DefaultReporter.new(reporter_options),
@@ -35,6 +39,8 @@ Geocoder::Lookup::Test.set_default_stub(
     }
   ]
 )
+
+
 
 # While testing with Javascript flag, test runs in another thread,
 # thus created fixtures are not available without the following setup

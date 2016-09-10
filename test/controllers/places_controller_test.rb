@@ -18,13 +18,13 @@ class PlacesControllerTest < ActionController::TestCase
   end
 
   test 'does not crash with not up-to-date session_places cookie' do
-    @request.cookies[:created_places_in_session] = [1,2,3,4,5,7723487]
+    @request.cookies[:created_places_in_session] = [1, 2, 3, 4, 5, 772_348_7]
     get :index
     assert_response :success
   end
 
   test 'should create valid new place' do
-    assert_difference 'Place.count' do
+    assert_difference 'Place.count', 1 do
       post :create, place: { name: 'Kiezspinne',
                              street: 'Schulze-Boysen-Straße',
                              house_number: '15',
@@ -37,7 +37,7 @@ class PlacesControllerTest < ActionController::TestCase
   end
 
   test 'place with lat_lon provided does not need to be geocoded' do
-    assert_difference 'Place.count' do
+    assert_difference 'Place.count', 1 do
       post :create, place: { name: 'SomePlace',
                              latitude: 13,
                              longitude: 52 }
@@ -56,13 +56,12 @@ class PlacesControllerTest < ActionController::TestCase
   end
 
   test 'should not provide edit action for places waiting for review' do
-    @new_place = Place.new( name: 'New Place',
-                            street: 'Schulze-Boysen-Straße',
-                            house_number: '15',
-                            postal_code: '10365',
-                            city: 'Berlin',
-                            categories: [],
-                          )
+    @new_place = Place.new(name: 'New Place',
+                           street: 'Schulze-Boysen-Straße',
+                           house_number: '15',
+                           postal_code: '10365',
+                           city: 'Berlin',
+                           categories: [])
     @new_place.save
     get :edit, id: @new_place.id
     assert_redirected_to root_path
@@ -122,5 +121,28 @@ class PlacesControllerTest < ActionController::TestCase
                            city: 'Berlin',
                            categories: [] }
     assert_not Place.find_by(name: 'andere katze').reviewed
+  end
+
+  # Test place contact data stuff
+  test 'Cannot update invalid place contact data' do
+    session[:user_id] = @user.id
+    put :update, id: @place.id, place: { email: 'wef@' }
+    p = Place.find_by_name('Hausprojekt Magdalenenstraße 19')
+    assert_equal p.email, 'schnipp@schnapp.com'
+
+    put :update, id: @place.id, place: { homepage: 'schnippi.' }
+    p = Place.find_by_name('Hausprojekt Magdalenenstraße 19')
+    assert_equal p.homepage, 'http://schnapp.com'
+  end
+
+  test 'Can update valid place contact data' do
+    session[:user_id] = @user.id
+    put :update, id: @place.id, place: { email: 'wef@wof.com' }
+    p = Place.find_by_name('Hausprojekt Magdalenenstraße 19')
+    assert_equal p.email, 'wef@wof.com'
+
+    put :update, id: @place.id, place: { homepage: 'schnippi.org' }
+    p = Place.find_by_name('Hausprojekt Magdalenenstraße 19')
+    assert_equal p.homepage, 'schnippi.org'
   end
 end

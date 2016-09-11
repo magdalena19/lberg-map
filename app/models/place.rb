@@ -18,8 +18,9 @@ class Place < ActiveRecord::Base
     if: 'postal_code.present?'
   validates :name, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, if: 'email.present?'
-  validates :phone, length: { minimum: 3, maximum: 20 }, if: 'phone.present?'
-  validates :homepage, format: { with: /\A((http\:\/\/)|(www\.)|())\w+\.\w{2,}\z/ }, if: 'homepage.present?'
+  validates :phone, format: { with: /\A((?![a-zA-Z]).){3,20}\z/ }, if: 'phone.present?'
+  validates :homepage, format: { with:
+    %r[\A​(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*)\z] }, if: 'homepage.present?'
 
   ## TRANSLATION
   translates :description, versioning: { gem: :paper_trail, options: { on: [:update, :create] } }

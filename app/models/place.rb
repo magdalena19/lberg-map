@@ -9,7 +9,7 @@ class Place < ActiveRecord::Base
     Place.all.map(&:reviewed_version).compact
   end
 
-  def self.with_reviewed_category(id)
+  def self.reviewed_with_categories(id)
     Place.all.map(&:reviewed_version).compact.find_all { |p| p.has_category?(id) }
   end
 

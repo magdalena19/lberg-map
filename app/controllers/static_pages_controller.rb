@@ -12,7 +12,7 @@ class StaticPagesController < ApplicationController
       if params[:category] == 'all'
         render json: Place.reviewed.map(&:geojson) + places_from_session(nil).map(&:geojson)
       else
-        render json: Place.with_reviewed_category(params[:category]).map(&:geojson) + places_from_session(params[:category]).map(&:geojson)
+        render json: Place.reviewed_with_categories(params[:category]).map(&:geojson) + places_from_session(params[:category]).map(&:geojson)
       end
     end
   end

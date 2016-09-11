@@ -7,8 +7,9 @@ feature 'Create place' do
     fill_in_valid_place_information
     click_on('Create place')
     visit '/places'
+    screenshot_and_open_image
     page.must_have_content('Any place')
-    page.must_have_css('.glyphicon-trash', count: 1)
+    page.must_have_css('.glyphicon-trash', count: 2)
   end
 
   scenario 'create valid place as guest', :js do

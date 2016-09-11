@@ -2,6 +2,7 @@ class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
   def index
+    return @places = Place.all if signed_in?
     if params[:category]
       @places = (Place.with_reviewed_category(params[:category]) + places_from_session(params[:category])).uniq
     else

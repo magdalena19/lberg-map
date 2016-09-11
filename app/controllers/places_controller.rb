@@ -69,11 +69,12 @@ class PlacesController < ApplicationController
 
   def save_update
     # Ugly: lat/lon have to be inserted into modified_params-hash in order to make update_attributes work...
-    if @place.latitude && @place.longitude
-      modified_params[:latitude] = @place.latitude
-      modified_params[:longitude] = @place.longitude
+    params_for_update = modified_params
+    if @place.lat_lon_present?
+      params_for_update[:latitude] = @place.latitude
+      params_for_update[:longitude] = @place.longitude
     end
-    if @place.update_attributes(modified_params)
+    if @place.update_attributes(params_for_update)
       flash[:success] = 'Changes saved! Wait for review...'
       redirect_to places_path
     else

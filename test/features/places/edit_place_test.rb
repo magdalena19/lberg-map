@@ -20,7 +20,6 @@ feature 'Edit place' do
     page.must_have_content('Schulze-Boysen-Str. 80, 10963 Berlin')
   end
 
-
   scenario 'Do valid place update as guest and mark point to be reviewed in index within session', :js do
     skip('Implement storing updates in session cookies')
     visit '/places/1/edit'

@@ -6,6 +6,10 @@ require 'minitest/reporters'
 require 'minitest/rails/capybara'
 require 'capybara/poltergeist'
 
+def validate_captcha
+  fill_in 'captcha', with: SimpleCaptcha::SimpleCaptchaData.first.value
+end
+
 reporter_options = { color: true }
 Minitest::Reporters.use!(
   # Minitest::Reporters::DefaultReporter.new(reporter_options),

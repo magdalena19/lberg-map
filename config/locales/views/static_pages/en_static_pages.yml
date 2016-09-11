@@ -1,0 +1,21 @@
+en:
+  static_pages:
+    about:
+      about: 'About the project'
+    add_place_slidepanel:
+      how_to_add_place: 'How to add place?'
+      type_in_address: 'Manually insert address'
+      click_on_map: 'Click on map'
+    category_slidepanel:
+      choose_category: 'Choose category'
+      all: 'All'
+    chronicle:
+      news: 'Announcements'
+    locale_slidepanel:
+      select_this_language: 'Select this language'
+    map:
+      correct_location?: 'Correct location?'
+      new_place: 'New Place'
+    places_slidepanel:
+      places: 'Places'
+      waiting_for_review: 'Waiting for review...'

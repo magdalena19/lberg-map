@@ -1,0 +1,8 @@
+en:
+  users:
+    edit:
+      edit: 'Edit user credentials'
+      name_placeholder: 'Username'
+      email_placeholder: 'Email address'
+      submit: 'Submit changes'
+      back: 'Go back'

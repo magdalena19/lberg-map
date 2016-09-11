@@ -1,0 +1,14 @@
+en:
+  announcements:
+    create_announcement:
+      published: 'Announcement published!'
+      cannot_create: 'Cannot create announcement'
+    update:
+      changes_saved: 'Changes saved!'
+      cannot_update: 'Cannot update announcement'
+    destroy:
+      deleted: 'Announcement deleted!'
+    require_to_be_same_user_or_admin:
+      no_right_to_edit: 'Cannot change announcements of other users!'
+    require_login:
+      access_restricted: 'Access to this page has been restricted. Please login first!'

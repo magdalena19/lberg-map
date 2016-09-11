@@ -1,0 +1,16 @@
+en:
+  review:
+    review_index:
+      review: 'Review'
+      new: 'New'
+      edited: 'Edited'
+    review_place_path:
+      review: 'Review'
+      new: 'New'
+      edited: 'Edited'
+      none: 'None'
+      descriptions: 'Descriptions'
+      automatic_translation: 'Automatic translation'
+    reviewed_translation:
+      review: 'Review'
+      other_descriptions: 'Other descriptions'

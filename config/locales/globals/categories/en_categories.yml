@@ -1,0 +1,9 @@
+en:
+  categories:
+    playground: 'Playground'
+    free_wifi: 'Free Wifi'
+    hospital: 'Hospital'
+    lawyer: 'Lawyer'
+    cafe: 'Cafe'
+    meeting_point: 'Meeting Point'
+    child_play: 'Child Play'

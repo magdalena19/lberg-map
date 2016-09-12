@@ -13,8 +13,7 @@ class PlacesController < ApplicationController
   def edit
     @place = Place.find(params[:id])
     redirect_to root_path if @place.new?
-    flash.now[:warning] = 'You are currently in preview mode, changes you make have
-    to be reviewed before they become published!' unless signed_in?
+    flash.now[:warning] = t('.preview_mode') unless signed_in?
   end
 
   def update
@@ -23,7 +22,7 @@ class PlacesController < ApplicationController
     if simple_captcha_valid? || signed_in?
       save_update
     else
-      flash.now[:danger] = 'Captcha not valid!'
+      flash.now[:danger] = t('.invalid_captcha')
       @place.assign_attributes(modified_params)
       render :edit
     end
@@ -35,8 +34,7 @@ class PlacesController < ApplicationController
       @geocoded = Geocoder.search(query).first.data['address']
     end
     @place = Place.new
-    flash.now[:warning] = 'You are currently in preview mode, changes you make have
-    to be reviewed before they become published!' unless signed_in?
+    flash.now[:warning] = t('.preview_mode') unless signed_in?
   end
 
   def create
@@ -45,7 +43,7 @@ class PlacesController < ApplicationController
     if simple_captcha_valid? || signed_in?
       save_new
     else
-      flash.now[:danger] = 'Captcha not valid!'
+      flash.now[:danger] = t('.invalid_captcha')
       render :new
     end
   end
@@ -53,6 +51,7 @@ class PlacesController < ApplicationController
   def destroy
     @place = Place.find(params[:id])
     @place.destroy
+    flash[:success] = t('.deleted')
     redirect_to action: 'index'
   end
 
@@ -62,9 +61,9 @@ class PlacesController < ApplicationController
     ids = cookies[:created_places_in_session]
     array = ids ? ids.split(',') : []
     if category_id
-      Place.where(id: array ).compact.find_all { |p| p.has_category?(category_id) }
+      Place.where(id: array).compact.find_all { |p| p.has_category?(category_id) }
     else
-      Place.where(id: array )
+      Place.where(id: array)
     end
   end
 
@@ -76,7 +75,7 @@ class PlacesController < ApplicationController
       params_for_update[:longitude] = @place.longitude
     end
     if @place.update_attributes(params_for_update)
-      flash[:success] = 'Changes saved! Wait for review...'
+      flash[:success] = t('.changes_saved')
       redirect_to places_path
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
@@ -90,6 +89,7 @@ class PlacesController < ApplicationController
     @place.longitude ||= params[:place][:longitude]
     if @place.save
       save_in_cookie
+      flash[:success] = t('.created')
       redirect_to root_path(latitude: @place.latitude, longitude: @place.longitude)
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence

@@ -34,5 +34,5 @@
                 - else
                   %b{style: 'color: #ff6666;'}= t('.waiting_for_review')
                 - if signed_in?
-                  = link_to place_path(place), {method: "delete", data: { confirm: t('confirm_delete') }} do
+                  = link_to place_path(place), {method: "delete", data: { confirm: t('.confirm_delete') }} do
                     %span{class: 'glyphicon glyphicon-trash'}

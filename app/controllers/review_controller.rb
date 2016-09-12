@@ -16,7 +16,7 @@ class ReviewController < ApplicationController
   def confirm_place
     p = Place.find(params[:id])
     if p.update(reviewed: true) && destroy_all_updates(p)
-      flash.now[:success] = 'Changes confirmed!'
+      flash[:success] = t('.changes_confirmed')
     end
     redirect_to action: 'review_index'
   end
@@ -24,9 +24,9 @@ class ReviewController < ApplicationController
   def refuse_place
     place = Place.find(params[:id])
     if place.new? && place.destroy
-      flash[:success] = 'Point refused!'
+      flash[:success] = t('.point_refused')
     elsif place.versions.last.reify.save && destroy_all_updates(place)
-      flash[:success] = 'Changes refused!'
+      flash[:success] = t('.changes_refused')
     end
     redirect_to action: 'review_index'
   end
@@ -42,7 +42,7 @@ class ReviewController < ApplicationController
   def confirm_translation
     t = translation(params[:id])
     if destroy_all_updates(t)
-      flash[:success] = 'Translation confirmed!'
+      flash[:success] = t('.translation_confirmed')
     end
     redirect_to action: 'review_index'
   end
@@ -50,7 +50,7 @@ class ReviewController < ApplicationController
   def refuse_translation
     t = translation(params[:id])
     if t.versions.last.reify.save && destroy_all_updates(t)
-      flash.now[:success] = 'Translation refused!'
+      flash[:success] = t('.translation_refused')
     end
     redirect_to action: 'review_index'
   end
@@ -90,7 +90,7 @@ class ReviewController < ApplicationController
 
   def require_login
     unless signed_in?
-      flash.now[:danger] = 'Access to this page has been restricted. Please login first!'
+      flash[:danger] = t('errors.messages.access_restricted')
       redirect_to login_path
     end
   end

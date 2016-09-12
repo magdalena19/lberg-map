@@ -28,7 +28,7 @@ class AnnouncementsController < ApplicationController
   def update
     @announcement = Announcement.find(params[:id])
     if @announcement.update_attributes(announcement_params)
-      flash.now[:success] = 'Changes saved!'
+      flash[:success] = t('.changes_saved')
       redirect_to announcements_path
     else
       flash.now[:danger] = @announcement.errors.full_messages.to_sentence
@@ -38,7 +38,7 @@ class AnnouncementsController < ApplicationController
 
   def destroy
     if Announcement.find(params[:id]).destroy
-      flash.now[:success] = 'Announcement deleted!'
+      flash[:success] = t('.deleted')
       redirect_to :root
     end
   end
@@ -47,7 +47,7 @@ class AnnouncementsController < ApplicationController
 
   def create_announcement
     if @announcement.save
-      flash.now[:success] = 'Announcement published!'
+      flash[:success] = t('created')
       redirect_to :root
     else
       flash.now[:danger] = @announcement.errors.full_messages.to_sentence
@@ -62,15 +62,15 @@ class AnnouncementsController < ApplicationController
   def require_to_be_same_user_or_admin
     announcement_to_be_edited = Announcement.find(url_options[:_recall][:id])
     unless announcement_to_be_edited.user_id == current_user.id || is_admin?
-      flash.now[:danger] = 'Cannot change announcements of other users!'
-      redirect_to root_path
+      flash[:danger] = t('.no_right_to_edit')
+      redirect_to announcements_path
     end
   end
 
   def require_login
     unless signed_in?
-      flash.now[:danger] = 'Access to this page has been restricted. Please login first!'
-      redirect_to login_path
+      flash[:danger] = t('errors.messages.access_restricted')
+      redirect_to root_path
     end
   end
 end

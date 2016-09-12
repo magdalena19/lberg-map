@@ -1,9 +1,6 @@
 en:
   users:
-    update:
+    edit:
       changes_saved: 'Successfully changed user credentials'
-      cannot_update: 'Changes could not be submitted'
-    require_to_be_same_user:
       no_right_to_edit: 'Cannot change credentials of another user!'
-    require_login:
       access_restricted: 'Access to this page has been restricted. Please login first!'

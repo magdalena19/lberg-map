@@ -8,7 +8,7 @@
   .row
     .col-md-6
       .col-xs-12.margin-below
-        %h3 Reviewed
+        %h3= t('.reviewed')
         %br
         .row
           - if @reviewed_place
@@ -18,16 +18,17 @@
             .col-xs-8
               = @reviewed_place.address
             .col-xs-4
-              %b Categories:
+              %b= t('.categories')
               - if @reviewed_place.category_names.empty?
                 = t('.none')
               - else
                 = @reviewed_place.category_names.join(', ')
           - else
             .col-xs-12
-              no reviewed place
+              = t('.no_reviewed_version')
+
     .col-md-6.unreviewed-container
-      %h3 Unreviewed
+      %h3= t('.unreviewed')
       %br
       .row
         - if @unreviewed_place
@@ -37,41 +38,20 @@
           .col-xs-8
             = @unreviewed_place.address
           .col-xs-4
-            %b Categories:
+            %b= t('.categories')
             - if @unreviewed_place.category_names.empty?
               = t('.none')
             - else
               = @unreviewed_place.category_names.join(', ')
         - else
           .col-xs-12
-            no unreviewed place
-    .col-md-6
-      .col-xs-12.unreviewed-container.margin-below
-        %h3 Unreviewed
-        %br
-        .row
-          - if @unreviewed_place
-            .col-xs-12
-              %h4
-                = @unreviewed_place.name
-            .col-xs-8
-              = @unreviewed_place.address
-            .col-xs-4
-              %b Categories:
-              - if @unreviewed_place.category_names.empty?
-                = t('none')
-              - else
-                = @unreviewed_place.category_names.join(', ')
-          - else
-            .col-xs-12
-              no unreviewed place
-      %hr
+            = t('.no_unreviewed_version')
+    %hr
   .row
     .col-md-6
     .col-md-6
       = link_to 'Confirm', confirm_place_path, class: 'btn btn-primary btn-success'
       = link_to 'Refuse', refuse_place_path, class: 'btn btn-primary btn-danger'
-
   .row
     .col-xs-12.margin-below
       %hr

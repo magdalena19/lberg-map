@@ -4,13 +4,18 @@ en:
       review: 'Review'
       new: 'New'
       edited: 'Edited'
-    review_place_path:
+    review_place:
       review: 'Review'
+      reviewed: 'Reviewed'
+      unreviewed: 'Unreviewed'
+      categories: 'Categories:'
       new: 'New'
       edited: 'Edited'
       none: 'None'
       descriptions: 'Descriptions'
       automatic_translation: 'Automatic translation'
+      no_unreviewed_version: 'No unreviewed version...'
+      no_reviewed_version: 'No reviewed version...'
     reviewed_translation:
       review: 'Review'
       other_descriptions: 'Other descriptions'

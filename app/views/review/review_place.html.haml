@@ -7,7 +7,6 @@
 .container
   .row
     .col-md-6
-<<<<<<< HEAD
       .col-xs-12.margin-below
         %h3 Reviewed
         %br
@@ -21,32 +20,12 @@
             .col-xs-4
               %b Categories:
               - if @reviewed_place.category_names.empty?
-                = t('none')
+                = t('.none')
               - else
                 = @reviewed_place.category_names.join(', ')
           - else
             .col-xs-12
               no reviewed place
-=======
-      %h3 Reviewed
-      %br
-      .row
-        - if @reviewed_place
-          .col-xs-12
-            %h4
-              = @reviewed_place.name
-          .col-xs-8
-            = @reviewed_place.address
-          .col-xs-4
-            %b Categories:
-            - if @reviewed_place.category_names.empty?
-              = t('.none')
-            - else
-              = @reviewed_place.category_names.join(', ')
-        - else
-          .col-xs-12
-            no reviewed place
-
     .col-md-6.unreviewed-container
       %h3 Unreviewed
       %br
@@ -66,8 +45,6 @@
         - else
           .col-xs-12
             no unreviewed place
->>>>>>> fa112d4... Replace old translation keys with new ones in all views
-
     .col-md-6
       .col-xs-12.unreviewed-container.margin-below
         %h3 Unreviewed
@@ -97,12 +74,8 @@
 
   .row
     .col-xs-12.margin-below
-<<<<<<< HEAD
       %hr
-      %h3= t('descriptions')
-=======
       %h3= t('.descriptions')
->>>>>>> fa112d4... Replace old translation keys with new ones in all views
     .col-xs-12
       - @unreviewed_place.translations.each do |t|
         %div{class: "auto-translated-#{t.auto_translated}"}

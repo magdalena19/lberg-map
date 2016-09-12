@@ -5,7 +5,7 @@ feature 'Create place' do
     login
     visit '/places/new'
     fill_in_valid_place_information
-    click_on('Create place')
+    click_on('Create Place')
     visit '/places'
     page.must_have_content('Any place', count: 1)
   end
@@ -15,7 +15,7 @@ feature 'Create place' do
     fill_in_valid_place_information
     fill_in('place_name', with: 'Another place')
     validate_captcha
-    click_on('Create place')
+    click_on('Create Place')
     visit '/places'
     page.must_have_content('Another place')
     page.wont_have_css('.glyphicon-pencil')
@@ -35,12 +35,5 @@ feature 'Create place' do
     fill_in('place_email', with: 'schnipp@schnapp.com')
     fill_in('place_homepage', with: 'http://schnapp.com')
     fill_in('place_phone', with: '03081763253')
-  end
-
-  def login
-    visit login_path
-    fill_in 'User email', with: 'admin@example.com'
-    fill_in 'Password', with: 'secret'
-    click_on 'Login'
   end
 end

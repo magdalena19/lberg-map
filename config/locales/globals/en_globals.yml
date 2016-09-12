@@ -3,6 +3,11 @@ en:
   description_de: 'German description'
   description_fr: 'French description'
   description_ar: 'Arabic description'
+  helpers:
+    submit:
+      create: 'Create %{model}'
+      update: 'Update %{model}'
+      submit: 'Submit %{model}'
   activerecord:
     errors:
       messages:
@@ -11,7 +16,7 @@ en:
           has_one: "Cannot delete record because a dependent %{record} exists"
           has_many: "Cannot delete record because dependent %{record} exist"
   date:
-    abbr_day_names:   
+    abbr_day_names:
     - Sun
     - Mon
     - Tue

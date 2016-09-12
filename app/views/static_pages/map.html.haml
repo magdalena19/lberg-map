@@ -1,7 +1,7 @@
 .map-container
   #map
   .col-xs-12.overlay.confirmation-button-container
-    = t('correct_location?')
+    = t('.correct_location?')
     %br
     = button_tag('', type: 'button', class: 'btn btn-success glyphicon glyphicon-ok', id: 'confirmation-button-yes')
     = button_tag('', type: 'button', class: 'btn btn-danger glyphicon glyphicon-remove', id: 'confirmation-button-no')
@@ -15,7 +15,7 @@
     .glyphicon.glyphicon-minus.zoom-out
 
   .overlay.control-container.place-control-container
-    .glyphicon.glyphicon-plus-sign.add-place-button.slidepanel-button{slidepanel: 'add-place-slidepanel', title: t('new_place')}
+    .glyphicon.glyphicon-plus-sign.add-place-button.slidepanel-button{slidepanel: 'add-place-slidepanel', title: t('.new_place')}
     %br
     .glyphicon.glyphicon-list.show-places.slidepanel-button{slidepanel: 'places-slidepanel'}
 
@@ -26,7 +26,7 @@
 
   .overlay.loading
     .loading-text
-      LOADING...
+      = t('.overlay_loading')
 
   = render('category_slidepanel')
   = render('places_slidepanel')

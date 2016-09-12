@@ -2,10 +2,10 @@
 - if signed_in?
   .dropdown.pull-right.navbar-dropdown
     %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-      = t('manage_announcements.announcements')
+      = t('.announcements')
       %span.caret
     %ul.dropdown-menu
       %li{class: "#{'active' if current_page?(announcements_path)}"}
-        = link_to(t('manage_announcements.manage'), announcements_path)
+        = link_to(t('.manage'), announcements_path)
       %li{class: "#{'active' if current_page?(new_announcement_path)}"}
-        = link_to(t('manage_announcements.create_announcement'), new_announcement_path)
+        = link_to(t('.create_announcement'), new_announcement_path)

@@ -6,45 +6,45 @@
     .col-md-6.margin-below
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
         .col-xs-12
-          = f.text_field :name, placeholder: Place.human_attribute_name('name'), class: 'form-control', disabled: @place.unreviewed_version
+          = f.text_field :name, placeholder: t('.name'), class: 'form-control', disabled: @place.unreviewed_version
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:street)}"}
         .col-xs-8
-          = f.text_field :street, placeholder: Place.human_attribute_name('street'), class: 'form-control', value: @geocoded ? @geocoded['road'] : @place.street, disabled: @place.unreviewed_version
+          = f.text_field :street, placeholder: t('.street'), class: 'form-control', value: @geocoded ? @geocoded['road'] : @place.street, disabled: @place.unreviewed_version
         .col-xs-4
           = f.text_field :house_number, placeholder: 'Nr.', class: 'form-control', value: @geocoded ? @geocoded['house_number'] : @place.house_number, disabled: @place.unreviewed_version
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:postal_code) || f.object.errors.include?(:city)}"}
         .col-xs-5
-          = f.text_field :postal_code, placeholder: Place.human_attribute_name('postal_code'), class: 'form-control', value: @geocoded ? @geocoded['postcode'] : @place.postal_code, disabled: @place.unreviewed_version
+          = f.text_field :postal_code, placeholder: t('.postal_code'), class: 'form-control', value: @geocoded ? @geocoded['postcode'] : @place.postal_code, disabled: @place.unreviewed_version
         .col-xs-7
-          = f.text_field :city, placeholder: Place.human_attribute_name('city'), class: 'form-control', value: @geocoded ? @geocoded['village'] || @geocoded['town'] || @geocoded['state'] : @place.city, disabled: @place.unreviewed_version
+          = f.text_field :city, placeholder: t('.city'), class: 'form-control', value: @geocoded ? @geocoded['village'] || @geocoded['town'] || @geocoded['state'] : @place.city, disabled: @place.unreviewed_version
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:phone) || f.object.errors.include?(:email) || f.object.errors.include?(:homepage)}"}
-        .col-sm-4
-          = f.text_field :phone, placeholder: Place.human_attribute_name('phone'), class: 'form-control', disabled: @place.unreviewed_version
-        .col-sm-4
-          = f.text_field :email, placeholder: Place.human_attribute_name('email'), class: 'form-control', disabled: @place.unreviewed_version
-        .col-sm-4
-          = f.text_field :homepage, placeholder: Place.human_attribute_name('Homepage'), class: 'form-control', disabled: @place.unreviewed_version
+        .col-xs-4
+          = f.text_field :phone, placeholder: t('.phone'), class: 'form-control', disabled: @place.unreviewed_version
+        .col-xs-4
+          = f.text_field :email, placeholder: t('.email'), class: 'form-control', disabled: @place.unreviewed_version
+        .col-xs-4
+          = f.text_field :homepage, placeholder: t('.homepage'), class: 'form-control', disabled: @place.unreviewed_version
 
     .col-md-6.margin-below
       - Category.all.each do |category|
-        .col-xs-4{dir: "#{text_direction}"}
           = category.name
+          .col-xs-4{dir: "#{text_direction}"}
         .col-xs-2
           = check_box_tag 'place[categories][]', category.id, f.object.has_category?(category.id), disabled: @place.unreviewed_version
 
 
   .col-xs-12
     %fieldset{class: 'form-group row'}
-      - %w[en de ar fr].in_groups_of(2, false).each do |group|
+      - I18n.available_locales.in_groups_of(2, false).each do |group|
         .row
           - group.each do |lang|
             .col-md-6.margin-below{dir: "#{'rtl' if lang == 'ar'}"}
               - column = "description_#{lang}"
               - translation = @place.translations.find_by(locale: lang)
-              = t column
+              = t(column)
               - if translation && translation.versions.length > 1
                 %br
                 .red= t('currently_under_review')
@@ -68,6 +68,6 @@
       = f.hidden_field :longitude, value: params[:longitude]
       = f.submit class: 'btn btn-primary btn-success place-form-button submit-place-button'
     .col-xs-6.col-md-2
-      = link_to t('back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
+      = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
     .col-xs-2
-      = link_to t('cancel'), root_path, class: 'btn btn-primary place-form-button cancel-button'
+      = link_to t('buttons.cancel'), root_path, class: 'btn btn-primary place-form-button cancel-button'

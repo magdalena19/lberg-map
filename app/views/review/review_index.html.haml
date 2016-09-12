@@ -1,5 +1,5 @@
 - content_for :header do
-  = t('review')
+  = t('.review')
 
 .container
   .row.margin-below
@@ -15,10 +15,10 @@
           .col-xs-2
             - if place.new?
               .green
-                = t('reviewing.new')
+                = t('.new')
             - else
               .red
-                = t('reviewing.edited')
+                = t('.edited')
           .col-xs-2
             = link_to review_place_path(place.id) do
               review

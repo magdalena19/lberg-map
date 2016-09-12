@@ -8,4 +8,4 @@
       .announcement-body
         = truncate(announcement.content.html_safe, length: 150, escape: false)
   .pull-right
-    = link_to 'see full chronicle', chronicle_path
+    = link_to t('.full_chronicle'), chronicle_path

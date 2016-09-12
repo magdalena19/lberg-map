@@ -2,3 +2,23 @@ en:
   layouts:
     loading:
       processing: 'processing, please wait!'
+    sidebar:
+      last_points_panel:
+        last_points_inserted: 'Last points inserted'
+      announcement_panel:
+        full_chronicle: 'see full chronicle'
+    navbar:
+      user_dropdown:
+        user: 'User'
+        edit_user: 'User Settings'
+        log_out: 'Log out'
+      places_dropdown:
+        places: 'Places'
+        index_places: 'All Places'
+        review: 'Review'
+      language_dropdown:
+        language: 'Language'
+      announcements_dropdown:
+        announcements: 'Announcements'
+        manage: 'Manage announcements'
+        create_announcement: 'Create new announcement'

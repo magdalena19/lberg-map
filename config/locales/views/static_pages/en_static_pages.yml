@@ -8,7 +8,7 @@ en:
       click_on_map: 'Click on map'
     category_slidepanel:
       choose_category: 'Choose category'
-      all: 'All'
+      all_categories: 'All categories'
     chronicle:
       news: 'Announcements'
     locale_slidepanel:

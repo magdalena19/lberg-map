@@ -1,7 +1,7 @@
 -# Places Menu
 .dropdown.pull-right.navbar-dropdown
   %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-    = t('.places')
+    = Place.model_name.human(count: 2)
     %span.caret
   %ul.dropdown-menu
     %li{class: "#{'active' if current_page?(new_place_path)}"}

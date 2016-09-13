@@ -1,19 +1,9 @@
 de:
   places:
-    form:
-      name: 'Name'
-      street: 'Straße'
-      postal_code: 'Postleitzahl'
-      city: 'Stadt'
-      phone: 'Telefonnumnmer'
-      email: 'Email-Adresse'
-      homepage: 'Homepage'
     edit:
       edit: 'Bearbeiten'
     index:
       places: 'Orte'
-      name: 'Name'
-      address: 'Addresse'
       categories: 'Kategorien'
       waiting_for_review: 'Warte auf Überprüfung...'
       confirm_delete: 'Bist du dir sicher, dass du diesen Ort löschen möchstest?'

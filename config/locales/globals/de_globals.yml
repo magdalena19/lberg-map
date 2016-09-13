@@ -7,6 +7,6 @@ de:
     select:
       prompt: Bitte wählen
     submit:
-      create: "%{model} erstellen"
-      submit: "%{model} speichern"
-      update: "%{model} aktualisieren"
+      create: "Erstellen"
+      submit: "Speichern"
+      update: "Aktualisieren"

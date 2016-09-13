@@ -1,5 +1,5 @@
 - content_for :header do
-  = t('places')
+  = t('.places')
 
 .container
   .row
@@ -9,11 +9,11 @@
         .col-xs-12
           .row
             .col-xs-3
-              %b= t('name')
+              %b= t('.name')
             .col-xs-4
-              %b= t('address')
+              %b= t('.address')
             .col-xs-3
-              %b= t('categories', scope: [:activerecord, :attributes, :place])
+              %b= t('.categories', scope: [:activerecord, :attributes, :place])
       .row
         .col-xs-12
           - @places.each do |place|
@@ -32,7 +32,7 @@
                   = link_to edit_place_path(place) do
                     %span{class: 'glyphicon glyphicon-pencil'}
                 - else
-                  %b{style: 'color: #ff6666;'}= t('waiting for review')
+                  %b{style: 'color: #ff6666;'}= t('.waiting_for_review')
                 - if signed_in?
-                  = link_to place_path(place), {method: "delete", data: { confirm: "Bist du dir sicher, dass du den Eintrag löschen willst?" }} do
+                  = link_to place_path(place), {method: "delete", data: { confirm: t('.confirm_delete') }} do
                     %span{class: 'glyphicon glyphicon-trash'}

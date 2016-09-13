@@ -1,6 +1,6 @@
 .last-points-panel.announcement
   %h4.text-center.header
-    = t('Last_pois_inserted')
+    = t('.last_points_inserted')
   - @last_places_created.each do |place|
     .last-point
       .last-point-header{style: ('color: #ff6666;' if !place.reviewed)}

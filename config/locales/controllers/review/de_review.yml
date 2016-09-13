@@ -1,0 +1,11 @@
+de:
+  review:
+    confirm_place:
+      changes_confirmed: 'Änderungen akzeptiert'
+    refuse_place:
+      changes_refused: 'Änderungen abgelehnt!'
+      point_refused: 'Ort abgelehnt!'
+    confirm_translation:
+      translation_confirmed: 'Übersetzung akzeptiert'
+    refuse_translation:
+      translation_refused: 'Übersetzung abgelehnt'

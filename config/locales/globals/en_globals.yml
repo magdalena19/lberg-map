@@ -1,0 +1,12 @@
+en:
+  description_en: 'English description'
+  description_de: 'German description'
+  description_fr: 'French description'
+  description_ar: 'Arabic description'
+  helpers:
+    select:
+      prompt: 'Please select'
+    submit:
+      create: 'Create %{model}'
+      submit: 'Save %{model}'
+      update: 'Update %{model}'

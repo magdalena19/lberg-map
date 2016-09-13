@@ -1,0 +1,11 @@
+en:
+  places:
+    edit:
+      edit: 'Edit place'
+    index:
+      places: 'Places'
+      categories: 'Categories'
+      waiting_for_review: 'Waiting for review...'
+      confirm_delete: 'Are you sure you want to delete this place?'
+    new:
+      new: 'Create place'

@@ -2,10 +2,10 @@
 - if signed_in?
   .dropdown.pull-right.navbar-dropdown
     %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-      = t('user')
+      = User.model_name.human
       %span.caret
     %ul.dropdown-menu
       %li{class: "#{'active' if current_page?(edit_user_path(session[:user_id]))}"}
-        = link_to(t('edit_user'), edit_user_path(session[:user_id]))
+        = link_to(t('.edit_user'), edit_user_path(session[:user_id]))
       %li
-        = link_to(t('log_out'), logout_path)
+        = link_to(t('.log_out'), logout_path)

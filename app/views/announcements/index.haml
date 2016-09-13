@@ -1,5 +1,5 @@
 - content_for :header do
-  = t('announcements')
+  = t('.announcements')
 
 .container
   .row
@@ -9,13 +9,13 @@
     .col-xs-12
       .row
         .col-xs-3
-          %b= t('manage_announcements.title')
+          %b= t('.title')
         .col-xs-2
-          %b= t('manage_announcements.created_by')
+          %b= t('.created_by')
         .col-xs-2
-          %b= t('manage_announcements.created_at')
+          %b= t('.created_at')
         .col-xs-2
-          %b= t('manage_announcements.last_change_at')
+          %b= t('.last_change_at')
   .row
     .col-xs-12
       - @announcements.each do |announcement|
@@ -34,5 +34,5 @@
             - if current_user == announcement.user || is_admin?
               = link_to edit_announcement_path(announcement) do
                 %span{class: 'glyphicon glyphicon-pencil'}
-              = link_to announcement_path(announcement), {method: "delete", data: { confirm: t('confirm_delete') }} do
+              = link_to announcement_path(announcement), method: "delete", data: { confirm: t('.confirm_delete') } do
                 %span{class: 'glyphicon glyphicon-trash'}

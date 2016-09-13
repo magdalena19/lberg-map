@@ -298,6 +298,8 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
+    translate-rails3 (0.4.0)
+      ya2yaml (~> 0.30)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.0)
@@ -323,6 +325,7 @@ GEM
     will_paginate (3.1.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    ya2yaml (0.31)
 
 PLATFORMS
   ruby
@@ -363,6 +366,7 @@ DEPENDENCIES
   simple_captcha2
   spring
   sqlite3
+  translate-rails3
   uglifier (>= 1.3.0)
   unicorn
   web-console (~> 2.0)

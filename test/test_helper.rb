@@ -10,6 +10,13 @@ def validate_captcha
   fill_in 'captcha', with: SimpleCaptcha::SimpleCaptchaData.first.value
 end
 
+def login
+  visit login_path
+  fill_in 'sessions_email', with: 'admin@example.com'
+  fill_in 'sessions_password', with: 'secret'
+  click_on 'Login'
+end
+
 reporter_options = { color: true }
 Minitest::Reporters.use!(
   # Minitest::Reporters::DefaultReporter.new(reporter_options),

@@ -1,0 +1,6 @@
+en:
+  users:
+    edit:
+      changes_saved: 'Successfully changed user credentials'
+      no_right_to_edit: 'Cannot change credentials of another user!'
+      access_restricted: 'Access to this page has been restricted. Please login first!'

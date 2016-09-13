@@ -33,7 +33,7 @@ jQuery(function() {
         placeSlidePanel.find('.edit-place').attr('place_id', prop.id);
         placeSlidePanel.find('.name').html(prop.name);
         if (feature.properties.reviewed == false) {
-          placeSlidePanel.find('.name').html(prop.name + "<span style='color: #ff6666;'> | waiting for review </span>");
+          placeSlidePanel.find('.name').html(prop.name + "<span style='color: #ff6666;'> | <%= I18n.t('.places.index.waiting_for_review') %> </span>");
         } else {
           placeSlidePanel.find('.name').html(prop.name);
         };

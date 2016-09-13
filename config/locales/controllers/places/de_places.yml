@@ -1,4 +1,3 @@
----
 de:
   places:
     destroy:
@@ -11,3 +10,5 @@ de:
       created: 'Ort erfolgreich erstellt'
       preview_mode: 'Du bist momentan im Vorschau-Modus. Änderungen die du vornimmst müssen von Editor_innen gesichtet werden bevor sie für alle sichtbar sind!'
       invalid_captcha: 'Ungültiges Captcha, bitte überprüfe deine Eingabe'
+    new:
+      preview_mode: 'Du bist momentan im Vorschau-Modus. Änderungen die du vornimmst müssen von Editor_innen gesichtet werden bevor sie für alle sichtbar sind!'

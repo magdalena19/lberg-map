@@ -16,6 +16,7 @@ en:
     map:
       correct_location?: 'Correct location?'
       new_place: 'New Place'
+      overlay_loading: 'LOADING...'
     places_slidepanel:
       places: 'Places'
       waiting_for_review: 'Waiting for review...'

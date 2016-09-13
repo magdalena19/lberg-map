@@ -1,4 +1,3 @@
----
 de:
   activerecord:
     errors:
@@ -12,10 +11,11 @@ de:
         place:
           attributes:
             address:
-              address_not_found: ''
+              address_not_found: 'konnte nicht gefunden werden!'
   errors:
     format: "%{attribute} %{message}"
     messages:
+      access_restricted: 'Zugang zu dieser Seite ist dir verwehrt! Bitte logge dich ein!'
       accepted: muss akzeptiert werden
       blank: muss ausgefüllt werden
       present: darf nicht ausgefüllt werden

@@ -16,6 +16,11 @@ en:
       automatic_translation: 'Automatic translation'
       no_unreviewed_version: 'No unreviewed version...'
       no_reviewed_version: 'No reviewed version...'
-    reviewed_translation:
+    review_translation:
       review: 'Review'
+      other_descriptions: 'Other descriptions'
+      review: 'Review'
+      reviewed: 'Reviewed'
+      unreviewed: 'Unreviewed'
+      no_reviewed_translation: 'No reviewed translation'
       other_descriptions: 'Other descriptions'

@@ -9,6 +9,7 @@ en:
       invalid_captcha: 'Captcha invalid, please try again...'
     create:
       created: 'Place Successfully created!'
-      preview_mode: 'You are currently in preview mode, changes you make have
-      to be reviewed before they become published!'
+      preview_mode: 'You are currently in preview mode, changes you make have to be reviewed before they become published!'
       invalid_captcha: 'Captcha invalid, please try again...'
+    new:
+      preview_mode: 'You are currently in preview mode, changes you make have to be reviewed before they become published!'

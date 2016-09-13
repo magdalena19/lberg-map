@@ -1,0 +1,22 @@
+---
+de:
+  static_pages:
+    about:
+      about: ''
+    add_place_slidepanel:
+      how_to_add_place: ''
+      type_in_address: ''
+      click_on_map: ''
+    category_slidepanel:
+      choose_category: ''
+      all_categories: ''
+    chronicle:
+      news: ''
+    locale_slidepanel:
+      select_this_language: ''
+    map:
+      correct_location?: ''
+      new_place: ''
+    places_slidepanel:
+      places: ''
+      waiting_for_review: ''

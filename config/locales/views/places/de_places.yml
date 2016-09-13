@@ -1,0 +1,22 @@
+---
+de:
+  places:
+    form:
+      name: ''
+      street: ''
+      postal_code: ''
+      city: ''
+      phone: ''
+      email: ''
+      homepage: ''
+    edit:
+      edit: ''
+    index:
+      places: ''
+      name: ''
+      address: ''
+      categories: ''
+      waiting_for_review: ''
+      confirm_delete: ''
+    new:
+      new: ''

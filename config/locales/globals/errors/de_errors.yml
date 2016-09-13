@@ -1,0 +1,53 @@
+---
+de:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: ''
+        restrict_dependent_destroy:
+          has_one: ''
+          has_many: ''
+      models:
+        place:
+          attributes:
+            address:
+              address_not_found: ''
+  errors:
+    format: ''
+    messages:
+      access_restricted: ''
+      accepted: ''
+      blank: ''
+      present: ''
+      confirmation: ''
+      empty: ''
+      equal_to: ''
+      even: ''
+      exclusion: ''
+      greater_than: ''
+      greater_than_or_equal_to: ''
+      inclusion: ''
+      invalid: ''
+      less_than: ''
+      less_than_or_equal_to: ''
+      model_invalid: ''
+      not_a_number: ''
+      not_an_integer: ''
+      odd: ''
+      required: ''
+      taken: ''
+      too_long:
+        one: ''
+        other: ''
+      too_short:
+        one: ''
+        other: ''
+      wrong_length:
+        one: ''
+        other: ''
+      other_than: ''
+    template:
+      body: ''
+      header:
+        one: ''
+        other: ''

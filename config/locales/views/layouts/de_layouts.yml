@@ -1,0 +1,25 @@
+---
+de:
+  layouts:
+    loading:
+      processing: ''
+    sidebar:
+      last_points_panel:
+        last_points_inserted: ''
+      announcement_panel:
+        full_chronicle: ''
+    navbar:
+      user_dropdown:
+        user: ''
+        edit_user: ''
+        log_out: ''
+      places_dropdown:
+        places: ''
+        index_places: ''
+        review: ''
+      language_dropdown:
+        language: ''
+      announcements_dropdown:
+        announcements: ''
+        manage: ''
+        create_announcement: ''

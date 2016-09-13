@@ -1,0 +1,13 @@
+---
+de:
+  places:
+    destroy:
+      deleted: ''
+    update:
+      changes_saved: ''
+      preview_mode: ''
+      invalid_captcha: ''
+    create:
+      created: ''
+      preview_mode: ''
+      invalid_captcha: ''

@@ -1,0 +1,12 @@
+---
+de:
+  review:
+    confirm_place:
+      changes_confirmed: ''
+    refuse_place:
+      changes_refused: ''
+      point_refused: ''
+    confirm_translation:
+      translation_confirmed: ''
+    refuse_translation:
+      translation_refused: ''

@@ -2,24 +2,25 @@
 de:
   layouts:
     loading:
-      processing: ''
+      processing: 'Automatische Übersetzung in die verfügbaren Sprachen, bitte warten...'
     sidebar:
       last_points_panel:
-        last_points_inserted: ''
+        last_points_inserted: 'Neueste Punkte'
       announcement_panel:
-        full_chronicle: ''
+        full_chronicle: 'Alle Mitteilungen'
     navbar:
       user_dropdown:
-        user: ''
-        edit_user: ''
-        log_out: ''
+        user: 'User'
+        edit_user: 'User bearbeiten'
+        log_out: 'Ausloggen'
       places_dropdown:
-        places: ''
-        index_places: ''
-        review: ''
+        places: 'Orte'
+        new_place: 'Ort erstellen'
+        index_places: 'Alle Orte'
+        review: 'Änderungen prüfen'
       language_dropdown:
-        language: ''
+        language: 'Sprachen'
       announcements_dropdown:
-        announcements: ''
-        manage: ''
-        create_announcement: ''
+        announcements: 'Mitteilungen'
+        manage: 'Mitteilungen verwalten'
+        create_announcement: 'Mitteilung erstellen'

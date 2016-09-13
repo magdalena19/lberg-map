@@ -2,4 +2,4 @@
 de:
   sessions:
     create:
-      login_error: ''
+      login_error: 'Email und Passwort passen nicht zusammen!'

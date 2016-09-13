@@ -1,8 +1,9 @@
 ---
 de:
   buttons:
-    close: ''
-    back: ''
-    delete: ''
-    edit: ''
-    login: ''
+    cancel: 'Zur Karte'
+    close: 'Schließen'
+    back: 'Zurück'
+    delete: 'Löschen'
+    edit: 'Bearbeiten'
+    login: 'Login'

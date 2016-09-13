@@ -2,21 +2,22 @@
 de:
   static_pages:
     about:
-      about: ''
+      about: 'Über das Projekt'
     add_place_slidepanel:
-      how_to_add_place: ''
-      type_in_address: ''
-      click_on_map: ''
+      how_to_add_place: 'Wie Punkt hinzufügen?'
+      type_in_address: 'Adresse eingeben'
+      click_on_map: 'Auf Karte klicken'
     category_slidepanel:
-      choose_category: ''
-      all_categories: ''
+      choose_category: 'Kategorie auswählen'
+      all_categories: 'Alle Kategorien'
     chronicle:
-      news: ''
+      news: 'Mitteilungen'
     locale_slidepanel:
-      select_this_language: ''
+      select_this_language: 'Diese Sprache auswählen'
     map:
-      correct_location?: ''
-      new_place: ''
+      correct_location?: 'Ist diese Position korrekt?'
+      new_place: 'Neuen Ort hinzufügen'
+      overlay_loading: 'Lade Karte und Punkte...'
     places_slidepanel:
-      places: ''
-      waiting_for_review: ''
+      places: 'Orte'
+      waiting_for_review: 'Warte auf Überprüfung...'

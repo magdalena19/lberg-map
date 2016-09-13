@@ -2,21 +2,21 @@
 de:
   announcements:
     form:
-      set_title: ''
-      set_content: ''
-      submit: ''
+      set_title: 'Mitteilungs-Überschrift (5-30 Zeichen)'
+      set_content: 'Mitteilungs-Inhalt'
+      submit: 'Erstelle Mitteilung'
     edit:
-      edit: ''
+      edit: 'Mitteilung bearbeiten'
     index:
-      announcements: ''
-      title: ''
-      created_by: ''
-      created_at: ''
-      last_change_at: ''
-      confirm_delete: ''
+      announcements: 'Mitteilungen'
+      title: 'Titel'
+      created_by: 'Erstellt von'
+      created_at: 'Erstellt am'
+      last_change_at: 'Letzte Änderung am'
+      confirm_delete: 'Bist du sicher, dass du diese Mitteilung löschen willst?'
     new:
-      create: ''
+      create: 'Mitteilung erstellen'
     show:
-      edit: ''
-      delete: ''
-      confirm_delete: ''
+      edit: 'Mitteilung bearbeiten'
+      delete: 'Mitteilung löschen'
+      confirm_delete: 'Bist du sicher, dass du diese Mitteilung löschen willst?'

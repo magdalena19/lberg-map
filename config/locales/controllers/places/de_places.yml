@@ -2,12 +2,12 @@
 de:
   places:
     destroy:
-      deleted: ''
+      deleted: 'Ort gelöscht'
     update:
-      changes_saved: ''
-      preview_mode: ''
-      invalid_captcha: ''
+      changes_saved: 'Änderungen gespeichert'
+      preview_mode: 'Du bist momentan im Vorschau-Modus. Änderungen die du vornimmst müssen von Editor_innen gesichtet werden bevor sie für alle sichtbar sind!'
+      invalid_captcha: 'Ungültiges Captcha, bitte überprüfe deine Eingabe'
     create:
-      created: ''
-      preview_mode: ''
-      invalid_captcha: ''
+      created: 'Ort erfolgreich erstellt'
+      preview_mode: 'Du bist momentan im Vorschau-Modus. Änderungen die du vornimmst müssen von Editor_innen gesichtet werden bevor sie für alle sichtbar sind!'
+      invalid_captcha: 'Ungültiges Captcha, bitte überprüfe deine Eingabe'

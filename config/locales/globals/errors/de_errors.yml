@@ -3,51 +3,51 @@ de:
   activerecord:
     errors:
       messages:
-        record_invalid: ''
+        record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
         restrict_dependent_destroy:
-          has_one: ''
-          has_many: ''
+          has_one: 'Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz
+            existiert.'
+          has_many: 'Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.'
       models:
         place:
           attributes:
             address:
               address_not_found: ''
   errors:
-    format: ''
+    format: "%{attribute} %{message}"
     messages:
-      access_restricted: ''
-      accepted: ''
-      blank: ''
-      present: ''
-      confirmation: ''
-      empty: ''
-      equal_to: ''
-      even: ''
-      exclusion: ''
-      greater_than: ''
-      greater_than_or_equal_to: ''
-      inclusion: ''
-      invalid: ''
-      less_than: ''
-      less_than_or_equal_to: ''
-      model_invalid: ''
-      not_a_number: ''
-      not_an_integer: ''
-      odd: ''
-      required: ''
-      taken: ''
+      accepted: muss akzeptiert werden
+      blank: muss ausgefüllt werden
+      present: darf nicht ausgefüllt werden
+      confirmation: stimmt nicht mit %{attribute} überein
+      empty: muss ausgefüllt werden
+      equal_to: muss genau %{count} sein
+      even: muss gerade sein
+      exclusion: ist nicht verfügbar
+      greater_than: muss größer als %{count} sein
+      greater_than_or_equal_to: muss größer oder gleich %{count} sein
+      inclusion: ist kein gültiger Wert
+      invalid: ist nicht gültig
+      less_than: muss kleiner als %{count} sein
+      less_than_or_equal_to: muss kleiner oder gleich %{count} sein
+      model_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
+      not_a_number: ist keine Zahl
+      not_an_integer: muss ganzzahlig sein
+      odd: muss ungerade sein
+      required: muss ausgefüllt werden
+      taken: ist bereits vergeben
       too_long:
-        one: ''
-        other: ''
+        one: ist zu lang (mehr als 1 Zeichen)
+        other: ist zu lang (mehr als %{count} Zeichen)
       too_short:
-        one: ''
-        other: ''
+        one: ist zu kurz (weniger als 1 Zeichen)
+        other: ist zu kurz (weniger als %{count} Zeichen)
       wrong_length:
-        one: ''
-        other: ''
-      other_than: ''
+        one: hat die falsche Länge (muss genau 1 Zeichen haben)
+        other: hat die falsche Länge (muss genau %{count} Zeichen haben)
+      other_than: darf nicht gleich %{count} sein
     template:
-      body: ''
+      body: 'Bitte überprüfen Sie die folgenden Felder:'
       header:
-        one: ''
-        other: ''
+        one: 'Konnte %{model} nicht speichern: ein Fehler.'
+        other: 'Konnte %{model} nicht speichern: %{count} Fehler.'

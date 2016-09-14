@@ -32,7 +32,9 @@
                   = link_to edit_place_path(place) do
                     %span{class: 'glyphicon glyphicon-pencil'}
                 - else
-                  %b{style: 'color: #ff6666;'}= t('.waiting_for_review')
-                - if signed_in?
-                  = link_to place_path(place), {method: "delete", data: { confirm: t('.confirm_delete') }} do
-                    %span{class: 'glyphicon glyphicon-trash'}
+                  - if signed_in?
+                    = link_to t('.waiting_for_review'), review_place_path(place), style: 'color: #ff6666'
+                    = link_to place_path(place), {method: "delete", data: { confirm: t('.confirm_delete') }} do
+                      %span{class: 'glyphicon glyphicon-trash'}
+                  - else
+                    %b{style: 'color: #ff6666;'}= t('.waiting_for_review')

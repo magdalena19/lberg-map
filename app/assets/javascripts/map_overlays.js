@@ -19,7 +19,7 @@ jQuery(function() {
         }
         else {
           obj.show();
-        };
+        }
       });
     });
 
@@ -27,11 +27,11 @@ jQuery(function() {
       sideBar.css('z-index', '-1');
       showSidebarContainer.css('z-index', '-1');
     } else {
-      if (slidePanelVisible == false) {
+      if (slidePanelVisible === false) {
         sideBar.css('z-index', '9999');
         showSidebarContainer.css('z-index', '9999');
-      };
-    };
+      }
+    }
   };
 
   // ANNOUNCEMENTS

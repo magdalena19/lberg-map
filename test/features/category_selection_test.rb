@@ -20,11 +20,11 @@ feature 'Category selection' do
     @place.save
   end
 
-  scenario 'Place is shown when \'categories\' was clicked', js: true do
+  scenario 'Place is shown when \'All points\' was clicked', js: true do
     show_category_panel
-    page.must_have_content('Categories')
+    page.must_have_content('All points')
     page.must_have_content('Playground')
-    click_on('Categories')
+    click_on('All points')
     sleep(1)
     page.find('.show-places').trigger('click')
     sleep(1)

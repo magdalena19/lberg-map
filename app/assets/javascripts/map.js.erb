@@ -34,6 +34,7 @@ jQuery(function() {
         placeSlidePanel.find('.name').html(prop.name);
         if (feature.properties.reviewed == false) {
           placeSlidePanel.find('.name').html(prop.name + "<span style='color: #ff6666;'> | <%= I18n.t('.places.index.waiting_for_review') %> </span>");
+          jQuery('.edit-place').hide();
         } else {
           placeSlidePanel.find('.name').html(prop.name);
         };

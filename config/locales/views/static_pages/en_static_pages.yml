@@ -7,8 +7,8 @@ en:
       type_in_address: 'Manually insert address'
       click_on_map: 'Click on map'
     category_slidepanel:
-      choose_category: 'Choose category'
-      all_categories: 'All categories'
+      filter_by_category: 'Filter by category'
+      no_filter: 'All points'
     chronicle:
       news: 'Announcements'
     locale_slidepanel:

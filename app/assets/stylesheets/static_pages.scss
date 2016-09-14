@@ -87,28 +87,29 @@
 .category-container {
   left: 50%;
   width: 50%;
-  max-width: 400px;
+  max-width: 250px;
+  min-width: 150px;
   bottom: -10px;
   height: 52px;
   .show-categories {
     height: 52px;
     border-radius: 7px;
     background: rgba(darken($lilac, 15%),0.5);
-    padding: 5px 20px 0 20px;
+    padding: 0px 10px 0 10px;
     cursor: pointer;
     position: relative;
     left: -50%;
     font-size: 22px;
     font-weight:  bold;
     .show-categories-text {
-      width: 80%;
-      float: left;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      height: 100%;
+      padding-top: 6px;
+      vertical-align: middle;
+      font-weight: normal;
+      font-size: 20px;
     }
     .glyphicon {
-      float: right;
+      float: left;
       top: 5px;
       left: 5px;
     }
@@ -134,6 +135,15 @@
   width: 100%;
   margin-top: 3px;
   margin-bottom: 3px;
+}
+
+.show-all-points {
+  background: transparentize($green, 0.3);
+  color: rgba(black, 0.7) !important;
+  width: 100%;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  font-size: 16px !important;
 }
 
 .locale-slidepanel {
@@ -175,7 +185,7 @@
   border-radius: 7px;
   position: absolute;
   right: 10px;
-  z-index: 99999; // assure, that this is higher than sidebar index due to its opacity strategy 
+  z-index: 99999; // assure, that this is higher than sidebar index due to its opacity strategy
   .content {
     overflow-y: auto;
     margin-bottom: 15px;
@@ -185,6 +195,7 @@
     text-align: center;
     font-size: 20px;
     color: #333;
+    font-weight: bold;
   }
   .hide-slidepanel {
     font-size: x-large;

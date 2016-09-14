@@ -7,8 +7,8 @@ de:
       type_in_address: 'Adresse eingeben'
       click_on_map: 'Auf Karte klicken'
     category_slidepanel:
-      choose_category: 'Kategorie auswählen'
-      all_categories: 'Alle Kategorien'
+      filter_by_category: 'Nach Kategorien eingrenzen'
+      no_filter: 'Alle Punkte'
     chronicle:
       news: 'Mitteilungen'
     locale_slidepanel:

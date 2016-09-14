@@ -143,6 +143,7 @@ jQuery(function() {
         success: function(result) {
           updatePlaces(result);
           updatePlacesList(result);
+          // $('.slidepanel-title').html(category)
           resizePanels();
           jQuery('.loading').hide();
         }

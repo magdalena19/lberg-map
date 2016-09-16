@@ -1,0 +1,8 @@
+.last-points-panel.announcement
+  %h4.text-center.header
+    = t('.last_points_inserted')
+  - @last_places_created.each do |place|
+    .last-point
+      .last-point-header{style: ('color: #ff6666;' if !place.reviewed)}
+        = place.name
+        .glyphicon.glyphicon-search.zoom-to-place.pull-right{longitude: place.longitude, latitude: place.latitude}

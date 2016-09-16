@@ -1,0 +1,8 @@
+de:
+  announcements:
+    edit:
+      created: 'Mitteilung erstellt'
+      changes_saved: 'Änderungen gespeichert'
+      deleted: 'Mitteilung gelöscht'
+      no_right_to_edit: 'Du hast nicht die erforderlichen Berechtigungen um diese Nachricht zu editieren'
+    new: ''

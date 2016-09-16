@@ -1,2 +1,5 @@
-.h4= t 'new_place'
-= render 'form'
+- content_for :header do
+  = t('.new')
+
+.container
+  = render 'form'

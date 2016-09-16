@@ -11,25 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527133755) do
+ActiveRecord::Schema.define(version: 20160831164812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "announcements", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "header",     null: false
+    t.string   "content",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "announcements", ["user_id"], name: "index_announcements_on_user_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "categorizings", force: :cascade do |t|
-    t.integer  "place_id"
-    t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "categorizings", ["category_id"], name: "index_categorizings_on_category_id", using: :btree
-  add_index "categorizings", ["place_id"], name: "index_categorizings_on_place_id", using: :btree
 
   create_table "category_translations", force: :cascade do |t|
     t.integer  "category_id", null: false
@@ -43,26 +43,33 @@ ActiveRecord::Schema.define(version: 20160527133755) do
   add_index "category_translations", ["locale"], name: "index_category_translations_on_locale", using: :btree
 
   create_table "place_translations", force: :cascade do |t|
-    t.integer  "place_id",    null: false
-    t.string   "locale",      null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "place_id",                        null: false
+    t.string   "locale",                          null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.text     "description"
+    t.boolean  "auto_translated", default: false, null: false
+    t.boolean  "reviewed",        default: false, null: false
   end
 
   add_index "place_translations", ["locale"], name: "index_place_translations_on_locale", using: :btree
   add_index "place_translations", ["place_id"], name: "index_place_translations_on_place_id", using: :btree
 
   create_table "places", force: :cascade do |t|
-    t.float    "latitude",     null: false
-    t.float    "longitude",    null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.string   "name",         null: false
-    t.string   "postal_code",  null: false
-    t.string   "street",       null: false
+    t.float    "latitude",                     null: false
+    t.float    "longitude",                    null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "name",                         null: false
+    t.string   "postal_code"
+    t.string   "street"
     t.string   "house_number"
-    t.string   "city",         null: false
+    t.string   "city"
+    t.boolean  "reviewed",     default: false, null: false
+    t.text     "categories",   default: ""
+    t.string   "phone"
+    t.string   "email"
+    t.string   "homepage"
   end
 
   create_table "simple_captcha_data", force: :cascade do |t|
@@ -74,6 +81,26 @@ ActiveRecord::Schema.define(version: 20160527133755) do
 
   add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
 
-  add_foreign_key "categorizings", "categories"
-  add_foreign_key "categorizings", "places"
+  create_table "users", force: :cascade do |t|
+    t.string   "name",                            null: false
+    t.string   "email",                           null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "password_digest"
+    t.boolean  "is_admin",        default: false
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+    t.text     "object_changes"
+    t.string   "locale"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+
 end

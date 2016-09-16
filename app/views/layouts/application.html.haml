@@ -5,9 +5,13 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
+    %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}/
   %body
-    = render 'layouts/navbar'
-    .container.main-container
+    = render 'layouts/navbar/navbar'
+    .container-full.main-container
       .starter-template
+        - if action_name != 'map'
+          .header-img
+            %h1= yield :header
         = render 'layouts/flash_messages'
         = yield

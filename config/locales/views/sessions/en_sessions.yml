@@ -1,0 +1,6 @@
+en:
+  sessions:
+    new:
+      log_in: 'Log in'
+      enter_email: 'Enter email address'
+      enter_password: 'Enter password'

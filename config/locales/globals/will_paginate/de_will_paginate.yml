@@ -1,0 +1,14 @@
+de:
+  will_paginate:
+    next_label: "Nächste &#8594;"
+    page_entries_info:
+      multi_page: "Zeige %{model} %{from} - %{to} von %{count} insgesamt"
+      multi_page_html: "Zeige %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> von <b>%{count}</b> insgesamt"
+      single_page:
+        one: "Zeige 1 %{model}"
+        other: "Zeige alle %{count} %{model}"
+        zero: "kein %{model} gefunden"
+      single_page_html:
+        one: "Zeige <b>1</b> %{model}"
+        other: "Zeige <b>all&nbsp;%{count}</b> %{model}"
+        zero: "Kein %{model} gefunden"

@@ -1,51 +1,265 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'colors';
 
+.map-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+};
 #map {
-  height: 500px;
-  border: 2px solid white;
-  &.active {
-    border: 2px solid green;
-    -webkit-transition: all 2s ease;
-    -moz-transition: all 2s ease;
-    -o-transition: all 2s ease;
-    transition: all 2s ease;
-  }
-  .overlay {
-    position: absolute;
-    z-index: 999;
-    button {
-      margin: 3px;
-      background: rgba(255, 255, 255, 0.5);
-      border: none;
-      width: 100px;
-      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-      &:hover {
-        background: rgba(255, 255, 255, 1);
-      }
-      &.active {
-        font-weight: bold;
-      }
+  height:100%;
+}
+
+.overlay {
+  position: absolute !important;
+  z-index: 999;
+  .filter-button {
+    width: 130px !important;
+    &.active {
+      font-weight: bold;
     }
   }
-  .category-button-container {
-    bottom: 8px;
-    left: 8px;
+}
+
+.loading {
+  bottom: 50%;
+  left: 50%;
+  .loading-text {
+    font-weight: bold;
+    background: rgba(255,255,255,0.7);
+    border-radius: 7px;
+    padding: 10px;
+    position: relative;
+    left: -50%;
+    bottom: -30px;
+    border: none;
+    font-size: 15px;
   }
-  .place-button-container {
-    right: 8px;
-    bottom: 8px;
+}
+
+.control-container {
+  cursor: pointer;
+}
+
+.zoom-container {
+  right: -7px;
+  top: 48px;
+  .glyphicon {
+    padding-top: 10px;
+    padding-left: 10px;
+    border-radius: 7px;
+    margin-top: 5px;
+    background: rgba(darken($lilac, 50%),0.8);
+    color: $green;
+    font-size: 20px;
+    width: 45px;
+    height: 40px;
   }
+}
+
+.place-control-container {
+  right: -10px;
+  bottom: 25px;
+  .glyphicon {
+    margin: 4px;
+    padding: 15px;
+    border-radius: 7px;
+    background: rgba(darken($lilac, 15%),0.5);
+    font-size: 35px;
+  }
+}
+
+.show-sidebar-container {
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  .glyphicon {
+    margin: 4px;
+    padding: 15px;
+    border-radius: 7px;
+    background: rgba(darken($lilac, 15%),0.5);
+    font-size: 35px;
+  }
+}
+
+.category-container {
+  left: 50%;
+  width: 50%;
+  max-width: 400px;
+  bottom: -10px;
+  height: 52px;
+  .show-categories {
+    height: 52px;
+    border-radius: 7px;
+    background: rgba(darken($lilac, 15%),0.5);
+    padding: 5px 20px 0 20px;
+    cursor: pointer;
+    position: relative;
+    left: -50%;
+    font-size: 22px;
+    font-weight:  bold;
+    .show-categories-text {
+      width: 80%;
+      float: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .glyphicon {
+      float: right;
+      top: 5px;
+      left: 5px;
+    }
+  }
+}
+
+.confirmation-button-container {
+  display: none;
+  top: 60px;
+  text-align: center;
+  button {
+    font-size: 35px;
+    opacity: 0.8;
+  }
+}
+
+.add-place-buttons {
+  width: 100%;
+  margin-bottom: 10px !important;
+}
+
+.category-button {
+  width: 100%;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.locale-slidepanel {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.locale-button {
+  width: 100%;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.btn-dark {
+  font-size: 16px !important;
+  color: $green;
+  background: rgba(black, 0.7) !important;
+  &:hover {
+    color: $green !important;
+    background: rgba(black, 0.6) !important;
+  };
+  &.active {
+    background: rgba(black, 0.55) !important;
+  }
+  height: 37px;
 }
 
 .leaflet-control-attribution {
   display: none;
 }
 
-.geocode-button {
+.place-list-header-buttons {
+  float: right;
   cursor: pointer;
-  &.active {
-    color: green;
+}
+
+.slidepanel {
+  background: rgba(darken($lilac, 15%),0.5);
+  border-radius: 7px;
+  position: absolute;
+  right: 10px;
+  z-index: 99999; // assure, that this is higher than sidebar index due to its opacity strategy 
+  .content {
+    overflow-y: auto;
+    margin-bottom: 15px;
+  }
+  .slidepanel-title {
+    padding-left: 35px; /* due to close-button on same line */
+    text-align: center;
+    font-size: 20px;
+    color: #333;
+  }
+  .hide-slidepanel {
+    font-size: x-large;
+    padding-right: 20px;
+    padding-top: 9px;
+    cursor: pointer;
+  }
+}
+
+#accordion {
+  padding: none;
+  margin-bottom: 0;
+}
+
+.accordion-panel-template {
+  border: none !important;
+  background: none !important;
+  display: none;
+  .panel-group {
+    margin-bottom: 0 !important;
+  }
+  .panel-title {
+    color: $green !important;
+  }
+  .panel-heading {
+    border: none !important;
+    background: rgba(black, 0.7) !important;
+  }
+  .panel-body {
+    font-size: small;
+    background: rgba(white, 0.75);
+    border: none !important;
+  }
+  .contact {
+    margin-bottom: 10px;
+    .glyphicon {
+      color: $lilac;
+      margin-bottom: 10px;
+    }
+    .glyphicon:before {
+      margin-right: 7px;
+    }
+  }
+}
+
+.place-slidepanel {
+  .place-slidepanel-header {
+    border-radius: 4px 4px 0 0;
+    font-size: large;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: rgba(black, 0.7) !important;
+    color: $green;
+    .name {
+      float: left;
+    }
+    .edit-place {
+      float: right;
+      cursor: pointer;
+    }
+  }
+  .place-slidepanel-body {
+    font-size: small;
+    padding: 20px;
+    background: rgba(white, 0.75);
+  }
+  .place-slidepanel-contact {
+    margin-bottom: 10px;
+    .glyphicon {
+      color: $lilac;
+      margin-bottom: 10px;
+    }
+    .glyphicon:before {
+      margin-right: 7px;
+    }
   }
 }

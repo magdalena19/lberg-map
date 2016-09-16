@@ -1,0 +1,26 @@
+en:
+  review:
+    review_index:
+      review: 'Review'
+      new: 'New'
+      edited: 'Edited'
+    review_place:
+      review: 'Review'
+      reviewed: 'Reviewed'
+      unreviewed: 'Unreviewed'
+      categories: 'Categories:'
+      new: 'New'
+      edited: 'Edited'
+      none: 'None'
+      descriptions: 'Descriptions'
+      automatic_translation: 'Automatic translation'
+      no_unreviewed_version: 'No unreviewed version...'
+      no_reviewed_version: 'No reviewed version...'
+    review_translation:
+      review: 'Review'
+      other_descriptions: 'Other descriptions'
+      review: 'Review'
+      reviewed: 'Reviewed'
+      unreviewed: 'Unreviewed'
+      no_reviewed_translation: 'No reviewed translation'
+      other_descriptions: 'Other descriptions'

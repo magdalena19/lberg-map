@@ -1,0 +1,10 @@
+.add-place-slidepanel.slidepanel
+  .hide-slidepanel.glyphicon.glyphicon-remove.pull-right
+  %h4.slidepanel-title= t('.how_to_add_place')
+  .content
+    .col-xs-12.col-sm-6
+      %button.add-place-buttons.type-in-address.btn.btn-dark{'data-dismiss': 'modal', type: 'button'}
+        = t('.type_in_address')
+    .col-xs-12.col-sm-6
+      %button.add-place-buttons.add_place_via_click.btn.btn-dark{'data-dismiss': 'modal', type: 'button'}
+        = t('.click_on_map')

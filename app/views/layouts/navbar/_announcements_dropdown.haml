@@ -1,0 +1,11 @@
+-# Announcements Menu
+- if signed_in?
+  .dropdown.pull-right.navbar-dropdown
+    %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+      = Announcement.model_name.human(count: 2)
+      %span.caret
+    %ul.dropdown-menu
+      %li{class: "#{'active' if current_page?(announcements_path)}"}
+        = link_to(t('.manage'), announcements_path)
+      %li{class: "#{'active' if current_page?(new_announcement_path)}"}
+        = link_to(t('.create_announcement'), new_announcement_path)

@@ -1,22 +1,19 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'mass_seed_announcements'
+require 'mass_seed_points'
 
-Place.new(  name: 'Seed Place',
-            street: 'Magdalenenstr.',
-            house_number: 22,
-            postal_code: '10365',
-            city: 'Berlin',
-            description_en: 'English description...',
-            description_de: 'Deutsche Beschreibung...',
-            description_fr: 'Description francaise...',
-            description_ar: 'وصف العربي',
-          ).save
+User.create(id: 5000,
+            name: 'admin',
+            email: 'admin@test.com',
+            password: 'secret',
+            password_confirmation: 'secret',
+            is_admin: true).save
+User.create(id: 5001,
+            name: 'user',
+            email: 'user@test.com',
+            password: 'secret',
+            password_confirmation: 'secret',
+            is_admin: false).save
 
-Category.new( name_en: 'Playground', name_de: 'Spielplatz', name_fr: 'Spielplatz', name_ar: 'Spielplatz' ).save
-Category.new( name_en: 'Library', name_de: 'Bibliothek', name_fr: 'Bibliothek', name_ar: 'Bibliothek' ).save
-Category.new( name_en: 'Free Wlan', name_de: 'Kostenloses Wlan', name_fr: 'Kostenloses Wlan', name_ar: 'Kostenloses Wlan' ).save
+# See /lib/mass_seed_*.rb for definitions
+MassSeedPoints.generate(number_of_points: 30, city: 'Berlin')
+# MassSeedAnnouncements.generate(number_of_announcements: 400)

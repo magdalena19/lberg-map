@@ -1,0 +1,26 @@
+de:
+  review:
+    review_index:
+      review: 'Änderungen prüfen'
+      new: 'Neu'
+      edited: 'Bearbeitet'
+    review_place:
+      review: 'Änderungen prüfen'
+      reviewed: 'Geprüft'
+      unreviewed: 'Ungeprüft'
+      categories: 'Kategorien'
+      new: 'Neu'
+      edited: 'Bearbeitet'
+      none: 'Keine'
+      descriptions: 'Beschreibungen'
+      automatic_translation: 'Automatische Übersetzung'
+      no_unreviewed_version: 'Keine ungeprüfte Version vorhanden'
+      no_reviewed_version: 'Keine geprüfte Version vorhanden'
+    review_translation:
+      review: 'Überprüfen'
+      other_descriptions: 'Andere Beschreibungen'
+      review: 'Änderungen prüfen'
+      reviewed: 'Geprüft'
+      unreviewed: 'Ungeprüft'
+      no_reviewed_translation: 'Keine geprüfte Übersetzung vorhanden'
+      other_descriptions: 'Andere Beschreibungen'

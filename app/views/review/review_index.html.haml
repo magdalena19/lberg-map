@@ -1,0 +1,40 @@
+- content_for :header do
+  = t('.review')
+
+.container
+  .row.margin-below
+    .col-xs-12
+      %h3 Places
+      - @places_to_review.each do |place|
+        .row
+          %hr
+          .col-xs-3
+            = place.name
+          .col-xs-5
+            = place.address
+          .col-xs-2
+            - if place.new?
+              .green
+                = t('.new')
+            - else
+              .red
+                = t('.edited')
+          .col-xs-2
+            = link_to review_place_path(place.id) do
+              review
+  .row.margin-below
+  .row
+    .col-xs-12
+      %h3 Translations
+      - @unreviewed_translations.each do |t|
+        .row
+          %hr
+          .col-xs-3
+            = Place.find(t.place_id).reviewed_version.name
+          .col-xs-1
+            = t.locale
+          .col-xs-6
+            = t.description[0..200].html_safe + '...' if t.description
+          .col-xs-2
+            = link_to review_translation_path(t.id) do
+              review

@@ -5,7 +5,7 @@ gem 'rails', '4.2.5.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-# custon gems
+# custom gems
 gem 'pg'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'haml-rails'
@@ -15,6 +15,14 @@ gem 'globalize-accessors'
 gem 'rails-html-sanitizer'
 gem 'geocoder', '~> 1.3.4'
 gem 'simple_captcha2', require: 'simple_captcha'
+gem 'will_paginate', '~> 3.1.0'
+gem 'unicorn'
+gem 'paper_trail'
+gem 'globalize-versioning'
+gem 'differ'
+gem 'lorem_ipsum_amet'
+gem 'rack-attack'
+gem 'translate-rails3', require: 'translate', group: :development
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -27,9 +35,6 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-gem 'jquery-turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -38,7 +43,7 @@ gem 'bing_translator', '~> 4.6.0'
 gem 'figaro'
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -58,11 +63,12 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner'
   gem 'minitest-reporters'
   gem 'minitest-rails-capybara'
   gem 'guard'
   gem 'guard-minitest'
+  gem 'poltergeist' # headless javascript testing
   gem 'selenium-webdriver' # non-headless javascript testing
-  gem 'capybara-webkit' # headless javascript testing
-  gem 'launchy' # open screenshots automatically
+  gem 'capybara-screenshot'
 end

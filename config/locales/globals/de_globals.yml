@@ -1,0 +1,12 @@
+de:
+  description_en: 'Englische Beschreibung'
+  description_de: 'Deutsche Beschreibung'
+  description_fr: 'Fanzösische Beschreibung'
+  description_ar: 'Arabische Beschreibung'
+  helpers:
+    select:
+      prompt: Bitte wählen
+    submit:
+      create: "Erstellen"
+      submit: "Speichern"
+      update: "Aktualisieren"

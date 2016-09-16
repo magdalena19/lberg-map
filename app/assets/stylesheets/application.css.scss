@@ -11,15 +11,36 @@
  * file per style scope.
  *
  *= require leaflet
+ *= require MarkerCluster
  *= require_tree .
  *= require_self
  */
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'colors';
 
-.main-container {
-  margin-top: 60px;
+.container-full {
+  width: 100%;
+}
+
+.header-img {
+  margin-top: -58px;
+  margin-bottom: 25px;
+  padding-top: 45px;
+  width: 100%;
+  height: 160px;
+  background: url(image_path('header'));
+  h1 {
+    color: black;
+    text-shadow:
+     -2px -2px 0 white,  
+      2px -2px 0 white,
+     -2px  2px 0 white,
+      2px  2px 0 white;
+    background-size: 100% 100%;
+    text-align: center;
+  }
 }
 
 .margin-below {
@@ -27,36 +48,85 @@
 }
 
 .logo {
-  font-size: 24px;
-  color: white;
+  font-size: 30px;
+  font-weight: bold;
   letter-spacing: -1px;
-  padding-top: 9px;
   &:hover {
-    color: white;
     text-decoration: none;
   }
 }
 
-.nav-pills {
-  li {
-    a {
-      padding-left: 4px;
-      padding-right: 4px;
+.logo-left {
+  color: $lilac;
+  float: left;
+}
+
+.logo-right {
+  color: $green;
+  float: left;
+  padding-left: 3px;
+  margin-right: 10px;
+}
+
+.navbar  {
+  min-height: 40px;
+  background: rgba(darken($lilac, 50%),0.8);
+  border: none;
+  .glyphicon {
+    line-height: 40px;
+    color: $green;
+    font-size: 20px;
+  }
+}
+
+.navbar-dropdown-container {
+  float: right;
+}
+
+.navbar-dropdown {
+  line-height: 40px;
+  margin-left: 15px;
+  a {
+    color: $green !important;
+  }
+  .dropdown-menu {
+    top: 44px;
+    background: rgba(darken($lilac, 50%),0.8);
+    color: $green;
+    .active > a {
+      color: white !important;
+      background: $green !important;
     }
   }
 }
 
-
-.logo-left {
-  margin-left: 10px;
-  float: left;
-  font-size: 24px;
+.btn-success {
+  background: $green !important;
+  border: none;
 }
 
-.logo-right {
-  float: left;
-  font-size: 25px;
-  padding-left: 3px;
-  margin-top: -1px;
-  font-weight: bold;
+.btn-danger {
+  background: $lilac !important;
+  border: none;
+}
+
+.cancel-button {
+  background: $brown !important;
+  border: none;
+}
+
+// Review table style
+
+.edited-point {
+  background-color: lighten(rgb(223, 155, 99), 25);
+}
+
+.new-point {
+  background-color: lighten(rgb(124, 223, 99), 25);
+}
+
+// Pagination
+
+.previous_page.disabled {
+  color: $grey;
 }

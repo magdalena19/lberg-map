@@ -1,0 +1,8 @@
+en:
+  announcements:
+    edit:
+      created: 'Announcement created!'
+      changes_saved: 'Changes saved!'
+      deleted: 'Announcement deleted!'
+      no_right_to_edit: 'Cannot change announcements of other users!'
+    new:

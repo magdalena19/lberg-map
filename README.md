@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/magdalena19/lberg-map.svg?branch=master)](https://travis-ci.org/magdalena19/lberg-map)
+
 ***Local Development Environment***
 
 Some Dependencies you need:
@@ -7,6 +9,8 @@ Some Dependencies you need:
     get the common ruby version e.g. 2.3 at the moment (installation via RVM recommended or according to this post: ryanbigg.com/2014/10/ubuntu-ruby-ruby-install-chruby-and-you// )
 
     get PostgreSQL 9.3 or a later version(and postgresql-server-dev-9.3), QT libs (qt4-dev-tools libqt4-dev libqt4-core libqt4-gui)  
+
+    install nodejs, imagemagik
 
 Inside the project folder run:
 

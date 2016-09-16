@@ -1,0 +1,28 @@
+.places-slidepanel.slidepanel
+  .hide-slidepanel.glyphicon.glyphicon-remove.pull-right
+  %h4.slidepanel-title= t('.places')
+  .content
+    #accordion.panel-group.col-xs-12.places-list
+
+.panel.panel-default.accordion-panel-template
+  .panel-heading
+    %h4.panel-title
+      %a.accordion-toggle{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseId"}
+        .triangle.glyphicon.glyphicon-triangle-bottom
+        %span.name
+      .place-list-header-buttons
+        .glyphicon.glyphicon-pencil.edit-place
+        .glyphicon.glyphicon-search.zoom-to-place
+  #collapseOne.panel-collapse.collapse.in
+    .panel-body{dir: text_direction}
+      .row
+        .col-md-4.contact
+          .glyphicon.glyphicon-home.address
+          %br
+          .glyphicon.glyphicon-earphone.phone
+          %br
+          .glyphicon.glyphicon-envelope.email
+          %br
+          .glyphicon.glyphicon-globe.homepage
+        .col-md-8
+          .description.margin-below

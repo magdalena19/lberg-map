@@ -1,0 +1,14 @@
+%nav.navbar.navbar-fixed-top
+  .container
+    %a{href: root_path}
+      .logo.logo-left
+        LBERG
+      .logo.logo-right
+        MAP
+    .info-button.pull-left{class: "#{'active' if current_page?(about_path)}"}
+      = link_to('', about_path, class: 'glyphicon glyphicon-info-sign')
+    .navbar-dropdown-container.pull-right
+      = render partial: 'layouts/navbar/language_dropdown'
+      = render partial: 'layouts/navbar/user_dropdown' if signed_in?
+      = render partial: 'layouts/navbar/announcements_dropdown'
+      = render partial: 'layouts/navbar/places_dropdown'

@@ -1,0 +1,21 @@
+en:
+  announcements:
+    form:
+      set_title: 'Announcement title (5-30 characters)'
+      set_content: 'Announcement content'
+      submit: 'Create Announcement'
+    edit:
+      edit: 'Edit announcement'
+    index:
+      announcements: 'Announcements'
+      title: 'Title'
+      created_by: 'Created by'
+      created_at: 'Created at'
+      last_change_at: 'Last change at'
+      confirm_delete: 'Are you sure you want to delete this announcement?'
+    new:
+      create: 'Create new announcement'
+    show:
+      edit: 'Edit announcement'
+      delete: 'Delete announcement'
+      confirm_delete: 'Are you sure you want to delete this announcement?'

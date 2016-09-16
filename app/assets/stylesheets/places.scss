@@ -1,3 +1,5 @@
+@import 'colors';
+
 input {
   width: 100%;
 }
@@ -18,4 +20,48 @@ textarea {
 
 .place-form-button {
   width: 100%;
+}
+
+.nicEdit-main {
+ height: 300px;
+ resize: all;
+ overflow-y: auto !important;
+}
+
+.locked-description {
+  border: 1px solid rgb(204, 204, 204);
+  padding: 4px;
+  margin-top: 8px;
+  height: 307px;
+  overflow-y: auto;
+  color: grey;
+}
+
+.auto-translated-true {
+  color: $lilac;
+  font-style: italic;
+}
+
+.submit-process-bar {
+  display: none;
+}
+
+.auto-translated-false {
+  color: grey;
+}
+
+.grey {
+  color: grey;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: rgb(53, 129, 33);
+}
+
+.dark_yellow {
+  color: rgb(172, 160, 0);
 }

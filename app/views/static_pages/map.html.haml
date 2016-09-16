@@ -1,20 +1,44 @@
-#map
-  .overlay.category-button-container
-    = button_tag('*', type: 'button', class: 'category-button', id: 'all')
+.map-container
+  #map
+  .col-xs-12.overlay.confirmation-button-container
+    = t('.correct_location?')
     %br
-    - @categories.each do |category|
-      = button_tag(category.name, type: 'button', class: 'category-button', id: category.id)
-      %br
-  .overlay.place-button-container
-    - @places.each do |place|
-      = button_tag(place.name, type: 'button', class: 'place-button', id: place.id)
-      %br
+    = button_tag('', type: 'button', class: 'btn btn-success glyphicon glyphicon-ok', id: 'confirmation-button-yes')
+    = button_tag('', type: 'button', class: 'btn btn-danger glyphicon glyphicon-remove', id: 'confirmation-button-no')
 
-.geocode-button
-  = t('point_to_place')
+  .overlay.show-sidebar-container
+    .glyphicon.glyphicon-chevron-right.open-sidebar
 
-= render 'modal'
+  .overlay.control-container.zoom-container
+    .glyphicon.glyphicon-plus.zoom-in
+    %br
+    .glyphicon.glyphicon-minus.zoom-out
+
+  .overlay.control-container.place-control-container
+    .glyphicon.glyphicon-plus-sign.add-place-button.slidepanel-button{slidepanel: 'add-place-slidepanel', title: t('.new_place')}
+    %br
+    .glyphicon.glyphicon-list.show-places.slidepanel-button{slidepanel: 'places-slidepanel'}
+
+  .overlay.control-container.category-container
+    .show-categories.slidepanel-button{slidepanel: 'category-slidepanel'}
+      .show-categories-text
+      .glyphicon.glyphicon-triangle-top
+
+  .overlay.loading
+    .loading-text
+      = t('.overlay_loading')
+
+  = render('category_slidepanel')
+  = render('places_slidepanel')
+  = render('place_slidepanel')
+  = render('add_place_slidepanel')
+  = render('locale_slidepanel')
+  = render('layouts/sidebar/sidebar')
 
 :javascript
   window.locale = '#{locale}';
   window.placesJson = #{raw(@places_json.to_json)};
+  window.geolocation_error_message_appendix = '#{t('geolocation_error_message_appendix')}';
+  window.autotranslated_prefix = '#{t('auto_translated')}';
+  window.latitude = #{@latitude || 0};
+  window.longitude = #{@longitude || 0};

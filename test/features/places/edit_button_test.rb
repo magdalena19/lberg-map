@@ -7,11 +7,4 @@ feature 'edit buttons' do
     sleep(1)
     page.must_have_css('.edit-place')
   end
-
-  def login
-    visit login_path
-    fill_in 'User email', with: 'susanne@example.com'
-    fill_in 'Password', with: 'secret'
-    click_on 'Login'
-  end
 end

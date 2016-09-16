@@ -1,0 +1,6 @@
+de:
+  users:
+    edit:
+      changes_saved: 'Änderungen gespeichert!'
+      no_right_to_edit: 'Du hast nicht die erforderlichen Berechtigungen um diese Daten zu ändern!'
+      access_restricted: 'Zugang zu dieser Seite ist dir verwehrt!'

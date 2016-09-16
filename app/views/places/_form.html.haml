@@ -38,7 +38,7 @@
 
   .col-xs-12
     %fieldset{class: 'form-group row'}
-      - %w[en de ar fr].in_groups_of(2, false).each do |group|
+      - I18n.available_locales.in_groups_of(2, false).each do |group|
         .row
           - group.each do |lang|
             .col-md-6.margin-below{dir: "#{'rtl' if lang == 'ar'}"}
@@ -68,6 +68,6 @@
       = f.hidden_field :longitude, value: params[:longitude]
       = f.submit class: 'btn btn-primary btn-success place-form-button submit-place-button'
     .col-xs-6.col-md-2
-      = link_to t('back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
+      = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
     .col-xs-2
-      = link_to t('cancel'), root_path, class: 'btn btn-primary place-form-button cancel-button'
+      = link_to t('buttons.cancel'), root_path, class: 'btn btn-primary place-form-button cancel-button'

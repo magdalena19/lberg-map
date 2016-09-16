@@ -1,0 +1,30 @@
+en:
+  activerecord:
+    attributes:
+      place:
+        name: 'Name'
+        street: 'Street'
+        postal_code: 'Postal code'
+        city: 'City'
+        phone: 'Phone'
+        email: 'Email'
+        homepage: 'Homepage'
+      user:
+        email: 'Email-Adresse'
+        name: 'User-Name'
+      announcement:
+        header: 'Header'
+        content: 'Content'
+    models:
+      place:
+        one: 'Place'
+        other: 'Places'
+      announcement:
+        one: 'Announcement'
+        other: 'Announcements'
+      category:
+        one: 'Category'
+        other: 'Categories'
+      user:
+        one: 'User'
+        other: 'Users'

@@ -9,10 +9,10 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash.now[:success] = 'Successfully changed user credentials'
+      flash[:success] = t('.changes_saved')
       redirect_to root_path
     else
-      flash.now[:danger] = 'Changes could not be submitted'
+      flash.now[:danger] = @user.errors.full_messages.to_sentence
       render 'edit'
     end
   end
@@ -25,15 +25,12 @@ class UsersController < ApplicationController
 
   def require_to_be_same_user
     user_to_be_edited = User.find(url_options[:_recall][:id])
-    unless user_to_be_edited.id == session[:user_id]
-      flash.now[:danger] = 'Cannot change credentials of another user!'
-      redirect_to root_path
-    end
+    redirect_to root_path unless user_to_be_edited.id == current_user.id
   end
 
   def require_login
     unless session[:user_id]
-      flash.now[:danger] = 'Access to this page has been restricted. Please login first!'
+      flash[:danger] = t('errors.messages.access_restricted')
       redirect_to login_path
     end
   end

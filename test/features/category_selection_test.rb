@@ -22,9 +22,9 @@ feature 'Category selection' do
 
   scenario 'Place is shown when \'all\' was clicked', js: true do
     show_category_panel
-    page.must_have_content('All Categories')
+    page.must_have_content('All categories')
     page.must_have_content('Playground')
-    click_on('All Categories')
+    click_on('All categories')
     sleep(1)
     page.find('.show-places').trigger('click')
     sleep(1)

@@ -3,17 +3,17 @@
     .row
       .col-md-6.col-md-offset-3.text-center
         %h4
-          = t('_edit_user')
+          = t('.edit')
         %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:name)}" }
-          = f.text_field :name, placeholder: t('name_placeholder', scope: 'user_session'), class: 'form-control'
+          = f.text_field :name, placeholder: t('.name_placeholder'), class: 'form-control'
         %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:email)}" }
-          = f.text_field :email, placeholder: t('email_placeholder', scope: 'user_session'), class: 'form-control' 
+          = f.text_field :email, placeholder: t('.email_placeholder'), class: 'form-control'
         %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:password)}" }
           = f.password_field :password, class: 'form-control'
         %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:password_confirmation)}" }
           = f.password_field :password_confirmation, class: 'form-control'
     .row
       .col-xs-3.col-md-offset-3
-        = f.submit t('submit'), class: 'btn btn-primary btn-success'
+        = f.submit t('.submit'), class: 'btn btn-primary btn-success'
       .col-xs-3
-        = link_to t('back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger'
+        = link_to t('.back'), action_name == 'edit' ? places_path : root_path, class: 'btn btn-primary btn-danger'

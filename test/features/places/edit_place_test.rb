@@ -13,8 +13,7 @@ feature 'Edit place' do
     fill_in('place_email', with: 'schnipp@schnapp.com')
     fill_in('place_homepage', with: 'http://schnapp.com')
     fill_in('place_phone', with: '03081763253')
-
-    click_on('Update place')
+    click_on('Update Place')
     visit '/places'
     page.must_have_content('Any place')
     page.must_have_content('Schulze-Boysen-Str. 80, 10963 Berlin')
@@ -25,17 +24,10 @@ feature 'Edit place' do
     visit '/places/1/edit'
     fill_in('place_name', with: 'Some changes')
     validate_captcha
-    click_on('Update place')
+    click_on('Update Place')
     visit '/places'
     page.wont_have_content('Some changes')
     page.must_have_content('Hausprojekt Magdalenenstraße')
     page.must_have_content('Waiting for review')
-  end
-
-  def login
-    visit login_path
-    fill_in 'User email', with: 'admin@example.com'
-    fill_in 'Password', with: 'secret'
-    click_on 'Login'
   end
 end

@@ -1,0 +1,8 @@
+de:
+  users:
+    edit:
+      edit: 'User-Daten ändern'
+      name_placeholder: 'User-Name'
+      email_placeholder: 'User-Email'
+      submit: 'Änderungen bestätigen'
+      back: 'Zurück'

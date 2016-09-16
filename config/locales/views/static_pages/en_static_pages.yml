@@ -13,6 +13,12 @@ en:
       places_slidepanel:
         places: 'Places'
         waiting_for_review: 'Waiting for review...'
+    contact:
+      imprint: 'Imprint'
+      your_name: 'Name'
+      your_email: 'Respond to'
+      your_title: 'Message title'
+      your_message: 'Message text'
     chronicle:
       news: 'Announcements'
     about:

@@ -13,6 +13,12 @@ de:
       places_slidepanel:
         places: 'Orte'
         waiting_for_review: 'Warte auf Überprüfung...'
+    contact:
+      imprint: 'Impressum'
+      your_name: 'Dein Name'
+      your_email: 'Antwort an'
+      your_title: 'Nachrichtentitel'
+      your_message: 'Nachrichtentext'
     chronicle:
       news: 'Mitteilungen'
     about:

@@ -5,8 +5,10 @@
         LBERG
       .logo.logo-right
         MAP
-    .info-button.pull-left{class: "#{'active' if current_page?(about_path)}"}
+    .navbar-button.info-button.pull-left{class: "#{'active' if current_page?(about_path)}"}
       = link_to('', about_path, class: 'glyphicon glyphicon-info-sign')
+    .navbar-button.contact-button.pull-left{class: "#{'active' if current_page?(contact_path)}"}
+      = link_to('', contact_path, class: 'glyphicon glyphicon-envelope')
     .navbar-dropdown-container.pull-right
       = render partial: 'layouts/navbar/language_dropdown'
       = render partial: 'layouts/navbar/user_dropdown' if signed_in?

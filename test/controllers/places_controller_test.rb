@@ -33,7 +33,7 @@ class PlacesControllerTest < ActionController::TestCase
                              categories: [] }
     end
 
-    assert_redirected_to root_path(latitude: 52.0, longitude: 12.0)
+    assert_redirected_to root_url(latitude: 52.0, longitude: 12.0)
   end
 
   test 'place with lat_lon provided does not need to be geocoded' do
@@ -65,7 +65,7 @@ class PlacesControllerTest < ActionController::TestCase
                           )
     @new_place.save
     get :edit, id: @new_place.id
-    assert_redirected_to root_path
+    assert_redirected_to root_url
   end
 
   test 'should get edit' do

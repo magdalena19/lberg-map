@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = t('.changes_saved')
-      redirect_to root_path
+      redirect_to root_url
     else
       flash.now[:danger] = @user.errors.full_messages.to_sentence
       render 'edit'
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
   def require_to_be_same_user
     user_to_be_edited = User.find(url_options[:_recall][:id])
-    redirect_to root_path unless user_to_be_edited.id == current_user.id
+    redirect_to root_url unless user_to_be_edited.id == current_user.id
   end
 
   def require_login

@@ -32,6 +32,6 @@ class UsersControllerTest < ActionController::TestCase
     session[:user_id] = @user.id
     user2 = users :Susanne
     get :edit, id: user2.id
-    assert_redirected_to root_path
+    assert_redirected_to root_url
   end
 end

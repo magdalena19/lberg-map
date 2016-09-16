@@ -54,7 +54,7 @@ feature 'Category selection' do
   end
 
   def show_category_panel
-    visit root_path
+    visit root_url
     page.find('.btn', text: 'language').trigger('click')
     page.find('.show-categories').trigger('click')
     sleep(1)

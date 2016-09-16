@@ -274,3 +274,26 @@
     }
   }
 }
+
+// ABOUT Page
+#github_link_banner {
+  position: absolute;
+  top: 0px;
+  right: 0;
+  border: 0;
+  z-index: 1050;
+}
+
+.about_sections {
+  font-size: 16px;
+  color: rgb(105, 105, 105);
+  padding: 25px;
+}
+
+.about_top {
+  font-size: 22px;
+}
+
+.about_bottom {
+  font-size: 22px;
+}

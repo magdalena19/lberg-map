@@ -22,5 +22,6 @@ module LbergMap
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    #Sprockets.register_engine ".haml", Tilt::HamlTemplate
   end
 end

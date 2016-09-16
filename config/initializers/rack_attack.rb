@@ -1,5 +1,5 @@
 class Rack::Attack
-  throttle('req/ip', :limit => 20, :period => 30.second) do |req|
+  throttle('req/ip', :limit => 100, :period => 30.second) do |req|
     req.ip
   end
 

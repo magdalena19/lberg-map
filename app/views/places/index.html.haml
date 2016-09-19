@@ -9,11 +9,11 @@
         .col-xs-12
           .row
             .col-xs-3
-              %b= t('.name')
+              %b= t('activerecord.attributes.place.name')
             .col-xs-4
-              %b= t('.address')
+              %b= t('activerecord.attributes.place.address')
             .col-xs-3
-              %b= t('.categories', scope: [:activerecord, :attributes, :place])
+              %b= t('.categories')
       .row
         .col-xs-12
           - @places.each do |place|
@@ -29,12 +29,13 @@
                     = category_link(id)
               .col-xs-2
                 - if place.reviewed?
-                  = link_to edit_place_path(place) do
+                  = link_to edit_place_path(place), style: 'text-decoration: none' do
                     %span{class: 'glyphicon glyphicon-pencil'}
                 - else
                   - if signed_in?
-                    = link_to t('.waiting_for_review'), review_place_path(place), style: 'color: #ff6666'
-                    = link_to place_path(place), {method: "delete", data: { confirm: t('.confirm_delete') }} do
-                      %span{class: 'glyphicon glyphicon-trash'}
-                  - else
-                    %b{style: 'color: #ff6666;'}= t('.waiting_for_review')
+                    = link_to review_place_path(place), style: 'color: #ff6666; text-decoration: none' do
+                      %span{class: 'glyphicon glyphicon-eye-open'}
+
+                - if signed_in?
+                  = link_to place_path(place), {method: "delete", data: { confirm: t('.confirm_delete') }} do
+                    %span{class: 'glyphicon glyphicon-trash'}

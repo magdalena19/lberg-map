@@ -12,9 +12,11 @@ de:
         select_this_language: 'Diese Sprache auswählen'
       places_slidepanel:
         places: 'Orte'
-        waiting_for_review: 'Warte auf Überprüfung...'
+        waiting_for_review: 'Wird überprüft...'
     contact:
+      contact: 'Kontakt'
       imprint: 'Impressum'
+      send_email: 'Schreib uns eine Email'
       your_name: 'Dein Name'
       your_email: 'Antwort an'
       your_title: 'Nachrichtentitel'
@@ -23,6 +25,7 @@ de:
       news: 'Mitteilungen'
     about:
       about: 'Über das Projekt'
+      link_to_imprint: 'Zum Impressum'
     map:
       correct_location?: 'Ist diese Position korrekt?'
       new_place: 'Neuen Ort hinzufügen'

@@ -14,6 +14,8 @@ en:
         places: 'Places'
         waiting_for_review: 'Waiting for review...'
     contact:
+      contact: 'Contact'
+      send_email: 'Send us an Email'
       imprint: 'Imprint'
       your_name: 'Name'
       your_email: 'Respond to'
@@ -23,6 +25,7 @@ en:
       news: 'Announcements'
     about:
       about: 'About the project'
+      link_to_imprint: 'LberMap imprint'
     map:
       correct_location?: 'Correct location?'
       new_place: 'New Place'

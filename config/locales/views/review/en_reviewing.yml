@@ -4,6 +4,8 @@ en:
       review: 'Review'
       new: 'New'
       edited: 'Edited'
+      places: 'Places with changes to be reviewed'
+      translations: 'Translations with changes to be reviewed'
     review_place:
       review: 'Review'
       reviewed: 'Reviewed'

@@ -5,7 +5,7 @@ de:
     index:
       places: 'Orte'
       categories: 'Kategorien'
-      waiting_for_review: 'Warte auf Überprüfung...'
+      waiting_for_review: 'Wurde editiert...'
       confirm_delete: 'Bist du dir sicher, dass du diesen Ort löschen möchstest?'
     new:
       new: 'Neuer Ort'

@@ -286,7 +286,7 @@
 
 .about_sections {
   font-size: 16px;
-  color: rgb(105, 105, 105);
+  color: $grey;
   padding: 25px;
 }
 
@@ -296,4 +296,9 @@
 
 .about_bottom {
   font-size: 22px;
+}
+
+.about_link_to_imprint {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }

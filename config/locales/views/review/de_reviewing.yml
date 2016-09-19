@@ -4,6 +4,8 @@ de:
       review: 'Änderungen prüfen'
       new: 'Neu'
       edited: 'Bearbeitet'
+      places: 'Orte mit ungeprüften Änderungen'
+      translations: 'Übersetzungen mit ungeprüften Änderungen'
     review_place:
       review: 'Änderungen prüfen'
       reviewed: 'Geprüft'

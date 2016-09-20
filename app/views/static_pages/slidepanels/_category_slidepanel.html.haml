@@ -1,9 +1,9 @@
 .category-slidepanel.slidepanel
   .hide-slidepanel.glyphicon.glyphicon-remove.pull-right
-  %h4.slidepanel-title= t('.choose_category')
+  %h4.slidepanel-title= t('.filter_by_category')
   .content
     .col-lg-6
-      = button_tag(t('.all_categories'), type: 'button', class: 'category-button btn btn-dark', id: 'all')
+      = button_tag(t('.no_filter'), type: 'button', class: 'category-button btn show-all-points', id: 'all')
       %br
     - @categories.each do |category|
       .col-lg-6

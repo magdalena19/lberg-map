@@ -6,3 +6,5 @@ en:
     delete: 'Delete'
     edit: 'Edit'
     login: 'Login'
+    confirm: 'Confirm'
+    refuse: 'Refuse'

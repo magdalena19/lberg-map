@@ -8,7 +8,7 @@ jQuery(function() {
       jQuery('.description-diff').show();
       jQuery('.description-standard').hide();
       jQuery('.switch-description-view').css('opacity', '1');
-    };
+    }
   };
 
   toggleTranslationView();

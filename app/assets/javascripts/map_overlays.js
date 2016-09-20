@@ -5,6 +5,16 @@ jQuery(function() {
 
   slidePanelVisible = false;
 
+  toggleZoomButtonVisibility = function() {
+    var zoomButtons = jQuery('.zoom-container');
+
+    if (jQuery(window).width() < 768) {
+      zoomButtons.hide();
+    } else {
+      zoomButtons.show();
+    }
+  };
+
   // fired when window get resized (application.js)
   balanceSidebar = function() {
     jQuery('.announcements-panel').height(jQuery(window).height() - jQuery('.last-points-panel').height() - 150);
@@ -19,7 +29,7 @@ jQuery(function() {
         }
         else {
           obj.show();
-        };
+        }
       });
     });
 
@@ -27,11 +37,11 @@ jQuery(function() {
       sideBar.css('z-index', '-1');
       showSidebarContainer.css('z-index', '-1');
     } else {
-      if (slidePanelVisible == false) {
+      if (slidePanelVisible === false) {
         sideBar.css('z-index', '9999');
         showSidebarContainer.css('z-index', '9999');
-      };
-    };
+      }
+    }
   };
 
   // ANNOUNCEMENTS

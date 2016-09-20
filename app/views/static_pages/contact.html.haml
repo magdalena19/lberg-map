@@ -1,0 +1,22 @@
+- content_for :header do
+  = t('.contact')
+
+.container
+  .row
+    .col-xs-12.col-md-2.col-md-offset-1.impressum
+      .h3= t('.imprint')
+      %p
+      %br= link_to 'Aktiv in Lichtenberg e.V.', 'http://plattenkosmos.berlin/'
+      Magdalenenstr. 19
+      %br 10365 Berlin
+
+      %p
+      VR 32492 B (Amtsgericht Charlottenburg)
+    .col-xs-12.col-md-6.col-md-offset-1
+      .h3= t('.send_email')
+      %input{placeholder: t('.your_email')}
+      %input{placeholder: t('.your_name')}
+      %input{placeholder: t('.your_title')}
+      %textarea{placeholder: t('.your_message')}
+      %br
+      %button{class: 'btn btn-default btn-primary'} Send

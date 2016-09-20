@@ -2,39 +2,61 @@
   = t('.review')
 
 .container
-  .row.margin-below
-    .col-xs-12
-      %h3 Places
+  .h3= t('.places')
+  %br
+  %table{class: 'display compact', id: 'places_to_review', cellspacing: '0', width: '100%'}
+    %thead
+      %tr
+        %th
+        %th
+          = t('.change_type')
+        %th
+          = t('activerecord.attributes.place.name')
+        %th
+          = t('activerecord.attributes.place.address')
+        %th
+          = t('.categories')
+    %tbody
       - @places_to_review.each do |place|
-        .row
-          %hr
-          .col-xs-3
-            = place.name
-          .col-xs-5
-            = place.address
-          .col-xs-2
+        %tr
+          %td
+            = link_to review_place_path(place), style: 'color: #ff6666; text-decoration: none' do
+              %span{class: 'glyphicon glyphicon-eye-open'}
+          %td
             - if place.new?
               .green
                 = t('.new')
             - else
               .red
                 = t('.edited')
-          .col-xs-2
-            = link_to review_place_path(place.id) do
-              review
-  .row.margin-below
-  .row
-    .col-xs-12
-      %h3 Translations
+          %td
+            = place.name
+          %td
+            = place.address
+          %td
+            = category_names(place)
+
+  .h3= t('.translations')
+  %br
+  %table{ class: 'display', id: 'translations', width: '100%' }
+    %thead
+      %tr
+        %th
+        %th
+          = t('activerecord.attributes.place.name')
+        %th
+          = t('.locale')
+        %th
+          = t('activerecord.attributes.place.description')
+    %tbody
       - @unreviewed_translations.each do |t|
-        .row
-          %hr
-          .col-xs-3
+        %tr
+          %td
+            = link_to review_translation_path(t.id), style: 'color: #ff6666; text-decoration: none' do
+              %span{class: 'glyphicon glyphicon-eye-open'}
+          %td
             = Place.find(t.place_id).reviewed_version.name
-          .col-xs-1
+          %td
             = t.locale
-          .col-xs-6
+          %td
             = t.description[0..200].html_safe + '...' if t.description
-          .col-xs-2
-            = link_to review_translation_path(t.id) do
-              review

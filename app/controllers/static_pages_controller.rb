@@ -20,6 +20,9 @@ class StaticPagesController < ApplicationController
   def about
   end
 
+  def contact
+  end
+
   def chronicle
     @announcements = Announcement.all.sort_by(&:created_at).reverse
   end
@@ -28,9 +31,9 @@ class StaticPagesController < ApplicationController
     ids = cookies[:created_places_in_session]
     array = ids ? ids.split(',') : []
     if category_id
-      Place.where(id: array ).compact.find_all { |p| p.has_category?(category_id) }
+      Place.where(id: array).compact.find_all { |p| p.has_category?(category_id) }
     else
-      Place.where(id: array )
+      Place.where(id: array)
     end
   end
 end

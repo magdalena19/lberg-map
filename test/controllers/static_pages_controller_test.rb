@@ -12,4 +12,9 @@ class StaticPagesControllerTest < ActionController::TestCase
     get :map
     assert_response :success
   end
+
+  test "should get contact page" do
+    get :contact
+    assert_response :success
+  end
 end

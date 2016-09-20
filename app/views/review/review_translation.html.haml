@@ -14,7 +14,6 @@
     .col-md-6.unreviewed-container
       %h3
         = t('.unreviewed')
-        .switch-description-view.pull-right DIFF
       %br
       - if @unreviewed_translation
         .description-diff
@@ -25,10 +24,9 @@
         = t('.no_reviewed_translation')
 
   .row
-    .col-md-6
-    .col-md-6
-      = link_to 'Confirm', confirm_translation_path, class: 'btn btn-primary btn-success'
-      = link_to 'Refuse', refuse_translation_path, class: 'btn btn-primary btn-danger'
+    .col-md-6.col-md-offset-6
+      = link_to t('buttons.confirm'), confirm_translation_path, class: 'btn btn-primary btn-success'
+      = link_to t('buttons.refuse'), refuse_translation_path, class: 'btn btn-primary btn-danger'
 
   .row
     .col-xs-12.margin-below

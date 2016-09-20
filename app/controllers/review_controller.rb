@@ -3,7 +3,7 @@ class ReviewController < ApplicationController
 
   def review_index
     unreviewed_places = Place.all.find_all(&:unreviewed_version)
-    @places_to_review = unreviewed_places.map { |p| p.reviewed_version || p.unreviewed_version }.sort_by { |e| e.updated_at }.reverse
+    @places_to_review = unreviewed_places.map { |p| p.reviewed_version || p.unreviewed_version }.sort_by(&:updated_at).reverse
     @unreviewed_translations = all_unreviewed_translations
   end
 
@@ -41,9 +41,7 @@ class ReviewController < ApplicationController
 
   def confirm_translation
     t = translation(params[:id])
-    if destroy_all_updates(t)
-      flash[:success] = t('.translation_confirmed')
-    end
+    flash[:success] = t('.translation_confirmed') if destroy_all_updates(t)
     redirect_to action: 'review_index'
   end
 
@@ -91,7 +89,7 @@ class ReviewController < ApplicationController
   def require_login
     unless signed_in?
       flash[:danger] = t('errors.messages.access_restricted')
-      redirect_to login_path
+      redirect_to root_url
     end
   end
 end

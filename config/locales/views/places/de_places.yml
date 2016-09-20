@@ -3,7 +3,8 @@ de:
     edit:
       edit: 'Bearbeiten'
     index:
-      places: 'Orte'
+      places: 'Orte suchen'
+      index_places_description: "Hier findet ihr alle Orte im Datenbestand. Ihr könnt Orte suchen indem ihr im Feld 'Suchen' Teile des Namens, der Adresse oder der Kategorien eintragt."
       categories: 'Kategorien'
       waiting_for_review: 'Wurde editiert...'
       confirm_delete: 'Bist du dir sicher, dass du diesen Ort löschen möchstest?'

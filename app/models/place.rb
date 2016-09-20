@@ -10,9 +10,9 @@ class Place < ActiveRecord::Base
   end
 
   # Kann das raus?
-  # def self.with_reviewed_category(id)
-  #   Place.all.map(&:reviewed_version).compact.find_all { |p| p.has_category?(id) }
-  # end
+  def self.reviewed_with_category(id)
+    Place.all.map(&:reviewed_version).compact.find_all { |p| p.has_category?(id) }
+  end
 
   ## VALIDATIONS
   validates :postal_code, format: { with: /\d{5}/, message: 'supply valid postal code (5 digits)' },

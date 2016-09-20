@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get '/about' => 'static_pages#about'
     get '/contact' => 'static_pages#contact'
     get '/chronicle' => 'static_pages#chronicle'
+    get '/category/:category' => 'places#index', as: :category
     get '/login' => 'sessions#new'
     post '/login' => 'sessions#create'
     get '/logout' => 'sessions#destroy'

@@ -1,5 +1,7 @@
 de:
   places:
+    form:
+      auto_translated: 'Automatische Übersetzung'
     edit:
       edit: 'Bearbeiten'
     index:

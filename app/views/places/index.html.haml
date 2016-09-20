@@ -29,6 +29,8 @@
               - if signed_in?
                 = link_to review_place_path(place), style: 'color: #ff6666; text-decoration: none' do
                   %span{class: 'glyphicon glyphicon-eye-open'}
+              - else
+                %span{class: 'glyphicon glyphicon-eye-open', style: 'color: #AB756B;'}
 
             - if signed_in?
               = link_to place_path(place), {method: "delete", data: { confirm: t('.confirm_delete') }} do

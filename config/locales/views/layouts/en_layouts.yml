@@ -12,7 +12,8 @@ en:
         edit_user: 'User Settings'
         log_out: 'Log out'
       places_dropdown:
-        index_places: 'All Places'
+        new_place: 'Create new place'
+        index_places: 'Find places'
         review: 'Review'
       language_dropdown:
         language: 'Language'

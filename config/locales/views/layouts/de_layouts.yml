@@ -13,7 +13,7 @@ de:
         log_out: 'Ausloggen'
       places_dropdown:
         new_place: 'Ort erstellen'
-        index_places: 'Alle Orte'
+        index_places: 'Orte suchen'
         review: 'Änderungen prüfen'
       language_dropdown:
         language: 'Sprachen'

@@ -27,6 +27,18 @@ jQuery(function() {
     $('.nicEdit-main').parent().css('width', '100%');
   });
 
+  // View places as DataTable
+  jQuery('#places').DataTable({
+    "pageLength": 50,
+    "columnDefs": [
+      {
+        "targets": [ 0 ],
+        "sortable": false,
+        "searchable": false
+      }
+    ]
+  });
+
   // show process widget on place submit
 
   // function ProcessBar() {

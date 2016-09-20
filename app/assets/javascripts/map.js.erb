@@ -28,25 +28,36 @@ jQuery(function() {
     var placeSlidePanel = jQuery('.place-slidepanel')
     var onEachFeature = function(feature, layer) {
       var prop = feature.properties;
-      if (prop.reviewed == false) { layer.setIcon(session_icon); };
+      var autotranslatedPrefix = "<i> <%= I18n.t('activerecord.attributes.place.auto_translated')%>: </i>"
+      var improveTranslationLink = "<br> <a href ='places/" + prop.id + "/edit'>" + "<%= I18n.t('review.review_translation.improve_translation') %> </a>";
+      var waitingForReviewSuffix = "<span style='color: #ff6666;'> | <%= I18n.t('places.index.waiting_for_review') %> </span>";
+      var homepageLink = prop.homepage;
+
+      if (prop.reviewed == false) {
+        layer.setIcon(session_icon);
+      };
+
       layer.on('click', function(e) {
         placeSlidePanel.find('.edit-place').attr('place_id', prop.id);
         placeSlidePanel.find('.name').html(prop.name);
-        if (feature.properties.reviewed == false) {
-          placeSlidePanel.find('.name').html(prop.name + "<span style='color: #ff6666;'> | <%= I18n.t('.places.index.waiting_for_review') %> </span>");
-          jQuery('.edit-place').hide();
-        } else {
+
+        if (prop.reviewed) {
           placeSlidePanel.find('.name').html(prop.name);
+        } else {
+          placeSlidePanel.find('.name').html(prop.name + waitingForReviewSuffix);
+          jQuery('.edit-place').hide();
         };
+
         if (prop.auto_translated) {
-          placeSlidePanel.find('.place-description').html("<a href ='places/" + prop.id + "/edit'>" + window.autotranslated_prefix + prop.description + "</a");
+          placeSlidePanel.find('.place-description').html(autotranslatedPrefix + prop.description + improveTranslationLink);
         } else {
           placeSlidePanel.find('.place-description').html(prop.description);
         };
-        placeSlidePanel.find('.place-address').html(feature.properties.address);
-        placeSlidePanel.find('.place-email').html(feature.properties.email);
-        placeSlidePanel.find('.place-homepage').html(feature.properties.homepage);
-        placeSlidePanel.find('.place-phone').html(feature.properties.phone);
+
+        placeSlidePanel.find('.place-address').html(prop.address);
+        placeSlidePanel.find('.place-email').html(prop.email);
+        placeSlidePanel.find('.place-homepage').html(homepageLink);
+        placeSlidePanel.find('.place-phone').html(prop.phone);
         placeSlidePanel.trigger('open');
       });
     };
@@ -88,21 +99,27 @@ jQuery(function() {
       var accordion_id = 0;
       jQuery.each(json, function(id, place) {
         var prop = place.properties;
+        var autotranslatedPrefix = "<i> <%= I18n.t('activerecord.attributes.place.auto_translated')%>: </i>"
+        var improveTranslationLink = "<br> <a href ='places/" + prop.id + "/edit'>" + "<%= I18n.t('review.review_translation.improve_translation') %> </a>";
         var $newPanel = $template.clone();
+
         $newPanel.find(".collapse").removeClass("in");
         $newPanel.find(".accordion-toggle").attr("href",  "#accordion_" + (++accordion_id))
         $newPanel.find(".name").html(prop.name);
+
         if (prop.reviewed == false) {
           $newPanel.find('.name').html(prop.name + "<span style='color: #ff6666;'> | waiting for review </span>");
         } else {
           $newPanel.find('.name').html(prop.name);
         };
+
         $newPanel.find(".panel-collapse").attr("id", "accordion_" + accordion_id).addClass("collapse").removeClass("in");
         if (prop.auto_translated) {
-          $newPanel.find('.description').html("<a href ='places/" + place.id + "/edit'>" + window.autotranslated_prefix + prop.description + "</a");
+          $newPanel.find('.description').html(autotranslatedPrefix + prop.description + improveTranslationLink);
         } else {
           $newPanel.find('.description').html(prop.description);
         };
+
         $newPanel.find('.address').html(prop.address);
         $newPanel.find('.email').html(prop.email);
         $newPanel.find('.homepage').html(prop.homepage);

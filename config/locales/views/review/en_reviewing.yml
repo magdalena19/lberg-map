@@ -1,7 +1,7 @@
 en:
   review:
     review_index:
-      change_type: 'Change'      
+      change_type: 'Change'
       review: 'Review'
       new: 'New'
       edited: 'Edited'
@@ -26,3 +26,4 @@ en:
       unreviewed: 'Unreviewed'
       no_reviewed_translation: 'No reviewed translation'
       other_descriptions: 'Description in other languages'
+      improve_translation: 'Improve translation'

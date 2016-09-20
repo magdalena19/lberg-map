@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   def require_login
     unless session[:user_id]
       flash[:danger] = t('errors.messages.access_restricted')
-      redirect_to login_path
+      redirect_to login_url
     end
   end
 end

@@ -44,6 +44,7 @@ feature 'Category selection' do
 
   scenario 'Place is not shown when other category was clicked', js: true do
     show_category_panel
+    # screenshot_and_open_image
     click_on('Hospital')
     sleep(1)
     page.find('.show-places').trigger('click')
@@ -54,7 +55,7 @@ feature 'Category selection' do
   end
 
   def show_category_panel
-    visit root_url
+    visit root_path
     page.find('.btn', text: 'language').trigger('click')
     page.find('.show-categories').trigger('click')
     sleep(1)

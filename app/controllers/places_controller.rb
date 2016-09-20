@@ -76,7 +76,7 @@ class PlacesController < ApplicationController
     end
     if @place.update_attributes(params_for_update)
       flash[:success] = t('.changes_saved')
-      redirect_to places_path
+      redirect_to places_url
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
       render :edit

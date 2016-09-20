@@ -29,7 +29,7 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.find(params[:id])
     if @announcement.update_attributes(announcement_params)
       flash[:success] = t('.changes_saved')
-      redirect_to announcements_path
+      redirect_to announcements_url
     else
       flash.now[:danger] = @announcement.errors.full_messages.to_sentence
       render :edit
@@ -63,7 +63,7 @@ class AnnouncementsController < ApplicationController
     announcement_to_be_edited = Announcement.find(url_options[:_recall][:id])
     unless announcement_to_be_edited.user_id == current_user.id || is_admin?
       flash[:danger] = t('.no_right_to_edit')
-      redirect_to announcements_path
+      redirect_to announcements_url
     end
   end
 
@@ -71,7 +71,6 @@ class AnnouncementsController < ApplicationController
     unless signed_in?
       flash[:danger] = t('errors.messages.access_restricted')
       redirect_to root_url
-
     end
   end
 end

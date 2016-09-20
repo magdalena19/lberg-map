@@ -12,7 +12,7 @@ class PlacesController < ApplicationController
 
   def edit
     @place = Place.find(params[:id])
-    redirect_to root_path if @place.new?
+    redirect_to root_url if @place.new?
     flash.now[:warning] = t('.preview_mode') unless signed_in?
   end
 
@@ -76,7 +76,7 @@ class PlacesController < ApplicationController
     end
     if @place.update_attributes(params_for_update)
       flash[:success] = t('.changes_saved')
-      redirect_to places_path
+      redirect_to places_url
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
       render :edit
@@ -90,7 +90,7 @@ class PlacesController < ApplicationController
     if @place.save
       save_in_cookie
       flash[:success] = t('.created')
-      redirect_to root_path(latitude: @place.latitude, longitude: @place.longitude)
+      redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
       render :new

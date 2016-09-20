@@ -9,6 +9,7 @@ en:
         phone: 'Phone'
         email: 'Email'
         homepage: 'Homepage'
+        description: 'Description'        
       user:
         email: 'Email-Adresse'
         name: 'User-Name'

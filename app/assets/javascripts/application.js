@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require dataTables/jquery.dataTables
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require leaflet
@@ -38,5 +40,6 @@ jQuery(function() {
     jQuery('.main-container').css('margin-top', navbarHeight + 15);
     balanceSidebar();
     resizePanels();
+    toggleZoomButtonVisibility();
   }).resize();
 });

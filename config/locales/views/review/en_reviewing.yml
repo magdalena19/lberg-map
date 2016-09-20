@@ -1,9 +1,12 @@
 en:
   review:
     review_index:
+      change_type: 'Change'      
       review: 'Review'
       new: 'New'
       edited: 'Edited'
+      places: 'Places with changes to be reviewed'
+      translations: 'Translations with changes to be reviewed'
     review_place:
       review: 'Review'
       reviewed: 'Reviewed'
@@ -18,9 +21,8 @@ en:
       no_reviewed_version: 'No reviewed version...'
     review_translation:
       review: 'Review'
-      other_descriptions: 'Other descriptions'
       review: 'Review'
       reviewed: 'Reviewed'
       unreviewed: 'Unreviewed'
       no_reviewed_translation: 'No reviewed translation'
-      other_descriptions: 'Other descriptions'
+      other_descriptions: 'Description in other languages'

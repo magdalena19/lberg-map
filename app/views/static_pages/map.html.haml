@@ -21,18 +21,18 @@
 
   .overlay.control-container.category-container
     .show-categories.slidepanel-button{slidepanel: 'category-slidepanel'}
-      .show-categories-text
-      .glyphicon.glyphicon-triangle-top
+      -# .glyphicon.glyphicon-triangle-top
+      .show-categories-text.text-center
 
   .overlay.loading
     .loading-text
       = t('.overlay_loading')
 
-  = render('category_slidepanel')
-  = render('places_slidepanel')
-  = render('place_slidepanel')
-  = render('add_place_slidepanel')
-  = render('locale_slidepanel')
+  = render('static_pages/slidepanels/category_slidepanel')
+  = render('static_pages/slidepanels/places_slidepanel')
+  = render('static_pages/slidepanels/place_slidepanel')
+  = render('static_pages/slidepanels/add_place_slidepanel')
+  = render('static_pages/slidepanels/locale_slidepanel')
   = render('layouts/sidebar/sidebar')
 
 :javascript

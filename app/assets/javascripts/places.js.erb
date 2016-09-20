@@ -27,13 +27,68 @@ jQuery(function() {
     $('.nicEdit-main').parent().css('width', '100%');
   });
 
+  // View places as DataTable
+  jQuery('#places').DataTable({
+    "pageLength": 50,
+    "columnDefs": [
+      {
+        "targets": [ 0 ],
+        "sortable": false,
+        "searchable": false
+      },
+      {
+        "targets": [ 3 ],
+        "sortable": false,
+      }
+    ]
+  });
+
+  jQuery('#places_to_review').DataTable({
+    "searching": false,
+    "paging": false,
+    "info": false,
+    "columnDefs": [
+      {
+        "targets": [ 0 ],
+        "sortable": false,
+      },
+      {
+        "targets": [ 4 ],
+        "sortable": false,
+      }
+    ]
+  });
+
+  jQuery('#translations').DataTable({
+    "searching": false,
+    "paging": false,
+    "info": false,
+    "columnDefs": [
+      {
+        "targets": [ 0 ],
+        "sortable": false,
+      },
+      {
+        "targets": [ 3 ],
+        "sortable": false,
+      }
+    ]
+  });
+
+  // jQuery('.zoom-to-place').click(function() {
+  //   coordinates = [jQuery(this).attr('latitude'), jQuery(this).attr('longitude')];
+  //   // alert(coordinates);
+  //   window.location.href = '/de';
+  //   map.setView(coordinates, 16, {animate: true});
+  // });
+
   // show process widget on place submit
 
-  jQuery('.submit-place-button').on('click', function(){
-    var submitProcessBar = jQuery('.submit-process-bar')
-    submitProcessBar.show();
-    jQuery('.submit-place-button').hide();
-    jQuery('.cancel-button').hide();
-    jQuery('.back-button').hide();
-  });
+  // function ProcessBar() {
+  //   var submitProcessBar = jQuery('.submit-process-bar')
+  //   submitProcessBar.show();
+  //   jQuery('.submit-place-button').hide();
+  //   jQuery('.cancel-button').hide();
+  //   jQuery('.back-button').hide();
+  // });
 });

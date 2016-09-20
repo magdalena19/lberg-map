@@ -12,6 +12,7 @@
  *
  *= require leaflet
  *= require MarkerCluster
+ *= require jquery-ui
  *= require_tree .
  *= require_self
  */
@@ -34,7 +35,7 @@
   h1 {
     color: black;
     text-shadow:
-     -2px -2px 0 white,  
+     -2px -2px 0 white,
       2px -2px 0 white,
      -2px  2px 0 white,
       2px  2px 0 white;
@@ -97,6 +98,14 @@
       color: white !important;
       background: $green !important;
     }
+  }
+}
+
+.navbar-button {
+  margin-left: 10px;
+  a:hover {
+    text-decoration: none;
+    color: $lilac;
   }
 }
 

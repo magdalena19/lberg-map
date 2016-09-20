@@ -6,3 +6,5 @@ de:
     delete: 'Löschen'
     edit: 'Bearbeiten'
     login: 'Login'
+    confirm: 'Annehmen'
+    refuse: 'Verwerfen'

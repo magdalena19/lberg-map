@@ -1,0 +1,62 @@
+- content_for :header do
+  = t('.about')
+
+-# Github link
+= render 'static_pages/about_content/github_banner'
+
+.container
+  -# Top row
+  .text-center.about_top
+    = link_to 'LbergMap', root_path
+    ist ein mehrsprachiges crowdsourcing-Kartenprojekt, welches nützliche Infrastruktur für geflüchtete Menschen in Berlin Lichtenberg und den umliegenden Bezirken schnell und von unterwegs zugänglich auf einer Karte darstellt.
+
+  .row.about_sections
+    -# Subsections
+    .col-xs-12.col-lg-4.about_section
+      .h3.text-center
+        Motivation
+        %hr{width: "75%"}
+      %p
+        Für uns ist nicht nur das Recht auf Bewegungsfreiheit und die freie Wahl des Lebensumfelds ein grundlegendes Recht, welches allen Menschen zusteht. Auch gehen wir davon aus, dass - insbesondere für weniger privilegierte Menschen – Nutzung, Gestaltung und Aneignung kommunaler Gemeinwohlgüter und unkommerzielle Angebote in allen Bereichen einen wichtigen Beitrag für ein menschenwürdiges Leben darstellen. Die Inanspruchnahme etwaiger Beratungsangebote oder medizinischer Unterstützung setzt dabei natürlich voraus, dass man überhaupt erstmal weiß wo man das tun kann.
+      %p
+        Vielerorts ist umfangreiches Wissen über die lokale Umgebung vorhanden. Wissen, welches jedoch für viele anfangs nur schwer zugänglich - meist innerhalb von Communities, in (deutschsprachigen) Trägerstrukturen, Broschüren oder ganz woanders - ist. Selbst wenn Informationen im Netz oder auf Papier vorhanden sind fehlen sie dann zum Beispiel eben doch für einige Gruppen neu ankommender Menschen in der jeweiligen Sprache. Hier wollen wir ansetzen...
+
+    .col-xs-12.col-lg-4.about_section
+      .h3.text-center
+        Ziel
+        %hr{width: "75%"}
+      %p
+        Mit diesen Problemen im Kopf haben wir uns entschieden eine kleine Plattform zu entwickeln, die es erleichtern soll das in unterschiedlichen Köpfen verteilte Wissen über die Umgebung auf einer Karte zu bündeln. Hierfür sollen alle Interessierten mitarbeiten können. Man kann sich das im Prinzip wie ein “Wikipedia für Geodaten” vorstellen. Die Rechnung des Projekts lautet dabei: Wenn jeder und jede mit ein paar Minuten Zeit das eigene Wissen um die Umgebung teilt dürfte in rascher Zeit ein umfassender, mehrsprachiger Atlas unserer Kieze entstehen!
+
+    .col-xs-12.col-lg-4.about_section
+      .h3.text-center
+        Andere Projekte
+        %hr{width: "75%"}
+      %p
+        Wir sind definitiv nicht die ersten mit einer derartigen Idee. Im Laufe der letzten zwei Jahre haben sich zahlreiche Mapping-Projekte wie
+        = link_to 'Arriving in Berlin', 'https://arriving-in-berlin.de/'
+        oder
+        = link_to 'Refugees Welcome Map', 'http://refugeeswelcomemap.de/'
+        etabliert. Dieses Projekt basiert unter Anderem auf der Arbeit dieser Projekte und sieht sich keinesfalls in einem konkurrenzhaften Verhältnis. Vielmehr haben wir hier versucht, einige Unzulänglichkeiten dieser Systeme zu beheben und dabei eine kleine OpenSource-Software-Plattform auf den Weg gebracht.
+      %p
+        Und schließlich ist es mit Initiativen wie unserer so wie vielerorts: Sie entstehen aus lokalpolitischem Aktivismus heraus und sind erstmal nur bedingt mit den Ansätzen anderer kompatibel. Und dennoch: Gerade als OpenSource / OpenData-Projekt wünschen wir uns natürlich, unsere Datenbestände über eine gemeinsame Schnittstelle untereinander austauschen zu können. In einer künftigen Version werden wir diese Funktionalität
+        = link_to '(REST API)', 'http://www.restapitutorial.com/'
+        implementieren. Solltet ihr mit uns darüber diskutieren wollen hinterlasst uns doch eine Nachricht!
+
+  -# Bottom row
+  .row.about_bottom.text-center
+    .col-xs-12.col-lg-12
+      %p
+        LbergMap läuft unkommerziell, das Projekt wurde und wird im Rahmen ehrenamtlicher Arbeit im Verein
+        = link_to 'aktiv in Lichtenberg e.V.', 'http://plattenkosmos.berlin/'
+        durch drei Menschen in ihrer spärlichen Freizeit umgesetzt und weiterentwickelt. Für die Realisierung weiterer Ideen freuen wir uns über eure Unterstützung – egal ob in Form von Feedback, Upgrade der Personaldecke oder auch finanziell.
+      %p
+        Solltet ihr einen Fehler in der Software entdecken zögert bitte nicht, ihn kurz in unserem
+        = link_to 'Ticket-System', 'https://github.com/magdalena19/lberg-map/issues'
+        zu beschreiben, das ganze ist sehr einfach und dauert lediglich eine Minute!
+      %p
+        Die Kosten für den Betrieb der Webseite werden momentan durch Spenden und andere Gelder finanziert.
+
+  .row.text-center
+    .col-xs-12.col-lg-12.about_link_to_imprint
+      = link_to t('.link_to_imprint'), contact_path

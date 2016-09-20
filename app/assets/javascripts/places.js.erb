@@ -35,6 +35,42 @@ jQuery(function() {
         "targets": [ 0 ],
         "sortable": false,
         "searchable": false
+      },
+      {
+        "targets": [ 3 ],
+        "sortable": false,
+      }
+    ]
+  });
+
+  jQuery('#places_to_review').DataTable({
+    "searching": false,
+    "paging": false,
+    "info": false,
+    "columnDefs": [
+      {
+        "targets": [ 0 ],
+        "sortable": false,
+      },
+      {
+        "targets": [ 4 ],
+        "sortable": false,
+      }
+    ]
+  });
+
+  jQuery('#translations').DataTable({
+    "searching": false,
+    "paging": false,
+    "info": false,
+    "columnDefs": [
+      {
+        "targets": [ 0 ],
+        "sortable": false,
+      },
+      {
+        "targets": [ 3 ],
+        "sortable": false,
       }
     ]
   });

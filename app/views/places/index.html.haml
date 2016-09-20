@@ -36,6 +36,4 @@
           %td
             = place.address
           %td
-            - if place.category_ids
-              - place.category_ids.each do |id|
-                = category_link(id)
+            = category_names(place)

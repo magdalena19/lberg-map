@@ -5,27 +5,26 @@
     = t('.review') + ' ' + @unreviewed_place.name
 
 .container
-  .row
+  .row.margin-below
     .col-md-6
-      .col-xs-12.margin-below
-        %h3= t('.reviewed')
-        %br
-        .row
-          - if @reviewed_place
-            .col-xs-12
-              %h4
-                = @reviewed_place.name
-            .col-xs-8
-              = @reviewed_place.address
-            .col-xs-4
-              %b= t('.categories')
-              - if @reviewed_place.category_names.empty?
-                = t('.none')
-              - else
-                = @reviewed_place.category_names.join(', ')
-          - else
-            .col-xs-12
-              = t('.no_reviewed_version')
+      %h3= t('.reviewed')
+      %br
+      .row
+        - if @reviewed_place
+          .col-xs-12
+            %h4
+              = @reviewed_place.name
+          .col-xs-8
+            = @reviewed_place.address
+          .col-xs-4
+            %b= t('.categories')
+            - if @reviewed_place.category_names.empty?
+              = t('.none')
+            - else
+              = @reviewed_place.category_names.join(', ')
+        - else
+          .col-xs-12
+            = t('.no_reviewed_version')
 
     .col-md-6.unreviewed-container
       %h3= t('.unreviewed')

@@ -1,6 +1,7 @@
 de:
   review:
     review_index:
+      change_type: 'Änderung'
       review: 'Änderungen prüfen'
       new: 'Neu'
       edited: 'Bearbeitet'
@@ -20,9 +21,8 @@ de:
       no_reviewed_version: 'Keine geprüfte Version vorhanden'
     review_translation:
       review: 'Überprüfen'
-      other_descriptions: 'Andere Beschreibungen'
       review: 'Änderungen prüfen'
       reviewed: 'Geprüft'
       unreviewed: 'Ungeprüft'
       no_reviewed_translation: 'Keine geprüfte Übersetzung vorhanden'
-      other_descriptions: 'Andere Beschreibungen'
+      other_descriptions: 'Beschreibung in anderen Sprachen'

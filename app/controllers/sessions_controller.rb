@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
     if @user && @user.authenticate(params[:sessions][:password])
       session[:user_id] = @user.id
-      redirect_to root_path
+      redirect_to root_url
     else
       flash.now[:danger] = t('.login_error')
       render :new
@@ -13,6 +13,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path
+    redirect_to root_url
   end
 end

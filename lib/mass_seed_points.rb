@@ -103,13 +103,19 @@ module MassSeedPoints
               longitude: random_point[:longitude],
               description_en: latin_lorem_ipsum(paragraphs = rand(2..5)),
               description_de: latin_lorem_ipsum(paragraphs = rand(2..5)),
-              description_fr: latin_lorem_ipsum(paragraphs = rand(2..5)),
-              description_ar: arab_lorem_ipsum(words = rand(10..90)),
               categories: category_ids.sample(rand(1..5)).join(','),
-              reviewed: [true,false].sample,
+              reviewed: [true, false].sample,
               created_at: created_at,
               updated_at: updated_at
              ).save(validate: false)
+
+    # Traverse through points
+    Place.find(place_id).translations.each do |translation|
+      translation.without_versioning do
+        auto_translated = [true, false].sample
+        translation.update_attributes(auto_translated: auto_translated, reviewed: !auto_translated)
+      end
+    end
   end
 
   # Quick'n dirty, otherwise parse locale files for categories
@@ -122,9 +128,7 @@ module MassSeedPoints
     unless categories_in_db.include? cat_name
       Category.create(id: id_nr,
                       name_en: I18n.t("categories.#{cat_name}", locale: 'en'),
-                      name_fr: I18n.t("categories.#{cat_name}", locale: 'fr'),
-                      name_de: I18n.t("categories.#{cat_name}", locale: 'de'),
-                      name_ar: I18n.t("categories.#{cat_name}", locale: 'ar'))
+                      name_de: I18n.t("categories.#{cat_name}", locale: 'de'))
     end
   end
 

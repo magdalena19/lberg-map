@@ -15,5 +15,5 @@ User.create(id: 5001,
             is_admin: false).save
 
 # See /lib/mass_seed_*.rb for definitions
-MassSeedPoints.generate(number_of_points: 30, city: 'Berlin')
-# MassSeedAnnouncements.generate(number_of_announcements: 400)
+MassSeedPoints.generate(number_of_points: 3, city: 'Berlin')
+MassSeedAnnouncements.generate(number_of_announcements: 10)

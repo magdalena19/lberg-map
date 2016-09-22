@@ -21,11 +21,12 @@ en:
       your_email: 'Respond to'
       your_title: 'Message title'
       your_message: 'Message text'
+      developed_by: 'Website development:'
     chronicle:
       news: 'Announcements'
     about:
       about: 'About the project'
-      link_to_imprint: 'LberMap imprint'
+      link_to_imprint: 'Jump to imprint'
     map:
       correct_location?: 'Correct location?'
       new_place: 'New Place'

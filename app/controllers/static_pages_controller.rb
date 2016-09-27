@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
   def map
     @categories = Category.all
     @announcements = Announcement.all.sort_by(&:created_at).reverse
-    places = Place.reviewed + places_from_session(nil)
+    places = (Place.reviewed + places_from_session(nil)).uniq
     @last_places_created = places.sort_by(&:created_at).reverse.take(5)
     @latitude = params[:latitude]
     @longitude = params[:longitude]
@@ -12,7 +12,7 @@ class StaticPagesController < ApplicationController
       if params[:category] == 'all'
         render json: (Place.reviewed + places_from_session(nil)).uniq.map(&:geojson)
       else
-        render json: (Place.with_reviewed_category(params[:category]) + places_from_session(params[:category])).uniq.map(&:geojson)
+        render json: (Place.reviewed_with_category(params[:category]) + places_from_session(params[:category])).uniq.map(&:geojson)
       end
     end
   end

@@ -11,6 +11,7 @@ de:
         homepage: 'Homepage'
         address: 'Addresse'
         description: 'Beschreibung'
+        auto_translated: 'Automatisch übersetzt'
       user:
         email: 'Email-Adresse'
         name: 'User-Name'

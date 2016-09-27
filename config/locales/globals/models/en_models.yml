@@ -9,7 +9,8 @@ en:
         phone: 'Phone'
         email: 'Email'
         homepage: 'Homepage'
-        description: 'Description'        
+        description: 'Description'
+        auto_translated: 'Automatically translated'        
       user:
         email: 'Email-Adresse'
         name: 'User-Name'

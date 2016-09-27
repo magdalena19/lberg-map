@@ -9,7 +9,8 @@ class Place < ActiveRecord::Base
     Place.all.map(&:reviewed_version).compact
   end
 
-  def self.with_reviewed_category(id)
+  # Kann das raus?
+  def self.reviewed_with_category(id)
     Place.all.map(&:reviewed_version).compact.find_all { |p| p.has_category?(id) }
   end
 
@@ -50,7 +51,7 @@ class Place < ActiveRecord::Base
   end
 
   def unreviewed_version
-    self if versions.length > 1 || (versions.length == 1 && !reviewed)
+    self if versions.length > 1 || new?
   end
 
   ## CATEGORIES

@@ -48,10 +48,12 @@
       %p
         LbergMap is a non-commercial, non-profit-project and is currently being developed by three members of the association
         = link_to 'aktiv in Lichtenberg e.V.', 'http://plattenkosmos.berlin/'
-        in their spare time. In order to be able to realise further ideas we depend on your support - personally, financially and via feedback.
+        in their spare time. In order to be able to realise further ideas and maintain this website we depend on your support - personally, financially and via feedback.
       %p
         In case of software bugs do not hesitate to open a ticket in our
         = link_to 'development ticket system', 'https://github.com/magdalena19/lberg-map/issues'
         !
-      %p
-        Die Kosten für den Betrieb der Webseite werden durch Spenden und andere Gelder finanziert.
+
+  .row.text-center
+    .col-xs-12.col-lg-12.about_link_to_imprint
+      = link_to t('.link_to_imprint'), contact_path

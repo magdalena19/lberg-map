@@ -101,15 +101,12 @@ class Place < ActiveRecord::Base
       { key: value }
     end.merge!(address: address,
                description: reviewed_description.html_safe,
-               auto_translated: auto_translated,
+               translation_auto_translated: translation_from_current_locale.auto_translated,
+               translation_reviewed: translation_from_current_locale.reviewed,
                categories: categories,
                longitude: longitude,
                latitude: latitude,
                reviewed: reviewed)
-  end
-
-  def auto_translated
-    translation_from_current_locale.auto_translated
   end
 
   def reviewed_description

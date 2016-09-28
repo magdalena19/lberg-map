@@ -40,6 +40,5 @@ jQuery(function() {
     jQuery('.main-container').css('margin-top', navbarHeight + 15);
     balanceSidebar();
     resizePanels();
-    toggleZoomButtonVisibility();
   }).resize();
 });

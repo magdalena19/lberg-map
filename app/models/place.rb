@@ -105,8 +105,7 @@ class Place < ActiveRecord::Base
                categories: categories,
                longitude: longitude,
                latitude: latitude,
-               reviewed: reviewed,
-              )
+               reviewed: reviewed)
   end
 
   def auto_translated
@@ -118,7 +117,7 @@ class Place < ActiveRecord::Base
     if versions.length > 1
       versions.last.reify.description
     else
-      description
+      description ? description : ''
     end
   end
 

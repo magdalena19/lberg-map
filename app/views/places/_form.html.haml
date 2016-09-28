@@ -53,6 +53,8 @@
               - elsif translation && translation.auto_translated
                 %i (#{t('.auto_translated')})
                 = f.text_area column.to_sym, class: 'description-area'
+              - else
+                = f.text_area column.to_sym, class: 'description-area'
 
   .row
     .col-md-6

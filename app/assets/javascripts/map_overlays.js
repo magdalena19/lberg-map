@@ -5,16 +5,6 @@ jQuery(function() {
 
   slidePanelVisible = false;
 
-  toggleZoomButtonVisibility = function() {
-    var zoomButtons = jQuery('.zoom-container');
-
-    if (jQuery(window).width() < 768) {
-      zoomButtons.hide();
-    } else {
-      zoomButtons.show();
-    }
-  };
-
   // fired when window get resized (application.js)
   balanceSidebar = function() {
     jQuery('.announcements-panel').height(jQuery(window).height() - jQuery('.last-points-panel').height() - 150);

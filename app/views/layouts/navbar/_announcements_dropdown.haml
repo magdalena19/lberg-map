@@ -1,6 +1,6 @@
 -# Announcements Menu
 - if signed_in?
-  .dropdown.pull-right.navbar-dropdown
+  %li.dropdown.navbar-dropdown
     %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
       = Announcement.model_name.human(count: 2)
       %span.caret

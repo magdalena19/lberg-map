@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
   def map
     @categories = Category.all
+    @places_total = Place.count
     @announcements = Announcement.all.sort_by(&:created_at).reverse
     places = (Place.reviewed + places_from_session(nil)).uniq
     @last_places_created = places.sort_by(&:created_at).reverse.take(5)

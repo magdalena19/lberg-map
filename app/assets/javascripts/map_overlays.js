@@ -56,6 +56,7 @@ jQuery(function() {
   slidePanels.each(function() {
     var panel = jQuery(this);
     panel.bind('open', function() {
+      closeAllPanels();
       panel.animate({bottom: '10'}, 300);
       panel.addClass('slidx-open');
       jQuery('.control-container').hide();
@@ -97,12 +98,7 @@ jQuery(function() {
   jQuery('.slidepanel-button').click(function() {
     var panelName = jQuery(this).attr('slidepanel');
     var panel = jQuery('.' + panelName);
-    if (!panel.hasClass('slidx-open')) {
-      panel.trigger('open');
-    }
-    else {
-      panel.trigger('close');
-    }
+    panel.trigger('open');
   });
 
   jQuery('.hide-slidepanel').click(function() {

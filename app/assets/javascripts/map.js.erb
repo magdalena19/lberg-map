@@ -31,7 +31,8 @@ jQuery(function() {
     var placeSlidePanel = jQuery('.place-slidepanel')
     var onEachFeature = function(feature, layer) {
       var prop = feature.properties;
-      var improveTranslationLink = "<p><br> <a href ='places/" + prop.id + "/edit'>" + window.improve_translation_label + " </a></p>";
+      var autotranslatedPrefix = "<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'> <%= I18n.t('activerecord.attributes.place.auto_translated')%> | <%= I18n.t('review.review_translation.improve_translation') %> </a>";
+      var waitingForReviewSuffix = "<span style='color: #ff6666;'> | <%= I18n.t('places.index.waiting_for_review') %> </span>";
       var homepageLink = prop.homepage.link(prop.homepage_full_domain);
 
       if (prop.reviewed == false) {
@@ -52,7 +53,7 @@ jQuery(function() {
         if (prop.translation_auto_translated && prop.translation_reviewed) {
           placeSlidePanel.find('.place-description').html(autotranslatedPrefix + prop.description + improveTranslationLink);
         } else if (prop.translation_auto_translated && !prop.translation_reviewed) {
-          placeSlidePanel.find('.place-description').html(autotranslatedPrefix + prop.description);
+          placeSlidePanel.find('.place-description').html(autotranslatedPrefix + '<br>' + prop.description);
         } else {
           placeSlidePanel.find('.place-description').html(prop.description);
         };
@@ -102,9 +103,8 @@ jQuery(function() {
       var accordion_id = 0;
       jQuery.each(json, function(id, place) {
         var prop = place.properties;
-        var improveTranslationLink = "<p><br> <a href ='places/" + prop.id + "/edit'>" + window.improve_translation_label + " </a></p>";
         var homepageLink = prop.homepage.link(prop.homepage_full_domain);
-
+        var autotranslatedPrefix = "<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'> <%= I18n.t('activerecord.attributes.place.auto_translated')%> | <%= I18n.t('review.review_translation.improve_translation') %> </a>";
         var $newPanel = $template.clone();
 
         $newPanel.find(".collapse").removeClass("in");
@@ -122,7 +122,7 @@ jQuery(function() {
         if (prop.translation_auto_translated && prop.translation_reviewed) {
           $newPanel.find('.description').html(autotranslatedPrefix + prop.description + improveTranslationLink);
         } else if (prop.translation_auto_translated && !prop.translation_reviewed) {
-          $newPanel.find('.description').html(autotranslatedPrefix + prop.description);
+          $newPanel.find('.description').html(autotranslatedPrefix + '<br>' + prop.description);
         } else {
           $newPanel.find('.description').html(prop.description);
         };

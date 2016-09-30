@@ -1,16 +1,23 @@
 %nav.navbar.navbar-fixed-top
   .container
-    %a{href: root_url}
-      .logo.logo-left
-        LBERG
-      .logo.logo-right
-        MAP
-    .navbar-button.info-button.pull-left{class: "#{'active' if current_page?(about_path)}"}
-      = link_to('', about_path, class: 'glyphicon glyphicon-info-sign')
-    .navbar-button.contact-button.pull-left{class: "#{'active' if current_page?(contact_path)}"}
-      = link_to('', contact_path, class: 'glyphicon glyphicon-envelope')
-    .navbar-dropdown-container.pull-right
-      = render partial: 'layouts/navbar/language_dropdown'
-      = render partial: 'layouts/navbar/user_dropdown' if signed_in?
-      = render partial: 'layouts/navbar/announcements_dropdown'
-      = render partial: 'layouts/navbar/places_dropdown'
+    .navbar-header
+      %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a{href: root_url}
+        .logo.logo-left
+          LBERG
+        .logo.logo-right
+          MAP
+      .navbar-button.info-button.pull-left{class: "#{'active' if current_page?(about_path)}"}
+        = link_to('', about_path, class: 'glyphicon glyphicon-info-sign')
+      .navbar-button.contact-button.pull-left{class: "#{'active' if current_page?(contact_path)}"}
+        = link_to('', contact_path, class: 'glyphicon glyphicon-envelope')
+    #navbar.navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        = render partial: 'layouts/navbar/language_dropdown'
+        = render partial: 'layouts/navbar/user_dropdown' if signed_in?
+        = render partial: 'layouts/navbar/announcements_dropdown'
+        = render partial: 'layouts/navbar/places_dropdown'

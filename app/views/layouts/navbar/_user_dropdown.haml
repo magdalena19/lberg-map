@@ -1,6 +1,6 @@
 -# User Menu
 - if signed_in?
-  .dropdown.pull-right.navbar-dropdown
+  %li.dropdown.navbar-dropdown
     %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
       = User.model_name.human
       %span.caret

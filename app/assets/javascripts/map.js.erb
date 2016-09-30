@@ -25,13 +25,14 @@ jQuery(function() {
       }
     });
 
+    var autotranslatedPrefix = "<p><i>" + window.autotranslated_label + ": </i></p>";
+    var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";
+
     var placeSlidePanel = jQuery('.place-slidepanel')
     var onEachFeature = function(feature, layer) {
       var prop = feature.properties;
-      var autotranslatedPrefix = "<p><i> <%= I18n.t('activerecord.attributes.place.auto_translated')%>: </i></p>"
-      var improveTranslationLink = "<p><br> <a href ='places/" + prop.id + "/edit'>" + "<%= I18n.t('review.review_translation.improve_translation') %> </a></p>";
-      var waitingForReviewSuffix = "<span style='color: #ff6666;'> | <%= I18n.t('places.index.waiting_for_review') %> </span>";
-      var homepageLink = prop.homepage;
+      var improveTranslationLink = "<p><br> <a href ='places/" + prop.id + "/edit'>" + window.improve_translation_label + " </a></p>";
+      var homepageLink = prop.homepage.link(prop.homepage);
 
       if (prop.reviewed == false) {
         layer.setIcon(session_icon);
@@ -101,8 +102,9 @@ jQuery(function() {
       var accordion_id = 0;
       jQuery.each(json, function(id, place) {
         var prop = place.properties;
-        var autotranslatedPrefix = "<p><i> <%= I18n.t('activerecord.attributes.place.auto_translated')%>: </i></p>"
-        var improveTranslationLink = "<p><br> <a href ='places/" + prop.id + "/edit'>" + "<%= I18n.t('review.review_translation.improve_translation') %> </a></p>";
+        var improveTranslationLink = "<p><br> <a href ='places/" + prop.id + "/edit'>" + window.improve_translation_label + " </a></p>";
+        var homepageLink = prop.homepage.link(prop.homepage);
+
         var $newPanel = $template.clone();
 
         $newPanel.find(".collapse").removeClass("in");
@@ -127,7 +129,7 @@ jQuery(function() {
 
         $newPanel.find('.address').html(prop.address);
         $newPanel.find('.email').html(prop.email);
-        $newPanel.find('.homepage').html(prop.homepage);
+        $newPanel.find('.homepage').html(homepageLink);
         $newPanel.find('.phone').html(prop.phone);
         $newPanel.find('.zoom-to-place').attr('longitude', prop.longitude);
         $newPanel.find('.zoom-to-place').attr('latitude', prop.latitude);

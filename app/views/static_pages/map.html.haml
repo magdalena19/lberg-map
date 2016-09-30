@@ -17,7 +17,7 @@
   .overlay.control-container.place-control-container
     .glyphicon.glyphicon-plus-sign.add-place-button.slidepanel-button{slidepanel: 'add-place-slidepanel', title: t('.new_place')}
     %br
-    .glyphicon.glyphicon-list.show-places.slidepanel-button{slidepanel: 'places-slidepanel'}
+    = link_to '', places_path, class: 'glyphicon glyphicon-list show-places'
 
   .overlay.control-container.category-container
     .show-categories.slidepanel-button{slidepanel: 'category-slidepanel'}
@@ -29,7 +29,6 @@
       = t('.overlay_loading')
 
   = render('static_pages/slidepanels/category_slidepanel')
-  = render('static_pages/slidepanels/places_slidepanel')
   = render('static_pages/slidepanels/place_slidepanel')
   = render('static_pages/slidepanels/add_place_slidepanel')
   = render('static_pages/slidepanels/locale_slidepanel')
@@ -44,3 +43,5 @@
   window.waiting_for_review_label = '#{t('places.index.waiting_for_review')}';
   window.latitude = #{@latitude || 0};
   window.longitude = #{@longitude || 0};
+  window.marker = '#{image_path 'marker.png'}';
+  window.sessionMarker = '#{image_path 'marker_session.png'}';

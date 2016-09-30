@@ -31,7 +31,8 @@ jQuery(function() {
     var placeSlidePanel = jQuery('.place-slidepanel')
     var onEachFeature = function(feature, layer) {
       var prop = feature.properties;
-      var improveTranslationLink = "<p><br> <a href ='places/" + prop.id + "/edit'>" + window.improve_translation_label + " </a></p>";
+      var autotranslatedPrefix = "<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'>" + window.auto_translated_label + ' | ' + window.improve_translation_label + "</a>";
+      var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";
       var homepageLink = prop.homepage.link(prop.homepage_full_domain);
 
       if (prop.reviewed == false) {
@@ -52,7 +53,7 @@ jQuery(function() {
         if (prop.translation_auto_translated && prop.translation_reviewed) {
           placeSlidePanel.find('.place-description').html(autotranslatedPrefix + prop.description + improveTranslationLink);
         } else if (prop.translation_auto_translated && !prop.translation_reviewed) {
-          placeSlidePanel.find('.place-description').html(autotranslatedPrefix + prop.description);
+          placeSlidePanel.find('.place-description').html(autotranslatedPrefix + '<br>' + prop.description);
         } else {
           placeSlidePanel.find('.place-description').html(prop.description);
         };
@@ -66,12 +67,12 @@ jQuery(function() {
     };
 
     var icon =  L.icon({
-      iconUrl: '<%= image_path 'marker.png' %>',
+      iconUrl: marker,
       iconSize: [40, 40],
     });
 
     var session_icon =  L.icon({
-      iconUrl: '<%= image_path 'marker_session.png' %>',
+      iconUrl: sessionMarker,
       iconSize: [40, 40],
     });
 
@@ -96,59 +97,6 @@ jQuery(function() {
       map.addLayer(cluster);
     };
 
-    var updatePlacesList = function(json) {
-      jQuery('.places-list').html('');
-      var $template = jQuery('.accordion-panel-template');
-      var accordion_id = 0;
-      jQuery.each(json, function(id, place) {
-        var prop = place.properties;
-        var improveTranslationLink = "<p><br> <a href ='places/" + prop.id + "/edit'>" + window.improve_translation_label + " </a></p>";
-        var homepageLink = prop.homepage.link(prop.homepage_full_domain);
-
-        var $newPanel = $template.clone();
-
-        $newPanel.find(".collapse").removeClass("in");
-        $newPanel.find(".accordion-toggle").attr("href",  "#accordion_" + (++accordion_id))
-        $newPanel.find(".name").html(prop.name);
-
-        if (prop.reviewed == false) {
-          $newPanel.find('.name').html(prop.name + "<span style='color: #ff6666;'> | waiting for review </span>");
-        } else {
-          $newPanel.find('.name').html(prop.name);
-        };
-
-        $newPanel.find(".panel-collapse").attr("id", "accordion_" + accordion_id).addClass("collapse").removeClass("in");
-
-        if (prop.translation_auto_translated && prop.translation_reviewed) {
-          $newPanel.find('.description').html(autotranslatedPrefix + prop.description + improveTranslationLink);
-        } else if (prop.translation_auto_translated && !prop.translation_reviewed) {
-          $newPanel.find('.description').html(autotranslatedPrefix + prop.description);
-        } else {
-          $newPanel.find('.description').html(prop.description);
-        };
-
-        $newPanel.find('.address').html(prop.address);
-        $newPanel.find('.email').html(prop.email);
-        $newPanel.find('.homepage').html(homepageLink);
-        $newPanel.find('.phone').html(prop.phone);
-        $newPanel.find('.zoom-to-place').attr('longitude', prop.longitude);
-        $newPanel.find('.zoom-to-place').attr('latitude', prop.latitude);
-        $newPanel.find('.edit-place').attr('place_id', place.id);
-        jQuery('.places-list').append($newPanel.show());
-      });
-
-      jQuery('.zoom-to-place').click(function() {
-        closeAllPanels();
-        coordinates = [jQuery(this).attr('latitude'), jQuery(this).attr('longitude')];
-        map.setView(coordinates, 16, {animate: true});
-      });
-
-      jQuery('.edit-place').click(function() {
-        var placeId = jQuery(this).attr('place_id');
-        window.location.href = 'places/' + placeId + '/edit';
-      });
-    };
-
     // CATEGORY AND PLACE BUTTONS
     jQuery('.category-button').click(function() {
       closeAllPanels();
@@ -167,7 +115,6 @@ jQuery(function() {
         },
         success: function(result) {
           updatePlaces(result);
-          updatePlacesList(result);
           $('.slidepanel-title').html(category)
           resizePanels();
           jQuery('.loading').hide();

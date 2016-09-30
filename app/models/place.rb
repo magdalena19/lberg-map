@@ -38,6 +38,14 @@ class Place < ActiveRecord::Base
     ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')
   end
 
+  def homepage_full_domain
+    if homepage
+      homepage =~ /(http)/ ? homepage : 'http://' + homepage
+    else
+      ""
+    end
+  end
+
   ## MODEL AUDITING
   has_paper_trail on: [:create, :update], ignore: [:reviewed, :description]
 
@@ -100,6 +108,7 @@ class Place < ActiveRecord::Base
     attributes.each do |_key, value|
       { key: value }
     end.merge!(address: address,
+               homepage_full_domain: homepage_full_domain,
                description: reviewed_description.html_safe,
                translation_auto_translated: translation_from_current_locale.auto_translated,
                translation_reviewed: translation_from_current_locale.reviewed,

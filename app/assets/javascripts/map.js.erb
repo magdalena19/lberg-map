@@ -32,7 +32,7 @@ jQuery(function() {
     var onEachFeature = function(feature, layer) {
       var prop = feature.properties;
       var improveTranslationLink = "<p><br> <a href ='places/" + prop.id + "/edit'>" + window.improve_translation_label + " </a></p>";
-      var homepageLink = prop.homepage.link(prop.homepage);
+      var homepageLink = prop.homepage.link(prop.homepage_full_domain);
 
       if (prop.reviewed == false) {
         layer.setIcon(session_icon);
@@ -103,7 +103,7 @@ jQuery(function() {
       jQuery.each(json, function(id, place) {
         var prop = place.properties;
         var improveTranslationLink = "<p><br> <a href ='places/" + prop.id + "/edit'>" + window.improve_translation_label + " </a></p>";
-        var homepageLink = prop.homepage.link(prop.homepage);
+        var homepageLink = prop.homepage.link(prop.homepage_full_domain);
 
         var $newPanel = $template.clone();
 

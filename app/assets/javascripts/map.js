@@ -31,8 +31,8 @@ jQuery(function() {
     var placeSlidePanel = jQuery('.place-slidepanel')
     var onEachFeature = function(feature, layer) {
       var prop = feature.properties;
-      var autotranslatedPrefix = "<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'> <%= I18n.t('activerecord.attributes.place.auto_translated')%> | <%= I18n.t('review.review_translation.improve_translation') %> </a>";
-      var waitingForReviewSuffix = "<span style='color: #ff6666;'> | <%= I18n.t('places.index.waiting_for_review') %> </span>";
+      var autotranslatedPrefix = "<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'>" + window.auto_translated_label + ' | ' + window.improve_translation_label + "</a>";
+      var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";
       var homepageLink = prop.homepage.link(prop.homepage_full_domain);
 
       if (prop.reviewed == false) {
@@ -67,12 +67,12 @@ jQuery(function() {
     };
 
     var icon =  L.icon({
-      iconUrl: '<%= image_path 'marker.png' %>',
+      iconUrl: marker,
       iconSize: [40, 40],
     });
 
     var session_icon =  L.icon({
-      iconUrl: '<%= image_path 'marker_session.png' %>',
+      iconUrl: sessionMarker,
       iconSize: [40, 40],
     });
 
@@ -104,7 +104,7 @@ jQuery(function() {
       jQuery.each(json, function(id, place) {
         var prop = place.properties;
         var homepageLink = prop.homepage.link(prop.homepage_full_domain);
-        var autotranslatedPrefix = "<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'> <%= I18n.t('activerecord.attributes.place.auto_translated')%> | <%= I18n.t('review.review_translation.improve_translation') %> </a>";
+        var autotranslatedPrefix = "<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'>" + window.auto_translated_label + ' | ' + window.improve_translation_label + "</a>";
         var $newPanel = $template.clone();
 
         $newPanel.find(".collapse").removeClass("in");
@@ -112,7 +112,7 @@ jQuery(function() {
         $newPanel.find(".name").html(prop.name);
 
         if (prop.reviewed == false) {
-          $newPanel.find('.name').html(prop.name + "<span style='color: #ff6666;'> | waiting for review </span>");
+          $newPanel.find('.name').html(prop.name + "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>");
         } else {
           $newPanel.find('.name').html(prop.name);
         };

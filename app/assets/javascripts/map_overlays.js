@@ -1,4 +1,5 @@
 jQuery(function() {
+
   var slidePanels = jQuery('.slidepanel');
   var sideBar = jQuery('.sidebar');
   var showSidebarContainer = jQuery('.show-sidebar-container');
@@ -104,4 +105,22 @@ jQuery(function() {
   jQuery('.hide-slidepanel').click(function() {
     closeAllPanels();
   });
+
+  // Close slidePanels on Escape keypress
+  window.addEventListener("keydown", function (event) {
+    if (event.defaultPrevented) {
+      return; // Should do nothing if the key event was already consumed.
+    }
+
+    switch (event.key) {
+      case "Escape":
+        closeAllPanels();
+      break;
+      default:
+      return; // Quit when this doesn't handle the key event.
+    }
+
+    // Consume the event to avoid it being handled twice
+    event.preventDefault();
+  }, true);
 });

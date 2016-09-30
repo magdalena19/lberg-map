@@ -112,8 +112,7 @@ module MassSeedPoints
     # Traverse through points
     Place.find(place_id).translations.each do |translation|
       translation.without_versioning do
-        auto_translated = [true, false].sample
-        translation.update_attributes(auto_translated: auto_translated, reviewed: !auto_translated)
+        translation.update_attributes(auto_translated: [true, false].sample, reviewed: [true, false].sample)
       end
     end
   end

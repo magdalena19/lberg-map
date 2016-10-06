@@ -1,5 +1,6 @@
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
+  before_action :require_login, on: [:delete]
 
   def index
     return @places = Place.all if signed_in?
@@ -119,4 +120,12 @@ class PlacesController < ApplicationController
       categories: []
     )
   end
+
+  def require_login
+    unless session[:user_id]
+      flash[:danger] = t('errors.messages.access_restricted')
+      redirect_to login_url
+    end
+  end
+
 end

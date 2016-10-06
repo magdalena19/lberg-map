@@ -1,21 +1,18 @@
 - content_for :header do
   = t('.review')
 
-.container
+.container.margin-below
   .h3= t('.places')
   %br
-  %table{class: 'display compact', id: 'places_to_review', cellspacing: '0', width: '100%'}
+  %table.responsive.no-wrap{class: 'display compact', id: 'places_to_review', cellspacing: '0', width: '100%'}
     %thead
       %tr
         %th
         %th
-          = t('.change_type')
         %th
           = t('activerecord.attributes.place.name')
         %th
           = t('activerecord.attributes.place.address')
-        %th
-          = t('.categories')
     %tbody
       - @places_to_review.each do |place|
         %tr
@@ -33,12 +30,10 @@
             = place.name
           %td
             = place.address
-          %td
-            = category_names(place)
 
   .h3= t('.translations')
   %br
-  %table{ class: 'display', id: 'translations', width: '100%' }
+  %table.responsive.no-wrap{ class: 'display', id: 'translations', width: '100%' }
     %thead
       %tr
         %th

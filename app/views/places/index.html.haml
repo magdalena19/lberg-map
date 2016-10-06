@@ -1,24 +1,43 @@
 - content_for :header do
   = t('.places')
 
-.container
+.container.margin-below
   .description
     %p
       = t('.index_places_description')
     %br
-  %table#places.display.compact{cellspacing: '0', width: '100%'}
+  %table#places.display.responsive.no-wrap.compact{cellspacing: '0', width: '100%'}
     %thead
       %tr
         %th
         %th
           = t('activerecord.attributes.place.name')
         %th
-          = t('activerecord.attributes.place.address')
-        %th
+          = t('activerecord.attributes.place.postal_code')
+        %th.tablet-l.desktop
           = t('.categories')
+        %th
+        %th.none
+          = t('activerecord.attributes.place.address')
+        %th.none
+          = t('activerecord.attributes.place.email')
+        %th.none
+          = t('activerecord.attributes.place.phone')
+        %th.none
+          = t('activerecord.attributes.place.homepage')
+        %th.none
+          = t('activerecord.attributes.place.description')
     %tbody
       - @places.each do |place|
-        %tr
+        %tr{height: '50px'}
+          %td
+            .triangle.glyphicon.glyphicon-triangle-bottom
+          %td
+            = place.name
+          %td
+            = place.postal_code + ' ' + place.city
+          %td
+            = category_names(place)
           %td
             = link_to root_path(latitude: place.latitude, longitude: place.longitude) do
               %span{class: 'glyphicon glyphicon-share-alt zoom-to-place'}
@@ -36,8 +55,12 @@
               = link_to place_path(place), {method: "delete", data: { confirm: t('.confirm_delete') }} do
                 %span{class: 'glyphicon glyphicon-trash'}
           %td
-            = place.name
-          %td
             = place.address
           %td
-            = category_names(place)
+            = place.email
+          %td
+            = place.phone
+          %td
+            = place.homepage
+          %td
+            = place.description

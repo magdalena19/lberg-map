@@ -1,9 +1,0 @@
--# Language
-%li.dropdown.navbar-dropdown
-  %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-    = t('.language')
-    %span.caret
-  %ul.dropdown-menu
-    - I18n.available_locales.each do |l|
-      %li{class: "#{'active' if l == locale}"}
-        = link_to l.to_s, locale: l.to_s

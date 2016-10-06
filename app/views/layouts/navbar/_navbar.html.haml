@@ -15,9 +15,17 @@
         = link_to('', about_path, class: 'glyphicon glyphicon-info-sign')
       .navbar-button.contact-button.pull-left{class: "#{'active' if current_page?(contact_path)}"}
         = link_to('', contact_path, class: 'glyphicon glyphicon-envelope')
+
     #navbar.navbar-collapse.collapse
       %ul.nav.navbar-nav
-        = render partial: 'layouts/navbar/language_dropdown'
-        = render partial: 'layouts/navbar/user_dropdown' if signed_in?
-        = render partial: 'layouts/navbar/announcements_dropdown'
-        = render partial: 'layouts/navbar/places_dropdown'
+        - if signed_in?
+          .margin-right.navbar-button.pull-right{class: "#{'active' if current_page?(contact_path)}"}
+            = link_to('', logout_path, class: 'glyphicon glyphicon-log-out')
+          .navbar-button.pull-right{class: "#{'active' if current_page?(places_review_index_path)}"}
+            = link_to(t('.review'), places_review_index_path, class: 'glyphicon glyphicon-thumbs-up')
+        - else
+          .margin-right.navbar-button.pull-right{class: "#{'active' if current_page?(contact_path)}"}
+            = link_to('', login_path, class: 'glyphicon glyphicon-log-in')
+        .navbar-button.pull-right{class: "#{'active' if current_page?(places_path)}"}
+          = link_to(t('search'), places_path, class: 'glyphicon glyphicon-search')
+        = render partial: 'layouts/navbar/dropdown'

@@ -1,0 +1,20 @@
+-# Places Menu
+%li.dropdown.navbar-dropdown
+  .pull-right.glyphicon.glyphicon-cog.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+    %span.caret
+  %ul.dropdown-menu
+    - if signed_in?
+      %li{class: "#{'active' if current_page?(edit_user_path(session[:user_id]))}"}
+        = link_to(t('.edit_user'), edit_user_path(session[:user_id]))
+      %hr
+
+      %li{class: "#{'active' if current_page?(announcements_path)}"}
+        = link_to(t('.manage_announcements'), announcements_path)
+      %li{class: "#{'active' if current_page?(new_announcement_path)}"}
+        = link_to(t('.create_announcement'), new_announcement_path)
+      %hr
+    .dropdown-header
+      = t('language')
+    - I18n.available_locales.each do |l|
+      %li{class: "#{'active' if l == locale}"}
+        = link_to l.to_s, locale: l.to_s

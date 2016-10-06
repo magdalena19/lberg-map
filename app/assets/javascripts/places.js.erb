@@ -29,51 +29,45 @@ jQuery(function() {
 
   // View places as DataTable
   jQuery('#places').DataTable({
-    "pageLength": 50,
-    "columnDefs": [
-      {
-        "targets": [ 0 ],
-        "sortable": false,
-        "searchable": false
-      },
-      {
-        "targets": [ 3 ],
-        "sortable": false,
-      }
-    ]
+    responsive: true,
+    "paging": false,
+    "bInfo": false,
+    "order": [[ 1, "asc" ]],
+    "aoColumnDefs": [
+        { 'bSortable': false, 'aTargets': [0, 4] }
+     ]
   });
 
   jQuery('#places_to_review').DataTable({
+    responsive: true,
     "searching": false,
     "paging": false,
-    "info": false,
-    "columnDefs": [
-      {
-        "targets": [ 0 ],
-        "sortable": false,
-      },
-      {
-        "targets": [ 4 ],
-        "sortable": false,
-      }
-    ]
+    "bInfo": false,
+    "order": [[ 1, "asc" ]],
+    "aoColumnDefs": [
+        { 'bSortable': false, 'aTargets': [0] }
+     ]
   });
 
   jQuery('#translations').DataTable({
+    responsive: true,
     "searching": false,
     "paging": false,
-    "info": false,
-    "columnDefs": [
-      {
-        "targets": [ 0 ],
-        "sortable": false,
-      },
-      {
-        "targets": [ 3 ],
-        "sortable": false,
-      }
-    ]
+    "bInfo": false,
+    "order": [[ 1, "asc" ]],
+    "aoColumnDefs": [
+        { 'bSortable': false, 'aTargets': [0] }
+     ]
   });
+
+  jQuery('.dataTable').find('.sorting_1').click(function() {
+    var row = jQuery(this);
+      if (row.parent().hasClass('parent')) {
+        row.find('.triangle').addClass('glyphicon-triangle-bottom').removeClass('glyphicon-triangle-top');
+      } else {
+        row.find('.triangle').addClass('glyphicon-triangle-top').removeClass('glyphicon-triangle-bottom');
+      };
+  })
 
   // show process widget on place submit
 

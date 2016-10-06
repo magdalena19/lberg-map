@@ -13,6 +13,8 @@
  *= require leaflet
  *= require MarkerCluster
  *= require jquery-ui
+ *= require dataTables/jquery.dataTables
+ *= require dataTables/extras/dataTables.responsive
  *= require_tree .
  *= require_self
  */
@@ -59,6 +61,10 @@ noscript {
   margin-bottom: 20px;
 }
 
+.margin-right {
+  margin-right: 10px;
+}
+
 .logo {
   font-size: 30px;
   font-weight: bold;
@@ -89,6 +95,10 @@ noscript {
     line-height: 40px;
     color: $green;
     font-size: 20px;
+    span {
+      font-size: 12px;
+      font-family: arial;
+    }
   }
   .navbar-toggle {
     margin: 7px;
@@ -107,6 +117,16 @@ noscript {
 }
 
 .navbar-dropdown {
+  .dropdown-header {
+    color: rgba($green, 0.6);
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-color: rgba($green, 0.6);
+  }
   line-height: 40px;
   margin-left: 10px;
   margin-right: 10px;
@@ -114,14 +134,17 @@ noscript {
     color: $green !important;
   }
   .dropdown-toggle {
-    padding: 11px;
+    display: inline;
     background: none !important;
     &:hover {
       color: $lilac !important;
     };
+    .caret {
+      margin-left: -15px;
+    }
   }
   .dropdown-menu {
-    top: 46px;
+    top: 50px;
     background: rgba(darken($lilac, 50%),0.8);
     color: $green;
     .active > a {
@@ -172,4 +195,17 @@ noscript {
 
 .previous_page.disabled {
   color: $grey;
+}
+
+table.dataTable {
+  tbody td {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  th:first-child::before { display: none !important; }
+  td:first-child::before { display: none !important; }
+  tr.even > .sorting_1 { background: #EAFFF0 !important; }
+  tr.even { background: #EAFFF0 !important; }
+  tr.odd > .sorting_1 { background: #F6FFF9 !important; }
+  tr.odd { background: #F6FFF9 !important; }
 }

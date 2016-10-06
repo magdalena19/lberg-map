@@ -16,7 +16,7 @@ feature 'Edit place' do
     click_on('Update Place')
     visit '/places'
     page.must_have_content('Any place')
-    page.must_have_content('Schulze-Boysen-Str. 80, 10963 Berlin')
+    page.must_have_content('10963 Berlin')
   end
 
   scenario 'Do valid place update as guest and mark point to be reviewed in index within session', :js do

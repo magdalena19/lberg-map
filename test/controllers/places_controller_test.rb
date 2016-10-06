@@ -2,41 +2,70 @@ require 'test_helper'
 
 class PlacesControllerTest < ActionController::TestCase
   def setup
-    @place = places :Magda19
+    @reviewed_place = Place.create(name: 'bar',
+                                   street: 'bar-street',
+                                   house_number: '19',
+                                   postal_code: '10365',
+                                   city: 'Berlin',
+                                   latitude: 52.5,
+                                   longitude: 13.5,
+                                   email: 'schnipp@schnapp.com',
+                                   homepage: 'http://schnapp.com',
+                                   phone: '03081618254',
+                                   id: 1000,
+                                   reviewed: true)
+
+    @unreviewed_place = Place.create(name: 'foo',
+                                     street: 'foo-street',
+                                     house_number: '19',
+                                     postal_code: '19999',
+                                     city: 'Berlin',
+                                     latitude: 52.5,
+                                     longitude: 13.5,
+                                     email: 'schnipp@schnapp.com',
+                                     homepage: 'http://schnapp.com',
+                                     phone: '03081618254',
+                                     id: 1001,
+                                     reviewed: false)
+
     @user = users :Norbert
   end
 
-  # CRUD and REST tests
-  test 'should get index' do
+  ### Helper function
+  def post_valid_place
+    post :create, place: { name: 'Kiezspinne',
+                           street: 'Schulze-Boysen-Straße',
+                           house_number: '15',
+                           postal_code: '10365',
+                           city: 'Berlin',
+                           description_en: 'This is a valid place',
+                           categories: [] }
+    Place.find_by(name: 'Kiezspinne')
+  end
+
+  def update_reviewed_description
+    put :update, id: @reviewed_place.id, place: { description_en: 'This description has been changed!' }
+
+    @reviewed_place.translations.reload
+    @reviewed_place
+  end
+
+  def sign_in
+    session[:user_id] = @user.id
+  end
+
+  def sign_out
+    session[:user_id] = nil
+  end
+
+  ### Tests independent of user status
+  test 'Does not crash with not up-to-date session_places cookie' do
+    @request.cookies[:created_places_in_session] = [1, 2, 3, 4, 5, 772_348_7]
     get :index
     assert_response :success
   end
 
-  test 'should get new' do
-    get :new
-    assert_response :success
-  end
-
-  test 'does not crash with not up-to-date session_places cookie' do
-    @request.cookies[:created_places_in_session] = [1,2,3,4,5,7723487]
-    get :index
-    assert_response :success
-  end
-
-  test 'should create valid new place' do
-    assert_difference 'Place.count' do
-      post :create, place: { name: 'Kiezspinne',
-                             street: 'Schulze-Boysen-Straße',
-                             house_number: '15',
-                             postal_code: '10365',
-                             city: 'Berlin',
-                             categories: [] }
-    end
-
-    assert_redirected_to root_url(latitude: 52.0, longitude: 12.0)
-  end
-
-  test 'place with lat_lon provided does not need to be geocoded' do
+  test 'Place with lat_lon provided does not need to be geocoded on create' do
     assert_difference 'Place.count' do
       post :create, place: { name: 'SomePlace',
                              latitude: 13,
@@ -44,7 +73,7 @@ class PlacesControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should not create invalid new place' do
+  test 'Cannot create invalid new place' do
     assert_no_difference 'Place.count' do
       post :create, place: { name: '',
                              street: 'Schulze-Boysen-Straße',
@@ -55,72 +84,258 @@ class PlacesControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should not provide edit action for places waiting for review' do
-    @new_place = Place.new( name: 'New Place',
-                            street: 'Schulze-Boysen-Straße',
-                            house_number: '15',
-                            postal_code: '10365',
-                            city: 'Berlin',
-                            categories: [],
-                          )
-    @new_place.save
-    get :edit, id: @new_place.id
-    assert_redirected_to root_url
+  test 'Cannot update place if attributes invalid' do
+    put :update, id: @reviewed_place.id, place: { name: '',
+                                                  street: 'some other street' }
+    assert_response :redirect
+    # @reviewed_place.reload
+    #
+    # assert_not_equal @reviewed_place.street, 'some other street'
   end
 
-  test 'should get edit' do
-    get :edit, id: @place.id
-    assert_response :success
+  test 'Cannot update place if is not reviewed' do
+    put :update, id: @unreviewed_place.id, place: { name: 'Some other name',
+                                                    street: 'Some other street' }
+    assert_response :redirect
+    # @unreviewed_place.reload
+    #
+    # assert_not @unreviewed_place.name == 'Some other name'
   end
 
-  test 'should update valid place attributes' do
-    put :update, id: @place.id, place: { name: 'Blubb',
-                                         street: 'Schulze-Boysen-Straße',
-                                         house_number: '15',
-                                         postal_code: '10365',
-                                         city: 'Berlin',
-                                         categories: [] }
-    @place.reload.name
-    assert_equal 'Blubb', @place.name
-  end
+  test 'Translations of reviewed place are also reviewed' do
+    sign_in
+    valid_new_place = post_valid_place
 
-  test 'should not update invalid place attributes' do
-    put :update, id: @place.id, place: { name: '',
-                                         street: 'Schulze-Boysen-Straße',
-                                         house_number: '15',
-                                         postal_code: '10365',
-                                         city: 'Berlin',
-                                         categories: [] }
-    @place.reload.name
-    assert_equal 'Hausprojekt Magdalenenstraße 19', @place.name
-  end
-
-  test 'should delete place' do
-    assert_difference 'Place.count', -1 do
-      delete :destroy, id: @place.id
+    valid_new_place.translations.each do |translation|
+      assert translation.reviewed
     end
-    assert_redirected_to places_path
   end
 
-  test 'review flag true if signed in on create' do
-    session[:user_id] = @user.id
-    post :create, place: { name: 'katze',
-                           street: 'Schulze-Boysen-Straße',
-                           house_number: '15',
-                           postal_code: '10365',
-                           city: 'Berlin',
-                           categories: [] }
-    assert Place.find_by(name: 'katze').reviewed
+
+  # As guest...
+  test 'Guest can create valid new place' do
+    sign_out
+
+    get :new
+    assert_response :success
+
+    assert_difference 'Place.count' do
+      post_valid_place
+    end
   end
 
-  test 'review flag false if not logged in on create' do
-    session[:user_id] = nil
-    post :create, place: { name: 'andere katze',
-                           street: 'Schulze-Boysen-Straße',
-                           house_number: '15',
-                           postal_code: '10365',
-                           city: 'Berlin',
-                           categories: [] }
-    assert_not Place.find_by(name: 'andere katze').reviewed
+  test 'Place created by guest is not reviewed' do
+    sign_out
+    valid_new_place = post_valid_place
+
+    assert_not valid_new_place.reviewed
+  end
+
+  test 'Place created by guest has no version history' do
+    sign_out
+    valid_new_place = post_valid_place
+
+    assert_equal valid_new_place.versions.length, 1
+  end
+
+  test 'Translations of place created by guest have valid attributes' do
+    sign_out
+    post_valid_place
+
+    Place.find_by(name: 'Kiezspinne').translations.each do |translation|
+      assert_not translation.reviewed
+      assert translation.versions.length == 1
+      if translation.description.present?
+        assert_not translation.auto_translated
+      else
+        assert translation.auto_translated
+      end
+    end
+  end
+
+
+  test 'Guest can update reviewed place' do
+    sign_out
+    put :update, id: @reviewed_place.id, place: { name: 'Some other name',
+                                                  street: 'Some other street' }
+    @reviewed_place.reload
+
+    assert_equal @reviewed_place.name, 'Some other name'
+  end
+
+  test 'Place updated by guest is reviewed' do
+    sign_out
+    put :update, id: @reviewed_place.id, place: { name: 'Some other name',
+                                                  street: 'Some other street' }
+    @reviewed_place.reload
+
+    assert_not @reviewed_place.reviewed
+  end
+
+  test 'Place updated by guest has version history' do
+    sign_out
+    put :update, id: @reviewed_place.id, place: { name: 'Some other name',
+                                                  street: 'Some other street' }
+    @reviewed_place.reload
+
+    assert_equal @reviewed_place.versions.length, 2
+  end
+
+  test 'Guest cannot delete places' do
+    sign_out
+    assert_difference 'Place.count', 0 do
+      delete :destroy, id: @reviewed_place.id
+    end
+    assert_response :redirect
+  end
+
+
+  test 'Guest cannot update unreviewed translation' do
+    # Create unreviewed description
+    sign_out
+    updated_place = update_reviewed_description
+
+    # Login as user and try to commit changes to description under review
+    put :update, id: updated_place.id, place: { description_en: 'This description has been changed again!' }
+    assert_response :redirect
+  end
+
+  test 'Guest can update reviewed translation' do
+    sign_out
+    updated_place = update_reviewed_description
+    en_translation = updated_place.translations.select { |t| t.locale == :en }.first
+
+    assert_equal en_translation.description, 'This description has been changed!'
+  end
+
+  test 'Translation updated by guest is not reviewed' do
+    sign_out
+    updated_place = update_reviewed_description
+    en_translation = updated_place.translations.select { |t| t.locale == :en }.first
+
+    assert_not en_translation.reviewed
+  end
+
+  test 'Translation updated by guest has version history' do
+    sign_out
+    updated_place = update_reviewed_description
+    en_translation = updated_place.translations.select { |t| t.locale == :en }.first
+
+    assert_equal en_translation.versions.length, 2
+  end
+
+
+  # As user...
+  test 'User can create valid new place' do
+    sign_in
+
+    get :new
+    assert_response :success
+
+    assert_difference 'Place.count' do
+      post_valid_place
+    end
+  end
+
+  test 'Place created by user is reviewed' do
+    sign_in
+    valid_new_place = post_valid_place
+
+    assert valid_new_place.reviewed
+    assert_equal valid_new_place.versions.length, 1
+  end
+
+  test 'Place created by user has no version history' do
+    sign_in
+    valid_new_place = post_valid_place
+
+    assert valid_new_place.reviewed
+    assert_equal valid_new_place.versions.length, 1
+  end
+
+  test 'Translations of place created by users have valid attributes' do
+    sign_in
+    post_valid_place
+
+    Place.find_by(name: 'Kiezspinne').translations.each do |translation|
+      assert translation.reviewed
+      assert translation.versions.length == 1
+      if translation.description.present?
+        assert_not translation.auto_translated
+      else
+        assert translation.auto_translated
+      end
+    end
+  end
+
+  test 'User can delete places' do
+    sign_in
+    assert_difference 'Place.count', -1 do
+      delete :destroy, id: @reviewed_place.id
+    end
+  end
+
+
+  test 'User can update reviewed place' do
+    sign_in
+    put :update, id: @reviewed_place.id, place: { name: 'Some other name',
+                                                  street: 'Some other street' }
+    @reviewed_place.reload
+
+    assert_equal @reviewed_place.name, 'Some other name'
+  end
+
+  test 'Place updated by user is reviewed' do
+    sign_in
+    put :update, id: @reviewed_place.id, place: { name: 'Some other name',
+                                                  street: 'Some other street' }
+    @reviewed_place.reload
+
+    assert @reviewed_place.reviewed
+  end
+
+  test 'Place updated by user has no version history' do
+    sign_in
+    put :update, id: @reviewed_place.id, place: { name: 'Some other name',
+                                                  street: 'Some other street' }
+    @reviewed_place.reload
+
+    assert_equal @reviewed_place.versions.length, 1
+  end
+
+
+  test 'User cannot update unreviewed translation' do
+    # Create unreviewed description
+    sign_out
+    updated_place = update_reviewed_description
+
+    # Login as user and try to commit changes to description under review
+    sign_in
+    put :update, id: updated_place.id, place: { description_en: 'This description has been changed again!' }
+    assert_response :redirect
+  end
+
+  test 'User can update reviewed translation' do
+    sign_in
+    updated_place = update_reviewed_description
+    en_translation = updated_place.translations.select { |t| t.locale == :en }.first
+
+    assert_equal en_translation.description, 'This description has been changed!'
+  end
+
+  test 'Translation updated by user is reviewed' do
+    sign_in
+    updated_place = update_reviewed_description
+    en_translation = updated_place.translations.select { |t| t.locale == :en }.first
+
+    assert en_translation.reviewed
+  end
+
+  test 'Translation updated by user has no history' do
+    sign_out
+    updated_place = update_reviewed_description
+    en_translation = updated_place.translations.select { |t| t.locale == :en }.first
+
+    assert_equal en_translation.versions.length, 1
   end
 end

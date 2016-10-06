@@ -49,10 +49,8 @@ jQuery(function() {
           jQuery('.edit-place').hide();
         };
 
-        if (prop.translation_auto_translated && prop.translation_reviewed) {
-          placeSlidePanel.find('.place-description').html("<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'>" + window.autotranslated_label + ' | ' + window.improve_translation_label + "</a>" + '<br>' + prop.description);
-        } else if (prop.translation_auto_translated && !prop.translation_reviewed) {
-          placeSlidePanel.find('.place-description').html("<a class='btn btn-xs btn-danger'>" + window.autotranslated_label + "</a>" + '<br>' + prop.description);
+        if (prop.translation_auto_translated) {
+          placeSlidePanel.find('.place-description').html("<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'>" + window.autotranslated_label + "</a>" + '<br>' + prop.description);
         } else {
           placeSlidePanel.find('.place-description').html(prop.description);
         };

@@ -65,6 +65,11 @@ jQuery(function() {
       });
     };
 
+    jQuery('.edit-place').click(function() {
+      var placeId = jQuery(this).attr('place_id');
+      window.location.href = 'places/' + placeId + '/edit';
+    });
+
     var icon =  L.icon({
       iconUrl: marker,
       iconSize: [40, 40],

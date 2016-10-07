@@ -33,7 +33,15 @@ class Place < ActiveRecord::Base
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
   after_create :auto_translate if Rails.env != 'test'
+  after_create :set_translation_attributes
 
+  def set_translation_attributes
+    translations.each do |translation|
+      translation.without_versioning { translation.update_attributes(reviewed: reviewed ? true : false) }
+    end
+  end
+
+  ## VIRTUAL ATTRIBUTES
   def address
     ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')
   end
@@ -42,7 +50,7 @@ class Place < ActiveRecord::Base
     if homepage
       homepage =~ /(http)/ ? homepage : 'http://' + homepage
     else
-      ""
+      ''
     end
   end
 

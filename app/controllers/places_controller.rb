@@ -1,6 +1,7 @@
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
-  before_action :require_login, on: [:delete]
+  before_action :require_login, only: [:destroy]
+  before_action :reviewed?, only: [:update]
 
   def index
     return @places = Place.all if signed_in?
@@ -15,7 +16,6 @@ class PlacesController < ApplicationController
 
   def update
     @place = Place.find(params[:id])
-    @place.reviewed = true if signed_in?
     if simple_captcha_valid? || signed_in?
       save_update
     else
@@ -36,7 +36,6 @@ class PlacesController < ApplicationController
 
   def create
     @place = Place.new(modified_params)
-    @place.reviewed = true if signed_in?
     if simple_captcha_valid? || signed_in?
       save_new
     else
@@ -71,6 +70,7 @@ class PlacesController < ApplicationController
       params_for_update[:latitude] = @place.latitude
       params_for_update[:longitude] = @place.longitude
     end
+    @place.reviewed = true if signed_in?
     if @place.update_attributes(params_for_update)
       flash[:success] = t('.changes_saved')
       redirect_to places_url
@@ -84,7 +84,9 @@ class PlacesController < ApplicationController
     # Take lat/lon values from hash passed by create form
     @place.latitude ||= params[:place][:latitude]
     @place.longitude ||= params[:place][:longitude]
-    if @place.save
+    @place.reviewed = true if signed_in?
+
+    if @place.save(signed_in: signed_in?)
       save_in_cookie
       flash[:success] = t('.created')
       redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
@@ -128,4 +130,7 @@ class PlacesController < ApplicationController
     end
   end
 
+  def reviewed?(place)
+    place.reviewed
+  end
 end

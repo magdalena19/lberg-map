@@ -1,7 +1,7 @@
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
   before_action :require_login, only: [:destroy]
-  before_action :reviewed?, only: [:update]
+  # before_action :reviewed?, only: [:update]
 
   def index
     return @places = Place.all if signed_in?
@@ -130,7 +130,7 @@ class PlacesController < ApplicationController
     end
   end
 
-  def reviewed?(place)
-    place.reviewed
+  def reviewed?
+    Place.find(params[:id]).reviewed
   end
 end

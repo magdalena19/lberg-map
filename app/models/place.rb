@@ -70,6 +70,12 @@ class Place < ActiveRecord::Base
     self if versions.length > 1 || new?
   end
 
+  def destroy_all_updates(translation_id = nil)
+    obj = translation_id ? translations.find(translation_id) : self
+    updates = obj.reload.versions.find_all { |v| v.event == 'update' }
+    updates.each(&:destroy)
+  end
+
   ## CATEGORIES
   def has_category?(id)
     category_ids.include?(id.to_s)

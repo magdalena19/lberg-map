@@ -64,15 +64,10 @@ class PlacesController < ApplicationController
   end
 
   def save_update
-    # Ugly: lat/lon have to be inserted into modified_params-hash in order to make update_attributes work...
-    params_for_update = modified_params
-    if @place.lat_lon_present?
-      params_for_update[:latitude] = @place.latitude
-      params_for_update[:longitude] = @place.longitude
-    end
-    @place.reviewed = true if signed_in?
-    if @place.update_attributes(params_for_update)
+    @place.reviewed = signed_in? ? true : false
+    if @place.update_attributes(modified_params)
       flash[:success] = t('.changes_saved')
+      @place.destroy_all_updates if signed_in?
       redirect_to places_url
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
@@ -86,7 +81,7 @@ class PlacesController < ApplicationController
     @place.longitude ||= params[:place][:longitude]
     @place.reviewed = true if signed_in?
 
-    if @place.save(signed_in: signed_in?)
+    if @place.save
       save_in_cookie
       flash[:success] = t('.created')
       redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
@@ -109,6 +104,10 @@ class PlacesController < ApplicationController
     if place_params[:categories]
       category_param = place_params[:categories] || []
       modified_params[:categories] = category_param.reject(&:empty?).join(',')
+    end
+    if @place && @place.lat_lon_present?
+      modified_params[:latitude] = @place.latitude
+      modified_params[:longitude] = @place.longitude
     end
     modified_params
   end

@@ -87,10 +87,9 @@ class PlacesControllerTest < ActionController::TestCase
   test 'Cannot update place if attributes invalid' do
     put :update, id: @reviewed_place.id, place: { name: '',
                                                   street: 'some other street' }
-    assert_response :redirect
-    # @reviewed_place.reload
-    #
-    # assert_not_equal @reviewed_place.street, 'some other street'
+    @reviewed_place.reload
+
+    assert_not_equal @reviewed_place.street, 'some other street'
   end
 
   test 'Cannot update place if is not reviewed' do
@@ -163,7 +162,7 @@ class PlacesControllerTest < ActionController::TestCase
     assert_equal @reviewed_place.name, 'Some other name'
   end
 
-  test 'Place updated by guest is reviewed' do
+  test 'Place updated by guest is not reviewed' do
     sign_out
     put :update, id: @reviewed_place.id, place: { name: 'Some other name',
                                                   street: 'Some other street' }

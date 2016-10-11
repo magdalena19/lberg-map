@@ -32,15 +32,8 @@ class Place < ActiveRecord::Base
   before_validation :sanitize_descriptions, on: [:create, :update]
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
-  after_create :auto_translate if Rails.env != 'test'
-  # after_create :auto_translate
-  after_create :set_translation_attributes
-
-  def set_translation_attributes
-    translations.each do |translation|
-      translation.without_versioning { translation.update_attributes(reviewed: reviewed ? true : false) }
-    end
-  end
+  # after_create :auto_translate if Rails.env != 'test'
+  after_create :auto_translate
 
   ## VIRTUAL ATTRIBUTES
   def address

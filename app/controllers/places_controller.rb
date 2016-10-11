@@ -60,7 +60,7 @@ class PlacesController < ApplicationController
     params.require(:place).permit(
       :name, :street, :house_number, :postal_code, :city,
       :reviewed,
-      *Place.globalize_attribute_names,
+      :description, *Place.globalize_attribute_names,
       :phone, :homepage, :email,
       categories: []
     )
@@ -91,7 +91,7 @@ class PlacesController < ApplicationController
 
   def adjust_place_attributes
     @place.without_versioning do
-      @place.update_attributes(reviewed: signed_in? ? true : false)
+      @place.update(reviewed: signed_in? ? true : false)
     end
     @place.destroy_all_updates if signed_in?
   end
@@ -101,7 +101,7 @@ class PlacesController < ApplicationController
       translation = @place.translations.find_by_locale(locale)
       @place.destroy_all_updates(translation) if signed_in?
       translation.without_versioning do
-        translation.update_attributes(reviewed: signed_in? ? true : false)
+        translation.update(reviewed: signed_in? ? true : false)
       end
     end
   end
@@ -112,17 +112,19 @@ class PlacesController < ApplicationController
 
     if @place.save
       save_in_cookie
+      adjust_place_attributes
+      adjust_translation_attributes
       flash[:success] = t('.created')
       redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
-      render :new
+      render :new, status: 400
     end
   end
 
   def save_place_update
     # TODO: separate place and translation update portions
-    if @place.update_attributes(modified_params)
+    if @place.update(modified_params)
       flash[:success] = t('.changes_saved')
       adjust_place_attributes
       adjust_translation_attributes if globalized_params.any?

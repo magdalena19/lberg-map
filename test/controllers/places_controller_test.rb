@@ -38,7 +38,7 @@ class PlacesControllerTest < ActionController::TestCase
                            house_number: '15',
                            postal_code: '10365',
                            city: 'Berlin',
-                           description_en: 'This is a valid place',
+                           description: 'This is a valid place',
                            categories: [] }
     Place.find_by(name: 'Kiezspinne')
   end
@@ -139,7 +139,6 @@ class PlacesControllerTest < ActionController::TestCase
     Place.find_by(name: 'Kiezspinne').translations.each do |translation|
       assert_not translation.reviewed
       assert_equal translation.versions.length, 1
-      debugger
       if translation.description.present?
         assert_not translation.auto_translated
       else

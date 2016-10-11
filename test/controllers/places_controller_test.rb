@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../test_helper'
 
 class PlacesControllerTest < ActionController::TestCase
   def setup
@@ -87,18 +87,13 @@ class PlacesControllerTest < ActionController::TestCase
   test 'Cannot update place if attributes invalid' do
     put :update, id: @reviewed_place.id, place: { name: '',
                                                   street: 'some other street' }
-    @reviewed_place.reload
-
-    assert_not_equal @reviewed_place.street, 'some other street'
+    assert_response 400
   end
 
   test 'Cannot update place if is not reviewed' do
     put :update, id: @unreviewed_place.id, place: { name: 'Some other name',
                                                     street: 'Some other street' }
     assert_response :redirect
-    # @unreviewed_place.reload
-    #
-    # assert_not @unreviewed_place.name == 'Some other name'
   end
 
   test 'Translations of reviewed place are also reviewed' do
@@ -143,7 +138,8 @@ class PlacesControllerTest < ActionController::TestCase
 
     Place.find_by(name: 'Kiezspinne').translations.each do |translation|
       assert_not translation.reviewed
-      assert translation.versions.length == 1
+      assert_equal translation.versions.length, 1
+      debugger
       if translation.description.present?
         assert_not translation.auto_translated
       else
@@ -151,7 +147,6 @@ class PlacesControllerTest < ActionController::TestCase
       end
     end
   end
-
 
   test 'Guest can update reviewed place' do
     sign_out
@@ -162,7 +157,7 @@ class PlacesControllerTest < ActionController::TestCase
     assert_equal @reviewed_place.name, 'Some other name'
   end
 
-  test 'Place updated by guest is not reviewed' do
+  test 'Place updated by guest is reviewed' do
     sign_out
     put :update, id: @reviewed_place.id, place: { name: 'Some other name',
                                                   street: 'Some other street' }
@@ -187,7 +182,6 @@ class PlacesControllerTest < ActionController::TestCase
     end
     assert_response :redirect
   end
-
 
   test 'Guest cannot update unreviewed translation' do
     # Create unreviewed description
@@ -258,7 +252,7 @@ class PlacesControllerTest < ActionController::TestCase
 
     Place.find_by(name: 'Kiezspinne').translations.each do |translation|
       assert translation.reviewed
-      assert translation.versions.length == 1
+      assert_equal translation.versions.length, 1
       if translation.description.present?
         assert_not translation.auto_translated
       else
@@ -273,7 +267,6 @@ class PlacesControllerTest < ActionController::TestCase
       delete :destroy, id: @reviewed_place.id
     end
   end
-
 
   test 'User can update reviewed place' do
     sign_in
@@ -301,7 +294,6 @@ class PlacesControllerTest < ActionController::TestCase
 
     assert_equal @reviewed_place.versions.length, 1
   end
-
 
   test 'User cannot update unreviewed translation' do
     # Create unreviewed description
@@ -331,7 +323,7 @@ class PlacesControllerTest < ActionController::TestCase
   end
 
   test 'Translation updated by user has no history' do
-    sign_out
+    sign_in
     updated_place = update_reviewed_description
     en_translation = updated_place.translations.select { |t| t.locale == :en }.first
 

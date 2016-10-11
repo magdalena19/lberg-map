@@ -33,6 +33,7 @@ class Place < ActiveRecord::Base
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
   after_create :auto_translate if Rails.env != 'test'
+  # after_create :auto_translate
   after_create :set_translation_attributes
 
   def set_translation_attributes

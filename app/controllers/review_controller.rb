@@ -42,14 +42,14 @@ class ReviewController < ApplicationController
   def confirm_translation
     translation = translation(params[:id])
     place = Place.find(translation.place_id)
-    flash[:success] = t('.translation_confirmed') if place.destroy_all_updates(translation.id)
+    flash[:success] = t('.translation_confirmed') if place.destroy_all_updates(translation)
     redirect_to action: 'review_index'
   end
 
   def refuse_translation
     translation = translation(params[:id])
     place = Place.find(translation.place_id)
-    if translation.versions.last.reify.save && place.destroy_all_updates(translation.id)
+    if translation.versions.last.reify.save && place.destroy_all_updates(translation)
       flash[:success] = t('.translation_refused')
     end
     redirect_to action: 'review_index'

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ReviewControllerTest < ActionController::TestCase
   def setup
-    @new_place = Place.new(
+    @new_place = Place.create(
                     name: 'Kiezspinne',
                     street: 'Schulze-Boysen-Straße',
                     house_number: '13',
@@ -13,8 +13,8 @@ class ReviewControllerTest < ActionController::TestCase
                     longitude: 52,
                     reviewed: false
                   )
-    @new_place.save
-    @place_with_unreviewed_changes = Place.new(
+
+    @place_with_unreviewed_changes = Place.create(
                                         name: 'Magda19',
                                         street: 'Magdalenenstraße',
                                         house_number: '19',
@@ -25,11 +25,19 @@ class ReviewControllerTest < ActionController::TestCase
                                         longitude: 52,
                                         reviewed: true
                                       )
-    @place_with_unreviewed_changes.save
-    @place_with_unreviewed_changes.update(name: 'Magda')
-    @place_with_unreviewed_changes.update(description: 'This is an updated description.')
+
+    @place_with_unreviewed_changes.update_attributes(name: 'Magda', description: 'This is an updated description.')
+
     @user = users :Norbert
     session[:user_id] = @user.id
+  end
+
+  def sign_in
+    session[:user_id] = @user.id
+  end
+
+  def sign_out
+    session[:user_id] = nil
   end
 
   test 'review access for logged in users' do
@@ -38,7 +46,7 @@ class ReviewControllerTest < ActionController::TestCase
   end
 
   test 'no review access for not logged in users' do
-    session[:user_id] = nil
+    sign_out
     get :review_index
     assert_response :redirect
   end
@@ -73,8 +81,8 @@ class ReviewControllerTest < ActionController::TestCase
 
   test 'unreviewed translations can be confirmed' do
     translations = @place_with_unreviewed_changes.translations
-    id = translations.find_by(description: 'This is an updated description.').id
-    get :confirm_translation, id: id
+    updated_description = translations.find_by(description: 'This is an updated description.')
+    get :confirm_translation, id: updated_description.id
     get :review_index
     assert_equal 0, assigns(:unreviewed_translations).length
     assert translations.find_by(description: 'This is an updated description.')

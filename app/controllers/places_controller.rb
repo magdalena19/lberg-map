@@ -21,6 +21,7 @@ class PlacesController < ApplicationController
     @place = Place.new(modified_params)
     @place.latitude ||= params[:place][:latitude]
     @place.longitude ||= params[:place][:longitude]
+
     if simple_captcha_valid? || signed_in?
       save_new
     else
@@ -91,7 +92,7 @@ class PlacesController < ApplicationController
 
   def update_place_reviewed_flag
     @place.without_versioning do
-      @place.update(reviewed: signed_in? ? true : false)
+      @place.update!(reviewed: signed_in? ? true : false)
     end
   end
 
@@ -128,6 +129,7 @@ class PlacesController < ApplicationController
   end
 
   def save_place_update
+    # debugger
     if @place.update(modified_params)
       flash[:success] = t('.changes_saved')
       update_place_reviewed_flag

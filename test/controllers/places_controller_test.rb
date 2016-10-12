@@ -13,6 +13,7 @@ class PlacesControllerTest < ActionController::TestCase
                                    homepage: 'http://schnapp.com',
                                    phone: '03081618254',
                                    id: 1000,
+                                   description: 'This is a reviewed_place',
                                    reviewed: true)
 
     @unreviewed_place = Place.create(name: 'foo',
@@ -26,6 +27,7 @@ class PlacesControllerTest < ActionController::TestCase
                                      homepage: 'http://schnapp.com',
                                      phone: '03081618254',
                                      id: 1001,
+                                     description: 'This is an unreviewed_place',
                                      reviewed: false)
 
     @user = users :Norbert

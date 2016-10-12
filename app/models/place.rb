@@ -64,8 +64,8 @@ class Place < ActiveRecord::Base
     self if versions.length > 1 || new?
   end
 
-  def destroy_all_updates(translation_id = nil)
-    obj = translation_id ? translations.find(translation_id) : self
+  def destroy_all_updates(translation = nil)
+    obj = translation ? translation : self
     updates = obj.reload.versions.find_all { |v| v.event == 'update' }
     updates.each(&:destroy)
   end

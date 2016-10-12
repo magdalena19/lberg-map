@@ -89,14 +89,13 @@ class PlacesController < ApplicationController
     globalized_params.map { |param| param.split('_').last }.flatten.select(&:present?)
   end
 
-  def adjust_place_attributes
+  def update_place_reviewed_flag
     @place.without_versioning do
       @place.update(reviewed: signed_in? ? true : false)
     end
-    @place.destroy_all_updates if signed_in?
   end
 
-  def adjust_translation_attributes
+  def update_translations_reviewed_flag
     locales_from_place_params.each do |locale|
       translation = @place.translations.find_by_locale(locale)
       @place.destroy_all_updates(translation) if signed_in?
@@ -106,14 +105,20 @@ class PlacesController < ApplicationController
     end
   end
 
-  def save_new
-    # Take lat/lon values from hash passed by create form
-    @place.reviewed = true if signed_in?
+  def initialize_reviewed_flags
+    update_place_reviewed_flag
+    @place.destroy_all_updates
+    @place.translations.each do |translation|
+      translation.without_versioning do
+        translation.update!(reviewed: signed_in? ? true : false)
+      end
+    end
+  end
 
+  def save_new
     if @place.save
       save_in_cookie
-      adjust_place_attributes
-      adjust_translation_attributes
+      initialize_reviewed_flags
       flash[:success] = t('.created')
       redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
     else
@@ -123,11 +128,11 @@ class PlacesController < ApplicationController
   end
 
   def save_place_update
-    # TODO: separate place and translation update portions
     if @place.update(modified_params)
       flash[:success] = t('.changes_saved')
-      adjust_place_attributes
-      adjust_translation_attributes if globalized_params.any?
+      update_place_reviewed_flag
+      @place.destroy_all_updates if signed_in?
+      update_translations_reviewed_flag if globalized_params.any?
       redirect_to places_url
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence

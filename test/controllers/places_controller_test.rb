@@ -38,7 +38,7 @@ class PlacesControllerTest < ActionController::TestCase
                            house_number: '15',
                            postal_code: '10365',
                            city: 'Berlin',
-                           description: 'This is a valid place',
+                           description_en: 'This is a valid place',
                            categories: [] }
     Place.find_by(name: 'Kiezspinne')
   end
@@ -84,6 +84,16 @@ class PlacesControllerTest < ActionController::TestCase
     end
   end
 
+  test 'Translations of reviewed place are also reviewed on create' do
+    sign_in
+    valid_new_place = post_valid_place
+
+    valid_new_place.translations.each do |translation|
+      assert translation.reviewed
+    end
+    # debugger
+  end
+
   test 'Cannot update place if attributes invalid' do
     put :update, id: @reviewed_place.id, place: { name: '',
                                                   street: 'some other street' }
@@ -94,15 +104,6 @@ class PlacesControllerTest < ActionController::TestCase
     put :update, id: @unreviewed_place.id, place: { name: 'Some other name',
                                                     street: 'Some other street' }
     assert_response :redirect
-  end
-
-  test 'Translations of reviewed place are also reviewed' do
-    sign_in
-    valid_new_place = post_valid_place
-
-    valid_new_place.translations.each do |translation|
-      assert translation.reviewed
-    end
   end
 
 
@@ -129,20 +130,37 @@ class PlacesControllerTest < ActionController::TestCase
     sign_out
     valid_new_place = post_valid_place
 
-    assert_equal valid_new_place.versions.length, 1
+    assert_equal 1, valid_new_place.versions.length
   end
 
-  test 'Translations of place created by guest have valid attributes' do
+  test 'Translations of place created by guest are not reviewed' do
     sign_out
-    post_valid_place
+    valid_new_place = post_valid_place
 
-    Place.find_by(name: 'Kiezspinne').translations.each do |translation|
+    valid_new_place.translations.each do |translation|
       assert_not translation.reviewed
-      assert_equal translation.versions.length, 1
-      if translation.description.present?
-        assert_not translation.auto_translated
-      else
+    end
+  end
+
+  test 'Translations of place created by guest have no version history' do
+    sign_out
+    valid_new_place = post_valid_place
+
+    valid_new_place.translations.each do |translation|
+      assert_equal 1, translation.versions.length
+    end
+  end
+
+  test 'Translations of place created by guest have correct auto-translation flags' do
+    sign_out
+    valid_new_place = post_valid_place # posted description == en
+    auto_translations = valid_new_place.translations.reject { |t| t.locale == :en }
+
+    valid_new_place.translations.each do |translation|
+      if auto_translations.include? translation
         assert translation.auto_translated
+      else
+        assert_not translation.auto_translated
       end
     end
   end
@@ -153,7 +171,7 @@ class PlacesControllerTest < ActionController::TestCase
                                                   street: 'Some other street' }
     @reviewed_place.reload
 
-    assert_equal @reviewed_place.name, 'Some other name'
+    assert_equal 'Some other name', @reviewed_place.name
   end
 
   test 'Place updated by guest is reviewed' do
@@ -171,7 +189,7 @@ class PlacesControllerTest < ActionController::TestCase
                                                   street: 'Some other street' }
     @reviewed_place.reload
 
-    assert_equal @reviewed_place.versions.length, 2
+    assert_equal 2, @reviewed_place.versions.length
   end
 
   test 'Guest cannot delete places' do
@@ -197,7 +215,7 @@ class PlacesControllerTest < ActionController::TestCase
     updated_place = update_reviewed_description
     en_translation = updated_place.translations.select { |t| t.locale == :en }.first
 
-    assert_equal en_translation.description, 'This description has been changed!'
+    assert_equal 'This description has been changed!', en_translation.description
   end
 
   test 'Translation updated by guest is not reviewed' do
@@ -213,7 +231,7 @@ class PlacesControllerTest < ActionController::TestCase
     updated_place = update_reviewed_description
     en_translation = updated_place.translations.select { |t| t.locale == :en }.first
 
-    assert_equal en_translation.versions.length, 2
+    assert_equal 2, en_translation.versions.length
   end
 
 
@@ -234,7 +252,7 @@ class PlacesControllerTest < ActionController::TestCase
     valid_new_place = post_valid_place
 
     assert valid_new_place.reviewed
-    assert_equal valid_new_place.versions.length, 1
+    assert_equal 1, valid_new_place.versions.length
   end
 
   test 'Place created by user has no version history' do
@@ -242,20 +260,37 @@ class PlacesControllerTest < ActionController::TestCase
     valid_new_place = post_valid_place
 
     assert valid_new_place.reviewed
-    assert_equal valid_new_place.versions.length, 1
+    assert_equal 1, valid_new_place.versions.length
   end
 
-  test 'Translations of place created by users have valid attributes' do
+  test 'Translations of place created by users are reviewed' do
     sign_in
-    post_valid_place
+    valid_new_place = post_valid_place
 
-    Place.find_by(name: 'Kiezspinne').translations.each do |translation|
+    valid_new_place.translations.each do |translation|
       assert translation.reviewed
-      assert_equal translation.versions.length, 1
-      if translation.description.present?
-        assert_not translation.auto_translated
-      else
+    end
+  end
+
+  test 'Translations of place created by users have no version history' do
+    sign_in
+    valid_new_place = post_valid_place
+
+    valid_new_place.translations.each do |translation|
+      assert_equal 1, translation.versions.length
+    end
+  end
+
+  test 'Translations of place created by users have correct auto-translation flags' do
+    sign_in
+    valid_new_place = post_valid_place # posted description == en
+    auto_translations = valid_new_place.translations.reject { |t| t.locale == :en }
+
+    valid_new_place.translations.each do |translation|
+      if auto_translations.include? translation
         assert translation.auto_translated
+      else
+        assert_not translation.auto_translated
       end
     end
   end
@@ -273,7 +308,7 @@ class PlacesControllerTest < ActionController::TestCase
                                                   street: 'Some other street' }
     @reviewed_place.reload
 
-    assert_equal @reviewed_place.name, 'Some other name'
+    assert_equal 'Some other name', @reviewed_place.name
   end
 
   test 'Place updated by user is reviewed' do
@@ -291,7 +326,7 @@ class PlacesControllerTest < ActionController::TestCase
                                                   street: 'Some other street' }
     @reviewed_place.reload
 
-    assert_equal @reviewed_place.versions.length, 1
+    assert_equal 1, @reviewed_place.versions.length
   end
 
   test 'User cannot update unreviewed translation' do
@@ -310,7 +345,7 @@ class PlacesControllerTest < ActionController::TestCase
     updated_place = update_reviewed_description
     en_translation = updated_place.translations.select { |t| t.locale == :en }.first
 
-    assert_equal en_translation.description, 'This description has been changed!'
+    assert_equal 'This description has been changed!', en_translation.description
   end
 
   test 'Translation updated by user is reviewed' do
@@ -326,6 +361,6 @@ class PlacesControllerTest < ActionController::TestCase
     updated_place = update_reviewed_description
     en_translation = updated_place.translations.select { |t| t.locale == :en }.first
 
-    assert_equal en_translation.versions.length, 1
+    assert_equal 1, en_translation.versions.length
   end
 end

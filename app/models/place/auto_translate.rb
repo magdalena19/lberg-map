@@ -49,7 +49,7 @@ module PlaceAutoTranslation
   end
 
   def locales_of_empty_descriptions
-    autotranslated_or_empty_descriptions.map(&:locale)
+    autotranslated_or_empty_descriptions.map(&:locale.to_sym)
   end
 
   def translations_with_descriptions
@@ -69,12 +69,11 @@ module PlaceAutoTranslation
         @native_translation.locale.to_s,
         missing_locale.to_s
       )
-      translation = translations.find_by(locale: missing_locale)
+      translation = translation_for(missing_locale)
       translation.without_versioning do
-        # TODO: Problem here... does update on translation but not on self.translation...!!!
-        translation.update_attributes!(description: auto_translation,
-                                      auto_translated: true,
-                                      reviewed: reviewed ? true : false)
+        translation.update_attributes(description: auto_translation,
+                                      auto_translated: true)
+        save!
       end
     end
   end

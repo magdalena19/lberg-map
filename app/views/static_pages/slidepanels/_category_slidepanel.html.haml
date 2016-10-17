@@ -2,10 +2,10 @@
   .hide-slidepanel.glyphicon.glyphicon-remove.pull-right
   %h4.slidepanel-title= t('.filter_by_category')
   .content
-    .col-lg-6
-      = button_tag("#{t('.no_filter')} (#{@places_total})", type: 'button', class: 'category-button btn show-all-points', id: 'all')
-      %br
     - category_counts = Category.points_in_categories
+    .col-lg-6
+      = button_tag("#{t('.no_filter')} (#{category_counts['All points']})", type: 'button', class: 'category-button btn show-all-points', id: 'all')
+      %br
     - @categories.each do |category|
       .col-lg-6
         = button_tag("#{category.name} (#{category_counts[category.name]})", type: 'button', class: 'category-button btn btn-dark', id: category.id)

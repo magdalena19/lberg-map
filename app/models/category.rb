@@ -3,7 +3,7 @@ class Category < ActiveRecord::Base
   globalize_accessors
 
   def self.points_in_categories
-    points_in_category = { 'All points' => Place.count }
+    points_in_category = { 'All points' => Place.select(&:reviewed).count }
 
     categories_in_points = Place.select(&:reviewed).map do |place|
       place.categories.split(',').map(&:to_i)

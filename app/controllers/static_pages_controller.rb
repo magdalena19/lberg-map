@@ -30,7 +30,7 @@ class StaticPagesController < ApplicationController
 
   def places_from_session(category_id)
     ids = cookies[:created_places_in_session]
-    array = ids ? ids.split(',') : []
+    array = ids ? ids.split(',').flatten : []
     if category_id
       Place.where(id: array).compact.find_all { |p| p.has_category?(category_id) }
     else

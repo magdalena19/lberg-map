@@ -62,7 +62,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     session[:user_id] = @admin.id
 
     put :update, id: @announcement.id, announcement: { header: 'Changed!',
-      content: 'Changed!' }
+                                                       content: 'Changed!' }
       assert_equal 'Changed!', @announcement.reload.header
 
     assert_difference 'Announcement.count', -1 do

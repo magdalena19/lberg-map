@@ -32,8 +32,10 @@ class Place < ActiveRecord::Base
   before_validation :sanitize_descriptions, on: [:create, :update]
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
-  after_create :auto_translate if Rails.env != 'test'
+  # after_create :auto_translate if Rails.env != 'test'
+  after_create :auto_translate
 
+  ## VIRTUAL ATTRIBUTES
   def address
     ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')
   end
@@ -42,7 +44,7 @@ class Place < ActiveRecord::Base
     if homepage
       homepage =~ /(http)/ ? homepage : 'http://' + homepage
     else
-      ""
+      ''
     end
   end
 
@@ -60,6 +62,12 @@ class Place < ActiveRecord::Base
 
   def unreviewed_version
     self if versions.length > 1 || new?
+  end
+
+  def destroy_all_updates(translation = nil)
+    obj = translation ? translation : self
+    updates = obj.reload.versions.find_all { |v| v.event == 'update' }
+    updates.each(&:destroy)
   end
 
   ## CATEGORIES

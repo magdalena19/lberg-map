@@ -14,8 +14,8 @@ class ReviewController < ApplicationController
   end
 
   def confirm_place
-    p = Place.find(params[:id])
-    if p.update(reviewed: true) && destroy_all_updates(p)
+    place = Place.find(params[:id])
+    if place.update(reviewed: true) && place.destroy_all_updates
       flash[:success] = t('.changes_confirmed')
     end
     redirect_to action: 'review_index'
@@ -25,7 +25,7 @@ class ReviewController < ApplicationController
     place = Place.find(params[:id])
     if place.new? && place.destroy
       flash[:success] = t('.point_refused')
-    elsif place.versions.last.reify.save && destroy_all_updates(place)
+    elsif place.versions.last.reify.save && place.destroy_all_updates
       flash[:success] = t('.changes_refused')
     end
     redirect_to action: 'review_index'
@@ -40,14 +40,16 @@ class ReviewController < ApplicationController
   end
 
   def confirm_translation
-    t = translation(params[:id])
-    flash[:success] = t('.translation_confirmed') if destroy_all_updates(t)
+    translation = translation(params[:id])
+    place = Place.find(translation.place_id)
+    flash[:success] = t('.translation_confirmed') if place.destroy_all_updates(translation)
     redirect_to action: 'review_index'
   end
 
   def refuse_translation
-    t = translation(params[:id])
-    if t.versions.last.reify.save && destroy_all_updates(t)
+    translation = translation(params[:id])
+    place = Place.find(translation.place_id)
+    if translation.versions.last.reify.save && place.destroy_all_updates(translation)
       flash[:success] = t('.translation_refused')
     end
     redirect_to action: 'review_index'
@@ -65,11 +67,6 @@ class ReviewController < ApplicationController
 
   def reviewed_version(t)
     t.versions.length > 1 ? t.versions[1].reify : t
-  end
-
-  def destroy_all_updates(obj)
-    updates = obj.reload.versions.find_all { |v| v.event == 'update' }
-    updates.each(&:destroy)
   end
 
   def all_unreviewed_translations

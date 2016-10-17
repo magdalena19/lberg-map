@@ -1,26 +1,9 @@
-require 'test_helper'
+require_relative '../test_helper'
 
 feature 'Category selection' do
   before do
-    @category = Category.new(name_en: 'Playground')
-    @category.save
-    Category.new(name_en: 'Hospital').save
-    @place = Place.new(
-      name: 'Magda',
-      street: 'Magdalenenstraße',
-      house_number: '19',
-      postal_code: '10365',
-      city: 'Berlin',
-      categories: @category.id,
-      homepage: 'https://heise.de',
-      email: 'foo@bar.org',
-      phone: '030 2304958',
-      description_en: '<center><b>This is the description.</b></center>',
-      latitude: 52.5,
-      longitude: 13.5,
-      reviewed: true
-    )
-    @place.save
+    create :place, :reviewed
+    create :place, :unreviewed
   end
 
   scenario 'Place is shown when \'All points\' was clicked', js: true do
@@ -41,8 +24,7 @@ feature 'Category selection' do
 
   scenario 'Place is not shown when other category was clicked', js: true do
     show_category_panel
-    # screenshot_and_open_image
-    page.find('.category-button', text: 'Hospital').trigger('click')
+    page.find('.category-button', text: 'Lawyer').trigger('click')
     sleep(1)
     assert_equal 0, page.all('.leaflet-marker-icon').count
   end

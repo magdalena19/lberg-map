@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../../test_helper'
 
 feature 'Create place' do
   scenario 'create valid place as user', :js do

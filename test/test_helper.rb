@@ -28,6 +28,7 @@ class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+  config.include Rails.application.routes.url_helpers
 end
 
 Geocoder.configure(lookup: :test)

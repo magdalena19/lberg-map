@@ -2,35 +2,12 @@ require_relative '../test_helper'
 
 class PlacesControllerTest < ActionController::TestCase
   def setup
-    @reviewed_place = Place.create(name: 'bar',
-                                   street: 'bar-street',
-                                   house_number: '19',
-                                   postal_code: '10365',
-                                   city: 'Berlin',
-                                   latitude: 52.5,
-                                   longitude: 13.5,
-                                   email: 'schnipp@schnapp.com',
-                                   homepage: 'http://schnapp.com',
-                                   phone: '03081618254',
-                                   id: 1000,
-                                   description: 'This is a reviewed_place',
-                                   reviewed: true)
-
-    @unreviewed_place = Place.create(name: 'foo',
-                                     street: 'foo-street',
-                                     house_number: '19',
-                                     postal_code: '19999',
-                                     city: 'Berlin',
-                                     latitude: 52.5,
-                                     longitude: 13.5,
-                                     email: 'schnipp@schnapp.com',
-                                     homepage: 'http://schnapp.com',
-                                     phone: '03081618254',
-                                     id: 1001,
-                                     description: 'This is an unreviewed_place',
-                                     reviewed: false)
-
     @user = users :Norbert
+
+    create(:place, :unreviewed)
+    @unreviewed_place = Place.find_by_name('SomeUnreviewedPlace')
+    create(:place, :reviewed)
+    @reviewed_place = Place.find_by_name('SomeReviewedPlace')
   end
 
   ### Helper function

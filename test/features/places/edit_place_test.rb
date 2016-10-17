@@ -1,12 +1,13 @@
-require 'test_helper'
+require_relative '../../test_helper'
 
 feature 'Edit place' do
+  before do
+    @place = create(:place, :reviewed)
+  end
+
   scenario 'Do valid place update as user and show in index afterwards', :js do
     login
-    visit '/places'
-    # screenshot_and_open_image
-    debugger
-    visit '/places/1/edit'
+    visit edit_place_path id: @place.id
 
     fill_in('place_name', with: 'Any place')
     fill_in('place_street', with: 'Schulze-Boysen-Str.')
@@ -17,6 +18,7 @@ feature 'Edit place' do
     fill_in('place_homepage', with: 'http://schnapp.com')
     fill_in('place_phone', with: '03081763253')
     click_on('Update Place')
+    sleep(1)
     visit '/places'
 
     page.must_have_content('Any place')
@@ -24,10 +26,11 @@ feature 'Edit place' do
   end
 
   scenario 'Do valid place update as guest and show in index afterwards as to be reviewed', :js do
-    visit '/places/1/edit'
+    visit edit_place_path id: @place.id
     fill_in('place_name', with: 'Some changes')
     validate_captcha
     click_on('Update Place')
+    sleep(1)
     visit '/places'
 
     page.must_have_content('Some changes')
@@ -35,16 +38,16 @@ feature 'Edit place' do
   end
 
   scenario 'Do valid place update as guest and do not show changes within other users session', :js do
-    visit '/places/1/edit'
-    fill_in('place_name', with: 'Some changes')
+    visit edit_place_path id: @place.id
+    fill_in('place_name', with: 'SomeOtherName')
     validate_captcha
     click_on('Update Place')
+    sleep(1)
 
     Capybara.reset_sessions!
     visit '/places'
-    # screenshot_and_open_image
-    page.wont_have_content('Some changes')
-    page.must_have_content('Hausprojekt Magdalenenstraße')
+    page.wont_have_content('SomeOtherName')
+    page.must_have_content('SomeReviewedPlace')
     page.wont_have_css('.glyphicon-eye-open')
   end
 end

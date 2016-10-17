@@ -72,12 +72,12 @@ module PlaceAutoTranslation
           @native_translation.locale.to_s,
           missing_locale.to_s
         )
-end
+      end
       translation = translations.find_by(locale: missing_locale)
       translation.without_versioning do
         translation.update_attributes(description: auto_translation,
                                       auto_translated: true,
-                                      reviewed: false)
+                                      reviewed: reviewed ? true : false)
       end
     end
   end

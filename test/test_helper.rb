@@ -25,6 +25,7 @@ Minitest::Reporters.use!(
   Minitest.backtrace_filter)
 
 class ActiveSupport::TestCase
+  include FactoryGirl::Syntax::Methods
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 end

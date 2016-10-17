@@ -10,7 +10,6 @@ foo:
   homepage: http://schnapp.com
   phone: 03081618254
   reviewed: true
-  description_en: This is a lovely housing project
   id: 1
 
 bar:
@@ -25,5 +24,4 @@ bar:
   homepage: http://schnapp.com
   phone:
   reviewed: true
-  description_en: This is another lovely housing project
   id: 2

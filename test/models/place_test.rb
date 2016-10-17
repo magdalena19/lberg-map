@@ -58,6 +58,27 @@ class PlaceTest < ActiveSupport::TestCase
     skip('To be defined: Duplicate entries not valid')
   end
 
+  test "Place with lat/lon does not need to be geocoded" do
+    @place = Place.new(
+      name: 'Magda',
+      street: 'Magdalenenstraße',
+      house_number: '19',
+      postal_code: '10365',
+      city: 'Berlin',
+      homepage: 'https://heise.de',
+      email: 'foo@bar.org',
+      phone: '030 2304958',
+      description_en: '<center><b>This is the description.</b></center>',
+      latitude: 60.0,
+      longitude: 10.0,
+      reviewed: true
+    )
+    @place.save
+    assert_equal 60.0, @place.latitude
+    assert_equal 10.0, @place.longitude
+
+  end
+
   # Review
 
   test 'Version is 1 for new points' do

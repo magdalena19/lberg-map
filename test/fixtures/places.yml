@@ -1,4 +1,4 @@
-Magda19:
+foo:
   name: Hausprojekt Magdalenenstraße 19
   street: Magdalenenstraße
   house_number: 19
@@ -9,4 +9,21 @@ Magda19:
   email: schnipp@schnapp.com
   homepage: http://schnapp.com
   phone: 03081618254
+  reviewed: true
+  description_en: This is a lovely housing project
   id: 1
+
+bar:
+  name: Hausprojekt Hofstraße
+  street: Hofstraße
+  house_number: 59
+  postal_code: 11556
+  city: Berlin
+  latitude: 52.8
+  longitude: 13.1
+  email: schnipp@schnapp.com
+  homepage: http://schnapp.com
+  phone:
+  reviewed: true
+  description_en: This is another lovely housing project
+  id: 2

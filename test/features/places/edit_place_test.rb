@@ -3,6 +3,9 @@ require 'test_helper'
 feature 'Edit place' do
   scenario 'Do valid place update as user and show in index afterwards', :js do
     login
+    visit '/places'
+    # screenshot_and_open_image
+    debugger
     visit '/places/1/edit'
 
     fill_in('place_name', with: 'Any place')
@@ -15,19 +18,33 @@ feature 'Edit place' do
     fill_in('place_phone', with: '03081763253')
     click_on('Update Place')
     visit '/places'
+
     page.must_have_content('Any place')
     page.must_have_content('10963 Berlin')
   end
 
-  scenario 'Do valid place update as guest and mark point to be reviewed in index within session', :js do
-    skip('Implement storing updates in session cookies')
+  scenario 'Do valid place update as guest and show in index afterwards as to be reviewed', :js do
     visit '/places/1/edit'
     fill_in('place_name', with: 'Some changes')
     validate_captcha
     click_on('Update Place')
     visit '/places'
+
+    page.must_have_content('Some changes')
+    page.must_have_css('.glyphicon-eye-open')
+  end
+
+  scenario 'Do valid place update as guest and do not show changes within other users session', :js do
+    visit '/places/1/edit'
+    fill_in('place_name', with: 'Some changes')
+    validate_captcha
+    click_on('Update Place')
+
+    Capybara.reset_sessions!
+    visit '/places'
+    # screenshot_and_open_image
     page.wont_have_content('Some changes')
     page.must_have_content('Hausprojekt Magdalenenstraße')
-    page.must_have_content('Waiting for review')
+    page.wont_have_css('.glyphicon-eye-open')
   end
 end

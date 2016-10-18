@@ -23,7 +23,7 @@ gem 'differ'
 gem 'lorem_ipsum_amet'
 gem 'rack-attack'
 gem 'translate-rails3', require: 'translate', group: :development
-gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+gem 'jquery-datatables-rails', '~> 3.4.0'
 gem 'jquery-ui-rails'
 
 # Use SCSS for stylesheets

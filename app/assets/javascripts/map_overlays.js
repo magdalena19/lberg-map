@@ -62,6 +62,7 @@ jQuery(function() {
       panel.addClass('slidx-open');
       jQuery('.control-container').hide();
       jQuery('.navbar-dropdown').hide();
+      jQuery('.navbar-button').hide();
       sideBar.css('z-index', '-1');
       showSidebarContainer.css('z-index', '-1');
       slidePanelVisible = true;
@@ -71,6 +72,7 @@ jQuery(function() {
       panel.removeClass('slidx-open');
       jQuery('.control-container').show();
       jQuery('.navbar-dropdown').show();
+      jQuery('.navbar-button').show();
       slidePanelVisible = false;
     });
 

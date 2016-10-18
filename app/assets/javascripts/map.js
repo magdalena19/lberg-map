@@ -2,6 +2,9 @@
 
 jQuery(function() {
   jQuery('#map').each(function() {
+    // move flash message in foreground when map is displayed
+    jQuery('#flash-messages').css('position', 'absolute').css('z-index', '999999');
+
     map = L.map('map', {
       zoomControl: false,
       minZoom: 5,
@@ -195,6 +198,4 @@ jQuery(function() {
       };
     }, 1);
   });
-
-  jQuery('.locale-slidepanel').trigger('open');
 });

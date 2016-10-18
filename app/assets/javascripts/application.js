@@ -12,8 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
 //= require dataTables/jquery.dataTables
+//= require dataTables/extras/dataTables.responsive
+//= require jquery-ui
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require leaflet
@@ -36,10 +37,11 @@ jQuery(function() {
   jQuery(window).resize(function(){
     var navbarHeight = jQuery('.navbar').height();
     jQuery('.map-container').height(jQuery(window).height()).css('margin-top', - (navbarHeight + 15));
-    jQuery('.zoom-container').css('top', navbarHeight + 3);
     jQuery('.confirmation-button-container').css('top', navbarHeight + 3);
     jQuery('.main-container').css('margin-top', navbarHeight + 15);
     balanceSidebar();
     resizePanels();
   }).resize();
+
+  jQuery('.locale-slidepanel').trigger('open');
 });

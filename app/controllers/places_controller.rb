@@ -60,6 +60,14 @@ class PlacesController < ApplicationController
 
   private
 
+  def save_in_cookie
+    if !cookies[:created_places_in_session]
+      cookies[:created_places_in_session] = @place.id
+    else
+      cookies[:created_places_in_session] << @place.id
+    end
+  end
+
   def places_from_session(category_id = nil)
     ids = cookies[:created_places_in_session] || []
     if category_id
@@ -67,6 +75,29 @@ class PlacesController < ApplicationController
     else
       Place.where(id: ids)
     end
+  end
+
+  def modified_params
+    modified_params ||= place_params
+    if place_params[:categories]
+      category_param = place_params[:categories] || []
+      modified_params[:categories] = category_param.reject(&:empty?).join(',')
+    end
+    if @place && @place.lat_lon_present?
+      modified_params[:latitude] = @place.latitude
+      modified_params[:longitude] = @place.longitude
+    end
+    modified_params
+  end
+
+  def place_params
+    params.require(:place).permit(
+      :name, :street, :house_number, :postal_code, :city,
+      :reviewed,
+      :description, *Place.globalize_attribute_names,
+      :phone, :homepage, :email,
+      categories: []
+    )
   end
 
   def globalized_params
@@ -105,6 +136,10 @@ class PlacesController < ApplicationController
     end
   end
 
+  def reviewed?
+    Place.find(params[:id]).reviewed
+  end
+
   def save_update
     if @place.update(modified_params)
       save_in_cookie
@@ -131,45 +166,10 @@ class PlacesController < ApplicationController
     end
   end
 
-  def save_in_cookie
-    if !cookies[:created_places_in_session]
-      cookies[:created_places_in_session] = @place.id
-    else
-      cookies[:created_places_in_session] << @place.id
-    end
-  end
-
-  def modified_params
-    modified_params ||= place_params
-    if place_params[:categories]
-      category_param = place_params[:categories] || []
-      modified_params[:categories] = category_param.reject(&:empty?).join(',')
-    end
-    if @place && @place.lat_lon_present?
-      modified_params[:latitude] = @place.latitude
-      modified_params[:longitude] = @place.longitude
-    end
-    modified_params
-  end
-
-  def reviewed?
-    Place.find(params[:id]).reviewed
-  end
-
   def require_login
     unless session[:user_id]
       flash[:danger] = t('errors.messages.access_restricted')
       redirect_to login_url
     end
-  end
-
-  def place_params
-    params.require(:place).permit(
-      :name, :street, :house_number, :postal_code, :city,
-      :reviewed,
-      :description, *Place.globalize_attribute_names,
-      :phone, :homepage, :email,
-      categories: []
-    )
   end
 end

@@ -61,12 +61,11 @@ class PlacesController < ApplicationController
   private
 
   def places_from_session(category_id = nil)
-    ids = cookies[:created_places_in_session]
-    array = ids ? ids.split(',') : []
+    ids = cookies[:created_places_in_session] || []
     if category_id
-      Place.where(id: array).compact.find_all { |p| p.has_category?(category_id) }
+      Place.where(id: ids).compact.find_all { |p| p.has_category?(category_id) }
     else
-      Place.where(id: array)
+      Place.where(id: ids)
     end
   end
 
@@ -134,9 +133,9 @@ class PlacesController < ApplicationController
 
   def save_in_cookie
     if !cookies[:created_places_in_session]
-      cookies[:created_places_in_session] = @place.id.to_s
+      cookies[:created_places_in_session] = @place.id
     else
-      cookies[:created_places_in_session] = cookies[:created_places_in_session] + ',' + @place.id.to_s
+      cookies[:created_places_in_session] << @place.id
     end
   end
 
@@ -150,7 +149,8 @@ class PlacesController < ApplicationController
       modified_params[:latitude] = @place.latitude
       modified_params[:longitude] = @place.longitude
     end
-    modified_params  end
+    modified_params
+  end
 
   def reviewed?
     Place.find(params[:id]).reviewed

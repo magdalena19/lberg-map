@@ -66,6 +66,19 @@ class Place < ActiveRecord::Base
     self if versions.length > 1 || new?
   end
 
+  def reviewed_description
+    translation = translation_from_current_locale
+    if translation.versions.count > 1
+      translation.versions[1].reify.description
+    else
+      translation.reviewed ? translation.description : ''
+    end
+  end
+
+  def translation_from_current_locale
+    translations.find_by(locale: I18n.locale)
+  end
+
   def destroy_all_updates(translation = nil)
     obj = translation ? translation : self
     updates = obj.reload.versions.find_all { |v| v.event == 'update' }
@@ -126,26 +139,5 @@ class Place < ActiveRecord::Base
                longitude: longitude,
                latitude: latitude,
                reviewed: reviewed)
-  end
-
-  def reviewed_description
-    versions = translation_from_current_locale.versions
-    if versions.length > 1
-      versions.last.reify.description
-    else
-      description ? description : ''
-    end
-  end
-
-  def translation_from_current_locale
-    translations.find_by(locale: I18n.locale)
-  end
-
-  def edit_status
-    if created_at == updated_at
-      'new'
-    else
-      'edited'
-    end
   end
 end

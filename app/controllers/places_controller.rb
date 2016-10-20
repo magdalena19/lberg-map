@@ -4,8 +4,12 @@ class PlacesController < ApplicationController
   before_action :reviewed?, only: [:update]
 
   def index
-    # return @places = Place.all if signed_in?
-    @places = (Place.reviewed + places_from_session(nil)).uniq
+    @places = Place.reviewed
+    unless signed_in?
+      @places -= Place.where(id: places_from_session.map(&:id))
+      @places += places_from_session
+      @places.uniq
+    end
   end
 
   def edit
@@ -56,7 +60,7 @@ class PlacesController < ApplicationController
 
   private
 
-  def places_from_session(category_id)
+  def places_from_session(category_id = nil)
     ids = cookies[:created_places_in_session]
     array = ids ? ids.split(',') : []
     if category_id

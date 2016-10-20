@@ -26,6 +26,7 @@ feature 'Review place' do
     page.must_have_content('SomeReviewedPlace')
 
     visit review_place_path id: @place.id
+    sleep(1)
     page.must_have_content('SomeReviewedPlace')
     page.must_have_content('GUEST CHANGE')
   end

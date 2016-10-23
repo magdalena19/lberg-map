@@ -1,9 +1,15 @@
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
+  before_action :require_login, only: [:destroy]
+  before_action :reviewed?, only: [:update]
 
   def index
-    return @places = Place.all if signed_in?
-    @places = (Place.reviewed + places_from_session(nil)).uniq
+    @places = Place.reviewed
+    unless signed_in?
+      @places -= Place.where(id: places_from_session.map(&:id))
+      @places += places_from_session
+      @places.uniq
+    end
   end
 
   def edit
@@ -14,7 +20,6 @@ class PlacesController < ApplicationController
 
   def update
     @place = Place.find(params[:id])
-    @place.reviewed = true if signed_in?
     if simple_captcha_valid? || signed_in?
       save_update
     else
@@ -35,7 +40,9 @@ class PlacesController < ApplicationController
 
   def create
     @place = Place.new(modified_params)
-    @place.reviewed = true if signed_in?
+    @place.latitude ||= params[:place][:latitude]
+    @place.longitude ||= params[:place][:longitude]
+
     if simple_captcha_valid? || signed_in?
       save_new
     else
@@ -53,51 +60,20 @@ class PlacesController < ApplicationController
 
   private
 
-  def places_from_session(category_id)
-    ids = cookies[:created_places_in_session]
-    array = ids ? ids.split(',') : []
-    if category_id
-      Place.where(id: array).compact.find_all { |p| p.has_category?(category_id) }
-    else
-      Place.where(id: array)
-    end
-  end
-
-  def save_update
-    # Ugly: lat/lon have to be inserted into modified_params-hash in order to make update_attributes work...
-    params_for_update = modified_params
-    if @place.lat_lon_present?
-      params_for_update[:latitude] = @place.latitude
-      params_for_update[:longitude] = @place.longitude
-    end
-    if @place.update_attributes(params_for_update)
-      flash[:success] = t('.changes_saved')
-      redirect_to places_url
-    else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
-      render :edit
-    end
-  end
-
-  def save_new
-    # Take lat/lon values from hash passed by create form
-    @place.latitude ||= params[:place][:latitude]
-    @place.longitude ||= params[:place][:longitude]
-    if @place.save
-      save_in_cookie
-      flash[:success] = t('.created')
-      redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
-    else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
-      render :new
-    end
-  end
-
   def save_in_cookie
     if !cookies[:created_places_in_session]
-      cookies[:created_places_in_session] = @place.id.to_s
+      cookies[:created_places_in_session] = @place.id
     else
-      cookies[:created_places_in_session] = cookies[:created_places_in_session] + ',' + @place.id.to_s
+      cookies[:created_places_in_session] << @place.id
+    end
+  end
+
+  def places_from_session(category_id = nil)
+    ids = cookies[:created_places_in_session] || []
+    if category_id
+      Place.where(id: ids).compact.find_all { |p| p.has_category?(category_id) }
+    else
+      Place.where(id: ids)
     end
   end
 
@@ -107,16 +83,93 @@ class PlacesController < ApplicationController
       category_param = place_params[:categories] || []
       modified_params[:categories] = category_param.reject(&:empty?).join(',')
     end
+    if @place && @place.lat_lon_present?
+      modified_params[:latitude] = @place.latitude
+      modified_params[:longitude] = @place.longitude
+    end
     modified_params
   end
 
   def place_params
     params.require(:place).permit(
       :name, :street, :house_number, :postal_code, :city,
-      :description_en, :description_de, :description_fr, :description_ar, :reviewed,
-      :latitude, :longitude,
+      :reviewed,
+      :description, *Place.globalize_attribute_names,
       :phone, :homepage, :email,
       categories: []
     )
+  end
+
+  def globalized_params
+    params[:place].keys.select do |key, _value|
+      Place.globalize_attribute_names.include? key.to_sym
+    end
+  end
+
+  def locales_from_place_params
+    globalized_params.map { |param| param.split('_').last }.flatten.select(&:present?)
+  end
+
+  def update_place_reviewed_flag
+    @place.without_versioning do
+      @place.update!(reviewed: signed_in? ? true : false)
+    end
+  end
+
+  def update_translations_reviewed_flag
+    locales_from_place_params.each do |locale|
+      translation = @place.translations.find_by_locale(locale)
+      @place.destroy_all_updates(translation) if signed_in?
+      translation.without_versioning do
+        translation.update(reviewed: signed_in? ? true : false)
+      end
+    end
+  end
+
+  def initialize_reviewed_flags
+    update_place_reviewed_flag
+    @place.destroy_all_updates
+    @place.translations.each do |translation|
+      translation.without_versioning do
+        translation.update!(reviewed: signed_in? ? true : false)
+      end
+    end
+  end
+
+  def reviewed?
+    Place.find(params[:id]).reviewed
+  end
+
+  def save_update
+    if @place.update(modified_params)
+      save_in_cookie
+      flash[:success] = t('.changes_saved')
+      update_place_reviewed_flag
+      @place.destroy_all_updates if signed_in?
+      update_translations_reviewed_flag if globalized_params.any?
+      redirect_to places_url
+    else
+      flash.now[:danger] = @place.errors.full_messages.to_sentence
+      render :edit, status: 400
+    end
+  end
+
+  def save_new
+    if @place.save
+      save_in_cookie
+      initialize_reviewed_flags
+      flash[:success] = t('.created')
+      redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
+    else
+      flash.now[:danger] = @place.errors.full_messages.to_sentence
+      render :new, status: 400
+    end
+  end
+
+  def require_login
+    unless session[:user_id]
+      flash[:danger] = t('errors.messages.access_restricted')
+      redirect_to login_url
+    end
   end
 end

@@ -1,9 +1,13 @@
-require 'test_helper'
+require_relative '../../test_helper'
 
 feature 'Edit place' do
+  before do
+    @place = create(:place, :reviewed)
+  end
+
   scenario 'Do valid place update as user and show in index afterwards', :js do
     login
-    visit '/places/1/edit'
+    visit edit_place_path id: @place.id
 
     fill_in('place_name', with: 'Any place')
     fill_in('place_street', with: 'Schulze-Boysen-Str.')
@@ -14,20 +18,36 @@ feature 'Edit place' do
     fill_in('place_homepage', with: 'http://schnapp.com')
     fill_in('place_phone', with: '03081763253')
     click_on('Update Place')
+    sleep(1)
     visit '/places'
+
     page.must_have_content('Any place')
     page.must_have_content('10963 Berlin')
   end
 
-  scenario 'Do valid place update as guest and mark point to be reviewed in index within session', :js do
-    skip('Implement storing updates in session cookies')
-    visit '/places/1/edit'
+  scenario 'Do valid place update as guest and show in index afterwards as to be reviewed', :js do
+    visit edit_place_path id: @place.id
     fill_in('place_name', with: 'Some changes')
     validate_captcha
     click_on('Update Place')
+    sleep(1)
     visit '/places'
-    page.wont_have_content('Some changes')
-    page.must_have_content('Hausprojekt Magdalenenstraße')
-    page.must_have_content('Waiting for review')
+
+    page.must_have_content('Some changes')
+    page.must_have_css('.glyphicon-eye-open')
+  end
+
+  scenario 'Do valid place update as guest and do not show changes within other users session', :js do
+    visit edit_place_path id: @place.id
+    fill_in('place_name', with: 'SomeOtherName')
+    validate_captcha
+    click_on('Update Place')
+    sleep(1)
+
+    Capybara.reset_sessions!
+    visit '/places'
+    page.wont_have_content('SomeOtherName')
+    page.must_have_content('SomeReviewedPlace')
+    page.wont_have_css('.glyphicon-eye-open')
   end
 end

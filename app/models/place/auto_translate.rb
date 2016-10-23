@@ -64,23 +64,31 @@ module PlaceAutoTranslation
 
   def translate_empty_descriptions
     locales_of_empty_descriptions.each do |missing_locale|
-      auto_translation = @translator.failsafe_translate(
-        @native_translation.description,
-        @native_translation.locale.to_s,
-        missing_locale.to_s
-      )
+      if Rails.env == 'test'
+        auto_translation = 'auto_translation: test_stub'
+      else
+        auto_translation = @translator.failsafe_translate(
+          @native_translation.description,
+          @native_translation.locale.to_s,
+          missing_locale.to_s
+        )
+      end
       translation = translations.find_by(locale: missing_locale)
       translation.without_versioning do
         translation.update_attributes(description: auto_translation,
                                       auto_translated: true,
-                                      reviewed: false)
+                                      reviewed: reviewed ? true : false)
       end
     end
   end
 
   def auto_translate
     @native_translation = guess_native_language_description
-    @translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
-    translate_empty_descriptions if @translator && @native_translation
+    if Rails.env == 'test'
+      translate_empty_descriptions
+    else
+      @translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
+      translate_empty_descriptions if @translator && @native_translation
+    end
   end
 end

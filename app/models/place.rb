@@ -9,7 +9,6 @@ class Place < ActiveRecord::Base
     Place.all.map(&:reviewed_version).compact
   end
 
-  # Kann das raus?
   def self.reviewed_with_category(id)
     Place.all.map(&:reviewed_version).compact.find_all { |p| p.has_category?(id) }
   end
@@ -32,8 +31,9 @@ class Place < ActiveRecord::Base
   before_validation :sanitize_descriptions, on: [:create, :update]
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
-  after_create :auto_translate if Rails.env != 'test'
+  after_create :auto_translate
 
+  ## VIRTUAL ATTRIBUTES
   def address
     ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')
   end
@@ -42,7 +42,7 @@ class Place < ActiveRecord::Base
     if homepage
       homepage =~ /(http)/ ? homepage : 'http://' + homepage
     else
-      ""
+      ''
     end
   end
 
@@ -53,13 +53,36 @@ class Place < ActiveRecord::Base
     versions.length == 1 && !reviewed
   end
 
+  # TODO: bit smelly, returns nil in some cases...
   def reviewed_version
-    return versions.last.reify  if versions.length > 1  && reviewed
-    return self                 if versions.length == 1 && reviewed
+    if versions.length > 1
+      versions[1].reify
+    elsif reviewed
+      self
+    end
   end
 
   def unreviewed_version
     self if versions.length > 1 || new?
+  end
+
+  def reviewed_description
+    translation = translation_from_current_locale
+    if translation.versions.count > 1
+      translation.versions[1].reify.description
+    else
+      translation.reviewed ? translation.description : ''
+    end
+  end
+
+  def translation_from_current_locale
+    translations.find_by(locale: I18n.locale)
+  end
+
+  def destroy_all_updates(translation = nil)
+    obj = translation ? translation : self
+    updates = obj.reload.versions.find_all { |v| v.event == 'update' }
+    updates.each(&:destroy)
   end
 
   ## CATEGORIES
@@ -116,26 +139,5 @@ class Place < ActiveRecord::Base
                longitude: longitude,
                latitude: latitude,
                reviewed: reviewed)
-  end
-
-  def reviewed_description
-    versions = translation_from_current_locale.versions
-    if versions.length > 1
-      versions.last.reify.description
-    else
-      description ? description : ''
-    end
-  end
-
-  def translation_from_current_locale
-    translations.find_by(locale: I18n.locale)
-  end
-
-  def edit_status
-    if created_at == updated_at
-      'new'
-    else
-      'edited'
-    end
   end
 end

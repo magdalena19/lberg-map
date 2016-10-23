@@ -1,26 +1,8 @@
-require 'test_helper'
+require_relative '../../test_helper'
 
 feature 'edit button' do
   before do
-    @category = Category.new(name_en: 'Playground')
-    @category.save
-    Category.new(name_en: 'Hospital').save
-    @place = Place.new(
-      name: 'Magda',
-      street: 'Magdalenenstraße',
-      house_number: '19',
-      postal_code: '10365',
-      city: 'Berlin',
-      categories: @category.id,
-      homepage: 'https://heise.de',
-      email: 'foo@bar.org',
-      phone: '030 2304958',
-      description_en: '<center><b>This is the description.</b></center>',
-      latitude: 52.5,
-      longitude: 13.5,
-      reviewed: true
-    )
-    @place.save
+    @place = create(:place, :reviewed)
   end
 
   scenario 'is visible', js: true do

@@ -1,8 +1,19 @@
 @import 'colors';
 
 .unreviewed-container {
-  padding: 0 20px 20px 20px;
+  height: 100%;
+  border: 3px solid $lilac;
+  padding-bottom: 15px;
+  border-radius: 4px;
+  h3 {
+    color: $lilac;
+  }
+}
+
+.reviewed-container {
+  height: 100%;
   border: 3px solid $green;
+  padding-bottom: 15px;
   border-radius: 4px;
   h3 {
     color: $green;
@@ -10,6 +21,10 @@
 }
 
 .switch-description-view {
-  border: 2px solid $green;
+  border: 2px solid $lilac;
   cursor: pointer;
+}
+
+.review-form-button {
+  width: 100%;
 }

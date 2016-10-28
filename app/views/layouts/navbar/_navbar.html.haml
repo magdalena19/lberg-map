@@ -1,5 +1,5 @@
 %nav.navbar.navbar-fixed-top
-  .container
+  .container.navbar-container
     .navbar-header
       %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
         %span.sr-only Toggle navigation
@@ -21,11 +21,12 @@
         - if signed_in?
           .margin-right.navbar-button.pull-right{class: "#{'active' if current_page?(contact_path)}"}
             = link_to('', logout_path, class: 'glyphicon glyphicon-log-out')
-          .navbar-button.pull-right{class: "#{'active' if current_page?(places_review_index_path)}"}
-            = link_to(t('.review'), places_review_index_path, class: 'glyphicon glyphicon-thumbs-up')
         - else
           .margin-right.navbar-button.pull-right{class: "#{'active' if current_page?(contact_path)}"}
             = link_to('', login_path, class: 'glyphicon glyphicon-log-in')
-        .navbar-button.pull-right{class: "#{'active' if current_page?(places_path)}"}
-          = link_to(t('search'), places_path, class: 'glyphicon glyphicon-search')
         = render partial: 'layouts/navbar/dropdown'
+        .navbar-button.pull-right{class: "#{'active' if current_page?(places_path)}"}
+          = link_to('', places_path, class: 'glyphicon glyphicon-search')
+        - if signed_in?
+          .navbar-button.pull-right{class: "#{'active' if current_page?(places_review_index_path)}"}
+            = link_to('', places_review_index_path, class: 'glyphicon glyphicon-thumbs-up')

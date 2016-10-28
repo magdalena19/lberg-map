@@ -2,38 +2,44 @@
   = t('.review') + ' ' + Place.find(@unreviewed_translation.place_id).reviewed_version.name
 
 .container
-  .row.margin-below
+  .row
     .col-md-6
-      %h3= t('.reviewed')
-      %br
-      - if @reviewed_translation
-        = @reviewed_translation.description.html_safe
-      - else
-        = t('.no_reviewed_translation')
+      .col-xs-12.reviewed-container.margin-below
+        %h3= t('.reviewed')
+        %br
+        - if @reviewed_translation
+          = @reviewed_translation.description.html_safe
+        - else
+          = t('.no_reviewed_translation')
 
-    .col-md-6.unreviewed-container
-      %h3
-        = t('.unreviewed')
-        .switch-description-view.pull-right DIFF
-      %br
-      - if @unreviewed_translation
-        .description-diff
-          = raw diff_to_reviewed
-        .description-standard
-          = @unreviewed_translation.description.html_safe
-      - else
-        = t('.no_reviewed_translation')
-
-  .row
-    .col-md-6.col-md-offset-6
-      = link_to t('buttons.confirm'), confirm_translation_path, class: 'btn btn-primary btn-success'
-      = link_to t('buttons.refuse'), refuse_translation_path, class: 'btn btn-primary btn-danger'
+    .col-md-6
+      .col-xs-12.unreviewed-container.margin-below
+        %h3
+          = t('.unreviewed')
+          .switch-description-view.pull-right DIFF
+        %br
+        - if @unreviewed_translation
+          .description-diff
+            = raw diff_to_reviewed
+          .description-standard
+            = @unreviewed_translation.description.html_safe
+        - else
+          = t('.no_reviewed_translation')
 
   .row
-    .col-xs-12.margin-below
-      %h3
-        = t('.other_descriptions')
-    - @other_translations_reviewed.each do |t|
-      .col-xs-12.grey
-        = t.description.html_safe if t.description
-        %hr
+    .col-xs-12
+      .col-xs-12
+        %h3
+          = t('.other_descriptions')
+      - @other_translations_reviewed.each do |t|
+        .col-xs-12.grey
+          = t.description.html_safe if t.description
+          %hr
+
+
+  .row
+    .col-xs-12
+      .col-xs-6
+        = link_to t('buttons.confirm'), confirm_translation_path, class: 'btn btn-primary btn-success review-form-button'
+      .col-xs-6.col-md-2
+        = link_to t('buttons.refuse'), refuse_translation_path, class: 'btn btn-primary btn-danger review-form-button'

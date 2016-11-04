@@ -24,9 +24,9 @@
         - else
           .margin-right.navbar-button.pull-right{class: "#{'active' if current_page?(contact_path)}"}
             = link_to('', login_path, class: 'glyphicon glyphicon-log-in')
-        = render partial: 'layouts/navbar/dropdown'
         .navbar-button.pull-right{class: "#{'active' if current_page?(places_path)}"}
           = link_to('', places_path, class: 'glyphicon glyphicon-search')
         - if signed_in?
           .navbar-button.pull-right{class: "#{'active' if current_page?(places_review_index_path)}"}
             = link_to('', places_review_index_path, class: 'glyphicon glyphicon-thumbs-up')
+        = render partial: 'layouts/navbar/dropdown'

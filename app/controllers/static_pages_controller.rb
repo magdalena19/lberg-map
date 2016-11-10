@@ -19,9 +19,6 @@ class StaticPagesController < ApplicationController
   def about
   end
 
-  def contact
-  end
-
   def chronicle
     @announcements = Announcement.all.sort_by(&:created_at).reverse
   end

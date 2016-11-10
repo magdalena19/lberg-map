@@ -40,4 +40,15 @@ Rails.application.configure do
   # Raises error for missing translations
   config.action_view.raise_on_missing_translations = false
   config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
+	config.action_mailer.perform_deliveries = true
+	config.action_mailer.delivery_method = :smtp
+	config.action_mailer.smtp_settings = {
+		address: ENV['relay_address'],
+		# domain: ENV['relay_domain'],
+		port: ENV['relay_port'],
+		user_name: ENV['relay_login'],
+		password: ENV['relay_passwd'],
+		authentication: ENV['relay_auth']
+	}
 end

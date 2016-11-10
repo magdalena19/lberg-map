@@ -1,0 +1,47 @@
+- content_for :header do
+  = t('.contact')
+
+.container
+  .row
+    .col-xs-12.col-md-2.col-md-offset-1.impressum
+      .h3= t('.imprint')
+      %p
+        %br= link_to 'Aktiv in Lichtenberg e.V.', 'http://plattenkosmos.berlin/'
+        Magdalenenstr. 19
+        %br 10365 Berlin
+      %p
+        VR 32492 B (Amtsgericht Charlottenburg)
+      %p
+        %br
+          %i= t('.developed_by')
+        %br Code Kollektiv
+    .col-xs-12.col-md-6.col-md-offset-1
+      .h3= t('.send_email')
+      = form_for @message, url: contact_url do |f|
+
+        %fieldset{class: "form-group row"}
+          .col-xs-12
+            = f.select :tag, Message.tags
+        %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:sender_email)}"}
+          .col-xs-12
+            = f.text_field :sender_email, placeholder: t('.sender_email'), class: 'form-control'
+        %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:sender_name)}"}
+          .col-xs-12
+            = f.text_field :sender_name, placeholder: t('.sender_name'), class: 'form-control'
+        %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:subject)}"}
+          .col-xs-12
+            = f.text_field :subject, placeholder: t('.subject'), class: 'form-control'
+        %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:text)}"}
+          .col-xs-12
+            = f.text_area :text, placeholder: t('.text'), class: 'form-control'
+        .email_reply
+          .col-xs-12
+            = f.label 'copy_to_sender' do 
+              = check_box_tag 'copy_to_sender', true
+              = t('.send_a_copy_to_email_address')
+
+          
+        .row.text-center
+          .col-md-6
+            = show_simple_captcha unless signed_in?
+            = f.submit t('.send_message'), class: 'btn btn-primary btn-success place-form-button submit-place-button'

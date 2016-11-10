@@ -1,0 +1,9 @@
+en:
+  messages:
+    new:
+      sender_email: 'Sender email'
+      sender_name: 'Sender name'
+      subject: 'Subject'
+      text: 'Text'
+      send_a_copy_to_email_address: 'Send a copy to email address'
+      send_message: 'Send message'

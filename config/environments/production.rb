@@ -79,4 +79,14 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.middleware.use Rack::Attack
+
+	config.action_mailer.delivery_method = :smtp
+	config.action_mailer.smtp_settings = {
+		address: "smtp.mailgun.org",
+		domain: ENV['relay_domain'],
+		port: 587,
+		user_name: ENV['relay_login'],
+		password: ENV['relay_passwd'],
+		authentication: 'plain'
+	}
 end

@@ -1,7 +1,7 @@
 - content_for :header do
   = t('.places')
 
-.container.margin-below
+.container
   .description
     %p
       = t('.index_places_description')
@@ -63,4 +63,4 @@
           %td
             = place.homepage
           %td
-            = place.description
+            = place.description.html_safe

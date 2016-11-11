@@ -12,6 +12,7 @@ en:
       reviewed: 'Reviewed'
       unreviewed: 'Unreviewed'
       categories: 'Categories:'
+      address: 'Address:'
       new: 'New'
       edited: 'Edited'
       none: 'None'

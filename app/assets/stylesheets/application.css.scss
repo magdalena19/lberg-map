@@ -38,6 +38,14 @@ noscript {
   width: 100%;
 }
 
+.container {
+  padding-bottom: 20px;
+}
+
+.navbar-container {
+  padding-bottom: 0px;
+}
+
 .header-img {
   margin-top: -58px;
   margin-bottom: 25px;
@@ -95,10 +103,6 @@ noscript {
     line-height: 40px;
     color: $green;
     font-size: 20px;
-    span {
-      font-size: 12px;
-      font-family: arial;
-    }
   }
   .navbar-toggle {
     margin: 7px;
@@ -160,6 +164,7 @@ noscript {
 
 .navbar-button {
   margin-left: 10px;
+  margin-right: 10px;
   a:hover {
     text-decoration: none;
     color: $lilac;
@@ -173,11 +178,6 @@ noscript {
 
 .btn-danger {
   background: $lilac !important;
-  border: none;
-}
-
-.cancel-button {
-  background: $brown !important;
   border: none;
 }
 

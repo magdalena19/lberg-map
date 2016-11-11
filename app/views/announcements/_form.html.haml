@@ -1,14 +1,12 @@
 = form_for(@announcement) do |f|
   .row
-    .col-md-6.col-md-offset-3
+    .col-md-12
       %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:header)}" }
         = f.text_field :header, class: 'form-control', placeholder: t('.set_title')
       %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:content)}" }
         = f.text_area :content, class: 'form-control', placeholder: t('.set_content')
   .row
-    .col-xs-2.col-md-offset-3
+    .col-xs-6
       = f.submit class: 'btn btn-success'
-    .col-xs-2
+    .col-xs-6.col-md-2
       = link_to t('buttons.back'), '', class: 'btn btn-danger place-form-button back-button'
-    .col-xs-2
-      = link_to t('buttons.cancel'), root_url, class: 'btn btn-primary place-form-button cancel-button'

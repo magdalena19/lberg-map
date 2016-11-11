@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
+
   scope '(:locale)', locale: /en|de|fr|ar/ do
     root 'static_pages#map'
     get '/:locale' => 'static_pages#map'

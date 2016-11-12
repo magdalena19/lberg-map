@@ -8,7 +8,7 @@ default: &default
   adapter: postgresql
   pool: 5
   timeout: 5000
-
+  
 development:
   <<: *default
   database: lberg-map_development
@@ -23,3 +23,7 @@ test:
 production:
   <<: *default
   database: lberg-map_production
+  host:     <%= ENV['POSTGRES_CONTAINER'] %> 
+  username: <%= ENV['POSTGRES_USER'] %> 
+  password: <%= ENV['POSTGRES_PASSWORD'] %> 
+

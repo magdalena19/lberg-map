@@ -1,0 +1,40 @@
+#Defines which docker images should be build 
+version: '2'
+services:
+  postgreslberg: #how to add custom conf
+    image: postgres
+    env_file: .env    
+    ports:
+      - '5432:5432'
+  lbergmap:
+    build: .
+    env_file: .env
+    command: supervisord -c /lbergmap/unicorn_supervisord.conf #watch -n 1 'ls' # supervisord   
+    volumes:
+      - .:/lbergmap
+        #      - ./unicorn_supervisord.conf:/etc/supervisor/conf.d/unicorn_supervisord.conf  
+    ports:
+      - "3000:3000" # change to socket with outside nginx
+    links:
+      - postgreslberg 
+
+#1. docker-compose build create the images
+#2. run init commands
+#    docker-compose run -T lbergmap rake db:create
+#    docker-compose run -T lbergmap rake db:migrate
+#    docker-compose run -T lbergmap rake assets:precompile
+#3. docker-compose up (-d) - start containerts
+#4. docker exec -i -t lbergmap_lbergmap_1 /bin/bash - start bash
+# docker ps -a - list stoped containers
+# docker ps list - running containers
+# docker rm/rmi - remove container/image
+# 
+# docker-compose run
+#TODO:
+#* change volume mount in production
+# - mount ro everything mount rw sharred
+#* change port forwarding to socket file
+# 
+#* database backup
+#
+#* watchtower

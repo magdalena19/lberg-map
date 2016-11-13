@@ -3,7 +3,7 @@
     .col-xs-12
       - if @place.unreviewed_version
         .red currently under review
-    .col-md-6.margin-below
+    .col-md-6
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
         .col-xs-12
           = f.text_field :name, placeholder: Place.human_attribute_name('name'), class: 'form-control', disabled: @place.unreviewed_version
@@ -55,7 +55,7 @@
   .row
     %hr
 
-  .row.margin-below
+  .row
     .col-xs-12
       %h4= t('.categories')
       - Category.all.each do |category|
@@ -63,6 +63,9 @@
           = category.name
         .col-xs-4.col-sm-2
           = check_box_tag 'place[categories][]', category.id, f.object.has_category?(category.id), disabled: @place.unreviewed_version
+
+  .row
+    %hr
 
   .row
     .col-md-6

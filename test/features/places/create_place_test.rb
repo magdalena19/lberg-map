@@ -30,7 +30,6 @@ feature 'Create place' do
     visit '/places/new'
     page.must_have_css('.wysihtml5-toolbar', count: 1)
     page.find('.glyphicon-triangle-bottom').click
-    screenshot_and_open_image
     page.must_have_css('.wysihtml5-toolbar', count: 2)
   end
 

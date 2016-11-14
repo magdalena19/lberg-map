@@ -25,6 +25,15 @@ feature 'Edit place' do
     page.must_have_content('10963 Berlin')
   end
 
+  scenario 'Do not create new version when nothing is changed in form', :js do
+    visit edit_place_path id: @place.id
+    p @place.categories
+    validate_captcha
+    click_on('Update Place')
+    sleep(1)
+    assert_equal 1, Place.find(@place.id).versions.length
+  end
+
   scenario 'Do valid place update as guest and show in index afterwards as to be reviewed', :js do
     visit edit_place_path id: @place.id
     fill_in('place_name', with: 'Some changes')

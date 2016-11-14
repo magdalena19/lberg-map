@@ -1,0 +1,6 @@
+en:
+  delivery_gul:
+    send_copy_to_sender:
+      request_copy_prefix: 'Copy of your request on'
+    send_to_maintainer:
+      contact_form: 'contact form'

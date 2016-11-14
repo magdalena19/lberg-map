@@ -44,8 +44,6 @@ feature 'Contact form' do
 		fill_in :message_sender_name, with: 'Test Person'
 		fill_in :message_sender_email, with: 'test@test.com'
 		fill_in :message_subject, with: 'I have a question'
-		# require 'byebug'; byebug
-		screenshot_and_open_image
 		fill_in('message_text', with: 'This is a sample text')
 	end
 end

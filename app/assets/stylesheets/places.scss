@@ -22,19 +22,29 @@ textarea {
   width: 100%;
 }
 
-.nicEdit-main {
-  height: 300px;
-  resize: all;
-  overflow-y: auto !important;
+.description-header {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.description-editor {
+  &.hidden-description {
+    display: none;
+  }
+}
+
+.description-area {
+  height: 200px;
+}
+
+.wysihtml5-sandbox {
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
 }
 
 .locked-description {
-  border: 1px solid rgb(204, 204, 204);
-  padding: 4px;
-  margin-top: 8px;
-  height: 307px;
-  overflow-y: auto;
-  color: grey;
+  opacity: 0.5;
+  resize: none;
 }
 
 .auto-translated-true {

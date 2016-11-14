@@ -17,9 +17,9 @@
 //= require jquery-ui
 //= require bootstrap
 //= require bootstrap-sprockets
+//= require bootsy
 //= require leaflet
 //= require leaflet.markercluster
-//= require nicEdit_CUSTOMIZED.js
 //= require_tree .
 
 jQuery(function() {

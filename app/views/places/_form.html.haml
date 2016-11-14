@@ -1,9 +1,9 @@
 = form_for(@place) do |f|
-  .row.margin-below
+  .row
     .col-xs-12
       - if @place.unreviewed_version
         .red currently under review
-    .col-md-6.margin-below
+    .col-md-6
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
         .col-xs-12
           = f.text_field :name, placeholder: Place.human_attribute_name('name'), class: 'form-control', disabled: @place.unreviewed_version
@@ -27,34 +27,45 @@
           = f.text_field :email, placeholder: Place.human_attribute_name('email'), class: 'form-control', disabled: @place.unreviewed_version
         .col-sm-4
           = f.text_field :homepage, placeholder: Place.human_attribute_name('Homepage'), class: 'form-control', disabled: @place.unreviewed_version
+  .row
+    %hr
 
-    .col-md-6.margin-below
+  .row
+    - I18n.available_locales.in_groups_of(2, false).each do |group|
+      - group.each do |lang|
+        - locale != lang ? hidden = 'hidden-description' : hidden = ''
+        - column = "description_#{lang}"
+        - translation = @place.translations.find_by(locale: lang)
+        .col-xs-12
+          %h4.description-header= t(column)
+          - if locale != lang
+            %h4.description-header.glyphicon.glyphicon-triangle-bottom
+          - else
+            %h4.description-header.glyphicon.glyphicon-triangle-top
+          .description-editor{dir: "#{'rtl' if lang == 'ar'}", class: hidden}
+            - if translation && translation.versions.length > 1
+              %br
+              .red= t('currently_under_review')
+              = f.text_area column.to_sym, class: "description-area locked-description", disabled: true
+            - elsif translation && translation.auto_translated
+              %i (#{t('.auto_translated')})
+              = f.bootsy_area column.to_sym, class: "description-area #{column}"
+            - else
+              = f.bootsy_area column.to_sym, class: "description-area #{column}"
+  .row
+    %hr
+
+  .row
+    .col-xs-12
+      %h4= t('.categories')
       - Category.all.each do |category|
-        .col-xs-4{dir: "#{text_direction}"}
+        .col-xs-8.col-sm-4{dir: "#{text_direction}"}
           = category.name
-        .col-xs-2
+        .col-xs-4.col-sm-2
           = check_box_tag 'place[categories][]', category.id, f.object.has_category?(category.id), disabled: @place.unreviewed_version
 
-
-  .col-xs-12
-    %fieldset{class: 'form-group row'}
-      - I18n.available_locales.in_groups_of(2, false).each do |group|
-        .row
-          - group.each do |lang|
-            .col-md-6.margin-below{dir: "#{'rtl' if lang == 'ar'}"}
-              - column = "description_#{lang}"
-              - translation = @place.translations.find_by(locale: lang)
-              = t column
-              - if translation && translation.versions.length > 1
-                %br
-                .red= t('currently_under_review')
-                .locked-description
-                  = translation.description.html_safe
-              - elsif translation && translation.auto_translated
-                %i (#{t('.auto_translated')})
-                = f.text_area column.to_sym, class: 'description-area'
-              - else
-                = f.text_area column.to_sym, class: 'description-area'
+  .row
+    %hr
 
   .row
     .col-md-6

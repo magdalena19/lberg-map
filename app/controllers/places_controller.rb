@@ -80,7 +80,7 @@ class PlacesController < ApplicationController
   def modified_params
     modified_params ||= place_params
     if place_params[:categories]
-      category_param = place_params[:categories] || []
+      category_param = place_params[:categories].sort || []
       modified_params[:categories] = category_param.reject(&:empty?).join(',')
     end
     if @place && @place.lat_lon_present?

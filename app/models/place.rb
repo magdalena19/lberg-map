@@ -95,7 +95,11 @@ class Place < ActiveRecord::Base
   end
 
   def category_ids
-    categories.split(',')
+    categories.split(',').sort
+  end
+
+  def categories
+    self[:categories].split(',').sort.join(',')
   end
 
   ## SANITIZE

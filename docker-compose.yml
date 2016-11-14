@@ -1,11 +1,10 @@
-#Defines which docker images should be build 
 version: '2'
 services:
   postgreslberg: #how to add custom conf
     image: postgres
     env_file: .env    
-    ports:
-      - '5432:5432'
+#    ports:
+#      - '5432:5432'
   lbergmap:
     build: .
     env_file: .env
@@ -14,7 +13,7 @@ services:
       - .:/lbergmap
         #      - ./unicorn_supervisord.conf:/etc/supervisor/conf.d/unicorn_supervisord.conf  
     ports:
-      - "3000:3000" # change to socket with outside nginx
+      - "33000:33000" # change to socket with outside nginx
     links:
       - postgreslberg 
 

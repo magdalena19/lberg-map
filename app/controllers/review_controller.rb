@@ -41,7 +41,9 @@ class ReviewController < ApplicationController
 
   def confirm_translation
     t = translation(params[:id])
-    flash[:success] = t('.translation_confirmed') if destroy_all_updates(t)
+    if t.update(reviewed: true) && destroy_all_updates(t)
+      flash[:success] = t('.translation_confirmed')
+    end
     redirect_to action: 'review_index'
   end
 
@@ -64,7 +66,7 @@ class ReviewController < ApplicationController
   end
 
   def reviewed_version(t)
-    t.versions.length > 1 ? t.versions[1].reify : t
+    t.versions[1].reify if t.versions.length > 1
   end
 
   def destroy_all_updates(obj)
@@ -82,7 +84,7 @@ class ReviewController < ApplicationController
 
   def unreviewed_translations(place)
     place.translations.find_all do |t|
-      t.versions.length > 1
+      t.versions.length > 1 || !t.reviewed
     end
   end
 

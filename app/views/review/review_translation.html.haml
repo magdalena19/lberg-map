@@ -1,5 +1,5 @@
 - content_for :header do
-  = t('.review') + ' ' + Place.find(@unreviewed_translation.place_id).reviewed_version.name
+  = t('.review') + ' ' + Place.find(@unreviewed_translation.place_id).name
 
 .container
   .row

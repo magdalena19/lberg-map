@@ -31,6 +31,8 @@ feature 'Contact form' do
 
 	scenario 'Cannot send email if contact information invalid', :js do
 		visit contact_path
+		screenshot_and_open_image
+		# save_and_open_page
 
 		fill_in :message_sender_name, with: 'Test Person'
 		fill_in :message_sender_email, with: 'test@test.com'

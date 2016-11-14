@@ -31,20 +31,4 @@ feature 'Edit description' do
       page.execute_script(query)
     end
   end
-
-  # scenario 'Show guest edits in review index and review place', :js do
-  #   visit edit_place_path id: @place.id
-  #   fill_in('place_name', with: 'GUEST CHANGE')
-  #   validate_captcha
-  #   click_on('Update Place')
-  #   sleep(1)
-  #   login
-  #   visit '/places/review_index'
-  #   page.must_have_content('SomeReviewedPlace')
-
-  #   visit review_place_path id: @place.id
-  #   sleep(1)
-  #   page.must_have_content('SomeReviewedPlace')
-  #   page.must_have_content('GUEST CHANGE')
-  # end
 end

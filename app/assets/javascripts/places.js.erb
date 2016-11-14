@@ -1,32 +1,4 @@
 jQuery(function() {
-  nicEditors.allTextAreas(
-    {
-      iconsPath : '<%= image_path 'nicEditorIcons.gif' %>',
-      buttonList : [
-        'forecolor',
-        'fontSize',
-        'bold',
-        'italic',
-        'underline',
-        'hr',
-        'link',
-        'unlink',
-        'ol',
-        'ul',
-        'left',
-        'center',
-        'right',
-        'justify',
-      ],
-    }
-  );
-
-  // responsive width
-  $( window ).resize(function() {
-    $('.nicEdit-panelContain').parent().css('width', '100%');
-    $('.nicEdit-main').parent().css('width', '100%');
-  });
-
   // View places as DataTable
   jQuery('#places').DataTable({
     responsive: true,
@@ -77,4 +49,10 @@ jQuery(function() {
   //   jQuery('.submit-place-button').hide();
   //   jQuery('.back-button').hide();
   // });
+
+  jQuery('.description-header').click(function() {
+    jQuery(this).siblings('.description-editor').toggleClass('hidden-description');
+    jQuery(this).siblings('.glyphicon').toggleClass('glyphicon-triangle-bottom');
+    jQuery(this).siblings('.glyphicon').toggleClass('glyphicon-triangle-top');
+  });
 });

@@ -8,6 +8,7 @@ jQuery(function() {
     map = L.map('map', {
       zoomControl: false,
       minZoom: 5,
+      maxZoom: 18,
     });
     jQuery('.zoom-in').click(function() {map.zoomIn()});
     jQuery('.zoom-out').click(function() {map.zoomOut()});

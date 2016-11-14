@@ -11,14 +11,20 @@ feature 'Create place' do
   end
 
   scenario 'create valid place as guest', :js do
-    visit '/places/new'
-    fill_in_valid_place_information
-    fill_in('place_name', with: 'Another place')
-    validate_captcha
-    click_on('Create Place')
+    create_place_as_guest('Another place')
     visit '/places'
     page.must_have_content('Another place')
     page.wont_have_css('.glyphicon-pencil')
+  end
+
+  scenario 'see guests session places on map', :js do
+    skip('cookie to be prepared for more than one poi')
+    create_place_as_guest('Another place')
+    create_place_as_guest('Still another place')
+    visit '/en'
+    sleep(1)
+    assert page.must_have_content('Another place')
+    assert page.must_have_content('Still another place')
   end
 
   scenario 'visit new place view with coordinate parameters' do
@@ -31,6 +37,14 @@ feature 'Create place' do
     page.must_have_css('.wysihtml5-toolbar', count: 1)
     page.find('.glyphicon-triangle-bottom').click
     page.must_have_css('.wysihtml5-toolbar', count: 2)
+  end
+
+  def create_place_as_guest(place_name)
+    visit '/places/new'
+    fill_in_valid_place_information
+    fill_in('place_name', with: place_name)
+    validate_captcha
+    click_on('Create Place')
   end
 
   def fill_in_valid_place_information

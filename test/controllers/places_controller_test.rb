@@ -197,10 +197,11 @@ class PlacesControllerTest < ActionController::TestCase
 
   test 'Guest can update reviewed translation' do
     sign_out
-    updated_place = update_reviewed_description
+    updated_place = Place.find(update_reviewed_description.id)
     en_translation = updated_place.translations.select { |t| t.locale == :en }.first
 
     assert_equal 'This description has been changed!', en_translation.description
+    assert updated_place.reviewed
   end
 
   test 'Translation updated by guest is not reviewed' do

@@ -112,7 +112,7 @@ class PlacesController < ApplicationController
 
   def update_place_reviewed_flag
     @place.without_versioning do
-      @place.update!(reviewed: signed_in? ? true : false)
+      @place.update!(reviewed: signed_in?)
     end
   end
 
@@ -121,7 +121,7 @@ class PlacesController < ApplicationController
       translation = @place.translations.find_by_locale(locale)
       @place.destroy_all_updates(translation) if signed_in?
       translation.without_versioning do
-        translation.update(reviewed: signed_in? ? true : false)
+        translation.update(reviewed: signed_in?)
       end
     end
   end
@@ -131,7 +131,7 @@ class PlacesController < ApplicationController
     @place.destroy_all_updates
     @place.translations.each do |translation|
       translation.without_versioning do
-        translation.update!(reviewed: signed_in? ? true : false)
+        translation.update!(reviewed: signed_in?)
       end
     end
   end
@@ -141,10 +141,11 @@ class PlacesController < ApplicationController
   end
 
   def save_update
+    length_before_update = @place.versions.length
+
     if @place.update(modified_params)
       save_in_cookie
       flash[:success] = t('.changes_saved')
-      update_place_reviewed_flag
       @place.destroy_all_updates if signed_in?
       update_translations_reviewed_flag if globalized_params.any?
       redirect_to places_url
@@ -152,6 +153,9 @@ class PlacesController < ApplicationController
       flash.now[:danger] = @place.errors.full_messages.to_sentence
       render :edit, status: 400
     end
+
+    length_after_update = @place.versions.length
+    update_place_reviewed_flag if length_before_update != length_after_update
   end
 
   def save_new

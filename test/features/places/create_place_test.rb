@@ -18,7 +18,6 @@ feature 'Create place' do
   end
 
   scenario 'see guests session places on map', :js do
-    skip('cookie to be prepared for more than one poi')
     create_place_as_guest('Another place')
     create_place_as_guest('Still another place')
     visit '/en'

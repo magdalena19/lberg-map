@@ -82,11 +82,12 @@ Rails.application.configure do
 
 	config.action_mailer.delivery_method = :smtp
 	config.action_mailer.smtp_settings = {
-		address: "smtp.mailgun.org",
-		domain: ENV['relay_domain'],
-		port: 587,
+		address: ENV['relay_address'],
+		# domain: ENV['relay_domain'],
+		port: ENV['relay_port'],
 		user_name: ENV['relay_login'],
 		password: ENV['relay_passwd'],
-		authentication: 'plain'
+		authentication: ENV['relay_auth']
+		enable_starttls_auto: true
 	}
 end

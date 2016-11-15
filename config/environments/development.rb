@@ -6,6 +6,8 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
+	config.action_controller.perform_caching = false
+
   # Do not eager load code on boot.
   config.eager_load = false
 
@@ -49,6 +51,7 @@ Rails.application.configure do
 		port: ENV['relay_port'],
 		user_name: ENV['relay_login'],
 		password: ENV['relay_passwd'],
-		authentication: ENV['relay_auth']
+		authentication: ENV['relay_auth'],
+		enable_starttls_auto: true
 	}
 end

@@ -4,6 +4,10 @@ class Message < ActiveRecord::Base
 	validates :text, presence: true
 
 	def self.tags
-		['Technical question', 'Question related to map content']
+		[
+			I18n.t('messages.tags.technically_related'),
+			I18n.t('messages.tags.content_related'),
+			I18n.t('messages.tags.misc_related')
+		]
 	end
 end

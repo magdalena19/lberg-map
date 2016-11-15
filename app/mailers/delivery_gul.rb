@@ -3,8 +3,7 @@ class DeliveryGul < ApplicationMailer
 
   def send_copy_to_sender(message)
 		@message = message
-		# require 'byebug'; byebug
-		mail(to: @message.sender_email, subject: t('.request_copy_prefix') + ENV['app_title'])
+		mail(to: @message.sender_email, subject: "#{t('.request_copy_prefix')} #{ENV['app_title']}")
   end
 
 	def send_to_maintainer(message)

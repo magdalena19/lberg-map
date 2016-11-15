@@ -1,0 +1,5 @@
+en:
+  messages:
+    create:
+      message_successfully_sent: 'Your message has been sent successfully!'
+      mailing_service_error: 'Wooops, something went wrong with our email service. We will try to fix the problem...'

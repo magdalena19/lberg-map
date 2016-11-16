@@ -27,7 +27,7 @@
               .red
                 = t('.edited')
           %td
-            = place.name
+            %b.lilac= place.name
           %td
             = place.address
 
@@ -50,7 +50,7 @@
             = link_to review_translation_path(t.id), style: 'color: #ff6666; text-decoration: none' do
               %span{class: 'glyphicon glyphicon-eye-open'}
           %td
-            = Place.find(t.place_id).reviewed_version.name
+            %b.lilac= Place.find(t.place_id).name
           %td
             = t.locale
           %td

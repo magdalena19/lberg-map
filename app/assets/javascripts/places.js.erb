@@ -39,7 +39,7 @@ jQuery(function() {
       } else {
         row.find('.triangle').addClass('glyphicon-triangle-top').removeClass('glyphicon-triangle-bottom');
       };
-  })
+  });
 
   // show process widget on place submit
 
@@ -52,7 +52,7 @@ jQuery(function() {
 
   jQuery('.description-header').click(function() {
     jQuery(this).siblings('.description-editor').toggleClass('hidden-description');
-    jQuery(this).siblings('.glyphicon').toggleClass('glyphicon-triangle-bottom');
-    jQuery(this).siblings('.glyphicon').toggleClass('glyphicon-triangle-top');
+    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
+    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
   });
 });

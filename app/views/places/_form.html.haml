@@ -37,11 +37,12 @@
         - column = "description_#{lang}"
         - translation = @place.translations.find_by(locale: lang)
         .col-xs-12
-          %h4.description-header= t(column)
-          - if locale != lang
-            %h4.description-header.glyphicon.glyphicon-triangle-bottom
-          - else
-            %h4.description-header.glyphicon.glyphicon-triangle-top
+          .description-header
+            %h4= t(column)
+            - if locale != lang
+              %h4.description-header.glyphicon.glyphicon-triangle-bottom
+            - else
+              %h4.description-header.glyphicon.glyphicon-triangle-top
           .description-editor{dir: "#{'rtl' if lang == 'ar'}", class: hidden}
             - if translation && translation.versions.length > 1
               %br

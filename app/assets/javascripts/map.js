@@ -191,7 +191,15 @@ jQuery(function() {
     .on('hidden.bs.collapse', toggleTriangle)
     .on('shown.bs.collapse', toggleTriangle);
 
-    // ZOOM TO CREATED PLACE
+    // ZOOM TO PLACE
+    jQuery('.zoom-to-place').click(function() {
+      jQuery('.category-button#all').click();
+      var lat = jQuery(this).attr('latitude');
+      var lon = jQuery(this).attr('longitude');
+      map.setView([lat, lon], 16);
+    });
+
+    // external request
     setTimeout(function() {
       if (window.latitude > 0 && window.longitude > 0) {
         coordinates = [window.latitude, window.longitude];

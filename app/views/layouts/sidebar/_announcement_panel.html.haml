@@ -1,11 +1,10 @@
-.announcements-panel
-  - last_announcements_created.each do |announcement|
-    .announcement.announcement-news
-      .announcement-timestamp
-        = "#{announcement.created_at.strftime("%d-%m-%Y")}"
-      .announcement-header
-        %h4= announcement.header
-      .announcement-body
-        = truncate(announcement.content.html_safe, length: 150, escape: false)
-  .pull-right
-    = link_to t('.full_chronicle'), chronicle_path
+= link_to chronicle_path do
+  .announcements-panel
+    - last_announcements_created.each do |announcement|
+      .announcement.announcement-news
+        .announcement-timestamp
+          = "#{announcement.created_at.strftime("%d-%m-%Y")}"
+        .announcement-header
+          %h4= announcement.header
+        .announcement-body
+          = truncate(announcement.content.html_safe, length: 150, escape: false)

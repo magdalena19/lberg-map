@@ -193,6 +193,7 @@ jQuery(function() {
 
     // ZOOM TO PLACE
     jQuery('.zoom-to-place').click(function() {
+      jQuery('.category-button#all').click();
       var lat = jQuery(this).attr('latitude');
       var lon = jQuery(this).attr('longitude');
       map.setView([lat, lon], 16);

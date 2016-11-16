@@ -6,27 +6,29 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a{href: root_url}
+      .navbar-button.lilac.pull-left{class: "#{'active' if current_page?(about_path)}"}
+        = link_to('', root_path, class: 'glyphicon glyphicon-globe lilac')
+      %a
         .logo.logo-left
           LBERG
         .logo.logo-right
           MAP
       .navbar-button.info-button.pull-left{class: "#{'active' if current_page?(about_path)}"}
-        = link_to('', about_path, class: 'glyphicon glyphicon-info-sign')
+        = link_to('', about_path, class: 'glyphicon glyphicon-info-sign green')
       .navbar-button.contact-button.pull-left{class: "#{'active' if current_page?(contact_path)}"}
-        = link_to('', contact_path, class: 'glyphicon glyphicon-envelope')
+        = link_to('', contact_path, class: 'glyphicon glyphicon-envelope green')
 
     #navbar.navbar-collapse.collapse
       %ul.nav.navbar-nav
         - if signed_in?
           .margin-right.navbar-button.pull-right{class: "#{'active' if current_page?(contact_path)}"}
-            = link_to('', logout_path, class: 'glyphicon glyphicon-log-out')
+            = link_to('', logout_path, class: 'glyphicon glyphicon-log-out green')
         - else
           .margin-right.navbar-button.pull-right{class: "#{'active' if current_page?(contact_path)}"}
-            = link_to('', login_path, class: 'glyphicon glyphicon-log-in')
+            = link_to('', login_path, class: 'glyphicon glyphicon-log-in green')
         .navbar-button.pull-right{class: "#{'active' if current_page?(places_path)}"}
-          = link_to('', places_path, class: 'glyphicon glyphicon-search')
+          = link_to('', places_path, class: 'glyphicon glyphicon-search green')
         - if signed_in?
           .navbar-button.pull-right{class: "#{'active' if current_page?(places_review_index_path)}"}
-            = link_to('', places_review_index_path, class: 'glyphicon glyphicon-thumbs-up')
+            = link_to('', places_review_index_path, class: 'glyphicon glyphicon-thumbs-up green')
         = render partial: 'layouts/navbar/dropdown'

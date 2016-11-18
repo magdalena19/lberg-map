@@ -90,4 +90,7 @@ Rails.application.configure do
     authentication: ENV['relay_auth']
     enable_starttls_auto: true
   }
+
+	# Make url_helpers work by setting host address
+	config.action_controller.default_url_options = { host: AppConfig.general.host }
 end

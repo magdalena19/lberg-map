@@ -1,0 +1,16 @@
+de:
+  messages:
+    tags:
+      technically_related: 'Technische Frage'
+      content_related: 'Frage zur Karte / Inhalt'
+      misc_related: 'Sonstiges'
+    new:
+      sender_email: 'Deine Email'
+      sender_name: 'Dein Name'
+      subject: 'Betreff'
+      text: 'Text'
+      send_a_copy_to_email_address: 'Sende Kopie zu meiner Email-Adresse'
+      send_message: 'Nachricht abschicken'
+      imprint: 'Impressum'
+      send_email: 'Schick uns eine Email'
+      contact: 'Kontakt'

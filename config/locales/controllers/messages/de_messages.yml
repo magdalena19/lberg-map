@@ -1,0 +1,5 @@
+de:
+  messages:
+    create:
+      message_successfully_sent: 'Deine Nachricht wurde erfolgreich verschickt!'
+      mailing_service_error: 'Uuuups, irgendetwas ist schief gelaufen. Wir versuchen das Problem alsbald zu beheben...'

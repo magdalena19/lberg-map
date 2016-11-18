@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111114752) do
+ActiveRecord::Schema.define(version: 20161111121929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,16 @@ ActiveRecord::Schema.define(version: 20161111114752) do
 
   add_index "category_translations", ["category_id"], name: "index_category_translations_on_category_id", using: :btree
   add_index "category_translations", ["locale"], name: "index_category_translations_on_locale", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "sender_name"
+    t.string   "sender_email"
+    t.string   "subject"
+    t.text     "text"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "tag"
+  end
 
   create_table "place_translations", force: :cascade do |t|
     t.integer  "place_id",                        null: false

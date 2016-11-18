@@ -79,4 +79,15 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.middleware.use Rack::Attack
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: ENV['relay_address'],
+    # domain: ENV['relay_domain'],
+    port: ENV['relay_port'],
+    user_name: ENV['relay_login'],
+    password: ENV['relay_passwd'],
+    authentication: ENV['relay_auth']
+    enable_starttls_auto: true
+  }
 end

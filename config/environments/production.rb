@@ -39,10 +39,10 @@ Rails.application.configure do
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -90,4 +90,7 @@ Rails.application.configure do
     authentication: ENV['relay_auth']
     enable_starttls_auto: true
   }
+
+	# Make url_helpers work by setting host address
+	config.action_controller.default_url_options = { host: AppConfig.general.host }
 end

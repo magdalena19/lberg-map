@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require dataTables/jquery.dataTables
-//= require dataTables/extras/dataTables.responsive
+//= require dataTables_responsive
 //= require jquery-ui
 //= require bootstrap
 //= require bootstrap-sprockets

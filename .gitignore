@@ -25,3 +25,6 @@ tmp/**/*
 
 # unicorn files like logs failures sockets 
 /shared/*
+
+# Ignore application configuration
+/config/application.yml

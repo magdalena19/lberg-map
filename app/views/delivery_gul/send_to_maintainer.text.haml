@@ -1,0 +1,6 @@
+=t('.info_text')
+\
+= "From: #{@message.sender_name} (#{@message.sender_email})"
+= "Subject: " + @message.subject.to_s
+\
+= @message.text

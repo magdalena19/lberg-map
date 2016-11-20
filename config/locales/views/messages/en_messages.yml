@@ -1,0 +1,16 @@
+en:
+  messages:
+    tags:
+      technically_related: 'Technical question'
+      content_related: 'Question regarding the map / content'
+      misc_related: 'Miscellaneous'
+    new:
+      sender_email: 'Sender email'
+      sender_name: 'Sender name'
+      subject: 'Subject'
+      text: 'Text'
+      send_a_copy_to_email_address: 'Send a copy to email address'
+      send_message: 'Send message'
+      imprint: 'Imprint'
+      send_email: 'Send us an email'
+      contact: 'Contact'

@@ -140,6 +140,7 @@ noscript {
   .dropdown-toggle {
     display: inline;
     background: none !important;
+    color: $green;
     &:hover {
       color: $lilac !important;
     };

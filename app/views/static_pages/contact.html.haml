@@ -17,9 +17,9 @@
         %br Code Kollektiv
     .col-xs-12.col-md-6.col-md-offset-1
       .h3= t('.send_email')
-      %input{placeholder: t('.your_email')}
-      %input{placeholder: t('.your_name')}
-      %input{placeholder: t('.your_title')}
-      %textarea{placeholder: t('.your_message')}
-      %br
-      %button{class: 'btn btn-default btn-primary'} Send
+      = form_for @message do |f|
+        = f.text_field :email
+        = f.text_field :name
+        = f.text_field :subject
+        = f.text_area :text
+        = f.submit 'Submit'

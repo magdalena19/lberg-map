@@ -16,7 +16,7 @@ jQuery(function() {
     var addMap = function(url) {
       baselayer = L.tileLayer(url, {attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'});
       map.addLayer(baselayer);
-      map.setView([52.513, 13.474], 12);
+      map.setView([52.513, 13.4], 12);
     };
 
     $.ajax({

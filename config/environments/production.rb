@@ -87,10 +87,10 @@ Rails.application.configure do
     port: ENV['relay_port'],
     user_name: ENV['relay_login'],
     password: ENV['relay_passwd'],
-    authentication: ENV['relay_auth']
+    authentication: ENV['relay_auth'],
     enable_starttls_auto: true
   }
 
 	# Make url_helpers work by setting host address
-	config.action_controller.default_url_options = { host: AppConfig.general.host }
+  config.action_controller.default_url_options = { host: 'lpkb.de' }
 end

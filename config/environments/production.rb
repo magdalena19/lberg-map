@@ -42,7 +42,7 @@ Rails.application.configure do
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  config.force_ssl = false
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -87,10 +87,10 @@ Rails.application.configure do
     port: ENV['relay_port'],
     user_name: ENV['relay_login'],
     password: ENV['relay_passwd'],
-    authentication: ENV['relay_auth']
+    authentication: ENV['relay_auth'],
     enable_starttls_auto: true
   }
 
 	# Make url_helpers work by setting host address
-	config.action_controller.default_url_options = { host: AppConfig.general.host }
+  config.action_controller.default_url_options = { host: 'lpkb.de' }
 end

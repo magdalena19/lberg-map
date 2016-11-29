@@ -6,7 +6,6 @@
 
 # Can also ignore all directories and files in a directory.
 visualization/
-.env
 /backup/ftp.config
 
 # Ignore bundler config.
@@ -14,6 +13,9 @@ visualization/
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/nginx/*
+log/postgresql/*
+/pid/*
 /public/assets
 .sass-cache
 tmp/**/*
@@ -28,3 +30,6 @@ tmp/**/*
 
 # Ignore application configuration
 /config/application.yml
+.env
+#Ignore database content
+postgesqldata/*

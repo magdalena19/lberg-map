@@ -6,6 +6,7 @@ RUN apt-get update -qq && apt-get install -y \
 	libpq-dev \
 	nodejs \
 	imagemagick \
+    ghostscript \
     libsqlite3-dev \
     supervisor
 RUN mkdir /lbergmap

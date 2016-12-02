@@ -18,8 +18,8 @@ services:
       - ./configEnv/unicorn_supervisord.conf:/etc/supervisor/conf.d/unicorn_supervisord.conf  
         #- socketfolder:/var/run/lbergsocket
     ports:
-        # - '587:587' # change to socket with outside nginx
-        #- '25:25'  
+        - '587:587' # change to socket with outside nginx
+        - '25:25'  
         - '30000:30000'
     #expose:
     #  - '30000'  

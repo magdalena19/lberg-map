@@ -1,32 +1,55 @@
-#Defines which docker images should be build 
 version: '2'
 services:
   postgreslberg: #how to add custom conf
     image: postgres
     env_file: .env    
-    ports:
-      - '5432:5432'
+    volumes:
+      - ./postgesqldata/:/var/lib/postgresql/data:rw 
+      - ./log/postgresql/:/var/lib/postgresql/data/pg_log/ 
+#        - postgesqldata  
+#    ports:
+#      - '5432:5432'
   lbergmap:
     build: .
     env_file: .env
-    command: supervisord -c /lbergmap/unicorn_supervisord.conf #watch -n 1 'ls' # supervisord   
+    command: supervisord -c /etc/supervisor/conf.d/unicorn_supervisord.conf    
     volumes:
       - .:/lbergmap
-        #      - ./unicorn_supervisord.conf:/etc/supervisor/conf.d/unicorn_supervisord.conf  
+      - ./configEnv/unicorn_supervisord.conf:/etc/supervisor/conf.d/unicorn_supervisord.conf  
+        #- socketfolder:/var/run/lbergsocket
     ports:
-      - "3000:3000" # change to socket with outside nginx
+        - '587:587' # change to socket with outside nginx
+        - '25:25'  
+        - '30000:30000'
+    #expose:
+    #  - '30000'  
     links:
       - postgreslberg 
+    #  nginxlberg:
+    #    image: nginx
+    #    ports:
+    #        - '80:80'
+    #        - '443:443'  
+    #    volumes:
+    #        - ./configEnv/nginx_lberg.conf:/etc/nginx/nginx.conf 
+    #        - ./configEnv/nginx_lberg_site.conf:/etc/nginx/lberg-map  
+    #        - /etc/letsencrypt/:/etc/letsencrypt/  
+    #        - ./log/nginx/:/var/log/nginx/  
+    #          #        - socketfolder:/var/run/lbergsocket
+    #    links:
+    #        - lbergmap:lberg
+volumes:
+  socketfolder: {}
+#  postgesqldata: {}    
 
 #1. docker-compose build create the images
 #2. run init commands
-#    docker-compose run -T lbergmap rake db:create
-#    docker-compose run -T lbergmap rake db:migrate
-#    docker-compose run -T lbergmap rake assets:precompile
+#    docker-compose exec -T lbergmap rake db:create
+#    docker-compose exec -T lbergmap rake db:migrate
+#    docker-compose exec -T lbergmap rake assets:precompile
 #3. docker-compose up (-d) - start containerts
-#4. docker exec -i -t lbergmap_lbergmap_1 /bin/bash - start bash
-# docker ps -a - list stoped containers
-# docker ps list - running containers
+#4. docker-compose exec lbergmap bash - start bash
+# docker-compose ps / docker ps -a - list stoped containers
 # docker rm/rmi - remove container/image
 # 
 # docker-compose run

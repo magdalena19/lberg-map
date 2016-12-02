@@ -15,7 +15,7 @@ visualization/
 /log/*.log
 /log/nginx/*
 log/postgresql/*
-pid/*
+pidas/*
 /public/assets
 .sass-cache
 tmp/**/*

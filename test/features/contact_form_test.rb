@@ -25,6 +25,8 @@ feature 'Contact form' do
     click_on 'Send message'
 
     page.must_have_content "Text can't be blank"
+    screenshot_and_open_image
+    page.must_have_content "Text can't be blank"
   end
 
   def fill_in_valid_contact_information

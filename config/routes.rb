@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     post '/login' => 'sessions#create'
     get '/logout' => 'sessions#destroy'
 
+    get '/contact' => 'messages#new'
+    post '/contact' => 'messages#create'
+
     get 'places/review_index' => 'review#review_index'
     get '/:id/review_place' => 'review#review_place', as: :review_place
     get '/:id/confirm_place' => 'review#confirm_place', as: :confirm_place
@@ -26,9 +29,9 @@ Rails.application.routes.draw do
     resources :announcements
 
 
-    scope protocol: 'https' do
-      get '/contact' => 'messages#new'
-      post '/contact' => 'messages#create'
-    end
+    # scope protocol: 'https' do
+    #   get '/contact' => 'messages#new'
+    #   post '/contact' => 'messages#create'
+    # end
   end
 end

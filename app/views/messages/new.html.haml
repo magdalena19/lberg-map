@@ -17,7 +17,7 @@
         %br Code Kollektiv
     .col-xs-12.col-md-6.col-md-offset-1
       .h3= t('.send_email')
-      = form_for @message, url: contact_url do |f|
+      = form_for @message, url: contact_url(protocol: 'https') do |f|
 
         %fieldset{class: "form-group row"}
           .col-xs-12

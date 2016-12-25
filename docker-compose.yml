@@ -5,6 +5,7 @@ services:
     env_file: .env    
     volumes:
       - ./postgesqldata/:/var/lib/postgresql/data:rw 
+      - ./configEnv/postgresql.conf:/var/lib/postgresql/data/postgresql.conf  
       - ./log/postgresql/:/var/lib/postgresql/data/pg_log/ 
 #        - postgesqldata  
 #    ports:
@@ -18,10 +19,8 @@ services:
       - ./configEnv/unicorn_supervisord.conf:/etc/supervisor/conf.d/unicorn_supervisord.conf  
         #- socketfolder:/var/run/lbergsocket
     ports:
-        - '587:587' # change to socket with outside nginx
-        - '25:25'  
-        - '30000:30000'
-        - '30001:30001'
+        - '127.0.0.1:30000:30000'
+          #- '30001:30001'
           
     #expose:
     #  - '30000'  

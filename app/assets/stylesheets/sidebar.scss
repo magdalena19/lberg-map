@@ -20,9 +20,16 @@
     .header {
     }
     .last-point {
+      white-space: nowrap;
+      overflow: hidden;
       line-height: 27px;
       .glyphicon {
         line-height: 27px;
+      }
+      .name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
     .zoom-to-place {

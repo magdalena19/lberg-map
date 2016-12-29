@@ -1,0 +1,13 @@
+en:
+  layouts:
+    navbar:
+      dropdown:
+        settings: Settings
+      navbar:
+        login: Log in
+        logout: Log out
+        search: Search places
+        review: Review changes
+        about: About us
+        contact: Contact us
+        back_to_map: Back to map

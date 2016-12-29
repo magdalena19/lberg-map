@@ -3,7 +3,6 @@ class DeliveryGul < ApplicationMailer
 
   def send_copy_to_sender(message)
 		# logger.debug Rails.application.config.action_mailer.smtp_settings
-		debugger
     @message = message
     mail(to: @message.sender_email, subject: "#{t('.request_copy_prefix')} #{AppConfig.general['app_title']}")
   end

@@ -1,0 +1,13 @@
+de:
+  layouts:
+    navbar:
+      dropdown:
+        settings: Einstellungen
+      navbar:
+        login: Einloggen
+        logout: Ausloggen
+        search: Orte suchen
+        review: Änderungen moderieren
+        about: Über uns
+        contact: Kontaktiere uns
+        back_to_map: Zur Karte

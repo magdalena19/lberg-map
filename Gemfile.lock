@@ -246,6 +246,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.4.2)
+      byebug (~> 9.0)
+      pry (~> 0.10)
     pusher-client (0.6.2)
       json
       websocket (~> 1.0)
@@ -389,7 +392,6 @@ DEPENDENCIES
   bing_translator (~> 4.6.0)
   bootstrap-sass (~> 3.3.6)
   bootsy
-  byebug
   capybara-screenshot
   coffee-rails (~> 4.1.0)
   database_cleaner
@@ -414,6 +416,7 @@ DEPENDENCIES
   paper_trail
   pg
   poltergeist
+  pry-byebug
   rack-attack
   rails (= 4.2.5.1)
   rails-html-sanitizer

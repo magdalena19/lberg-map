@@ -22,7 +22,6 @@ feature 'Category selection' do
     show_category_panel
     page.find('.category-button', text: 'Playground (2)').trigger('click')
     sleep(1)
-    screenshot_and_open_image
     page.must_have_css('.leaflet-marker-icon div span', text: 2)
   end
 

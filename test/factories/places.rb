@@ -14,8 +14,8 @@ FactoryGirl.define do
       street 'Foo-street'
       postal_code '13045'
       city 'Berlin'
-      latitude 52.5
-      longitude 13.5
+      latitude { rand(52.5..52.51) }
+      longitude { rand(13.45..13.451) }
       email 'foo@bar.com'
       homepage 'http//bar.com'
       phone '03081618254'
@@ -32,7 +32,7 @@ FactoryGirl.define do
       street 'Bar-street'
       postal_code '11045'
       city 'Berlin'
-      latitude 52.5
+      latitude 52.6
       longitude 13.5
       email 'bar@foo.com'
       homepage 'http//foo.com'

@@ -4,5 +4,8 @@
   - @last_places_created.each do |place|
     .last-point
       .last-point-header{style: ('color: #ff6666;' if !place.reviewed)}
-        = place.name
-        .glyphicon.glyphicon-share-alt.zoom-to-place.pull-right{longitude: place.longitude, latitude: place.latitude}
+        .row
+          .col-xs-10.name
+            = place.name
+          .col-xs-2.zoom
+            .glyphicon.glyphicon-share-alt.zoom-to-place.pull-right{longitude: place.longitude, latitude: place.latitude}

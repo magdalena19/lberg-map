@@ -27,8 +27,6 @@ gem 'jquery-datatables-rails', '~> 3.4.0'
 gem 'jquery-ui-rails'
 gem 'bootsy'
 gem 'travis'
-gem 'ruby-debug-ide'
-gem 'debase'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -78,4 +76,9 @@ group :test do
   gem 'poltergeist' # headless javascript testing
   gem 'selenium-webdriver' # non-headless javascript testing
   gem 'capybara-screenshot'
+end
+
+group :production do
+  gem 'debase'
+  gem 'ruby-debug-ide'
 end

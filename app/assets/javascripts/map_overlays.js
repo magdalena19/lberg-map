@@ -108,6 +108,11 @@ jQuery(function() {
     closeAllPanels();
   });
 
+  // Close slidePanels when clicking on map
+  jQuery('#map').click(function() {
+    closeAllPanels();
+  });
+
   // Close slidePanels on Escape keypress
   window.addEventListener("keydown", function (event) {
     if (event.defaultPrevented) {

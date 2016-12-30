@@ -20,7 +20,8 @@ feature 'Category selection' do
     show_category_panel
     page.find('.category-button', text: 'Playground (2)').trigger('click')
     sleep(1)
-    page.must_have_css('.marker-marker-icon div span', text: 2)
+    screenshot_and_open_image
+    page.must_have_css('.leaflet-marker-icon div span', text: 2)
   end
 
   scenario 'Place is not shown when other category was clicked', js: true do
@@ -34,6 +35,6 @@ feature 'Category selection' do
     visit root_path
     page.find('.btn', text: 'language').trigger('click')
     page.find('.show-categories').trigger('click')
-    sleep(1)
+    sleep(2)
   end
 end

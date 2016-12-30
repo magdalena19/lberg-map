@@ -19,7 +19,7 @@ pidas/*
 /public/assets
 .sass-cache
 tmp/**/*
-
+.idea/
 # Ignore Byebug command history file.
 .byebug_history
 

@@ -1,5 +1,4 @@
-require 'mass_seed_announcements'
-require 'mass_seed_points'
+require 'poi_repository'
 
 User.create(id: 5000,
             name: 'admin',
@@ -15,5 +14,6 @@ User.create(id: 5001,
             is_admin: false).save
 
 # See /lib/mass_seed_*.rb for definitions
-MassSeedPoints.generate(number_of_points: 30, city: 'Berlin')
-MassSeedAnnouncements.generate(number_of_announcements: 10)
+PoiRepository.import_from_csv('./db/initPois.csv', 'Berlin')
+#MassSeedPoints.generate(number_of_points: 30, city: 'Berlin')
+#MassSeedAnnouncements.generate(number_of_announcements: 10)

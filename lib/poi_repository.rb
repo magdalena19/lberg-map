@@ -24,6 +24,7 @@ module PoiRepository
                     created_at: DateTime.now,
                     updated_at: DateTime.now
                    ).save(validate: false)
+          debugger
           # Traverse through points
           #Place.find(index).translations.each do |translation|
           #  translation.without_versioning do
@@ -36,7 +37,7 @@ module PoiRepository
     end
     
     # Quick'n dirty, otherwise parse locale files for categories
-    CATNAMES = ['playground', 'free_wifi', 'medical_support', 'legal_support', 'cafe', 'meeting_point', 'child_play']
+    CATNAMES = ['playground', 'medical_support', 'legal_support', 'cafe', 'meeting_point', 'child_play']
 
     def self.generate_categories
       categories_in_db = Category.all.map(&:name)

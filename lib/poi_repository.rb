@@ -73,16 +73,15 @@ module PoiRepository
         categories_ids = []
         categories.each do |category|
             puts category
-            categories_in_db = Category.all.map(&:name)
+            categories_in_db = Category.all.map(&:name).map{ |c| c.downcase.gsub(' ', '_') }
             p categories_in_db
-            if (!categories_in_db.include? category.humanize)
+            if (!categories_in_db.include? category)
                 Category.create(
                     name_en: I18n.t("categories.#{category}", locale: 'en'),
                     name_de: I18n.t("categories.#{category}", locale: 'de'))
                 categories_ids << Category.last.id
             else
-                categories_ids << Category.find_by(name: category.humanize).id
-                p categories_ids
+                categories_ids << Category.id_for(category)
             end  
         end  
         categories_ids.join(',')

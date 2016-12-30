@@ -19,4 +19,11 @@ class Category < ActiveRecord::Base
   def points_in_category
     Category.points_in_categories[name]
   end
+
+  def self.id_for(category_string)
+    category = Category.all.find do |cat|
+      category_string.gsub('_', ' ').casecmp(cat.name) == 0
+    end
+    category.id if category
+  end
 end

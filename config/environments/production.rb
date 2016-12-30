@@ -82,9 +82,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true
-  # config.action_mailer.default_url_options = { host: '172.18.0.3', port: 30000 }
-	config.action_controller.default_url_options = { host: 'lpkb.de' }
-  # config.action_mailer.asset_host = "http://172.18.0.3:30000"
+  config.action_controller.default_url_options = { host: 'lpkb.de' }
   config.action_mailer.smtp_settings = {
     address: ENV['relay_address'],
     port: ENV['relay_port'],
@@ -93,9 +91,4 @@ Rails.application.configure do
     authentication: ENV['relay_auth'],
     enable_starttls_auto: true
   }
-
-	# Make url_helpers work by setting host address
-	# TODO: Do not hardcode that!
-	#config.action_controller.default_url_options = { host: 'lpkb.de' }
-  #config.action_controller.default_url_options = { host: AppConfig.general.host }
 end

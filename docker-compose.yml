@@ -21,6 +21,8 @@ services:
         - '587:587' # change to socket with outside nginx
         - '25:25'  
         - '30000:30000'
+        - '30001:30001'
+          
     #expose:
     #  - '30000'  
     links:

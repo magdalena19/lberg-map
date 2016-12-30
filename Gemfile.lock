@@ -92,7 +92,7 @@ GEM
     database_cleaner (1.5.3)
     debase (0.2.1)
       debase-ruby_core_source
-    debase-ruby_core_source (0.9.6)
+    debase-ruby_core_source (0.9.4)
     debug_inspector (0.0.2)
     differ (0.1.2)
     erubis (2.7.0)

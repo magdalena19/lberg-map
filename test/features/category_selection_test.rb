@@ -1,5 +1,7 @@
 require_relative '../test_helper'
 
+# note that these tests can fail due to lacking or slow internet connection
+# since leaflet marker are displayed not before map tiles are loaded
 feature 'Category selection' do
   before do
     create :place, :reviewed, name: 'Playground', categories: '1'

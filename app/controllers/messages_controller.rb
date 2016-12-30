@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
     if simple_captcha_valid? || signed_in?
       save_new
     else
-      flash.now[:danger] = t('.invalid_captcha')
+      flash[:danger] = t('.invalid_captcha')
       render :new
     end
   end

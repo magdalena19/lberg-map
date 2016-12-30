@@ -16,19 +16,6 @@ feature 'Contact form' do
     page.must_have_content('Send a copy to email address')
   end
 
-  scenario 'Cannot send email if contact information invalid', :js do
-    visit contact_path
-    fill_in :message_sender_name, with: 'Test Person'
-    fill_in :message_sender_email, with: 'test@test.com'
-    fill_in :message_subject, with: 'Test subject'
-    validate_captcha
-    click_on 'Send message'
-
-    page.must_have_content "Text can't be blank"
-    screenshot_and_open_image
-    page.must_have_content "Text can't be blank"
-  end
-
   def fill_in_valid_contact_information
     find('#message_tag').find(:xpath, 'option[1]').select_option
     fill_in :message_sender_name, with: 'Test Person'

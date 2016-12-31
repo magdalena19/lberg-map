@@ -107,16 +107,14 @@
     font-size: 22px;
     font-weight:  bold;
     .show-categories-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       height: 100%;
       padding-top: 6px;
       vertical-align: middle;
       font-weight: normal;
       font-size: 20px;
-    }
-    .glyphicon {
-      float: left;
-      top: 5px;
-      left: 5px;
     }
   }
 }

@@ -1,4 +1,5 @@
 en:
+  choose_category: 'Choose category'
   categories:
     playground: 'Playground'
     hospital: 'Hospital'

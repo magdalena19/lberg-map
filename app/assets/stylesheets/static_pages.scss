@@ -39,10 +39,6 @@
   }
 }
 
-.control-container {
-  cursor: pointer;
-}
-
 .zoom-container {
   right: -7px;
   top: 48px;
@@ -95,18 +91,17 @@
   max-width: 250px;
   min-width: 150px;
   bottom: -10px;
-  height: 52px;
   .show-categories {
     height: 52px;
     border-radius: 7px;
     background: rgba(darken($lilac, 15%),0.5);
     padding: 0px 10px 0 10px;
-    cursor: pointer;
     position: relative;
     left: -50%;
     font-size: 22px;
     font-weight:  bold;
     .show-categories-text {
+      cursor: pointer;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -117,6 +112,7 @@
       font-size: 20px;
     }
     .glyphicon {
+      cursor: pointer;
       float: left;
       padding: 10px 10px 0 0;
     }
@@ -134,8 +130,13 @@
 }
 
 .add-place-buttons {
+  cursor: pointer;
   width: 100%;
   margin-bottom: 10px !important;
+}
+
+.add-place-button {
+  cursor: pointer;
 }
 
 .category-button {

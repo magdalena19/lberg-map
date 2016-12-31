@@ -33,6 +33,10 @@ class Place < ActiveRecord::Base
   before_update :geocode_with_nodes, if: :address_changed?
   after_create :auto_translate
 
+  def has_empty_description?
+    translations.map { |t| t.present? }.include? false
+  end
+
   ## VIRTUAL ATTRIBUTES
   def address
     ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')

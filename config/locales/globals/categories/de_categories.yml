@@ -1,4 +1,5 @@
 de:
+  choose_category: 'Kategorie wählen'
   categories:
     playground: 'Spielplatz'
     hospital: 'Krankenhaus'

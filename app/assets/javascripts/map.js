@@ -112,16 +112,20 @@ jQuery(function() {
       jQuery(this).addClass('active');
       var categoryId = jQuery(this).attr('id');
       var category = jQuery(this).text();
-      jQuery('.show-categories-text').html(category);
-      $.ajax({
-        url: "/",
+      if (jQuery(this).is('#all')) {
+        jQuery('.show-categories-text').html(window.choose_category);
+      } else {
+        jQuery('.show-categories-text').html(category);
+      };
+      jQuery.ajax({
+        url: '/',
         data: {
           category: categoryId,
           locale: window.locale,
         },
         success: function(result) {
           updatePlaces(result);
-          $('.slidepanel-title').html(category)
+          jQuery('.slidepanel-title').html(category)
           resizePanels();
           jQuery('.loading').hide();
         }

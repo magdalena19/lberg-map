@@ -50,7 +50,7 @@ jQuery(function() {
 
   jQuery.each(jQuery('.announcement'), function() {
     var angle = Math.random() * 3 - 2;
-    jQuery(this).css('transform', 'rotate(' + angle + 'deg)');
+    jQuery(this).css('transform', 'rotate(' + angle + 'deg)fcat');
   });
 
   // SLIDE PANELS

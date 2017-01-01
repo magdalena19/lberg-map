@@ -31,10 +31,19 @@ class Place < ActiveRecord::Base
   before_validation :sanitize_descriptions, on: [:create, :update]
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
-  after_create :auto_translate
+  after_create :auto_translate, if: :has_empty_description?
+  after_create :set_description_reviewed_flags
 
   def has_empty_description?
-    translations.map { |t| t.present? }.include? false
+    translations.map { |t| t.description.nil? || t.description.empty? }.include? true
+  end
+
+  def set_description_reviewed_flags
+    translations.each do |translation|
+      translation.without_versioning do
+        translation.update_attributes(reviewed: reviewed ? true : false)
+      end
+    end
   end
 
   ## VIRTUAL ATTRIBUTES

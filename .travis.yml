@@ -6,8 +6,8 @@ rvm:
 addons:
   code_climate:
     repo_token: 1fadcdbeecd5a71dc5c16cb3cf29e99d5dc7348b1a59f5f7430cf3fac4623c7d
-after_success:
-  - bundle exec codeclimate-test-reporter
+after_success: 
+- bundle exec codeclimate-test-reporter
 test:
   adapter: postgresql
   database: travis_ci_test

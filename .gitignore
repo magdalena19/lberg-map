@@ -31,5 +31,9 @@ tmp/**/*
 # Ignore application configuration
 /config/application.yml
 .env
-#Ignore database content
+
+# Ignore database content
 postgesqldata/*
+
+# Ignore test coverage report
+/coverage

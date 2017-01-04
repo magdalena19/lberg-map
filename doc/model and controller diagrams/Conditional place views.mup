@@ -1,0 +1,1481 @@
+{
+  "id": "root",
+  "formatVersion": 3,
+  "ideas": {
+    "1": {
+      "title": "Conditional place views",
+      "id": 4,
+      "ideas": {
+        "2": {
+          "title": "Place",
+          "id": 251,
+          "ideas": {
+            "1": {
+              "title": "reviewed?",
+              "id": 9,
+              "ideas": {
+                "1": {
+                  "title": "true",
+                  "id": 13,
+                  "attr": {
+                    "style": {
+                      "background": "#99CC00"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Show in places index",
+                      "id": 23,
+                      "attr": {
+                        "style": {
+                          "background": "#99CC00"
+                        }
+                      }
+                    },
+                    "2": {
+                      "title": "Show on map",
+                      "id": 24,
+                      "attr": {
+                        "style": {
+                          "background": "#99CC00"
+                        }
+                      }
+                    }
+                  }
+                },
+                "2": {
+                  "title": "false",
+                  "id": 14,
+                  "attr": {
+                    "style": {
+                      "background": "#FF99CC"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "from own guest session?",
+                      "id": 19,
+                      "attr": {
+                        "style": {
+                          "background": "#993300"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "false",
+                          "attr": {
+                            "style": {
+                              "background": "#FF99CC"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "POI not visible until reviewed",
+                              "ideas": {},
+                              "id": 33,
+                              "attr": {
+                                "style": {
+                                  "background": "#FF99CC"
+                                }
+                              }
+                            }
+                          },
+                          "id": 20
+                        },
+                        "2": {
+                          "title": "true",
+                          "attr": {
+                            "style": {
+                              "background": "#99CC00"
+                            }
+                          },
+                          "id": 22,
+                          "ideas": {
+                            "1": {
+                              "title": "Show in places index (brown marker)",
+                              "id": 28,
+                              "attr": {
+                                "style": {
+                                  "background": "#99CC00"
+                                }
+                              },
+                              "ideas": {}
+                            },
+                            "2": {
+                              "title": "Show in sidebar (brown marker)",
+                              "id": 31,
+                              "attr": {
+                                "style": {
+                                  "background": "#99CC00"
+                                }
+                              }
+                            },
+                            "3": {
+                              "title": "Show on map (brown marker)",
+                              "id": 27,
+                              "attr": {
+                                "style": {
+                                  "background": "#99CC00"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "2": {
+                      "title": "Show in review index if signed in",
+                      "id": 25,
+                      "attr": {
+                        "style": {
+                          "background": "#FF99CC"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "attr": {
+                "style": {
+                  "background": "#808080"
+                }
+              }
+            }
+          },
+          "attr": {
+            "style": {
+              "background": "#00CCFF"
+            }
+          }
+        },
+        "-1": {
+          "title": "Translation",
+          "id": 10,
+          "ideas": {
+            "1": {
+              "title": "reviewed?",
+              "id": 11,
+              "ideas": {
+                "2": {
+                  "title": "false",
+                  "id": 16,
+                  "attr": {
+                    "style": {
+                      "background": "#FF99CC"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Show in review index (bottom)",
+                      "attr": {
+                        "style": {
+                          "background": "#FF99CC"
+                        }
+                      },
+                      "ideas": {},
+                      "id": 248
+                    }
+                  }
+                }
+              },
+              "attr": {
+                "style": {
+                  "background": "#808080"
+                },
+                "position": [
+                  96,
+                  -81,
+                  2
+                ]
+              }
+            },
+            "2": {
+              "title": "auto_translated?",
+              "id": 12,
+              "ideas": {
+                "1": {
+                  "title": "true",
+                  "id": 17,
+                  "attr": {
+                    "style": {
+                      "background": "#99CC00"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Show in participation index",
+                      "attr": {
+                        "style": {
+                          "background": "#99CC00"
+                        }
+                      },
+                      "ideas": {},
+                      "id": 246
+                    },
+                    "2": {
+                      "title": "Show 'improve translatoin'-link in place(s) slidepanel if translation not under review",
+                      "attr": {
+                        "style": {
+                          "background": "#99CC00"
+                        }
+                      },
+                      "ideas": {},
+                      "id": 247
+                    }
+                  }
+                }
+              },
+              "attr": {
+                "style": {
+                  "background": "#808080"
+                },
+                "position": [
+                  102,
+                  100,
+                  3
+                ]
+              }
+            }
+          },
+          "attr": {
+            "style": {
+              "background": "#FFCC00"
+            }
+          }
+        }
+      },
+      "attr": {
+        "position": [
+          -138,
+          -271,
+          1
+        ],
+        "style": {
+          "background": "#000000"
+        }
+      }
+    },
+    "2": {
+      "title": "Conditional place model states",
+      "id": 35,
+      "attr": {
+        "position": [
+          -152,
+          205,
+          1
+        ],
+        "style": {
+          "background": "#333300"
+        },
+        "note": {
+          "index": 22,
+          "text": "How to read this: \"if as guest create place, then Place.reviewed == false AND Place.Translations.auto_translated == true"
+        }
+      },
+      "ideas": {
+        "1": {
+          "title": "as guest",
+          "id": 36,
+          "ideas": {
+            "1": {
+              "title": "Create",
+              "id": 45,
+              "ideas": {
+                "1": {
+                  "title": "Place",
+                  "id": 96,
+                  "ideas": {
+                    "1": {
+                      "title": "reviewed",
+                      "id": 97,
+                      "ideas": {
+                        "1": {
+                          "title": "false",
+                          "id": 98,
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          }
+                        }
+                      },
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      }
+                    },
+                    "2": {
+                      "title": "Translation(s)",
+                      "id": 108,
+                      "ideas": {
+                        "2": {
+                          "title": "version.length",
+                          "attr": {
+                            "style": {
+                              "background": "#C0C0C0"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "1",
+                              "attr": {
+                                "style": {
+                                  "background": "#FFFFFF"
+                                }
+                              },
+                              "id": 169
+                            }
+                          },
+                          "id": 168
+                        },
+                        "3": {
+                          "title": "reviewed",
+                          "attr": {
+                            "style": {
+                              "background": "#C0C0C0"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "false",
+                              "attr": {
+                                "style": {
+                                  "background": "#FFFFFF",
+                                  "width": 50
+                                }
+                              },
+                              "id": 182
+                            }
+                          },
+                          "id": 181
+                        },
+                        "4": {
+                          "title": "description.empty?",
+                          "attr": {
+                            "style": {
+                              "background": "#808080"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "true",
+                              "attr": {
+                                "style": {
+                                  "background": "#99CC00"
+                                }
+                              },
+                              "ideas": {
+                                "1": {
+                                  "title": "auto_translated",
+                                  "id": 109,
+                                  "ideas": {
+                                    "1": {
+                                      "title": "true",
+                                      "attr": {
+                                        "style": {
+                                          "background": "#FFFFFF"
+                                        }
+                                      },
+                                      "ideas": {},
+                                      "id": 258
+                                    }
+                                  },
+                                  "attr": {
+                                    "style": {
+                                      "background": "#C0C0C0"
+                                    }
+                                  }
+                                }
+                              },
+                              "id": 255
+                            },
+                            "2": {
+                              "title": "false",
+                              "attr": {
+                                "style": {
+                                  "background": "#FF99CC"
+                                }
+                              },
+                              "id": 256,
+                              "ideas": {
+                                "1": {
+                                  "title": "auto_translated",
+                                  "attr": {
+                                    "style": {
+                                      "background": "#C0C0C0"
+                                    }
+                                  },
+                                  "ideas": {
+                                    "1": {
+                                      "title": "false",
+                                      "attr": {
+                                        "style": {
+                                          "background": "#FFFFFF"
+                                        }
+                                      },
+                                      "id": 271
+                                    }
+                                  },
+                                  "id": 260
+                                }
+                              }
+                            }
+                          },
+                          "id": 253
+                        }
+                      },
+                      "attr": {
+                        "style": {
+                          "background": "#FFCC00"
+                        },
+                        "position": [
+                          63,
+                          87,
+                          1
+                        ]
+                      }
+                    },
+                    "1.5": {
+                      "title": "version.length",
+                      "id": 129,
+                      "ideas": {
+                        "1": {
+                          "title": "1",
+                          "id": 130,
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          }
+                        }
+                      },
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      }
+                    }
+                  },
+                  "attr": {
+                    "style": {
+                      "background": "#00CCFF"
+                    }
+                  }
+                }
+              },
+              "attr": {
+                "style": {
+                  "background": "#333300"
+                },
+                "position": [
+                  55,
+                  -157,
+                  5
+                ]
+              }
+            },
+            "2": {
+              "title": "Edit",
+              "id": 46,
+              "attr": {
+                "style": {
+                  "background": "#333300"
+                },
+                "position": [
+                  73,
+                  193,
+                  6
+                ]
+              },
+              "ideas": {
+                "1": {
+                  "title": "Place",
+                  "ideas": {
+                    "1": {
+                      "title": "reviewed",
+                      "ideas": {
+                        "1": {
+                          "title": "false",
+                          "id": 107,
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          }
+                        }
+                      },
+                      "id": 106,
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      }
+                    },
+                    "1.5": {
+                      "title": "version.length",
+                      "ideas": {
+                        "1": {
+                          "title": "+1",
+                          "id": 132,
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          }
+                        }
+                      },
+                      "id": 131,
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      }
+                    }
+                  },
+                  "id": 105,
+                  "attr": {
+                    "style": {
+                      "background": "#00CCFF"
+                    },
+                    "position": [
+                      70,
+                      -85,
+                      6
+                    ]
+                  }
+                },
+                "2": {
+                  "title": "Translation",
+                  "attr": {
+                    "style": {
+                      "background": "#FFCC00"
+                    },
+                    "position": [
+                      75,
+                      143,
+                      5
+                    ]
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "auto_translated",
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      },
+                      "ideas": {
+                        "2": {
+                          "title": "false",
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "id": 140
+                        }
+                      },
+                      "id": 138
+                    },
+                    "2": {
+                      "title": "reviewed",
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "false",
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "id": 142
+                        }
+                      },
+                      "id": 141
+                    },
+                    "3": {
+                      "title": "version.length",
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "+1",
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "id": 144
+                        }
+                      },
+                      "id": 143
+                    }
+                  },
+                  "id": 137
+                }
+              }
+            }
+          },
+          "attr": {
+            "style": {
+              "background": "#800000"
+            }
+          }
+        },
+        "-1": {
+          "title": "as user",
+          "attr": {
+            "style": {
+              "background": "#800000"
+            }
+          },
+          "ideas": {
+            "1": {
+              "title": "Create",
+              "attr": {
+                "style": {
+                  "background": "#333300"
+                },
+                "position": [
+                  55,
+                  -157,
+                  5
+                ]
+              },
+              "ideas": {
+                "1": {
+                  "title": "Place",
+                  "attr": {
+                    "style": {
+                      "background": "#00CCFF"
+                    },
+                    "position": [
+                      134,
+                      -11,
+                      1
+                    ]
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "reviewed",
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "true",
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "id": 215
+                        }
+                      },
+                      "id": 186
+                    },
+                    "2": {
+                      "title": "version.length",
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "1",
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "id": 189
+                        }
+                      },
+                      "id": 188
+                    },
+                    "3": {
+                      "title": "Translation(s)",
+                      "attr": {
+                        "style": {
+                          "background": "#FFCC00"
+                        },
+                        "position": [
+                          -39,
+                          101,
+                          1
+                        ]
+                      },
+                      "ideas": {
+                        "2": {
+                          "title": "version.length",
+                          "attr": {
+                            "style": {
+                              "background": "#C0C0C0"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "1",
+                              "attr": {
+                                "style": {
+                                  "background": "#FFFFFF"
+                                }
+                              },
+                              "id": 194
+                            }
+                          },
+                          "id": 193
+                        },
+                        "3": {
+                          "title": "description.empty?",
+                          "attr": {
+                            "style": {
+                              "background": "#808080"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "true",
+                              "attr": {
+                                "style": {
+                                  "background": "#99CC00"
+                                }
+                              },
+                              "ideas": {
+                                "1": {
+                                  "title": "auto_translated",
+                                  "attr": {
+                                    "style": {
+                                      "background": "#C0C0C0"
+                                    }
+                                  },
+                                  "ideas": {
+                                    "1": {
+                                      "title": "true",
+                                      "attr": {
+                                        "style": {
+                                          "background": "#FFFFFF"
+                                        }
+                                      },
+                                      "ideas": {},
+                                      "id": 265
+                                    }
+                                  },
+                                  "id": 264
+                                }
+                              },
+                              "id": 263
+                            },
+                            "2": {
+                              "title": "false",
+                              "attr": {
+                                "style": {
+                                  "background": "#FF99CC"
+                                }
+                              },
+                              "ideas": {
+                                "1": {
+                                  "title": "auto_translated",
+                                  "attr": {
+                                    "style": {
+                                      "background": "#C0C0C0"
+                                    }
+                                  },
+                                  "ideas": {
+                                    "2": {
+                                      "title": "false",
+                                      "attr": {
+                                        "style": {
+                                          "background": "#FFFFFF"
+                                        }
+                                      },
+                                      "id": 269
+                                    }
+                                  },
+                                  "id": 267
+                                }
+                              },
+                              "id": 266
+                            }
+                          },
+                          "id": 262
+                        },
+                        "1.5": {
+                          "title": "reviewed",
+                          "attr": {
+                            "style": {
+                              "background": "#C0C0C0"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "true",
+                              "attr": {
+                                "style": {
+                                  "background": "#FFFFFF"
+                                }
+                              },
+                              "id": 229
+                            }
+                          },
+                          "id": 228
+                        }
+                      },
+                      "id": 190
+                    }
+                  },
+                  "id": 185
+                }
+              },
+              "id": 184
+            },
+            "2": {
+              "title": "Edit",
+              "attr": {
+                "style": {
+                  "background": "#333300"
+                },
+                "position": [
+                  160,
+                  241,
+                  11
+                ]
+              },
+              "ideas": {
+                "1": {
+                  "title": "Place",
+                  "attr": {
+                    "style": {
+                      "background": "#00CCFF"
+                    },
+                    "position": [
+                      70,
+                      -85,
+                      6
+                    ]
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "reviewed",
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      },
+                      "ideas": {
+                        "2": {
+                          "title": "true",
+                          "attr": {
+                            "style": {
+                              "background": "#99CC00"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "reviewed",
+                              "attr": {
+                                "style": {
+                                  "background": "#C0C0C0"
+                                }
+                              },
+                              "ideas": {
+                                "1": {
+                                  "title": "true",
+                                  "attr": {
+                                    "style": {
+                                      "background": "#FFFFFF"
+                                    }
+                                  },
+                                  "ideas": {},
+                                  "id": 287
+                                }
+                              },
+                              "id": 286
+                            },
+                            "2": {
+                              "title": "version.length",
+                              "attr": {
+                                "style": {
+                                  "background": "#C0C0C0"
+                                }
+                              },
+                              "ideas": {
+                                "1": {
+                                  "title": "1",
+                                  "attr": {
+                                    "style": {
+                                      "background": "#FFFFFF"
+                                    }
+                                  },
+                                  "id": 202
+                                }
+                              },
+                              "id": 201
+                            }
+                          },
+                          "id": 279
+                        },
+                        "3": {
+                          "title": "false",
+                          "attr": {
+                            "style": {
+                              "background": "#FF99CC"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "Cannot edit Place if under review",
+                              "attr": {
+                                "style": {
+                                  "background": "#FF0000"
+                                }
+                              },
+                              "ideas": {},
+                              "id": 285
+                            }
+                          },
+                          "id": 282
+                        }
+                      },
+                      "id": 199
+                    }
+                  },
+                  "id": 198
+                },
+                "2": {
+                  "title": "Translation",
+                  "attr": {
+                    "style": {
+                      "background": "#FFCC00"
+                    },
+                    "position": [
+                      56,
+                      89,
+                      7
+                    ]
+                  },
+                  "ideas": {
+                    "4": {
+                      "title": "reviewed",
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "true",
+                          "attr": {
+                            "style": {
+                              "background": "#99CC00"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "version.length",
+                              "attr": {
+                                "style": {
+                                  "background": "#C0C0C0"
+                                }
+                              },
+                              "ideas": {
+                                "1": {
+                                  "title": "1",
+                                  "attr": {
+                                    "style": {
+                                      "background": "#FFFFFF"
+                                    }
+                                  },
+                                  "id": 211
+                                }
+                              },
+                              "id": 210
+                            },
+                            "2": {
+                              "title": "reviewed",
+                              "attr": {
+                                "style": {
+                                  "background": "#C0C0C0"
+                                }
+                              },
+                              "ideas": {
+                                "2": {
+                                  "title": "true",
+                                  "attr": {
+                                    "style": {
+                                      "background": "#FFFFFF"
+                                    }
+                                  },
+                                  "ideas": {},
+                                  "id": 227
+                                }
+                              },
+                              "id": 208
+                            },
+                            "3": {
+                              "title": "auto_translated",
+                              "attr": {
+                                "style": {
+                                  "background": "#C0C0C0"
+                                }
+                              },
+                              "ideas": {
+                                "1": {
+                                  "title": "false",
+                                  "attr": {
+                                    "style": {
+                                      "background": "#FFFFFF"
+                                    }
+                                  },
+                                  "id": 207
+                                }
+                              },
+                              "id": 206
+                            }
+                          },
+                          "id": 292
+                        },
+                        "2": {
+                          "title": "false",
+                          "attr": {
+                            "style": {
+                              "background": "#FF99CC"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "Cannot edit Place if under review",
+                              "attr": {
+                                "style": {
+                                  "background": "#FF0000"
+                                }
+                              },
+                              "ideas": {},
+                              "id": 298
+                            }
+                          },
+                          "id": 297
+                        }
+                      },
+                      "id": 291
+                    }
+                  },
+                  "id": 205
+                }
+              },
+              "id": 197
+            },
+            "3": {
+              "title": "Review",
+              "attr": {
+                "style": {
+                  "background": "#333300"
+                },
+                "position": [
+                  85,
+                  558,
+                  10
+                ]
+              },
+              "ideas": {
+                "1": {
+                  "title": "Place",
+                  "attr": {
+                    "style": {
+                      "background": "#00CCFF"
+                    },
+                    "position": [
+                      150,
+                      -2,
+                      6
+                    ]
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "reviewed",
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "true",
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "ideas": {},
+                          "id": 234
+                        }
+                      },
+                      "id": 233
+                    },
+                    "2": {
+                      "title": "version.length",
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "1",
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "id": 236
+                        }
+                      },
+                      "id": 235
+                    },
+                    "3": {
+                      "title": "Translation(s)",
+                      "attr": {
+                        "style": {
+                          "background": "#FFCC00"
+                        }
+                      },
+                      "ideas": {
+                        "2": {
+                          "title": "reviewed",
+                          "attr": {
+                            "style": {
+                              "background": "#C0C0C0"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "true",
+                              "attr": {
+                                "style": {
+                                  "background": "#FFFFFF"
+                                }
+                              },
+                              "ideas": {},
+                              "id": 276
+                            }
+                          },
+                          "id": 275
+                        }
+                      },
+                      "id": 272
+                    }
+                  },
+                  "id": 232
+                },
+                "2": {
+                  "title": "Translation",
+                  "attr": {
+                    "style": {
+                      "background": "#FFCC00"
+                    },
+                    "position": [
+                      117,
+                      142,
+                      7
+                    ]
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "auto_translated",
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      },
+                      "ideas": {
+                        "3": {
+                          "title": "Do not touch attribute!",
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "id": 245
+                        }
+                      },
+                      "id": 238
+                    },
+                    "2": {
+                      "title": "reviewed",
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "true",
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "ideas": {},
+                          "id": 241
+                        }
+                      },
+                      "id": 240
+                    },
+                    "3": {
+                      "title": "version.length",
+                      "attr": {
+                        "style": {
+                          "background": "#C0C0C0"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "1",
+                          "attr": {
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "id": 243
+                        }
+                      },
+                      "id": 242
+                    }
+                  },
+                  "id": 237
+                }
+              },
+              "id": 231
+            }
+          },
+          "id": 183
+        }
+      }
+    }
+  },
+  "attr": {
+    "theme": "straightlines"
+  },
+  "title": "Conditional place views",
+  "links": [],
+  "theme": {
+    "name": "MindMup Straight Lines",
+    "node": [
+      {
+        "name": "default",
+        "cornerRadius": 10,
+        "backgroundColor": "#E0E0E0",
+        "border": {
+          "type": "surround",
+          "line": {
+            "color": "#707070",
+            "width": 1
+          }
+        },
+        "shadow": [
+          {
+            "color": "#070707",
+            "opacity": 0.4,
+            "offset": {
+              "width": 2,
+              "height": 2
+            },
+            "radius": 2
+          }
+        ],
+        "text": {
+          "margin": 5,
+          "alignment": "center",
+          "color": "#4F4F4F",
+          "lightColor": "#EEEEEE",
+          "darkColor": "#000000",
+          "font": {
+            "lineSpacing": 2.5,
+            "size": 9,
+            "weight": "bold"
+          }
+        },
+        "connections": {
+          "default": {
+            "h": "nearest",
+            "v": "center"
+          },
+          "from": {
+            "horizontal": {
+              "h": "nearest",
+              "v": "center"
+            }
+          },
+          "to": {
+            "h": "nearest",
+            "v": "center"
+          }
+        },
+        "decorations": {
+          "height": 20,
+          "edge": "top",
+          "overlap": true,
+          "position": "end"
+        }
+      },
+      {
+        "name": "level_1",
+        "backgroundColor": "#22AAE0"
+      },
+      {
+        "name": "activated",
+        "border": {
+          "type": "surround",
+          "line": {
+            "color": "#22AAE0",
+            "width": 3,
+            "style": "dotted"
+          }
+        }
+      },
+      {
+        "name": "level_1.activated",
+        "border": {
+          "type": "surround",
+          "line": {
+            "color": "#EEEEEE",
+            "width": 3,
+            "style": "dotted"
+          }
+        }
+      },
+      {
+        "name": "selected",
+        "shadow": [
+          {
+            "color": "#000000",
+            "opacity": 0.9,
+            "offset": {
+              "width": 2,
+              "height": 2
+            },
+            "radius": 2
+          }
+        ]
+      },
+      {
+        "name": "collapsed",
+        "shadow": [
+          {
+            "color": "#888888",
+            "offset": {
+              "width": 0,
+              "height": 1
+            },
+            "radius": 0
+          },
+          {
+            "color": "#FFFFFF",
+            "offset": {
+              "width": 0,
+              "height": 3
+            },
+            "radius": 0
+          },
+          {
+            "color": "#888888",
+            "offset": {
+              "width": 0,
+              "height": 4
+            },
+            "radius": 0
+          },
+          {
+            "color": "#FFFFFF",
+            "offset": {
+              "width": 0,
+              "height": 6
+            },
+            "radius": 0
+          },
+          {
+            "color": "#888888",
+            "offset": {
+              "width": 0,
+              "height": 7
+            },
+            "radius": 0
+          }
+        ]
+      },
+      {
+        "name": "collapsed.selected",
+        "shadow": [
+          {
+            "color": "#FFFFFF",
+            "offset": {
+              "width": 0,
+              "height": 1
+            },
+            "radius": 0
+          },
+          {
+            "color": "#888888",
+            "offset": {
+              "width": 0,
+              "height": 3
+            },
+            "radius": 0
+          },
+          {
+            "color": "#FFFFFF",
+            "offset": {
+              "width": 0,
+              "height": 6
+            },
+            "radius": 0
+          },
+          {
+            "color": "#555555",
+            "offset": {
+              "width": 0,
+              "height": 7
+            },
+            "radius": 0
+          },
+          {
+            "color": "#FFFFFF",
+            "offset": {
+              "width": 0,
+              "height": 10
+            },
+            "radius": 0
+          },
+          {
+            "color": "#333333",
+            "offset": {
+              "width": 0,
+              "height": 11
+            },
+            "radius": 0
+          }
+        ]
+      }
+    ],
+    "connector": {
+      "default": {
+        "type": "straight",
+        "line": {
+          "color": "#707070",
+          "width": 1
+        }
+      }
+    }
+  }
+}

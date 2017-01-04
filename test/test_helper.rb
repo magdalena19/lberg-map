@@ -6,6 +6,9 @@ require 'minitest/reporters'
 require 'minitest/rails/capybara'
 require 'capybara/poltergeist'
 
+require "simplecov"
+SimpleCov.start
+
 def validate_captcha
   fill_in 'captcha', with: SimpleCaptcha::SimpleCaptchaData.first.value
 end

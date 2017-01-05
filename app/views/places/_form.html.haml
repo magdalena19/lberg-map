@@ -50,9 +50,9 @@
               = f.text_area column.to_sym, class: "description-area locked-description", disabled: true
             - elsif translation && translation.auto_translated
               %i (#{t('.auto_translated')})
-              = f.bootsy_area column.to_sym, class: "description-area #{column}"
+              = f.text_area column.to_sym, class: "wysihtml5 description-area #{column}"
             - else
-              = f.bootsy_area column.to_sym, class: "description-area #{column}"
+              = f.text_area column.to_sym, class: "wysihtml5 description-area #{column}"
   .row
     %hr
 

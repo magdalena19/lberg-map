@@ -54,10 +54,13 @@ class Place < ActiveRecord::Base
   end
 
   def homepage_full_domain
-    if homepage
-      homepage =~ /(http)/ ? homepage : 'http://' + homepage
+    return '' unless homepage
+
+    self.homepage = homepage.gsub 'www.', ''
+    if homepage =~ /http:/
+      homepage.gsub 'http://', 'https://'
     else
-      ''
+      'https://' + homepage
     end
   end
 

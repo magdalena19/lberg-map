@@ -109,4 +109,21 @@ class PlaceTest < ActiveSupport::TestCase
     @place.save
     assert @place.unreviewed_version
   end
+  
+  test 'Assure place homepage links use https' do
+    @place.homepage = 'www.test.com'
+    @place.save
+
+    assert_equal 'https://test.com', @place.reload.homepage
+
+    @place.homepage = 'test.com'
+    @place.save
+
+    assert_equal 'https://test.com', @place.reload.homepage
+
+    @place.homepage = 'http://test.com'
+    @place.save
+
+    assert_equal 'https://test.com', @place.reload.homepage
+  end
 end

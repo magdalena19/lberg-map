@@ -2,9 +2,10 @@
   .hide-slidepanel.glyphicon.glyphicon-remove.pull-right
   %h4.slidepanel-title= t('.filter_by_category')
   .content
-    .col-lg-6
-      = button_tag("#{t('.no_filter')} (#{Place.reviewed.count})", type: 'button', class: 'category-button btn show-all-points', id: 'all')
-      %br
-    - @categories.each do |category|
-      .col-lg-6
-        = button_tag("#{category.name} (#{category.number_of_reviewed_places})", type: 'button', class: 'category-button btn btn-dark', id: category.id)
+    .col-xs-12
+      .col-sm-6.col-lg-4.category-button-col
+        = button_tag("#{t('.no_filter')} (#{Place.reviewed.count})", type: 'button', class: 'category-button btn show-all-points', id: 'all')
+        %br
+      - @categories.each do |category|
+        .col-sm-6.col-lg-4.category-button-col
+          = button_tag("#{category.name} (#{category.number_of_reviewed_places})", type: 'button', class: 'category-button btn btn-dark', id: category.id)

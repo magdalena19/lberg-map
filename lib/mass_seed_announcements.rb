@@ -35,13 +35,13 @@ module MassSeedAnnouncements
     created_at = updated_at - rand(5..100)
     user_ids = User.all.map(&:id)
 
-    Announcement.new( header: lat_word(rand(10..30)),
-                      content: latin_lorem_ipsum(rand(5..10)),
-                      id: announcement_id,
-                      created_at: created_at,
-                      updated_at: updated_at,
-                      user_id: user_ids.sample
-             ).save(validate: false)
+    Announcement.new(header: lat_word(rand(10..30)),
+                     content: latin_lorem_ipsum(rand(5..10)),
+                     id: announcement_id,
+                     created_at: created_at,
+                     updated_at: updated_at,
+                     user_id: user_ids.sample
+                    ).save(validate: false)
   end
 
   def self.generate(number_of_announcements:)

@@ -38,6 +38,7 @@ class PlaceTest < ActiveSupport::TestCase
     assert_not @place.update_attributes(email: 'bar@')
     assert_not @place.update_attributes(homepage: 'http:/heise.de')
     assert_not @place.update_attributes(homepage: 'http://heise')
+    assert_not @place.update_attributes(homepage: 'http//heise')
     assert_not @place.update_attributes(homepage: 'ww.heise.de')
   end
 

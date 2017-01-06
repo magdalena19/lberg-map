@@ -80,7 +80,7 @@ module MassSeedPoints
   end
 
   # Generator methods for points and categories
-  def self.generate_point(no_of_categories=3, bbox)
+  def self.generate_point(bbox)
     random_point = random_point_inside_bbox(bbox)
     category_ids = Category.all.map(&:id)
 

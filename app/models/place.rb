@@ -15,9 +15,16 @@ class Place < ActiveRecord::Base
     Place.all.map(&:reviewed_version).compact.find_all { |p| p.has_category?(id) }
   end
 
+  def self.places_to_review
+    unreviewed_places = Place.all.find_all(&:unreviewed_version)
+    places_to_review = unreviewed_places.map do |p|
+      p.reviewed_version || p.unreviewed_version
+    end
+    places_to_review.sort_by(&:updated_at).reverse
+  end
+
   ## VALIDATIONS
-  validates :postal_code, format: { with: /\A\d{5}\z/, message: 'supply valid postal code (5 digits)' },
-    if: 'postal_code.present?'
+  validates :postal_code, format: { with: /\A\d{5}\z/, message: 'supply valid postal code (5 digits)' }, if: 'postal_code.present?'
   validates :name, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, if: 'email.present?'
   validates :phone, format: { with: /\A((?![a-zA-Z]).){3,20}\z/ }, if: 'phone.present?'
@@ -54,15 +61,17 @@ class Place < ActiveRecord::Base
     ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')
   end
 
-  def has_protocol_prefix
-    ["https://", "http://", "www."].map {| prefix| homepage.start_with? prefix}.include? true
+  def has_protocol_prefix?
+    ['https://', 'http://', 'www.'].map { |prefix| homepage.start_with? prefix }.include? true
   end
 
   def secure_homepage_link
     return nil if homepage.nil? || homepage.empty?
-    self.homepage = homepage.gsub 'www.', ''
-    self.homepage = homepage.gsub 'http://', 'https://'
-    unless has_protocol_prefix
+
+    if has_protocol_prefix?
+      self.homepage = homepage.gsub 'www.', 'https://'
+      self.homepage = homepage.gsub 'http://', 'https://'
+    else
       self.homepage = 'https://' + homepage
     end
   end
@@ -74,7 +83,6 @@ class Place < ActiveRecord::Base
     versions.length == 1 && !reviewed
   end
 
-  # TODO: bit smelly, returns nil in some cases...
   def reviewed_version
     if versions.length > 1
       versions[1].reify

@@ -19,7 +19,6 @@ class MessagesController < ApplicationController
 
   def save_new
     if @message.save
-			Rails.logger.debug Rails.application.config.action_mailer.smtp_settings
       send_email_message
       redirect_to contact_url
     else
@@ -32,12 +31,12 @@ class MessagesController < ApplicationController
     old_mail_queue = [] << DeliveryGul.deliveries
     DeliveryGul.send_copy_to_sender(@message).deliver_now if params[:copy_to_sender]
     DeliveryGul.send_to_maintainer(@message).deliver_now
-    new_mail_queue = DeliveryGul.deliveries 
+    new_mail_queue = DeliveryGul.deliveries
 
     if old_mail_queue == new_mail_queue
       flash[:danger] = t('.mailing_service_error')
     else
-      flash[:success] = t('.message_successfully_sent') 
+      flash[:success] = t('.message_successfully_sent')
     end
   end
 

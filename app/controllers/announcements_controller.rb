@@ -37,10 +37,9 @@ class AnnouncementsController < ApplicationController
   end
 
   def destroy
-    if Announcement.find(params[:id]).destroy
-      flash[:success] = t('.deleted')
-      redirect_to :root
-    end
+    Announcement.find(params[:id]).destroy
+    flash[:success] = t('.deleted')
+    redirect_to :root
   end
 
   private

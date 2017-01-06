@@ -2,8 +2,7 @@ class ReviewController < ApplicationController
   before_action :require_login
 
   def review_index
-    unreviewed_places = Place.all.find_all(&:unreviewed_version)
-    @places_to_review = unreviewed_places.map { |p| p.reviewed_version || p.unreviewed_version }.sort_by(&:updated_at).reverse
+    @places_to_review = Place.places_to_review
     @unreviewed_translations = all_unreviewed_translations
   end
 

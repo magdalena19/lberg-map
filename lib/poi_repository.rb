@@ -5,9 +5,8 @@ module PoiRepository
   def self.import_from_csv(file_name, city)
     generate_categories
     pois = CSV.read(file_name, {:col_sep => ';'})
-    pois.each_with_index do |row, index|
-      place = Place.create(id: index,
-                           name: row[2],
+    pois.each_with_index do |row|
+      place = Place.create(name: row[2],
                            street: parse_address(row[10],0),
                            house_number: parse_address(row[10],1),
                            postal_code: parse_address(row[10],2), 

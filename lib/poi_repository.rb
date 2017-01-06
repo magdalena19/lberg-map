@@ -5,9 +5,8 @@ module PoiRepository
   def self.import_from_csv(file_name, city)
     generate_categories
     pois = CSV.read(file_name, {:col_sep => ';'})
-    pois.each_with_index do |row, index|
-      place = Place.create(id: index,
-                           name: row[2],
+    pois.each_with_index do |row|
+      place = Place.create(name: row[2],
                            street: parse_address(row[10],0),
                            house_number: parse_address(row[10],1),
                            postal_code: parse_address(row[10],2), 
@@ -25,7 +24,7 @@ module PoiRepository
                            updated_at: DateTime.now
                           )
       # Traverse through points and set translations review state
-      place.translations.each_with_index do |translation, index|
+      place.translations.each do |translation|
         translation.without_versioning do
           translation.update_attributes(auto_translated: false, reviewed: true)
         end
@@ -39,7 +38,7 @@ module PoiRepository
   def self.generate_categories
     categories_in_db = Category.all.map(&:name)
     puts categories_in_db
-    CATNAMES.each_with_index do | cat_name, index |
+    CATNAMES.each do |cat_name|
       unless categories_in_db.include? cat_name
         Category.create(
           name_en: I18n.t("categories.#{cat_name}", locale: 'en'),

@@ -8,6 +8,7 @@ de:
       places: 'Orte mit ungeprüften Änderungen'
       translations: 'Übersetzungen mit ungeprüften Änderungen'
     review_place:
+      automatic_translation: 'Automatische Übersetzung'
       review: 'Änderungen prüfen'
       reviewed: 'Geprüft'
       unreviewed: 'Ungeprüft'

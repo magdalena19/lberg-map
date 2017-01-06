@@ -8,6 +8,7 @@ en:
       places: 'Places with changes to be reviewed'
       translations: 'Translations with changes to be reviewed'
     review_place:
+      automatic_translation: 'Automatic translation'
       review: 'Review'
       reviewed: 'Reviewed'
       unreviewed: 'Unreviewed'

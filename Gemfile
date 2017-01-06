@@ -26,7 +26,7 @@ gem 'rack-attack'
 gem 'translate-rails3', require: 'translate', group: :development
 gem 'jquery-datatables-rails', '~> 3.4.0'
 gem 'jquery-ui-rails'
-gem 'bootsy'
+gem 'bootstrap-wysihtml5-rails'
 gem 'travis'
 
 # Use SCSS for stylesheets

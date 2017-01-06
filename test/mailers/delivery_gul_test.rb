@@ -11,7 +11,7 @@ class DeliveryGulTest < ActionMailer::TestCase
     assert_not ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
-    assert_equal [AppConfig.general['maintainer_email_address']], email.from
+    assert_equal [AppConfig['maintainer_email_address']], email.from
     assert_equal ['foo@bar.org'], email.to
     assert_equal "Copy of your request on #{AppConfig.general['app_title']}", email.subject
   end
@@ -22,8 +22,8 @@ class DeliveryGulTest < ActionMailer::TestCase
     assert_not ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
-    assert_equal [AppConfig.general['maintainer_email_address']], email.from
-    assert_equal [AppConfig.general['maintainer_email_address']], email.to
-    assert_equal "[#{AppConfig.general['app_title']} contact form] #{@message.subject}", email.subject
+    assert_equal [AppConfig['maintainer_email_address']], email.from
+    assert_equal [AppConfig['maintainer_email_address']], email.to
+    assert_equal "[#{AppConfig['app_title']} contact form] #{@message.subject}", email.subject
   end
 end

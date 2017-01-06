@@ -63,6 +63,7 @@ jQuery(function() {
       jQuery('.control-container').hide();
       jQuery('.navbar-dropdown').hide();
       jQuery('.navbar-button').hide();
+      jQuery('.navbar-toggle').hide();
       sideBar.css('z-index', '-1');
       showSidebarContainer.css('z-index', '-1');
       slidePanelVisible = true;
@@ -73,6 +74,7 @@ jQuery(function() {
       jQuery('.control-container').show();
       jQuery('.navbar-dropdown').show();
       jQuery('.navbar-button').show();
+      jQuery('.navbar-toggle').show();
       slidePanelVisible = false;
     });
 

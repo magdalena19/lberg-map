@@ -51,7 +51,7 @@ class PlaceTest < ActiveSupport::TestCase
 
   test 'html should be sanitized' do
     @place.save
-    assert '<b>This is the description.</b>' == Place.find_by(name: 'Kiezspinne').description_en
+    assert_equal '<b>This is the description.</b>', Place.find_by(name: 'Kiezspinne').description_en
   end
 
   test 'duplicate entries not valid' do

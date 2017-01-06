@@ -1,9 +1,11 @@
 require 'place/auto_translate'
 require 'place/geocoding'
+require 'sanitize'
 
 class Place < ActiveRecord::Base
   include PlaceAutoTranslation
   include Geocoding
+  include Sanitization
 
   def self.reviewed
     Place.all.map(&:reviewed_version).compact
@@ -121,14 +123,6 @@ class Place < ActiveRecord::Base
       column = "description_#{locale}"
       send(column + '=', sanitize(send(column)))
     end
-  end
-
-  def sanitize(html)
-    Rails::Html::WhiteListSanitizer.new.sanitize(
-    html,
-    tags: %w[br u i b li ul ol hr font a],
-    attributes: %w[align color size href]
-    )
   end
 
   ## PROPERTIES

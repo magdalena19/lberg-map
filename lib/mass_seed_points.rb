@@ -3,7 +3,7 @@ require 'geocoder'
 module MassSeedPoints
   # Helpers
   def self.n_random_digits(n = 5, from = 0, to = 9)
-    n.times.map { rand(from..to) }.join('')
+    Array.new(n) { rand(from..to) }.join('')
   end
 
   def self.latin_word_pool

@@ -8,7 +8,7 @@ class Category < ActiveRecord::Base
 
   def self.id_for(category_string)
     category = Category.all.find do |cat|
-      category_string.gsub('_', ' ').casecmp(cat.name) == 0
+      category_string.tr('_', ' ').casecmp(cat.name) == 0
     end
     category.id if category
   end

@@ -60,7 +60,7 @@ module PoiRepository
     categories = categories_string.split(",")
     categories_ids = []
     categories.each do |category|
-      categories_in_db = Category.all.map(&:name).map{ |c| c.downcase.gsub(' ', '_') }
+      categories_in_db = Category.all.map(&:name).map{ |c| c.downcase.tr(' ', '_') }
       unless categories_in_db.include? category
         Category.create(
           name_en: I18n.t("categories.#{category}", locale: 'en'),

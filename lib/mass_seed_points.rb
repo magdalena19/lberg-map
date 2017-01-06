@@ -92,8 +92,9 @@ module MassSeedPoints
 
   def self.generate(number_of_points:, city:)
     @cityname = city
-    unless bbox = bbox_from_cityname(@cityname)
-      error = "No boundingbox found in which to insert points! Have you supplied a geolocation (city, district, ...)?"
+    bbox = bbox_from_cityname(@cityname)
+    unless bbox
+      error = 'No boundingbox found in which to insert points! Have you supplied a geolocation (city, district, ...)?'
       puts error
       return error
     end

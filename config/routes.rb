@@ -1,35 +1,38 @@
 Rails.application.routes.draw do
   scope '(:locale)', locale: /en|de|fr|ar/ do
     root 'static_pages#map'
-    get '/:locale' => 'static_pages#map'
-    get '/about' => 'static_pages#about'
-    get '/chronicle' => 'static_pages#chronicle'
-    get '/category/:category' => 'places#index', as: :category
-    get '/login' => 'sessions#new'
-    post '/login' => 'sessions#create'
-    get '/logout' => 'sessions#destroy'
+    get '/:locale' , to: 'static_pages#map'
 
-    get '/contact' => 'messages#new'
-    post '/contact' => 'messages#create'
+    # Static pages
+    get '/about' , to: 'static_pages#about'
+    get '/category/:category' , to: 'places#index', as: :category
+    get '/contact' , to: 'messages#new'
+    post '/contact' , to: 'messages#create'
 
-    get 'places/review_index' => 'review#review_index'
-    get '/:id/review_place' => 'review#review_place', as: :review_place
-    get '/:id/confirm_place' => 'review#confirm_place', as: :confirm_place
-    get '/:id/refuse_place' => 'review#refuse_place', as: :refuse_place
-    get '/:id/review_translation' => 'review#review_translation', as: :review_translation
-    get '/:id/confirm_translation' => 'review#confirm_translation', as: :confirm_translation
-    get '/:id/refuse_translation' => 'review#refuse_translation', as: :refuse_translation
 
+    # Reviewing
+    get 'places/review_index' , to: 'review#review_index'
+
+    scope '/:id' do
+      get '/review_place' , to: 'review#review_place', as: :review_place
+      get '/confirm_place' , to: 'review#confirm_place', as: :confirm_place
+      get '/refuse_place' , to: 'review#refuse_place', as: :refuse_place
+      get '/review_translation' , to: 'review#review_translation', as: :review_translation
+      get '/confirm_translation' , to: 'review#confirm_translation', as: :confirm_translation
+      get '/refuse_translation' , to: 'review#refuse_translation', as: :refuse_translation
+    end
+
+    # Place ressources
     resources :places do
       resources :descriptions
     end
+
     resources :users
+    get '/login' , to: 'sessions#new'
+    post '/login' , to: 'sessions#create'
+    get '/logout' , to: 'sessions#destroy'
+
     resources :announcements
-
-
-    # scope protocol: 'https' do
-    #   get '/contact' => 'messages#new'
-    #   post '/contact' => 'messages#create'
-    # end
+    get '/chronicle' , to: 'static_pages#chronicle'
   end
 end

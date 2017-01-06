@@ -1,9 +1,11 @@
 require 'place/auto_translate'
 require 'place/geocoding'
+require 'sanitize'
 
 class Place < ActiveRecord::Base
   include PlaceAutoTranslation
   include Geocoding
+  include Sanitization
 
   def self.reviewed
     Place.all.map(&:reviewed_version).compact
@@ -14,7 +16,7 @@ class Place < ActiveRecord::Base
   end
 
   ## VALIDATIONS
-  validates :postal_code, format: { with: /\d{5}/, message: 'supply valid postal code (5 digits)' },
+  validates :postal_code, format: { with: /\A\d{5}\z/, message: 'supply valid postal code (5 digits)' },
     if: 'postal_code.present?'
   validates :name, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, if: 'email.present?'
@@ -121,14 +123,6 @@ class Place < ActiveRecord::Base
       column = "description_#{locale}"
       send(column + '=', sanitize(send(column)))
     end
-  end
-
-  def sanitize(html)
-    Rails::Html::WhiteListSanitizer.new.sanitize(
-    html,
-    tags: %w[br u i b li ul ol hr font a],
-    attributes: %w[align color size href]
-    )
   end
 
   ## PROPERTIES

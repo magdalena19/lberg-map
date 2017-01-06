@@ -1,7 +1,6 @@
 default: &default
-  general:
-    app_title: LBergMap
-    maintainer_email_address: lbergmap@lpkb.menkent.uberspace.de
+  general: KiezKarte
+  maintainer_email_address: coderat@riseup.net
 
 development:
   <<: *default

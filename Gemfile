@@ -73,6 +73,7 @@ group :test do
   gem 'database_cleaner'
   gem 'minitest-reporters'
   gem 'minitest-rails-capybara'
+  gem 'minitest-rails'
   gem 'guard'
   gem 'guard-minitest'
   gem 'factory_girl_rails'

@@ -31,6 +31,7 @@ class Place < ActiveRecord::Base
   ## CALLBACKS
   geocoded_by :address
   before_validation :sanitize_descriptions, on: [:create, :update]
+  after_validation :secure_homepage_link, on: [:create, :update]
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
   after_create :auto_translate, if: :has_empty_description?
@@ -53,14 +54,16 @@ class Place < ActiveRecord::Base
     ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')
   end
 
-  def homepage_full_domain
-    return '' unless homepage
+  def has_protocol_prefix
+    ["https://", "http://", "www."].map {| prefix| homepage.start_with? prefix}.include? true
+  end
 
+  def secure_homepage_link
+    return nil if homepage.nil? || homepage.empty?
     self.homepage = homepage.gsub 'www.', ''
-    if homepage =~ /http:/
-      homepage.gsub 'http://', 'https://'
-    else
-      'https://' + homepage
+    self.homepage = homepage.gsub 'http://', 'https://'
+    unless has_protocol_prefix
+      self.homepage = 'https://' + homepage
     end
   end
 
@@ -145,7 +148,7 @@ class Place < ActiveRecord::Base
     attributes.each do |_key, value|
       { key: value }
     end.merge!(address: address,
-               homepage_full_domain: homepage_full_domain,
+               homepage_full_domain: homepage,
                description: reviewed_description.html_safe,
                translation_auto_translated: translation_from_current_locale.auto_translated,
                translation_reviewed: translation_from_current_locale.reviewed,

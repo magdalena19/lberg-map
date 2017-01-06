@@ -14,7 +14,7 @@ class Place < ActiveRecord::Base
   end
 
   ## VALIDATIONS
-  validates :postal_code, format: { with: /\d{5}/, message: 'supply valid postal code (5 digits)' },
+  validates :postal_code, format: { with: /\A\d{5}\z/, message: 'supply valid postal code (5 digits)' },
     if: 'postal_code.present?'
   validates :name, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, if: 'email.present?'

@@ -29,4 +29,14 @@ class ApplicationController < ActionController::Base
   def is_admin?
     signed_in? && @current_user.is_admin
   end
+
+  def places_from_session(category_id = nil)
+    ids = cookies[:created_places_in_session]
+    array = ids ? ids.split(',') : []
+    if category_id
+      Place.where(id: array).compact.find_all { |p| p.category_for(category_id) }
+    else
+      Place.where(id: array)
+    end
+  end
 end

@@ -2,6 +2,7 @@ class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
   before_action :require_login, only: [:destroy]
   before_action :reviewed?, only: [:update]
+  before_action :set_place, only: [:edit, :update, :destroy]
 
   def index
     @places = Place.reviewed
@@ -13,13 +14,11 @@ class PlacesController < ApplicationController
   end
 
   def edit
-    @place = Place.find(params[:id])
     redirect_to root_url if @place.new?
     flash.now[:warning] = t('.preview_mode') unless signed_in?
   end
 
   def update
-    @place = Place.find(params[:id])
     if simple_captcha_valid? || signed_in?
       save_update
     else
@@ -52,7 +51,6 @@ class PlacesController < ApplicationController
   end
 
   def destroy
-    @place = Place.find(params[:id])
     @place.destroy
     flash[:success] = t('.deleted')
     redirect_to action: 'index'
@@ -60,21 +58,15 @@ class PlacesController < ApplicationController
 
   private
 
+  def set_place
+    @place = Place.find(params[:id])
+  end
+
   def save_in_cookie
     if !cookies[:created_places_in_session]
       cookies[:created_places_in_session] = @place.id.to_s
     else
       cookies[:created_places_in_session] = cookies[:created_places_in_session] + ',' + @place.id.to_s
-    end
-  end
-
-  def places_from_session(category_id = nil)
-    ids = cookies[:created_places_in_session]
-    array = ids ? ids.split(',') : []
-    if category_id
-      Place.where(id: array).compact.find_all { |p| p.category_for(category_id) }
-    else
-      Place.where(id: array)
     end
   end
 

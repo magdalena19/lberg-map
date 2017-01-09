@@ -1,4 +1,4 @@
-module Geocoding
+module PlaceGeocoding
   def address_changed?
     street_changed? || city_changed? || house_number_changed? || postal_code_changed?
   end

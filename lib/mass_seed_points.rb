@@ -46,7 +46,7 @@ module MassSeedPoints
   end
 
   # Generator methods for points and categories
-  def update_place_translations_attr(place:)
+  def self.update_place_translations_attr(place:)
     place.translations.each do |translation|
       translation.without_versioning do
         translation.update_attributes(auto_translated: [true, false].sample, reviewed: [true, false].sample)

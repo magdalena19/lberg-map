@@ -8,7 +8,7 @@ jQuery(function() {
     map = L.map('map', {
       zoomControl: false,
       minZoom: 5,
-      maxZoom: 18,
+      maxZoom: 18
     });
     jQuery('.zoom-in').click(function() {map.zoomIn()});
     jQuery('.zoom-out').click(function() {map.zoomOut()});
@@ -38,9 +38,9 @@ jQuery(function() {
       var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";
       var homepageLink = prop.homepage.link(prop.homepage_full_domain);
 
-      if (prop.reviewed == false) {
+      if (prop.reviewed === false) {
         layer.setIcon(session_icon);
-      };
+      }
 
       layer.on('click', function(e) {
         placeSlidePanel.find('.edit-place').attr('place_id', prop.id);
@@ -51,13 +51,13 @@ jQuery(function() {
         } else {
           placeSlidePanel.find('.name').html(prop.name + waitingForReviewSuffix);
           jQuery('.edit-place').hide();
-        };
+        }
 
         if (prop.translation_auto_translated) {
           placeSlidePanel.find('.place-description').html("<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'>" + window.autotranslated_label + "</a>" + '<br>' + prop.description);
         } else {
           placeSlidePanel.find('.place-description').html(prop.description);
-        };
+        }
 
         placeSlidePanel.find('.place-address').html(prop.address);
         placeSlidePanel.find('.place-email').html(prop.email);
@@ -74,18 +74,18 @@ jQuery(function() {
 
     var icon =  L.icon({
       iconUrl: marker,
-      iconSize: [40, 40],
+      iconSize: [40, 40]
     });
 
     var session_icon =  L.icon({
       iconUrl: sessionMarker,
-      iconSize: [40, 40],
+      iconSize: [40, 40]
     });
 
     var updatePlaces = function(json) {
       if (typeof cluster !== 'undefined') {
         map.removeLayer(cluster);
-      };
+      }
       cluster = L.markerClusterGroup({
         polygonOptions: {
           fillColor: 'rgb(109, 73, 129)',
@@ -116,12 +116,12 @@ jQuery(function() {
         jQuery('.show-categories-text').html(window.choose_category);
       } else {
         jQuery('.show-categories-text').html(category);
-      };
+      }
       jQuery.ajax({
         url: '/',
         data: {
           category: categoryId,
-          locale: window.locale,
+          locale: window.locale
         },
         success: function(result) {
           updatePlaces(result);
@@ -160,7 +160,7 @@ jQuery(function() {
         jQuery('.confirmation-button-container').fadeOut();
         window.location.href = 'places/new';
       });
-    };
+    }
 
     // Google geolocation API not working properly, so freeze this feature
 
@@ -208,7 +208,7 @@ jQuery(function() {
       if (window.latitude > 0 && window.longitude > 0) {
         coordinates = [window.latitude, window.longitude];
         map.setView(coordinates, 16);
-      };
+      }
     }, 1);
   });
 });

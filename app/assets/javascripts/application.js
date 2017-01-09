@@ -23,7 +23,7 @@
 //= require_tree .
 
 jQuery(function() {
-  if (window.history.length == 1) {
+  if (window.history.length === 1) {
     jQuery('.back-button').hide();
   }
 
@@ -54,7 +54,7 @@ jQuery(function() {
         'html': true,
         'link': true,
         'image': false,
-        'color': false,
+        'color': false
       }
     });
   });

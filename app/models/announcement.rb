@@ -10,7 +10,6 @@ class Announcement < ActiveRecord::Base
   before_validation :sanitize_content, on: [:create, :update]
 
   def sanitize_content
-    # binding.pry
     self.content = sanitize(content)
   end
 end

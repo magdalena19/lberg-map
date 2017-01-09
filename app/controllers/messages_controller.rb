@@ -20,6 +20,7 @@ class MessagesController < ApplicationController
   def save_new
     if @message.save
       send_email_message
+      flash[:success] = t('.message_successfully_sent')
       redirect_to contact_url
     else
       flash[:danger] = @message.errors.full_messages.to_sentence
@@ -28,16 +29,7 @@ class MessagesController < ApplicationController
   end
 
   def send_email_message
-    old_mail_queue = [] << DeliveryGul.deliveries
-    DeliveryGul.send_copy_to_sender(@message).deliver_now if params[:copy_to_sender]
-    DeliveryGul.send_to_maintainer(@message).deliver_now
-    new_mail_queue = DeliveryGul.deliveries
-
-    if old_mail_queue == new_mail_queue
-      flash[:danger] = t('.mailing_service_error')
-    else
-      flash[:success] = t('.message_successfully_sent')
-    end
+    MailerWorker.perform_async(message_id: @message.id, copy_to_sender: params[:copy_to_sender])
   end
 
   def message_params

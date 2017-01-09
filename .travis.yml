@@ -3,6 +3,8 @@ before_script:
 language: ruby
 rvm:
 - 2.3.1
+services:
+  - redis-server
 addons:
   code_climate:
     repo_token: 1fadcdbeecd5a71dc5c16cb3cf29e99d5dc7348b1a59f5f7430cf3fac4623c7d

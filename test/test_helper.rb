@@ -5,6 +5,7 @@ require 'minitest/rails'
 require 'minitest/reporters'
 require 'minitest/rails/capybara'
 require 'capybara/poltergeist'
+require 'sidekiq/testing'
 
 require "simplecov"
 SimpleCov.start

@@ -9,22 +9,6 @@ class Place < ActiveRecord::Base
   include PlaceAuditing
   include Sanitization
 
-  def self.reviewed
-    Place.all.map(&:reviewed_version).compact
-  end
-
-  def self.reviewed_with_category(id)
-    Place.all.map(&:reviewed_version).compact.find_all { |p| p.category_for(id) }
-  end
-
-  def self.places_to_review
-    unreviewed_places = Place.all.find_all(&:unreviewed_version)
-    places_to_review = unreviewed_places.map do |p|
-      p.reviewed_version || p.unreviewed_version
-    end
-    places_to_review.sort_by(&:updated_at).reverse
-  end
-
   ## VALIDATIONS
   validates :postal_code, format: { with: /\A\d{5}\z/, message: 'supply valid postal code (5 digits)' }, if: 'postal_code.present?'
   validates :name, presence: true

@@ -72,7 +72,7 @@ class PlacesController < ApplicationController
     ids = cookies[:created_places_in_session]
     array = ids ? ids.split(',') : []
     if category_id
-      Place.where(id: array).compact.find_all { |p| p.has_category?(category_id) }
+      Place.where(id: array).compact.find_all { |p| p.category_for(category_id) }
     else
       Place.where(id: array)
     end

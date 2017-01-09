@@ -12,7 +12,7 @@ class Place < ActiveRecord::Base
   end
 
   def self.reviewed_with_category(id)
-    Place.all.map(&:reviewed_version).compact.find_all { |p| p.has_category?(id) }
+    Place.all.map(&:reviewed_version).compact.find_all { |p| p.category_for(id) }
   end
 
   def self.places_to_review
@@ -41,10 +41,10 @@ class Place < ActiveRecord::Base
   after_validation :secure_homepage_link, on: [:create, :update]
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
-  after_create :auto_translate, if: :has_empty_description?
+  after_create :auto_translate, if: :empty_description?
   after_create :set_description_reviewed_flags
 
-  def has_empty_description?
+  def empty_description?
     translations.map { |t| t.description.nil? || t.description.empty? }.include? true
   end
 
@@ -61,14 +61,14 @@ class Place < ActiveRecord::Base
     ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')
   end
 
-  def has_protocol_prefix?
+  def protocol_prefix?
     ['https://', 'http://', 'www.'].map { |prefix| homepage.start_with? prefix }.include? true
   end
 
   def secure_homepage_link
     return nil if homepage.nil? || homepage.empty?
 
-    if has_protocol_prefix?
+    if protocol_prefix?
       self.homepage = homepage.gsub 'www.', 'https://'
       self.homepage = homepage.gsub 'http://', 'https://'
     else
@@ -115,7 +115,7 @@ class Place < ActiveRecord::Base
   end
 
   ## CATEGORIES
-  def has_category?(id)
+  def category_for(id)
     category_ids.include?(id.to_s)
   end
 

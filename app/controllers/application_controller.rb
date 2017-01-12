@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }.merge options
   end
 
+  # User and login related stuff
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
@@ -28,5 +29,22 @@ class ApplicationController < ActionController::Base
 
   def is_admin?
     signed_in? && @current_user.is_admin
+  end
+
+  def require_login
+    unless session[:user_id]
+      flash[:danger] = t('errors.messages.access_restricted')
+      redirect_to login_url
+    end
+  end
+
+  def places_from_session(category_id = nil)
+    ids = cookies[:created_places_in_session]
+    array = ids ? ids.split(',') : []
+    if category_id
+      Place.where(id: array).compact.find_all { |p| p.category_for(category_id) }
+    else
+      Place.where(id: array)
+    end
   end
 end

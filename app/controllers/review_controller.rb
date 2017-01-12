@@ -86,11 +86,4 @@ class ReviewController < ApplicationController
       t.versions.length > 1 || !t.reviewed
     end
   end
-
-  def require_login
-    unless signed_in?
-      flash[:danger] = t('errors.messages.access_restricted')
-      redirect_to root_url
-    end
-  end
 end

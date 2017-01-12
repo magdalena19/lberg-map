@@ -63,7 +63,7 @@
         .col-xs-8.col-sm-4{dir: "#{text_direction}"}
           = category.name
         .col-xs-4.col-sm-2
-          = check_box_tag 'place[categories][]', category.id, f.object.has_category?(category.id), disabled: @place.unreviewed_version
+          = check_box_tag 'place[categories][]', category.id, f.object.category_for(category.id), disabled: @place.unreviewed_version
 
   .row
     %hr

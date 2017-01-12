@@ -27,11 +27,4 @@ class UsersController < ApplicationController
     user_to_be_edited = User.find(url_options[:_recall][:id])
     redirect_to root_url unless user_to_be_edited.id == current_user.id
   end
-
-  def require_login
-    unless session[:user_id]
-      flash[:danger] = t('errors.messages.access_restricted')
-      redirect_to login_url
-    end
-  end
 end

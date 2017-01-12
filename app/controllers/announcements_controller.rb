@@ -65,11 +65,4 @@ class AnnouncementsController < ApplicationController
       redirect_to announcements_url
     end
   end
-
-  def require_login
-    unless signed_in?
-      flash[:danger] = t('errors.messages.access_restricted')
-      redirect_to root_url
-    end
-  end
 end

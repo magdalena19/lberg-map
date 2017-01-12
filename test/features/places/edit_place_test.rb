@@ -27,7 +27,6 @@ feature 'Edit place' do
 
   scenario 'Do not create new version when nothing is changed in form', :js do
     visit edit_place_path id: @place.id
-    p @place.categories
     validate_captcha
     click_on('Update Place')
     sleep(1)

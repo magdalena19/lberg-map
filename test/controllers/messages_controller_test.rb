@@ -1,12 +1,15 @@
 require 'test_helper'
 
 class MessagesControllerTest < ActionController::TestCase
-  test "Should queue valid message for delivery" do
-    assert_difference 'DeliveryGul.deliveries.count' do
-      post :create, message: {sender_name: 'test',
-                              sender_email: 'me@you.com',
-                              subject: 'This is a test request',
-                              text: 'This is some sample test'}
+  def setup
+    @message = build :message 
+  end
+
+  test 'Should queue valid message for delivery' do
+    Sidekiq::Testing.fake! do
+      assert_difference 'MailerWorker.jobs.size' do
+        post :create, message: @message.attributes
+      end
       assert flash[:success]
     end
   end

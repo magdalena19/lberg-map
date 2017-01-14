@@ -27,6 +27,7 @@ gem 'rack-attack'
 gem 'rails-html-sanitizer'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sidekiq'
 gem 'simple_captcha2', require: 'simple_captcha'
 gem 'translate-rails3', require: 'translate', group: :development
 gem 'travis'

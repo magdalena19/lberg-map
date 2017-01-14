@@ -4,6 +4,7 @@ require 'poi_repository'
 User.destroy_all
 Category.destroy_all
 Announcement.destroy_all
+Category.destroy_all
 Place.destroy_all
 
 # Seed users
@@ -24,5 +25,5 @@ User.create(id: 5001,
 PoiRepository.import_from_csv('./db/initPois.csv', 'Berlin')
 
 # Seed random data, see /lib/mass_seed_*.rb for definitions
-# MassSeedPoints.generate(number_of_points: 3000, city: 'Berlin')
+# MassSeedPoints.generate(number_of_points: 300, city: 'Berlin')
 #MassSeedAnnouncements.generate(number_of_announcements: 10)

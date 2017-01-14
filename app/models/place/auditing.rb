@@ -4,10 +4,6 @@ module PlaceAuditingClassMethods
     Place.all.map(&:reviewed_version).compact
   end
 
-  def reviewed_with_category(id)
-    reviewed.find_all { |p| p.category_for(id) }
-  end
-
   def places_to_review
     unreviewed_places = Place.all.find_all(&:unreviewed_version)
     places_to_review = unreviewed_places.map do |p|

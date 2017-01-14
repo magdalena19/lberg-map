@@ -104,34 +104,46 @@ jQuery(function() {
     };
 
     // CATEGORY AND PLACE BUTTONS
+    var filter = function(json, categoryId) {
+      var filteredJson = [];
+      jQuery(json).each(function (id, feature) {
+        if (jQuery.inArray(categoryId, feature.properties.categories) !== -1) {
+          filteredJson.push(feature);
+        };
+      });
+      return filteredJson;
+    };
+
     jQuery('.category-button').click(function() {
       closeAllPanels();
       jQuery('.category-panel').trigger('close');
-      jQuery('.loading').show();
       jQuery('.category-button').removeClass('active');
       jQuery(this).addClass('active');
       var categoryId = jQuery(this).attr('id');
       var category = jQuery(this).text();
       if (jQuery(this).is('#all')) {
         jQuery('.show-categories-text').html(window.choose_category);
+        updatePlaces(window.places, categoryId);
       } else {
         jQuery('.show-categories-text').html(category);
-      }
-      jQuery.ajax({
-        url: '/',
-        data: {
-          category: categoryId,
-          locale: window.locale
-        },
-        success: function(result) {
-          updatePlaces(result);
-          jQuery('.slidepanel-title').html(category)
-          resizePanels();
-          jQuery('.loading').hide();
-        }
-      });
+        updatePlaces(filter(window.places, categoryId));
+      };
     });
     jQuery('.category-button#all').click();
+
+    jQuery('.loading').show();
+    jQuery.ajax({
+      url: '/',
+      dataType: 'json',
+      data: {
+        locale: window.locale
+      },
+      success: function(result) {
+        window.places = result;
+        updatePlaces(window.places);
+        jQuery('.loading').hide();
+      }
+    });
 
     // ADD PLACE
     jQuery('.add-place-buttons').click(function(){

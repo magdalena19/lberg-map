@@ -6,8 +6,10 @@ class StaticPagesController < ApplicationController
     @latitude = params[:latitude]
     @longitude = params[:longitude]
 
-    ## reponse for AJAX call
-    render json: places_to_show.map(&:geojson) if params[:category]
+    respond_to do |format|
+      format.json { render json: places_to_show.map(&:geojson) }
+      format.html
+    end
   end
 
   def about
@@ -20,11 +22,7 @@ class StaticPagesController < ApplicationController
   private
 
   def places_to_show
-    if params[:category] == 'all'
-      (Place.reviewed + places_from_session).uniq
-    else
-      (Place.reviewed_with_category(params[:category]) + places_from_session(params[:category])).uniq
-    end
+    (Place.reviewed + places_from_session).uniq
   end
 
   def last_places_created

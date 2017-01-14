@@ -111,7 +111,7 @@ class Place < ActiveRecord::Base
                description: reviewed_description.html_safe,
                translation_auto_translated: translation_from_current_locale.auto_translated,
                translation_reviewed: translation_from_current_locale.reviewed,
-               categories: categories,
+               categories: category_ids,
                longitude: longitude,
                latitude: latitude,
                reviewed: reviewed)

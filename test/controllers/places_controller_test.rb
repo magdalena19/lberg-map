@@ -2,12 +2,10 @@ require_relative '../test_helper'
 
 class PlacesControllerTest < ActionController::TestCase
   def setup
+    Sidekiq::Testing.inline!
     @user = users :Norbert
-
-    create(:place, :unreviewed)
-    @unreviewed_place = Place.find_by_name('SomeUnreviewedPlace')
-    create(:place, :reviewed)
-    @reviewed_place = Place.find_by_name('SomeReviewedPlace')
+    @unreviewed_place = create(:place, :unreviewed)
+    @reviewed_place = create(:place, :reviewed)
   end
 
   ### Helper function
@@ -56,6 +54,14 @@ class PlacesControllerTest < ActionController::TestCase
 
     assert_equal 62.0, new_place.latitude
     assert_equal 10.0, new_place.longitude
+  end
+
+  test 'Enqueues auto_translation task after create' do
+    Sidekiq::Testing.fake! do
+      assert_difference 'TranslationWorker.jobs.size' do
+        post :create, place: @reviewed_place.attributes
+      end
+    end
   end
 
   test 'Cannot create invalid new place' do

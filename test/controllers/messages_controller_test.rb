@@ -6,9 +6,11 @@ class MessagesControllerTest < ActionController::TestCase
   end
 
   test 'Should queue valid message for delivery' do
-    assert_difference 'MailerWorker.jobs.size' do
-      post :create, message: @message.attributes
+    Sidekiq::Testing.fake! do
+      assert_difference 'MailerWorker.jobs.size' do
+        post :create, message: @message.attributes
+      end
+      assert flash[:success]
     end
-    assert flash[:success]
   end
 end

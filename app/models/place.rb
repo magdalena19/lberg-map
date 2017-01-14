@@ -27,7 +27,7 @@ class Place < ActiveRecord::Base
   after_validation :secure_homepage_link, on: [:create, :update]
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
-  after_create :auto_translate, if: :empty_description?
+  after_create :enqueue_auto_translation, if: :empty_description?
   after_create :set_description_reviewed_flags
 
   def empty_description?
@@ -40,6 +40,10 @@ class Place < ActiveRecord::Base
         translation.update_attributes(reviewed: reviewed ? true : false)
       end
     end
+  end
+
+  def enqueue_auto_translation
+    TranslationWorker.perform_async(id)
   end
 
   ## VIRTUAL ATTRIBUTES

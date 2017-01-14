@@ -1,9 +1,9 @@
 require_relative '../test_helper'
 
 class AutoTranslatorTest < ActiveSupport::TestCase
-  def setup
-    @valid_translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
-  end
+  # def setup
+  #   @valid_translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
+  # end
 
   # AUTO TRANSLATION WRAPPER TESTS
   test 'can translate if valid credentials given' do

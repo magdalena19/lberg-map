@@ -8,4 +8,4 @@
         %br
       - @categories.each do |category|
         .col-sm-6.col-lg-4.category-button-col
-          = button_tag("#{category.name} (#{category.number_of_reviewed_places})", type: 'button', class: 'category-button btn btn-dark', id: category.id)
+          = button_tag(category.name, type: 'button', class: 'category-button btn btn-dark', id: category.id)

@@ -3,7 +3,7 @@
     = t('.last_points_inserted')
   - @last_places_created.each do |place|
     .last-point
-      .last-point-header{style: ('color: #ff6666;' if !place.reviewed)}
+      .last-point-header
         .row
           .col-xs-10.name
             = place.name

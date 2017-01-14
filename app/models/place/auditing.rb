@@ -5,7 +5,7 @@ module PlaceAuditingClassMethods
   end
 
   def reviewed_with_category(id)
-    Place.all.map(&:reviewed_version).compact.find_all { |p| p.category_for(id) }
+    reviewed.find_all { |p| p.category_for(id) }
   end
 
   def places_to_review

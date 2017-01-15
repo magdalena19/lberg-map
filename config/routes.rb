@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
+  get '', to: 'static_pages#index'
+
   scope '(:locale)', locale: /en|de|fr|ar/ do
     root 'static_pages#map'
     get '/:locale' , to: 'static_pages#map'
 
     # Static pages
     get '/about' , to: 'static_pages#about'
+    get '/map' , to: 'static_pages#map'
     get '/category/:category' , to: 'places#index', as: :category
     get '/contact' , to: 'messages#new'
     post '/contact' , to: 'messages#create'

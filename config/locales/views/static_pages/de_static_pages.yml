@@ -1,5 +1,7 @@
 de:
   static_pages:
+    index:
+      select_this_language: 'Diese Sprache auswählen'
     slidepanels:
       add_place_slidepanel:
         how_to_add_place: 'Wie Punkt hinzufügen?'
@@ -8,8 +10,6 @@ de:
       category_slidepanel:
         filter_by_category: 'Nach Kategorien eingrenzen'
         no_filter: 'Alle Punkte'
-      locale_slidepanel:
-        select_this_language: 'Diese Sprache auswählen'
       places_slidepanel:
         places: 'Orte'
         waiting_for_review: 'Wird überprüft...'

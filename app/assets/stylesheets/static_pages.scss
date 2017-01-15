@@ -165,14 +165,27 @@
   font-size: 16px !important;
 }
 
-.locale-slidepanel {
-  padding-top: 12px;
-}
-
-.locale-button {
+.locale-selection-container {
+  background-color: rgba(black, 0.5);
+  top: 0;
+  left: 0;
+  padding-top: 100px;
   width: 100%;
-  margin-top: 3px;
-  margin-bottom: 3px;
+  height: 100%;
+  vertical-align: middle;
+  .locale-selection {
+    padding-top: 20px;
+  }
+  a {
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    &:hover {
+      color: $green;
+      text-decoration: none;
+    };
+  }
 }
 
 .btn-dark {

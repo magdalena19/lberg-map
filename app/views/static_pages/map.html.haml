@@ -32,7 +32,6 @@
   = render('static_pages/slidepanels/category_slidepanel')
   = render('static_pages/slidepanels/place_slidepanel')
   = render('static_pages/slidepanels/add_place_slidepanel')
-  = render('static_pages/slidepanels/locale_slidepanel')
   = render('layouts/sidebar/sidebar')
 
 :javascript
@@ -45,7 +44,3 @@
   window.longitude = #{@longitude || 0};
   window.marker = '#{image_path 'marker.png'}';
   window.sessionMarker = '#{image_path 'marker_session.png'}';
-
-  jQuery(function() {
-    jQuery('.locale-slidepanel').trigger('open');
-  });

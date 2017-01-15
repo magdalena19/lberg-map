@@ -1,5 +1,7 @@
 en:
   static_pages:
+    index:
+      select_this_language: 'Select this language'
     slidepanels:
       add_place_slidepanel:
         how_to_add_place: 'How to add place?'
@@ -8,8 +10,6 @@ en:
       category_slidepanel:
         filter_by_category: 'Filter by category'
         no_filter: 'All points'
-      locale_slidepanel:
-        select_this_language: 'Select this language'
       places_slidepanel:
         places: 'Places'
         waiting_for_review: 'Waiting for review...'

@@ -6,6 +6,28 @@ jQuery(function() {
 
   slidePanelVisible = false;
 
+  hideMapElements = function() {
+    jQuery('.control-container').hide();
+    sideBar.css('z-index', '-1');
+    showSidebarContainer.css('z-index', '-1');
+  };
+
+  showMapElements = function() {
+    jQuery('.control-container').show();
+  };
+
+  hideNavbarElements = function() {
+    jQuery('.navbar-dropdown').hide();
+    jQuery('.navbar-button').hide();
+    jQuery('.navbar-toggle').css('opacity', 0);
+  };
+
+  showNavbarElements = function() {
+    jQuery('.navbar-dropdown').show();
+    jQuery('.navbar-button').show();
+    jQuery('.navbar-toggle').css('opacity', 100);
+  };
+
   // fired when window get resized (application.js)
   balanceSidebar = function() {
     jQuery('.announcements-panel').height(jQuery(window).height() - jQuery('.last-points-panel').height() - 150);
@@ -58,23 +80,17 @@ jQuery(function() {
     var panel = jQuery(this);
     panel.bind('open', function() {
       closeAllPanels();
+      hideNavbarElements();
+      hideḾapElements();
       panel.animate({bottom: '10'}, 300);
       panel.addClass('slidx-open');
-      jQuery('.control-container').hide();
-      jQuery('.navbar-dropdown').hide();
-      jQuery('.navbar-button').hide();
-      jQuery('.navbar-toggle').css('opacity', 0);
-      sideBar.css('z-index', '-1');
-      showSidebarContainer.css('z-index', '-1');
       slidePanelVisible = true;
     });
     panel.bind('close', function() {
+      showNavbarElements();
+      showMapElements();
       panel.css('bottom', '-' + panel.outerHeight() + 'px');
       panel.removeClass('slidx-open');
-      jQuery('.control-container').show();
-      jQuery('.navbar-dropdown').show();
-      jQuery('.navbar-button').show();
-      jQuery('.navbar-toggle').css('opacity', 100);
       slidePanelVisible = false;
     });
 

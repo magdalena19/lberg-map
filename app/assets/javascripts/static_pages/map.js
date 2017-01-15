@@ -1,35 +1,14 @@
 //= require leaflet
 //= require leaflet.markercluster
-//= require static_pages/map_overlays
+//= require static_pages/_map_overlays
+//= require static_pages/_map_base
 
 jQuery(function() {
   jQuery('#map').each(function() {
     // move flash message in foreground when map is displayed
     jQuery('#flash-messages').css('position', 'absolute').css('z-index', '999999');
 
-    map = L.map('map', {
-      zoomControl: false,
-      minZoom: 5,
-      maxZoom: 18
-    });
-    jQuery('.zoom-in').click(function() {map.zoomIn()});
-    jQuery('.zoom-out').click(function() {map.zoomOut()});
-
-    var addMap = function(url) {
-      baselayer = L.tileLayer(url, {attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'});
-      map.addLayer(baselayer);
-      map.setView([52.513, 13.4], 12);
-    };
-
-    $.ajax({
-      url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/1/1/1.jpg',
-      success: function(result) {
-        addMap('https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg');
-      },
-      error: function(result) {
-        addMap('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
-      }
-    });
+    addEsriMap();
 
     var autotranslatedPrefix = "<p><i>" + window.autotranslated_label + ": </i></p>";
     var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";
@@ -133,20 +112,6 @@ jQuery(function() {
     });
     jQuery('.category-button#all').click();
 
-    jQuery('.loading').show();
-    jQuery.ajax({
-      url: '/',
-      dataType: 'json',
-      data: {
-        locale: window.locale
-      },
-      success: function(result) {
-        window.places = result;
-        updatePlaces(window.places);
-        jQuery('.loading').hide();
-      }
-    });
-
     // ADD PLACE
     jQuery('.add-place-buttons').click(function(){
       jQuery('.add-place-slidepanel').trigger('close');
@@ -233,5 +198,22 @@ jQuery(function() {
       balanceSidebar();
       resizePanels();
     }).resize();
+
+    // POI LOADING
+    hideMapElements();
+    jQuery.ajax({
+      url: '/map',
+      dataType: 'json',
+      data: {
+        locale: window.locale
+      },
+      success: function(result) {
+        window.places = result;
+        updatePlaces(window.places);
+        showMapElements();
+        balanceSidebar();
+        jQuery('.loading').hide();
+      }
+    });
   });
 });

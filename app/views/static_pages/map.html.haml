@@ -37,7 +37,6 @@
 
 :javascript
   window.locale = '#{locale}';
-  window.placesJson = #{raw(@places_json.to_json)};
   window.geolocation_error_message_appendix = '#{t('geolocation_error_message_appendix')}';
   window.autotranslated_label = '#{t('activerecord.attributes.place.auto_translated_|_click_to_edit')}';
   window.choose_category = '#{t('choose_category')}';

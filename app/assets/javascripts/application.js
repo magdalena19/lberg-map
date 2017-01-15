@@ -1,26 +1,7 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
 //= require jquery
-//= require jquery_ujs
-//= require dataTables/jquery.dataTables
-//= require dataTables_responsive
-//= require jquery-ui
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require bootstrap-wysihtml5
-//= require leaflet
-//= require leaflet.markercluster
-//= require_tree .
 
 jQuery(function() {
   if (window.history.length === 1) {
@@ -33,18 +14,12 @@ jQuery(function() {
     window.history.back();
   });
 
-  // RESPONSIVE HEIGHT
   jQuery(window).resize(function(){
     var navbarHeight = jQuery('.navbar').height();
-    jQuery('.map-container').height(jQuery(window).height()).css('margin-top', - (navbarHeight + 15));
-    jQuery('.confirmation-button-container').css('top', navbarHeight + 3);
     jQuery('.main-container').css('margin-top', navbarHeight + 15);
-    balanceSidebar();
-    resizePanels();
   }).resize();
 
-  jQuery('.locale-slidepanel').trigger('open');
-
+  // wysiwyg editor
   jQuery('.wysihtml5').each(function(i, elem) {
     $(elem).wysihtml5({
       toolbar: {
@@ -58,4 +33,20 @@ jQuery(function() {
       }
     });
   });
+
+  jQuery('.description-header').click(function() {
+    jQuery(this).siblings('.description-editor').toggleClass('hidden-description');
+    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
+    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
+  });
+
+  // Deactivate "send copy to sender" option if no email address is present
+  jQuery('#message_sender_email').on('input', function(val){
+    var current_value = $(this).val();
+    if (current_value !== '') {
+      jQuery('.email_reply').show(350);
+    } else {
+      jQuery('.email_reply').hide(350);
+    }
+  })
 });

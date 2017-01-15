@@ -1,4 +1,6 @@
-//= require map_overlays
+//= require leaflet
+//= require leaflet.markercluster
+//= require static_pages/map_overlays
 
 jQuery(function() {
   jQuery('#map').each(function() {
@@ -222,5 +224,14 @@ jQuery(function() {
         map.setView(coordinates, 16);
       }
     }, 1);
+
+    // RESPONSIVE HEIGHT
+    jQuery(window).resize(function(){
+      var navbarHeight = jQuery('.navbar').height();
+      jQuery('.map-container').height(jQuery(window).height()).css('margin-top', - (navbarHeight + 15));
+      jQuery('.confirmation-button-container').css('top', navbarHeight + 3);
+      balanceSidebar();
+      resizePanels();
+    }).resize();
   });
 });

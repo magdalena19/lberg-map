@@ -1,4 +1,7 @@
 class StaticPagesController < ApplicationController
+  def index
+  end
+
   def map
     @categories = Category.all
     @announcements = Announcement.all.sort_by(&:created_at).reverse

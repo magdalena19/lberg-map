@@ -1,5 +1,7 @@
+//= require dataTables/jquery.dataTables
+//= require dataTables_responsive
+
 jQuery(function() {
-  // View places as DataTable
   jQuery('#places').DataTable({
     responsive: true,
     "paging": false,
@@ -39,20 +41,5 @@ jQuery(function() {
       } else {
         row.find('.triangle').addClass('glyphicon-triangle-top').removeClass('glyphicon-triangle-bottom');
       };
-  });
-
-  // show process widget on place submit
-
-  // function ProcessBar() {
-  //   var submitProcessBar = jQuery('.submit-process-bar')
-  //   submitProcessBar.show();
-  //   jQuery('.submit-place-button').hide();
-  //   jQuery('.back-button').hide();
-  // });
-
-  jQuery('.description-header').click(function() {
-    jQuery(this).siblings('.description-editor').toggleClass('hidden-description');
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
   });
 });

@@ -34,7 +34,7 @@ feature 'Create place' do
   scenario 'show only one wysiwyg editor for current locale', :js do
     visit '/places/new'
     page.must_have_css('.wysihtml5-toolbar', count: 1)
-    page.find('.glyphicon-triangle-bottom').click
+    page.find('.glyphicon-triangle-bottom').trigger('click')
     page.must_have_css('.wysihtml5-toolbar', count: 2)
   end
 

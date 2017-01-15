@@ -45,3 +45,7 @@
   window.longitude = #{@longitude || 0};
   window.marker = '#{image_path 'marker.png'}';
   window.sessionMarker = '#{image_path 'marker_session.png'}';
+
+  jQuery(function() {
+    jQuery('.locale-slidepanel').trigger('open');
+  });

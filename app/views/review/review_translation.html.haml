@@ -26,16 +26,16 @@
         - else
           = t('.no_reviewed_translation')
 
-  .row
-    .col-xs-12
+  -if @other_translations_reviewed.any?
+    .row
       .col-xs-12
-        %h3
-          = t('.other_descriptions')
-      - @other_translations_reviewed.each do |t|
-        .col-xs-12.grey
-          = t.description.html_safe if t.description
+        .col-xs-12
+          %h3
+            = t('.other_descriptions')
+        - @other_translations_reviewed.each do |t|
+          .col-xs-12.grey
+            = t.description.html_safe if t.description
           %hr
-
 
   .row
     .col-xs-12

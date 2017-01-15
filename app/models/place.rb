@@ -109,6 +109,7 @@ class Place < ActiveRecord::Base
 
   def properties
     {
+      id: id,
       address: !address.empty? ? address : I18n.t('places.not_set'),
       phone: !phone.empty? ? phone : I18n.t('places.not_set'),
       email: !email.empty? ? email : I18n.t('places.not_set'),
@@ -118,7 +119,8 @@ class Place < ActiveRecord::Base
       description: reviewed_description.html_safe,
       translation_auto_translated: translation_from_current_locale.auto_translated,
       translation_reviewed: translation_from_current_locale.reviewed,
-      categories: category_ids
+      categories: category_ids,
+      reviewed: reviewed
     }
   end
 end

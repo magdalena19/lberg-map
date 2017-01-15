@@ -81,7 +81,7 @@ jQuery(function() {
     panel.bind('open', function() {
       closeAllPanels();
       hideNavbarElements();
-      hideḾapElements();
+      hideMapElements();
       panel.animate({bottom: '10'}, 300);
       panel.addClass('slidx-open');
       slidePanelVisible = true;

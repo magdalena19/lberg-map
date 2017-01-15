@@ -4,6 +4,6 @@ Rails.application.config.assets.precompile += %w[
                                                   static_pages/map.js
                                                   static_pages/index.js
                                                   places/index.js.erb
-                                                  review/translation_review.js
+                                                  review/review_translation.js
                                                   data_tables.js
                                                 ]

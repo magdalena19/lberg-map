@@ -108,16 +108,17 @@ class Place < ActiveRecord::Base
   end
 
   def properties
-    attributes.each do |_key, value|
-      { key: value }
-    end.merge!(address: address,
-               homepage_full_domain: homepage,
-               description: reviewed_description.html_safe,
-               translation_auto_translated: translation_from_current_locale.auto_translated,
-               translation_reviewed: translation_from_current_locale.reviewed,
-               categories: category_ids,
-               longitude: longitude,
-               latitude: latitude,
-               reviewed: reviewed)
+    {
+      address: !address.empty? ? address : I18n.t('places.not_set'),
+      phone: !phone.empty? ? phone : I18n.t('places.not_set'),
+      email: !email.empty? ? email : I18n.t('places.not_set'),
+      name: name,
+      homepage: self.homepage,
+      homepage_full_domain: homepage,
+      description: reviewed_description.html_safe,
+      translation_auto_translated: translation_from_current_locale.auto_translated,
+      translation_reviewed: translation_from_current_locale.reviewed,
+      categories: category_ids
+    }
   end
 end

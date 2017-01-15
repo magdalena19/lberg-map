@@ -1,5 +1,6 @@
 de:
   places:
+    not_set: 'nicht angegeben'
     form:
       auto_translated: 'Automatische Übersetzung'
     edit:

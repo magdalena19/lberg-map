@@ -19,6 +19,12 @@ jQuery(function() {
     jQuery('.main-container').css('margin-top', navbarHeight + 15);
   }).resize();
 
+  // RESPONSIVE HEIGHT
+  jQuery(window).resize(function(){
+    var navbarHeight = jQuery('.navbar').height();
+    jQuery('.map-container').height(jQuery(window).height()).css('margin-top', - (navbarHeight + 15));
+  }).resize();
+
   // wysiwyg editor
   jQuery('.wysihtml5').each(function(i, elem) {
     $(elem).wysihtml5({

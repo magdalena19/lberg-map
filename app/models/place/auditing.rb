@@ -40,7 +40,7 @@ module PlaceAuditing
     if translation.versions.count > 1
       translation.versions[1].reify.description
     else
-      translation.reviewed ? translation.description : T18n.t('no_reviewed_description')
+      translation.reviewed ? translation.description : I18n.t('places.no_reviewed_description')
     end
   end
 

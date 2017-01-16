@@ -29,13 +29,14 @@ jQuery(function() {
 
         if (prop.reviewed) {
           placeSlidePanel.find('.name').html(prop.name);
+          jQuery('.edit-place').show();
         } else {
           placeSlidePanel.find('.name').html(prop.name + waitingForReviewSuffix);
           jQuery('.edit-place').hide();
         }
 
         if (prop.translation_auto_translated) {
-          placeSlidePanel.find('.place-description').html("<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'>" + window.autotranslated_label + "</a>" + '<br>' + prop.description);
+          placeSlidePanel.find('.place-description').html("<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'>" + window.autotranslated_label + "</a><br>" + prop.description);
         } else {
           placeSlidePanel.find('.place-description').html(prop.description);
         }
@@ -132,7 +133,7 @@ jQuery(function() {
       jQuery('.confirmation-button-container').fadeIn();
       jQuery('#confirmation-button-yes').click(function() {
         jQuery('.confirmation-button-container').fadeOut();
-        var params = 'longitude=' + lon + '&' + 'latitude=' +  lat;
+        var params = 'longitude=' + lon + '&latitude=' +  lat;
         window.location.href = 'places/new?' + params;
       });
       jQuery('#confirmation-button-no').click(function() {
@@ -193,7 +194,6 @@ jQuery(function() {
     // RESPONSIVE HEIGHT
     jQuery(window).resize(function(){
       var navbarHeight = jQuery('.navbar').height();
-      jQuery('.map-container').height(jQuery(window).height()).css('margin-top', - (navbarHeight + 15));
       jQuery('.confirmation-button-container').css('top', navbarHeight + 3);
       balanceSidebar();
       resizePanels();

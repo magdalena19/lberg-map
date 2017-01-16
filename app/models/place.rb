@@ -107,12 +107,16 @@ class Place < ActiveRecord::Base
     }
   end
 
+  def attribute_for_map(attribute)
+    !attribute.empty? ? attribute : I18n.t('places.not_set')
+  end
+
   def properties
     {
       id: id,
-      address: !address.empty? ? address : I18n.t('places.not_set'),
-      phone: !phone.empty? ? phone : I18n.t('places.not_set'),
-      email: !email.empty? ? email : I18n.t('places.not_set'),
+      address: attribute_for_map(address),
+      phone: attribute_for_map(phone),
+      email: attribute_for_map(email),
       name: name,
       homepage: self.homepage,
       homepage_full_domain: homepage,

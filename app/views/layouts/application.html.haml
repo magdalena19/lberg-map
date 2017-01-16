@@ -13,7 +13,7 @@
     = render 'layouts/navbar/navbar'
     .container-full.main-container
       .starter-template
-        - if !on_map?
+        - unless on_map?
           .header-img
             %h1= yield :header
         = render 'layouts/flash_messages'

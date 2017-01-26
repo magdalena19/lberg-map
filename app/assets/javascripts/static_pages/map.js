@@ -1,33 +1,14 @@
-//= require map_overlays
+//= require leaflet
+//= require leaflet.markercluster
+//= require static_pages/_map_overlays
+//= require static_pages/_map_base
 
 jQuery(function() {
   jQuery('#map').each(function() {
     // move flash message in foreground when map is displayed
     jQuery('#flash-messages').css('position', 'absolute').css('z-index', '999999');
 
-    map = L.map('map', {
-      zoomControl: false,
-      minZoom: 5,
-      maxZoom: 18
-    });
-    jQuery('.zoom-in').click(function() {map.zoomIn()});
-    jQuery('.zoom-out').click(function() {map.zoomOut()});
-
-    var addMap = function(url) {
-      baselayer = L.tileLayer(url, {attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'});
-      map.addLayer(baselayer);
-      map.setView([52.513, 13.4], 12);
-    };
-
-    $.ajax({
-      url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/1/1/1.jpg',
-      success: function(result) {
-        addMap('https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg');
-      },
-      error: function(result) {
-        addMap('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
-      }
-    });
+    addEsriMap();
 
     var autotranslatedPrefix = "<p><i>" + window.autotranslated_label + ": </i></p>";
     var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";
@@ -48,13 +29,14 @@ jQuery(function() {
 
         if (prop.reviewed) {
           placeSlidePanel.find('.name').html(prop.name);
+          jQuery('.edit-place').show();
         } else {
           placeSlidePanel.find('.name').html(prop.name + waitingForReviewSuffix);
           jQuery('.edit-place').hide();
         }
 
         if (prop.translation_auto_translated) {
-          placeSlidePanel.find('.place-description').html("<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'>" + window.autotranslated_label + "</a>" + '<br>' + prop.description);
+          placeSlidePanel.find('.place-description').html("<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'>" + window.autotranslated_label + "</a><br>" + prop.description);
         } else {
           placeSlidePanel.find('.place-description').html(prop.description);
         }
@@ -131,20 +113,6 @@ jQuery(function() {
     });
     jQuery('.category-button#all').click();
 
-    jQuery('.loading').show();
-    jQuery.ajax({
-      url: '/',
-      dataType: 'json',
-      data: {
-        locale: window.locale
-      },
-      success: function(result) {
-        window.places = result;
-        updatePlaces(window.places);
-        jQuery('.loading').hide();
-      }
-    });
-
     // ADD PLACE
     jQuery('.add-place-buttons').click(function(){
       jQuery('.add-place-slidepanel').trigger('close');
@@ -165,7 +133,7 @@ jQuery(function() {
       jQuery('.confirmation-button-container').fadeIn();
       jQuery('#confirmation-button-yes').click(function() {
         jQuery('.confirmation-button-container').fadeOut();
-        var params = 'longitude=' + lon + '&' + 'latitude=' +  lat;
+        var params = 'longitude=' + lon + '&latitude=' +  lat;
         window.location.href = 'places/new?' + params;
       });
       jQuery('#confirmation-button-no').click(function() {
@@ -222,5 +190,30 @@ jQuery(function() {
         map.setView(coordinates, 16);
       }
     }, 1);
+
+    // RESPONSIVE HEIGHT
+    jQuery(window).resize(function(){
+      var navbarHeight = jQuery('.navbar').height();
+      jQuery('.confirmation-button-container').css('top', navbarHeight + 3);
+      balanceSidebar();
+      resizePanels();
+    }).resize();
+
+    // POI LOADING
+    hideMapElements();
+    jQuery.ajax({
+      url: '/map',
+      dataType: 'json',
+      data: {
+        locale: window.locale
+      },
+      success: function(result) {
+        window.places = result;
+        updatePlaces(window.places);
+        showMapElements();
+        balanceSidebar();
+        jQuery('.loading').hide();
+      }
+    });
   });
 });

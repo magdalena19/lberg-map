@@ -5,7 +5,7 @@ feature 'Index page' do
     visit root_path
     page.must_have_css('.logo')
     page.must_have_css('#map')
-    page.find('.btn', text: 'Sprache').trigger('click')
+    click_on('Sprache')
     page.must_have_content('Alle')
   end
 end

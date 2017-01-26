@@ -1,5 +1,7 @@
 en:
   places:
+    not_set: 'not set'
+    no_reviewed_description: 'No reviewed description yet'
     form:
       auto_translated: 'Automatic translation'
     edit:

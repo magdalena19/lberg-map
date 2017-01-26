@@ -4,7 +4,7 @@
   .content
     .col-xs-12
       .col-sm-6.col-lg-4.category-button-col
-        = button_tag("#{t('.no_filter')} (#{Place.reviewed.count})", type: 'button', class: 'category-button btn show-all-points', id: 'all')
+        = button_tag(t('.no_filter'), type: 'button', class: 'category-button btn show-all-points', id: 'all')
         %br
       - @categories.each do |category|
         .col-sm-6.col-lg-4.category-button-col

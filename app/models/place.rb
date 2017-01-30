@@ -31,7 +31,7 @@ class Place < ActiveRecord::Base
   after_create :set_description_reviewed_flags
 
   def enqueue_auto_translation
-    TranslationWorker.perform_async("Place", id)
+    TranslationWorker.perform_async('Place', id)
   end
 
   def set_description_reviewed_flags

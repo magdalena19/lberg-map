@@ -16,13 +16,17 @@ Rails.application.routes.draw do
     # Reviewing
     get 'places/review_index' , to: 'review#review_index'
 
-    scope '/:id' do
-      get '/review_place' , to: 'review#review_place', as: :review_place
-      get '/confirm_place' , to: 'review#confirm_place', as: :confirm_place
-      get '/refuse_place' , to: 'review#refuse_place', as: :refuse_place
-      get '/review_translation' , to: 'review#review_translation', as: :review_translation
-      get '/confirm_translation' , to: 'review#confirm_translation', as: :confirm_translation
-      get '/refuse_translation' , to: 'review#refuse_translation', as: :refuse_translation
+    scope '/places/:id' do
+      get '/review' , to: 'review#review_place', as: :review_place
+      get '/confirm' , to: 'review#confirm_place', as: :confirm_place
+      get '/refuse' , to: 'review#refuse_place', as: :refuse_place
+
+      scope '/translation' do
+        get '/review' , to: 'review#review_translation', as: :review_translation
+        get '/confirm' , to: 'review#confirm_translation', as: :confirm_translation
+        get '/refuse' , to: 'review#refuse_translation', as: :refuse_translation
+      end
+
     end
 
     # Place ressources

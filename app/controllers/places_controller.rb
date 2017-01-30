@@ -128,7 +128,7 @@ class PlacesController < ApplicationController
   end
 
   # Set reviewed flags depending on login status during creation
-  def initialize_reviewed_flags
+  def set_inital_reviewed_flags
     update_place_reviewed_flag
     @place.destroy_all_updates
     @place.translations.each do |translation|
@@ -159,7 +159,7 @@ class PlacesController < ApplicationController
   def save_new
     if @place.save
       store_in_session_cookie
-      initialize_reviewed_flags
+      set_inital_reviewed_flags
       flash[:success] = t('.created')
       redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
     else

@@ -33,9 +33,7 @@ class ReviewController < ApplicationController
   def review_translation
     @reviewed_translation = reviewed_version(translation(params[:id]))
     @unreviewed_translation = translation(params[:id])
-    language = translation(params[:id]).locale
-    other_translations = place_from(params[:id]).translations.find_all { |t| t.locale != language }
-    @other_translations_reviewed = other_translations.map { |t| reviewed_version(t) }.compact
+    @other_translations_reviewed = other_reviewed_translations
   end
 
   def confirm_translation
@@ -56,11 +54,23 @@ class ReviewController < ApplicationController
 
   private
 
-  def translation(id)
-    place_from(id).translations.find(id)
+  def current_language
+    translation(params[:id]).locale
   end
 
-  def place_from(id)
+  def translations_other_than(language)
+    place_from_translation(params[:id]).translations.find_all { |t| t.locale != language }
+  end
+
+  def other_reviewed_translations
+    translations_other_than(current_language).map { |t| reviewed_version(t) }.compact
+  end
+
+  def translation(id)
+    place_from_translation(id).translations.find(id)
+  end
+
+  def place_from_translation(id)
     Place.find { |p| p.translations.find_by(id: id) }
   end
 

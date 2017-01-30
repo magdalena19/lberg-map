@@ -17,14 +17,14 @@ Rails.application.routes.draw do
     get 'places/review_index' , to: 'review#review_index'
 
     scope '/places/:id' do
-      get '/review' , to: 'review#review_place', as: :review_place
-      get '/confirm' , to: 'review#confirm_place', as: :confirm_place
-      get '/refuse' , to: 'review#refuse_place', as: :refuse_place
+      get '/review' , to: 'places_review#review', as: :review_place
+      get '/confirm' , to: 'places_review#confirm', as: :confirm_place
+      get '/refuse' , to: 'places_review#refuse', as: :refuse_place
 
       scope '/translation' do
-        get '/review' , to: 'review#review_translation', as: :review_translation
-        get '/confirm' , to: 'review#confirm_translation', as: :confirm_translation
-        get '/refuse' , to: 'review#refuse_translation', as: :refuse_translation
+        get '/review' , to: 'translations_review#review', as: :review_translation
+        get '/confirm' , to: 'translations_review#confirm', as: :confirm_translation
+        get '/refuse' , to: 'translations_review#refuse', as: :refuse_translation
       end
 
     end

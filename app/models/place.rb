@@ -78,6 +78,20 @@ class Place < ActiveRecord::Base
     end
   end
 
+  def unreviewed_translations
+    translations.find_all do |t|
+      t.versions.length > 1 || !t.reviewed
+    end
+  end
+
+  def self.all_unreviewed_translations
+    array = []
+    Place.all.each do |p|
+      array << p.unreviewed_translations
+    end
+    array.flatten!
+  end
+
   ## PROPERTIES
   def geojson
     {

@@ -145,6 +145,8 @@ class PlacesController < ApplicationController
       store_in_session_cookie
       flash[:success] = t('.changes_saved')
       @place.destroy_all_updates if signed_in?
+
+      # TODO Something brownish happening here... reviewed flag not set to false!
       update_translations_reviewed_flag if globalized_params.any?
       redirect_to places_url
     else

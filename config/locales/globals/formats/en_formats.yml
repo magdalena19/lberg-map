@@ -1,4 +1,16 @@
 en:
+  phone_number:
+    formats:
+      invalid: 'is incorrectly formatted!'
+  email_address:
+    formats:
+      invalid: 'is incorrectly formatted!'
+  url:
+    formats:
+      invalid: 'is incorrectly formatted!'
+  postal_code:
+    formats:
+      invalid: 'is incorrectly formatted!'
   date:
     abbr_day_names:
     - Sun

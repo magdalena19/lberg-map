@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../test_helper'
 
 class PlaceTest < ActiveSupport::TestCase
   def setup
@@ -33,13 +33,24 @@ class PlaceTest < ActiveSupport::TestCase
   test 'Invalid place contact data shall be invalid' do
     assert_not @place.update_attributes(phone: '03')
     assert_not @place.update_attributes(phone: '03' * 12)
+    assert_equal ['is incorrectly formatted!'], @place.errors.messages[:phone]
+
     assert_not @place.update_attributes(email: 'foo@bar')
     assert_not @place.update_attributes(email: 'foo@.bar')
     assert_not @place.update_attributes(email: 'bar@')
+    assert_equal ['is incorrectly formatted!'], @place.errors.messages[:email]
+
     assert_not @place.update_attributes(homepage: 'http:/heise.de')
     assert_not @place.update_attributes(homepage: 'http://heise')
     assert_not @place.update_attributes(homepage: 'http//heise')
-    assert_not @place.update_attributes(homepage: 'ww.heise.de')
+    assert_equal ['is incorrectly formatted!'], @place.errors.messages[:homepage]
+  end
+
+  test "Assure correctly securing URLs" do
+    @place.homepage = 'http://www.heise.de'
+    @place.save
+
+    assert_equal 'https://heise.de', @place.homepage
   end
 
   test 'Valid place contact data shall be valid' do

@@ -4,7 +4,7 @@ module CustomValidators
 
     def validate_each(record, attribute, value)
       unless value =~ PHONE_REGEX
-        record.errors[attribute] << 'Invalid phone number'
+        record.errors[attribute] << I18n.t('phone_number.formats.invalid')
       end
     end
   end
@@ -14,7 +14,7 @@ module CustomValidators
 
     def validate_each(record, attribute, value)
       unless value =~ POSTAL_CODE_REGEX
-        record.errors[attribute] << 'supply valid postal code (5 digits)'
+        record.errors[attribute] << I18n.t('postal_code.formats.invalid')
       end
     end
   end
@@ -24,7 +24,7 @@ module CustomValidators
 
     def validate_each(record, attribute, value)
       unless value =~ URL_REGEX
-        record.errors[attribute] << 'Invalid URL'
+        record.errors[attribute] << I18n.t('url.formats.invalid')
       end
     end
   end
@@ -34,7 +34,7 @@ module CustomValidators
 
     def validate_each(record, attribute, value)
       unless value =~ EMAIL_REGEX
-        record.errors[attribute] << 'This cannot be a valid email address'
+        record.errors[attribute] << I18n.t('email_address.formats.invalid')
       end
     end
   end

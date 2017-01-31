@@ -41,6 +41,7 @@ class ReviewControllerTest < ActionController::TestCase
   end
 
   test 'Review index shows new and unreviewed places and unreviewed translations' do
+    binding.pry
     get :review_index
     assert_equal 2, assigns(:places_to_review).length
     assert_equal 3, assigns(:unreviewed_translations).length

@@ -3,6 +3,7 @@ require 'place/auditing'
 require 'auto_translate'
 require 'sanitize'
 require 'custom_validators'
+require 'place_model_helpers'
 
 class Place < ActiveRecord::Base
   include AutoTranslate
@@ -10,7 +11,7 @@ class Place < ActiveRecord::Base
   include PlaceAuditing
   include Sanitization
   include CustomValidators
-  # include ActiveModel::Validations
+  include PlaceModelHelpers
 
   ## VALIDATIONS
   validates :name, presence: true
@@ -26,7 +27,7 @@ class Place < ActiveRecord::Base
   ## CALLBACKS
   geocoded_by :address
   before_validation :sanitize_descriptions, on: [:create, :update]
-  after_validation :secure_homepage_link, on: [:create, :update]
+  after_validation :enforce_ssl_on_urls, on: [:create, :update], if: 'homepage.present?'
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
   after_create :enqueue_auto_translation
@@ -47,21 +48,6 @@ class Place < ActiveRecord::Base
   ## VIRTUAL ATTRIBUTES
   def address
     ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')
-  end
-
-  def protocol_prefix?
-    ['https://', 'http://', 'www.'].map { |prefix| homepage.start_with? prefix }.include? true
-  end
-
-  def secure_homepage_link
-    return nil if homepage.nil? || homepage.empty?
-
-    if protocol_prefix?
-      self.homepage = homepage.gsub 'www.', 'https://'
-      self.homepage = homepage.gsub 'http://', 'https://'
-    else
-      self.homepage = 'https://' + homepage
-    end
   end
 
   ## MODEL AUDITING

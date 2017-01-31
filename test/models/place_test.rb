@@ -1,15 +1,9 @@
+
 require_relative '../test_helper'
 
 class PlaceTest < ActiveSupport::TestCase
   def setup
-    @place = Place.new(name: 'Kiezspinne',
-                       street: 'Schulze-Boysen-Straße',
-                       house_number: '13',
-                       postal_code: '10365',
-                       city: 'Berlin',
-                       description_en: '<center><b>This is the description.</b></center>',
-                       latitude: 13,
-                       longitude: 52)
+    @place = build :place, :unreviewed, name: 'Kiezspinne', description_en:  '<b>This is the description.</b>'
   end
 
   test 'valid place is valid' do
@@ -71,28 +65,13 @@ class PlaceTest < ActiveSupport::TestCase
   end
 
   test "Place with lat/lon does not need to be geocoded" do
-    @place = Place.new(
-      name: 'Magda',
-      street: 'Magdalenenstraße',
-      house_number: '19',
-      postal_code: '10365',
-      city: 'Berlin',
-      homepage: 'https://heise.de',
-      email: 'foo@bar.org',
-      phone: '030 2304958',
-      description_en: '<center><b>This is the description.</b></center>',
-      latitude: 60.0,
-      longitude: 10.0,
-      reviewed: true
-    )
-    @place.save
+    @place = create :place, :unreviewed, latitude: 60.0, longitude: 10.0
     assert_equal 60.0, @place.latitude
     assert_equal 10.0, @place.longitude
 
   end
 
   # Review
-
   test 'Version is 1 for new points' do
     @place.save
     assert_equal 1, Place.find_by_name('Kiezspinne').versions.length

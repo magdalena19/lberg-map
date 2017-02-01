@@ -1,10 +1,10 @@
-require 'place/auto_translate'
 require 'place/geocoding'
 require 'place/auditing'
+require 'auto_translate'
 require 'sanitize'
 
 class Place < ActiveRecord::Base
-  include PlaceAutoTranslation
+  include AutoTranslate
   include PlaceGeocoding
   include PlaceAuditing
   include Sanitization
@@ -27,11 +27,11 @@ class Place < ActiveRecord::Base
   after_validation :secure_homepage_link, on: [:create, :update]
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
-  after_create :enqueue_auto_translation, if: :empty_description?
+  after_create :enqueue_auto_translation
   after_create :set_description_reviewed_flags
 
-  def empty_description?
-    translations.map { |t| t.description.nil? || t.description.empty? }.include? true
+  def enqueue_auto_translation
+    TranslationWorker.perform_async('Place', id)
   end
 
   def set_description_reviewed_flags
@@ -40,10 +40,6 @@ class Place < ActiveRecord::Base
         translation.update_attributes(reviewed: reviewed ? true : false)
       end
     end
-  end
-
-  def enqueue_auto_translation
-    TranslationWorker.perform_async(id)
   end
 
   ## VIRTUAL ATTRIBUTES

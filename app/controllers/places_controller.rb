@@ -84,7 +84,7 @@ class PlacesController < ApplicationController
     params.require(:place).permit(
       :name, :street, :house_number, :postal_code, :city,
       :reviewed,
-      :description, *Place.globalize_attribute_names,
+      *Place.globalize_attribute_names,
       :phone, :homepage, :email,
       categories: []
     )

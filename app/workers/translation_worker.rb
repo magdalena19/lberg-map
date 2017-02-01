@@ -1,8 +1,9 @@
 class TranslationWorker
   include Sidekiq::Worker
 
-  def perform(place_id)
-    place = Place.find(place_id)
-    place.auto_translate
+  def perform(classname, id)
+    klass = classname.singularize.constantize
+    obj = klass.find(id)
+    obj.auto_translate_empty_attributes
   end
 end

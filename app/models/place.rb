@@ -1,9 +1,9 @@
 require 'place/geocoding'
 require 'place/auditing'
+require 'place/place_model_helpers'
+require 'validators/custom_validators'
 require 'auto_translate'
 require 'sanitize'
-require 'custom_validators'
-require 'place_model_helpers'
 
 class Place < ActiveRecord::Base
   include AutoTranslate

@@ -3,7 +3,7 @@ require_relative '../../test_helper'
 feature 'Review place' do
   scenario 'Do not show user edits in review index', :js do
     @place = create(:place, :reviewed)
-    login
+    login_as_user
     visit edit_place_path id: @place.id
     fill_in('place_name', with: 'USER CHANGE')
     click_on('Update Place')
@@ -19,7 +19,7 @@ feature 'Review place' do
     validate_captcha
     click_on('Update Place')
     sleep(1)
-    login
+    login_as_user
     visit '/places/review_index'
     page.must_have_content('SomeReviewedPlace')
 

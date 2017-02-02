@@ -21,7 +21,4 @@ feature 'Sidekiq dashboard' do
       visit sidekiq_web_path
     end
   end
-
-  private
-
 end

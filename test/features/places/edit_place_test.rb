@@ -6,7 +6,7 @@ feature 'Edit place' do
   end
 
   scenario 'Do valid place update as user and show in index afterwards', :js do
-    login
+    login_as_user
     visit edit_place_path id: @place.id
 
     fill_in('place_name', with: 'Any place')

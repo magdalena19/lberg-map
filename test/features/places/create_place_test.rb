@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 
 feature 'Create place' do
   scenario 'create valid place as user', :js do
-    login
+    login_as_user
     visit '/places/new'
     fill_in_valid_place_information
     click_on('Create Place')

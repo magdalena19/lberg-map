@@ -6,7 +6,7 @@ class PlacesController < ApplicationController
 
   def index
     @places = Place.reviewed_places
-    unless signed_in?
+    unless @current_user.signed_in?
       @places += places_from_session
       @places.uniq
     end
@@ -14,11 +14,11 @@ class PlacesController < ApplicationController
 
   def edit
     redirect_to root_url if @place.new?
-    flash.now[:warning] = t('.preview_mode') unless signed_in?
+    flash.now[:warning] = t('.preview_mode') unless @current_user.signed_in?
   end
 
   def update
-    if simple_captcha_valid? || signed_in?
+    if simple_captcha_valid? || @current_user.signed_in?
       save_update
     else
       flash.now[:danger] = t('.invalid_captcha')
@@ -29,7 +29,7 @@ class PlacesController < ApplicationController
 
   def new
     @place = Place.new
-    flash.now[:warning] = t('.preview_mode') unless signed_in?
+    flash.now[:warning] = t('.preview_mode') unless @current_user.signed_in?
   end
 
   def create
@@ -37,7 +37,7 @@ class PlacesController < ApplicationController
     @place.latitude ||= params[:place][:latitude]
     @place.longitude ||= params[:place][:longitude]
 
-    if simple_captcha_valid? || signed_in?
+    if simple_captcha_valid? || @current_user.signed_in?
       save_new
     else
       flash.now[:danger] = t('.invalid_captcha')
@@ -113,16 +113,16 @@ class PlacesController < ApplicationController
   # Update reviewed flags depending on login status
   def update_place_reviewed_flag
     @place.without_versioning do
-      @place.update!(reviewed: signed_in?)
+      @place.update!(reviewed: @current_user.signed_in?)
     end
   end
 
   def update_translations_reviewed_flag
     locales_from_place_params.each do |locale|
       translation = @place.translations.find_by_locale(locale)
-      @place.destroy_all_updates(translation) if signed_in?
+      @place.destroy_all_updates(translation) if @current_user.signed_in?
       translation.without_versioning do
-        translation.update(reviewed: signed_in?)
+        translation.update(reviewed: @current_user.signed_in?)
       end
     end
   end
@@ -133,7 +133,7 @@ class PlacesController < ApplicationController
     @place.destroy_all_updates
     @place.translations.each do |translation|
       translation.without_versioning do
-        translation.update!(reviewed: signed_in?)
+        translation.update!(reviewed: @current_user.signed_in?)
       end
     end
   end
@@ -145,7 +145,7 @@ class PlacesController < ApplicationController
     if @place.update(modified_params)
       store_in_session_cookie
       flash[:success] = t('.changes_saved')
-      @place.destroy_all_updates if signed_in?
+      @place.destroy_all_updates if @current_user.signed_in?
 
       update_translations_reviewed_flag if globalized_params.any?
       redirect_to places_url

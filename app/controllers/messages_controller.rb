@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.new(message_params)
-    if simple_captcha_valid? || signed_in?
+    if simple_captcha_valid? || @current_user.signed_in?
       save_new
     else
       flash[:danger] = t('.invalid_captcha')

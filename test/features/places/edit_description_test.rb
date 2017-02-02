@@ -12,7 +12,7 @@ feature 'Edit description' do
     click_on('Update Place')
 
     Capybara.reset_sessions!
-    assert_equal 1, Place.reviewed.count
+    assert_equal 1, Place.reviewed_places.count
 
     sleep(1)
     visit '/places'

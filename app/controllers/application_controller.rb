@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
   def places_from_session(category_id = nil)
     ids = cookies[:created_places_in_session]
-    array = ids ? ids.split(',') : []
+    array = ids ? ids.split(',').flatten : []
     if category_id
       Place.where(id: array).compact.find_all { |p| p.category_for(category_id) }
     else

@@ -1,6 +1,6 @@
-require 'place/place_translations'
 require 'place/geocoding'
-require 'place/auditing'
+require 'place/place_auditing'
+require 'place/place_translations_auditing'
 require 'place/place_model_helpers'
 require 'validators/custom_validators'
 require 'auto_translate'
@@ -8,7 +8,7 @@ require 'sanitize'
 
 class Place < ActiveRecord::Base
   include AutoTranslate
-  include PlaceAutoTranslation
+  include PlaceTranslationsAuditing
   include PlaceGeocoding
   include PlaceAuditing
   include Sanitization
@@ -34,18 +34,6 @@ class Place < ActiveRecord::Base
   before_update :geocode_with_nodes, if: :address_changed?
   after_create :enqueue_auto_translation
   after_create :set_description_reviewed_flags
-
-  def enqueue_auto_translation
-    TranslationWorker.perform_async('Place', id)
-  end
-
-  def set_description_reviewed_flags
-    translations.each do |translation|
-      translation.without_versioning do
-        translation.update_attributes(reviewed: reviewed ? true : false)
-      end
-    end
-  end
 
   ## VIRTUAL ATTRIBUTES
   def address

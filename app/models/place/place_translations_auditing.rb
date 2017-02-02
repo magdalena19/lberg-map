@@ -1,19 +1,20 @@
 # This module holds all translation querying related class methods
-module PlaceTranslationsClassMethods
+module PlaceTranslationsAuditingClassMethods
+  # TODO
+  # Make this private...
   def all_translations
     Place.all.map { |p| p.translations.to_a }.flatten
   end
 
-  def all_unreviewed_translations
-    binding.pry
+  def unreviewed_translations
     Place.all_translations.select { |t| !t.reviewed }
   end
 end
 
 # This module holds all translation querying related class methods
-module PlaceTranslations
+module PlaceTranslationsAuditing
   def self.included(base)
-    base.extend PlaceTranslationsClassMethods
+    base.extend PlaceTranslationsAuditingClassMethods
   end
 
   def unreviewed_translations
@@ -35,7 +36,7 @@ module PlaceTranslations
   end
 
   def enqueue_auto_translation
-    TranslationWorker.perform_async(id)
+    TranslationWorker.perform_async('Place', id)
   end
 end
 

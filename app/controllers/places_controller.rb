@@ -5,7 +5,7 @@ class PlacesController < ApplicationController
   before_action :reverse_geocode, only: [:new], if: :supplied_coords?
 
   def index
-    @places = Place.reviewed
+    @places = Place.reviewed_places
     unless signed_in?
       @places += places_from_session
       @places.uniq
@@ -139,6 +139,7 @@ class PlacesController < ApplicationController
   end
 
   def save_update
+    # TODO: looks shitty...
     length_before_update = @place.versions.length
 
     if @place.update(modified_params)
@@ -146,7 +147,6 @@ class PlacesController < ApplicationController
       flash[:success] = t('.changes_saved')
       @place.destroy_all_updates if signed_in?
 
-      # TODO Something brownish happening here... reviewed flag not set to false!
       update_translations_reviewed_flag if globalized_params.any?
       redirect_to places_url
     else

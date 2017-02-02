@@ -1,3 +1,4 @@
+require 'place/place_translations'
 require 'place/geocoding'
 require 'place/auditing'
 require 'place/place_model_helpers'
@@ -7,6 +8,7 @@ require 'sanitize'
 
 class Place < ActiveRecord::Base
   include AutoTranslate
+  include PlaceAutoTranslation
   include PlaceGeocoding
   include PlaceAuditing
   include Sanitization
@@ -76,20 +78,6 @@ class Place < ActiveRecord::Base
       column = "description_#{locale}"
       send(column + '=', sanitize(send(column)))
     end
-  end
-
-  def unreviewed_translations
-    translations.find_all do |t|
-      t.versions.length > 1 || !t.reviewed
-    end
-  end
-
-  def self.all_unreviewed_translations
-    array = []
-    Place.all.each do |p|
-      array << p.unreviewed_translations
-    end
-    array.flatten!
   end
 
   ## PROPERTIES

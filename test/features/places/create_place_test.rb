@@ -7,21 +7,20 @@ feature 'Create place' do
     fill_in_valid_place_information
     click_on('Create Place')
     visit '/places'
-    page.must_have_content('Any place', count: 1)
+    assert page.must_have_content('Any place', count: 1)
   end
 
   scenario 'create valid place as guest', :js do
     create_place_as_guest('Another place')
     visit '/places'
-    page.must_have_content('Another place')
-    page.wont_have_css('.glyphicon-pencil')
+    assert page.must_have_content('Another place')
+    assert page.wont_have_css('.glyphicon-pencil')
   end
 
   scenario 'see guests session places on map', :js do
     create_place_as_guest('Another place')
     create_place_as_guest('Still another place')
     visit '/en'
-    sleep(1)
     assert page.must_have_content('Another place')
     assert page.must_have_content('Still another place')
   end
@@ -31,11 +30,14 @@ feature 'Create place' do
     assert find_field('place_city').value == 'Berlin'
   end
 
+  # TODO Is this a good test? Depends on two languages... maybe workaround using an if-clause on no. of locales implemented?
   scenario 'show only one wysiwyg editor for current locale', :js do
     visit '/places/new'
-    page.must_have_css('.wysihtml5-toolbar', count: 1)
+    assert page.must_have_css('#description_en')
+    assert page.wont_have_css('#description_de')
     page.find('.glyphicon-triangle-bottom').trigger('click')
-    page.must_have_css('.wysihtml5-toolbar', count: 2)
+    assert page.must_have_css('#description_en')
+    assert page.must_have_css('#description_de')
   end
 
   def create_place_as_guest(place_name)

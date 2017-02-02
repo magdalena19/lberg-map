@@ -7,12 +7,14 @@ feature 'Create place' do
     fill_in_valid_place_information
     click_on('Create Place')
     visit '/places'
+
     assert page.must_have_content('Any place', count: 1)
   end
 
   scenario 'create valid place as guest', :js do
     create_place_as_guest('Another place')
     visit '/places'
+
     assert page.must_have_content('Another place')
     assert page.wont_have_css('.glyphicon-pencil')
   end
@@ -21,21 +23,26 @@ feature 'Create place' do
     create_place_as_guest('Another place')
     create_place_as_guest('Still another place')
     visit '/en'
+
     assert page.must_have_content('Another place')
     assert page.must_have_content('Still another place')
   end
 
   scenario 'visit new place view with coordinate parameters' do
     visit '/places/new?longitude=1&latitude=1' # coordinate values do not matter, because response is mocked
-    assert find_field('place_city').value == 'Berlin'
+
+    assert_equal 'Berlin', find_field('place_city').value
   end
 
   # TODO Is this a good test? Depends on two languages... maybe workaround using an if-clause on no. of locales implemented?
   scenario 'show only one wysiwyg editor for current locale', :js do
     visit '/places/new'
+    
     assert page.must_have_css('#description_en')
     assert page.wont_have_css('#description_de')
+
     page.find('.glyphicon-triangle-bottom').trigger('click')
+
     assert page.must_have_css('#description_en')
     assert page.must_have_css('#description_de')
   end

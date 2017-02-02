@@ -14,13 +14,13 @@ FactoryGirl.define do
       street 'Foo-street'
       postal_code '13045'
       city 'Berlin'
-      latitude { rand(52.5..52.51) }
-      longitude { rand(13.45..13.451) }
+      latitude 52.5
+      longitude 13.45
       email 'foo@bar.com'
-      homepage 'http//bar.com'
+      homepage 'https://bar.com'
       phone '03081618254'
       reviewed 'true'
-      description 'This is a reviewed point'
+      description_en 'This is a reviewed point'
       categories '1,2'
 
       after(:create) { |place| set_reviewed_on_translations(place) }
@@ -35,10 +35,10 @@ FactoryGirl.define do
       latitude 52.6
       longitude 13.5
       email 'bar@foo.com'
-      homepage 'http//foo.com'
+      homepage 'https://foo.com'
       phone '03081618254'
       reviewed 'false'
-      description 'This is an unreviewed point'
+      description_en 'This is an unreviewed point'
       categories '1,4,5'
 
       after(:create) { |place| set_reviewed_on_translations(place) }

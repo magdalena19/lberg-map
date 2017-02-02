@@ -1,4 +1,16 @@
 de:
+  phone_number:
+    formats:
+      invalid: 'ist ungültig formatiert!'
+  email_address:
+    formats:
+      invalid: 'ist ungültig formatiert!'
+  url:
+    formats:
+      invalid: 'ist ungültig formatiert!'
+  postal_code:
+    formats:
+      invalid: 'ist ungültig formatiert!'
   date:
     abbr_day_names:
     - So

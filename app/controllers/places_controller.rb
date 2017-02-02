@@ -1,12 +1,11 @@
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
   before_action :require_login, only: [:destroy]
-  before_action :reviewed?, only: [:update]
   before_action :set_place, only: [:edit, :update, :destroy]
   before_action :reverse_geocode, only: [:new], if: :supplied_coords?
 
   def index
-    @places = Place.reviewed
+    @places = Place.reviewed_places
     unless signed_in?
       @places += places_from_session
       @places.uniq
@@ -129,7 +128,7 @@ class PlacesController < ApplicationController
   end
 
   # Set reviewed flags depending on login status during creation
-  def initialize_reviewed_flags
+  def set_inital_reviewed_flags
     update_place_reviewed_flag
     @place.destroy_all_updates
     @place.translations.each do |translation|
@@ -139,17 +138,15 @@ class PlacesController < ApplicationController
     end
   end
 
-  def reviewed?
-    Place.find(params[:id]).reviewed
-  end
-
   def save_update
+    # TODO: looks shitty...
     length_before_update = @place.versions.length
 
     if @place.update(modified_params)
       store_in_session_cookie
       flash[:success] = t('.changes_saved')
       @place.destroy_all_updates if signed_in?
+
       update_translations_reviewed_flag if globalized_params.any?
       redirect_to places_url
     else
@@ -164,7 +161,7 @@ class PlacesController < ApplicationController
   def save_new
     if @place.save
       store_in_session_cookie
-      initialize_reviewed_flags
+      set_inital_reviewed_flags
       flash[:success] = t('.created')
       redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
     else

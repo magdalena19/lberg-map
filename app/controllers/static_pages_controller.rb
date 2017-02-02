@@ -25,7 +25,7 @@ class StaticPagesController < ApplicationController
   private
 
   def places_to_show
-    (Place.reviewed + places_from_session).uniq
+    (Place.reviewed_places + places_from_session).uniq
   end
 
   def last_places_created

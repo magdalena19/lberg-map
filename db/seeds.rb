@@ -22,8 +22,8 @@ User.create(id: 5001,
             is_admin: false).save
 
 # Seed real world data
-PoiRepository.import_from_csv('./db/initPois.csv', 'Berlin')
+# PoiRepository.import_from_csv('./db/initPois.csv', 'Berlin')
 
 # Seed random data, see /lib/mass_seed_*.rb for definitions
-# MassSeedPoints.generate(number_of_points: 300, city: 'Berlin')
+MassSeedPoints.generate(number_of_points: 30, city: 'Berlin')
 #MassSeedAnnouncements.generate(number_of_announcements: 10)

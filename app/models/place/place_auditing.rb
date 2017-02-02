@@ -1,10 +1,10 @@
 # This module contains all class methods used for auditing places
 module PlaceAuditingClassMethods
-  def reviewed
+  def reviewed_places
     Place.all.map(&:reviewed_version).compact
   end
 
-  def places_to_review
+  def unreviewed_places
     unreviewed_places = Place.all.find_all(&:unreviewed_version)
     places_to_review = unreviewed_places.map do |p|
       p.reviewed_version || p.unreviewed_version

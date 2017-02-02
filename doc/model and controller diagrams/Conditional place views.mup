@@ -269,7 +269,7 @@
         },
         "note": {
           "index": 22,
-          "text": "How to read this: \"if as guest create place, then Place.reviewed == false AND Place.Translations.auto_translated == true"
+          "text": "How to read this: \"if as guest create place, then Place.reviewed_places == false AND Place.Translations.auto_translated == true"
         }
       },
       "ideas": {

@@ -53,7 +53,7 @@ group :test do
   gem 'guard'
   gem 'guard-minitest'
   gem 'minitest-rails'
-  gem 'minitest-rails-capybara'
+  gem 'minitest-rails-capybara', '~> 2.1.2'
   gem 'minitest-reporters'
   gem 'poltergeist' # headless javascript testing
   gem 'selenium-webdriver' # non-headless javascript testing

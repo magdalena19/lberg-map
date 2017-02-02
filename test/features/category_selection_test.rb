@@ -14,28 +14,24 @@ feature 'Category selection' do
   scenario 'Place is shown when \'All points\' was clicked', js: true do
     show_category_panel
     page.find('.category-button', text: 'All points').trigger('click')
-    sleep(1)
-    assert_equal 1, page.all('.leaflet-marker-icon').count
+    assert_equal 3, page.all('.leaflet-marker-icon').count
   end
 
   scenario 'Place is shown when right category was clicked', js: true do
     show_category_panel
     page.find('.category-button', text: 'Playground').trigger('click')
-    sleep(1)
-    page.must_have_css('.leaflet-marker-icon div span', text: 2)
+    page.find('.leaflet-marker-icon div span', text: 2)
   end
 
   scenario 'Place is not shown when other category was clicked', js: true do
-    skip("Weird error, everything working fine...")
     show_category_panel
     page.find('.category-button', text: 'Cafe').trigger('click')
-    sleep(1)
     assert_equal 0, page.all('.leaflet-marker-icon').count
   end
 
   def show_category_panel
     visit root_path
-    click_on('Select this language')
+    page.find('.locale-selection', text: 'Select').trigger('click')
     page.find('.show-categories').trigger('click')
   end
 end

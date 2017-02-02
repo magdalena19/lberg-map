@@ -14,7 +14,14 @@ def validate_captcha
   fill_in 'captcha', with: SimpleCaptcha::SimpleCaptchaData.first.value
 end
 
-def login
+def login_as_user
+  visit login_path
+  fill_in 'sessions_email', with: 'norbert@example.com'
+  fill_in 'sessions_password', with: 'secret'
+  click_on 'Login'
+end
+
+def login_as_admin
   visit login_path
   fill_in 'sessions_email', with: 'admin@example.com'
   fill_in 'sessions_password', with: 'secret'

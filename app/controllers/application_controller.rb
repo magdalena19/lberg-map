@@ -1,3 +1,5 @@
+require 'guest_user'
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -20,15 +22,11 @@ class ApplicationController < ActionController::Base
 
   # User and login related stuff
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user ||= User.find_by(id: session[:user_id]) || GuestUser.new
   end
 
   def signed_in?
-    !current_user.nil?
-  end
-
-  def is_admin?
-    signed_in? && @current_user.is_admin
+    !current_user.guest?
   end
 
   def require_login

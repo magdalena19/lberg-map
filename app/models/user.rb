@@ -27,4 +27,16 @@ class User < ActiveRecord::Base
     return false unless password_reset_timestamp
     (Time.now - password_reset_timestamp)/3600 < 24
   end
+
+  def guest?
+    false
+  end
+
+  def admin?
+    is_admin
+  end
+
+  def signed_in?
+    true
+  end
 end

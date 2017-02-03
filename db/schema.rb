@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111121929) do
+ActiveRecord::Schema.define(version: 20170202202215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "announcement_translations", force: :cascade do |t|
+    t.integer  "announcement_id", null: false
+    t.string   "locale",          null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "header"
+    t.text     "content"
+  end
+
+  add_index "announcement_translations", ["announcement_id"], name: "index_announcement_translations_on_announcement_id", using: :btree
+  add_index "announcement_translations", ["locale"], name: "index_announcement_translations_on_locale", using: :btree
 
   create_table "announcements", force: :cascade do |t|
     t.integer  "user_id"
@@ -106,12 +118,14 @@ ActiveRecord::Schema.define(version: 20161111121929) do
   add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",                            null: false
-    t.string   "email",                           null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.string   "name",                                     null: false
+    t.string   "email",                                    null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "password_digest"
-    t.boolean  "is_admin",        default: false
+    t.boolean  "is_admin",                 default: false
+    t.string   "password_reset_digest"
+    t.datetime "password_reset_timestamp"
   end
 
   create_table "versions", force: :cascade do |t|

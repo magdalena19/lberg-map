@@ -11,3 +11,6 @@
     .row
       .col-sm-2.col-sm-offset-5
         = f.submit t('buttons.login'), class: 'btn btn-primary btn-success'
+    .row
+      .col-sm-2.col-sm-offset-5
+        = link_to t('forgot_password?'), request_password_reset_url

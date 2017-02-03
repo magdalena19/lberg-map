@@ -7,7 +7,6 @@ feature 'edit button' do
 
   scenario 'is visible', js: true do
     login_as_user
-    sleep(1)
     page.find('.leaflet-marker-icon').trigger('click')
     page.must_have_css('.edit-place')
   end

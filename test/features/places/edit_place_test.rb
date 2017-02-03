@@ -18,7 +18,6 @@ feature 'Edit place' do
     fill_in('place_homepage', with: 'http://schnapp.com')
     fill_in('place_phone', with: '03081763253')
     click_on('Update Place')
-    sleep(1)
     visit '/places'
 
     page.must_have_content('Any place')
@@ -29,7 +28,6 @@ feature 'Edit place' do
     visit edit_place_path id: @place.id
     validate_captcha
     click_on('Update Place')
-    sleep(1)
     assert_equal 1, Place.find(@place.id).versions.length
   end
 
@@ -38,7 +36,6 @@ feature 'Edit place' do
     fill_in('place_name', with: 'Some changes')
     validate_captcha
     click_on('Update Place')
-    sleep(1)
     visit '/places'
 
     page.must_have_content('Some changes')
@@ -50,7 +47,6 @@ feature 'Edit place' do
     fill_in('place_name', with: 'SomeOtherName')
     validate_captcha
     click_on('Update Place')
-    sleep(1)
 
     Capybara.reset_sessions!
     visit '/places'

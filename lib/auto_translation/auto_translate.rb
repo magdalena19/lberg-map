@@ -1,44 +1,3 @@
-class BingTranslatorWrapper
-  attr_accessor :bing_translator
-
-  def initialize(id, secret, account_key)
-    t = BingTranslator.new(id, secret, false, account_key)
-    t.get_access_token
-  rescue
-    Rails.logger.error do
-      "Encountered an error while trying to receive access
-      token for BringTranslator instance. It's probable, that you supplied
-      either an invalid 'id' or 'secret key' (or both)!"
-    end
-    @bing_translator = nil
-  else
-    @bing_translator = t
-  end
-
-  def can_translate?(text)
-    @bing_translator.balance >= text.length
-  rescue
-    false
-  else
-    true
-  end
-
-  def failsafe_translate(text:, from:, to:)
-    if can_translate?(text)
-      begin
-        translation = @bing_translator.translate(text, from: from.to_s, to: to.to_s)
-      rescue
-        ''
-      else
-        translation
-      end
-    else
-      ''
-      # Maybe implement "keyswitching hack" later
-    end
-  end
-end
-
 module AutoTranslate
   def auto_translate_empty_attributes
     init_translator if Rails.env != 'test'
@@ -57,10 +16,10 @@ module AutoTranslate
   end
 
   def init_translator
-    @translator = BingTranslatorWrapper.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
+    @translator ||= AutoTranslationGateway.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
   end
 
-  # Only 'empty' relevant in the current context?
+  # Useful for participation feature
   def autotranslated_or_empty
     translations.select { |t| t.auto_translated || !t[@attribute].present? }
   end

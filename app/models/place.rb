@@ -3,7 +3,7 @@ require 'place/place_auditing'
 require 'place/place_translations_auditing'
 require 'place/place_model_helpers'
 require 'validators/custom_validators'
-require 'auto_translate'
+require 'auto_translation/auto_translate'
 require 'sanitize'
 
 class Place < ActiveRecord::Base

@@ -1,10 +1,12 @@
+require 'guest_user'
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
   before_action :set_locale
-  helper_method :current_user, :signed_in?, :is_admin?
+  helper_method :current_user
 
   def set_locale
     if params[:locale]
@@ -20,19 +22,11 @@ class ApplicationController < ActionController::Base
 
   # User and login related stuff
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  end
-
-  def signed_in?
-    !current_user.nil?
-  end
-
-  def is_admin?
-    signed_in? && @current_user.is_admin
+    @current_user ||= User.find_by(id: session[:user_id]) || GuestUser.new
   end
 
   def require_login
-    unless session[:user_id]
+    if @current_user.guest?
       flash[:danger] = t('errors.messages.access_restricted')
       redirect_to login_url
     end

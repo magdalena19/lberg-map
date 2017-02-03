@@ -42,5 +42,5 @@
 
         .row
           .col-md-6.col-offset-md-2
-            = show_simple_captcha unless signed_in?
+            = show_simple_captcha unless @current_user.signed_in?
             = f.submit t('.send_message'), class: 'btn btn-primary btn-success place-form-button submit-place-button'

@@ -70,7 +70,7 @@
 
   .row
     .col-md-6
-      = show_simple_captcha unless signed_in?
+      = show_simple_captcha unless @current_user.signed_in?
   .row
     .submit-process-bar.text-center
       = render 'layouts/loading'

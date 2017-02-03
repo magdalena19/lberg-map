@@ -3,7 +3,7 @@
   .pull-right.glyphicon.glyphicon-cog.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
     %span.caret
   %ul.dropdown-menu
-    - if signed_in?
+    - if @current_user.signed_in?
       %li{class: "#{'active' if current_page?(edit_user_path(session[:user_id]))}"}
         = link_to(t('.edit_user'), edit_user_path(session[:user_id]))
       %hr

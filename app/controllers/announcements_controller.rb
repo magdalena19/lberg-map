@@ -58,9 +58,10 @@ class AnnouncementsController < ApplicationController
     params.require(:announcement).permit(:header, :content)
   end
 
+  # TODO factor this out into module?
   def require_to_be_same_user_or_admin
     announcement_to_be_edited = Announcement.find(url_options[:_recall][:id])
-    unless announcement_to_be_edited.user_id == current_user.id || is_admin?
+    unless announcement_to_be_edited.user_id == current_user.id || current_user.admin?
       flash[:danger] = t('.no_right_to_edit')
       redirect_to announcements_url
     end

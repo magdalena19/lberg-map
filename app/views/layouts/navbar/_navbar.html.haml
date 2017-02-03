@@ -23,7 +23,7 @@
 
     #navbar.navbar-collapse.collapse
       %ul.nav.navbar-nav
-        - if signed_in?
+        - if @current_user.signed_in?
           .margin-right.navbar-button.pull-right{class: "#{'active' if current_page?(contact_path)}"}
             = link_to logout_path do
               .glyphicon.glyphicon-log-out.green{title: t('.logout')}
@@ -34,7 +34,7 @@
         .navbar-button.pull-right{class: "#{'active' if current_page?(places_path)}"}
           = link_to places_path do
             .glyphicon.glyphicon-search.green{title: t('.search')}
-        - if signed_in?
+        - if @current_user.signed_in?
           .navbar-button.pull-right{class: "#{'active' if current_page?(places_review_index_path)}"}
             = link_to places_review_index_path do
               .glyphicon.glyphicon-thumbs-up.green{title: t('.review')}

@@ -70,6 +70,8 @@ GEM
     capybara-screenshot (1.0.14)
       capybara (>= 1.0, < 3)
       launchy
+    capybara-slow_finder_errors (0.1.4)
+      capybara (~> 2.5)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     cliver (0.3.2)
@@ -406,6 +408,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.6)
   bootstrap-wysihtml5-rails
   capybara-screenshot
+  capybara-slow_finder_errors
   codeclimate-test-reporter (~> 1.0.0)
   coffee-rails (~> 4.1.0)
   database_cleaner

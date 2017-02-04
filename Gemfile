@@ -47,6 +47,7 @@ end
 
 group :test do
   gem 'capybara-screenshot'
+  gem 'capybara-slow_finder_errors'
   gem 'codeclimate-test-reporter', '~> 1.0.0'
   gem 'database_cleaner'
   gem 'factory_girl_rails'

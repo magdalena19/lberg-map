@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 
 feature 'edit button' do
   before do
-    @place = create(:place, :reviewed)
+    @place = create :place, :reviewed
   end
 
   scenario 'is visible', js: true do

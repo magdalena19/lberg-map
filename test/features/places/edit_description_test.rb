@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 
 feature 'Edit description' do
   before do
-    @place = create(:place, :reviewed)
+    @place = create :place, :reviewed
   end
 
   scenario 'Do not show guest edits in place list', :js do

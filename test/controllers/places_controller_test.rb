@@ -4,8 +4,8 @@ class PlacesControllerTest < ActionController::TestCase
   def setup
     Sidekiq::Testing.inline!
     @user = create :user, name: 'Norbert'
-    @unreviewed_place = create(:place, :unreviewed)
-    @reviewed_place = create(:place, :reviewed)
+    @unreviewed_place = create :place, :unreviewed
+    @reviewed_place = create :place, :reviewed
   end
 
   ### Helper function

@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 
 feature 'Edit place' do
   before do
-    @place = create(:place, :reviewed)
+    @place = create :place, :reviewed
   end
 
   scenario 'Do valid place update as user and show in index afterwards', :js do

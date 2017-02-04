@@ -28,7 +28,7 @@ class TranslationsReviewControllerTest < ActionController::TestCase
 
     @place_with_unreviewed_changes.update_attributes(name: 'Magda', description: 'This is an updated description.')
     @translations = @place_with_unreviewed_changes.translations
-    @user = users :Norbert
+    @user = create :user, name: 'Norbert'
     session[:user_id] = @user.id
   end
 

@@ -3,7 +3,7 @@ require_relative '../test_helper'
 class PlacesControllerTest < ActionController::TestCase
   def setup
     Sidekiq::Testing.inline!
-    @user = users :Norbert
+    @user = create :user, name: 'Norbert'
     @unreviewed_place = create(:place, :unreviewed)
     @reviewed_place = create(:place, :reviewed)
   end

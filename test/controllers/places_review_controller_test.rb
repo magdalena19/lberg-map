@@ -25,7 +25,7 @@ class PlacesReviewControllerTest < ActionController::TestCase
                                         reviewed: true
                                       )
     @place_with_unreviewed_changes.update_attributes(name: 'Magda', description: 'This is an updated description.')
-    @user = users :Norbert
+    @user = create :user, name: 'Norbert'
     session[:user_id] = @user.id
   end
 

@@ -2,9 +2,9 @@ require 'test_helper'
 
 class AnnouncementsControllerTest < ActionController::TestCase
   def setup
-    @user1 = users :Susanne
-    @user2 = users :Norbert
-    @admin = users :Admin
+    @user1 = create :user, name: 'Susanne'
+    @user2 = create :user, name: 'Norbert'
+    @admin = create :user, :admin, name: 'Admin'
     @announcement = Announcement.new(header: 'something', content: 'something')
     @announcement.user = @user1
     @announcement.save

@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 class PasswordResetControllerTest < ActionController::TestCase
   def setup
-    @user = users :Norbert
+    @user = create :user, name: 'Norbert'
   end
 
   test "Can request password reset" do

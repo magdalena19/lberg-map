@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 
 feature 'Edit place' do
   before do
-    @place = create(:place, :reviewed)
+    @place = create :place, :reviewed
   end
 
   scenario 'Do valid place update as user and show in index afterwards', :js do
@@ -10,15 +10,8 @@ feature 'Edit place' do
     visit edit_place_path id: @place.id
 
     fill_in('place_name', with: 'Any place')
-    fill_in('place_street', with: 'Schulze-Boysen-Str.')
-    fill_in('place_house_number', with: '80')
     fill_in('place_postal_code', with: '10963')
-    fill_in('place_city', with: 'Berlin')
-    fill_in('place_email', with: 'schnipp@schnapp.com')
-    fill_in('place_homepage', with: 'http://schnapp.com')
-    fill_in('place_phone', with: '03081763253')
     click_on('Update Place')
-    sleep(1)
     visit '/places'
 
     page.must_have_content('Any place')
@@ -29,7 +22,6 @@ feature 'Edit place' do
     visit edit_place_path id: @place.id
     validate_captcha
     click_on('Update Place')
-    sleep(1)
     assert_equal 1, Place.find(@place.id).versions.length
   end
 
@@ -38,7 +30,6 @@ feature 'Edit place' do
     fill_in('place_name', with: 'Some changes')
     validate_captcha
     click_on('Update Place')
-    sleep(1)
     visit '/places'
 
     page.must_have_content('Some changes')
@@ -50,7 +41,6 @@ feature 'Edit place' do
     fill_in('place_name', with: 'SomeOtherName')
     validate_captcha
     click_on('Update Place')
-    sleep(1)
 
     Capybara.reset_sessions!
     visit '/places'

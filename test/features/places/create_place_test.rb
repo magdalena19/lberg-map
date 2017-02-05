@@ -21,7 +21,6 @@ feature 'Create place' do
     create_place_as_guest('Another place')
     create_place_as_guest('Still another place')
     visit '/en'
-    sleep(1)
     assert page.must_have_content('Another place')
     assert page.must_have_content('Still another place')
   end

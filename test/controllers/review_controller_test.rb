@@ -32,7 +32,7 @@ class ReviewControllerTest < ActionController::TestCase
   private
 
   def login
-    @user = users :Norbert
+    @user = create :user, name: 'Norbert'
     session[:user_id] = @user.id
   end
 

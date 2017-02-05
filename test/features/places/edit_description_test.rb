@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 
 feature 'Edit description' do
   before do
-    @place = create(:place, :reviewed)
+    @place = create :place, :reviewed
   end
 
   scenario 'Do not show guest edits in place list', :js do
@@ -14,7 +14,6 @@ feature 'Edit description' do
     Capybara.reset_sessions!
     assert_equal 1, Place.reviewed_places.count
 
-    sleep(1)
     visit '/places'
     page.must_have_content @place.name
     page.find('.glyphicon-triangle-bottom').trigger('click')

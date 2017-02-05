@@ -14,14 +14,12 @@ feature 'Category selection' do
   scenario 'Place is shown when \'All points\' was clicked', js: true do
     show_category_panel
     page.find('.category-button', text: 'All points').trigger('click')
-    sleep(1)
     assert_equal 1, page.all('.leaflet-marker-icon').count
   end
 
   scenario 'Place is shown when right category was clicked', js: true do
     show_category_panel
     page.find('.category-button', text: 'Playground').trigger('click')
-    sleep(1)
     page.must_have_css('.leaflet-marker-icon div span', text: 2)
   end
 
@@ -29,7 +27,6 @@ feature 'Category selection' do
     skip("Weird error, everything working fine...")
     show_category_panel
     page.find('.category-button', text: 'Cafe').trigger('click')
-    sleep(1)
     assert_equal 0, page.all('.leaflet-marker-icon').count
   end
 

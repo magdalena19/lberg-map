@@ -15,6 +15,10 @@ def validate_captcha
 end
 
 def login_as_user
+  unless User.find_by(email: 'norbert@example.com')
+    create :user, name: 'Norbert'
+  end
+
   visit login_path
   fill_in 'sessions_email', with: 'norbert@example.com'
   fill_in 'sessions_password', with: 'secret'

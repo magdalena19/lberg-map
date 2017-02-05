@@ -1,8 +1,8 @@
-require 'test_helper'
+require_relative '../test_helper'
 
 class UsersControllerTest < ActionController::TestCase
   def setup
-    @user = users :Norbert
+    @user = create :user, name: 'Norbert'
   end
 
   test 'can access edit' do
@@ -30,7 +30,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'cannot edit other users credentials' do
     session[:user_id] = @user.id
-    user2 = users :Susanne
+    user2 = create :user, name: 'Susanne'
     get :edit, id: user2.id
     assert_redirected_to root_url
   end

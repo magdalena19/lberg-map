@@ -4,10 +4,11 @@ feature 'Category selection' do
   before do
     create :settings, :public
     spawn_categories
+    create :settings
+
     create :place, :reviewed, name: 'Playground', categories: '1'
     create :place, :reviewed, name: 'Hospital and Playground', categories: '1,2'
     create :place, :reviewed, name: 'Lawyer', categories: '3'
-
     create :place, :unreviewed
   end
 

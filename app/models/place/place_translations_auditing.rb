@@ -1,4 +1,4 @@
-# This module holds all translation querying related class methods
+# This module holds all translation reviewing related class methods
 module PlaceTranslationsAuditingClassMethods
   # TODO
   # Make this private...
@@ -11,7 +11,7 @@ module PlaceTranslationsAuditingClassMethods
   end
 end
 
-# This module holds all translation querying related class methods
+# This module holds all translation reviewing related class methods
 module PlaceTranslationsAuditing
   def self.included(base)
     base.extend PlaceTranslationsAuditingClassMethods
@@ -33,10 +33,6 @@ module PlaceTranslationsAuditing
         translation.update_attributes(reviewed: reviewed ? true : false)
       end
     end
-  end
-
-  def enqueue_auto_translation
-    TranslationWorker.perform_async('Place', id)
   end
 end
 

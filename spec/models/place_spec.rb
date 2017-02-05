@@ -1,6 +1,10 @@
 describe Place do
   let(:place) { build :place, :reviewed }
 
+  before do
+    create :settings
+  end
+
   it 'can save place to database' do
     place.save
     expect(Place.find(place.id)).to eq(place)

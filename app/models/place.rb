@@ -1,6 +1,7 @@
 require 'place/geocoding'
 require 'place/place_auditing'
 require 'place/place_translations_auditing'
+require 'place/place_background_translation'
 require 'place/place_model_helpers'
 require 'validators/custom_validators'
 require 'auto_translation/auto_translate'
@@ -8,6 +9,7 @@ require 'sanitize'
 
 class Place < ActiveRecord::Base
   include AutoTranslate
+  include PlaceBackgroundTranslation
   include PlaceTranslationsAuditing
   include PlaceGeocoding
   include PlaceAuditing
@@ -61,6 +63,7 @@ class Place < ActiveRecord::Base
   end
 
   ## SANITIZE
+  # TODO factor this out?
   def sanitize_descriptions
     I18n.available_locales.each do |locale|
       column = "description_#{locale}"

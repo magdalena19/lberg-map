@@ -16,7 +16,7 @@ module AutoTranslate
   end
 
   def init_translator
-    @translator ||= AutoTranslationGateway.new(ENV['bing_id'], ENV['bing_secret'], ENV['microsoft_account_key'])
+    @translator = AutoTranslator.new
   end
 
   # Useful for participation feature
@@ -44,9 +44,9 @@ module AutoTranslate
         auto_translation = 'auto_translation: test_stub'
       else
         return nil unless @translator && @native_translation
-        auto_translation = @translator.failsafe_translate(text: @native_translation[@attribute],
-                                                          from: @native_translation.locale,
-                                                          to: missing_locale)
+        auto_translation = @translator.translate(text: @native_translation[@attribute],
+                                                 from: @native_translation.locale,
+                                                 to: missing_locale)
       end
       translation = translations.find_by(locale: missing_locale)
       translation.without_versioning do

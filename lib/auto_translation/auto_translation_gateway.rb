@@ -1,42 +1,17 @@
-# Service object handling requests to external machine translation API
-class AutoTranslationGateway
+# Service object handling requests to external machine translation APIs
+class AutoTranslator
   attr_accessor :translator
 
-  def initialize(id, secret, account_key)
-    t = BingTranslator.new(id, secret, false, account_key)
-    t.get_access_token
-  rescue
-    Rails.logger.error do
-      "Encountered an error while trying to receive access
-      token for BringTranslator instance. It's probable, that you supplied
-      either an invalid 'id' or 'secret key' (or both)!"
-    end
-    @translator = nil
-  else
-    @translator = t
+  def initialize(engine)
+    engine_wrapper = "#{engine.camelize}Wrapper".singularize.constantize
+    @translator = engine_wrapper.new || NullTranslator.new
   end
 
   def can_translate?(text)
-    @translator.balance >= text.length
-  rescue
-    false
-  else
-    true
+    @translator.can_translate?(text)
   end
 
-  def failsafe_translate(text:, from:, to:)
-    if can_translate?(text)
-      begin
-        translation = @translator.translate(text, from: from.to_s, to: to.to_s)
-      rescue
-        ''
-      else
-        translation
-      end
-    else
-      ''
-      # Maybe implement "keyswitching hack" later
-    end
+  def translate(text:, from:, to:)
+    @translator.translate(text: text, from: from, to: to)
   end
-
 end

@@ -4,6 +4,7 @@ describe TranslationsReviewController do
   before do
     create :settings, :public
     login_as user
+    create :settings
     place_with_unreviewed_changes.update_attributes(name: 'Magda', description: 'This is an updated description.')
   end
 

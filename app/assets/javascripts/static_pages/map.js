@@ -143,18 +143,17 @@ jQuery(function() {
     }
 
     // Google geolocation API not working properly, so freeze this feature
+    jQuery('.add-place-via-location').click(function(){
+      function confirmation(position) {
+        confirmPlaceInsert(position.coords.latitude, position.coords.longitude);
+      };
 
-    // jQuery('.add-place-via-location').click(function(){
-    //   function confirmation(position) {
-    //     confirmPlaceInsert(position.coords.latitude, position.coords.longitude);
-    //   };
-    //
-    //   if (navigator.geolocation) {
-    //     navigator.geolocation.getCurrentPosition(confirmation);
-    //   } else {
-    //     console.log('Geolocation is not supported by this browser.');
-    //   };
-    // });
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(confirmation);
+      } else {
+        console.log('Geolocation is not supported by this browser.');
+      };
+    });
 
     jQuery('.add_place_via_click').click(function(){
       jQuery('.leaflet-overlay-pane').css('cursor','crosshair');

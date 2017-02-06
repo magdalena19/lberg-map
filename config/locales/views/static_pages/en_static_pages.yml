@@ -7,6 +7,7 @@ en:
         how_to_add_place: 'How to add place?'
         type_in_address: 'Manually insert address'
         click_on_map: 'Click on map'
+        add_via_location: 'Locate me'
       category_slidepanel:
         filter_by_category: 'Filter by category'
         no_filter: 'All points'

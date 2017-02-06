@@ -12,8 +12,10 @@ en:
         description: 'Description'
         auto_translated: 'Automatically translated'        
       user:
-        email: 'Email-Adresse'
+        email: 'Email address'
         name: 'User-Name'
+      guest_user:
+        name: 'Guest'
       announcement:
         header: 'Header'
         content: 'Content'

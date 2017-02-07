@@ -53,10 +53,12 @@ group :test do
   gem 'factory_girl_rails'
   gem 'guard'
   gem 'guard-minitest'
+  gem 'launchy'
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'
   gem 'minitest-reporters'
   gem 'poltergeist' # headless javascript testing
+  gem 'rspec-rails'
   gem 'selenium-webdriver' # non-headless javascript testing
   gem 'simplecov'
 end

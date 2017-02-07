@@ -5,7 +5,7 @@ describe UsersController do
 	let(:user) { create :user, name: 'Norbert' }
 
   context 'GET #edit' do
-    it 'should populate user in @member' do
+    it 'should populate user' do
       login_as user
       get :edit, id: user.id
       expect(assigns(:user)).to eq(user)

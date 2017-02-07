@@ -139,7 +139,8 @@ class PlacesController < ApplicationController
   end
 
   def save_update
-    # TODO: looks shitty...
+    # TODO looks shitty...
+    # TODO How does the method check that it actually can update?
     length_before_update = @place.versions.length
 
     if @place.update(modified_params)

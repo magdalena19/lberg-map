@@ -59,6 +59,7 @@ group :test do
   gem 'minitest-reporters'
   gem 'poltergeist' # headless javascript testing
   gem 'rspec-rails'
+  gem 'rspec-sidekiq'
   gem 'selenium-webdriver' # non-headless javascript testing
   gem 'simplecov'
 end

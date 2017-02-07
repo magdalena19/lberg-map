@@ -1,6 +1,6 @@
 class GuestUser
   def name
-    "Guest"
+    I18n.t('activerecord.attributes.guest_user.name')
   end
 
   def email

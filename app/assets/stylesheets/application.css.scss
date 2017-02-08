@@ -209,3 +209,8 @@ table.dataTable {
   tr.odd > .sorting_1 { background: #F6FFF9 !important; }
   tr.odd { background: #F6FFF9 !important; }
 }
+
+// remove tooltip arrow gap in chromium
+.tooltip-arrow {
+  border-width: 0px 5px 6px !important;
+}

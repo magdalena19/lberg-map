@@ -229,10 +229,9 @@
     font-weight: bold;
   }
   .hide-slidepanel {
-    font-size: x-large;
-    padding-right: 20px;
-    padding-top: 9px;
     cursor: pointer;
+    font-size: x-large;
+    padding-left: 20px;
   }
 }
 
@@ -254,7 +253,8 @@
       float: left;
     }
     .edit-place {
-      float: right;
+      padding-left: 15px;
+      opacity: 0.7;
       cursor: pointer;
     }
   }
@@ -262,6 +262,7 @@
     font-size: small;
     padding: 20px;
     background: rgba(white, 0.75);
+    border-radius: 0 0 4px 4px;
   }
   .place-slidepanel-contact {
     margin-bottom: 10px;

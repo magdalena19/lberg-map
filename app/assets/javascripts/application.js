@@ -55,4 +55,7 @@ jQuery(function() {
       jQuery('.email_reply').hide(350);
     }
   })
+
+  // Enable bootstrap tooltips
+  jQuery('[data-toggle="tooltip"]').tooltip();   
 });

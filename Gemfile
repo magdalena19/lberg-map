@@ -61,6 +61,7 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec-sidekiq'
   gem 'selenium-webdriver' # non-headless javascript testing
+  gem 'shoulda'
   gem 'simplecov'
 end
 

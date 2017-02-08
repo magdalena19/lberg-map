@@ -15,14 +15,14 @@ describe ReviewController do
 
   context 'GET #review_index' do
     it 'populates items to be reviewed if signed in' do
-    login_as user
+      login_as user
       get :review_index
       expect(assigns(:places_to_review).count).to eq 2
       expect(assigns(:unreviewed_translations).count).to eq 3
     end
 
     it 'renders review index template' do
-    login_as user
+      login_as user
       get :review_index
       expect(response).to render_template 'review/review_index'
     end

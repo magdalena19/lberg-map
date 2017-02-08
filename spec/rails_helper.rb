@@ -8,6 +8,27 @@ require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'pry'
 
+def validate_captcha
+  fill_in 'captcha', with: SimpleCaptcha::SimpleCaptchaData.first.value
+end
+
+# TODO derbe ugly
+def login_as_user
+  user = create :user, email: 'user@example.com'
+  visit login_path
+  fill_in 'sessions_email', with: 'user@example.com'
+  fill_in 'sessions_password', with: 'secret'
+  click_on 'Login'
+end
+
+def login_as_admin
+  user = create :user, :admin, email: 'user@example.com'
+  visit login_path
+  fill_in 'sessions_email', with: 'user@example.com'
+  fill_in 'sessions_password', with: 'secret'
+  click_on 'Login'
+end
+
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!

@@ -46,21 +46,18 @@ group :development do
 end
 
 group :test do
+  gem 'capybara'
   gem 'capybara-screenshot'
   gem 'capybara-slow_finder_errors'
   gem 'codeclimate-test-reporter', '~> 1.0.0'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'guard'
-  gem 'guard-minitest'
   gem 'launchy'
-  gem 'minitest-rails'
-  gem 'minitest-rails-capybara'
-  gem 'minitest-reporters'
   gem 'poltergeist' # headless javascript testing
   gem 'rspec-rails'
   gem 'rspec-sidekiq'
-  gem 'selenium-webdriver' # non-headless javascript testing
+  gem 'selenium-webdriver', '~> 2.53.4' # non-headless javascript testing
   gem 'shoulda'
   gem 'simplecov'
 end

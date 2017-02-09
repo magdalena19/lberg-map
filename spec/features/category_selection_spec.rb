@@ -2,6 +2,7 @@
 # since leaflet marker are displayed not before map tiles are loaded
 feature 'Category selection' do
   before do
+    spawn_categories
     create :place, :reviewed, name: 'Playground', categories: '1'
     create :place, :reviewed, name: 'Hospital and Playground', categories: '1,2'
     create :place, :reviewed, name: 'Lawyer', categories: '3'
@@ -18,11 +19,12 @@ feature 'Category selection' do
   scenario 'Place is shown when right category was clicked', js: true do
     show_category_panel
     page.find('.category-button', text: 'Playground').trigger('click')
-    page.must_have_css('.leaflet-marker-icon div span', text: 2)
+    page.should have_css('.leaflet-marker-icon div span', text: 2)
+    expect(page).to have_css('.leaflet-marker-icon div span', text: 2)
   end
 
   scenario 'Place is not shown when other category was clicked', js: true do
-    skip("Weird error, everything working fine...")
+    # skip("Weird error, everything working fine...")
     show_category_panel
     page.find('.category-button', text: 'Cafe').trigger('click')
     expect(page.all('.leaflet-marker-icon').count).to be 0

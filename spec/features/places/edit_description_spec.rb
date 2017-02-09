@@ -1,22 +1,20 @@
 feature 'Edit description' do
-  before do
-    @place = create :place, :reviewed
-  end
-
   scenario 'Do not show guest edits in place list', :js do
-    visit edit_place_path id: @place.id
+    spawn_categories
+    place = create :place, :reviewed
+
+    visit edit_place_path id: place.id
     fill_in_description_field('Changed description')
     validate_captcha
     click_on('Update Place')
 
     Capybara.reset_sessions!
-    assert_equal 1, Place.reviewed_places.count
+    expect(Place.reviewed_places.count).to be 1
 
     visit '/places'
-    page.must_have_content @place.name
+    expect(page).to have_content(place.name)
     page.find('.glyphicon-triangle-bottom').trigger('click')
-    page.wont_have_content('Changed description')
-
+    expect(page).not_to have_content('Changed description')
   end
 
   private

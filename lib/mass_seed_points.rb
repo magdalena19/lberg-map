@@ -94,9 +94,7 @@ module MassSeedPoints
     @cityname = city
     bbox = bbox_from_cityname(@cityname)
     unless bbox
-      error = 'No boundingbox found in which to insert points! Have you supplied a geolocation (city, district, ...)?'
-      puts error
-      return error
+      raise ArgumentError, 'No boundingbox found in which to insert points! Have you supplied a geolocation (city, district, ...)?'
     end
 
     # Create all categories listed in translation YAML files

@@ -18,7 +18,13 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.new(announcement_params)
     @announcement.user = User.find(session[:user_id])
 
-    create_announcement
+    if @announcement.save
+      flash[:success] = t('created')
+      redirect_to :root
+    else
+      flash.now[:danger] = @announcement.errors.full_messages.to_sentence
+      render :new
+    end
   end
 
   def edit
@@ -36,6 +42,7 @@ class AnnouncementsController < ApplicationController
     end
   end
 
+  # TODO is redirect right here?
   def destroy
     Announcement.find(params[:id]).destroy
     flash[:success] = t('.deleted')
@@ -43,16 +50,6 @@ class AnnouncementsController < ApplicationController
   end
 
   private
-
-  def create_announcement
-    if @announcement.save
-      flash[:success] = t('created')
-      redirect_to :root
-    else
-      flash.now[:danger] = @announcement.errors.full_messages.to_sentence
-      render :new
-    end
-  end
 
   def announcement_params
     params.require(:announcement).permit(:header, :content)

@@ -4,10 +4,12 @@ en:
       dropdown:
         settings: Settings
       navbar:
+        to_the_map: To map view
+        to_the_list: To list view
+      buttons_right:
         login: Log in
         logout: Log out
         search: Search places
         review: Review changes
         about: About us
         contact: Contact us
-        back_to_map: Back to map

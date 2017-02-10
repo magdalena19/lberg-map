@@ -4,10 +4,12 @@ de:
       dropdown:
         settings: Einstellungen
       navbar:
+        to_the_map: Zur Kartenansicht
+        to_the_list: Zur Listenansicht
+      buttons_right:
         login: Einloggen
         logout: Ausloggen
         search: Orte suchen
         review: Änderungen moderieren
         about: Über uns
         contact: Kontaktiere uns
-        back_to_map: Zur Karte

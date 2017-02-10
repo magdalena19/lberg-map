@@ -1,4 +1,5 @@
 //= require jquery
+//= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require bootstrap-wysihtml5
@@ -57,5 +58,5 @@ jQuery(function() {
   })
 
   // Enable bootstrap tooltips
-  jQuery('[data-toggle="tooltip"]').tooltip();   
+  jQuery('[data-toggle="tooltip"]').tooltip();
 });

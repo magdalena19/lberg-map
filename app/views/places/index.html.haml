@@ -4,10 +4,12 @@
   = t('.places')
 
 .container
-  .description
-    %p
-      = t('.index_places_description')
-    %br
+  .btn.btn-success.category-toggle.active{'data-category' => 'all'}
+    = t('.categories.all_categories')
+  - Category.all.each do |c|
+    .btn.btn-default.category-toggle{'data-category' => c.id}
+      = c.name
+
   %table#places.display.responsive.no-wrap.compact{cellspacing: '0', width: '100%'}
     %thead
       %tr
@@ -31,7 +33,7 @@
           = t('activerecord.attributes.place.description')
     %tbody
       - @places.each do |place|
-        %tr{height: '50px'}
+        %tr{height: '50px', 'data-categories' => place.category_ids}
           %td
             .triangle.glyphicon.glyphicon-triangle-bottom
           %td
@@ -54,7 +56,7 @@
                 %span{class: 'glyphicon glyphicon-eye-open', style: 'color: #AB756B;'}
 
             - if @current_user.signed_in?
-              = link_to place_path(place), {method: "delete", data: { confirm: t('.confirm_delete') }} do
+              = link_to place_path(place), {method: 'delete', data: { confirm: t('.confirm_delete') }} do
                 %span{class: 'glyphicon glyphicon-trash'}
           %td
             = place.address

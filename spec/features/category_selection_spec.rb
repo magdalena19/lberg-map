@@ -10,9 +10,9 @@ feature 'Category selection' do
     create :place, :unreviewed
   end
 
-  scenario 'Place is shown when \'All points\' was clicked', js: true do
+  scenario 'Place is shown when \'All\' was clicked', js: true do
     show_category_panel
-    page.find('.category-button', text: 'All points').trigger('click')
+    page.find('.category-button', text: 'All').trigger('click')
     expect(page.all('.leaflet-marker-icon').count).to be 1
   end
 

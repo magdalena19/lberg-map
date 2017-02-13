@@ -1,7 +1,8 @@
-class Admin::DashboardController < ApplicationController
+class Admin::SettingsController < ApplicationController
   before_action :is_admin?
 
   def index
+    @settings = Admin::Setting.all
   end
 
   private

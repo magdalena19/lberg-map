@@ -11,22 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202202215) do
+ActiveRecord::Schema.define(version: 20170213160613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "announcement_translations", force: :cascade do |t|
-    t.integer  "announcement_id", null: false
-    t.string   "locale",          null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "header"
-    t.text     "content"
+  create_table "admin_settings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "key"
+    t.string   "value"
   end
-
-  add_index "announcement_translations", ["announcement_id"], name: "index_announcement_translations_on_announcement_id", using: :btree
-  add_index "announcement_translations", ["locale"], name: "index_announcement_translations_on_locale", using: :btree
 
   create_table "announcements", force: :cascade do |t|
     t.integer  "user_id"
@@ -67,6 +62,15 @@ ActiveRecord::Schema.define(version: 20170202202215) do
 
   add_index "category_translations", ["category_id"], name: "index_category_translations_on_category_id", using: :btree
   add_index "category_translations", ["locale"], name: "index_category_translations_on_locale", using: :btree
+
+  create_table "configurables", force: :cascade do |t|
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "configurables", ["name"], name: "index_configurables_on_name", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.string   "sender_name"

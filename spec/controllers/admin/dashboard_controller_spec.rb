@@ -4,8 +4,6 @@ RSpec.describe Admin::DashboardController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do
-      admin = create :user, :admin
-      login_as admin
       get :index
       expect(response).to have_http_status(:success)
       expect(response).to render_template :index
@@ -26,5 +24,4 @@ RSpec.describe Admin::DashboardController, type: :controller do
       end
     end
   end
-
 end

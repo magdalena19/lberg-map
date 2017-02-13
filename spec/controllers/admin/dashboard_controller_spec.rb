@@ -4,6 +4,7 @@ RSpec.describe Admin::DashboardController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do
+      login_as create :user, :admin
       get :index
       expect(response).to have_http_status(:success)
       expect(response).to render_template :index
@@ -11,8 +12,7 @@ RSpec.describe Admin::DashboardController, type: :controller do
 
     context 'rejects access' do
       it 'if not admin' do
-        user = create :user
-        login_as_user
+        login_as create :user
         get :index
         expect(response).to redirect_to root_path
       end

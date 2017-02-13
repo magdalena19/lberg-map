@@ -1,2 +1,6 @@
-%h1 Admin::Dashboard#index
-%p Find me in app/views/admin/dashboard/index.html.haml
+- content_for :header do
+  = t('.admin_area')
+
+.container
+  -# TODO Translation!
+  = link_to 'Application settings', admin_settings_url

@@ -51,9 +51,8 @@ Rails.application.routes.draw do
 
     namespace :admin, constraints: AdminConstraint.new do
       get '', to: 'dashboard#index', as: :dashboard
-
-      get '/settings', to: 'settings#index'
-      put '/settings', to: 'settings#update'
+      get '/settings', to: 'settings#edit'
+      patch '/settings', to: 'settings#update'
     end
 
     resources :announcements

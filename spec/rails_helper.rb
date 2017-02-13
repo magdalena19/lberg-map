@@ -12,7 +12,6 @@ def validate_captcha
   fill_in 'captcha', with: SimpleCaptcha::SimpleCaptchaData.first.value
 end
 
-# TODO derbe ugly
 def login_as_user
   user = create :user, email: 'user@example.com'
   visit 'login/'
@@ -22,9 +21,9 @@ def login_as_user
 end
 
 def login_as_admin
-  user = create :user, :admin, email: 'user@example.com'
+  user = create :user, :admin, email: 'admin@example.com'
   visit login_path
-  fill_in 'sessions_email', with: 'user@example.com'
+  fill_in 'sessions_email', with: 'admin@example.com'
   fill_in 'sessions_password', with: 'secret'
   click_on 'Login'
 end

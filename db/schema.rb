@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213160613) do
+ActiveRecord::Schema.define(version: 20170213172357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "admin_settings", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "key"
-    t.string   "value"
+    t.boolean "auto_translate",           default: true,            null: false
+    t.boolean "is_private",               default: false,           null: false
+    t.string  "app_title",                default: "Generic title", null: false
+    t.string  "maintainer_email_address", default: "foo@bar.org"
   end
 
   create_table "announcements", force: :cascade do |t|
@@ -62,15 +62,6 @@ ActiveRecord::Schema.define(version: 20170213160613) do
 
   add_index "category_translations", ["category_id"], name: "index_category_translations_on_category_id", using: :btree
   add_index "category_translations", ["locale"], name: "index_category_translations_on_locale", using: :btree
-
-  create_table "configurables", force: :cascade do |t|
-    t.string   "name"
-    t.string   "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "configurables", ["name"], name: "index_configurables_on_name", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.string   "sender_name"

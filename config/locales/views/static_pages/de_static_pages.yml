@@ -10,7 +10,6 @@ de:
         add_via_location: 'Mein Standort'
       category_slidepanel:
         filter_by_category: 'Nach Kategorien eingrenzen'
-        no_filter: 'Alle Punkte'
       places_slidepanel:
         places: 'Orte'
         waiting_for_review: 'Wird überprüft...'

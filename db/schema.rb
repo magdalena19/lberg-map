@@ -11,22 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202202215) do
+ActiveRecord::Schema.define(version: 20170213172357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "announcement_translations", force: :cascade do |t|
-    t.integer  "announcement_id", null: false
-    t.string   "locale",          null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "header"
-    t.text     "content"
+  create_table "admin_settings", force: :cascade do |t|
+    t.boolean "auto_translate",           default: true,            null: false
+    t.boolean "is_private",               default: false,           null: false
+    t.string  "app_title",                default: "Generic title", null: false
+    t.string  "maintainer_email_address", default: "foo@bar.org"
   end
-
-  add_index "announcement_translations", ["announcement_id"], name: "index_announcement_translations_on_announcement_id", using: :btree
-  add_index "announcement_translations", ["locale"], name: "index_announcement_translations_on_locale", using: :btree
 
   create_table "announcements", force: :cascade do |t|
     t.integer  "user_id"

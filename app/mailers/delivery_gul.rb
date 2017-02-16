@@ -1,19 +1,19 @@
 class DeliveryGul < ApplicationMailer
-  default from: AppConfig['maintainer_email_address']
-
   def send_copy_to_sender(message)
     @message = message
     mail(
+      from: Admin::Setting.maintainer_email_address,
       to: @message.sender_email,
-      subject: "#{t('.request_copy_prefix')} #{AppConfig.general['app_title']}"
+      subject: "#{t('.request_copy_prefix')} #{Admin::Setting.app_title}"
     )
   end
 
   def send_to_maintainer(message)
     @message = message
     mail(
-      to: AppConfig['maintainer_email_address'],
-      subject: "[#{AppConfig.general['app_title']} #{t('.contact_form')}] #{@message.subject}"
+      from: Admin::Setting.maintainer_email_address,
+      to: Admin::Setting.maintainer_email_address,
+      subject: "[#{Admin::Setting.app_title} #{t('.contact_form')}] #{@message.subject}"
     )
   end
 
@@ -21,6 +21,6 @@ class DeliveryGul < ApplicationMailer
     @user = user
     @password_reset_link = reset_password_url id: @user.id, token: @user.password_reset_token
     # TODO translate
-    mail(to: user.email, subject: 'Password zurücksetzen') 
+    mail(from: Admin::Setting.maintainer_email_address, to: user.email, subject: 'Password zurücksetzen')
   end
 end

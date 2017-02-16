@@ -27,3 +27,6 @@ User.create(id: 5001,
 # Seed random data, see /lib/mass_seed_*.rb for definitions
 MassSeedPoints.generate(number_of_points: 30, city: 'Berlin')
 #MassSeedAnnouncements.generate(number_of_announcements: 10)
+
+# Seed default settings
+Admin::Setting.create

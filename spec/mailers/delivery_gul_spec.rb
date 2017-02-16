@@ -1,7 +1,7 @@
 describe DeliveryGul do
   before do
     @message = Message.new(sender_name: 'Me', sender_email: 'foo@bar.org', subject: 'it subject', text: 'Test text')
-    create :admin_setting
+    create :settings
   end
 
   it 'send copy to sender' do

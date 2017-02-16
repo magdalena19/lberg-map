@@ -1,6 +1,6 @@
 class Admin::SettingsController < ApplicationController
-  before_action -> { redirect_to root_path unless @current_user.admin? }
   before_action :init_settings, only: [:edit, :update]
+  before_action :require_admin_privileges
 
   def edit
     @settings_hash = Admin::Setting.all_settings

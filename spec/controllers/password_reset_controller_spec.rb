@@ -1,4 +1,8 @@
 describe PasswordResetController do
+  before do
+    create :settings
+  end
+
   context 'GET #request_password_reset' do
     it 'can request new password' do
       get :request_password_reset

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :admin_setting, class: 'Admin::Setting' do
+  factory :settings, class: 'Admin::Setting' do
     app_title 'Title'
     maintainer_email_address 'foo@bar.org'
 

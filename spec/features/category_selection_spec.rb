@@ -19,7 +19,6 @@ feature 'Category selection' do
   scenario 'Place is shown when right category was clicked', js: true do
     show_category_panel
     page.find('.category-button', text: 'Playground').trigger('click')
-    page.should have_css('.leaflet-marker-icon div span', text: 2)
     expect(page).to have_css('.leaflet-marker-icon div span', text: 2)
   end
 

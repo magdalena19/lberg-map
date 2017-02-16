@@ -40,7 +40,7 @@ RSpec.describe Admin::SettingsController, type: :controller do
   end
 
   describe 'PUT #update' do
-    let(:settings) { create :admin_setting, :top_secret }
+    let(:settings) { create :settings, :top_secret }
 
     it 'can update settings' do
       login_as create(:user, :admin)
@@ -57,7 +57,7 @@ RSpec.describe Admin::SettingsController, type: :controller do
   end
 
   context 'rejects update' do
-    let(:settings) { create :admin_setting, :top_secret }
+    let(:settings) { create :settings, :top_secret }
 
     it 'if not admin and redirects to root path' do
       login_as create(:user)

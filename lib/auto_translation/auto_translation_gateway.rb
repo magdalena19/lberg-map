@@ -1,10 +1,13 @@
 # Service object handling requests to external machine translation APIs
-class AutoTranslator
+class AutoTranslationGateway
   attr_accessor :translator
 
-  def initialize(engine)
-    engine_wrapper = "#{engine.camelize}Wrapper".singularize.constantize
-    @translator = engine_wrapper.new || NullTranslator.new
+  def initialize(engine: '')
+    engine_wrapper = "#{engine.camelize}TranslatorWrapper".singularize.constantize
+  rescue
+    @translator = NullTranslator.new
+  else
+    @translator = engine_wrapper.new
   end
 
   def can_translate?(text)

@@ -1,3 +1,4 @@
+# Module containing methods used for auto-translating object attributes
 module AutoTranslate
   def auto_translate_empty_attributes
     init_translator if Rails.env != 'test'
@@ -16,7 +17,8 @@ module AutoTranslate
   end
 
   def init_translator
-    @translator = AutoTranslator.new
+    # TODO pass engine name here, take from settings
+    @translator = AutoTranslationGateway.new
   end
 
   # Useful for participation feature

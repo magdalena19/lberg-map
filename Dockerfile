@@ -4,15 +4,15 @@ MAINTAINER coderat@systemli.org
 RUN apt-get update -qq && apt-get install -y \
 	build-essential \
 	libpq-dev \
-  nodejs \
-  imagemagick \
-  ghostscript \
-  git \
-  supervisor \
-  phantomjs
-RUN mkdir /lbergmap
-WORKDIR /lbergmap
-ADD Gemfile /lbergmap/Gemfile
-ADD Gemfile.lock /lbergmap/Gemfile.lock
+    nodejs \
+    imagemagick \
+    ghostscript \
+    supervisor \
+    nodejs \
+    git
+RUN mkdir /ratmap
+WORKDIR /ratmap
+ADD Gemfile /ratmap/Gemfile
+ADD Gemfile.lock /ratmap/Gemfile.lock
 RUN bundle install
-ADD . /lbergmap
+ADD . /ratmap

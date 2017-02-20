@@ -8,14 +8,15 @@ feature 'Configure application' do
     visit admin_settings_path
     fill_in('admin_setting_app_title', with: 'SomeAppTitle')
     click_on('Update Setting')
-    expect(Admin::Setting.first.app_title).to eq('SomeAppTitle')
+    expect(Admin::Setting.app_title).to eq('SomeAppTitle')
   end
 
-  scenario 'it does not access the dashboard as regular user' do
-    skip "Don't know how to implement this test properly"
-  end
-
-  scenario 'it does not access the dashboard as guest user' do
-    skip "Don't know how to implement this test properly"
+  scenario 'it can select another translation engine', :js do
+    create :settings, translation_engine: 'bing'
+    login_as_admin
+    visit admin_settings_path
+    find('#admin_setting_translation_engine').find(:xpath, 'option[2]').select_option
+    click_on('Update Setting')
+    expect(Admin::Setting.translation_engine).to eq('google')
   end
 end

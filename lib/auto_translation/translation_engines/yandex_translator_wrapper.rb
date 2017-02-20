@@ -4,30 +4,26 @@ class YandexTranslatorWrapper
 
   def initialize
     id = ENV['yandex_secret']
-
     @yandex_translator = Yandex::Translator.new(id)
   end
 
-  def can_translate?(text)
-    @yandex_translator.langs
+  def translate(text:, from:, to:)
+    translation = @yandex_translator.translate(text, from: from.to_s, to: to.to_s)
+  end
+
+  def char_balance_sufficient?
+    # TODO implement that
+    false
+  end
+
+  def languages_available?(lang_codes)
+    languages_available = @yandex_translator.langs
+    matches = lang_codes.each do |language|
+      languages_available.include?(language)
+    end
   rescue
     false
   else
-    # true if @yandex_translator.balance >= text.length
-    true
-  end
-
-  def translate(text:, from:, to:)
-    if can_translate?(text)
-      begin
-        translation = @yandex_translator.translate(text, from: from.to_s, to: to.to_s)
-      rescue
-        ''
-      else
-        translation
-      end
-    else
-      ''
-    end
+    matches.all?
   end
 end

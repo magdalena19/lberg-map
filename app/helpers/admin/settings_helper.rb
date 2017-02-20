@@ -6,4 +6,9 @@ module Admin::SettingsHelper
   def is_string(obj)
     obj.class == String
   end
+
+  def is_collection(obj)
+    obj.class == Array
+    
+  end
 end

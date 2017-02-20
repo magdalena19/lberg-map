@@ -15,7 +15,7 @@ describe AutoTranslate do
 
       Sidekiq::Testing.inline! do
         p = create :place, :unreviewed
-        expect(p.reload.description_de).to match /Google/
+        expect(p.reload.description_de).to eq 'auto_translation: test_stub (GoogleTranslatorWrapper)'
       end
     end
   end

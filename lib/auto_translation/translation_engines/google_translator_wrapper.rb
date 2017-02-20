@@ -1,24 +1,22 @@
 # Wrapper for google translation engine
 class GoogleTranslatorWrapper
-  def can_translate?(text)
-    EasyTranslate.translations_available
+  def translate(text:, from:, to:)
+    translation = EasyTranslate.translate(text, from: from.to_s, to: to.to_s, api_key: ENV['google_translate_secret'] )
+  end
+
+  def languages_available?(lang_codes)
+    languages_available = EasyTranslate.translations_available
+    matches = lang_codes.each do |language|
+      languages_available.include?(language)
+    end
   rescue
     false
   else
-    true
+    matches.all?
   end
 
-  def translate(text:, from:, to:)
-    if can_translate?(text)
-      begin
-        translation = EasyTranslate.translate(text, from: from.to_s, to: to.to_s, api_key: ENV['google_translate_secret'] )
-      rescue
-        ''
-      else
-        translation
-      end
-    else
-      ''
-    end
+  def char_balance_sufficient?
+    # TODO implement that!
+    false
   end
 end

@@ -10,26 +10,26 @@ class BingTranslatorWrapper
     @bing_translator = BingTranslator.new(id, secret, false, account_key)
   end
 
-  def can_translate?(text)
-    @bing_translator.get_access_token
+  def translate(text:, from:, to:)
+    translation = @bing_translator.translate(text, from: from.to_s, to: to.to_s)
+  end
+
+  def char_balance_sufficient?
+    char_balance_sufficient = @bing_translator.balance >= text.length
   rescue
     false
   else
-    true if @bing_translator.balance >= text.length
+    char_balance_sufficient 
   end
 
-  def translate(text:, from:, to:)
-    if can_translate?(text)
-      begin
-        translation = @bing_translator.translate(text, from: from.to_s, to: to.to_s)
-      rescue
-        ''
-      else
-        translation
-      end
-    else
-      ''
-      # Maybe implement "keyswitching hack" later
+  def languages_available?(lang_codes)
+    languages_available = @bing_translator.supported_language_codes
+    matches = lang_codes.each do |language|
+      languages_available.include?(language)
     end
+  rescue
+    false
+  else
+    matches.all?
   end
 end

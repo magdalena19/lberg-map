@@ -1,8 +1,7 @@
-# Module containing methods used for auto-translating object attributes
+# Module containing methods extending objects with auto-translation capabilities
 module AutoTranslate
   def auto_translate_empty_attributes
-    init_translator
-    # I18n method returning hash with internationalized model attributes
+    @translator = AutoTranslationGateway.new
     translated_attributes.each do |attribute, _value|
       set_translation_scope attribute: attribute
       @native_translation = guess_native_language
@@ -16,11 +15,6 @@ module AutoTranslate
     @attribute = attribute
   end
 
-  def init_translator
-    @translator = AutoTranslationGateway.new
-  end
-
-  # Useful for participation feature
   def autotranslated_or_empty
     translations.select { |t| t.auto_translated || !t[@attribute].present? }
   end
@@ -44,7 +38,6 @@ module AutoTranslate
       if Rails.env == 'test'
         auto_translation = "auto_translation: test_stub (#{@translator.engine.to_s})"
       else
-        return nil unless @translator && @native_translation
         auto_translation = @translator.translate(text: @native_translation[@attribute],
                                                  from: @native_translation.locale,
                                                  to: missing_locale)

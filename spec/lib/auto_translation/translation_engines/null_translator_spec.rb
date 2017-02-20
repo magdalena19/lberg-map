@@ -1,0 +1,3 @@
+describe NullTranslator do
+
+end

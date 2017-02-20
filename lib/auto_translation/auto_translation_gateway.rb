@@ -1,6 +1,6 @@
 # Service object handling requests to external machine translation APIs
 class AutoTranslationGateway
-  attr_accessor :translator
+  attr_reader :engine
 
   def initialize
     engine = Admin::Setting.translation_engine
@@ -15,11 +15,20 @@ class AutoTranslationGateway
     @engine.class
   end
 
-  def can_translate?(text)
-    @engine.can_translate?(text)
+  def translate(text:, from:, to:)
+    return '' unless can_translate?(text: text, languages: [from, to])
+    translation = @engine.translate(text: text, from: from.to_s, to: to.to_s)
+  rescue
+    ''
+  else
+    translation
   end
 
-  def translate(text:, from:, to:)
-    @engine.translate(text: text, from: from, to: to)
+  private
+
+  def can_translate?(text:, languages:)
+    @engine.char_balance_sufficient?(text) &&
+      @engine.languages_available?(languages) &&
+      text.present?
   end
 end

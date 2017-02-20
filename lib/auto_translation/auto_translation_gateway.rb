@@ -2,19 +2,24 @@
 class AutoTranslationGateway
   attr_accessor :translator
 
-  def initialize(engine: '')
+  def initialize
+    engine = Admin::Setting.translation_engine
     engine_wrapper = "#{engine.camelize}TranslatorWrapper".singularize.constantize
   rescue
-    @translator = NullTranslator.new
+    @engine = NullTranslator.new
   else
-    @translator = engine_wrapper.new
+    @engine = engine_wrapper.new
+  end
+
+  def engine
+    @engine.class
   end
 
   def can_translate?(text)
-    @translator.can_translate?(text)
+    @engine.can_translate?(text)
   end
 
   def translate(text:, from:, to:)
-    @translator.translate(text: text, from: from, to: to)
+    @engine.translate(text: text, from: from, to: to)
   end
 end

@@ -16,20 +16,6 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
   end
 
-  describe "GET #show" do
-    let(:users) { create_list(:user, 3) }
-
-    it "returns http success" do
-      get :show, id: users.first.id
-      expect(response).to have_http_status(:success)
-    end
-
-    it 'populates the right user in @user' do
-      get :show, id: users.first.id
-      expect(assigns(:user)).to eq users.first
-    end
-  end
-
   describe "GET #new" do
     it "returns http success" do
       get :new
@@ -56,7 +42,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     it 'redirects to users index after creating new user' do
       post :create, user: new_user
-      expect(response).to redirect_to admin_index_users_url
+      expect(response).to redirect_to admin_users_url
     end
 
     it 'renders :new template if input invalid' do
@@ -90,7 +76,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     it 'redirects to users index after updating' do
       patch :update, id: users.first.id, user: { name: 'SomeOtherName' }
-      expect(response).to redirect_to admin_index_users_url
+      expect(response).to redirect_to admin_users_url
     end
 
     it 'renders edit template if invalid input' do
@@ -112,7 +98,15 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     it 'redirects to users index after deletion' do
       delete :destroy, id: users.first.id
-      expect(response).to redirect_to admin_index_users_url
+      expect(response).to redirect_to admin_users_url
+    end
+
+    it 'rejects deleting user if is current user' do
+      user = create :user
+      login_as user
+      delete :destroy, id: user.id
+      expect(response).to redirect_to admin_users_url
+      expect(flash[:danger]).to match /cannot delete/
     end
   end
 

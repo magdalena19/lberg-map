@@ -1,2 +1,20 @@
-%h1 Admin::Users#edit
-%p Find me in app/views/admin/users/edit.html.haml
+- content_for :header do
+  = t('.edit')
+
+.container
+  = form_for(@user, url: { controller: 'admin/users', action: :update }) do |f|
+    .row
+      .col-md-6.col-md-offset-3.text-center
+        %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:name)}" }
+          = f.text_field :name, placeholder: t('.name_placeholder'), class: 'form-control'
+        %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:email)}" }
+          = f.text_field :email, placeholder: t('.email_placeholder'), class: 'form-control'
+        %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:password)}" }
+          = f.password_field :password, placeholder: t('.password_placeholder'), class: 'form-control'
+        %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:password_confirmation)}" }
+          = f.password_field :password_confirmation, placeholder: t('.password_confirmation_placeholder'), class: 'form-control'
+    .row
+      .col-xs-3.col-md-offset-3
+        = f.submit t('.submit'), class: 'btn btn-primary btn-success'
+      .col-xs-3
+        = link_to t('buttons.back'), admin_users_url, class: 'btn btn-primary btn-danger place-form-button back-button'

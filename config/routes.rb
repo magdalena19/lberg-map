@@ -54,15 +54,7 @@ Rails.application.routes.draw do
       get '/settings', to: 'settings#edit'
       patch '/settings', to: 'settings#update'
 
-      scope '/users' do
-        get 'index', to: 'users#index', as: :index_users
-        get 'show/:id', to: 'users#show', as: :show_user
-        get 'new', to: 'users#new', as: :new_user
-        post '', to: 'users#create'
-        get 'edit/:id', to: 'users#edit', as: :edit_user
-        patch '/:id', to: 'users#update'
-        delete '/:id', to: 'users#destroy'
-      end
+      resources :users
     end
  
     resources :announcements

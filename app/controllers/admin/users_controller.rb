@@ -1,4 +1,4 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < AdminController
   before_action :set_user, only: [:edit, :update, :destroy]
   before_action :try_deleting_own_user?, only: [:destroy]
 

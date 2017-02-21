@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     post '/login' , to: 'sessions#create'
     get '/logout' , to: 'sessions#destroy'
 
-    namespace :admin, constraints: AdminConstraint.new do
+    namespace :admin do
       get '', to: 'dashboard#index', as: :dashboard
       get '/settings', to: 'settings#edit'
       patch '/settings', to: 'settings#update'

@@ -32,10 +32,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def require_admin_privileges
-    redirect_to root_path unless @current_user.admin?
-  end
-
   def places_from_session(category_id = nil)
     ids = cookies[:created_places_in_session]
     array = ids ? ids.split(',').flatten : []

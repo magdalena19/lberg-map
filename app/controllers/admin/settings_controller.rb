@@ -1,6 +1,5 @@
-class Admin::SettingsController < ApplicationController
+class Admin::SettingsController < AdminController
   before_action :init_settings, only: [:edit, :update]
-  before_action :require_admin_privileges
 
   def edit
     @settings_hash = Admin::Setting.all_settings

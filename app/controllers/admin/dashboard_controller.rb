@@ -1,5 +1,4 @@
-class Admin::DashboardController < ApplicationController
-  before_action :require_admin_privileges
+class Admin::DashboardController < AdminController
 
   def index
   end

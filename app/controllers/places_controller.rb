@@ -1,7 +1,10 @@
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
+
   before_action :require_login, only: [:destroy]
   before_action :set_place, only: [:edit, :update, :destroy]
+  before_action :can_update?, only: [:update]
+  before_action :can_create?, only: [:update]
   before_action :reverse_geocode, only: [:new], if: :supplied_coords?
   before_action :require_login_if_private_map
 
@@ -19,12 +22,14 @@ class PlacesController < ApplicationController
   end
 
   def update
-    if simple_captcha_valid? || @current_user.signed_in?
-      save_update
+    if @place.update(modified_params)
+      store_in_session_cookie
+      PlaceAttributeSetter.set_attributes_after_update(place: @place, params: modified_params, signed_in: @current_user.signed_in?)
+      flash[:success] = t('.changes_saved')
+      redirect_to places_url
     else
-      flash.now[:danger] = t('.invalid_captcha')
-      @place.assign_attributes(modified_params)
-      render :edit
+      flash.now[:danger] = @place.errors.full_messages.to_sentence
+      render :edit, status: 400
     end
   end
 
@@ -38,11 +43,14 @@ class PlacesController < ApplicationController
     @place.latitude ||= params[:place][:latitude]
     @place.longitude ||= params[:place][:longitude]
 
-    if simple_captcha_valid? || @current_user.signed_in?
-      save_new
+    if @place.save
+      store_in_session_cookie
+      PlaceAttributeSetter.set_attributes_after_create(place: @place, params: modified_params, signed_in: @current_user.signed_in?)
+      flash[:success] = t('.created')
+      redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
     else
-      flash.now[:danger] = t('.invalid_captcha')
-      render :new
+      flash.now[:danger] = @place.errors.full_messages.to_sentence
+      render :new, status: 400
     end
   end
 
@@ -53,6 +61,25 @@ class PlacesController < ApplicationController
   end
 
   private
+
+  def can_commit?
+    simple_captcha_valid? || @current_user.signed_in?
+  end
+
+  def can_update?
+    unless can_commit?
+      flash.now[:danger] = t('.invalid_captcha')
+      @place.assign_attributes(modified_params)
+      render :edit
+    end
+  end
+
+  def can_create?
+    unless can_commit?
+      flash.now[:danger] = t('.invalid_captcha')
+      render :new
+    end
+  end
 
   def set_place
     @place = Place.find(params[:id])
@@ -99,77 +126,5 @@ class PlacesController < ApplicationController
   def reverse_geocode
     query = params[:latitude].to_s + ',' + params[:longitude].to_s
     @geocoded = Geocoder.search(query).first.data['address']
-  end
-
-  # Find if params hash contains translation related key
-  def globalized_params
-    params[:place].keys.select do |key, _value|
-      Place.globalize_attribute_names.include? key.to_sym
-    end
-  end
-
-  def locales_from_place_params
-    globalized_params.map { |param| param.split('_').last }.flatten.select(&:present?)
-  end
-
-  # Update reviewed flags depending on login status
-  def update_place_reviewed_flag
-    @place.without_versioning do
-      @place.update!(reviewed: @current_user.signed_in?)
-    end
-  end
-
-  def update_translations_reviewed_flag
-    locales_from_place_params.each do |locale|
-      translation = @place.translations.find_by_locale(locale)
-      @place.destroy_all_updates(translation) if @current_user.signed_in?
-      translation.without_versioning do
-        translation.update(reviewed: @current_user.signed_in?)
-      end
-    end
-  end
-
-  # Set reviewed flags depending on login status during creation
-  def set_inital_reviewed_flags
-    update_place_reviewed_flag
-    @place.destroy_all_updates
-    @place.translations.each do |translation|
-      translation.without_versioning do
-        translation.update!(reviewed: @current_user.signed_in?)
-      end
-    end
-  end
-
-  def save_update
-    # TODO looks shitty...
-    # TODO How does the method check that it actually can update?
-    length_before_update = @place.versions.length
-
-    if @place.update(modified_params)
-      store_in_session_cookie
-      flash[:success] = t('.changes_saved')
-      @place.destroy_all_updates if @current_user.signed_in?
-
-      update_translations_reviewed_flag if globalized_params.any?
-      redirect_to places_url
-    else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
-      render :edit, status: 400
-    end
-
-    length_after_update = @place.versions.length
-    update_place_reviewed_flag if length_before_update != length_after_update
-  end
-
-  def save_new
-    if @place.save
-      store_in_session_cookie
-      set_inital_reviewed_flags
-      flash[:success] = t('.created')
-      redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
-    else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
-      render :new, status: 400
-    end
   end
 end

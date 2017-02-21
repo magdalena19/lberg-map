@@ -268,7 +268,7 @@ describe PlacesController do
       end
     end
 
-    context 'Translation updated by guest user' do
+    context 'Reviewewd translation' do
       let(:reviewed_place) { create :place, :reviewed }
 
       before do
@@ -279,16 +279,16 @@ describe PlacesController do
         @en_translation = reviewed_place.translations.select { |t| t.locale == :en }.first
       end
 
-      it 'Guest can update reviewed translation' do
+      it 'can be updated by guest user' do
         expect(@en_translation.description).to eq('This description has been changed!')
         expect(reviewed_place.reviewed).to be true
       end
 
-      it 'Translation updated by guest is not reviewed' do
+      it 'updated by guest is not reviewed' do
         expect(@en_translation.reviewed).to be false
       end
 
-      it 'Translation updated by guest has version history' do
+      it 'updated by guest has version history' do
         expect(@en_translation.versions.length).to be 2
       end
 

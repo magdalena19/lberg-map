@@ -45,4 +45,11 @@ class ApplicationController < ActionController::Base
       Place.where(id: array)
     end
   end
+  
+  def require_login_if_private_map
+    if Admin::Setting.is_private && @current_user.guest?
+      redirect_to login_url
+      flash[:error] = t('.private_map')
+    end
+  end
 end

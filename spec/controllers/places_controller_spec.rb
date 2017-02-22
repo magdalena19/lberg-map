@@ -33,6 +33,19 @@ describe PlacesController do
       get :index
       expect(response).to render_template 'places/index'
     end
+
+    describe 'Private map' do
+      before do
+        create :settings, :private
+        logout
+      end
+
+      it 'rejects index if not logged in' do
+        get :index
+        expect(response).to redirect_to login_url
+        expect(assigns(:places)).to be_nil
+      end
+    end
   end
 
   context 'GET #new' do
@@ -92,6 +105,14 @@ describe PlacesController do
       it 'has no version history' do
         valid_new_place = post_valid_place
         expect(valid_new_place.versions.length).to be 1
+      end
+
+      it 'is rejected if map is private' do
+        create :settings, :private
+        expect {
+          post_valid_place
+        }.to change { Place.count }.by(0)
+        expect(response).to redirect_to login_url
       end
     end
 
@@ -225,6 +246,14 @@ describe PlacesController do
       it 'has version history' do
         expect(reviewed_place.versions.count).to be 2
       end
+
+      it 'is rejected if map is private' do
+        create :settings, :private
+        another_reviewed_place = create :place, :reviewed
+        put :update, id: reviewed_place.id, place: { name: 'Some other name' }
+        expect(another_reviewed_place.reload.name).to_not eq('Some other name')
+        expect(response).to redirect_to login_url
+      end
     end
 
     context 'Translation updated by guest user' do
@@ -249,6 +278,17 @@ describe PlacesController do
 
       it 'Translation updated by guest has version history' do
         expect(@en_translation.versions.length).to be 2
+      end
+
+      it 'is rejected if map is private' do
+        create :settings, :private
+        another_reviewed_place = create :place, :reviewed
+        put :update, id: another_reviewed_place.id, place: { description_en: 'This description has been changed!' }
+        another_reviewed_place.reload
+        @en_translation = another_reviewed_place.translations.select { |t| t.locale == :en }.first
+
+        expect(@en_translation.description).to_not eq('This description has been changed!')
+        expect(response).to redirect_to login_url
       end
     end
 

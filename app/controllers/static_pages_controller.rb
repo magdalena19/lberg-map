@@ -33,11 +33,4 @@ class StaticPagesController < ApplicationController
   def last_places_created
     Place.order(:created_at).last(5)
   end
-  
-  def require_login_if_private_map
-    if Admin::Setting.is_private && @current_user.guest?
-      redirect_to login_url
-      flash[:error] = t('.private_map')
-    end
-  end
 end

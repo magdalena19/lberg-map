@@ -3,6 +3,7 @@ class PlacesController < ApplicationController
   before_action :require_login, only: [:destroy]
   before_action :set_place, only: [:edit, :update, :destroy]
   before_action :reverse_geocode, only: [:new], if: :supplied_coords?
+  before_action :require_login_if_private_map
 
   def index
     @places = Place.reviewed_places

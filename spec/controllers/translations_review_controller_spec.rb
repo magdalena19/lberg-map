@@ -1,15 +1,16 @@
 require 'rails_helper'
 
 describe TranslationsReviewController do
+  before do
+    create :settings, :public
+    login_as user
+    place_with_unreviewed_changes.update_attributes(name: 'Magda', description: 'This is an updated description.')
+  end
+
   let(:new_place) { create :place, :unreviewed }
   let(:place_with_unreviewed_changes) { create :place, :reviewed, name: 'Magda19', description_en: 'This is a description.' }
   let(:translations) { place_with_unreviewed_changes.translations }
   let(:user) { create :user, name: 'Norbert' }
-
-  before do
-    login_as user
-    place_with_unreviewed_changes.update_attributes(name: 'Magda', description: 'This is an updated description.')
-  end
   
   context 'GET #confirm' do
     it 'confirms unreviewed translations' do

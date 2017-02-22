@@ -1,4 +1,8 @@
 feature 'Edit description' do
+  before do
+    create :settings, :public
+  end
+
   scenario 'Do not show guest edits in place list', :js do
     spawn_categories
     place = create :place, :reviewed

@@ -3,6 +3,10 @@ FactoryGirl.define do
     app_title 'Title'
     maintainer_email_address 'foo@bar.org'
 
+    trait :public do
+      is_private false
+    end
+
     trait :private do
       is_private true
     end

@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe UsersController do
 
+  before do
+    create :settings, :public
+  end
+
 	let(:user) { create :user, name: 'Norbert' }
 
   context 'GET #edit' do

@@ -1,6 +1,7 @@
 describe PlacesController do
   before do
     Sidekiq::Testing.inline!
+    create :settings, :public, :public
   end
 
   def extract_attributes(obj)
@@ -194,7 +195,7 @@ describe PlacesController do
       unreviewed_place.reload
       expect(unreviewed_place.name).not_to eq('Some other name')
     end
-    
+
     it 'Cannot update translation if is not reviewed' do
       skip('TEST FAILS CURRENTLY, WAIT FOR REFACTOR IN PLACES CONTROLLER')
       put :update, id: reviewed_place.id, place: { description_en: 'This description has been changed!' }

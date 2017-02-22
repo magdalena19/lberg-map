@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 describe ReviewController do
-  let(:user) { create :user }
-
   before do
+    create :settings, :public
     @new_unreviewed_place = create :place, :unreviewed
     @reviewed_place = create :place, :reviewed
 
@@ -12,6 +11,8 @@ describe ReviewController do
     put :update, id: @reviewed_place, place: { description_en: 'This is an updated description' }
     @controller = ReviewController.new
   end
+
+  let(:user) { create :user }
 
   context 'GET #review_index' do
     it 'populates items to be reviewed if signed in' do

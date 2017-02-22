@@ -22,9 +22,9 @@ class PlacesController < ApplicationController
   end
 
   def update
-    filtered_params = modified_params
-    if filtered_params.any? && @place.update(filtered_params)
-      PlaceAttributeSetter.set_attributes_after_update(place: @place, params: filtered_params, signed_in: @current_user.signed_in?)
+    params_to_update ||= PlaceParamsModifier.new(place_params: place_params, place: @place).params
+    if params_to_update.any? && @place.update(params_to_update)
+      PlaceAttributeSetter.set_attributes_after_update(place: @place, params: params_to_update, signed_in: @current_user.signed_in?)
       store_in_session_cookie
       flash[:success] = t('.changes_saved')
       redirect_to places_url
@@ -40,13 +40,13 @@ class PlacesController < ApplicationController
   end
 
   def create
-    filtered_params = modified_params
-    @place = Place.new(filtered_params)
+    params_to_create ||= PlaceParamsModifier.new(place_params: place_params).params
+    @place = Place.new(params_to_create)
     @place.latitude ||= params[:place][:latitude]
     @place.longitude ||= params[:place][:longitude]
 
     if @place.save
-      PlaceAttributeSetter.set_attributes_after_create(place: @place, params: filtered_params, signed_in: @current_user.signed_in?)
+      PlaceAttributeSetter.set_attributes_after_create(place: @place, params: params_to_create, signed_in: @current_user.signed_in?)
       store_in_session_cookie
       flash[:success] = t('.created')
       redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
@@ -63,70 +63,6 @@ class PlacesController < ApplicationController
   end
 
   private
-
-  def globalized_params
-    place_params.keys.select do |key, _value|
-      Place.globalize_attribute_names.include? key.to_sym
-    end
-  end
-
-  def locales_from_place_params
-    globalized_params.map { |param| param.split('_').last }.flatten.select(&:present?)
-  end
-
-  def translations_from_place_params
-    locales_from_place_params.map do |locale|
-      @place.translations.find_by(locale: locale)
-    end
-  end
-
-  def update_translation_attributes?(translation)
-    place_params.keys.include? "description_#{translation.locale.to_s}"
-  end
-
-  def update_place_attributes?
-    place_params.except(*globalized_params).any?
-  end
-
-  # Conditionally inject values into place_params
-  def modified_params
-    parameters = place_params
-    if @place.present?
-      if update_place_attributes? && !@place.reviewed
-        parameters.except!(*Place.column_names)
-        flash[:danger] = t('.locked_until_reviewed')
-      end
-
-      translations_from_place_params.each do |t|
-        if update_translation_attributes?(t) && !t.reviewed
-          parameters.except!("description_#{t.locale.to_s}")
-          flash[:danger] = t('.locked_until_reviewed')
-        end
-      end
-    end
-
-    if place_params[:categories]
-      category_param = place_params[:categories].sort || []
-      parameters[:categories] = category_param.reject(&:empty?).join(',')
-    end
-
-    if @place && @place.lat_lon_present?
-      parameters[:latitude] = @place.latitude
-      parameters[:longitude] = @place.longitude
-    end
-    parameters
-  end
-
-  def place_params
-    params.require(:place).permit(
-      :name, :street, :house_number, :postal_code, :city,
-      :reviewed,
-      :latitude, :longitude,
-      *Place.globalize_attribute_names,
-      :phone, :homepage, :email,
-      categories: []
-    )
-  end
 
   def can_commit?
     simple_captcha_valid? || @current_user.signed_in?
@@ -167,5 +103,16 @@ class PlacesController < ApplicationController
   def reverse_geocode
     query = params[:latitude].to_s + ',' + params[:longitude].to_s
     @geocoded = Geocoder.search(query).first.data['address']
+  end
+
+  def place_params
+    params.require(:place).permit(
+      :name, :street, :house_number, :postal_code, :city,
+      :reviewed,
+      :latitude, :longitude,
+      *Place.globalize_attribute_names,
+      :phone, :homepage, :email,
+      categories: []
+    )
   end
 end

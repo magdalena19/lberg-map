@@ -222,7 +222,6 @@ describe PlacesController do
     let(:reviewed_place) { create :place, :reviewed }
 
     it 'Cannot update place if is not reviewed' do
-      skip('TEST FAILS CURRENTLY, WAIT FOR REFACTOR IN PLACES CONTROLLER')
       unreviewed_place = create :place, :unreviewed
       put :update, id: unreviewed_place.id, place: { name: 'Some other name' }
       unreviewed_place.reload
@@ -230,9 +229,9 @@ describe PlacesController do
     end
 
     it 'Cannot update translation if is not reviewed' do
-      skip('TEST FAILS CURRENTLY, WAIT FOR REFACTOR IN PLACES CONTROLLER')
       put :update, id: reviewed_place.id, place: { description_en: 'This description has been changed!' }
       reviewed_place.reload
+      expect(reviewed_place.translations.find_by(locale: :en).reviewed).to be false
 
       put :update, id: reviewed_place.id, place: { description_en: 'Some other description text' }
       reviewed_place.reload

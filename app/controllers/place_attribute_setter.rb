@@ -20,9 +20,7 @@ module PlaceAttributeSetter
   def self.update_translations_reviewed_flag
     locales_from_place_params.each do |locale|
       translation = @place.translations.find_by_locale(locale)
-      translation.without_versioning do
-        translation.update(reviewed: @signed_in)
-      end
+      translation.update(reviewed: @signed_in)
       @place.destroy_all_updates(translation) if @signed_in
     end
   end
@@ -48,9 +46,7 @@ module PlaceAttributeSetter
 
   # Update reviewed flags depending on login status
   def self.update_place_reviewed_flag
-    @place.without_versioning do
-      @place.update!(reviewed: @signed_in)
-    end
+    @place.update!(reviewed: @signed_in)
   end
 
   # Set reviewed flags depending on login status during creation
@@ -58,9 +54,7 @@ module PlaceAttributeSetter
     update_place_reviewed_flag
     @place.destroy_all_updates
     @place.translations.each do |translation|
-      translation.without_versioning do
-        translation.update!(reviewed: @signed_in)
-      end
+      translation.update!(reviewed: @signed_in)
     end
   end
 end

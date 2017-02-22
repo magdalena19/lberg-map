@@ -29,9 +29,7 @@ module PlaceTranslationsAuditing
 
   def set_description_reviewed_flags
     translations.each do |translation|
-      translation.without_versioning do
-        translation.update_attributes(reviewed: reviewed ? true : false)
-      end
+      translation.update_attributes(reviewed: reviewed ? true : false)
     end
   end
 end

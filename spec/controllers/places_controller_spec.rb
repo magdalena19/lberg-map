@@ -1,7 +1,7 @@
 describe PlacesController do
   before do
     Sidekiq::Testing.inline!
-    create :settings, :public, :public
+    create :settings, :public
   end
 
   def extract_attributes(obj)
@@ -75,11 +75,23 @@ describe PlacesController do
     end
 
     it 'Enqueues auto_translation task after create' do
-      unreviewed_place = create :place, :unreviewed
+      unreviewed_place = build :place, :unreviewed
       Sidekiq::Testing.fake! do
         expect {
           post :create, place: extract_attributes(unreviewed_place)
         }.to change { TranslationWorker.jobs.size }.by(1)
+      end
+    end
+
+    it 'Does not enqueues auto_translation unless true in settings' do
+      create :settings, :top_secret
+      expect(Admin::Setting.auto_translate).to be false
+
+      unreviewed_place = create :place, :unreviewed
+      Sidekiq::Testing.fake! do
+        expect {
+          post :create, place: extract_attributes(unreviewed_place)
+        }.to change { TranslationWorker.jobs.size }.by(0)
       end
     end
 

@@ -10,6 +10,13 @@ class Admin::Setting < ActiveRecord::Base
     self.last.attributes.except("id")
   end
 
+  # cheap...
+  def self.translation_engines
+    ['bing', 'google', 'yandex']
+  end
+
+  Admin::Setting.create unless Admin::Setting.any?
+  # spawn default values (-> schema) if no current settings available
   column_names.except("id").each do |column_name|
     define_singleton_method(column_name.to_sym) do
       last.send(column_name)

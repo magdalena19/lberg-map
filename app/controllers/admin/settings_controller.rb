@@ -19,7 +19,7 @@ class Admin::SettingsController < ApplicationController
   private
 
   def settings_params
-    params.require(:admin_setting).permit(:auto_translate, :is_private, :app_title, :maintainer_email_address)
+    params.require(:admin_setting).permit(:auto_translate, :is_private, :app_title, :maintainer_email_address, :translation_engine)
   end
 
   def init_settings

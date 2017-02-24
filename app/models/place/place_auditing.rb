@@ -1,4 +1,4 @@
-# This module contains all class methods used for auditing places
+# This module contains all class methods used for auditing / reviewing places
 module PlaceAuditingClassMethods
   def reviewed_places
     Place.all.map(&:reviewed_version).compact

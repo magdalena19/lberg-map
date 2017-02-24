@@ -2,6 +2,7 @@ feature 'Review place' do
   before do
     create :settings, :public
     spawn_categories
+    create :settings
   end
 
   scenario 'Do not show user edits in review index', :js do

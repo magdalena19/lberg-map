@@ -1,6 +1,10 @@
 describe Place do
   let(:place) { build :place, :reviewed }
 
+  before do
+    create :settings
+  end
+
   it 'can save place to database' do
     place.save
     expect(Place.find(place.id)).to eq(place)
@@ -47,7 +51,7 @@ describe Place do
   end
 
   context 'Callbacks' do
-    it "Assure correctly securing URLs" do
+    it 'Assure correctly securing URLs' do
       place.homepage = 'http://www.heise.de'
       place.save
 
@@ -63,10 +67,19 @@ describe Place do
       skip('To be defined: Duplicate entries not valid')
     end
 
-    it "Place with lat/lon does not need to be geocoded" do
+    it 'Place with lat/lon does not need to be geocoded' do
       place = build :place, :unreviewed, latitude: 60.0, longitude: 10.0
       place.save
       expect([place.latitude, place.longitude]).to eq([60.0, 10.0])
+    end
+
+    it 'does not auto-translate if option is not set' do
+      create :settings, :private
+      expect(Admin::Setting.is_private).to be true
+      new_place = create :place, :unreviewed
+      new_place.tap do |place|
+        expect(place.translations.map(&:auto_translated).any?).to be false
+      end
     end
   end
 

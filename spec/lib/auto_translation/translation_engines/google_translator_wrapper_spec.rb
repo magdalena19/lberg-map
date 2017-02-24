@@ -1,0 +1,3 @@
+describe GoogleTranslatorWrapper do
+
+end

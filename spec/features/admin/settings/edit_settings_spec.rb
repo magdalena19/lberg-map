@@ -15,8 +15,8 @@ feature 'Configure application' do
     create :settings, translation_engine: 'bing'
     login_as_admin
     visit admin_settings_path
-    find('#admin_setting_translation_engine').find(:xpath, 'option[2]').select_option
+    find('#admin_setting_translation_engine').find(:xpath, 'option[3]').select_option
     click_on('Update Setting')
-    expect(Admin::Setting.translation_engine).to eq('google')
+    expect(Admin::Setting.translation_engine).to eq('yandex')
   end
 end

@@ -13,17 +13,17 @@ def validate_captcha
 end
 
 def login_as_user
-  user = create :user, email: 'user@example.com'
+  user = create :user, email: 'user@example.com', password: 'secret', password_confirmation: 'secret'
   visit 'login/'
-  fill_in 'sessions_email', with: 'user@example.com'
+  fill_in 'sessions_email', with: user.email
   fill_in 'sessions_password', with: 'secret'
   click_on 'Login'
 end
 
 def login_as_admin
-  user = create :user, :admin, email: 'admin@example.com'
+  admin = create :user, :admin, name: 'Admin', email: 'admin@example.com', password: 'secret', password_confirmation: 'secret'
   visit login_path
-  fill_in 'sessions_email', with: 'admin@example.com'
+  fill_in 'sessions_email', with: admin.email
   fill_in 'sessions_password', with: 'secret'
   click_on 'Login'
 end

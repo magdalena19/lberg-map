@@ -36,7 +36,6 @@ Rails.application.routes.draw do
         get '/confirm' , to: 'translations_review#confirm', as: :confirm_translation
         get '/refuse' , to: 'translations_review#refuse', as: :refuse_translation
       end
-
     end
 
     # Place ressources
@@ -44,17 +43,20 @@ Rails.application.routes.draw do
       resources :descriptions
     end
 
-    resources :users
+    # User accessible user resources
+    resources :users, only: [:show, :edit, :update]
     get '/login' , to: 'sessions#new'
     post '/login' , to: 'sessions#create'
     get '/logout' , to: 'sessions#destroy'
 
-    namespace :admin, constraints: AdminConstraint.new do
+    namespace :admin do
       get '', to: 'dashboard#index', as: :dashboard
       get '/settings', to: 'settings#edit'
       patch '/settings', to: 'settings#update'
-    end
 
+      resources :users
+    end
+ 
     resources :announcements
     get '/chronicle' , to: 'static_pages#chronicle'
   end

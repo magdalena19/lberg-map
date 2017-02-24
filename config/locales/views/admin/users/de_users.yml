@@ -1,0 +1,23 @@
+de:
+  admin:
+    users:
+      edit:
+        name_placeholder: 'User Name'
+        email_placeholder: 'User Email'
+        password_placeholder: 'Password'
+        password_confirmation_placeholder: 'Passwort bestätigen'
+        submit: 'Änderungen übernehmen'
+        back: 'Zurück'
+      new:
+        name_placeholder: 'User Name'
+        email_placeholder: 'User Email'
+        password_placeholder: 'Password'
+        password_confirmation_placeholder: 'Passwort bestätigen'
+        submit: 'Neuen User anlegen'
+        back: 'Zurück'
+      index:
+        confirm_deletion: 'Bist du sicher?'
+        edit: 'Bearbeiten'
+        delete: 'Löschen'
+      destroy:
+        cannot_delete_current_user: "Du bist mit diesem User momentan eingeloggt und kannst ihn deshalb nicht löschen!"

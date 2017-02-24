@@ -1,4 +1,8 @@
 feature 'Delete user' do
+  before do
+    create :settings
+  end
+
   scenario 'can find link to delete user', :js do
     login_as_admin
     visit admin_users_path

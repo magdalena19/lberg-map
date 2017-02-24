@@ -7,12 +7,14 @@ jQuery(function() {
   slidePanelVisible = false;
 
   hideMapElements = function() {
+    jQuery('.places-list-panel').hide();
     jQuery('.control-container').hide();
     sideBar.css('z-index', '-1');
     showSidebarContainer.css('z-index', '-1');
   };
 
   showMapElements = function() {
+    jQuery('.places-list-panel').fadeIn();
     jQuery('.control-container').show();
   };
 
@@ -27,53 +29,6 @@ jQuery(function() {
     jQuery('.navbar-button').show();
     jQuery('.navbar-toggle').css('opacity', 100);
   };
-
-  // fired when window get resized (application.js)
-  balanceSidebar = function() {
-    jQuery('.announcements-panel').height(jQuery(window).height() - jQuery('.last-points-panel').height() - 150);
-    var cumHeight = 0;
-    var sidebarHeight = sideBar.innerHeight();
-    jQuery(function() {
-      jQuery.each(jQuery('.announcement-news'), function() {
-        var obj = jQuery(this);
-        cumHeight += obj.outerHeight() + 20;
-        if (cumHeight > jQuery('.announcements-panel').height()) {
-          obj.hide();
-        }
-        else {
-          obj.show();
-        }
-      });
-    });
-
-    if (jQuery(window).height() < 500 || jQuery(window).width() < 800) {
-      sideBar.css('z-index', '-1');
-      showSidebarContainer.css('z-index', '-1');
-    } else {
-      if (slidePanelVisible === false) {
-        sideBar.css('z-index', '9999');
-        showSidebarContainer.css('z-index', '9999');
-      }
-    }
-  };
-
-  // ANNOUNCEMENTS
-  jQuery('.open-sidebar').click(function(){
-    showSidebarContainer.hide(500);
-    sideBar.show(500);
-    balanceSidebar();
-  });
-
-  jQuery('.close-sidebar').click(function(){
-    showSidebarContainer.show(500);
-    sideBar.hide(500);
-  });
-  showSidebarContainer.hide();
-
-  jQuery.each(jQuery('.announcement'), function() {
-    var angle = Math.random() * 3 - 2;
-    jQuery(this).css('transform', 'rotate(' + angle + 'deg)fcat');
-  });
 
   // SLIDE PANELS
   slidePanels.each(function() {
@@ -98,7 +53,6 @@ jQuery(function() {
       slidePanels.each(function() {
         jQuery(this).trigger('close');
       });
-      balanceSidebar();
     };
   });
 

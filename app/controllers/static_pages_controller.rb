@@ -31,6 +31,6 @@ class StaticPagesController < ApplicationController
   end
 
   def last_places_created
-    Place.order(:created_at).last(5)
+    places_to_show.sort_by(&:created_at).last(5)
   end
 end

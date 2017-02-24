@@ -36,7 +36,6 @@ Rails.application.routes.draw do
         get '/confirm' , to: 'translations_review#confirm', as: :confirm_translation
         get '/refuse' , to: 'translations_review#refuse', as: :refuse_translation
       end
-
     end
 
     # Place ressources
@@ -44,7 +43,8 @@ Rails.application.routes.draw do
       resources :descriptions
     end
 
-    resources :users
+    # User accessible user resources
+    resources :users, only: [:show, :edit, :update]
     get '/login' , to: 'sessions#new'
     post '/login' , to: 'sessions#create'
     get '/logout' , to: 'sessions#destroy'
@@ -53,8 +53,18 @@ Rails.application.routes.draw do
       get '', to: 'dashboard#index', as: :dashboard
       get '/settings', to: 'settings#edit'
       patch '/settings', to: 'settings#update'
-    end
 
+      scope '/users' do
+        get 'index', to: 'users#index', as: :index_users
+        get 'show/:id', to: 'users#show', as: :show_user
+        get 'new', to: 'users#new', as: :new_user
+        post '', to: 'users#create'
+        get 'edit/:id', to: 'users#edit', as: :edit_user
+        patch '/:id', to: 'users#update'
+        delete '/:id', to: 'users#destroy'
+      end
+    end
+ 
     resources :announcements
     get '/chronicle' , to: 'static_pages#chronicle'
   end

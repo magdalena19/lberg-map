@@ -1,5 +1,6 @@
 feature 'Review place' do
   before do
+    create :settings, :public
     spawn_categories
   end
 

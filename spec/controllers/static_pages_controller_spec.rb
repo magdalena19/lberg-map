@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe StaticPagesController do
+  before do
+    create :settings, :public
+  end
+
   context 'GET #about' do
     it 'should render about template' do
       get :about

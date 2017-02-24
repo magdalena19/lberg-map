@@ -1,4 +1,8 @@
 feature 'Create place' do
+  before do
+    create :settings, :public
+  end
+
   scenario 'create valid place as user', js: true do
     login_as_user
     visit new_place_path

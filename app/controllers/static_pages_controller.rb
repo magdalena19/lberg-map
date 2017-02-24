@@ -1,4 +1,6 @@
 class StaticPagesController < ApplicationController
+  before_action :require_login_if_private_map, except: [:index]
+
   def index
   end
 

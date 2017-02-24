@@ -1,6 +1,6 @@
 describe PasswordResetController do
   before do
-    create :settings
+    create :settings, :public
   end
 
   context 'GET #request_password_reset' do

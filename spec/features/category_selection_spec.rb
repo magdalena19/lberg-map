@@ -2,6 +2,7 @@
 # since leaflet marker are displayed not before map tiles are loaded
 feature 'Category selection' do
   before do
+    create :settings, :public
     spawn_categories
     create :place, :reviewed, name: 'Playground', categories: '1'
     create :place, :reviewed, name: 'Hospital and Playground', categories: '1,2'

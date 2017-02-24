@@ -6,6 +6,10 @@ describe AnnouncementsController do
                                   content: 'another content' }
   end
 
+  before do
+    create :settings, :public
+  end
+
   let(:user1) {create :user, name: 'Susanne'}
   let(:user2) {create :user, name: 'Norbert'}
   let(:admin) {create :user, :admin, name: 'Admin'}

@@ -1,4 +1,8 @@
 feature 'Contact form' do
+  before do
+    create :settings, :public
+  end
+
   scenario 'Can fill out contact information and click send button', :js do
     visit contact_path
     fill_in_valid_contact_information

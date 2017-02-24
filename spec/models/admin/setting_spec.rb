@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Admin::Setting, type: :model do
   before do
-    create :settings
+    create :settings, :public
   end
   
   it 'can add setting' do

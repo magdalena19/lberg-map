@@ -1,4 +1,8 @@
 feature 'edit button' do
+  before do
+    create :settings, :public
+  end
+
   scenario 'is visible', js: true do
     create :place, :reviewed
     login_as_user

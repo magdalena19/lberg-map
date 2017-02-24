@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 describe PlacesReviewController do
-  let(:user) { create :user }
-  let (:new_place) { create :place, :unreviewed, name: 'SomeName' }
-
   before do
     login_as user
+    create :settings, :public
   end
+
+  let(:user) { create :user }
+  let (:new_place) { create :place, :unreviewed, name: 'SomeName' }
 
   context 'GET #review' do
     it 'populates the right place to be reviewed' do

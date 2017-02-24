@@ -25,7 +25,7 @@ class Place < ActiveRecord::Base
   validates :homepage, url_format: true, if: 'homepage.present?'
 
   ## TRANSLATION
-  translates :description, versioning: { gem: :paper_trail, options: { on: [:update, :create] } }
+  translates :description, versioning: { gem: :paper_trail, options: { on: [:update, :create], only: [:description] } }
   globalize_accessors
 
   ## CALLBACKS

@@ -222,7 +222,6 @@ describe PlacesController do
     let(:reviewed_place) { create :place, :reviewed }
 
     it 'Cannot update place if is not reviewed' do
-      skip('TEST FAILS CURRENTLY, WAIT FOR REFACTOR IN PLACES CONTROLLER')
       unreviewed_place = create :place, :unreviewed
       put :update, id: unreviewed_place.id, place: { name: 'Some other name' }
       unreviewed_place.reload
@@ -230,9 +229,9 @@ describe PlacesController do
     end
 
     it 'Cannot update translation if is not reviewed' do
-      skip('TEST FAILS CURRENTLY, WAIT FOR REFACTOR IN PLACES CONTROLLER')
       put :update, id: reviewed_place.id, place: { description_en: 'This description has been changed!' }
       reviewed_place.reload
+      expect(reviewed_place.translations.find_by(locale: :en).reviewed).to be false
 
       put :update, id: reviewed_place.id, place: { description_en: 'Some other description text' }
       reviewed_place.reload
@@ -268,7 +267,7 @@ describe PlacesController do
       end
     end
 
-    context 'Translation updated by guest user' do
+    context 'Reviewewd translation' do
       let(:reviewed_place) { create :place, :reviewed }
 
       before do
@@ -279,16 +278,16 @@ describe PlacesController do
         @en_translation = reviewed_place.translations.select { |t| t.locale == :en }.first
       end
 
-      it 'Guest can update reviewed translation' do
+      it 'can be updated by guest user' do
         expect(@en_translation.description).to eq('This description has been changed!')
         expect(reviewed_place.reviewed).to be true
       end
 
-      it 'Translation updated by guest is not reviewed' do
+      it 'updated by guest is not reviewed' do
         expect(@en_translation.reviewed).to be false
       end
 
-      it 'Translation updated by guest has version history' do
+      it 'updated by guest has version history' do
         expect(@en_translation.versions.length).to be 2
       end
 

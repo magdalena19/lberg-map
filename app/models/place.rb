@@ -44,6 +44,12 @@ class Place < ActiveRecord::Base
   after_create :enqueue_auto_translation
   after_create :set_description_reviewed_flags
 
+  ## EVENT STUFF
+  scope :ongoing_events, -> { where("end_date > ? AND start_date < ?", Date.today, Date.today) }
+  scope :future_events, -> { where("start_date > ?", Date.today) }
+  scope :past_events, -> { where("end_date < ?", Date.today) }
+  scope :all_events, -> { past_events + ongoing_events + future_events }
+
   ## VIRTUAL ATTRIBUTES
   def address
     ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')

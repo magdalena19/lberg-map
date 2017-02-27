@@ -119,9 +119,32 @@ describe Place do
   end
 
   context 'can be an event' do
-    it 'can set start and end date' do
+    it 'with start and end date' do
       expect(Place.new).to respond_to(:start_date)
       expect(Place.new).to respond_to(:end_date)
+    end
+
+    it 'scopes all event type places' do
+      create_list(:place, 3, :reviewed, start_date: Date.today - 1, end_date: Date.today + 1.days)
+      create_list(:place, 3, :reviewed, start_date: Date.today - 4, end_date: Date.today - 1.days)
+      create_list(:place, 3, :reviewed, start_date: Date.today + 4, end_date: Date.today + 19.days)
+
+      expect(Place.all_events.count).to be 9
+    end
+
+    it "scopes future events" do
+      create_list(:place, 3, :reviewed, start_date: Date.today + 4, end_date: Date.today + 19.days)
+      expect(Place.future_events.count).to be 3
+    end
+
+    it "scopes past events" do
+      create_list(:place, 3, :reviewed, start_date: Date.today - 4, end_date: Date.today - 1.days)
+      expect(Place.past_events.count).to be 3
+    end
+
+    it "scopes ongoing events" do
+      create_list(:place, 3, :reviewed, start_date: Date.today - 1, end_date: Date.today + 1.days)
+      expect(Place.ongoing_events.count).to be 3
     end
   end
 

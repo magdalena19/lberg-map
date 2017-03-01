@@ -25,4 +25,17 @@ describe DeliveryGul do
     expect(email.to).to eq [Admin::Setting.maintainer_email_address]
     expect(email.subject).to eq "[#{Admin::Setting.app_title} contact form] #{@message.subject}"
   end
+
+  it 'sends password reset link' do
+    user = create :user
+    user.create_digest_for(attribute: 'password_reset')
+    email = DeliveryGul.send_password_reset_link(user).deliver_now
+
+    expect(ActionMailer::Base.deliveries.empty?).to be false
+
+    # it the body of the sent email contains what we expect it to
+    expect(email.from).to eq [Admin::Setting.maintainer_email_address]
+    expect(email.to).to eq [user.email]
+    expect(email.subject).to eq "Password reset for #{Admin::Setting.app_title}"
+  end
 end

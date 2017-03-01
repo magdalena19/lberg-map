@@ -16,6 +16,7 @@ describe PasswordResetController do
       expect {
         post :create_password_reset, password_reset: { email: 'norbert@example.com' }
       }.to change { user.reload.password_reset_digest }.from(nil).to be_a(String)
+      expect(flash[:success]).to match 'has been sent'
     end
 
     it 'sends password request email on password reset request for existing account' do
@@ -28,7 +29,7 @@ describe PasswordResetController do
     it 'does nothing if no account was found to reset password for' do
       post :create_password_reset, password_reset: { email: 'unknown@nowhere.com' }
       expect(response).to redirect_to root_path
-      expect(flash[:danger]).not_to be_nil
+      expect(flash[:danger]).to eq 'Could not find an account with this email address!'
     end
   end
 
@@ -49,7 +50,7 @@ describe PasswordResetController do
 
       get :reset_password, id: user.id, token: 'Some invalid token'
       expect(response).to redirect_to root_url
-      expect(flash[:danger]).to eq('Link zum Passwort zurücksetzen ist ungültig!')
+      expect(flash[:danger]).to eq 'Password reset link invalid!'
     end
 
     it 'does not accept tokens older than 24hrs as valid' do
@@ -59,7 +60,7 @@ describe PasswordResetController do
 
       get :reset_password, id: user.id, token: user.password_reset_token
       expect(response).to redirect_to root_url
-      expect(flash[:danger]).to eq('Link zum Passwort zurücksetzen ist ungültig!')
+      expect(flash[:danger]).to eq 'Password reset link invalid!'
     end
   end
 end

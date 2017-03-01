@@ -10,11 +10,9 @@ class PasswordResetController < ApplicationController
     @user.create_digest_for(attribute: 'password_reset')
     if @user.save
       DeliveryGul.send_password_reset_link(@user).deliver_now
-      # TODO translate
-      flash[:success] = "Ein Link zum Zurücksetzen deines Passworts wurde dir zugeschickt. Dieser ist 24h gültig!"
+      flash[:success] = t('.reset_link_sent')
     else
-      # TODO translate
-      flash[:danger] = "Etwas ist schiefgegangen, wir können dein Passwort leider nicht zurücksetzen..."
+      flash[:danger] = t('.could_not_send_reset_link')
     end
 
     redirect_to root_url
@@ -30,12 +28,10 @@ class PasswordResetController < ApplicationController
       @user.update_attributes(password: new_password,
                                password_confirmation: new_password,
                                password_reset_digest: nil) 
-      # TODO translate
-      flash[:success] = "Das neue Passwort wurde erfolgreich gesetzt!"
+      flash[:success] = t('.new_password_set')
       redirect_to root_url
     else
-      # TODO translate
-      flash[:danger] = "Die eingegebenen Passwörter stimmen nicht überein!"
+      flash[:danger] = t('.passwords_do_not_match')
       render :set_new_password
     end
   end
@@ -44,8 +40,7 @@ class PasswordResetController < ApplicationController
 
   def set_user_by_email
     unless @user = User.find_by(email: params[:password_reset][:email])
-      # TODO translate
-      flash[:danger] = "Zu dieser Email-Adresse wurde kein passender Account gefunden!"
+      flash[:danger] = t('.no_account_found')
       redirect_to root_url
     end
   end
@@ -56,8 +51,7 @@ class PasswordResetController < ApplicationController
 
   def authenticated?
     unless @user && token_valid? 
-      # TODO translate
-      flash[:danger] = "Link zum Passwort zurücksetzen ist ungültig!"
+      flash[:danger] = t('.link_invalid')
       redirect_to root_url
     end
   end

@@ -14,7 +14,6 @@ class PasswordResetController < ApplicationController
     else
       flash[:danger] = t('.could_not_send_reset_link')
     end
-
     redirect_to root_url
   end
 
@@ -32,7 +31,7 @@ class PasswordResetController < ApplicationController
       redirect_to root_url
     else
       flash[:danger] = t('.passwords_do_not_match')
-      render :set_new_password
+      reset_password
     end
   end
 
@@ -41,7 +40,7 @@ class PasswordResetController < ApplicationController
   def set_user_by_email
     unless @user = User.find_by(email: params[:password_reset][:email])
       flash[:danger] = t('.no_account_found')
-      redirect_to root_url
+      render :request_password_reset
     end
   end
 
@@ -61,6 +60,6 @@ class PasswordResetController < ApplicationController
   end
 
   def passwords_match?
-    params[:password] == params[:password_confirmation]
+    params[:new_password][:password] == params[:new_password][:password_confirmation]
   end
 end

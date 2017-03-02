@@ -41,12 +41,24 @@ describe Place do
       end
     end
 
-    it 'Valid place contact data shall be valid' do
+    it 'that place contact data shall be valid' do
       expect(place.update_attributes(phone: '0304858')).to be true
       expect(place.update_attributes(email: 'foo@batz.bar')).to be true
       expect(place.update_attributes(homepage: 'http://foo.bar')).to be true
       expect(place.update_attributes(homepage: 'www.foo.bar')).to be true
       expect(place.update_attributes(homepage: 'foo.bar')).to be true
+    end
+
+    it 'that district column exists' do
+      expect(Place.new).to respond_to(:district)
+    end
+
+    it 'that federal_state column exists' do
+      expect(Place.new).to respond_to(:federal_state)
+    end
+
+    it 'that country column exists' do
+      expect(Place.new).to respond_to(:country)
     end
   end
 
@@ -67,10 +79,21 @@ describe Place do
       skip('To be defined: Duplicate entries not valid')
     end
 
-    it 'Place with lat/lon does not need to be geocoded' do
-      place = build :place, :unreviewed, latitude: 60.0, longitude: 10.0
-      place.save
-      expect([place.latitude, place.longitude]).to eq([60.0, 10.0])
+    context 'Geocoding' do
+      it 'Place with lat/lon does not need to be geocoded' do
+        place = build :place, :unreviewed, latitude: 60.0, longitude: 10.0
+        place.save
+        expect([place.latitude, place.longitude]).to eq([60.0, 10.0])
+      end
+
+      it 'Geocoding allows access to district' do
+      end
+
+      it 'Geocoding allows access to city' do
+      end
+
+      it 'Geocoding allows access to state' do
+      end
     end
 
     it 'does not auto-translate if option is not set' do

@@ -50,7 +50,9 @@ Geocoder::Lookup::Test.set_default_stub(
         'road' => 'Magdalenenstr.',
         'house_number' => '19',
         'postcode' => '10365',
+        'suburb' => 'Berlin',
         'town' => 'Berlin',
+        'state' => 'Berlin'
       },
       'type' => 'house',
       'boundingbox' => [52.5, 52.3, 13.0, 12.5],

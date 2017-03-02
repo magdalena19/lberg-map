@@ -43,19 +43,21 @@ ActiveRecord::Migration.maintain_test_schema!
 Geocoder.configure(lookup: :test)
 Geocoder::Lookup::Test.set_default_stub(
   [
-    {
-      'latitude' => 52,
-      'longitude' => 12,
-      'address' => {
-        'road' => 'Magdalenenstr.',
-        'house_number' => '19',
-        'postcode' => '10365',
-        'suburb' => 'Berlin',
-        'town' => 'Berlin',
-        'state' => 'Berlin'
-      },
-      'type' => 'house',
-      'boundingbox' => [52.5, 52.3, 13.0, 12.5],
+    { data: 
+      { 'lat' => 52,
+        'lon' => 12,
+        'address' => {
+          'house_number' => '19',
+          'street' => 'Magdalenenstraße',
+          'postcode' => '10365',
+          'district' => 'Lichtenberg',
+          'town' => 'Berlin',
+          'state' => 'Berlin',
+          'country' => 'Germany'
+        },
+        'type' => 'house',
+        'boundingbox' => [52.5, 52.3, 13.0, 12.5],
+      }
     }
   ]
 )

@@ -44,6 +44,27 @@ feature 'Create place' do
     expect(page).to have_css('.wysihtml5-toolbar', count: 2)
   end
 
+  scenario 'Reverse geocodes if lat/lon is provided and populates value to form fields', js: true do
+    visit 'en/places/new?longitude=12&latitude=52'
+
+    expect(page.find('#place_street').value).to eq('Magdalenenstraße')
+    expect(page.find('#place_postal_code').value).to eq('10365')
+    expect(page.find('#place_city').value).to eq('Berlin')
+  end
+
+  scenario 'Commits hidden geofeatures district, federal state and country', js: true do
+    visit 'en/places/new?longitude=12&latitude=52'
+
+    fill_in('place_name', with: 'SomePlace')
+    validate_captcha
+    click_on('Create Place')
+    new_place = Place.find_by(name: 'SomePlace')
+
+    expect(new_place.district).to eq 'Lichtenberg'
+    expect(new_place.federal_state).to eq 'Berlin'
+    expect(new_place.country).to eq 'Germany'
+  end
+
   def create_place_as_guest(place_name)
     visit new_place_path
     fill_in_valid_place_information

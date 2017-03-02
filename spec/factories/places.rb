@@ -44,5 +44,14 @@ FactoryGirl.define do
       postal_code ''
       city ''
     end
+
+    trait :without_coordinates do
+      name 'ToBeGeocoded'
+      reviewed 'false'
+      latitude nil
+      longitude nil
+      description_en 'This is a point without any address'
+      categories '1,4,5'
+    end
   end
 end

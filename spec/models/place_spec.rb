@@ -86,13 +86,18 @@ describe Place do
         expect([place.latitude, place.longitude]).to eq([60.0, 10.0])
       end
 
-      it 'Geocoding allows access to district' do
+      it 'Places without lat/lon become geocoded' do
+        place = build :place, :without_coordinates
+        expect {
+          place.save
+        }.to change { place.latitude }.from(nil).to(52)
       end
 
-      it 'Geocoding allows access to city' do
-      end
-
-      it 'Geocoding allows access to state' do
+      it 'automatically fills empty geofeatures from geocoding lookup' do
+        place = build :place, :without_coordinates
+        expect {
+          place.save
+        }.to change { place.federal_state }.from(nil).to('Berlin')
       end
     end
 

@@ -16,6 +16,7 @@ describe PasswordResetController do
       expect {
         post :create_password_reset, password_reset: { email: 'norbert@example.com' }
       }.to change { user.reload.password_reset_digest }.from(nil).to be_a(String)
+      expect(flash[:success]).to match 'has been sent'
     end
 
     it 'sends password request email on password reset request for existing account' do
@@ -27,8 +28,8 @@ describe PasswordResetController do
 
     it 'does nothing if no account was found to reset password for' do
       post :create_password_reset, password_reset: { email: 'unknown@nowhere.com' }
-      expect(response).to redirect_to root_path
-      expect(flash[:danger]).not_to be_nil
+      expect(flash[:danger]).to eq 'Could not find an account with this email address!'
+      expect(response).to render_template 'password_reset/request_password_reset'
     end
   end
 
@@ -49,7 +50,7 @@ describe PasswordResetController do
 
       get :reset_password, id: user.id, token: 'Some invalid token'
       expect(response).to redirect_to root_url
-      expect(flash[:danger]).to eq('Link zum Passwort zurücksetzen ist ungültig!')
+      expect(flash[:danger]).to eq 'Password reset link invalid!'
     end
 
     it 'does not accept tokens older than 24hrs as valid' do
@@ -59,7 +60,36 @@ describe PasswordResetController do
 
       get :reset_password, id: user.id, token: user.password_reset_token
       expect(response).to redirect_to root_url
-      expect(flash[:danger]).to eq('Link zum Passwort zurücksetzen ist ungültig!')
+      expect(flash[:danger]).to eq 'Password reset link invalid!'
+    end
+  end
+
+  context 'PATCH #set_new_password' do
+    context 'passwords match' do
+      before do
+        @user = create :user
+        @user.create_digest_for(attribute: 'password_reset')
+        @user.save
+      end
+
+      it 'sets new passwords if inputs match' do
+        # patch :reset_password, 
+      end
+
+      it 'alerts success'
+      it 'redirects to root url' do
+
+      end
+
+    end
+
+    context 'new passwords do not match' do
+      it 'alerts that passwords do not match' do
+
+      end
+      it 'renders reset form' do
+
+      end
     end
   end
 end

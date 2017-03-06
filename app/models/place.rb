@@ -23,6 +23,13 @@ class Place < ActiveRecord::Base
   validates :email, email_format: true, if: 'email.present?'
   validates :phone, phone_number_format: true, if: 'phone.present?'
   validates :homepage, url_format: true, if: 'homepage.present?'
+  validate :end_date, :is_after_start_date?, if: 'event'
+
+  def is_after_start_date?
+    if end_date < start_date
+      errors.add(:expiration_date, I18n.t('.end_date_before_start_date'))
+    end
+  end
 
   ## TRANSLATION
   translates :description, versioning: { gem: :paper_trail, options: { on: [:update, :create], only: [:description] } }
@@ -36,6 +43,24 @@ class Place < ActiveRecord::Base
   before_update :geocode_with_nodes, if: :address_changed?
   after_create :enqueue_auto_translation
   after_create :set_description_reviewed_flags
+
+  ## EVENT STUFF
+  scope :all_events, -> { where(event: true) }
+  scope :ongoing_events, -> { all_events.where("end_date > ? AND start_date < ?", Date.today, Date.today) }
+  scope :future_events, -> { all_events.where("start_date > ?", Date.today) }
+  scope :past_events, -> { all_events.where("end_date < ?", Date.today) }
+
+  def past_event?
+    event && end_date < Date.today
+  end
+
+  def ongoing_event?
+    event && start_date < Date.today && end_date > Date.today
+  end
+
+  def future_event?
+    event && start_date > Date.today
+  end
 
   ## VIRTUAL ATTRIBUTES
   def address

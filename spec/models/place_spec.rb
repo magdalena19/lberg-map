@@ -62,10 +62,17 @@ describe Place do
     end
 
     it 'cannot end sooner than start-date' do
-      place = build :place, :reviewed
-      place.start_date = Date.today
-      place.end_date = Date.today - 1.days
-      expect(place).not_to be_valid
+      event = build :event
+      event.start_date = Date.today
+      event.end_date = Date.today - 1.days
+      expect(event).not_to be_valid
+    end
+
+    it 'event cannot end sooner than it started' do
+      event = build :event
+      event.start_date = Date.today
+      event.end_date = Date.today - 1.days
+      expect(event).not_to be_valid
     end
   end
 
@@ -120,30 +127,31 @@ describe Place do
 
   context 'can be an event' do
     it 'with start and end date' do
+      expect(Place.new).to respond_to(:event)
       expect(Place.new).to respond_to(:start_date)
       expect(Place.new).to respond_to(:end_date)
     end
 
     it 'scopes all event type places' do
-      create_list(:place, 3, :reviewed, start_date: Date.today - 1, end_date: Date.today + 1.days)
-      create_list(:place, 3, :reviewed, start_date: Date.today - 4, end_date: Date.today - 1.days)
-      create_list(:place, 3, :reviewed, start_date: Date.today + 4, end_date: Date.today + 19.days)
+      create_list(:event, 3, :future)
+      create_list(:event, 3, :past)
+      create_list(:event, 3, :ongoing)
 
       expect(Place.all_events.count).to be 9
     end
 
     it "scopes future events" do
-      create_list(:place, 3, :reviewed, start_date: Date.today + 4, end_date: Date.today + 19.days)
+      create_list(:event, 3, :future)
       expect(Place.future_events.count).to be 3
     end
 
     it "scopes past events" do
-      create_list(:place, 3, :reviewed, start_date: Date.today - 4, end_date: Date.today - 1.days)
+      create_list(:event, 3, :past)
       expect(Place.past_events.count).to be 3
     end
 
     it "scopes ongoing events" do
-      create_list(:place, 3, :reviewed, start_date: Date.today - 1, end_date: Date.today + 1.days)
+      create_list(:event, 3, :ongoing)
       expect(Place.ongoing_events.count).to be 3
     end
   end

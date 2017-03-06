@@ -53,5 +53,27 @@ FactoryGirl.define do
       description_en 'This is a point without any address'
       categories '1,4,5'
     end
+
+    factory :event do
+      event true
+
+      trait :past do
+        name 'PastEvent'
+        start_date { Date.today - 10 }
+        end_date { Date.today - 5 }
+      end
+
+      trait :ongoing do
+        name 'OngoingEvent'
+        start_date { Date.today - 10 }
+        end_date { Date.today + 5 }
+      end
+
+      trait :future do
+        name 'FutureEvent'
+        start_date { Date.today + 1 }
+        end_date { Date.today + 5 }
+      end
+    end
   end
 end

@@ -111,6 +111,13 @@ describe Place do
     end
   end
 
+  context 'can be an event' do
+    it 'can set start and end date' do
+      expect(Place.new).to respond_to(:start_date)
+      expect(Place.new).to respond_to(:end_date)
+    end
+  end
+
   context 'Auditing' do
     let(:place) { build :place, :unreviewed }
 

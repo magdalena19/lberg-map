@@ -17,13 +17,11 @@ feature 'Places map filter', js: true do
 
   scenario 'Place is shown when \'All\' was clicked' do
     page.find('.category-button', text: 'All').trigger('click')
-    sleep(0.1)
     expect(page.all('.leaflet-marker-icon').count).to be 1
   end
 
   scenario 'Place is shown when right category was clicked' do
     page.find('.category-button', text: 'Playground').trigger('click')
-    sleep(0.1)
     expect(page).to have_css('.leaflet-marker-icon div span', text: 2)
   end
 

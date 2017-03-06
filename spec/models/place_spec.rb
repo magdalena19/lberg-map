@@ -60,6 +60,13 @@ describe Place do
     it 'that country column exists' do
       expect(Place.new).to respond_to(:country)
     end
+
+    it 'cannot end sooner than start-date' do
+      place = build :place, :reviewed
+      place.start_date = Date.today
+      place.end_date = Date.today - 1.days
+      expect(place).not_to be_valid
+    end
   end
 
   context 'Callbacks' do

@@ -23,6 +23,13 @@ class Place < ActiveRecord::Base
   validates :email, email_format: true, if: 'email.present?'
   validates :phone, phone_number_format: true, if: 'phone.present?'
   validates :homepage, url_format: true, if: 'homepage.present?'
+  validate :end_date, :is_after_start_date?, if: 'end_date.present?'
+
+  def is_after_start_date?
+    if end_date < start_date
+      errors.add(:expiration_date, t('.end_date_before_start_date'))
+    end
+  end
 
   ## TRANSLATION
   translates :description, versioning: { gem: :paper_trail, options: { on: [:update, :create], only: [:description] } }

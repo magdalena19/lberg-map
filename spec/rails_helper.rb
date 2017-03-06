@@ -62,6 +62,10 @@ Geocoder::Lookup::Test.set_default_stub(
   ]
 )
 
+def stub_autotranslation
+  allow_any_instance_of(AutoTranslate).to receive(:receive_translation).and_return('stubbed autotranslation')
+end
+
 # CAPYBARA configuration
 Capybara.register_driver :poltergeist do |app|
     Capybara::Poltergeist::Driver.new(app, phantomjs_options: ['--ignore-ssl-errors=true'])
@@ -95,6 +99,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
+    stub_autotranslation
   end
 
   config.after(:each) do

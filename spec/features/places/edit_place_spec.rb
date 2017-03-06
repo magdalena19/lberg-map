@@ -1,8 +1,6 @@
 feature 'Edit place' do
   before do
     create :settings, :public
-    spawn_categories
-    create :settings
     @place = create :place, :reviewed
   end
 

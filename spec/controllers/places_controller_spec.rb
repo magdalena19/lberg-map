@@ -81,11 +81,11 @@ describe PlacesController do
     end
 
     it 'Enqueues auto_translation task after create' do
-      unreviewed_place = build :place, :unreviewed
+      unreviewed_place = build :place, :unreviewed, categories: 'cat1, cat2'
       Sidekiq::Testing.fake! do
         expect {
           post :create, place: extract_attributes(unreviewed_place)
-        }.to change { TranslationWorker.jobs.size }.by(1)
+        }.to change { TranslationWorker.jobs.size }.by(3)
       end
     end
 

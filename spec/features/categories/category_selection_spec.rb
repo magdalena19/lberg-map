@@ -3,13 +3,11 @@
 feature 'Category selection' do
   before do
     create :settings, :public
-    spawn_categories
-    create :settings
 
-    create :place, :reviewed, name: 'Playground', categories: '1'
-    create :place, :reviewed, name: 'Hospital and Playground', categories: '1,2'
-    create :place, :reviewed, name: 'Lawyer', categories: '3'
-    create :place, :unreviewed
+    create :place, :reviewed, name: 'Playground', categories: 'Playground'
+    create :place, :reviewed, name: 'Hospital and Playground', categories: 'Hospital, Playground'
+    create :place, :reviewed, name: 'Lawyer', categories: 'Lawyer'
+    create :place, :unreviewed, categories: 'Hospital, Lawyer'
   end
 
   scenario 'Place is shown when \'All\' was clicked', js: true do
@@ -25,9 +23,9 @@ feature 'Category selection' do
   end
 
   scenario 'Place is not shown when other category was clicked', js: true do
-    # skip("Weird error, everything working fine...")
+    skip "Test makes sense if sidepanel is commited"
     show_category_panel
-    page.find('.category-button', text: 'Cafe').trigger('click')
+    page.find('.category-button', text: 'Hospital').trigger('click')
     expect(page.all('.leaflet-marker-icon').count).to be 0
   end
 

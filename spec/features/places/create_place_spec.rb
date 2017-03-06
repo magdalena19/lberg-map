@@ -11,6 +11,7 @@ feature 'Create place' do
     visit places_path
 
     expect(page).to have_content('Any place', count: 1)
+    binding.pry
   end
 
   scenario 'create valid place as guest', js: true do
@@ -19,6 +20,19 @@ feature 'Create place' do
 
     expect(page).to have_content('Another place')
     expect(page).not_to have_css('.glyphicon-pencil')
+  end
+
+  scenario 'should create new categories if not existent already', js: true do
+    expect(Category.count).to eq 0
+    login_as_user
+    visit new_place_path
+    fill_in_valid_place_information
+    fill_in('place_categories', with: 'Hospital, Cafe')
+    click_button('Create Place')
+
+    expect(Category.count).to eq 2
+    binding.pry 
+    expect(Place.last.categories).to eq '1,2'
   end
 
   scenario 'see guests session places on map', js: true do
@@ -82,5 +96,6 @@ feature 'Create place' do
     fill_in('place_email', with: 'schnipp@schnapp.com')
     fill_in('place_homepage', with: 'http://schnapp.com')
     fill_in('place_phone', with: '03081763253')
+    fill_in('place_categories', with: 'Hospital, Cafe')
   end
 end

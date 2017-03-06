@@ -7,6 +7,7 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'pry'
+require 'auto_translation/auto_translate'
 
 def validate_captcha
   fill_in 'captcha', with: SimpleCaptcha::SimpleCaptchaData.first.value

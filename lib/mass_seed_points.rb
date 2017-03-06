@@ -36,7 +36,7 @@ module MassSeedPoints
 
   def self.bbox_from_cityname(cityname)
     result = Geocoder.search(cityname).first
-    result && result.boundingbox.map(&:to_f) || nil
+    result && result.data["boundingbox"].map(&:to_f) || nil
   end
 
   def self.random_point_inside_bbox(bbox)

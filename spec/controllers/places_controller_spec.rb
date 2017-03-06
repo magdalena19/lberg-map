@@ -61,17 +61,23 @@ describe PlacesController do
   end
 
   context 'POST #create' do
-    # TODO express as receive test
-    it 'Place with lat_lon provided does not need to be geocoded on create' do
-      post :create, place: { name: 'PlaceWithLatLong',
-                             latitude: 62.0,
-                             longitude: 10.0,
+    it 'accepts new geofeatures district, country and federal state' do
+      post :create, place: { name: 'SomePlace',
+                             street: 'SomeStreet',
+                             house_number: 12,
+                             postal_code: 10573,
+                             city: 'SomeCity',
+                             district: 'SomeDistrict',
+                             federal_state: 'SomeState',
+                             country: 'SomeCountry',
                              email: 'schnipp@schnapp.com',
                              homepage: 'http://schnapp.com',
                              phone: '03081618254',
                              description: 'This is a reviewed_place' }
-      new_place = Place.find_by(name: 'PlaceWithLatLong')
-      expect([new_place.latitude, new_place.longitude]).to eq([62.0, 10.0])
+      new_place = Place.find_by(name: 'SomePlace')
+      expect(new_place.district).to eq 'SomeDistrict'
+      expect(new_place.federal_state).to eq 'SomeState'
+      expect(new_place.country).to eq 'SomeCountry'
     end
 
     it 'Enqueues auto_translation task after create' do
@@ -92,15 +98,6 @@ describe PlacesController do
         expect {
           post :create, place: extract_attributes(unreviewed_place)
         }.to change { TranslationWorker.jobs.size }.by(0)
-      end
-    end
-
-    it 'Translations of reviewed place are also reviewed on create' do
-      login_as create(:user)
-      valid_new_place = post_valid_place
-
-      valid_new_place.translations.each do |translation|
-        expect(translation.reviewed).to be true
       end
     end
 
@@ -215,6 +212,14 @@ describe PlacesController do
         end
       end
 
+      it 'Translations of reviewed place are also reviewed on create' do
+        login_as create(:user)
+        valid_new_place = post_valid_place
+
+        valid_new_place.translations.each do |translation|
+          expect(translation.reviewed).to be true
+        end
+      end
     end
   end
 

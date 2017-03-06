@@ -28,4 +28,5 @@ Geocoder.configure(
   lookup: :nominatim,
   timeout: 5,
   units: :km,
+  use_https: true
 )

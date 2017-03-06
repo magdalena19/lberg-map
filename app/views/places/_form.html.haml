@@ -10,15 +10,15 @@
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:street)}"}
         .col-xs-8
-          = f.text_field :street, placeholder: Place.human_attribute_name('street'), class: 'form-control', value: @geocoded ? @geocoded['road'] : @place.street, disabled: @place.unreviewed_version
+          = f.text_field :street, placeholder: Place.human_attribute_name('street'), class: 'form-control', value: @geocoded ? @geocoded[:street] : @place.street, disabled: @place.unreviewed_version
         .col-xs-4
-          = f.text_field :house_number, placeholder: 'Nr.', class: 'form-control', value: @geocoded ? @geocoded['house_number'] : @place.house_number, disabled: @place.unreviewed_version
+          = f.text_field :house_number, placeholder: 'Nr.', class: 'form-control', value: @geocoded ? @geocoded[:house_number] : @place.house_number, disabled: @place.unreviewed_version
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:postal_code) || f.object.errors.include?(:city)}"}
         .col-xs-5
-          = f.text_field :postal_code, placeholder: Place.human_attribute_name('postal_code'), class: 'form-control', value: @geocoded ? @geocoded['postcode'] : @place.postal_code, disabled: @place.unreviewed_version
+          = f.text_field :postal_code, placeholder: Place.human_attribute_name('postal_code'), class: 'form-control', value: @geocoded ? @geocoded[:postal_code] : @place.postal_code, disabled: @place.unreviewed_version
         .col-xs-7
-          = f.text_field :city, placeholder: Place.human_attribute_name('city'), class: 'form-control', value: @geocoded ? @geocoded['village'] || @geocoded['town'] || @geocoded['state'] : @place.city, disabled: @place.unreviewed_version
+          = f.text_field :city, placeholder: Place.human_attribute_name('city'), class: 'form-control', value: @geocoded ? @geocoded[:city] : @place.city, disabled: @place.unreviewed_version
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:phone) || f.object.errors.include?(:email) || f.object.errors.include?(:homepage)}"}
         .col-sm-4
@@ -77,6 +77,10 @@
     .col-xs-6
       = f.hidden_field :latitude, value: params[:latitude]
       = f.hidden_field :longitude, value: params[:longitude]
+      - if @geocoded
+        = f.hidden_field :district, value: @place.district || @geocoded[:district]
+        = f.hidden_field :federal_state, value: @place.federal_state || @geocoded[:federal_state]
+        = f.hidden_field :country, value: @place.country || @geocoded[:country]
       = f.submit class: 'btn btn-primary btn-success place-form-button submit-place-button'
     .col-xs-6.col-md-2
       = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'

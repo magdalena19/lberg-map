@@ -101,13 +101,16 @@ class PlacesController < ApplicationController
   end
 
   def reverse_geocode
+    require 'place/geocoding'
     query = params[:latitude].to_s + ',' + params[:longitude].to_s
-    @geocoded = Geocoder.search(query).first.data['address']
+    results = OpenStruct.new Geocoder.search(query).first.data
+    @geocoded = PlaceGeocoding.prepare(search_results: results)
   end
 
   def place_params
     params.require(:place).permit(
-      :name, :street, :house_number, :postal_code, :city,
+      :name,
+      :house_number, :street, :postal_code, :district, :city, :federal_state, :country,
       :reviewed,
       :latitude, :longitude,
       *Place.globalize_attribute_names,

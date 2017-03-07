@@ -3,6 +3,7 @@
     .col-xs-12
       - if @place.unreviewed_version
         .red currently under review
+
     .col-md-6
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
         .col-xs-12
@@ -27,6 +28,21 @@
           = f.text_field :email, placeholder: Place.human_attribute_name('email'), class: 'form-control', disabled: @place.unreviewed_version
         .col-sm-4
           = f.text_field :homepage, placeholder: Place.human_attribute_name('Homepage'), class: 'form-control', disabled: @place.unreviewed_version
+
+    .col-md-6
+      .row{id: 'place_event_toggle'}
+        .col-xs-1
+          = f.check_box :event, disabled: @place.unreviewed_version
+        .col-xs-5
+          = f.label :event
+        .col-xs-1.place_end_date
+          = check_box_tag 'set_end_date'
+        .col-xs-5.place_end_date
+          = label_tag 'With end date'
+
+      %fieldset{class: "place_start_date form-group row #{'has-error' if f.object.errors.include?(:start_date)}"}
+        .col-xs-8
+          = f.text_field :start_date, class: 'form-control daterange', placeholder: 'asd'
   .row
     %hr
 

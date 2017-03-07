@@ -18,6 +18,10 @@ class Place < ActiveRecord::Base
   include Sanitization
   include CustomValidators
   include PlaceModelHelpers
+  
+  extend TimeSplitter::Accessors
+  split_accessor :start_date
+  split_accessor :end_date
 
   ## VALIDATIONS
   validates :name, presence: true
@@ -25,7 +29,7 @@ class Place < ActiveRecord::Base
   validates :email, email_format: true, if: 'email.present?'
   validates :phone, phone_number_format: true, if: 'phone.present?'
   validates :homepage, url_format: true, if: 'homepage.present?'
-  validate :end_date, :is_after_start_date?, if: 'event'
+  validate :end_date, :is_after_start_date?, if: 'start_date.present? && end_date.present?'
 
   def is_after_start_date?
     if end_date < start_date

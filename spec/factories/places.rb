@@ -17,6 +17,7 @@ FactoryGirl.define do
     email 'foo@bar.com'
     homepage 'https://bar.com'
     phone '03081618254'
+    event false
 
     after(:create) { |place| set_reviewed_on_translations(place) }
 
@@ -56,6 +57,8 @@ FactoryGirl.define do
 
     factory :event do
       event true
+      reviewed true
+      categories '1,4,5'
 
       trait :past do
         name 'PastEvent'

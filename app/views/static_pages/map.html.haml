@@ -6,31 +6,9 @@
     = button_tag('', type: 'button', class: 'btn btn-success glyphicon glyphicon-ok', id: 'confirmation-button-yes')
     = button_tag('', type: 'button', class: 'btn btn-danger glyphicon glyphicon-remove', id: 'confirmation-button-no')
 
-  .overlay.show-sidebar-container
-    .glyphicon.glyphicon-chevron-right.open-sidebar
-
-  .overlay.control-container.zoom-container
-    .glyphicon.glyphicon-plus.zoom-in
-    %br
-    .glyphicon.glyphicon-minus.zoom-out
-
-  .overlay.control-container.place-control-container
-    .glyphicon.add-place-button.slidepanel-button{slidepanel: 'add-place-slidepanel', title: t('.new_place')}
-      = image_tag('marker_button.png')
-
-  .overlay.control-container.category-container
-    .show-categories.slidepanel-button{slidepanel: 'category-slidepanel'}
-      .glyphicon.glyphicon-triangle-top
-      .show-categories-text.text-center
-
-  .overlay.loading
-    .loading-text
-      = t('.overlay_loading')
-
-  = render('static_pages/slidepanels/category_slidepanel')
-  = render('static_pages/slidepanels/place_slidepanel')
-  = render('static_pages/slidepanels/add_place_slidepanel')
-  = render('layouts/sidebar/sidebar')
+  = render 'map_overlays'
+  = render 'sidepanel'
+  = render 'static_pages/slidepanels/add_place_slidepanel'
 
 :javascript
   window.locale = '#{locale}';

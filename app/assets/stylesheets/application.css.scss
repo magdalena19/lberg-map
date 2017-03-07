@@ -171,6 +171,12 @@ noscript {
   }
 }
 
+.btn {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .btn-success {
   background: $green !important;
   border: none;
@@ -179,6 +185,18 @@ noscript {
 .btn-danger {
   background: $lilac !important;
   border: none;
+}
+
+.btn-dark {
+  color: $green !important;
+  background: rgba(black, 0.7) !important;
+  &:hover {
+    background: rgba(black, 0.6) !important;
+  };
+  &.active {
+    background: rgba(black, 0.55) !important;
+  }
+ height: 37px;
 }
 
 // Review table style
@@ -204,10 +222,10 @@ table.dataTable {
   }
   th:first-child::before { display: none !important; }
   td:first-child::before { display: none !important; }
-  tr.even > .sorting_1 { background: #EAFFF0 !important; }
-  tr.even { background: #EAFFF0 !important; }
-  tr.odd > .sorting_1 { background: #F6FFF9 !important; }
-  tr.odd { background: #F6FFF9 !important; }
+  tr.even > .sorting_1 { background: lighten($green, 30%) !important; }
+  tr.even { background: lighten($green, 30%) !important; }
+  tr.odd > .sorting_1 { background: lighten($green, 35%) !important; }
+  tr.odd { background: lighten($green, 35%) !important; }
 }
 
 // remove tooltip arrow gap in chromium

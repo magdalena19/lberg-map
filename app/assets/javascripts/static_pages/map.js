@@ -10,48 +10,38 @@ jQuery(function() {
 
     addEsriMap();
 
+    // still to be used!
     var autotranslatedPrefix = "<p><i>" + window.autotranslated_label + ": </i></p>";
     var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";
 
-    var placeSlidePanel = jQuery('.place-slidepanel')
     var onEachFeature = function(feature, layer) {
+      addToPlacesList(feature);
       var prop = feature.properties;
-      var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";
-      var homepageLink = prop.homepage.link(prop.homepage_full_domain);
-
       if (prop.reviewed === false) {
         layer.setIcon(session_icon);
       }
-
       layer.on('click', function(e) {
-        placeSlidePanel.find('.edit-place').attr('place_id', prop.id);
-        placeSlidePanel.find('.name').html(prop.name);
-
-        if (prop.reviewed) {
-          placeSlidePanel.find('.name').html(prop.name);
-          jQuery('.edit-place').show();
-        } else {
-          placeSlidePanel.find('.name').html(prop.name + waitingForReviewSuffix);
-          jQuery('.edit-place').hide();
-        }
-
-        if (prop.translation_auto_translated) {
-          placeSlidePanel.find('.place-description').html("<a href='places/" + prop.id + "/edit' class='btn btn-xs btn-danger'>" + window.autotranslated_label + "</a><br>" + prop.description);
-        } else {
-          placeSlidePanel.find('.place-description').html(prop.description);
-        }
-
-        placeSlidePanel.find('.place-address').html(prop.address);
-        placeSlidePanel.find('.place-email').html(prop.email);
-        placeSlidePanel.find('.place-homepage').html(homepageLink);
-        placeSlidePanel.find('.place-phone').html(prop.phone);
-        placeSlidePanel.trigger('open');
+        jQuery('.places-list-panel').fadeIn();
+        var accordionItemHeading = jQuery('#heading' + feature.id);
+        var headingLink = accordionItemHeading.find('a');
+        if (headingLink.hasClass('collapsed')) {
+          headingLink.click();
+          var list = jQuery('.places-list-accordion-container');
+          list.scrollTo(accordionItemHeading.parent(), {offset: -5});
+        };
       });
     };
 
-    jQuery('.edit-place').click(function() {
+    // do not use the simpler .click function due to dynamic creation
+    jQuery('body').on('click', '.edit-place', function() {
       var placeId = jQuery(this).attr('place_id');
       window.location.href = 'places/' + placeId + '/edit';
+    });
+
+    jQuery('body').on('click', 'a', function() {
+      var lat = jQuery(this).attr('lat');
+      var lon = jQuery(this).attr('lon');
+      map.setView([lat, lon], 14);
     });
 
     var icon =  L.icon({
@@ -65,6 +55,7 @@ jQuery(function() {
     });
 
     var updatePlaces = function(json) {
+      jQuery('.places-list-accordion').empty();
       if (typeof cluster !== 'undefined') {
         map.removeLayer(cluster);
       }
@@ -86,7 +77,40 @@ jQuery(function() {
     };
 
     // CATEGORY AND PLACE BUTTONS
-    var filter = function(json, categoryId) {
+    var wordPresent = function(word, feature) {
+      var match = false;
+      jQuery.each(feature.properties, function(attr, key) {
+        var string = feature.properties[attr].toString();
+        if ( string.toLowerCase().indexOf(word.toLowerCase()) >= 0 ) {
+          match = true;
+          return false; // return false to quit loop
+        };
+      });
+      return match;
+    };
+
+    var textFilter = function(json) {
+    var text = jQuery('#search-input').val();
+      if (!text) { return json };
+
+      var filteredJson = [];
+      var words = text.split(' ');
+      jQuery(json).each(function (id, feature) {
+        var matches = jQuery.map(words, function(word) {
+          return wordPresent(word, feature);
+        });
+        if ( !(matches.indexOf(false) > -1) ) {
+          filteredJson.push(feature);
+        };
+      });
+      return filteredJson;
+    };
+
+    var categoryFilter = function(json) {
+      var categoryId = jQuery('.category-button.active').attr('id');
+      if (categoryId == 'all') {
+        return json;
+      };
       var filteredJson = [];
       jQuery(json).each(function (id, feature) {
         if (jQuery.inArray(categoryId, feature.properties.categories) !== -1) {
@@ -101,15 +125,7 @@ jQuery(function() {
       jQuery('.category-panel').trigger('close');
       jQuery('.category-button').removeClass('active');
       jQuery(this).addClass('active');
-      var categoryId = jQuery(this).attr('id');
-      var category = jQuery(this).text();
-      if (jQuery(this).is('#all')) {
-        jQuery('.show-categories-text').html(window.choose_category);
-        updatePlaces(window.places, categoryId);
-      } else {
-        jQuery('.show-categories-text').html(category);
-        updatePlaces(filter(window.places, categoryId));
-      };
+      updatePlaces(textFilter(categoryFilter(window.places)));
     });
     jQuery('.category-button#all').click();
 
@@ -162,26 +178,6 @@ jQuery(function() {
       });
     });
 
-
-    // FRONTEND STUFF
-    var toggleTriangle = function(e) {
-      jQuery(e.target)
-      .prev('.panel-heading')
-      .find('.triangle')
-      .toggleClass('glyphicon-triangle-bottom glyphicon-triangle-top');
-    }
-    jQuery('#accordion')
-    .on('hidden.bs.collapse', toggleTriangle)
-    .on('shown.bs.collapse', toggleTriangle);
-
-    // ZOOM TO PLACE
-    jQuery('.zoom-to-place').click(function() {
-      jQuery('.category-button#all').click();
-      var lat = jQuery(this).attr('latitude');
-      var lon = jQuery(this).attr('longitude');
-      map.setView([lat, lon], 16);
-    });
-
     // external request
     setTimeout(function() {
       if (window.latitude > 0 && window.longitude > 0) {
@@ -194,9 +190,56 @@ jQuery(function() {
     jQuery(window).resize(function(){
       var navbarHeight = jQuery('.navbar').height();
       jQuery('.confirmation-button-container').css('top', navbarHeight + 3);
-      balanceSidebar();
       resizePanels();
+      var accordion = jQuery('.places-list-accordion-container');
+      var placesList = jQuery('.places-list-panel');
+      var categoryButtons = jQuery('.category-button-container');
+      var searchField = jQuery('.search-field');
+      accordion.height(placesList.height() - categoryButtons.outerHeight() - searchField.outerHeight() - 35);
+      placesList.show();
     }).resize();
+
+    // FILL PLACES LIST
+    var addToPlacesList = function(feature) {
+      var item = jQuery('.places-list-item.template').clone();
+      item.removeClass('template');
+      item.find('.panel-heading').attr('id', 'heading' + feature.id);
+      item.find('a')
+        .attr('href', '#collapse' + feature.id)
+        .attr('aria-controls', 'collapse' + feature.id)
+        .attr('lon', feature.geometry.coordinates[0])
+        .attr('lat', feature.geometry.coordinates[1])
+      item.find('.name').html(feature.properties.name);
+      item.find('.panel-collapse')
+        .attr('id', 'collapse' + feature.id)
+        .attr('aria-labelledby', 'heading' + feature.id);
+      item.find('.description').append(feature.properties.description);
+      var contact = item.find('.contact-container');
+      if(feature.properties.phone != '') {
+        contact.append("<div class='contact'><div class='glyphicon glyphicon-earphone'></div>" + feature.properties.phone + "</div>");
+      };
+      if(feature.properties.email != '') {
+        contact.append("<div class='contact'><div class='glyphicon glyphicon-envelope'></div>" + feature.properties.email + "</div>");
+      };
+      if(feature.properties.homepage != '') {
+        contact.append("<div class='contact'><div class='glyphicon glyphicon-home'></div>" + feature.properties.homepage + "</div>");
+      };
+      if(feature.properties.address != '') {
+        contact.append("<div class='contact'><div class='glyphicon glyphicon-record'></div>" + feature.properties.address + "</div>");
+      };
+      item.find('.category-names').append(feature.properties.category_names);
+      item.find('.edit-place').attr('place_id', feature.id);
+      jQuery('.places-list-accordion').append(item);
+    };
+
+    jQuery('body').on('click', '.show-map', function() {
+      jQuery('.places-list-panel').fadeOut();
+    });
+
+    // LIVE SEARCH
+    jQuery('#search-input').keyup(function(){
+      updatePlaces(textFilter(categoryFilter(window.places)));
+    });
 
     // POI LOADING
     hideMapElements();
@@ -210,8 +253,8 @@ jQuery(function() {
         window.places = result;
         updatePlaces(window.places);
         showMapElements();
-        balanceSidebar();
         jQuery('.loading').hide();
+        jQuery('places-list-panel').fadeIn();
       }
     });
   });

@@ -1,0 +1,13 @@
+.panel.panel-default.places-list-item.template
+  .panel-heading{:role => "tab"}
+    %h4.panel-title
+      %a.collapsed{"aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :role => "button"}
+        .name
+  .panel-collapse.collapse{:role => "tabpanel"}
+    .panel-body
+      .description
+      .contact-container
+      .category-names
+      .bottom-icons
+        .glyphicon.glyphicon-pencil.edit-place.pull-right
+        .glyphicon.glyphicon-search.show-map.pull-right

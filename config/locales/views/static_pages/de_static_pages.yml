@@ -31,3 +31,4 @@ de:
       correct_location?: 'Ist diese Position korrekt?'
       new_place: 'Neuen Ort hinzufügen'
       overlay_loading: 'Lade Karte und Punkte...'
+      search_placeholder: 'z.B. Zahnarzt Friedrichshain'

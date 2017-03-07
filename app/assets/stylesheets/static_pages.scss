@@ -71,54 +71,6 @@
   }
 }
 
-.show-sidebar-container {
-  cursor: pointer;
-  position: absolute;
-  left: -10px;
-  top: 50%;
-  .glyphicon {
-    margin: 4px;
-    padding: 15px;
-    border-radius: 7px;
-    background: rgba(darken($lilac, 15%),0.5);
-    font-size: 35px;
-  }
-}
-
-.category-container {
-  left: 50%;
-  width: 50%;
-  max-width: 250px;
-  min-width: 150px;
-  bottom: -10px;
-  .show-categories {
-    height: 52px;
-    border-radius: 7px;
-    background: rgba(darken($lilac, 15%),0.5);
-    padding: 0px 10px 0 10px;
-    position: relative;
-    left: -50%;
-    font-size: 22px;
-    font-weight:  bold;
-    .show-categories-text {
-      cursor: pointer;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      height: 100%;
-      padding-top: 6px;
-      vertical-align: middle;
-      font-weight: normal;
-      font-size: 20px;
-    }
-    .glyphicon {
-      cursor: pointer;
-      float: left;
-      padding: 10px 10px 0 0;
-    }
-  }
-}
-
 .confirmation-button-container {
   display: none;
   top: 60px;
@@ -130,6 +82,7 @@
 }
 
 .add-place-buttons {
+  font-size: 16px;
   cursor: pointer;
   width: 100%;
   margin-bottom: 10px !important;
@@ -139,30 +92,12 @@
   cursor: pointer;
 }
 
-.category-button-col {
-  padding: 0 3px !important;
-  .category-button {
-    width: 100%;
-    margin-top: 3px;
-    margin-bottom: 3px;
-  }
-}
-
 .show-places {
   color: #333333;
   &:hover {
     color: #333333;
     text-decoration: none;
   };
-}
-
-.show-all-points {
-  background: transparentize($green, 0.3);
-  color: rgba(black, 0.7) !important;
-  width: 100%;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  font-size: 16px !important;
 }
 
 .locale-selection-container {
@@ -188,20 +123,6 @@
   }
 }
 
-.btn-dark {
-  font-size: 16px !important;
-  color: $green;
-  background: rgba(black, 0.7) !important;
-  &:hover {
-    color: $green !important;
-    background: rgba(black, 0.6) !important;
-  };
-  &.active {
-    background: rgba(black, 0.55) !important;
-  }
-  height: 37px;
-}
-
 .leaflet-control-attribution {
   display: none;
 }
@@ -216,7 +137,6 @@
   border-radius: 7px;
   position: absolute;
   right: 10px;
-  z-index: 99999; // assure, that this is higher than sidebar index due to its opacity strategy
   .content {
     overflow-y: auto;
     margin-bottom: 15px;
@@ -230,50 +150,14 @@
   }
   .hide-slidepanel {
     cursor: pointer;
-    font-size: x-large;
-    padding-left: 20px;
+    font-size: 20px;
+    padding: 7px;
   }
 }
 
 #accordion {
   padding: none;
   margin-bottom: 0;
-}
-
-.place-slidepanel {
-  .place-slidepanel-header {
-    border-radius: 4px 4px 0 0;
-    font-size: large;
-    margin-top: 15px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    background: rgba(black, 0.7) !important;
-    color: $green;
-    .name {
-      float: left;
-    }
-    .edit-place {
-      padding-left: 15px;
-      opacity: 0.7;
-      cursor: pointer;
-    }
-  }
-  .place-slidepanel-body {
-    font-size: small;
-    padding: 20px;
-    background: rgba(white, 0.75);
-    border-radius: 0 0 4px 4px;
-  }
-  .place-slidepanel-contact {
-    margin-bottom: 10px;
-    .glyphicon {
-      color: $lilac;
-      margin-bottom: 10px;
-    }
-    .glyphicon:before {
-      margin-right: 7px;
-    }
-  }
 }
 
 // ABOUT Page

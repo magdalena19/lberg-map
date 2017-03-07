@@ -109,22 +109,19 @@ class Place < ActiveRecord::Base
     }
   end
 
-  def attribute_for_map(attribute)
-    !attribute.empty? ? attribute : I18n.t('places.not_set')
-  end
-
   def properties
     {
       id: id,
-      address: attribute_for_map(address),
-      phone: attribute_for_map(phone),
-      email: attribute_for_map(email),
+      address: address,
+      phone: phone,
+      email: email,
       name: name,
       homepage: self.homepage,
       homepage_full_domain: homepage,
       description: reviewed_description.html_safe,
       translation_auto_translated: translation_from_current_locale.auto_translated,
       translation_reviewed: translation_from_current_locale.reviewed,
+      category_names: category_names.join(' | '),
       categories: category_ids,
       reviewed: reviewed
     }

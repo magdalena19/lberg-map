@@ -101,6 +101,15 @@ describe PlacesController do
       end
     end
 
+    it 'creates category that is not there' do
+      Category.create name: 'OldCat'
+      new_place = create :place, :unreviewed, categories: 'NewCat'
+
+      post :create, place: extract_attributes(new_place)
+
+      expect(Category.all.map(&:name)).to include('NewCat')
+    end
+
 		context 'Place created by guest user' do
       before do
         logout

@@ -30,7 +30,7 @@ feature 'Create place' do
     click_button('Create Place')
 
     expect(Category.count).to eq 2
-    expect(Place.last.categories).to eq '1,2'
+    expect(Place.last.categories).to eq Category.first(2).map(&:id).join(',')
   end
 
   scenario 'see guests session places on map', js: true do

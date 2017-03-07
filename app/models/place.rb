@@ -1,3 +1,4 @@
+require 'place/categorizing'
 require 'place/geocoding'
 require 'place/place_auditing'
 require 'place/place_translations_auditing'
@@ -9,6 +10,7 @@ require 'sanitize'
 
 class Place < ActiveRecord::Base
   include AutoTranslate
+  include Categorizing
   include PlaceBackgroundTranslation
   include PlaceTranslationsAuditing
   include PlaceGeocoding
@@ -70,50 +72,6 @@ class Place < ActiveRecord::Base
 
   ## MODEL AUDITING
   has_paper_trail on: [:create, :update], ignore: [:reviewed, :description]
-
-  ## CATEGORIES
-  def category_for(id)
-    category_ids.include?(id.to_s)
-  end
-
-  def category_names
-    category_ids.map { |id| Category.find(id.to_s).name }
-  end
-
-  def category_ids
-    categories.split(',')
-  end
-
-  def categories
-    self[:categories].split(',').sort.join(',')
-  end
-
-  def place_categories
-    categories.split(/;|,/).map(&:strip)
-  end
-
-  def categories_include?(category_string:)
-    return [] unless Category.any?
-    Category.all.select do |category|
-      translated_names = category.translations.map(&:name)
-      translated_names.include? category_string
-    end
-  end
-
-  def set_categories
-    res = []
-    place_categories.each do |category|
-      matches = categories_include?(category_string: category)
-      if matches.any?
-        res << matches.map(&:id)
-      else
-        new_category = Category.create name: category
-        res << new_category.id
-      end
-    end
-
-    self.categories = res.join(',')
-  end
 
   ## SANITIZE
   def sanitize_descriptions

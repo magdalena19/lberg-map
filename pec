@@ -1,0 +1,4038 @@
+[33mcommit 298793ef8177ff66c3ff83513dac17edae38ae02[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Mar 7 14:13:16 2017 +0100
+
+    Move category stuff into separate module
+
+[33mcommit 29dae200e78a29c1d36075749020ed0897994677[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Mar 6 18:51:40 2017 +0100
+
+    Create new categories that do not exist on place create
+
+[33mcommit ae5539ef1f6c8ede97f28af6aa2e4291249d5aac[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Mar 6 17:43:17 2017 +0100
+
+    Autotranslates category names
+
+[33mcommit 68a762e369c2d9589cfe7c461d7b3b1688e076d0[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Mar 6 17:40:25 2017 +0100
+
+    Refactor auto translation (mocking now possible)
+
+[33mcommit b9a4a57aad8e9d850d26a4ae13bb55b999e7548e[m
+Merge: f78cc09 1de82c8
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Mar 6 14:47:25 2017 +0100
+
+    Merge pull request #291 from magdalena19/places_to_events
+    
+    Places to events
+
+[33mcommit 1de82c8ad01dcadf62511a95b2eb14ae161351fa[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Mar 6 14:20:18 2017 +0100
+
+    Make your life easier and force place event flag
+
+[33mcommit c47887329eb8b9f6b2e06603cfdb9b119e959d1e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Feb 27 16:56:47 2017 +0100
+
+    Scope methods for time-characterizing events (past, future, ...)
+
+[33mcommit 1bab1ade44914edbcd539240dfac5675e0cbc857[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Mar 6 14:14:46 2017 +0100
+
+    Validate end date
+
+[33mcommit 4fb7604ac451d4410d58b91bb3ce8a762c308b47[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Mar 6 14:12:23 2017 +0100
+
+    Add start date and end date to places
+
+[33mcommit f78cc0962d240c6c9bf1e20c9ff54b73cb126020[m
+Merge: dadbd29 8b3c90c
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Mar 6 13:19:27 2017 +0100
+
+    Merge pull request #294 from magdalena19/place_districts
+    
+    Further place geofeatures
+
+[33mcommit 8b3c90c597e0c10125518f06f952dc7cfa5d12f1[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Mar 2 13:30:37 2017 +0100
+
+    Automatically fill out missing geo features when geocoding
+
+[33mcommit 65bfd32d8f1962173445f82d02bc4abc20941ddf[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Mar 2 12:54:34 2017 +0100
+
+    Add district, federal state and country column to places
+
+[33mcommit a1987bc3ea22aaa6c2a3374ed577620b8beb98bd[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Mar 2 12:03:24 2017 +0100
+
+    Use https when requesting nominatim geocoords
+
+[33mcommit dadbd2914a497c1f793a3b4d050e2c0e30748293[m
+Merge: 121e3d6 8aeac8c
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Mar 3 11:22:45 2017 +0100
+
+    Merge pull request #292 from magdalena19/missing_translations
+    
+    Add missing translations
+
+[33mcommit 8aeac8c635330926b7e4bc3c138fbfb4ee645d42[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Mar 1 15:51:05 2017 +0100
+
+    Add translations and specs for password reset views
+
+[33mcommit 0cd2274e8738bb5cca3863074197d4750cae7e86[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Mar 1 14:23:01 2017 +0100
+
+    Add missing translations for password reset controller
+
+[33mcommit 121e3d609b2fb54830bde995ef44e05955d68321[m
+Merge: a7c971b 777e901
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Feb 24 14:24:02 2017 +0100
+
+    Merge pull request #285 from magdalena19/refactor_places_controller
+    
+    Refactor places controller
+
+[33mcommit 777e9018b41ea3cc9394330b80979db6b40ce33c[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Feb 22 15:20:10 2017 +0100
+
+    Factor out params modification into service object
+
+[33mcommit 0af2c0428506f0e73a99c9a3543eb47459cc06fb[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Feb 22 14:52:50 2017 +0100
+
+    Do not allow updates on unreviewed translations and place objects
+
+[33mcommit 8bcbc69fe02d748f1c9e99983c7921b81578a785[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Feb 22 11:01:34 2017 +0100
+
+    Refactor papertrail version creation rules
+
+[33mcommit 753e7116320cb7f1fc27c26d6d5fba395b492f1e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Feb 21 23:09:38 2017 +0100
+
+    Factor out reviewed flag setting into separate module
+
+[33mcommit a7c971bdcbc2aecd77aa606512bc821172d02133[m
+Merge: 9617a51 fa75b95
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Feb 24 14:05:47 2017 +0100
+
+    Merge pull request #284 from magdalena19/add_user_as_admin
+    
+    User management via admin dashboard
+
+[33mcommit fa75b95fff5c158b88faf03a02a99a33699a79ee[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Feb 24 13:57:56 2017 +0100
+
+    Modify tests
+
+[33mcommit 99bf27dac83bfeab04e0bd15b5f3bef440cc7d7f[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Feb 21 13:40:33 2017 +0100
+
+    Restrict access to user management
+
+[33mcommit 1f83cc0debaa691301f9dc9a1df3962bbd09041c[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Feb 21 08:49:10 2017 +0100
+
+    Setup some basic user management views
+
+[33mcommit c26ad6feae10c837233c56b691a64a9783d3c187[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Feb 24 13:36:57 2017 +0100
+
+    Add admin users controller
+
+[33mcommit 9617a51236fe3f1df54d17a9ac2ff015a9ae9e47[m
+Merge: f9da30a 2cd4a0f
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Feb 24 13:33:26 2017 +0100
+
+    Merge pull request #271 from magdalena19/rework_autotranslation
+    
+    Rework autotranslation
+
+[33mcommit 2cd4a0f78846fabe0e31c033b62dee44d60ddcc4[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Feb 20 14:46:43 2017 +0100
+
+    Refactor auto_translation service objects
+
+[33mcommit 3e5da1e83f4eb4bb01607f2737cd98c41897b280[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Feb 20 13:45:22 2017 +0100
+
+    Work on auto translation routine and add engine setting in admin settings
+
+[33mcommit 7c65b9781a0edb929c4ba413ea46cafbd3d36079[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Feb 16 17:04:02 2017 +0100
+
+    Add yandex and google translator wrappers
+
+[33mcommit bf95bda384d9a7054040902a5c12d298425f4d0d[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Feb 5 13:10:05 2017 +0100
+
+    Separate translation service and engine (e.g. bing)
+
+[33mcommit 435af519bf624c00de776ebf9709165d3bb8833f[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Feb 3 15:53:42 2017 +0100
+
+    Allow different translation engines via generalized service object
+
+[33mcommit f9da30a0d7c144c9453f13f5b8a4caa3f0089c33[m
+Merge: 847b108 c033f02
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Feb 24 12:45:18 2017 +0100
+
+    Merge pull request #286 from magdalena19/private_maps
+    
+    Allow private maps
+
+[33mcommit c033f025531c7cc19cc0e8c1b44d1d41bffa90d0[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Feb 22 17:11:45 2017 +0100
+
+    Cannot query places as guest user if map is private
+
+[33mcommit 54dd0a660e173aa68ddfaf4f65f1da5a9b4219a2[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Feb 22 16:53:48 2017 +0100
+
+    Redirect to login url if guest user and  map is private
+
+[33mcommit 847b108718ea4dd3131ba18db228251069563041[m
+Merge: 31d7bde 2a6aadb
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Thu Feb 16 15:18:32 2017 +0100
+
+    Merge pull request #282 from magdalena19/introduce_settings
+    
+    Admin dashboard with settings
+
+[33mcommit 2a6aadbde155ea0433a682b588a9ef07154bc095[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Feb 16 14:38:32 2017 +0100
+
+    Do some refactorings
+
+[33mcommit 4edf65fd23e829b717b2c25180e59845c44e2971[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Feb 13 17:58:41 2017 +0100
+
+    Setup basic configuration feature
+
+[33mcommit 43edd567762cc3b8a162c7dd3b3b94f0d4faa464[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Feb 13 14:05:51 2017 +0100
+
+    Introduce settings model
+
+[33mcommit 469b3d91aeb589cffecd48deb95697f1df1bef2c[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Feb 13 12:32:10 2017 +0100
+
+    Introduce namespaced dashboard controller
+
+[33mcommit 31d7bde180d099a57e1e34b82c78799d51731935[m
+Merge: 22d1521 06de894
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Tue Feb 14 11:59:06 2017 +0100
+
+    Merge pull request #281 from magdalena19/list-view-category-filter
+    
+    add category filter buttons in list view
+
+[33mcommit 06de894004a9cbe9d0cb04473179efd3481d47bd[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Feb 10 14:17:50 2017 +0100
+
+    add category filter buttons in list view
+
+[33mcommit 22d152162d890e27bc6f1a52604ec518770f118f[m
+Merge: 7398710 9269cf6
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Feb 10 13:53:24 2017 +0100
+
+    Merge pull request #276 from magdalena19/move_to_rspec
+    
+    Move to rspec
+
+[33mcommit 9269cf6b3de939bc2c28af3f53720c43cd791a2f[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Feb 10 12:51:12 2017 +0100
+
+    Test mass seed points
+
+[33mcommit 121fc2ec00021c16fb1efc544e4a912647246cfb[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Feb 10 12:41:03 2017 +0100
+
+    Add mailer test
+
+[33mcommit 473f9379f0bf19a914dcec74e2a6ab095bd2e3a4[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Feb 9 18:58:27 2017 +0100
+
+    Feature tests to RSpec
+
+[33mcommit 0540050b062048ff9ac332ec428f69f6fbdf09fb[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Feb 8 21:47:10 2017 +0100
+
+    Make test files to spec files
+
+[33mcommit 4ea850b2fcaca342bb2462fab8a773e6be7a4cdd[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Feb 8 20:29:02 2017 +0100
+
+    Model tests to RSpec
+
+[33mcommit 5fb1f7362486c13d04be53baa47078802e1de668[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Feb 8 20:52:37 2017 +0100
+
+    Einrückungen
+
+[33mcommit 7b0492c8e595857074e28a96ebdc35370df5dcac[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Feb 7 11:50:25 2017 +0100
+
+    Controller tests to RSpec
+
+[33mcommit 6877cefec58b39fd9322f9f5aa3796b9802e58e8[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Feb 7 11:21:35 2017 +0100
+
+    Setup rspec and try out first spec
+
+[33mcommit 73987104b6c45d8a7e88f4a5118be791105c7582[m
+Merge: 7dd427a 7910837
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Feb 10 12:37:18 2017 +0100
+
+    Merge pull request #280 from magdalena19/frontend-shizzle
+    
+    Frontend shizzle
+
+[33mcommit 7910837afaf4cf1959d0107c9f3dc949c29d0db9[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Feb 10 11:33:36 2017 +0100
+
+    navbar button structure
+
+[33mcommit 1bcf6963ed65e24a7ec7ac3c47586e25ef0df7f1[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Wed Feb 8 23:30:57 2017 +0100
+
+    bootstrip tooltips + slidepanel refining
+
+[33mcommit 7dd427a37df4bc6647c9bafb836b04320b6df692[m
+Merge: 2d14a1d 46df134
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Tue Feb 7 09:56:43 2017 +0100
+
+    Merge pull request #275 from magdalena19/test_coverage
+    
+    Add guest user tests
+
+[33mcommit 46df134bbecf78c78bae200de7537357bf5df1a2[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Feb 7 00:48:42 2017 +0100
+
+    Add guest user tests
+
+[33mcommit 2d14a1df30d51603a17ba1571861c0f1b1bcaa53[m
+Merge: f91d881 bc94720
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Feb 6 23:38:58 2017 +0100
+
+    Merge pull request #272 from magdalena19/reactive_localisation_feature
+    
+    Reactivate UI elements for location feature
+
+[33mcommit bc947208eddc9d44304a58c658554e43c066d615[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Feb 6 18:00:50 2017 +0100
+
+    Reactivate UI elements for location feature
+
+[33mcommit f91d8817ff7ba1261f4b16fde5c121413b2d074b[m
+Merge: f2c7b02 224b791
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Sun Feb 5 14:52:14 2017 +0100
+
+    Merge pull request #270 from magdalena19/rework_test_suite
+    
+    Remove sleep commands in feature tests
+
+[33mcommit 224b791424e3bb0a1097c74f80bfaff7678c5e2b[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sat Feb 4 18:22:46 2017 +0100
+
+    Use factories for places in all kinds of tests§
+
+[33mcommit 8b892a9b297d86e37b852495aaaa81ae809a8c7a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sat Feb 4 17:54:54 2017 +0100
+
+    Replace user fixture with factory
+
+[33mcommit 16c70083af7c47274c2c42c84c9b6cedf0563158[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sat Feb 4 16:59:50 2017 +0100
+
+    Add capybara slow test warning gem
+
+[33mcommit b0f02bbc4f46e231f50a99e9f3827e7cd836a8bd[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Feb 3 15:31:40 2017 +0100
+
+    Remove Translator API tests
+
+[33mcommit 4f5c4a1ac80d146db68b7e3cc9e9e532e23c0d4a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Feb 3 15:17:42 2017 +0100
+
+    Remove sleep commands in feature tests
+
+[33mcommit f2c7b022b4b15078d7373c2cb7c1bb80e01ce23d[m
+Merge: 319079c e0342d2
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Feb 3 15:01:41 2017 +0100
+
+    Merge pull request #265 from magdalena19/introduce_guest_user
+    
+    Rework user model and interface
+
+[33mcommit e0342d23ed7d3929b26e0ee96a216af6f5051ec8[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Feb 2 18:07:49 2017 +0100
+
+    Factor out signed in status query entirely into user object
+
+[33mcommit c283cb1d2a00debd202216625caa5d7ee57f218c[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Feb 3 14:55:08 2017 +0100
+
+    Introduce Guest user as Null object
+
+[33mcommit 319079cd0fd3f16950b00f2392a83e65e0c2e403[m
+Merge: 38a5edc 5542f4b
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Feb 3 14:52:47 2017 +0100
+
+    Merge pull request #267 from magdalena19/user_password_reset
+    
+    User password reset
+
+[33mcommit 5542f4bea42d49c1ab29a6bf7a2658e5963e47e7[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Feb 2 21:07:05 2017 +0100
+
+    Add password reset functionality to User model
+
+[33mcommit 38a5edcad78054de250e379f6c78d5ab66fb1624[m
+Merge: 297d127 d1a129b
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Feb 3 14:13:36 2017 +0100
+
+    Merge pull request #263 from magdalena19/refine_sidekiq_config
+    
+    Refine sidekiq config
+
+[33mcommit d1a129b411bcf8a51f691f91e60cf360b9f37550[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Feb 2 12:48:28 2017 +0100
+
+    Rename login method for feature tests
+
+[33mcommit 88f9d7b6283562b750257200358be670e15d1ecd[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Feb 2 12:14:34 2017 +0100
+
+    Include authentication protected sidekiq monitoring interface
+
+[33mcommit 297d1276ac51322818fc8977c16a9594bed3fcce[m
+Merge: 2333991 daa83ee
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Thu Feb 2 11:46:30 2017 +0100
+
+    Merge pull request #260 from magdalena19/refactor_controllers
+    
+    Further refactorings
+
+[33mcommit daa83ee7863053d70530c708d6a7e59a0e4fbbda[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Feb 2 11:24:56 2017 +0100
+
+    Place auditing: Rename methods, split up code, etc.
+
+[33mcommit c61ecac951c2323ff5b423870ba5dd192f609f25[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Jan 31 11:25:12 2017 +0100
+
+    Place translations: Move and refactor methods
+
+[33mcommit 8c14989c672e49ce0b6820490c4636636f83973a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Feb 2 11:23:27 2017 +0100
+
+    Extract place translation module
+
+[33mcommit 428da7ee358c71f0f553472e89e5b4f37a0c983a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 30 17:43:58 2017 +0100
+
+    Remove categorizing
+
+[33mcommit 5e6dd6a921726409a7d1e89eceb8a85d1c0684c0[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 30 17:06:21 2017 +0100
+
+    Review controller: Split up controller into three files with individual responsibilities
+
+[33mcommit e6cbb707b509ae6c55559c1ea48d49478a99d66f[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 30 12:54:26 2017 +0100
+
+    Reviewing: Make routing more meaningful
+
+[33mcommit adc14641504da9e86a90bf743e51331d469da06d[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 30 12:46:53 2017 +0100
+
+    Review controller: Extract some methods for handling translation review
+
+[33mcommit 27ffb30c31809110d67d98c60179130fd3759bb4[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 30 12:27:10 2017 +0100
+
+    Places controller: Rename method
+
+[33mcommit 5aaf0b6c03476eaa978550a256a297006105d3e3[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 30 12:24:13 2017 +0100
+
+    Places controller: Remove senseless before_action callback
+
+[33mcommit 23339914920407cf025a42ecd7d13dbfb692f2dd[m
+Merge: 67d90a0 9e9f63a
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Thu Feb 2 08:36:54 2017 +0100
+
+    Merge pull request #261 from magdalena19/place_model_validations
+    
+    Rework place model
+
+[33mcommit 9e9f63abb9a8a047f435c22be251ef878033c43c[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Feb 1 23:14:04 2017 +0100
+
+    Move place model related files to app/models
+
+[33mcommit 0edd30307c4a86341c386e8c2cae80d1c6e46110[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Jan 31 15:45:29 2017 +0100
+
+    Factor out code for securing place homepage links and fix bug here
+
+[33mcommit 0422c16372dee85a88dd500e7fd693bbe3177a83[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Jan 31 14:51:11 2017 +0100
+
+    Translate validation error messages
+
+[33mcommit 038f0ae95f1144292b1f9f4b56dc36b6826e849b[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Feb 1 23:01:20 2017 +0100
+
+    Factor out place model validations into custom validator file
+
+[33mcommit 67d90a0d81ede23e189d28ace1316a4fe63528c5[m
+Merge: 0cfdecb 085d89e
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Wed Feb 1 22:59:57 2017 +0100
+
+    Merge pull request #252 from magdalena19/rework_auto_translation
+    
+    Rework auto-translation method
+
+[33mcommit 085d89ed220fd5287fabd1da3b456f525b688420[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 30 12:05:33 2017 +0100
+
+    Remove description from place params
+
+[33mcommit da5a94bb3f3f7e841cb63fea68bc732d3e243361[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sat Jan 14 19:51:46 2017 +0100
+
+    Generalize translation module
+
+[33mcommit 0cfdecb0f68e0d4198c804e8ceaa7150e520ec3f[m
+Merge: 3b6deda 4bebdd4
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu Jan 26 14:24:41 2017 +0100
+
+    Merge pull request #253 from magdalena19/startup
+    
+    Startup
+
+[33mcommit 4bebdd49597f808ea970a4fbd822b342362c2c3f[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Mon Jan 16 23:15:16 2017 +0100
+
+    some code climate improvements
+
+[33mcommit 0e6a656c423f4ffd9b4c98c426d076cd4e91126d[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Mon Jan 16 22:31:12 2017 +0100
+
+    text for empty descriptions
+
+[33mcommit 75d8c8bb00d58fd4a1afc948e3749c6ff4012ac9[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sun Jan 15 20:00:50 2017 +0100
+
+    Update en_places.yml
+
+[33mcommit 0823cb6d1bc1d371e5d33ad958f9b04fb845d0e2[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sun Jan 15 19:39:54 2017 +0100
+
+    show div for other translations only if those are existent
+
+[33mcommit 031fd751bc4ae91933efe0bd81070cee92416b2b[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sun Jan 15 19:34:01 2017 +0100
+
+    text for not set contact attributes
+
+[33mcommit defb04ba5b626817b89ef2ad3ee8cc48d58e7b58[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sun Jan 15 17:18:56 2017 +0100
+
+    change initial locale selection
+
+[33mcommit a56377ca9140b9e6f1a3e5a34c148f666fe8e1b7[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sun Jan 15 15:26:25 2017 +0100
+
+    less overhead in asset pipeline
+
+[33mcommit 44c4397808c61c4a0e48e718e2940b8d47e093fc[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sun Jan 15 14:06:18 2017 +0100
+
+    remove overall point count
+
+[33mcommit 3b6dedac27b9cf8e0c08ef0f4bb502292c8954bd[m
+Merge: acaba1e 3198982
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Sat Jan 14 17:40:33 2017 +0100
+
+    Merge pull request #246 from magdalena19/background_processing
+    
+    Background processing of time consuming tasks
+
+[33mcommit 3198982fb9591e65f58d485b68cb8ac9cac68773[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sat Jan 14 17:06:54 2017 +0100
+
+    Process auto-translation in background
+
+[33mcommit 1d7984e83ae1d41b938051df979353fc52fc24aa[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 9 22:23:16 2017 +0100
+
+    Process email sending in background
+
+[33mcommit acaba1e695983b24c8b467f65cd1e57105bbdeeb[m
+Merge: 87c6401 b80f627
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Sat Jan 14 17:16:51 2017 +0100
+
+    Merge pull request #251 from magdalena19/poi_performance
+    
+    Poi performance
+
+[33mcommit b80f627f768d68651933616ec3d29c1d9c4e893f[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sat Jan 14 16:36:35 2017 +0100
+
+    filter categories in javascript without extra requests
+
+[33mcommit 14b03d61f68be1006d5606b4e3172a971443005d[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sat Jan 14 15:44:06 2017 +0100
+
+    remove category counts + remove session points from last-points-list
+
+[33mcommit 87c64012de62a73047cf7efbad7b839c05b4a016[m
+Merge: eab0c00 bee9eac
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Thu Jan 12 23:05:58 2017 +0100
+
+    Merge pull request #243 from magdalena19/more_cc_improv
+    
+    More code-style improvements
+
+[33mcommit bee9eac9ac5df4a038ebdb2f0d2dfd17f0ea741a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Jan 12 17:33:28 2017 +0100
+
+    Place controller: Beautify some minor style issues
+
+[33mcommit ae8af94b3064673b6bf23033e4c98b3a2e63d9db[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Jan 12 17:20:19 2017 +0100
+
+    DRY some controller code
+
+[33mcommit ac11661323083692276c8531943df1526b34e6ac[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 9 22:13:17 2017 +0100
+
+    fix mass_seed_points
+
+[33mcommit 1fe5ce19bb493c15d40536d9ad8feb85c66f6050[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 9 20:31:40 2017 +0100
+
+    Transfer place reviewing class methods into auditing module via nifty trick
+
+[33mcommit c3d8a057dc88b1644fc63a24ee7216ac8f8c698e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 9 15:36:26 2017 +0100
+
+    Move duplicate method def to application controller
+
+[33mcommit 8bb811b7eee15d8cb724495e62498fcd9923b1cc[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 9 15:04:34 2017 +0100
+
+    Put place auditing and reviewing methods into separate module
+
+[33mcommit 83c18389b714bae983198a2f1683d7e650800d42[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jan 9 14:47:03 2017 +0100
+
+    Improve place.rb
+
+[33mcommit eab0c00767e957e6e361ddd26121bc28e1ad24e7[m
+Merge: 5cb1122 677f12c
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Jan 9 10:45:23 2017 +0100
+
+    Merge pull request #240 from magdalena19/further_codeclimate_improvements
+    
+    Further codeclimate improvements
+
+[33mcommit 677f12c19ad56020cc330f8f9c1fa33ffbabe806[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 22:42:12 2017 +0100
+
+    Elim style issues: Rework poi repository seed file
+
+[33mcommit ff9a099ddd152545e553f742a0bea8558694853e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Jan 8 00:29:17 2017 +0100
+
+    Elim style issues: Rework random POI seeding module
+
+[33mcommit 340b75820cdef207966e05c7b5c898c1d01fa4ac[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 21:48:29 2017 +0100
+
+    Elim style issues: obey rubocop on rb files
+
+[33mcommit 94889af5ccd96507cc199c55bc2ee8c43d1c6938[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 21:16:34 2017 +0100
+
+    Cleanup Gemfile
+
+[33mcommit da9713bdc3c420c320913f648d89b8512cd25dd2[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 21:08:34 2017 +0100
+
+    Elim bug risks: Obey rubocop on rb files
+
+[33mcommit cb37e07a5e1b01883eff466c7f74d1b58f2f0a69[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 21:03:27 2017 +0100
+
+    Elim bug risks: Obey eslint on javascript style
+
+[33mcommit 6b3c5a6bafd7fcc0594fe1aa5ced90a632165a33[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 20:57:00 2017 +0100
+
+    Add codeclimate.yml
+
+[33mcommit 949d5129f4408122467d8d04631e5d3ed237a4e4[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 20:45:27 2017 +0100
+
+    Restructure routes file
+
+[33mcommit 5cb1122df5fd488391a8d354858ffe6fc859fd89[m
+Merge: c5b6fd8 1a62191
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Jan 6 19:02:01 2017 +0100
+
+    Merge pull request #239 from magdalena19/make_poi_homepage_links_secure
+    
+    Make poi homepage links secure
+
+[33mcommit 1a62191cbabac20070aef4756544f3f7d10f8a80[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 18:57:33 2017 +0100
+
+    Add encrypted codeclimate token to travis yml
+
+[33mcommit d3a4d5f6cba57ff927edafc8e5f186cefc867dbe[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 18:48:05 2017 +0100
+
+    Skip autotranslation tests
+
+[33mcommit 4ba96bf6fedaff4db973a1246a5cb5143a0db878[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 17:42:05 2017 +0100
+
+    Make homepage links secure on insert
+
+[33mcommit c5b6fd80a108d894283f2d03e7e7a0f5f5c84266[m
+Merge: 3d2bdef a2b9c3c
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Jan 6 17:28:31 2017 +0100
+
+    Merge pull request #237 from magdalena19/name
+    
+    set KiezKarte as working title for test phase
+
+[33mcommit a2b9c3cadeea763bbfb957ec08d03d1579eef042[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 17:22:42 2017 +0100
+
+    Adapt tests to new config file structure
+
+[33mcommit 59a05c47f2cdb00937475d41c9ca6ca44bb180dc[m
+Merge: 78cf34d 67e49ab
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 16:59:44 2017 +0100
+
+    Merge branch 'name' of github.com:magdalena19/lberg-map into name
+
+[33mcommit 67e49abc0e2a0534d0493baa9cef0632325b8887[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Jan 6 16:14:11 2017 +0100
+
+    set KiezKarte as working title for test phase
+
+[33mcommit 3d2bdeff9e4f8df4fbed5fc4dfe35837fcec61a7[m
+Merge: 71dff19 90db90f
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Jan 6 16:32:26 2017 +0100
+
+    Merge pull request #238 from magdalena19/category-buttons
+    
+    refine category button layout
+
+[33mcommit 90db90ff7e8da83259685c62771d790085440cbd[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Jan 6 16:23:33 2017 +0100
+
+    refine category button layout
+
+[33mcommit 71dff192adfc463a341470351d6162fcf4ab87cb[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Jan 6 15:43:37 2017 +0100
+
+    show toggle navbar button only on mobile
+
+[33mcommit 00b7e46725692dcfa69c4d57fb9dbf880e226514[m
+Merge: 065795b 7c4608e
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Jan 6 15:35:47 2017 +0100
+
+    Merge pull request #229 from magdalena19/wysiwig
+    
+    replace bootsy with basic wysihtml5
+
+[33mcommit 7c4608e84cc11d0b1077214c4ceb4f7446ef3481[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Jan 6 15:12:22 2017 +0100
+
+    fix login button mobile style
+
+[33mcommit 57c121e43616d97ca88fbc2f35b0b27315ae15f0[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Jan 6 15:09:05 2017 +0100
+
+    hide toggle button before language is selected
+
+[33mcommit 66efdd3bf4ba90bc674fb877ac7c26f73c2951f5[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Jan 5 20:24:12 2017 +0100
+
+    set wysihtml5 options
+
+[33mcommit 50369290a4ed3453935a718359f032185dc704ee[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Jan 5 19:41:48 2017 +0100
+
+    replace bootsy with basic wysihtml5
+
+[33mcommit 065795b56019ee1724f739495654c9946166c544[m
+Merge: 60fefbc c3127ee
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Jan 6 15:17:36 2017 +0100
+
+    Merge pull request #236 from magdalena19/beautifyOr
+    
+    beautify contact in slidepanel
+
+[33mcommit c3127eec1c912545ed890620db7da18890ed65e8[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Jan 6 14:36:03 2017 +0100
+
+    beautify contact in slidepanel
+
+[33mcommit 60fefbcc0f61910b02680f6b9af42bddaecefc3f[m
+Merge: db01a50 2cec3e2
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Jan 6 14:35:23 2017 +0100
+
+    Merge pull request #234 from magdalena19/fix_other_crits
+    
+    Fix other crits
+
+[33mcommit 78cf34d1c4863c036aea208333590909616a329e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 14:34:06 2017 +0100
+
+    Return https formatted URLs for place homepages
+
+[33mcommit 2cec3e20b2b59e86b64ccfcddcd8a4e6d9c3db2b[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 13:12:27 2017 +0100
+
+    Fix Unescaped model attributes in place review review and announcement show
+
+[33mcommit 5d3c68fdeb6b93caf3a03c971aeeabe5552cfefd[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 12:43:28 2017 +0100
+
+    Fix hardcoded POI id setup during poi repository seeding
+
+[33mcommit db01a50e00bae28e17aea38cdf66b169ffee7293[m
+Merge: 73d7cb7 c7c2be4
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Jan 6 12:09:44 2017 +0100
+
+    Merge pull request #231 from magdalena19/fix_critical_issues
+    
+    Fix critical issues
+
+[33mcommit c7c2be488b3ca973bdb24e084d4eefacec1d9269[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 11:46:15 2017 +0100
+
+    Sanitize announcement content
+
+[33mcommit 9bc6b57080fafcda48f88d1ad028c0d94d0df80d[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jan 6 11:14:42 2017 +0100
+
+    Satisfy brakeman with place postal code validation
+
+[33mcommit 73d7cb71e9ee31c1e79b1847aadf4b54a2724feb[m
+Merge: 18e2c6a d8e451b
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Thu Jan 5 12:55:02 2017 +0100
+
+    Merge pull request #228 from magdalena19/fix_master
+    
+    Fix master
+
+[33mcommit d8e451b2e87a59cb80e09934eb38d55d8d5b0c5e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Jan 4 22:12:16 2017 +0100
+
+    Modify travis.yml
+
+[33mcommit 18e2c6aa21644148880fe8744825984b85f7494a[m
+Merge: ef44786 0ca84d5
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Wed Jan 4 22:02:02 2017 +0100
+
+    Merge pull request #219 from magdalena19/auto_translation_tweaks
+    
+    Auto translation tweaks
+
+[33mcommit ef4478626aa6c3a9679ac89ad76d89ba4c629d0c[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Wed Jan 4 21:54:26 2017 +0100
+
+    make homepage in poi list clickable
+
+[33mcommit 0ca84d5fc726a1d69757f8760899601c80dc5689[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Jan 1 19:27:33 2017 +0100
+
+    Only auto-translate if place has empty descriptions
+
+[33mcommit 850957e2038e6ed25fce0d213a4f5c6f87fb77d5[m
+Merge: cb215fb c717958
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Wed Jan 4 16:42:24 2017 +0100
+
+    Merge pull request #226 from magdalena19/code_climate
+    
+    Codeclimate
+
+[33mcommit c7179586c54e623355e0f2ad358872e668b8b612[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Jan 4 16:15:44 2017 +0100
+
+    Add test coverage
+
+[33mcommit be42b670c109f763ae8f1df59156f1d2a0c7e90e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Jan 4 11:06:14 2017 +0100
+
+    Setup codeclimate
+
+[33mcommit cb215fbfa3f2bb8e55a4700c46b08b71adb71460[m
+Merge: ef0f93f b815ebd
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Wed Jan 4 11:14:03 2017 +0100
+
+    Merge pull request #225 from magdalena19/model_diagram
+    
+    Add place model and controller diagram
+
+[33mcommit b815ebd881de9368d5799568b5b7d79fb4b8ed57[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Jan 4 00:09:08 2017 +0100
+
+    Add place model and controller diagram
+
+[33mcommit ef0f93f889633111613d44ae97ab2a49eb5f98e1[m
+Merge: df4af6c cc84f2f
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sun Jan 1 17:50:35 2017 +0100
+
+    Merge pull request #218 from magdalena19/category-selection-style
+    
+    Category selection style
+
+[33mcommit cc84f2fd84cab597d25dfaca2aa2179465cd5385[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sat Dec 31 17:42:40 2016 +0100
+
+    'choose ctageory' on category button when all places selected
+
+[33mcommit 5c347882efa8bcb1e74a47a1b05bef75f1b9e692[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sat Dec 31 16:40:40 2016 +0100
+
+    add triangle again
+
+[33mcommit a9064151b9fa332f74e8609ea1be19ff6eec9e4b[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sat Dec 31 16:30:05 2016 +0100
+
+    shortcut long category names
+
+[33mcommit df4af6c73fd5c697b01e730a589f482e3687a12e[m
+Merge: 615acb7 45c4361
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Sat Dec 31 09:13:09 2016 +0100
+
+    Merge pull request #217 from magdalena19/production
+    
+    Production
+
+[33mcommit 45c4361e4c0311d705b18eba9bf24214a9d237db[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sat Dec 31 00:05:56 2016 +0100
+
+    Update rails and ruby (for travis)
+
+[33mcommit ebca3e3419c434b20ff7974fe54aee3470a37235[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Dec 30 23:54:43 2016 +0100
+
+    Updated gemfile
+
+[33mcommit 63e550771adffa3f2021bdebf0dd40bcb89fea1d[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Dec 30 23:12:26 2016 +0100
+
+    Refactor poi seeding code
+
+[33mcommit ff13b1ca7973e5abd275d1815b515b8ac7c16a32[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Dec 30 22:00:57 2016 +0100
+
+    Remove non-passing tests due to ssl issue in development
+
+[33mcommit 4f844812d000f186c376be59b682e0e51fb2d558[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Dec 30 15:44:28 2016 +0100
+
+    add comment
+
+[33mcommit 3a667315538f8f62763e767c4cf808add8732566[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Dec 30 15:42:43 2016 +0100
+
+    category places count
+
+[33mcommit fb154af2e865decaf8f64f5e1a3f4f1a2e811d9d[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Dec 30 15:17:38 2016 +0100
+
+    improve test for category selection
+
+[33mcommit cc8a888a7b4024c6fce86b028722e8f0d1cca2e4[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Dec 30 02:56:45 2016 +0100
+
+    Fix point count in categories bug
+
+[33mcommit 64937c4fb592c837d55159dec3e5b7de1acf604e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Dec 30 23:52:10 2016 +0100
+
+    Finish seeding of real world data
+
+[33mcommit 318a02d90c9f4e3e4c48db92346b26983e4194bb[m
+Author: p.kitt@d00m.org <p.kitt@d00m.org>
+Date:   Fri Dec 30 01:25:28 2016 +0100
+
+    added csv import functionality
+
+[33mcommit 1fa8502eafa6d6e242901bc503ca035ff69a9ec1[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Dec 7 15:26:30 2016 +0100
+
+    fix major production bug for contact form
+
+[33mcommit 9ad73157bf68581c81ee120fb962d24a07c86a31[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Dec 2 17:14:53 2016 +0100
+
+    Scope contact form routes to https
+
+[33mcommit 627ef39256ff8af83a97342442e75cee7695f454[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Dec 30 23:51:19 2016 +0100
+
+    Fix production environment
+
+[33mcommit 81b38464eb5b52a71bfd960587b16c7147c92b41[m
+Author: root <prototyp@d00m.org>
+Date:   Sun Dec 25 15:01:24 2016 +0100
+
+     added postgresql loggin; closed ports to open world;
+
+[33mcommit fb1f5962ed43ea1c57238d564f44895a804afa9e[m
+Author: pr0totyp <p.kitt@d00m.org>
+Date:   Fri Dec 2 17:38:02 2016 +0100
+
+    changed gitignore
+
+[33mcommit 3cd043bf96c4370bb8a0f625687f218dc89046f9[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Dec 30 23:49:58 2016 +0100
+
+    fixed mail issue; wip
+
+[33mcommit 15ec92685c92a7fe932af9dccd827ff841ae86e9[m
+Merge: 947299c 615acb7
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Dec 30 18:42:17 2016 +0100
+
+    Merge branch 'master' of github.com:magdalena19/lberg-map
+
+[33mcommit 615acb70bb625b3444859c2ebb69824d3a2c296b[m
+Merge: b9dfb3a 1cde1f6
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Dec 30 15:56:02 2016 +0100
+
+    Merge pull request #216 from magdalena19/hide-slidepanel-when-map-is-clicked
+    
+    hide slidepanels when map is clicked
+
+[33mcommit 1cde1f6120a4d1765e019b67b095d2d254150a52[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Fri Dec 30 01:33:38 2016 +0100
+
+    hide slidepanels when map is clicked
+
+[33mcommit b9dfb3a1bc192340d14e5d24db3a34d9f2c27e5d[m
+Merge: 1a05745 c2fcb69
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Dec 30 00:05:10 2016 +0100
+
+    Merge pull request #215 from magdalena19/last-points
+    
+    fix little layout problem in last-points list
+
+[33mcommit c2fcb69d4d94258724ba77c2398a89bb73a73e46[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Dec 29 23:04:38 2016 +0100
+
+    tooltips for navbar links
+
+[33mcommit 48d11304b36460e21387ec44af4058f0cd55e8bd[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Dec 29 22:06:47 2016 +0100
+
+    fix little layout problem in last-points list
+
+[33mcommit 947299ca32d6662da8eb5b9253c0421fef985b7c[m
+Merge: 73023dd 1a05745
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Dec 2 15:58:14 2016 +0100
+
+    Merge branch 'master' of github.com:magdalena19/lberg-map
+
+[33mcommit 1a057456a29f7c992f96f83ec7613162f615011a[m
+Author: lpkb <lpkb@lpkb.de>
+Date:   Fri Dec 2 14:23:47 2016 +0100
+
+    changed mail conf
+
+[33mcommit 20aa3515833aa3873d91cf572cb6835186c18fb8[m
+Merge: d9522f6 a04123f
+Author: lpkb <lpkb@lpkb.de>
+Date:   Tue Nov 29 23:25:13 2016 +0100
+
+    Merge branch 'master' of git://github.com/magdalena19/lberg-map
+
+[33mcommit d9522f6c28669af2672a226cf5033a54709a04e6[m
+Author: lpkb <lpkb@lpkb.de>
+Date:   Tue Nov 29 23:22:54 2016 +0100
+
+    gitignore
+
+[33mcommit d2bbd0494225b1fa6d8fdcc7ada3d8f424009d24[m
+Author: lpkb <lpkb@lpkb.de>
+Date:   Tue Nov 29 23:22:09 2016 +0100
+
+    changed delpoyment conf; new log and db folder
+
+[33mcommit 11ece88804253a3b917bd6fe5ee7a04dd4d0effb[m
+Author: lpkb <lpkb@lpkb.de>
+Date:   Tue Nov 29 23:15:27 2016 +0100
+
+    deactivated ssl for rails; removed buggy default_url_options; try mail fix
+
+[33mcommit 284ec7715f607d43d5f0d14f592abafa7a25c7b2[m
+Author: lpkb <lpkb@lpkb.de>
+Date:   Tue Nov 29 23:13:09 2016 +0100
+
+    added ghostscript to lberg container for captcha rendering
+
+[33mcommit a04123f1349f39ce195d6434b5a644d03202985e[m
+Merge: 9c6e446 cf66049
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Nov 25 19:52:56 2016 +0100
+
+    Merge pull request #211 from magdalena19/production_setup
+    
+    Production setup
+
+[33mcommit cf66049023d8d0293b2e0d6fe02f243d7fe6c857[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Nov 25 19:48:58 2016 +0100
+
+    Set SSL enforcement false
+
+[33mcommit 73023dd606aebb29d723cdc40684dc9aef7c0edc[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Nov 25 19:47:32 2016 +0100
+
+    Some changes to secrets.yml
+
+[33mcommit e4c985e1cf7b85a20bdb91351abb90f3ce66b0a2[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Nov 21 18:04:57 2016 +0100
+
+    fix production rb typos and AppConfig problem
+
+[33mcommit 6703ba6d79dca8cff4c25d53b756349fe5e0eed2[m
+Merge: eaddc0e 9c6e446
+Author: lpkb <lpkb@lpkb.de>
+Date:   Sun Nov 20 20:52:33 2016 +0000
+
+    Merge branch 'master' of git://github.com/magdalena19/lberg-map
+
+[33mcommit eaddc0e4f695243124c559824c2326203c064459[m
+Author: lpkb <lpkb@lpkb.de>
+Date:   Sun Nov 20 20:52:29 2016 +0000
+
+    changed apram for sending captcha pics and added manual
+
+[33mcommit 32e777edca67181291b31635fc1eb22ae29b5575[m
+Author: lpkb <lpkb@lpkb.de>
+Date:   Sun Nov 20 20:51:04 2016 +0000
+
+    changed persmissions dor files
+
+[33mcommit 9c6e446aead1e8258b4e6d911c3a2a57f4a85819[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sat Nov 19 10:53:23 2016 +0100
+
+    change initial  map view to berlin center
+
+[33mcommit 5347f1bff68fe840ef26f2033357ae1faff283e0[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sat Nov 19 10:43:27 2016 +0100
+
+    make all text selectable in datatables
+
+[33mcommit 2e52bbcdb324902083e53ae4030588a11abd4523[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Sat Nov 19 10:29:14 2016 +0100
+
+    make dropdown toggle green again (-.-)
+
+[33mcommit 9c166c4e8cc806c34394d165fa1433131b446830[m
+Merge: 0f28fcf 8dbb534
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sat Nov 19 10:18:44 2016 +0100
+
+    Merge pull request #208 from magdalena19/layout
+    
+    Layout finetunings
+
+[33mcommit 0f28fcfd669245c9d05601aa0bf9e8121d037fb7[m
+Merge: 0e4341e 6831d62
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Nov 18 13:24:04 2016 +0100
+
+    Merge pull request #207 from magdalena19/production_setup
+    
+    Production setup
+
+[33mcommit 8dbb534aea5489ce39c3b3882960f2b4d8eb72ef[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Nov 18 10:52:40 2016 +0100
+
+    Remove hovering effect in about section and darken greyish font
+
+[33mcommit 6831d62222b6dbee753872e71ecff3a0a14afddf[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Nov 17 23:47:23 2016 +0100
+
+    Force ssl and use secure cookies
+
+[33mcommit 19187e2e290bc9ab32ba1b3de86f59ae0efd2337[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Nov 18 10:51:03 2016 +0100
+
+    Set host to make url helpers work
+
+[33mcommit 834d3c91681391e195c2ec4f95eb2bac4e13b72b[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Nov 17 23:30:28 2016 +0100
+
+    Use X-Accel-Redirect for sending files (important for simple_captcha
+
+[33mcommit 0e4341e62dcaea790705a5e0c0f05e65fc1dec9d[m
+Merge: c0fa192 3f7eb04
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Nov 18 10:47:46 2016 +0100
+
+    Merge pull request #202 from magdalena19/setup_contact_form
+    
+    Setup contact form
+
+[33mcommit 3f7eb040c0a84032ddaf405ff050145eabb8e6ea[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Nov 18 10:26:05 2016 +0100
+
+    Reindent some files that vim crapped up
+
+[33mcommit c7babe45a8510939056b4f8ed08f2f63338a1205[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Nov 15 23:26:53 2016 +0100
+
+    Introduce global config variable and remove all ENV-style references
+
+[33mcommit 1bafdf902ec08919a08fc64783580d03c7fed81b[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Nov 15 19:08:09 2016 +0100
+
+    Make relay credentials available for travis CI!
+
+[33mcommit 58450f3bd2c675ff5657fb2357eacc4d4ab65c6a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Nov 15 20:34:58 2016 +0100
+
+    Align label and send copy to sender checkbox
+
+[33mcommit 9d733d61ad1f84f65a80d59898cc25a757da480e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Nov 15 19:56:07 2016 +0100
+
+    Hide send copy to sender address if no mail address supplied
+
+[33mcommit b135379f71a7ddc36f971d69dfa49abb90ff2cf8[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Nov 15 12:29:47 2016 +0100
+
+    Rework tests and translations for contact form and message  controller
+
+[33mcommit 414be7763860292b2f59b986232376513a256918[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Nov 15 10:39:40 2016 +0100
+
+    Refine flash messages and add translations
+
+[33mcommit a1be18dfd6936f547c8209d99a640e6171dbc228[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Nov 15 10:25:17 2016 +0100
+
+    Make production environment mailing ready (temp)
+
+[33mcommit 710be740aa70d40eecac8ab2d4c99a4f66375458[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Nov 15 10:18:43 2016 +0100
+
+    Remove controller caching for dev env
+
+[33mcommit 7ee117dbab826a514ec2007d870537fab9ec839f[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Nov 15 00:16:59 2016 +0100
+
+    Refine message validations
+
+[33mcommit 1bda11c01c49b708b052599fea2f9496aeaaf4d7[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Nov 14 22:41:17 2016 +0100
+
+    Fix bugs
+
+[33mcommit 3502d8e97a834d6fd7bb6d0901736926b826cee0[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Nov 10 15:16:28 2016 +0100
+
+    Setup mail delivery for contact form with simple layout
+
+[33mcommit 11e712179ba823cdf24cf89df6077439dc877e13[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Nov 14 20:14:48 2016 +0100
+
+    Setup Messaging
+
+[33mcommit 4062a88129efd2c04f08f3332ba9d7474a389e99[m
+Merge: f4ec3dd c0fa192
+Author: lpkb <lpkb@lpkb.de>
+Date:   Wed Nov 16 17:42:11 2016 +0000
+
+    Merge branch 'master' of git://github.com/magdalena19/lberg-map
+
+[33mcommit c0fa1927ba6731f40d97b862eb4c9a7c64e0b91f[m
+Merge: 5a795c2 d74b546
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Wed Nov 16 17:38:38 2016 +0100
+
+    Merge pull request #204 from magdalena19/performance_tweeks
+    
+    Produce less memory overhead while counting points in categories
+
+[33mcommit d74b546256cd997fa25c2d82c9b454071b0a8428[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Nov 15 21:51:02 2016 +0100
+
+    Produce less memory overhead while counting points in categories
+
+[33mcommit 5a795c2981afb30e64a4ce88255de0d180013823[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Wed Nov 16 14:56:16 2016 +0100
+
+    add globe navbar button
+
+[33mcommit f1da4270e7598e7ae6b78211760db701fba3255f[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Wed Nov 16 14:45:39 2016 +0100
+
+    make whole chronicle div linked to respective view
+
+[33mcommit 024ad2dec18e33737de4cb90b007d6f2e672498d[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Wed Nov 16 14:41:19 2016 +0100
+
+    highlight poi names in lists
+
+[33mcommit 7a7ae990cb4b28bd05c128b06464c95f6af1527f[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Wed Nov 16 14:34:53 2016 +0100
+
+    show all category's points when zooming to recent added poi
+
+[33mcommit 800cd05ae25e7f91da0e35ad7f7afa36052b5457[m
+Merge: 791a144 ff318f1
+Author: magdalena19 <jo5cha@web.de>
+Date:   Wed Nov 16 12:40:30 2016 +0100
+
+    Merge pull request #201 from magdalena19/bugfix
+    
+    repair translation review system
+
+[33mcommit 791a1448983250a994dad6cebb9548d19aae196c[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Tue Nov 15 00:48:36 2016 +0100
+
+    repair session cookie
+
+[33mcommit 9b541d3127e4254951935a5e4f1f717c2b8f5e64[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Tue Nov 15 00:33:07 2016 +0100
+
+    test for session cookie
+
+[33mcommit 7bd7881490009e5dd5f6ebcecff2e0bddbf1ad04[m
+Merge: cbebc9d e34d157
+Author: magdalena19 <jo5cha@web.de>
+Date:   Mon Nov 14 23:56:23 2016 +0100
+
+    Merge pull request #200 from magdalena19/javascript
+    
+    repair zoom-to-place feature
+
+[33mcommit ff318f1b59fbef9674dc3081f8ea6e92493d6911[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Mon Nov 14 23:54:13 2016 +0100
+
+    repair translation review system
+
+[33mcommit f4ec3dd7f008bdf2b136c847b464dda5dd873a3f[m
+Merge: b2097e4 cbebc9d
+Author: lpkb <lpkb@lpkb.de>
+Date:   Mon Nov 14 22:14:37 2016 +0000
+
+    merged
+
+[33mcommit b2097e43f0dd863eb813e984c5f88234952a7679[m
+Author: lpkb <lpkb@lpkb.de>
+Date:   Mon Nov 14 22:11:02 2016 +0000
+
+    persmissions again and new files
+
+[33mcommit cbebc9de8d2f93ddbfc066254de2d6727155a110[m
+Merge: f22129b c30097c
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Nov 14 22:49:11 2016 +0100
+
+    Merge pull request #198 from magdalena19/review_bugfix
+    
+    Review bugfix
+
+[33mcommit e34d1572ff095dc89ef046b5607338dc3671d867[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Mon Nov 14 16:34:39 2016 +0100
+
+    repair zoom-to-place feature
+
+[33mcommit c30097ca4b03a1d30164b57c65e3fb5b216587ac[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Mon Nov 14 15:47:30 2016 +0100
+
+    Do not create new version when nothing is changed in form
+
+[33mcommit b1673a1228a315e4f9598659061168215090fdab[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Mon Nov 14 15:07:56 2016 +0100
+
+    remove comments
+
+[33mcommit 3fdfb507123f5233d16f2609c7ab72a5a94be378[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Mon Nov 14 11:31:26 2016 +0100
+
+    Do not show guest edits in other user\'s place list
+    
+    Do not show guest edits in other user\'s place list
+
+[33mcommit f22129b6130a8e58473624b753aecd49c12cca2c[m
+Merge: d2f0587 64acd80
+Author: magdalena19 <jo5cha@web.de>
+Date:   Mon Nov 14 11:29:32 2016 +0100
+
+    Merge pull request #196 from magdalena19/booootsy
+    
+    add bootsy
+
+[33mcommit 64acd801daa7e904d0bc4063ea538a7784011167[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Nov 13 18:43:01 2016 +0100
+
+    style
+
+[33mcommit 97138a1b829f8b0444112f8fa8c3d84cd3015dca[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Nov 11 13:35:43 2016 +0100
+
+    add bootsy
+    
+    expansion feature
+    
+    use disabled text area for descriptions under review
+    
+    beautify form
+    
+    test
+    
+    define max zoom to fullfill travis' strange requirement
+
+[33mcommit d2f0587f7a81c1185260806f96c3f33ef6883d05[m
+Author: p.kitt@d00m.org <p.kitt@d00m.org>
+Date:   Sat Nov 12 11:24:08 2016 +0100
+
+    added conf files for docker, supervisord
+
+[33mcommit 32f8858fc73eea4e2d834f0b37649cd755e415d6[m
+Merge: 67afa8e acd6d95
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Nov 11 12:43:33 2016 +0100
+
+    Merge pull request #193 from magdalena19/layout
+    
+    Layout
+
+[33mcommit acd6d9532a8a1bf9b205c2135540f942624dd932[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Nov 4 16:14:42 2016 +0100
+
+    fix dropdown style in collapsed  navbar
+
+[33mcommit 3dc9bd4a64cca56272161a54e3ba25a73c9f7c78[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Oct 28 15:01:11 2016 +0200
+
+    change navbar button order
+    
+    render html in places list
+    
+    remove navbar button text
+    
+    refine review view
+    
+    remove cancel-button + default container padding
+    
+    beautify review views
+    
+    remove cancel-button code!
+    
+    diff button color
+
+[33mcommit 67afa8efab93f1e2ab4269168d8f5ced86f38838[m
+Merge: 77c360a a64793f
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Sun Oct 23 13:13:11 2016 +0200
+
+    Merge pull request #192 from magdalena19/increase_test_coverage_reloaded
+    
+    Increase test coverage reloaded
+
+[33mcommit a64793f0a0270f4d1d63587ec1396b59cdd2b4cc[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Oct 20 13:45:05 2016 +0200
+
+    Make reviewed_description method place model more generic
+
+[33mcommit d5de6b2bdd33448fd11b90e701267b48df3dacce[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Oct 19 19:30:18 2016 +0200
+
+    Reorder places controller methods
+
+[33mcommit dcfa587e693e1c3c404b566b12d2e1ba742707ee[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Oct 19 19:25:52 2016 +0200
+
+    Nicen up some controller and place methods
+
+[33mcommit 5a77a9b8934794250bbe4e6d90a74402964dd250[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Oct 20 10:28:02 2016 +0200
+
+    FIX: Do not show non-reviewed edits within other users session
+
+[33mcommit be5f35ab0451090f60b90d20c9b91528e01f252a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Oct 17 19:22:58 2016 +0200
+
+    Build factory with correct translation attributes and tell tests to use it rather than inline instanciation of new classes
+
+[33mcommit 90c6c54b5c0edb7d030089b3c2e3eec935abb861[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Oct 17 18:28:16 2016 +0200
+
+    Enable factories via factory girl gem
+
+[33mcommit 2d396fe599ee963888f51cf98be998cb9b73d8f6[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Oct 17 16:28:52 2016 +0200
+
+    Rewrite some place model and controller code to make tests pass
+
+[33mcommit cb42e563941e12fcb648cb0c75ec4b3c72ffb401[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Oct 17 15:48:55 2016 +0200
+
+    Increase test coverage for place controller
+
+[33mcommit 77c360a98601d646c2f3f9505a7f9f883f11c318[m
+Merge: a0a1027 f1ee354
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue Oct 18 15:14:29 2016 +0200
+
+    Merge pull request #185 from magdalena19/layout_stuff
+    
+    layout stuff
+
+[33mcommit f1ee354d63ed9bf739a41c38005056ac5d500942[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Oct 6 14:41:05 2016 +0200
+
+    layout adjustement
+    
+    center buttons in locale slidepanel
+    
+    ensure locale slidepanel opens after map loading
+    
+    style list places button
+    
+    remove add-place and show-places buttons from navbar
+    
+    hide also review button when slidepanel open
+    
+    remove zoom button height adjustement
+    
+    add text to review button
+    
+    use magnifier icon for place list link
+    
+    use marker silouette as add button
+    
+    slightly change add button image
+    
+    setting dropdown
+    
+    style datatables
+    
+    search button in navbar
+
+[33mcommit a0a1027d7a3d8b3ca036071126a21d5d7da512c6[m
+Merge: a02d7a3 d63463a
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Oct 17 16:35:46 2016 +0200
+
+    Merge pull request #187 from magdalena19/fix_points_in_categories
+    
+    Show only total reviewed points in category panel
+
+[33mcommit d63463a00cd1ef998ecaff11108269ee31f542b3[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Oct 12 15:36:49 2016 +0200
+
+    Show only total reviewed points in category panel
+
+[33mcommit a02d7a327cf35643f6b3bd6aa083b1f532091b53[m
+Merge: b9e3362 475d534
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu Oct 6 14:33:50 2016 +0200
+
+    Merge pull request #183 from magdalena19/noscript
+    
+    show message when js not activated
+
+[33mcommit 475d53432d79c570540e72db11b521dd84e6eec3[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Oct 6 14:29:34 2016 +0200
+
+    simple auto translated badge in place info panel
+
+[33mcommit 10683ee93dcaa009df2715742057c100c0f610f2[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Oct 6 11:44:24 2016 +0200
+
+    show message when js not activated
+
+[33mcommit b9e3362c9d69694c5ca4156ba8b23dac4a01cd33[m
+Merge: 8f3082f 454d446
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu Oct 6 14:12:32 2016 +0200
+
+    Merge pull request #184 from magdalena19/repair
+    
+    repair master
+
+[33mcommit 454d446b9fe710298b2a7a7b5b0c79e5ecf51b8d[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Oct 6 12:52:27 2016 +0200
+
+    delete map.js duplicate
+    
+    fix edit button test
+    
+    re-implement edit-place button click action
+
+[33mcommit 8f3082f1f1a27a150aaca0178ba492d0c1bda69a[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Sep 30 16:06:15 2016 +0200
+
+    ...
+
+[33mcommit 45bfa9bae4da4cba7e72295ec62a8e17441cf595[m
+Merge: 3d50070 bec23be
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Sep 30 15:00:00 2016 +0200
+
+    Merge pull request #178 from magdalena19/further_small_improvements
+    
+    Further small improvements
+
+[33mcommit bec23bee44588bc2d097893c6dfca391db911212[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Sep 30 09:39:56 2016 +0200
+
+    Render place homepage links in place(s) slidepanels correctly
+
+[33mcommit 3d50070e305a735ac75219660e88984f6c797b4a[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Sep 30 11:38:11 2016 +0200
+
+    undo faulty removal of diff-button
+
+[33mcommit fd4b1baff7ee37725e5c4cf21a3f9feaef319277[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Sep 30 09:16:38 2016 +0200
+
+    Factor out translation ruby code from map.js
+
+[33mcommit b535e8bcf95ff34a0023c2d0940df3cfca131805[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 28 20:13:33 2016 +0200
+
+    Fix improve translation link in place(s) slidepanels
+
+[33mcommit 8b9a5a2b21ea228f2910e21cc87cee3deb3e53a8[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 28 16:50:53 2016 +0200
+
+    Close slidepanels on escape keypress
+
+[33mcommit fbace6f120d743ac962536c8260479bebe3abebe[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 28 16:22:05 2016 +0200
+
+    Add number of points in category slidepanel
+
+[33mcommit 509e06ab163aad4eec4b493b410b77a2ce63a03b[m
+Merge: 40a00dd 3a98125
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Sep 30 07:41:07 2016 +0200
+
+    Merge pull request #179 from magdalena19/navbar
+    
+    Navbar
+
+[33mcommit 3a98125c961b2440dd05f73e52d3ac136fa0aaa6[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed Sep 28 16:44:18 2016 +0200
+
+    use default bootstrap collapsed style for dropdowns
+
+[33mcommit 40a00dd1755767d242291f8ad28d4cac7896c0f7[m
+Merge: a811248 31835f3
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Thu Sep 29 23:01:29 2016 +0200
+
+    Merge pull request #181 from magdalena19/overlapping-slidepanels
+    
+    prevent overlapping slidepanels
+
+[33mcommit 31835f332aef043e887ded8206bbc5b15d5c23ca[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Sep 29 12:05:21 2016 +0200
+
+    prevent overlapping slidepanels
+
+[33mcommit a811248d07128d971a693391c9c09f62485026bb[m
+Merge: d307106 4b7b586
+Author: magdalena19 <jo5cha@web.de>
+Date:   Wed Sep 28 15:34:47 2016 +0200
+
+    Merge pull request #177 from magdalena19/small_fixes
+    
+    Small fixes
+
+[33mcommit 4b7b586432d97ef4c763db190977f8a1f7dcd872[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 28 14:26:43 2016 +0200
+
+    Responsive button placement for confirmation button container
+
+[33mcommit 6bfdde001f5c63ccf411335995f374bde1539043[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 28 14:23:34 2016 +0200
+
+    Reset zoom button visibility for all display sizes
+
+[33mcommit f5e7984a64ef1b901d79dcaa8026c50b54087692[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 28 14:11:44 2016 +0200
+
+    Fix html_safe bug in place description properties (JSON)
+
+[33mcommit 36362fe13c88679e952f4cd97139ecc80edb3d80[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 28 14:01:54 2016 +0200
+
+    Modify condition under which description fields are shown in place form
+
+[33mcommit d3071069434ba726b926c56967dd6fbb4dc6b408[m
+Merge: f44615c 3988fcd
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Tue Sep 27 14:15:23 2016 +0200
+
+    Merge pull request #168 from magdalena19/place_modifications
+    
+    Place modifications
+
+[33mcommit 3988fcd0aeda8d06048a239ee0ee6f2228936f28[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Sep 22 20:27:51 2016 +0200
+
+    Complete imprint and insert missing imprint link in english about page
+
+[33mcommit 4deccfc67bb08e86968a323125c6edee15d04f4e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Sep 22 14:59:34 2016 +0200
+
+    Fix double point display in sidebar
+
+[33mcommit d3c9df8654b0740eac288b9600f27d4c1f30563a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 20 23:25:38 2016 +0200
+
+    Make place slidepanel description a little nicer
+
+[33mcommit b8b036ffa91b88fe702cea99ffc316ad23345650[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 20 23:03:10 2016 +0200
+
+    Fix category filtering for map
+
+[33mcommit c7b0cf6681991652b7c4880842fafe90d797b345[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 20 22:02:23 2016 +0200
+
+    Minor changes to place model and places view
+
+[33mcommit c74f7420d1eb4f457ce8b41a9e968f84f232aa53[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 20 21:42:26 2016 +0200
+
+    Remove category filtering for places index
+
+[33mcommit 8ccdd367f056f97796e6dc2a71c5ab3f116fbf04[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 20 21:35:52 2016 +0200
+
+    Re-enable Category display in plces slidepanel and refactor place form code
+
+[33mcommit 1ee6e030820904ea8383a178356d57404cacce7f[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 20 21:07:49 2016 +0200
+
+    Fix auto_translation internationalisation in place form
+
+[33mcommit f65e498f10985187ed6fa4d255a2af7810cd6b22[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 20 20:58:08 2016 +0200
+
+    Improve point seeding
+
+[33mcommit f44615c1c96d0b2c91beb892fb1810dd52abee0a[m
+Merge: 7666f1b 1dcade3
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Tue Sep 20 19:52:39 2016 +0200
+
+    Merge pull request #165 from magdalena19/fix_translation_missing_raise
+    
+    Do not raise errors in dev when translations missing
+
+[33mcommit 1dcade3b26239a6d65612c3b8f7ac92d43e578c7[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 20 19:46:46 2016 +0200
+
+    Do not raise errors in dev when translations missing
+
+[33mcommit 7666f1bd376d7c79f6ae7b37f35538b37acdeb02[m
+Merge: 782e7b9 52aa52e
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Tue Sep 20 19:42:09 2016 +0200
+
+    Merge pull request #164 from magdalena19/further_improvements
+    
+    Further improvements
+
+[33mcommit 52aa52e58d4818cae8d843b017f8a69452396c4a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 20 18:34:56 2016 +0200
+
+    Change named routes for all redirect commands and tests
+
+[33mcommit 65e0e9a5027a6c5d20488362107334681fe70eb4[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 20 11:59:36 2016 +0200
+
+    Enable jump to place feature in place index view
+
+[33mcommit 1e9a8b29241a6163c43d3c1be01bc9b6a4a80031[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 20 10:16:36 2016 +0200
+
+    Further layout and translation changes
+
+[33mcommit b2e3400f85c2597c81db99039e9e133b8f0c86e7[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 20 09:49:17 2016 +0200
+
+    Add searchable and sortable datatable support for place index via jquery dt plugin
+
+[33mcommit d5dd1ef3fe01e9caf33f2739ff788ed78672b3f7[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Sep 19 17:32:09 2016 +0200
+
+    Some minor layout changes
+
+[33mcommit 34bc610b678f1ba96aa439ad85c07444748de5b7[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Sep 16 17:44:16 2016 +0200
+
+    Add non-functional contact form and imprint
+
+[33mcommit 34b62e7d7738408c17ce90038679bd8f012c005f[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Sep 16 16:38:42 2016 +0200
+
+    Fix namespace problem for slidepanel translation
+
+[33mcommit 2bf19e7365cb85b419b4a8f036fdfddbafc739e2[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Sep 16 16:32:22 2016 +0200
+
+    Toggle zoom button visiblity for smaller displays
+
+[33mcommit d61c844664535109ee03b606b32a278f41016da5[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Sep 16 16:12:38 2016 +0200
+
+    Simple about page
+
+[33mcommit fbf9184449fda69cc3bec55283e604472b740c5a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 14 14:36:17 2016 +0200
+
+    Get some structure for static_pages views folder
+
+[33mcommit 19aab38cc203d9c0d93d2a7b767e2b140fcf2926[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 14 12:23:28 2016 +0200
+
+    Make review links appear in place index
+
+[33mcommit 4ac88e178c2944c25c12425c8214d61fb3cdcd31[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 14 12:11:04 2016 +0200
+
+    Remove edit pencil in place slidepanel if to be reviewed
+
+[33mcommit 74bc699a27f1f8bd53f74d5a9e56530746cf68fc[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 14 12:05:55 2016 +0200
+
+    Fetch map tiles via https
+
+[33mcommit 2dee03d27d0b6c892598b69890bfe0dd5d80e7ca[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 14 12:02:19 2016 +0200
+
+    Obey rubocop
+
+[33mcommit 21443b59bc6bad29fcd0d45e996fd18d93e07b8c[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 14 11:14:02 2016 +0200
+
+    Deactivate process bar loading feature
+
+[33mcommit 80d766bad960a1497017be2023f1481ca5e24af7[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 14 09:24:42 2016 +0200
+
+    Design changes for better understanding category button and slidepanel
+
+[33mcommit 134e531f38d2741b2d83ca883985d5a9dfc559bb[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 13 16:41:24 2016 +0200
+
+    Make max chars = 100 for announcement headers
+
+[33mcommit 782e7b9ce2a3ae02ba85e7f05ae7c5dfff5b486e[m
+Merge: 7949782 4f3303c
+Author: pr0totyp <p.kitt@d00m.org>
+Date:   Fri Sep 16 17:12:42 2016 +0200
+
+    Merge branch 'master' of https://github.com/magdalena19/lberg-map
+
+[33mcommit 79497822679b0187d41aa948a2214fddd0613cdc[m
+Author: pr0totyp <p.kitt@d00m.org>
+Date:   Fri Sep 16 17:12:14 2016 +0200
+
+    changed root_path to root_url
+
+[33mcommit 4f3303c07b46e50feba576cd15b6b549a8f7db54[m
+Merge: a4338b4 0bc6d94
+Author: p.kitt@d00m.org <p.kitt@d00m.org>
+Date:   Fri Sep 16 17:10:56 2016 +0200
+
+    solved merge conflict
+
+[33mcommit fc5ad727f2647db0ce3fa378d32500e6feb81d68[m
+Merge: 50bdeea 0bc6d94
+Author: pr0totyp <p.kitt@d00m.org>
+Date:   Fri Sep 16 13:31:00 2016 +0200
+
+    Merge branch 'master' of https://github.com/magdalena19/lberg-map
+
+[33mcommit 50bdeea8ae377cd7e233f7b24aaa9b08f29dd52b[m
+Author: pr0totyp <p.kitt@d00m.org>
+Date:   Fri Sep 16 13:30:56 2016 +0200
+
+    changed rack attack setting
+
+[33mcommit 0bc6d94efa200c37fc07f73c0f5fd027e6a576cf[m
+Merge: 58457b1 1506aba
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Tue Sep 13 16:30:15 2016 +0200
+
+    Merge pull request #157 from magdalena19/change_translation_organisation_relaunch
+    
+    Change translation organisation relaunch
+
+[33mcommit 1506aba461c4b3ad87d9d8afe260bad551f99ab6[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 13 15:11:51 2016 +0200
+
+    Replace i18n-tasks with translate-rails3 GUI
+
+[33mcommit 54526e4417424b391594f7c79a3ed5f6dcd7741a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 13 14:57:53 2016 +0200
+
+    Skip place create feature tests due to Travis producing weird errors
+
+[33mcommit b37e0de84d2dad83238f03bfe4c9b56cb4228f46[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 13 13:46:06 2016 +0200
+
+    Setup model translation including attributes
+
+[33mcommit d4b0078444bccec10bb8eb03b1b3e9ec6149d158[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 13 11:58:27 2016 +0200
+
+    Implement different improvements for english and german localisation
+
+[33mcommit 17e64ff5baa06cc51f7f2d504385853e04f045fa[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 13 11:29:47 2016 +0200
+
+    Localise german
+
+[33mcommit 9875a4668a1f5d1804c15c785dd35a34bd861095[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 13 10:55:16 2016 +0200
+
+    Add structure for german localisation
+
+[33mcommit c1d568f5dfb23741f67b17afec3854996e493a19[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 13 10:37:16 2016 +0200
+
+    Set available locales to en and de
+
+[33mcommit 314f20f30cd6d1f087992a2bf8a1bcfff502ccb5[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Sep 12 14:14:28 2016 +0200
+
+    Add locale forking script and rake task
+
+[33mcommit d0e21546463774e80e6945adc0eb3a0ff8610212[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Sep 12 11:28:18 2016 +0200
+
+    Translate controller messages
+
+[33mcommit 78622e6ebf6de6ccd5c2f44eb72b0558188a4d04[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Sep 12 10:31:05 2016 +0200
+
+    Adapt feature tests to new locale file structure, all working but one (due to missing localization)
+
+[33mcommit 8d891794d5b66967f9fe7cdfc33313b1997d5519[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Sep 12 09:33:35 2016 +0200
+
+    Let place form use all available locales (again) instead of hardcoded list
+
+[33mcommit 8ac740716e5695f1f1f93f5020a51b2038d0eec2[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Sep 12 08:06:03 2016 +0200
+
+    Adapt views to new locale file structure and remove old files
+
+[33mcommit 97646235de6f9f9f90a071480b7191b9e19ab888[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Sep 11 11:22:44 2016 +0200
+
+    Add i18n-tasks for console-based translation management
+
+[33mcommit 523c537a786f61805bf08a16a81cf4edb988dc66[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Sep 11 11:17:14 2016 +0200
+
+    Add new translation file structure
+
+[33mcommit 58457b1dfaf968c9510c83a063704f310b2d185b[m
+Merge: 8eab8cc 3220791
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Sep 12 07:59:15 2016 +0200
+
+    Merge pull request #155 from magdalena19/fix_update_place_crash
+    
+    Fix update place crash
+
+[33mcommit 32207915125e588966bf6eb04f32ac544c3e1732[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Sep 12 07:50:12 2016 +0200
+
+    Fixed create place feature test
+
+[33mcommit e284a656cc2ae2a20a638decf8144a5d5c110837[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Sep 11 23:20:03 2016 +0200
+
+    Show points to be reviewed for signed in users in place index
+
+[33mcommit e2e40b37cbc05915415a77dcf2340394537eb3a6[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Sep 11 23:18:02 2016 +0200
+
+    Insert space in place address
+
+[33mcommit 165d781e471f00e9524fac9a242313120a605732[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Sep 11 23:02:21 2016 +0200
+
+    Add some point feature tests
+
+[33mcommit 44ca454203e6c84d091b5bcd4df094bb242f4b7d[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Sep 11 23:03:57 2016 +0200
+
+    Adjust place model validations
+
+[33mcommit 5e4f1489eff62b5da9d521b000efef8ee4d1a2bc[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Sep 11 22:57:50 2016 +0200
+
+    Fix place update problem by reinserting lat/lon inside params hash
+
+[33mcommit 8eab8cc9cb5781238ea2efb9e6bc0ad8054ba262[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Sep 9 15:23:44 2016 +0200
+
+    correct translation
+
+[33mcommit 619e3d98443a8f42e3dfe85d23718b3b36d2044e[m
+Merge: 00a648d 57a6d94
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Sep 9 15:22:07 2016 +0200
+
+    Merge pull request #151 from magdalena19/mobile
+    
+    optimize category button
+
+[33mcommit 57a6d940698765768dfa0a633b1f6f005a21eac0[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Sep 9 14:40:54 2016 +0200
+
+    prevent double displayed places
+
+[33mcommit c2dea13e401d04bd027c8473d433f1994562d312[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Sep 9 14:27:44 2016 +0200
+
+    mute and link autotranslations
+
+[33mcommit a4e5eb66879c0e16379e187dad363fee1850027d[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Sep 9 13:07:37 2016 +0200
+
+    optimize category button
+
+[33mcommit c25c5fce85111330beb52ab129a47ea8091138fe[m
+Merge: fe7d4aa d5ea0fe
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Sep 9 12:28:35 2016 +0200
+
+    Merge pull request #150 from magdalena19/layout
+    
+    little locale adjustment + style
+
+[33mcommit 00a648d068a7d534f124cb93e232221d5cddbbf8[m
+Merge: fe7d4aa d5ea0fe
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Sep 9 12:28:35 2016 +0200
+
+    Merge pull request #150 from magdalena19/layout
+    
+    little locale adjustment + style
+
+[33mcommit d5ea0fea066342a7c9ac6f6acc34c426b463028a[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Sep 9 12:21:31 2016 +0200
+
+    change 'all' to 'all categories' + little style adjustements
+
+[33mcommit fe7d4aa24ee8314d1d131e5b35da9fa6775f4414[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Sep 8 12:05:10 2016 +0200
+
+    do not show header image on map
+
+[33mcommit 1c8dfac4d67ac6d11cd2aaabdb53dd3c1dd32647[m
+Merge: d9b3877 5008784
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu Sep 8 11:52:42 2016 +0200
+
+    Merge pull request #139 from magdalena19/further_layout_refinings
+    
+    Further layout refinings
+
+[33mcommit 50087840aa0158c673d43a6c9c0a81054ad69d21[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Sep 8 11:41:22 2016 +0200
+
+    limit 'last places' to 5 and accordingly adjust sidebar
+
+[33mcommit 8de030ff0c5d2a3a02e38482d817690dbfe1a57a[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Tue Sep 6 17:06:36 2016 +0200
+
+    style contact info in slide panels
+
+[33mcommit b1bbb5f1df9970452616bb889a99ced469a94456[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 6 16:37:54 2016 +0200
+
+    Simple loading bar while new place is being created
+
+[33mcommit a4c9068338f56a9669958163eb420fe6ce43b285[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Sep 2 13:37:13 2016 +0200
+
+    Colorize auto-translated texts differently in place review view
+
+[33mcommit 92724fdd6cfac95110518933a90a1e1f91e65a27[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 6 16:37:06 2016 +0200
+
+    Distinguish betweed edits and new points in place review index
+
+[33mcommit f2f72019272bbf106a8b56157e2e4658e4a3115f[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 6 16:35:09 2016 +0200
+
+    Comma separate categories in place index
+
+[33mcommit 8939348f2492a4f07070fad3fbdcaf73c7c9a79e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Aug 31 18:08:18 2016 +0200
+
+    Escape HTML when reviewing place descriptions
+
+[33mcommit 82804f6c1cafe28800361dd1ae5a9b65183a31a2[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 6 16:34:03 2016 +0200
+
+    Changes to address display helper
+
+[33mcommit d9b3877f4628e4b7b833db79e910d5f543f8ad50[m
+Merge: 49ec784 13979d6
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu Sep 8 11:18:49 2016 +0200
+
+    Merge pull request #145 from magdalena19/spam-protection
+    
+    Spam protection
+
+[33mcommit 13979d60f2e9ca632b1c52823cbf3ec209ab6d3e[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Sep 8 10:25:21 2016 +0200
+
+    header transition to white
+
+[33mcommit 07600d9a403dd3a73f1caf3c173fd3583b63ffdd[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Sep 4 15:50:46 2016 +0200
+
+    add and configure rack attack
+
+[33mcommit 6a08f245b5b3197dc21d02fb4c38cffdffde4422[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Sep 7 07:38:25 2016 +0200
+
+    header image for all sub pages
+
+[33mcommit 49ec784f1c1125dddabf8e88ea204124b302428e[m
+Merge: fd840e7 35ce77b
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Tue Sep 6 16:20:51 2016 +0200
+
+    Merge pull request #138 from magdalena19/improve_places
+    
+    Add contact data for places
+
+[33mcommit 35ce77b786ce263313491fabb8e7b4c091892b1a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Aug 31 21:53:58 2016 +0200
+
+    Make seed data more realistic and fix property display for place contact data
+
+[33mcommit 6b36122ec71d0d0792362d948143420f79346a81[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 6 15:40:18 2016 +0200
+
+    Display contact data in slidepanel
+
+[33mcommit 4a2c1ba56d9942cbc8cb1b87646889af649fcb87[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 6 15:37:36 2016 +0200
+
+    Add contact attributes to place (phone, email, homepage)
+
+[33mcommit fd840e73c04a8f860ac7413df40edffb6d5177ca[m
+Merge: fbb6916 7b1963c
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Tue Sep 6 15:33:17 2016 +0200
+
+    Merge pull request #131 from magdalena19/geocoding_changes
+    
+    Geocoding changes
+
+[33mcommit 7b1963c83681896de169e41fc07ac33865e0796d[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Sep 2 15:55:25 2016 +0200
+
+    Dirty fix params hash problem during place update (introducing kinda ugly code)
+
+[33mcommit 159b0b391c0aa58a8b49355684e379345b55c4bd[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Aug 30 07:59:49 2016 +0200
+
+    Allow empty address if lat/lon has been supplied + refine postal_code validation
+
+[33mcommit 831790a2b6a65b087feaf6d27957ec2384855ae4[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Aug 29 23:53:59 2016 +0200
+
+    Reinsert validation of place name presence
+
+[33mcommit 63344f6af1c1056e4ba76da5d0f0e569186f2100[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Aug 31 13:46:54 2016 +0200
+
+    Remove add place via location and some comments
+
+[33mcommit cad3704adcc0ad720cc25df05302a668f4e6b554[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Aug 29 20:41:54 2016 +0200
+
+    Add place via click feature
+
+[33mcommit 1e7cca13f852d02c4e794eba8f86c471b471389d[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Sep 6 14:43:33 2016 +0200
+
+    Changes to place address attribute (return value and move to place model file), view changes
+
+[33mcommit f325d352f531d6bd3c52f8d9cfe8ddc95e42c760[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Aug 28 11:40:56 2016 +0200
+
+    Remove model validation for address related place attributes
+
+[33mcommit fbb6916b467329139befb991e4a555dd7b88b9d4[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Sep 4 19:11:43 2016 +0200
+
+    solve conflict between css classes
+
+[33mcommit b1f4f7ca618ac877ebefab3876a225059f5597a9[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Sep 4 18:43:33 2016 +0200
+
+    allow switching off diffing @review descriptions (correction)
+
+[33mcommit 8075dc421980e304d11a09e89487f79f5acfa323[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Sep 4 17:03:56 2016 +0200
+
+    allow switching off diffing @review descriptions
+
+[33mcommit 136da751dadb5e4c30c7a3971f9ade6d916d5c09[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Sep 4 16:18:28 2016 +0200
+
+    fix resize bug
+
+[33mcommit 1524f5e8fa158dfe5c259fc28f971a27040fb753[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Sep 4 14:12:24 2016 +0200
+
+    hide sidebar behind map instead making it invisible
+    
+    otherwise icons cannot be clicked when behind invisible sidebar
+
+[33mcommit c539bb1c42ef5e0bd3036d9539d34e43df542c08[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Sep 2 16:46:19 2016 +0200
+
+    fix panel delay
+
+[33mcommit 5c33c24560428fab621396921d544915c0c9b371[m
+Merge: 94690e7 578a2ab
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Sep 2 16:35:16 2016 +0200
+
+    Merge pull request #141 from magdalena19/poi-preview
+    
+    Poi preview
+
+[33mcommit 578a2ab41e3e8e965724050d7440850ef0ef6f20[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Aug 28 21:22:35 2016 +0200
+
+    show non-reviewed pois which were created in own session
+
+[33mcommit 94690e74e5951eb045e9a07c3cdf94b6c5307749[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed Aug 31 21:36:07 2016 +0200
+
+    fix broken accorsion links
+
+[33mcommit b98df611269b28ecd42b8d20fa0e1200ff2a94c2[m
+Merge: f784108 6f7f63f
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Wed Aug 31 13:42:37 2016 +0200
+
+    Merge pull request #135 from magdalena19/improve_seed_data
+    
+    Improve seed data quality
+
+[33mcommit f7841084be8d3a98d6abef4d595e5038820c4fb7[m
+Merge: 75d911f 09a6e20
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Wed Aug 31 13:33:36 2016 +0200
+
+    Merge pull request #132 from magdalena19/layout-refinings
+    
+    Layout refinings
+
+[33mcommit 09a6e205ab394e0957c51c213213404a6e4c9a13[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Aug 31 13:18:41 2016 +0200
+
+    Fix tests
+
+[33mcommit 5f8177ac0607103e976b7968e44e076aaa79c5fb[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Aug 30 18:22:42 2016 +0200
+
+    Hide slidepanel cross Add Place-slidepanel
+
+[33mcommit af62c01476611c688a52bb9af87eaebc6fa38e8b[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Aug 30 18:12:56 2016 +0200
+
+    Plausible value for announcements index pagination values and changes to page gap symbol
+
+[33mcommit 8d40741e2ca821e4b9e00d08dc81573d2ff2336d[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Aug 30 18:02:56 2016 +0200
+
+    Minor changes to chronicle view
+
+[33mcommit 697650b1e01cb701867c3802a624a782ffcb6501[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Mon Aug 29 23:40:37 2016 +0200
+
+    chronicle view = announcement list
+
+[33mcommit 6f7f63f381576fdcbda502b4acaec549fc9d455d[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Aug 30 17:15:25 2016 +0200
+
+    Improve seed data quality, include announcements seeding
+
+[33mcommit 658049ba640c9b060fd3ae9ebd0249b844c8d17d[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Mon Aug 29 23:08:40 2016 +0200
+
+    adjust sidebar
+
+[33mcommit 052426cdbbc57f1ffde4307d4ac4fc1acf8c1c58[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Aug 28 14:10:07 2016 +0200
+
+    simplify and fix index feature test
+
+[33mcommit c10e9a10199db648e2e87d21cc52c7eccfaa74b6[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Aug 28 13:54:11 2016 +0200
+
+    fix conflicts between sidebar and slidepanels
+
+[33mcommit 75d911f859eff976ce0c207881a3e890da937bf4[m
+Merge: 14d0974 81d414f
+Author: magdalena19 <jo5cha@web.de>
+Date:   Mon Aug 29 22:15:32 2016 +0200
+
+    Merge pull request #130 from magdalena19/announcement_related
+    
+    Announcement related
+
+[33mcommit 81d414fbbe30d2e6bfab7fae933190e88d0ce088[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Aug 26 17:07:49 2016 +0200
+
+    Add announcement links to navbar
+
+[33mcommit 8da953dcb54016126ca7e2a2e9729ed766746d5f[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Aug 26 17:01:05 2016 +0200
+
+    Change list for announcement modification actions from dropdown to glyphicons in announcement index
+
+[33mcommit 14d0974daace889bada8c9db2f9a2ee3d843b23e[m
+Author: pr0totyp <p.kitt@d00m.org>
+Date:   Sun Aug 28 22:06:39 2016 +0200
+
+    settings for production env
+
+[33mcommit 45cea501b1c8690c53c9f10b3581eebd31be36dd[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Aug 28 20:55:03 2016 +0200
+
+    let 'last places' only list reviewed ones + move from helper to controller
+
+[33mcommit b3f35eb195811e4d62d655c80d3dac72bf90175b[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Aug 28 20:37:44 2016 +0200
+
+    keep form changes after wrong captcha input
+
+[33mcommit b918dbbe26a490687f9ed4026e22fec9d449ca07[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Aug 28 17:40:13 2016 +0200
+
+    revert wrong captcha-fix
+
+[33mcommit 15b8241a5567a432baa3695eca8291822c95e813[m
+Merge: 716a6d4 1006725
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Sun Aug 28 16:46:16 2016 +0200
+
+    Merge pull request #129 from magdalena19/fix_back_buttons
+    
+    Fix back buttons
+
+[33mcommit 716a6d4792385d4ae3f199c05895646eaa39f2d5[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Aug 28 12:08:25 2016 +0200
+
+    error messages for http geolocation function
+
+[33mcommit 100672519f60c9e9d0db37469f82ab888e818e91[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Aug 26 16:52:45 2016 +0200
+
+    Add cancel buttons which redirect to root_path
+
+[33mcommit d443b223b554617d72b6c56c439700d067fdbd0a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Aug 28 11:43:00 2016 +0200
+
+    Change button_tag to link_to in forms, hide back buttons if history.length == 1
+
+[33mcommit 96d693dc4e6acfdc9ea557122ee9b6503b0bdeb2[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Aug 28 11:25:38 2016 +0200
+
+    hold form inputs after submit with wrong captcha
+
+[33mcommit c82328fec63e269c059ccbce889f1039e0591abf[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Aug 28 11:20:37 2016 +0200
+
+    fix back-button bug
+
+[33mcommit d0983d001a2663adb6dd63f07071fd4c0b1453cd[m
+Merge: f96935f f8c3376
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Aug 26 13:46:12 2016 +0200
+
+    Merge pull request #126 from magdalena19/reviewing_improvements
+    
+    Reviewing improvements
+
+[33mcommit f8c33768ccde50d8808cb38a68cfd51f727beda6[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Aug 18 10:30:46 2016 +0200
+
+    same border style as captcha
+
+[33mcommit c20c2f4e560d4bd1ac7f7236f32a48c1e3e69403[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Aug 18 10:27:31 2016 +0200
+
+    green border around unreviewed info
+
+[33mcommit 4a5c48b6adde6ee6e3fb4cb58bcba61e500fcf0e[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Aug 18 10:23:06 2016 +0200
+
+    add reviewed place names to translation views
+
+[33mcommit 373b6ae770beb6abdf20c1b388c7df16f1e9007b[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Aug 18 10:17:14 2016 +0200
+
+    Header for translation review view
+
+[33mcommit 79e63bcff4f7780d8bf7f9afaf15de02171b6034[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Aug 18 10:01:39 2016 +0200
+
+    add descriptions to place review view
+
+[33mcommit 5b5d9604089e97834675acd439b34bc1fd88468f[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Aug 11 16:09:19 2016 +0200
+
+    refactor review controller + differ
+
+[33mcommit f96935f9896c406925ee173148570295f250eba6[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed Aug 17 18:33:51 2016 +0200
+
+    skip auto translation in test environment
+
+[33mcommit fb976e142c517a21a95a03a88865230cc64c2006[m
+Merge: f2a7331 6a6a63e
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Aug 12 22:28:59 2016 +0200
+
+    Merge pull request #89 from magdalena19/locale_files_to_csv
+    
+    Yet another rake task: Import and export locale files to and from CSV files
+
+[33mcommit f2a73314c3511d36dc2acad64a45bfc6738a1885[m
+Merge: c1daf78 3509db7
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Aug 12 22:26:22 2016 +0200
+
+    Merge pull request #119 from magdalena19/refactor_codebase
+    
+    Refactor codebase
+
+[33mcommit 3509db7995e75ef801e8edb8ce8fe0441267d389[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Aug 12 21:58:00 2016 +0200
+
+    Apply Rubocops code style proposals on various controllerand model files
+
+[33mcommit d73288cee81fe5f1ba06a2329f532c22a46ea43e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Aug 12 20:10:42 2016 +0200
+
+    Factor out navbar dropdown menu code
+
+[33mcommit 547313a6fbb5e09c7aa7b9730a8b8fe502254014[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Aug 11 15:07:28 2016 +0200
+
+    Factor out geocoding code
+
+[33mcommit db2b77aee21417a1ae9277bdeb445e4fe41203a2[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Aug 11 14:26:20 2016 +0200
+
+    Factor out auto-translation code
+
+[33mcommit c1daf78f2414368f50b2efb412b6730b2663815d[m
+Merge: 3f3f7b3 ca69cbe
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Aug 12 19:32:28 2016 +0200
+
+    Merge pull request #118 from magdalena19/announcements
+    
+    Announcements
+
+[33mcommit ca69cbe925c0827d48840a9338e65c786e5024b0[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Aug 12 19:16:18 2016 +0200
+
+    Delete redundant translations for announcement stuff, fix back-button in show view
+
+[33mcommit c6fb882eb3239d6f2d1c671f5f6cf1ada333d1f4[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Aug 11 14:57:53 2016 +0200
+
+    Joschas sidebar improvements: further work on balance function, style changes, css cleanup, add zoom-to-place buttons to last points panel
+
+[33mcommit 94965dbd1c6ff161cf1c844642fbc097078d296c[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Aug 11 14:49:38 2016 +0200
+
+    Move sidebar code to according file, load locale selection, hide announcements when any slide panel is open
+
+[33mcommit 1263dbb7d222bac426fbd27b125020f28d59dd0c[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Aug 10 17:35:22 2016 +0200
+
+    Restructure sidebar code + add size balancing, further style modifications
+
+[33mcommit 2f990dc7e2195df232a730cc99ad29eabf7647d7[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Aug 9 18:37:54 2016 +0200
+
+    Translation and styling for announcement form, interface access restriction for announcement modification, add navbar links
+
+[33mcommit 41f9d58585872c415aab08d6762d49a3f4969c6a[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Aug 12 18:54:57 2016 +0200
+
+    Add last-points-added panel to sidebar and add further styling
+
+[33mcommit 8e3a0257ac9e60b2c5d2bbf61eefad659c260895[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Aug 8 15:42:39 2016 +0200
+
+    Apply first layout for announcement sidebar
+
+[33mcommit 60497eeef3dd3e3cc178de5237c408c4fe7875ea[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Aug 12 18:53:40 2016 +0200
+
+    Some rake task code for auto-generating announcements
+
+[33mcommit 17188c29db7d2294517c8f94ba28e636749ca5ac[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Aug 8 14:32:08 2016 +0200
+
+    Basic announcement system
+
+[33mcommit 3f3f7b3f25a9eccaa835beadb1b66ca3b54a6de5[m
+Merge: 7212421 3339dae
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Aug 12 17:54:37 2016 +0200
+
+    Merge pull request #120 from magdalena19/fix_nice_edit_again
+    
+    Set default value for empty NiceEdit text-area contents to empty string
+
+[33mcommit 3339dae3d694b535eccbdddb760d9dad44fcb8cf[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Aug 11 15:27:29 2016 +0200
+
+    Add uncompressed version of nicEdit and change defaults for empty text-area
+
+[33mcommit 721242179ef700866127d96df82be9ec889c9fbe[m
+Merge: 54c438e 0c89f64
+Author: magdalena19 <jo5cha@web.de>
+Date:   Wed Aug 10 18:34:53 2016 +0200
+
+    Merge pull request #117 from magdalena19/modify-nicedit
+    
+    prevent nicedit from adding <br>
+
+[33mcommit 0c89f64c824ce9e33fef58fb71f7a2c796171055[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed Aug 10 18:01:23 2016 +0200
+
+    tag nicedit lib as CUSTOMIZED
+
+[33mcommit 94e8668e615a9f8642a96f19e05598b75f8408b7[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed Aug 10 17:46:47 2016 +0200
+
+    prevent nicedit from adding <br>
+
+[33mcommit 54c438e12505b490ace68bf083a8a161ba0033cc[m
+Merge: 66339f7 1e8eab1
+Author: magdalena19 <jo5cha@web.de>
+Date:   Wed Aug 10 16:42:54 2016 +0200
+
+    Merge pull request #106 from magdalena19/update-fix
+    
+    prevent sending of category param when place edit is actually logged
+
+[33mcommit 1e8eab1207490fb72a35db83c9dcaaf156897bef[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sun Aug 7 18:50:28 2016 +0200
+
+    prevent sending of category param when place edit is actually logged
+
+[33mcommit 66339f701df9db4db929096286f566c69465d895[m
+Author: pr0totyp <p.kitt@d00m.org>
+Date:   Sat Aug 6 21:20:24 2016 +0200
+
+    added folder for unicorn logs and init.d service file to start the app as service
+
+[33mcommit 7f59509e56c1d1108ac6f9e742a41534a786a746[m
+Author: pr0totyp <p.kitt@d00m.org>
+Date:   Sat Aug 6 20:56:07 2016 +0200
+
+    added unicorn conf
+
+[33mcommit 30129de8c0bef66ceaf630add27275b4be5b1c1f[m
+Author: pr0totyp <p.kitt@d00m.org>
+Date:   Sat Aug 6 20:55:17 2016 +0200
+
+    added production db and correctet error in howto
+
+[33mcommit 6c44c532aaa2b270de83f1051ac42153c711b143[m
+Author: pr0totyp <p.kitt@d00m.org>
+Date:   Sat Aug 6 20:13:22 2016 +0200
+
+    altered howto install
+
+[33mcommit 072c67e3df77875035aae0bb71f6489c47ed984c[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Sat Aug 6 16:20:13 2016 +0200
+
+    geolocation error output
+
+[33mcommit 36011ffe24bc3aec4a0f95a2afe2e5d3cd12270b[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Mon Aug 1 20:23:20 2016 +0200
+
+    fix place form view
+
+[33mcommit 4ef111c4abbaadc0e4997f5cb45c8894a6f09014[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Jul 29 19:40:12 2016 +0200
+
+    same style for review and index list
+
+[33mcommit e86fc0dff052ae2c17f38e9e7f388c04e163e1cb[m
+Merge: 4386a4a 9d9aa4c
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Jul 29 19:27:26 2016 +0200
+
+    Merge pull request #101 from magdalena19/categories
+    
+    Categories
+
+[33mcommit 9d9aa4cbf6c72698f7e2adcb5f7c4504dc8cf346[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Jul 29 19:22:53 2016 +0200
+
+    adapt seeding rake task
+
+[33mcommit a4fda3abe3a6fe8be3887acd5c9b63f764ddf384[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Jul 29 14:53:50 2016 +0200
+
+    new category system compatible with review logic
+
+[33mcommit 4386a4a4a663d01c6bdc5e78d50f84ea681f91a0[m
+Merge: bbcd7d5 0ae2e2a
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Jul 29 13:34:30 2016 +0200
+
+    Merge pull request #100 from magdalena19/model_auditing_revisited
+    
+    Model auditing revisited
+
+[33mcommit 0ae2e2a4b0eb9b116b63e5488404b250599663cd[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jul 15 17:35:01 2016 +0200
+
+    review for place and translations
+
+[33mcommit bbcd7d584586cc32f8f7cb54c0842ebdb9903334[m
+Merge: bcf4dda 70d881b
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Jul 14 20:23:52 2016 +0200
+
+    Merge branch 'master' of github.com:magdalena19/lberg-map
+
+[33mcommit bcf4ddaa8c4b2d6913c0ba57bfd47165828dc31a[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Thu Jul 14 20:23:43 2016 +0200
+
+    make back button do what it promises
+
+[33mcommit 70d881b1d8cf09684c640181f62582e3c3de0690[m
+Merge: 550111d bc9acef
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Thu Jul 14 09:41:42 2016 +0200
+
+    Merge pull request #98 from magdalena19/fix_autotranslation
+    
+    Fix autotranslation bug
+
+[33mcommit 550111d1c54d4c38d772dd11886feef02d4c4752[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed Jul 13 21:15:48 2016 +0200
+
+    adapt top margin of form views container to navbar height
+
+[33mcommit 2e286f3340357711f20dddbc63eeb3542a84d543[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed Jul 13 20:13:42 2016 +0200
+
+    little layout refining
+
+[33mcommit bc9acef08447c11585c2e6e62a2c67fc02c5f20e[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Jul 13 19:12:33 2016 +0200
+
+    Dirty fix autotranslation bug due to NiceEdit inserting weird newlines, some refactoring of autotranslation stuff
+
+[33mcommit 29da7ad4a9ef18a1896103a45fd69111e8795338[m
+Merge: 8dd905c c6edb24
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue Jul 12 11:21:28 2016 +0200
+
+    Merge pull request #92 from magdalena19/initial-locale-selection
+    
+    show locale slidepanel on page start
+
+[33mcommit c6edb24fcc52ad6edcf3321241886b42ebad49b8[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Tue Jul 12 11:11:21 2016 +0200
+
+    show places dropdown even if user not logged in
+
+[33mcommit 626ac20974b52ff788a43456f536b060e07616e6[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Tue Jul 12 11:08:05 2016 +0200
+
+    deactivate turbolinks and adapt specs
+
+[33mcommit 8218f09ec50234a26f8f746cf2c30897474cc9bd[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu Jul 7 20:12:56 2016 +0200
+
+    show locale slidepanel on page start
+
+[33mcommit 6a6a63ec8bca4fd8e9e7dcf3a1a6b07102ca222d[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jul 4 23:33:07 2016 +0200
+
+    Build import and export function for locale files to CSV (easier translation by externals)
+
+[33mcommit 8dd905c694467fd6fdb9435f3f769acc78853670[m
+Merge: 39bac43 358f9ec
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Jul 8 04:32:20 2016 +0000
+
+    Merge pull request #91 from magdalena19/fix_geocoding
+    
+    Fix return value bug in geocode_with_nodes
+
+[33mcommit 358f9ec8d1db32916d3cdfebb0310093918a13d1[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Jul 7 20:29:10 2016 +0200
+
+    Fix return value bug in geocode_with_nodes refactor geocoding code a little
+
+[33mcommit 39bac43c7c27991aedf0c0d9d21e883bbddc4cae[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu Jul 7 19:51:37 2016 +0200
+
+    remove outdated test scenario
+
+[33mcommit c34241b23b83bce5833498da151b48ad636c6b8b[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu Jul 7 19:47:00 2016 +0200
+
+    show edit buttons also when not logged in
+
+[33mcommit 9f2c19e0326c6057774dbba60acdcff8e7c7d2d1[m
+Merge: 238cc8b 2a8ddda
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue Jul 5 16:07:14 2016 +0200
+
+    Merge pull request #83 from magdalena19/replace-modals
+    
+    replace modals with custom slide panel
+
+[33mcommit 2a8dddaa8363ea7118b859bc9d1bf1137c65efc9[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue Jul 5 16:02:30 2016 +0200
+
+    keep navbar dropdowns on one line
+
+[33mcommit 818739bd4048b8fe8d5d3e042651cda3fa74d044[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue Jun 28 23:36:02 2016 +0200
+
+    replace modals with custom slide panel
+
+[33mcommit 238cc8b1cee4785022b011e5626570210b53f445[m
+Merge: cb2302a 74590e6
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue Jun 28 22:04:10 2016 +0200
+
+    Merge pull request #81 from magdalena19/mobile-layout
+    
+    Mobile layout
+
+[33mcommit 74590e6fe9cf52a0b953e55f23a6a4e29f26ddec[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Mon Jun 27 17:21:47 2016 +0200
+
+    improve navbar style
+
+[33mcommit 9f9c07fb796f3fc0ad67cc6e82d7b14ebf5b99bc[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Mon Jun 27 12:20:33 2016 +0200
+
+    add unicorn
+
+[33mcommit 8315cb6e303c15c34fba8f23705c1761c11d43f9[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Wed Jun 22 17:28:05 2016 +0200
+
+    style
+
+[33mcommit 6725e0ef37214389888485fbcf04722648fd5c7c[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Wed Jun 22 12:08:27 2016 +0200
+
+    category filter via ajax
+
+[33mcommit 0c6bb77e5f1ff72052e90f2f323bcec4bde20893[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed Jun 22 23:40:26 2016 +0200
+
+    navbar dropdowns
+
+[33mcommit cb2302ab616a098af6bc89c03cac935bca2c50af[m
+Merge: 8bb69df ec04bf9
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Jun 24 10:34:53 2016 +0200
+
+    Merge pull request #77 from magdalena19/cluster
+    
+    Cluster
+
+[33mcommit 8bb69df182c48f0e94c22b375c86569bd05a74fd[m
+Merge: a2311b1 b0cd38b
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Wed Jun 22 20:03:51 2016 +0000
+
+    Merge pull request #75 from magdalena19/captcha_changes
+    
+    No captchas for signed in users
+
+[33mcommit ec04bf9d10640e45845e67cf19554d4e9eea4177[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Wed Jun 22 17:28:05 2016 +0200
+
+    little style adaption
+
+[33mcommit 4772dfa5d81d0b49853044c874a7be5ef9855fec[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Wed Jun 22 12:08:27 2016 +0200
+
+    category filter via ajax
+
+[33mcommit b0cd38b413cfad6f4d7356e289790e3c13d921d7[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Jun 21 18:16:23 2016 +0200
+
+    No captchas for signed in users
+
+[33mcommit d7132055715ee0947fa25a9730d23f30b7b00d07[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue Jun 21 17:40:38 2016 +0200
+
+    add leaflet.markercluster
+
+[33mcommit a2311b1324080d4de65ed987d9590d74f2a14f84[m
+Merge: 32c4610 3b1ea17
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Jun 20 20:00:01 2016 +0000
+
+    Merge pull request #66 from magdalena19/point_preview
+    
+    Point preview
+
+[33mcommit 3b1ea17fc53da93034f65c3b19127639d3b75ec3[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jun 20 09:22:51 2016 +0200
+
+    Add basic preview feature for points
+
+[33mcommit 32c4610c09e2f67168f5b796708b857d0e13ce93[m
+Merge: 56187da ff030da
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Jun 20 13:34:11 2016 +0000
+
+    Merge pull request #71 from magdalena19/fix_mass_seed_points
+    
+    Fix errors in mass seed points module
+
+[33mcommit ff030da63ec9699f0826b0d7b7fb16bff12bbbb1[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jun 20 09:34:55 2016 +0200
+
+    Fix errors in mass seed points module, that have passed previous tests...
+
+[33mcommit 56187da49158e44aef52ea52813bcade194f7e9f[m
+Merge: 0b63c52 57c3341
+Author: magdalena19 <jo5cha@web.de>
+Date:   Mon Jun 20 13:24:50 2016 +0200
+
+    Merge pull request #61 from magdalena19/colors
+    
+    colorize layout
+
+[33mcommit 57c3341453d2684af01dc140ff73aa57f2fd719a[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sun Jun 19 23:22:59 2016 +0200
+
+    mute design a bit
+
+[33mcommit 9c964447007a4903c6307043488ea4696530b1be[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sat Jun 18 23:52:29 2016 +0200
+
+    use marker icon
+
+[33mcommit 9944fba1d04672342d0a9aa01379be064083de18[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sat Jun 18 19:28:14 2016 +0200
+
+    use fallback tile server
+
+[33mcommit 41a45d923674c918c6c6cdb59995dca7c1e81f61[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sat Jun 18 18:06:31 2016 +0200
+
+    use alternative capybara click method due to travis error
+
+[33mcommit ecd39cf72114028c78f6d8073ef2b9caba5df4ae[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sat Jun 18 17:45:15 2016 +0200
+
+    triangles on accordion
+
+[33mcommit a014119c2c6f6e1dfd4d37b37733fd7d7e4c9f56[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sat Jun 18 17:16:10 2016 +0200
+
+    move zoom buttons on navbar expansion
+
+[33mcommit ae6d457b60d5e225d8a5a2e5187de5ffd36bb953[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sat Jun 18 17:07:09 2016 +0200
+
+    dedicated category button
+
+[33mcommit e545b814e90a1e029febb1e23ea102346d240c6c[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sat Jun 18 16:01:49 2016 +0200
+
+    edit buttons for all users
+
+[33mcommit a2c9e85a138eae774d010e257cff16486af6d2c5[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Jun 16 10:53:31 2016 +0200
+
+    comprehensive design modification
+
+[33mcommit 0b63c525e7206c43297cee886c6922ecf6a4580f[m
+Merge: c42240a 5c6e7b1
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Jun 20 07:20:55 2016 +0000
+
+    Merge pull request #67 from magdalena19/mass_point_seeding
+    
+    Mass point seeding via rake task
+
+[33mcommit 5c6e7b10c881945d0349fed599e69baf0e1873be[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sun Jun 19 17:43:39 2016 +0200
+
+    Add tests
+
+[33mcommit 91a74cdc704ae742fc7d9105b5cb3a76bfac818f[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Sat Jun 18 10:19:38 2016 +0200
+
+    Simple rake task for inserting random data to DB
+
+[33mcommit c42240a2dff6f730aa0171124b5aa77fed46d9f3[m
+Merge: b648bd1 66efe88
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sat Jun 18 09:17:20 2016 +0200
+
+    Merge pull request #59 from magdalena19/admin_buttons
+    
+    edit buttons for admins
+
+[33mcommit 66efe8835c3c46709068acc4b0eec44e5bf75934[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Wed Jun 15 21:26:48 2016 +0200
+
+    add edit buttons to place list + add user session helper methods
+
+[33mcommit b648bd1639be2f5be6b50c89eff356a3cd099281[m
+Merge: c7d0465 6e6ff85
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Fri Jun 17 17:43:03 2016 +0000
+
+    Merge pull request #65 from magdalena19/fix_seeds
+    
+    Fix seeds (lorem ipsum and users)
+
+[33mcommit 6e6ff857aa28b87c6337b76ffc96568bd1971962[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jun 17 19:26:31 2016 +0200
+
+    Skip randomnly failing sanitizing test
+
+[33mcommit 1ee1b0da984fe79d68ca0c829bbc1eb9ce0948b1[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Jun 16 14:37:35 2016 +0200
+
+    Fix seeds (lorem ipsum and users)
+
+[33mcommit c7d0465265d3ee379c6ba8a733039613fd16a0df[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Jun 17 18:08:27 2016 +0200
+
+    use another tile server
+
+[33mcommit 48ac70026b72d6571a0c1dc77707c1e70065a709[m
+Merge: b601326 edc771f
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Jun 17 16:28:37 2016 +0200
+
+    Merge pull request #62 from magdalena19/solve_weird_test_issues
+    
+    Solve weird test issues
+
+[33mcommit edc771fe198c1aca7f0b60d77fbd469846ddfafb[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Jun 16 13:37:20 2016 +0200
+
+    travis config
+
+[33mcommit b601326906a25f7b44c70722fc8e902c1ff6d347[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu Jun 16 13:51:20 2016 +0200
+
+    Update README.md
+    
+    Add travis status
+
+[33mcommit 038935959e26c45316688c487c0cb19b97e31f9a[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Jun 16 13:48:29 2016 +0200
+
+    fix travis file
+
+[33mcommit b99bcf81d9c74217b3e0d8ce4017c2ea540aa590[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Jun 16 13:41:58 2016 +0200
+
+    fix travis file
+
+[33mcommit 85664279a9b69a9c1646d4915590c4a64e807a7d[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Jun 16 13:37:20 2016 +0200
+
+    add postgresql settings to travis file
+
+[33mcommit a941ae3888d87161583afc979ba58996781a8979[m
+Merge: 8320b07 5549fef
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Thu Jun 16 11:06:57 2016 +0000
+
+    Merge pull request #60 from magdalena19/user_seeds
+    
+    User seeds and column fixes
+
+[33mcommit 5549fef9b7dcc751417dcb2663d1df32fb4d8de5[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Jun 16 13:03:30 2016 +0200
+
+    Change email and name column in users to not null and add seeds for user (incl. one admin user)
+
+[33mcommit 8320b070b97933b6bb9a89029e66042f9bbf460b[m
+Merge: d59e047 06dca01
+Author: magdalena19 <jo5cha@web.de>
+Date:   Wed Jun 15 20:51:38 2016 +0200
+
+    Merge pull request #58 from magdalena19/edit_buttons
+    
+    fix category filter
+
+[33mcommit 06dca0140b4a50f82f67d177ad72109de0642c7d[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed Jun 15 20:49:17 2016 +0200
+
+    fix category filter
+
+[33mcommit d59e047e46c32204f6b899ce233de4905ba6de44[m
+Merge: 08b4cd3 ed3d966
+Author: magdalena19 <jo5cha@web.de>
+Date:   Wed Jun 15 19:46:52 2016 +0200
+
+    Merge pull request #54 from magdalena19/button-restyling
+    
+    Button restyling
+
+[33mcommit ed3d966a4afc7e8aae2655b064f5d4ea837f27ec[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed Jun 15 17:47:06 2016 +0200
+
+    some layout fixes
+
+[33mcommit 4fdf0de9190f7c74dd50725632e89c6114c12070[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed Jun 15 17:40:01 2016 +0200
+
+    lorem ipsum text in seed data + refactoring of modal filling
+
+[33mcommit 83436458c6d9cad650d431fa512f712fa755f12a[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed Jun 15 17:19:40 2016 +0200
+
+    stretch map to full height
+
+[33mcommit a8e2f0eff1bee5fe11849430b25b05a7d59783aa[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed Jun 15 16:58:20 2016 +0200
+
+    accordeon-style places list
+
+[33mcommit f982c3599e0629b34b54a39804baeccd736c937b[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue Jun 14 17:29:40 2016 +0200
+
+    restyle map control buttons
+
+[33mcommit 08b4cd31690550ed408d4e840120e1dd542127a1[m
+Merge: 08e288b 855322f
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Tue Jun 14 20:50:22 2016 +0000
+
+    Merge pull request #53 from magdalena19/geocoder_issues
+    
+    Fix geocoder issues
+
+[33mcommit 855322f89b47d0c1175c2f8692dc4646c42c9df4[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue Jun 14 17:44:21 2016 +0200
+
+    Make geocoder validation a little more softer allowing slightly unprecise address values
+
+[33mcommit 08e288bec052aa2b5f1dbaeb62405c4fcdc3744b[m
+Merge: be29ac1 0481c1d
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue Jun 14 17:28:29 2016 +0200
+
+    Merge pull request #42 from magdalena19/locate-me
+    
+    my location button
+
+[33mcommit 0481c1d8515542009f1822f4f9d1cbf5263b0292[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Jun 10 17:18:24 2016 +0200
+
+    new map buttons for categories and places
+    
+    uses html5 geolocate function. since testing of such a javascript/api feature is very complicated, only behavior for coordinate parameters is tested as they are delivered after button click via the respective javascript
+    
+    full width map and category modal
+    
+    provide selection for add a place
+    
+    remove new place link from navbar
+    
+    category selection test
+    
+    add seed data + category places count
+    
+    style location confirm buttons
+
+[33mcommit be29ac1ad56010208cfc9f577cc1d1574ae3fe6b[m
+Merge: ad1eace cb8137e
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Tue Jun 14 06:48:59 2016 +0000
+
+    Merge pull request #49 from magdalena19/fix_autotranslation_issues
+    
+    Auto translation fixes
+
+[33mcommit cb8137edafb2de4d55b58851d14dc5ede32b9fd8[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon Jun 13 19:33:15 2016 +0200
+
+    Refactor auto translation procedure
+
+[33mcommit ad1eacedd990e781e8175e5350e4212f12ade497[m
+Merge: 5380c3c 534f31b
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Jun 13 06:54:58 2016 +0000
+
+    Merge pull request #46 from magdalena19/import_from_file
+    
+    Import place data from file
+
+[33mcommit 534f31b8936b44aa5d3cb5293bb1fd1428eaa2f7[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Thu Jun 2 14:36:36 2016 +0200
+
+    Setup method in place model for importing csv files (incl. validation and simple error logging)
+
+[33mcommit 5380c3ca8b43dd775281ad207deb632e35ebb2bf[m
+Merge: 9b30674 c7a36f2
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Jun 13 06:23:37 2016 +0000
+
+    Merge pull request #40 from magdalena19/user_management
+    
+    User management
+
+[33mcommit c7a36f23e9e04c41a0fe3e1798cdca6ffdc1d16b[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Fri Jun 3 00:17:18 2016 +0200
+
+    Add basic user management
+
+[33mcommit a4338b47a72a52fde6065826cb4695e9ed3b717f[m
+Merge: 339193a 9b30674
+Author: Paul Kitt <p.kitt@d00m.org>
+Date:   Fri Jun 10 18:18:44 2016 +0200
+
+    Merge branch 'master' of https://github.com/magdalena19/lberg-map
+
+[33mcommit 339193a536d701f2a65c075e7ec44abdb602b7d1[m
+Author: Paul Kitt <p.kitt@d00m.org>
+Date:   Fri Jun 10 18:18:36 2016 +0200
+
+    corrected small errors in the readme howto
+
+[33mcommit 9b30674d17434adde700f2ac041f4ad118c16297[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Fri Jun 10 15:45:54 2016 +0200
+
+    add travis.yml
+
+[33mcommit bc12c96c1712f63c372188fd56f871022e905868[m
+Merge: 5379e9f 4811fa9
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue Jun 7 16:24:32 2016 +0200
+
+    Merge pull request #38 from magdalena19/captcha
+    
+    Captcha
+
+[33mcommit 4811fa933494774cac18952977a78976f1502a60[m
+Author: magdalena19 <joscha.kuekenshoener@innoz.de>
+Date:   Fri Jun 3 00:16:13 2016 +0200
+
+    add spec
+
+[33mcommit 5379e9f70b10744f613483918b057ccbf670c2ca[m
+Merge: 3e6c548 e169b66
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu Jun 2 23:20:37 2016 +0200
+
+    Merge pull request #35 from magdalena19/captcha
+    
+    add captcha on new place view
+
+[33mcommit e169b66e9d03c4846e0e624d1cde33dae210540d[m
+Author: magdalena19 <joscha.kuekenshoener@innoz.de>
+Date:   Thu Jun 2 20:17:56 2016 +0200
+
+    add captcha on new place view
+
+[33mcommit 3e6c5486efec4176f7e2e8736c929df2bec7ff34[m
+Merge: e4b142d 4c60c6d
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Thu Jun 2 20:16:48 2016 +0000
+
+    Merge pull request #32 from magdalena19/auto_translation_new
+    
+    On place create: Add basic automatic translation via bing for missing…
+
+[33mcommit 4c60c6dd8074cdd58092c675b37c805cdfd549f1[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Mon May 30 21:33:17 2016 +0200
+
+    On place create: Add basic automatic translation via bing for missing translations of descriptions
+
+[33mcommit e4b142d3dbd319aae39d031290f981ebe74a593f[m
+Merge: 38a2b14 396b341
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu Jun 2 20:20:08 2016 +0200
+
+    Merge pull request #34 from magdalena19/remove-needless-ajax
+    
+    category buttons without extra http request (ajax)
+
+[33mcommit 396b341a38a4d78f74717bb65a7fb8aec2a1b476[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Mon May 30 23:41:01 2016 +0200
+
+    category buttons without extra http request (ajax)
+
+[33mcommit 38a2b1401d1956341bdba829ada2b9f4328a3aab[m
+Merge: d09a998 fcea447
+Author: magdalena19 <jo5cha@web.de>
+Date:   Mon May 30 22:17:11 2016 +0200
+
+    Merge pull request #33 from magdalena19/category-selection
+    
+    allow lists and links in wysiwyg editor + some cleaning
+
+[33mcommit fcea4474ac9d32058630cd54739e2c7d5bb19705[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Mon May 30 22:15:50 2016 +0200
+
+    allow lists and links in wysiwyg editor + some cleaning
+
+[33mcommit d09a998ffe3c742b0e7f915ff6b5d9a7d14f9fdf[m
+Merge: e5f395e 32f1d0f
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri May 27 13:12:48 2016 +0200
+
+    Merge pull request #29 from magdalena19/category-selection
+    
+    Category selection
+
+[33mcommit 32f1d0fccd948f45738fe1407ea5db9d7d4a75a2[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Tue May 24 21:47:59 2016 +0200
+
+    add category buttons and ajax request
+    
+    translate description after category selection
+    
+    active links
+    
+    place buttons
+
+[33mcommit e5f395e27eca6fc81dff9622fa2bc61bb1025243[m
+Merge: 7b40da5 d54cf6e
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue May 24 20:38:19 2016 +0200
+
+    Merge pull request #28 from magdalena19/translate-tags
+    
+    Translate tags
+
+[33mcommit d54cf6e2d922047a85fd8a480b8faf83b6a2e993[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Tue May 24 20:37:57 2016 +0200
+
+    style corrections based on rubocop
+
+[33mcommit 083bfefdff46b3961d613c536b7b1fbe942f146f[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Tue May 24 00:03:58 2016 +0200
+
+    translate categories and use checkboxes
+
+[33mcommit 7b40da5b77e4203a9ac0e90e8c2c61ba20e769b7[m
+Merge: b7d0439 0020810
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue May 24 18:02:49 2016 +0200
+
+    Merge pull request #27 from magdalena19/wysiwyg
+    
+    implement wysiwyg editor for description fields
+
+[33mcommit 0020810afd529ef0d1ec846133a155300c83fea6[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Tue May 24 11:25:20 2016 +0200
+
+    form layout
+
+[33mcommit 7c40327321975a61ec6d8e9dfa02ee303b051550[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Tue May 24 00:03:58 2016 +0200
+
+    implement wysiwyg editor for description fields
+
+[33mcommit b7d0439a01ac870a30bbc537f1a0c5f663bdfd47[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Mon May 23 19:15:48 2016 +0200
+
+    change seed place address to berlin
+
+[33mcommit 92a4e2389dbb6de2553dad30df14821b5a14c341[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Mon May 23 19:14:23 2016 +0200
+
+    arabic modal text right to left
+
+[33mcommit 6a10d89a2d7ecd46e188dc8ca2912d85a69e7166[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Mon May 23 19:13:23 2016 +0200
+
+    add seed for places
+
+[33mcommit e945e94889712395b5da0d95e02f3f95e1702760[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Mon May 23 18:55:09 2016 +0200
+
+    safe french and arabic descriptions
+
+[33mcommit 3662f3d62a9feee6333cad97c4beeba4a8cbc4e0[m
+Merge: cc73fc9 83f9c2d
+Author: magdalena19 <jo5cha@web.de>
+Date:   Wed May 18 17:37:21 2016 +0200
+
+    Merge pull request #19 from magdalena19/translation
+    
+    Translation
+
+[33mcommit 83f9c2dbc439fff819ff180d1a50360e928cb6e6[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Wed May 18 17:07:55 2016 +0200
+
+    add translations
+
+[33mcommit cc73fc90c5fda9f2945f46347845ebf15550ba6b[m
+Merge: 32145d8 c1451a3
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Wed May 18 14:09:06 2016 +0000
+
+    Merge pull request #18 from magdalena19/tagging-support
+    
+    Remove old categories column and add basic tagging support
+
+[33mcommit c1451a31bb1deb8315f16eff3f3191ca2e75bd18[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Wed May 18 15:17:19 2016 +0200
+
+    Cleanup Code and fixtures, greenify tests
+
+[33mcommit d2d99a92d4e8b95e1b5092dcedf7634ced2f092d[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue May 17 18:18:30 2016 +0200
+
+    Add category filtering in place index method and view
+
+[33mcommit b37e2d1991d0458ac195957889a610c5fda24216[m
+Author: andneuma <andneuma@posteo.de>
+Date:   Tue May 17 16:53:20 2016 +0200
+
+    Remove old categories column and add basic tagging support
+
+[33mcommit 32145d849f8c9e1f0b1ecb803303fd5fe38cf930[m
+Merge: e9e6ea2 1d7ee08
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu May 5 10:39:23 2016 +0200
+
+    Merge pull request #15 from magdalena19/error-messages
+    
+    Error messages
+
+[33mcommit 1d7ee084add0d01d4a12c236e16c6a0c54a1700c[m
+Author: Blubber <blubber@Blubbers-MacBook-Pro.local>
+Date:   Tue May 3 18:20:09 2016 +0200
+
+    form flash messages + geocoding validation
+
+[33mcommit e9e6ea2b80da6a4457a5aebdcc17fea4c344527c[m
+Merge: 5503010 3d5ff1e
+Author: magdalena19 <jo5cha@web.de>
+Date:   Thu May 5 09:53:30 2016 +0200
+
+    Merge pull request #14 from magdalena19/reverse_geocoder
+    
+    Reverse geocoder
+
+[33mcommit 3d5ff1ee84a5d12a855ca12449bd7ee5a1dd3493[m
+Author: magdalena19 <kjoscha@gmail.com>
+Date:   Wed May 4 15:33:00 2016 +0200
+
+    modal for place info
+
+[33mcommit 7d8870f4cb6990d1ac3a563d5de3875ea451858c[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Wed May 4 16:09:38 2016 +0200
+
+    add basic feature test
+
+[33mcommit 337c97d4cc1c9df3252750812572eb0a5be5465f[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Tue May 3 17:00:21 2016 +0200
+
+    responsive map height
+
+[33mcommit 58a2c96c127f53082d50ca946114e23ab71aeaa2[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Tue May 3 13:25:47 2016 +0200
+
+    add basic reverse geocoding functionality
+
+[33mcommit 55030108d3303a5a4055274620c76f5e103e4107[m
+Merge: 3fb0645 5eebbf2
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue May 3 14:55:25 2016 +0200
+
+    Merge pull request #13 from magdalena19/rubocop
+    
+    Rubocop
+
+[33mcommit 5eebbf20d085b3383b96e888fd749b155bfc3986[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Mon May 2 17:15:19 2016 +0200
+
+    add rubocop
+
+[33mcommit 3fb064537473dfae8c713ff8866ac077c650c596[m
+Merge: 52aed19 2c56a98
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon May 2 23:59:56 2016 +0200
+
+    Merge pull request #11 from magdalena19/basic-tests
+    
+    Basic tests
+
+[33mcommit 2c56a98c06aec77a7cca049942f7a00bea6d2153[m
+Author: Blubber <blubber@Blubbers-MacBook-Pro.local>
+Date:   Mon May 2 23:57:57 2016 +0200
+
+    Remove lousy grey div ;)
+
+[33mcommit 828070f7535d9890ff7fe969367156b901568bca[m
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Tue Apr 26 09:27:57 2016 +0200
+
+    Add basic tests and validations
+    
+    * Add basic place model tests
+    * Add validations for place model
+    * Setup test configs for using guard and capybara with minitest
+    * Add place CRUD and REST controller tests
+    * Add geocode validations
+    * Cleanup: Remove debugger, gitignore byebug_history
+
+[33mcommit 46990574c92ba5a65c3b9b84e54bfd37f4522f8d[m
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Mon Apr 25 18:40:02 2016 +0200
+
+    Install geocoder, change config to use OSM and add address to places
+    
+    * Change config to use OSM
+    * Add address attributes to places
+    * DRY up place input via _form-partial, split up index and edit places, show geocoords in places index table
+
+[33mcommit 52aed196327af043ed7b59f7b589181602a52d69[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Fri Apr 8 22:51:53 2016 +0200
+
+    form style
+
+[33mcommit 0ad5d4be22a5ec03947a7c40bba8e709a4cafd0c[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Fri Apr 8 22:25:37 2016 +0200
+
+    add form fields for english and german description
+
+[33mcommit 8ad6365afbf5d7eb09b1a47c998d0a6b9e6cecfb[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Fri Apr 8 16:50:48 2016 +0200
+
+    nested formsgit status!
+
+[33mcommit 8d27db444a327871b25e2a7e248049be7265d5fe[m
+Merge: 69636b2 14ab6fe
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue Apr 5 16:40:22 2016 +0200
+
+    Merge pull request #3 from magdalena19/description-workspace
+    
+    Description workspace
+
+[33mcommit 14ab6feb92d02bff13f74c798092c9cba667a255[m
+Author: Andreas Neumann <andneuma@posteo.de>
+Date:   Sun Apr 3 19:08:09 2016 +0200
+
+    Add description model
+
+[33mcommit 69636b2e1e858c5752f1d7962c63abe677913ee9[m
+Merge: e00bc57 fc6dcd5
+Author: magdalena19 <jo5cha@web.de>
+Date:   Tue Apr 5 16:39:00 2016 +0200
+
+    Merge pull request #2 from magdalena19/clean_up
+    
+    clean up controller
+
+[33mcommit fc6dcd55bd29acde609c59b62d28ec2ee5c8b4f2[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Tue Apr 5 15:16:44 2016 +0200
+
+    clean up controller
+
+[33mcommit e00bc574585be3655b9e9e5dde044bb8131a639e[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Thu Mar 31 22:33:41 2016 +0200
+
+    serve features as geojson
+
+[33mcommit e698182b90ccb5979387140069f457b50b857e42[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Thu Mar 31 20:58:56 2016 +0200
+
+    add column categories
+
+[33mcommit 19727fea96dc38c54b950ff7d7dac4bae6b93d55[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Mar 31 18:20:33 2016 +0200
+
+    add simple popup
+
+[33mcommit eb8db5fca82777504d3acab169cc4da6464cd43a[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Mar 31 17:53:34 2016 +0200
+
+    add name column
+
+[33mcommit a241f1615e16fe207346bc2d42e50621a9768696[m
+Author: kjoscha <kjoscha@gmail.com>
+Date:   Thu Mar 31 17:31:47 2016 +0200
+
+    clean and make up views
+
+[33mcommit dbd95b8d9a6e18220dfa26050cf76e3dd623e193[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Mar 18 14:52:21 2016 +0100
+
+    Update README.md
+
+[33mcommit dd9cc38e9ee37eb12c076f7e78e1d417c4293688[m
+Merge: 13d8436 4e8d722
+Author: magdalena19 <jo5cha@web.de>
+Date:   Fri Mar 18 13:34:52 2016 +0100
+
+    Merge pull request #1 from magdalena19/editor
+    
+    Add basic editor
+
+[33mcommit 4e8d722d33e2c7bf68a6f076f4facbb587b29aa4[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Fri Mar 18 13:33:25 2016 +0100
+
+    base editor
+
+[33mcommit bda62e12e4306b3847c994b70b7220b1408e0339[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Fri Mar 18 13:00:57 2016 +0100
+
+    modify map
+
+[33mcommit 13d8436ea507004235ccc1e1ca93f1f5fa0df67f[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Fri Mar 18 12:57:55 2016 +0100
+
+    add gitignore
+
+[33mcommit b12eff771780a42ecafa52a8158cd13924cca5fa[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Fri Mar 18 11:46:38 2016 +0100
+
+    some styling + rearrangements
+
+[33mcommit b17665d9c2d6f16c3d30a9364ecde2ab477df12b[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sat Mar 12 20:36:43 2016 +0100
+
+    Update README.md
+
+[33mcommit a90a21cc28ab67d6626b20044f4f8209ebdbacf4[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Sat Mar 12 20:34:02 2016 +0100
+
+    remove temp files
+
+[33mcommit cc29a3843bf0cd8fd438eca9cb21324cef560010[m
+Author: kjoscha <jo5cha@web.de>
+Date:   Sat Mar 12 20:32:27 2016 +0100
+
+    initial commit
+
+[33mcommit 685c11b05f09019eb62af036d298be34173b5907[m
+Author: magdalena19 <jo5cha@web.de>
+Date:   Sat Mar 12 20:29:12 2016 +0100
+
+    Initial commit

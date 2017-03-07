@@ -21,7 +21,7 @@ module AutoTranslate
   end
 
   def autotranslated_or_empty
-    translations.select { |t| t.auto_translated || !t[@attribute].present? }
+    translations.select { |t| !t[@attribute].present? || t.auto_translated }
   end
 
   def missing_locales

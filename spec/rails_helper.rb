@@ -7,6 +7,7 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'pry'
+require 'auto_translation/auto_translate'
 
 def validate_captcha
   fill_in 'captcha', with: SimpleCaptcha::SimpleCaptchaData.first.value
@@ -28,12 +29,6 @@ def login_as_admin
   click_on 'Login'
 end
 
-def spawn_categories
-  %w[Playground Hospital Lawyer Cafe Free_wifi].each do |category_name|
-    create :category, name_en: category_name
-  end
-end
-
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
@@ -43,7 +38,7 @@ ActiveRecord::Migration.maintain_test_schema!
 Geocoder.configure(lookup: :test)
 Geocoder::Lookup::Test.set_default_stub(
   [
-    { data: 
+    { data:
       { 'lat' => 52,
         'lon' => 12,
         'address' => {

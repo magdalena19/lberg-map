@@ -31,14 +31,14 @@ FactoryGirl.define do
       name 'SomeUnreviewedPlace'
       reviewed 'false'
       description_en 'This is an unreviewed point'
-      categories '1,4,5'
+      categories '1,2'
     end
 
     trait :without_address do
       name 'ToBeGeocoded'
       reviewed 'false'
       description_en 'This is a point without any address'
-      categories '1,4,5'
+      categories '1,2'
       house_number ''
       street ''
       postal_code ''
@@ -51,7 +51,7 @@ FactoryGirl.define do
       latitude nil
       longitude nil
       description_en 'This is a point without any address'
-      categories '1,4,5'
+      categories '1,2'
     end
 
     factory :event do

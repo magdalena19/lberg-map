@@ -115,7 +115,7 @@ class PlacesController < ApplicationController
       :latitude, :longitude,
       *Place.globalize_attribute_names,
       :phone, :homepage, :email,
-      categories: []
+      :categories
     )
   end
 end

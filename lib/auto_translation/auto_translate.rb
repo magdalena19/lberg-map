@@ -45,7 +45,7 @@ module AutoTranslate
                                              to: missing_locale)
       translation_record = translations.find_by(locale: missing_locale)
       update = -> { translation_record.send "update_attributes", { "#{@attribute}": auto_translation, auto_translated: true } }
-      if self.respond_to? :without_versioning
+      if self.respond_to? :versions
         translation_record.without_versioning { update.call }
       else
         update.call

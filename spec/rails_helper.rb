@@ -29,6 +29,34 @@ def login_as_admin
   click_on 'Login'
 end
 
+def create_place_as_user(place_name)
+  login_as_user
+  visit new_place_path
+  fill_in_valid_place_information
+  fill_in('place_name', with: place_name)
+  click_on('Create Place')
+end
+
+def create_place_as_guest(place_name)
+  visit new_place_path
+  fill_in_valid_place_information
+  fill_in('place_name', with: place_name)
+  validate_captcha
+  click_on('Create Place')
+end
+
+def fill_in_valid_place_information
+  fill_in('place_name', with: 'Any place')
+  fill_in('place_street', with: 'Magdalenenstr.')
+  fill_in('place_house_number', with: '19')
+  fill_in('place_postal_code', with: '10963')
+  fill_in('place_city', with: 'Berlin')
+  fill_in('place_email', with: 'schnipp@schnapp.com')
+  fill_in('place_homepage', with: 'http://schnapp.com')
+  fill_in('place_phone', with: '03081763253')
+  fill_in('place_categories', with: 'Hospital, Cafe')
+end
+
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!

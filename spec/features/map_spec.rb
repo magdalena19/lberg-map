@@ -3,7 +3,6 @@
 feature 'Map', js: true do
   before do
     create :settings, :public
-    spawn_categories
     create :place, :reviewed, id: 666
 
     visit '/'

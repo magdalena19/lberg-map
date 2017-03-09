@@ -6,8 +6,8 @@ class Category < ActiveRecord::Base
   translates :name
   globalize_accessors
 
-  after_create :enqueue_auto_translation
   before_create :prepare_for_autotranslation
+  after_create :enqueue_auto_translation
 
   def enqueue_auto_translation
     TranslationWorker.perform_async('Category', id) if Admin::Setting.auto_translate

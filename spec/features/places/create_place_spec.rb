@@ -4,10 +4,7 @@ feature 'Create place' do
   end
 
   scenario 'create valid place as user', js: true do
-    login_as_user
-    visit new_place_path
-    fill_in_valid_place_information
-    click_button('Create Place')
+    create_place_as_user('Any place')
     visit places_path
 
     expect(page).to have_content('Any place', count: 1)
@@ -75,25 +72,5 @@ feature 'Create place' do
     expect(new_place.district).to eq 'Lichtenberg'
     expect(new_place.federal_state).to eq 'Berlin'
     expect(new_place.country).to eq 'Germany'
-  end
-
-  def create_place_as_guest(place_name)
-    visit new_place_path
-    fill_in_valid_place_information
-    fill_in('place_name', with: place_name)
-    validate_captcha
-    click_on('Create Place')
-  end
-
-  def fill_in_valid_place_information
-    fill_in('place_name', with: 'Any place')
-    fill_in('place_street', with: 'Magdalenenstr.')
-    fill_in('place_house_number', with: '19')
-    fill_in('place_postal_code', with: '10963')
-    fill_in('place_city', with: 'Berlin')
-    fill_in('place_email', with: 'schnipp@schnapp.com')
-    fill_in('place_homepage', with: 'http://schnapp.com')
-    fill_in('place_phone', with: '03081763253')
-    fill_in('place_categories', with: 'Hospital, Cafe')
   end
 end

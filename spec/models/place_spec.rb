@@ -93,6 +93,15 @@ describe Place do
       skip('To be defined: Duplicate entries not valid')
     end
 
+    it 'creates and autotranslates categories correctly' do
+      Sidekiq::Testing.inline! do
+        create :place, :unreviewed, categories: 'Foo'
+      end
+
+      expect(Category.count).to be 1
+      expect(Category.first.name_de).to eq 'stubbed autotranslation'
+    end
+
     context 'Geocoding' do
       it 'Place with lat/lon does not need to be geocoded' do
         place = build :place, :unreviewed, latitude: 60.0, longitude: 10.0

@@ -81,11 +81,11 @@ describe PlacesController do
     end
 
     it 'Enqueues auto_translation task after create' do
-      unreviewed_place = build :place, :unreviewed
+      unreviewed_place = build :place, :unreviewed, categories: 'cat1, cat2'
       Sidekiq::Testing.fake! do
         expect {
           post :create, place: extract_attributes(unreviewed_place)
-        }.to change { TranslationWorker.jobs.size }.by(1)
+        }.to change { TranslationWorker.jobs.size }.by(3)
       end
     end
 
@@ -99,6 +99,15 @@ describe PlacesController do
           post :create, place: extract_attributes(unreviewed_place)
         }.to change { TranslationWorker.jobs.size }.by(0)
       end
+    end
+
+    it 'creates category that is not there' do
+      Category.create name: 'OldCat'
+      new_place = create :place, :unreviewed, categories: 'NewCat'
+
+      post :create, place: extract_attributes(new_place)
+
+      expect(Category.all.map(&:name)).to include('NewCat')
     end
 
 		context 'Place created by guest user' do

@@ -10,11 +10,6 @@ class PlaceParamsModifier
       check_and_filter_descriptions
     end
 
-    if place_params[:categories]
-      category_param = place_params[:categories].sort || []
-      @params[:categories] = category_param.reject(&:empty?).join(',')
-    end
-
     if @place && @place.lat_lon_present?
       @params[:latitude] = @place.latitude
       @params[:longitude] = @place.longitude

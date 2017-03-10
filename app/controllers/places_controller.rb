@@ -46,6 +46,7 @@ class PlacesController < ApplicationController
     @place.longitude ||= params[:place][:longitude]
 
     if @place.save
+      set_categories
       PlaceAttributeSetter.set_attributes_after_create(place: @place, params: params_to_create, signed_in: @current_user.signed_in?)
       store_in_session_cookie
       flash[:success] = t('.created')
@@ -63,6 +64,36 @@ class PlacesController < ApplicationController
   end
 
   private
+
+  ### CATEGORIES -> factor this out
+  def place_categories
+    @place.categories.split(/;|,/).map(&:strip)
+  end
+
+  def categories_include(category_string:)
+    return [] unless Category.any?
+    Category.all.select do |category|
+      translated_names = category.translations.map(&:name)
+      translated_names.include? category_string
+    end
+  end
+
+  def set_categories
+    res = []
+    place_categories.each do |category|
+      matches = categories_include(category_string: category)
+      if matches.any?
+        res << matches.map(&:id)
+      else
+        new_category = Category.create name: category
+        res << new_category.id
+      end
+    end
+
+    @place.without_versioning do
+      @place.update_attributes(categories: res.join(','))
+    end
+  end
 
   def can_commit?
     simple_captcha_valid? || @current_user.signed_in?
@@ -115,7 +146,7 @@ class PlacesController < ApplicationController
       :latitude, :longitude,
       *Place.globalize_attribute_names,
       :phone, :homepage, :email,
-      categories: []
+      :categories
     )
   end
 end

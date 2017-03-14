@@ -15,21 +15,6 @@
     .glyphicon.glyphicon-triangle-top
     .show-categories-text.text-center
 
-.overlay.places-list-panel
-  .row.category-button-container
-    .col-xs-6.category-button-col
-      = button_tag(t('categories.all_categories'), type: 'button', class: 'btn btn-dark category-button', id: 'all')
-      %br
-    - @categories.each do |category|
-      .col-xs-6.category-button-col
-        = button_tag(category.name, type: 'button', class: 'btn btn-dark category-button', id: category.id)
-  .row
-    .col-xs-12.search-field
-      %input.form-control#search-input{placeholder: t('.search_placeholder')}
-  .row
-    .col-xs-12.places-list-accordion-container
-      #accordion.places-list-accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
-
 .overlay.loading
   .loading-text
     = t('.overlay_loading')

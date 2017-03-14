@@ -37,6 +37,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 gem 'will_paginate', '~> 3.1.0'
 gem 'yandex-translator'
+gem 'awesomplete'
 
 group :development, :test do
   gem 'pry-byebug'

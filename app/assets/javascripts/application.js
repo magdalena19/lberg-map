@@ -4,7 +4,6 @@
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require bootstrap-wysihtml5
-//= require awesomplete
 
 jQuery(function() {
   if (window.history.length === 1) {
@@ -61,17 +60,4 @@ jQuery(function() {
 
   // Enable bootstrap tooltips
   jQuery('[data-toggle="tooltip"]').tooltip();
-
-  // input field with multiple tags
-  var input = document.getElementById('search-input');
-  new Awesomplete(input, {
-  	filter: function(text, input) {
-  		return Awesomplete.FILTER_CONTAINS(text, input.match(/[^ ]*$/)[0]);
-  	},
-  	replace: function(text) {
-  		var before = this.input.value.match(/^.+ \s*|/)[0];
-  		this.input.value = before + text + ' ';
-  	}
-  });
-
 });

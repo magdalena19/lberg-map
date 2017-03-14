@@ -8,7 +8,7 @@
         = button_tag(category.name, type: 'button', class: 'btn btn-dark category-button', id: category.id)
   .row
     .col-xs-12.search-field
-      %input#search-input.tag-input.form-control{'data-list' => (Category.list)}/
+      %input.form-control#search-input{placeholder: t('.search_placeholder')}
   .row
     .col-xs-12.places-list-accordion-container
       #accordion.places-list-accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}

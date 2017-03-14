@@ -1,5 +1,4 @@
 require 'auto_translation/auto_translate'
-require 'auto_translation/auto_translation_gateway'
 require 'auto_translation/translation_engines/google_translator_wrapper'
 
 describe AutoTranslate do

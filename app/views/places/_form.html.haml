@@ -33,7 +33,7 @@
   .row
     .col-xs-12
       %h4= t('.categories')
-      = f.text_field :categories, placeholder: 'Enter categories', class: 'form-control', disabled: @place.unreviewed_version
+      = f.text_field :categories, placeholder: 'Enter categories', class: 'form-control', disabled: @place.unreviewed_version, value: @place.categories ? @place.category_names.join(', ') : nil
 
   .row
     %hr

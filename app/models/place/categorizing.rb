@@ -27,7 +27,7 @@ module Categorizing
       end
     end
 
-    self.categories = res.join(',')
+    self.categories = res.flatten.sort.join(',')
   end
 
   private

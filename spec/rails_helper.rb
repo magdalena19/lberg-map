@@ -86,7 +86,7 @@ Geocoder::Lookup::Test.set_default_stub(
 )
 
 def stub_autotranslation
-  allow_any_instance_of(AutoTranslate).to receive(:receive_translation).and_return('stubbed autotranslation')
+  allow_any_instance_of(AutoTranslate).to receive(:translate).and_return('stubbed autotranslation')
 end
 
 # CAPYBARA configuration

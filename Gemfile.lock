@@ -44,6 +44,8 @@ GEM
     ast (2.3.0)
     autoprefixer-rails (6.7.2)
       execjs
+    awesomplete (0.0.6)
+      rails (~> 4.0)
     backports (3.6.8)
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
@@ -225,6 +227,7 @@ GEM
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.19.0)
+    phantomjs_polyfill-rails (1.0.0)
     poltergeist (1.13.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -422,6 +425,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesomplete
   bcrypt (~> 3.1.7)
   bing_translator (~> 4.6.0)
   bootstrap-sass (~> 3.3.6)
@@ -454,6 +458,7 @@ DEPENDENCIES
   lorem_ipsum_amet
   paper_trail
   pg
+  phantomjs_polyfill-rails
   poltergeist
   pry-byebug
   rack-attack

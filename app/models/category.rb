@@ -17,8 +17,12 @@ class Category < ActiveRecord::Base
   def prepare_for_autotranslation
     I18n.available_locales.each do |locale|
       next if send("name_#{locale}").present?
-      send("name_#{locale}=", '') 
+      send("name_#{locale}=", '')
     end
+  end
+
+  def self.list_names
+    Category.all.map(&:name).join(', ')
   end
 
   def self.id_for(category_string)

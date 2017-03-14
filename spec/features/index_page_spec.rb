@@ -6,7 +6,7 @@ feature 'Index page' do
     expect(page).to have_css('.logo')
     expect(page).to have_css('#map')
     click_on('Sprache')
-    expect(page).to have_content('Alle')
+    expect(page).to have_content('KARTE')
   end
 
   scenario 'redirect to login page after selecting language if map is private', :js do

@@ -31,6 +31,14 @@
     %hr
 
   .row
+    .col-xs-12
+      %h4= t('.categories')
+      = f.text_field :categories, placeholder: 'Enter categories', class: 'form-control', disabled: @place.unreviewed_version, value: @place.categories ? @place.category_names.join(', ') : nil
+
+  .row
+    %hr
+
+  .row
     - I18n.available_locales.in_groups_of(2, false).each do |group|
       - group.each do |lang|
         - locale != lang ? hidden = 'hidden-description' : hidden = ''
@@ -53,17 +61,6 @@
               = f.text_area column.to_sym, class: "wysihtml5 description-area #{column}"
             - else
               = f.text_area column.to_sym, class: "wysihtml5 description-area #{column}"
-  .row
-    %hr
-
-  .row
-    .col-xs-12
-      %h4= t('.categories')
-      - Category.all.each do |category|
-        .col-xs-8.col-sm-4{dir: "#{text_direction}"}
-          = category.name
-        .col-xs-4.col-sm-2
-          = check_box_tag 'place[categories][]', category.id, f.object.category_for(category.id), disabled: @place.unreviewed_version
 
   .row
     %hr

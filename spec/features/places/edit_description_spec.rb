@@ -4,7 +4,6 @@ feature 'Edit description' do
   end
 
   scenario 'Do not show guest edits in place list', :js do
-    spawn_categories
     place = create :place, :reviewed
 
     visit edit_place_path id: place.id

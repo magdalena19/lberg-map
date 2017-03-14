@@ -7,6 +7,7 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'pry'
+require 'auto_translation/auto_translate'
 
 def validate_captcha
   fill_in 'captcha', with: SimpleCaptcha::SimpleCaptchaData.first.value
@@ -28,10 +29,32 @@ def login_as_admin
   click_on 'Login'
 end
 
-def spawn_categories
-  %w[Playground Hospital Lawyer Cafe Free_wifi].each do |category_name|
-    create :category, name_en: category_name
-  end
+def create_place_as_user(place_name)
+  login_as_user
+  visit new_place_path
+  fill_in_valid_place_information
+  fill_in('place_name', with: place_name)
+  click_on('Create Place')
+end
+
+def create_place_as_guest(place_name)
+  visit new_place_path
+  fill_in_valid_place_information
+  fill_in('place_name', with: place_name)
+  validate_captcha
+  click_on('Create Place')
+end
+
+def fill_in_valid_place_information
+  fill_in('place_name', with: 'Any place')
+  fill_in('place_street', with: 'Magdalenenstr.')
+  fill_in('place_house_number', with: '19')
+  fill_in('place_postal_code', with: '10963')
+  fill_in('place_city', with: 'Berlin')
+  fill_in('place_email', with: 'schnipp@schnapp.com')
+  fill_in('place_homepage', with: 'http://schnapp.com')
+  fill_in('place_phone', with: '03081763253')
+  fill_in('place_categories', with: 'Hospital, Cafe')
 end
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
@@ -43,7 +66,7 @@ ActiveRecord::Migration.maintain_test_schema!
 Geocoder.configure(lookup: :test)
 Geocoder::Lookup::Test.set_default_stub(
   [
-    { data: 
+    { data:
       { 'lat' => 52,
         'lon' => 12,
         'address' => {
@@ -61,6 +84,10 @@ Geocoder::Lookup::Test.set_default_stub(
     }
   ]
 )
+
+def stub_autotranslation
+  allow_any_instance_of(AutoTranslate).to receive(:translate).and_return('stubbed autotranslation')
+end
 
 # CAPYBARA configuration
 Capybara.register_driver :poltergeist do |app|
@@ -95,6 +122,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
+    stub_autotranslation
   end
 
   config.after(:each) do

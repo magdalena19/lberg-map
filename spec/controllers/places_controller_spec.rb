@@ -81,11 +81,11 @@ describe PlacesController do
     end
 
     it 'Enqueues auto_translation task after create' do
-      unreviewed_place = build :place, :unreviewed
+      unreviewed_place = build :place, :unreviewed, categories: 'cat1, cat2'
       Sidekiq::Testing.fake! do
         expect {
           post :create, place: extract_attributes(unreviewed_place)
-        }.to change { TranslationWorker.jobs.size }.by(1)
+        }.to change { TranslationWorker.jobs.size }.by(3)
       end
     end
 
@@ -99,6 +99,15 @@ describe PlacesController do
           post :create, place: extract_attributes(unreviewed_place)
         }.to change { TranslationWorker.jobs.size }.by(0)
       end
+    end
+
+    it 'creates category that is not there' do
+      Category.create name: 'OldCat'
+      new_place = create :place, :unreviewed, categories: 'NewCat'
+
+      post :create, place: extract_attributes(new_place)
+
+      expect(Category.all.map(&:name)).to include('NewCat')
     end
 
 		context 'Place created by guest user' do
@@ -226,21 +235,34 @@ describe PlacesController do
   context 'PUT #update' do
     let(:reviewed_place) { create :place, :reviewed }
 
-    it 'Cannot update place if is not reviewed' do
-      unreviewed_place = create :place, :unreviewed
-      put :update, id: unreviewed_place.id, place: { name: 'Some other name' }
-      unreviewed_place.reload
-      expect(unreviewed_place.name).not_to eq('Some other name')
+    context 'restrict non-reviewed access' do
+      it 'Cannot update place if is not reviewed' do
+        unreviewed_place = create :place, :unreviewed
+        put :update, id: unreviewed_place.id, place: { name: 'Some other name' }
+        unreviewed_place.reload
+        expect(unreviewed_place.name).not_to eq('Some other name')
+      end
+
+      it 'Cannot update translation if is not reviewed' do
+        put :update, id: reviewed_place.id, place: { description_en: 'This description has been changed!' }
+        reviewed_place.reload
+        expect(reviewed_place.translations.find_by(locale: :en).reviewed).to be false
+
+        put :update, id: reviewed_place.id, place: { description_en: 'Some other description text' }
+        reviewed_place.reload
+        expect(reviewed_place.description_en).not_to eq('Some other description text')
+      end
     end
 
-    it 'Cannot update translation if is not reviewed' do
-      put :update, id: reviewed_place.id, place: { description_en: 'This description has been changed!' }
-      reviewed_place.reload
-      expect(reviewed_place.translations.find_by(locale: :en).reviewed).to be false
+    context 'update on categories' do
+      it 'changes record references accordingly' do
+        place = create :place, :reviewed, categories: 'Foo, Bar'
+        put :update, id: place.id, place: { categories: 'Bar, Hooray' }
+        place.reload
+        categories = %w[Bar Hooray].map { |name| Category.find_by(name: name).id }
 
-      put :update, id: reviewed_place.id, place: { description_en: 'Some other description text' }
-      reviewed_place.reload
-      expect(reviewed_place.description_en).not_to eq('Some other description text')
+        expect(place.categories).to eq categories.join(',')
+      end
     end
 
     context 'Place updated by guest user' do

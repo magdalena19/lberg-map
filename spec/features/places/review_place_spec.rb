@@ -1,8 +1,6 @@
 feature 'Review place' do
   before do
     create :settings, :public
-    spawn_categories
-    create :settings
   end
 
   scenario 'Do not show user edits in review index', :js do
@@ -21,6 +19,7 @@ feature 'Review place' do
     fill_in('place_name', with: 'GUEST CHANGE')
     validate_captcha
     click_on('Update Place')
+
     login_as_user
     visit places_review_index_path
     expect(page).to have_content('SomeReviewedPlace')

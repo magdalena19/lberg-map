@@ -1,3 +1,4 @@
+require 'place/categorizing'
 require 'place/geocoding'
 require 'place/place_auditing'
 require 'place/place_translations_auditing'
@@ -9,6 +10,7 @@ require 'sanitize'
 
 class Place < ActiveRecord::Base
   include AutoTranslate
+  include Categorizing
   include PlaceBackgroundTranslation
   include PlaceTranslationsAuditing
   include PlaceGeocoding
@@ -43,6 +45,7 @@ class Place < ActiveRecord::Base
   before_update :geocode_with_nodes, if: :address_changed?
   after_create :enqueue_auto_translation
   after_create :set_description_reviewed_flags
+  before_save :set_categories, if: :categories_changed?
 
   ## EVENT STUFF
   scope :all_events, -> { where(event: true) }
@@ -70,25 +73,7 @@ class Place < ActiveRecord::Base
   ## MODEL AUDITING
   has_paper_trail on: [:create, :update], ignore: [:reviewed, :description]
 
-  ## CATEGORIES
-  def category_for(id)
-    category_ids.include?(id.to_s)
-  end
-
-  def category_names
-    category_ids.map { |id| Category.find(id.to_s).name }
-  end
-
-  def category_ids
-    categories.split(',').sort
-  end
-
-  def categories
-    self[:categories].split(',').sort.join(',')
-  end
-
   ## SANITIZE
-  # TODO factor this out?
   def sanitize_descriptions
     I18n.available_locales.each do |locale|
       column = "description_#{locale}"

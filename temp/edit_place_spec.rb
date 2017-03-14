@@ -1,10 +1,6 @@
 RSpec.feature 'Edit place', type: feature do
   let(:place) { create :place, :reviewed }
 
-  before do
-    spawn_categories
-  end
-
   scenario 'Do valid place update as user and show in index afterwards', :js do
     login_as_user
     visit edit_place_path(id: place.id)

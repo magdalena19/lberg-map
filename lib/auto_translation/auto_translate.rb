@@ -1,22 +1,51 @@
+require 'auto_translation/translation_engines/bing_translator_wrapper'
+require 'auto_translation/translation_engines/yandex_translator_wrapper'
+require 'auto_translation/translation_engines/google_translator_wrapper'
+require 'auto_translation/translation_engines/null_translator'
+
 # Module containing methods extending objects with auto-translation capabilities
 module AutoTranslate
   def auto_translate_empty_attributes
-    @translator = AutoTranslationGateway.new
-    translated_attributes.each do |attribute, _value|
-      set_translation_scope attribute: attribute
+    @translator = active_translation_engine
+    translated_attributes.each do |attr, _value|
+      @attribute = attr
       @native_translation = guess_native_language
-      translate_attribute if @native_translation
+      translate_and_update if @native_translation
     end
   end
 
   private
 
-  def set_translation_scope(attribute:)
-    @attribute = attribute
+  def active_translation_engine
+    engine = Admin::Setting.translation_engine
+    engine_wrapper = "#{engine.camelize}TranslatorWrapper".singularize.constantize
+  rescue
+    NullTranslator.new
+  else
+    engine_wrapper.new
+  end
+
+  def translate(text:, from:, to:)
+    return '' unless can_translate?(text: text, languages: [from, to])
+    translation = @translator.translate(text: text,
+                                        from: from,
+                                        to: to)
+  rescue
+    ''
+  else
+    translation
+  end
+
+  private
+
+  def can_translate?(text:, languages:)
+    @translator.char_balance_sufficient?(text: text) &&
+      @translator.languages_available?(lang_codes: languages) &&
+      text.present?
   end
 
   def autotranslated_or_empty
-    translations.select { |t| t.auto_translated || !t[@attribute].present? }
+    translations.select { |t| !t[@attribute].present? || t.auto_translated }
   end
 
   def missing_locales
@@ -33,18 +62,17 @@ module AutoTranslate
     end.last
   end
 
-  def translate_attribute
+  def translate_and_update
     missing_locales.each do |missing_locale|
-      if Rails.env == 'test'
-        auto_translation = "auto_translation: test_stub (#{@translator.engine.to_s})"
+      auto_translation = translate(text: @native_translation.send("#{@attribute}"),
+                                   from: @native_translation.locale,
+                                   to: missing_locale)
+      translation_record = translations.find_by(locale: missing_locale)
+      update = -> { translation_record.send "update_attributes", { "#{@attribute}": auto_translation, auto_translated: true } }
+      if self.respond_to? :versions
+        translation_record.without_versioning { update.call }
       else
-        auto_translation = @translator.translate(text: @native_translation[@attribute],
-                                                 from: @native_translation.locale,
-                                                 to: missing_locale)
-      end
-      translation = translations.find_by(locale: missing_locale)
-      translation.without_versioning do
-        translation.send "update_attributes", { "#{@attribute}": auto_translation, auto_translated: true }
+        update.call
       end
     end
   end

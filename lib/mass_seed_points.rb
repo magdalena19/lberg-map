@@ -56,9 +56,9 @@ module MassSeedPoints
 
   def self.generate_point(bbox)
     random_point = random_point_inside_bbox(bbox)
-    category_ids = Category.all.map(&:id)
     updated_at = Date.today - rand(0..365)
     created_at = updated_at - rand(5..100)
+    categories = Category.all
     @place = Place.create(name: Faker::Hipster.word.capitalize,
                           street: Faker::Address.street_name,
                           house_number: house_number,
@@ -71,7 +71,7 @@ module MassSeedPoints
                           longitude: random_point[:longitude],
                           description_en: Faker::Hipster.paragraph(rand(1..2)),
                           description_de: Faker::Hipster.paragraph(rand(1..2)),
-                          categories: category_ids.sample(rand(1..5)).join(','),
+                          categories: categories.sample(rand(1..3)).map(&:name).join(','),
                           reviewed: [true, false].sample,
                           created_at: created_at,
                           updated_at: updated_at)
@@ -79,15 +79,14 @@ module MassSeedPoints
   end
 
   # Quick'n dirty, otherwise parse locale files for categories
-  CATNAMES = %w[playground free_wifi hospital lawyer cafe meeting_point child_play].freeze
 
   def self.populate_predefined_categories
-    categories_in_db = Category.all.map(&:name)
-    CATNAMES.each do |cat_name|
-      next if categories_in_db.include? cat_name
-      Category.create(name_en: I18n.t("categories.#{cat_name}", locale: 'en'),
-                      name_de: I18n.t("categories.#{cat_name}", locale: 'de'))
-    end
+    Category.create(name_en: 'Playground', locale: 'en',
+                    name_de: 'Spielplatz', locale: 'de')
+    Category.create(name_en: 'Lawyer', locale: 'en',
+                    name_de: 'Anwalt', locale: 'de')
+    Category.create(name_en: 'Hospital', locale: 'en',
+                    name_de: 'Krankenhaus', locale: 'de')
   end
 
   def self.generate(number_of_points:, city:)
@@ -98,7 +97,7 @@ module MassSeedPoints
     end
 
     # Create all categories listed in translation YAML files
-    populate_predefined_categories if CATNAMES.any?
+    populate_predefined_categories
 
     # Create n points
     number_of_points.times.with_index do |i|

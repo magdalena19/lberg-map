@@ -1,10 +1,8 @@
 feature 'Index' do
   before do
     create :settings, :public
-    spawn_categories
-    create :settings
-    create(:place, :reviewed, name: 'Haus vom Nikolaus', phone: 1234, categories: '1,2')
-    create(:place, :reviewed, name: 'Katzenklo', categories: '3')
+    create(:place, :reviewed, name: 'Haus vom Nikolaus', phone: 1234, categories: 'Playground')
+    create(:place, :reviewed, name: 'Katzenklo', categories: 'Lawyer')
   end
 
   scenario 'shows places in datatable', js: true do

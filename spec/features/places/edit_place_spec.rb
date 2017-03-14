@@ -1,9 +1,7 @@
 feature 'Edit place' do
   before do
     create :settings, :public
-    spawn_categories
-    create :settings
-    @place = create :place, :reviewed
+    @place = create :place, :reviewed, categories: 'Playground, Café'
   end
 
   scenario 'Do valid place update as user and show in index afterwards', :js do
@@ -47,5 +45,10 @@ feature 'Edit place' do
     expect(page).not_to have_content('SomeOtherName')
     expect(page).to have_content('SomeReviewedPlace')
     expect(page).not_to have_css('.glyphicon-eye-open')
+  end
+
+  scenario 'Display category names in edit field', :js do
+    visit edit_place_path(id: @place.id)
+    expect(page.find('#place_categories').value).to eq 'Café, Playground'
   end
 end

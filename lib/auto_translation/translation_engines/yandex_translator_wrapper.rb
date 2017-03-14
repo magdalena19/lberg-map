@@ -1,7 +1,5 @@
 # Wrapper for yandex translation engine
 class YandexTranslatorWrapper
-  attr_reader :yandex_translator
-
   def initialize
     id = ENV['yandex_secret']
     @yandex_translator = Yandex::Translator.new(id)

@@ -6,6 +6,8 @@
 //= require bootstrap-sprockets
 //= require bootstrap-wysihtml5
 //= require awesomplete
+//= require moment
+//= require daterangepicker
 
 jQuery(function() {
   if (window.history.length === 1) {
@@ -59,6 +61,38 @@ jQuery(function() {
       jQuery('.email_reply').hide(350);
     }
   })
+  
+  // Place events
+
+  var picker = function() {
+    var with_end_date = jQuery('#set_end_date').is(':checked');
+    $('#place_start_date').daterangepicker({
+      "singleDatePicker": !with_end_date,
+      "showDropdowns": true,
+      "showWeekNumbers": true,
+      "timePicker": true,
+      "timePicker24Hour": true,
+      "timePickerIncrement": 15,
+      "linkedCalendars": false,
+      "showCustomRangeLabel": false,
+      "locale": {
+        format: 'DD.MM.YYYY h:mm A'
+      },
+    }, function(start, end, label) {
+      console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+    });
+  }
+
+  jQuery('#place_event').on('click', function(){
+    var checked = $(this).is(':checked');
+    if (checked) {
+      jQuery('.place_start_date').show(350);
+      jQuery('.place_end_date').show(350);
+      picker();
+    } else {
+      jQuery('.place_start_date').hide(350);
+      jQuery('.place_end_date').hide(350); }
+  })
 
   // Enable bootstrap tooltips
   jQuery('[data-toggle="tooltip"]').tooltip();
@@ -83,4 +117,27 @@ jQuery(function() {
       categoryList.open();
     });
   });
+
+	jQuery('#place_start_date').daterangepicker({
+		"timePicker": true,
+		"timePicker24Hour": true,
+		"timePickerIncrement": 15,
+		"locale": {
+			format: 'DD.MM.YYYY h:mm A'
+		},
+		"ranges": {
+			'Today': [moment().startOf('day'), moment().endOf('day')],
+			'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+			'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+			'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+			'This Month': [moment().startOf('month'), moment().endOf('month')],
+			'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		},
+	}, function(start, end, label) {
+		console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+	});
+
+  jQuery('#set_end_date').on('click', function(){
+    picker();
+  })
 });

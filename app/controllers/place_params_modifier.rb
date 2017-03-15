@@ -10,6 +10,22 @@ class PlaceParamsModifier
       check_and_filter_descriptions
     end
 
+    if place_params[:categories]
+      category_param = place_params[:categories].split(/,|;/).map(&:strip).sort || []
+      @params[:categories] = category_param.reject(&:empty?).join(',')
+    end
+
+    if place_params[:event] == "1"
+      @params[:event] = true
+      date = @params[:start_date].split(' - ').reverse
+      @params[:start_date] = date.pop.to_datetime
+      @params[:end_date] = date.any? ? date.pop.to_datetime : nil
+    else
+      @params[:event] = false
+      @params[:start_date] = nil
+      @params[:end_date] = nil
+    end
+
     if @place && @place.lat_lon_present?
       @params[:latitude] = @place.latitude
       @params[:longitude] = @place.longitude

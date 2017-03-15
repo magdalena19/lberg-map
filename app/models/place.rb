@@ -18,6 +18,8 @@ class Place < ActiveRecord::Base
   include Sanitization
   include CustomValidators
   include PlaceModelHelpers
+
+  mount_uploaders :images, ImageUploader
   
   extend TimeSplitter::Accessors
   split_accessor :start_date

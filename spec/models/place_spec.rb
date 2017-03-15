@@ -10,6 +10,12 @@ describe Place do
     expect(Place.find(place.id)).to eq(place)
   end
 
+  context 'Images' do
+    it 'can have images' do
+      expect(Place.new.images).to be_a(Array)
+    end
+  end
+
   context 'Validate' do
     it 'empty place as invalid' do
       expect(Place.new).not_to be_valid

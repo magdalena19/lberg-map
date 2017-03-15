@@ -73,6 +73,10 @@ GEM
       launchy
     capybara-slow_finder_errors (0.1.4)
       capybara (~> 2.5)
+    carrierwave (1.0.0)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
     childprocess (0.6.1)
       ffi (~> 1.0, >= 1.0.11)
     cliver (0.3.2)
@@ -436,6 +440,7 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   capybara-slow_finder_errors
+  carrierwave (~> 1.0)
   codeclimate-test-reporter (~> 1.0.0)
   coffee-rails (~> 4.1.0)
   database_cleaner

@@ -32,4 +32,4 @@ en:
       correct_location?: 'Correct location?'
       new_place: 'New Place'
       overlay_loading: 'LOADING...'
-      search_placeholder: 'e.g. dentist Friedrichshain'
+      search_placeholder: 'Search (comma-separated), e.g. lawyer, Neukölln'

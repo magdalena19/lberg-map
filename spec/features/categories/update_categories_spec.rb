@@ -12,7 +12,7 @@ feature 'Update place categories' do
     click_on('Update Place')
     new_category_string = @place.reload.category_names.join(',')
 
-    expect(Category.all.map(&:name)).to include('Lawyer')
+    expect(Category.list_names).to include('Lawyer')
   end
 
   scenario 'create category if not there and properly update place categories', :js do

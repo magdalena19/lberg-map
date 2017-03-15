@@ -76,12 +76,12 @@ jQuery(function() {
       map.addLayer(cluster);
     };
 
-    // CATEGORY AND PLACE BUTTONS
+    // PLACE BUTTONS
     var wordPresent = function(word, feature) {
       var match = false;
       jQuery.each(feature.properties, function(attr, key) {
         var string = feature.properties[attr].toString();
-        if ( string.toLowerCase().indexOf(word.toLowerCase()) >= 0 ) {
+        if ( string.toLowerCase().indexOf(word.trim().toLowerCase()) >= 0 ) {
           match = true;
           return false; // return false to quit loop
         };
@@ -94,7 +94,7 @@ jQuery(function() {
       if (!text) { return json };
 
       var filteredJson = [];
-      var words = text.split(' ');
+      var words = text.replace(';', ',').split(',');
       jQuery(json).each(function (id, feature) {
         var matches = jQuery.map(words, function(word) {
           return wordPresent(word, feature);
@@ -105,29 +105,6 @@ jQuery(function() {
       });
       return filteredJson;
     };
-
-    var categoryFilter = function(json) {
-      var categoryId = jQuery('.category-button.active').attr('id');
-      if (categoryId == 'all') {
-        return json;
-      };
-      var filteredJson = [];
-      jQuery(json).each(function (id, feature) {
-        if (jQuery.inArray(categoryId, feature.properties.categories) !== -1) {
-          filteredJson.push(feature);
-        };
-      });
-      return filteredJson;
-    };
-
-    jQuery('.category-button').click(function() {
-      closeAllPanels();
-      jQuery('.category-panel').trigger('close');
-      jQuery('.category-button').removeClass('active');
-      jQuery(this).addClass('active');
-      updatePlaces(textFilter(categoryFilter(window.places)));
-    });
-    jQuery('.category-button#all').click();
 
     // ADD PLACE
     jQuery('.add-place-buttons').click(function(){
@@ -193,9 +170,8 @@ jQuery(function() {
       resizePanels();
       var accordion = jQuery('.places-list-accordion-container');
       var placesList = jQuery('.places-list-panel');
-      var categoryButtons = jQuery('.category-button-container');
       var searchField = jQuery('.search-field');
-      accordion.height(placesList.height() - categoryButtons.outerHeight() - searchField.outerHeight() - 35);
+      accordion.height(placesList.height() - searchField.outerHeight() - 35);
       placesList.show();
     }).resize();
 
@@ -237,9 +213,13 @@ jQuery(function() {
     });
 
     // LIVE SEARCH
-    jQuery('#search-input').keyup(function(){
-      updatePlaces(textFilter(categoryFilter(window.places)));
-    });
+    jQuery('.category-input')
+      .on('awesomplete-selectcomplete', function() {
+        updatePlaces(textFilter(window.places));
+      })
+      .on('keyup', function(){
+        updatePlaces(textFilter(window.places));
+      });
 
     // POI LOADING
     hideMapElements();

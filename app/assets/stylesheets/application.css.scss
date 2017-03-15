@@ -15,6 +15,7 @@
  *= require dataTables/jquery.dataTables
  *= require dataTables/extras/dataTables.responsive
  *= require bootstrap-wysihtml5
+ *= require awesomplete
  *= require_tree .
  *= require_self
  */
@@ -231,4 +232,12 @@ table.dataTable {
 // remove tooltip arrow gap in chromium
 .tooltip-arrow {
   border-width: 0px 5px 6px !important;
+}
+
+.awesomplete  {
+  width: 100%;
+  mark {
+    background-color: none;
+    padding: 0;
+  }
 }

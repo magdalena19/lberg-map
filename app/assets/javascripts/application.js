@@ -1,9 +1,11 @@
+//= require phantomjs_polyfill-rails/bind-polyfill
 //= require jquery
 //= require jquery_ujs
 //= require jquery.scrollTo
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require bootstrap-wysihtml5
+//= require awesomplete
 
 jQuery(function() {
   if (window.history.length === 1) {
@@ -60,4 +62,25 @@ jQuery(function() {
 
   // Enable bootstrap tooltips
   jQuery('[data-toggle="tooltip"]').tooltip();
+
+  // category suggestions
+  jQuery('.category-input').each(function() {
+    var input = this;
+    var categoryList = new Awesomplete(input, {
+      minChars: 1,
+      filter: function(text, input) {
+        return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0]);
+      },
+      replace: function(text) {
+        var before = this.input.value.match(/^.+,\s*|/)[0];
+        this.input.value = before + text + ", ";
+      }
+    });
+
+    jQuery(input).click(function() {
+      categoryList.minChars = 0;
+      categoryList.evaluate();
+      categoryList.open();
+    });
+  });
 });

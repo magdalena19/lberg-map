@@ -4,6 +4,10 @@ describe ImageUploader do
   let(:place) { create :place, :reviewed }
   let(:upload) { ImageUploader.new(place, :place) }
 
+  before do
+    create :settings, :public
+  end
+
   context 'storage' do
     it 'default path is set correctly' do
       expect(upload.store_dir).to eq "uploads/images/place/#{place.id}"

@@ -1,5 +1,6 @@
 require 'place/categorizing'
 require 'place/geocoding'
+require 'place/place_images'
 require 'place/place_auditing'
 require 'place/place_translations_auditing'
 require 'place/place_background_translation'

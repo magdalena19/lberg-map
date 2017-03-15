@@ -116,7 +116,8 @@ class PlacesController < ApplicationController
       *Place.globalize_attribute_names,
       :phone, :homepage, :email,
       :event, :start_date,
-      :categories
+      :categories,
+      {images: []}
     )
   end
 end

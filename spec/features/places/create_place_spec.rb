@@ -73,4 +73,18 @@ feature 'Create place' do
     expect(new_place.federal_state).to eq 'Berlin'
     expect(new_place.country).to eq 'Germany'
   end
+
+  scenario 'Upload images', :js do
+    visit new_place_path
+    fill_in_valid_place_information
+    fill_in('place_categories', with: 'Hospital, Cafe')
+    file_input = page.find('input[type="file"]')
+    file_input.set(File.absolute_path('spec/support/uploads/images/medium_jpg.jpg'))
+    file_input.trigger('click')
+    click_button('Create Place')
+
+    expect(Category.count).to eq 2
+    expect(Place.last.categories).to eq Category.first(2).map(&:id).join(',')
+    attach_file('#place_images', )
+  end
 end

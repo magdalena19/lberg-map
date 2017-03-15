@@ -82,11 +82,13 @@
     %hr
 
   .row
-    .col-md-6
-      = show_simple_captcha unless @current_user.signed_in?
+    .col-xs-6.offset-xs-3
+      = f.file_field :images, multiple: true
+
   .row
-    .submit-process-bar.text-center
-      = render 'layouts/loading'
+    %hr
+
+  .row
     .col-xs-6
       = f.hidden_field :latitude, value: params[:latitude]
       = f.hidden_field :longitude, value: params[:longitude]

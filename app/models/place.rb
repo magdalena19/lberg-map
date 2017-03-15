@@ -14,6 +14,7 @@ class Place < ActiveRecord::Base
   include PlaceBackgroundTranslation
   include PlaceTranslationsAuditing
   include PlaceGeocoding
+  include PlaceImages
   include PlaceAuditing
   include Sanitization
   include CustomValidators

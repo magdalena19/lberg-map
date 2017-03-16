@@ -82,11 +82,17 @@
     %hr
 
   .row
+    .col-xs-6.offset-xs-3
+      = f.file_field :images, multiple: true, accept: "image/jpeg, image/jpg, image/gif, image/png"
+
+  .row
+    %hr
+
+  .row
     .col-md-6
       = show_simple_captcha unless @current_user.signed_in?
+
   .row
-    .submit-process-bar.text-center
-      = render 'layouts/loading'
     .col-xs-6
       = f.hidden_field :latitude, value: params[:latitude]
       = f.hidden_field :longitude, value: params[:longitude]

@@ -1,5 +1,6 @@
 require 'place/categorizing'
 require 'place/geocoding'
+require 'place/place_images'
 require 'place/place_auditing'
 require 'place/place_translations_auditing'
 require 'place/place_background_translation'
@@ -14,10 +15,13 @@ class Place < ActiveRecord::Base
   include PlaceBackgroundTranslation
   include PlaceTranslationsAuditing
   include PlaceGeocoding
+  include PlaceImages
   include PlaceAuditing
   include Sanitization
   include CustomValidators
   include PlaceModelHelpers
+
+  mount_uploaders :images, ImageUploader
   
   extend TimeSplitter::Accessors
   split_accessor :start_date

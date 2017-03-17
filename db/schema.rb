@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309201439) do
+ActiveRecord::Schema.define(version: 20170317094904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20170309201439) do
     t.string  "app_title",                default: "Generic title", null: false
     t.string  "maintainer_email_address", default: "foo@bar.org"
     t.string  "translation_engine",       default: "bing",          null: false
+    t.boolean "allow_guest_commits",      default: true,            null: false
   end
 
   create_table "announcement_translations", force: :cascade do |t|
@@ -121,6 +122,7 @@ ActiveRecord::Schema.define(version: 20170309201439) do
     t.string   "country"
     t.string   "district"
     t.string   "federal_state"
+    t.string   "images",        default: [],                 array: true
   end
 
   create_table "simple_captcha_data", force: :cascade do |t|

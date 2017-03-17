@@ -1,10 +1,3 @@
-class Array
-  def except value
-    value = value.kind_of?(Array) ? value : [value]
-    self - value
-  end
-end
-
 class Admin::Setting < ActiveRecord::Base
   def self.all_settings
     self.last.attributes.except("id")
@@ -17,9 +10,10 @@ class Admin::Setting < ActiveRecord::Base
 
   Admin::Setting.create unless Admin::Setting.any?
   # spawn default values (-> schema) if no current settings available
-  column_names.except("id").each do |column_name|
-    define_singleton_method(column_name.to_sym) do
-      last.send(column_name)
+  attributes = column_names.reject { |x| x == 'id' }
+  attributes.each do |attribute|
+    define_singleton_method(attribute.to_sym) do
+      last.send(attribute)
     end
   end
 end

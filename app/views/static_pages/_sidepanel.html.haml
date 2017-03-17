@@ -17,5 +17,6 @@
       .contact-container
       .category-names
       .bottom-icons
-        .glyphicon.glyphicon-pencil.edit-place.pull-right
+        - if can_contribute?
+          .glyphicon.glyphicon-pencil.edit-place.pull-right
         .glyphicon.glyphicon-search.show-map.pull-right

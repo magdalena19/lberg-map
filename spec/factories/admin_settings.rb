@@ -6,6 +6,12 @@ FactoryGirl.define do
 
     trait :public do
       is_private false
+      allow_guest_commits true
+    end
+
+    trait :public_restricted do
+      is_private false
+      allow_guest_commits false
     end
 
     trait :private do

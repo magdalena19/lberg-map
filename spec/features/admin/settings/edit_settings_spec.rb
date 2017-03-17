@@ -19,4 +19,17 @@ feature 'Configure application' do
     click_on('Update Setting')
     expect(Admin::Setting.translation_engine).to eq('yandex')
   end
+
+  scenario 'it can set map semi-public', :js do
+    create :settings, :public
+    login_as_admin
+    visit admin_settings_path
+    page.find('#admin_setting_allow_guest_commits').trigger('click')
+    click_on('Update Setting')
+    visit '/en/logout'
+    visit '/en'
+
+    expect(Admin::Setting.allow_guest_commits).to be false
+    expect(page).not_to have_css('.place-control-container')
+  end
 end

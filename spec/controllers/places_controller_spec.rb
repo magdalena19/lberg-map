@@ -58,6 +58,14 @@ describe PlacesController do
         get :new
         expect(response).to render_template 'places/new'
       end
+
+      context 'rejects' do
+        it 'if place ressources access is restricted for guest users' do
+          create :settings, :public_restricted
+          logout
+          expect(get: 'places/new').not_to be_routable
+        end
+      end
   end
 
   context 'POST #create' do
@@ -117,20 +125,29 @@ describe PlacesController do
 
       it 'is not reviewed' do
         valid_new_place = post_valid_place
+
         expect(valid_new_place).not_to be(:reviewed)
       end
 
       it 'has no version history' do
         valid_new_place = post_valid_place
+
         expect(valid_new_place.versions.length).to be 1
       end
 
       it 'is rejected if map is private' do
         create :settings, :private
+
         expect {
           post_valid_place
         }.to change { Place.count }.by(0)
         expect(response).to redirect_to login_url
+      end
+
+      it 'is rejected if place ressources access is restricted' do
+        create :settings, :public_restricted
+
+        expect(post: '/places', place: {}).not_to be_routable
       end
     end
 
@@ -292,7 +309,15 @@ describe PlacesController do
         expect(another_reviewed_place.reload.name).to_not eq('Some other name')
         expect(response).to redirect_to login_url
       end
+
+      it 'is rejected if map access is semi-public' do
+        create :settings, :public_restricted
+        another_reviewed_place = create :place, :reviewed
+
+        expect(patch: '/places/', id: another_reviewed_place.id, place: {}).not_to be_routable
+      end
     end
+    
 
     context 'Reviewewd translation' do
       let(:reviewed_place) { create :place, :reviewed }

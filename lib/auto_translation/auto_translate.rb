@@ -5,6 +5,16 @@ require 'auto_translation/translation_engines/null_translator'
 
 # Module containing methods extending objects with auto-translation capabilities
 module AutoTranslate
+  class TranslationRequest
+    attr_reader :text, :from, :to
+
+    def initialize(text:, from:, to:)
+      @text = text
+      @from = from
+      @to = to
+    end
+  end
+
   def auto_translate_empty_attributes
     @translator = active_translation_engine
     translated_attributes.each do |attr, _value|
@@ -25,24 +35,21 @@ module AutoTranslate
     engine_wrapper.new
   end
 
-  def translate(text:, from:, to:)
-    return '' unless can_translate?(text: text, languages: [from, to])
-    translation = @translator.translate(text: text,
-                                        from: from,
-                                        to: to)
-  rescue
+  def translate(translation_request:)
+    translation =
+      if text.present? && @translator.languages_available?(translation_request)
+        @translator.translate(translation_request)
+      else
+        ''
+      end
+  rescue Exception => e
+    Rails.logger.error e.message
     ''
   else
     translation
   end
 
   private
-
-  def can_translate?(text:, languages:)
-    @translator.char_balance_sufficient?(text: text) &&
-      @translator.languages_available?(lang_codes: languages) &&
-      text.present?
-  end
 
   def autotranslated_or_empty
     translations.select { |t| !t[@attribute].present? || t.auto_translated }
@@ -64,9 +71,10 @@ module AutoTranslate
 
   def translate_and_update
     missing_locales.each do |missing_locale|
-      auto_translation = translate(text: @native_translation.send("#{@attribute}"),
-                                   from: @native_translation.locale,
-                                   to: missing_locale)
+      request = TranslationRequest.new(text: @native_translation.send("#{@attribute}"),
+                                      from: @native_translation.locale,
+                                      to: missing_locale)
+      auto_translation = translate(translation_request: @request)
       translation_record = translations.find_by(locale: missing_locale)
       update = -> { translation_record.send "update_attributes", { "#{@attribute}": auto_translation, auto_translated: true } }
       if self.respond_to? :versions

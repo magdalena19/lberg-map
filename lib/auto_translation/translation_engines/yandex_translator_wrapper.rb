@@ -1,27 +1,23 @@
 # Wrapper for yandex translation engine
 class YandexTranslatorWrapper
   def initialize
-    id = ENV['yandex_secret']
-    @yandex_translator = Yandex::Translator.new(id)
+    @translator = Yandex::Translator.new ENV['yandex_secret']
   end
 
-  def translate(text:, from:, to:)
-    translation = @yandex_translator.translate(text, from: from.to_s, to: to.to_s)
+  def translate(translation_request:)
+    @translator.translate(text: translation_request.text,
+                          from: translation_request.from.to_s,
+                          to: translation_request.to.to_s)
   end
 
-  def char_balance_sufficient?
-    # TODO implement that
-    false
-  end
-
-  def languages_available?(lang_codes)
-    languages_available = @yandex_translator.langs
-    matches = lang_codes.each do |language|
-      languages_available.include?(language)
+  def languages_available?(translation_request:)
+    language_pairs_available = @translator.langs
+    matches = language_pairs_available.map do |pair|
+      pair == "#{translation_request.from}-#{translation_request.to}"
     end
   rescue
     false
   else
-    matches.all?
+    matches.any?
   end
 end

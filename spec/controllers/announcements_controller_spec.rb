@@ -1,25 +1,17 @@
 require 'rails_helper'
 
 describe AnnouncementsController do
-  def post_announcement
-    post :create, announcement: { header: 'another header',
-                                  content: 'another content' }
-  end
-
-  before do
-    create :settings, :public
-  end
-
   let(:user1) {create :user, name: 'Susanne'}
   let(:user2) {create :user, name: 'Norbert'}
   let(:admin) {create :user, :admin, name: 'Admin'}
   let(:announcement) {create :announcement, header: 'something', content: 'something', user: user1}
 
-  context 'GET #index' do
-    before do
-      login_as user1
-    end
+  before do
+    login_as user1
+    create :settings, :public
+  end
 
+  context 'GET #index' do
     it 'populates all announcements in @announcements' do
       get :index
       expect(assigns(:announcements)).to include(announcement)
@@ -38,10 +30,6 @@ describe AnnouncementsController do
   end
 
   context 'GET #edit' do
-    before do
-      login_as user1
-    end
-
     it 'populates the correct announcement in @announcement' do
       get :edit, id: announcement.id
       expect(assigns(:announcement)).to eq(announcement)
@@ -60,10 +48,6 @@ describe AnnouncementsController do
   end
 
   context 'GET #new' do
-    before do
-      login_as user1
-    end
-
     it 'populates a new announcement in @announcement' do
       get :new
       expect(assigns(:announcement)).to be_a(Announcement)
@@ -82,10 +66,6 @@ describe AnnouncementsController do
   end
 
   context 'GET #show' do
-    before do
-      login_as user1
-    end
-
     it 'populates the correct announcement in @announcement' do
       get :show, id: announcement.id
       expect(assigns(:announcement)).to eq(announcement)
@@ -104,23 +84,19 @@ describe AnnouncementsController do
   end
 
   context 'POST #create' do
-    before do
-      login_as user1
-    end
-
     it 'creates new announcement' do
       expect {
-        post_announcement
+        post :create, announcement: attributes_for(:announcement)
       }.to change { Announcement.count }.by(1)
     end
 
     it 'sets correct ownership' do
-      post_announcement
-      expect(Announcement.find_by(header: 'another header').user).to eq(user1)
+      post :create, announcement: attributes_for(:announcement)
+      expect(Announcement.find_by(header: 'SomeAnnouncement').user).to eq(user1)
     end
 
     it 'redirects to announcement index' do
-      post_announcement
+      post :create, announcement: attributes_for(:announcement)
       expect(response).to redirect_to root_path
     end
 
@@ -128,7 +104,7 @@ describe AnnouncementsController do
       it 'if not logged in' do
         logout
         expect {
-          post_announcement
+          post :create, announcement: attributes_for(:announcement)
         }.to change { Announcement.count }.by(0)
         expect(response).to redirect_to login_path
       end

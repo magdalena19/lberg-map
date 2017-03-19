@@ -1,3 +1,6 @@
+require 'params_modification'
+require 'attribute_setter'
+
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
@@ -7,6 +10,9 @@ class PlacesController < ApplicationController
   before_action :can_create?, only: [:create]
   before_action :reverse_geocode, only: [:new], if: :supplied_coords?
   before_action :require_login_if_private_map
+  before_action :modify_params, only: [:create, :update]
+
+  after_action :store_in_session_cookie, only: [:create, :update]
 
   def index
     @places = Place.reviewed_places
@@ -22,10 +28,8 @@ class PlacesController < ApplicationController
   end
 
   def update
-    params_to_update ||= PlaceParamsModifier.new(place_params: place_params, place: @place).params
-    if params_to_update.any? && @place.update(params_to_update)
-      PlaceAttributeSetter.set_attributes_after_update(place: @place, params: params_to_update, signed_in: @current_user.signed_in?)
-      store_in_session_cookie
+    if @params_to_commit.any? && @place.update(@params_to_commit)
+      AttributeSetter::Place.set_attributes_after_update(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
       flash[:success] = t('.changes_saved')
       redirect_to places_url
     else
@@ -40,14 +44,12 @@ class PlacesController < ApplicationController
   end
 
   def create
-    params_to_create ||= PlaceParamsModifier.new(place_params: place_params).params
-    @place = Place.new(params_to_create)
+    @place = Place.new(@params_to_commit)
     @place.latitude ||= params[:place][:latitude]
     @place.longitude ||= params[:place][:longitude]
 
     if @place.save
-      PlaceAttributeSetter.set_attributes_after_create(place: @place, params: params_to_create, signed_in: @current_user.signed_in?)
-      store_in_session_cookie
+      AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
       flash[:success] = t('.created')
       redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
     else
@@ -63,6 +65,10 @@ class PlacesController < ApplicationController
   end
 
   private
+
+  def modify_params
+    @params_to_commit = ParamsModification::Place.modify(place_params: place_params, place: @place)
+  end
 
   def can_commit?
     simple_captcha_valid? || @current_user.signed_in?

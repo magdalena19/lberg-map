@@ -18,6 +18,7 @@ FactoryGirl.define do
     homepage 'https://bar.com'
     phone '03081618254'
     event false
+    categories 'Playground,Hospital'
 
     after(:create) { |place| set_reviewed_on_translations(place) }
 
@@ -25,21 +26,18 @@ FactoryGirl.define do
       name 'SomeReviewedPlace'
       reviewed 'true'
       description_en 'This is a reviewed point'
-      categories 'Playground,Hospital'
     end
 
     trait :unreviewed do
       name 'SomeUnreviewedPlace'
       reviewed 'false'
       description_en 'This is an unreviewed point'
-      categories 'Playground,Hospital'
     end
 
     trait :without_address do
       name 'ToBeGeocoded'
       reviewed 'false'
       description_en 'This is a point without any address'
-      categories 'Playground,Hospital'
       house_number ''
       street ''
       postal_code ''
@@ -52,13 +50,12 @@ FactoryGirl.define do
       latitude nil
       longitude nil
       description_en 'This is a point without any address'
-      categories 'Playground,Hospital'
     end
 
     factory :event do
       event true
       reviewed true
-      categories '1,4,5'
+      categories 'Playground,Hospital'
 
       trait :past do
         name 'PastEvent'

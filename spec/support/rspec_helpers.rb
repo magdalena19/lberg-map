@@ -1,4 +1,4 @@
-module Helpers
+module RSpecHelpers
   def login_as(user)
     session[:user_id] = user.id
   end
@@ -10,4 +10,5 @@ module Helpers
   def extract_attributes(obj)
     obj.attributes.except("id", "created_at", "updated_at")
   end
+
 end

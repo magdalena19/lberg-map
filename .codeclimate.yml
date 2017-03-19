@@ -1,5 +1,10 @@
 ---
 engines:
+  rubocop:
+    enabled: true
+    checks:
+      Rubocop/Style/BlockDelimiters:
+        enabled: false
   brakeman:
     enabled: true
     exclude_fingerprints:

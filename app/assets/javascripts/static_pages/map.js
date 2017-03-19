@@ -217,10 +217,7 @@ jQuery(function() {
       .on('awesomplete-selectcomplete', function() {
         updatePlaces(textFilter(window.places));
       })
-      .on('keyup', function(){
-        updatePlaces(textFilter(window.places))
-      })
-      .on('keydown', function(){
+      .on('input', function(){
         updatePlaces(textFilter(window.places))
       });
 

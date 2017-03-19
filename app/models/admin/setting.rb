@@ -1,4 +1,11 @@
+require 'validators/custom_validators'
+
 class Admin::Setting < ActiveRecord::Base
+  include CustomValidators
+
+  validates :app_title, length: { maximum: 20 }
+  validates :maintainer_email_address, presence: true, email_format: true
+
   def self.all_settings
     self.last.attributes.except("id")
   end

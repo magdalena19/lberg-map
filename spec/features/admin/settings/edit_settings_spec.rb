@@ -45,4 +45,16 @@ feature 'Configure application' do
     expect(page.title).to eq 'SOMETHING DIFFERENT'
     expect(page).to have_css('.logo', text: 'SOMETHING DIFFERENT')
   end
+
+  scenario 'it can set maintainer email address', :js do
+    create :settings, :public, maintainer_email_address: 'foo@bar.org'
+    login_as_admin
+    visit admin_settings_path
+    fill_in('admin_setting_maintainer_email_address', with: 'bar@foo.org')
+    click_on('Update Setting')
+    visit '/en/logout'
+    visit '/en'
+
+    expect(Admin::Setting.maintainer_email_address).to eq 'bar@foo.org'
+  end
 end

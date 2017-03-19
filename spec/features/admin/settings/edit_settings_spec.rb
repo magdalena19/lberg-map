@@ -32,4 +32,17 @@ feature 'Configure application' do
     expect(Admin::Setting.allow_guest_commits).to be false
     expect(page).not_to have_css('.place-control-container')
   end
+
+  scenario 'it can set app title', :js do
+    create :settings, :public
+    login_as_admin
+    visit admin_settings_path
+    fill_in('admin_setting_app_title', with: 'SOMETHING DIFFERENT')
+    click_on('Update Setting')
+    visit '/en/logout'
+    visit '/en'
+
+    expect(page.title).to eq 'SOMETHING DIFFERENT'
+    expect(page).to have_css('.logo', text: 'SOMETHING DIFFERENT')
+  end
 end

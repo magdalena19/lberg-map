@@ -7,10 +7,7 @@
         %span.icon-bar
         %span.icon-bar
       %a
-        .logo.logo-left
-          KIEZ
-        .logo.logo-right
-          KARTE
+        .logo.logo-left= Admin::Setting.app_title
       .navbar-button.home-button.pull-left
         = link_to root_path do
           .glyphicon.glyphicon-globe.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_the_map')}

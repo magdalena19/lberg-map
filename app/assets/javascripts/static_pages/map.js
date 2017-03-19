@@ -219,7 +219,9 @@ jQuery(function() {
       })
       .on('keyup', function(){
         updatePlaces(textFilter(window.places));
-      });
+      .on('keydown', function(){
+        updatePlaces(textFilter(window.places));
+      });;
 
     // POI LOADING
     hideMapElements();

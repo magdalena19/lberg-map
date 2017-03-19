@@ -61,8 +61,6 @@ Rails.application.routes.draw do
     resources :places, except: [:index], constraints: PlaceAccessRestriction.new do
       resources :descriptions
     end
-    # get '/places/new', to: 'places#new', constraints: PlaceAccessRestriction.new
-    # post '/places', to: 'places#create', constraints: PlaceAccessRestriction.new
 
     get '/places', to: 'places#index'
 
@@ -72,7 +70,7 @@ Rails.application.routes.draw do
     post '/login' , to: 'sessions#create'
     get '/logout' , to: 'sessions#destroy'
 
-    namespace :admin do
+    namespace :admin, constraints: AdminConstraint.new do
       get '', to: 'dashboard#index', as: :dashboard
       get '/settings', to: 'settings#edit'
       patch '/settings', to: 'settings#update'

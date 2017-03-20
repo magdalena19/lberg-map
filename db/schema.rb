@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20170320130613) do
     t.string   "title"
     t.text     "description"
     t.text     "imprint"
-    t.boolean  "public",       default: false, null: false
+    t.boolean  "is_public",    default: false, null: false
     t.string   "public_token"
     t.string   "secret_token",                 null: false
   end

@@ -50,7 +50,7 @@ class Place < ActiveRecord::Base
   after_create :enqueue_auto_translation
   after_create :set_description_reviewed_flags
   before_save :set_categories, if: :categories_changed?
-
+ 
   ## EVENT STUFF
   scope :all_events, -> { where(event: true) }
   scope :ongoing_events, -> { all_events.where("end_date > ? AND start_date < ?", Date.today, Date.today) }

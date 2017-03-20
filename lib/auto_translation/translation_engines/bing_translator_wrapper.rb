@@ -5,24 +5,18 @@ class BingTranslatorWrapper
     secret = ENV['bing_secret']
     account_key = ENV['microsoft_account_key']
 
-    @bing_translator = BingTranslator.new(id, secret, false, account_key)
+    @translator= BingTranslator.new(id, secret, false, account_key)
   end
 
-  def translate(text:, from:, to:)
-    translation = @bing_translator.translate(text, from: from.to_s, to: to.to_s)
+  def translate(translation_request:)
+    @translator.translate(text: translation_request.text,
+                          from: translation_request.from.to_s,
+                          to: translation_request.to.to_s)
   end
 
-  def char_balance_sufficient?(text:)
-    char_balance_sufficient = @bing_translator.balance >= text.length
-  rescue
-    false
-  else
-    true
-  end
-
-  def languages_available?(lang_codes:)
-    languages_available = @bing_translator.supported_language_codes
-    matches = lang_codes.each do |language|
+  def languages_available?(translation_request:)
+    languages_available = @translator.supported_language_codes
+    matches = [translation_request.from, translation_request.to].each do |language|
       languages_available.include?(language)
     end
   rescue

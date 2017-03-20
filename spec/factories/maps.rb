@@ -3,6 +3,7 @@ FactoryGirl.define do
     title 'SomeMap'
     description 'This is some map'
     imprint 'This is some imprint'
+    maintainer_email_address 'foo@bar.org'
 
     trait :public do
       is_public true

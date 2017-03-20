@@ -8,6 +8,7 @@ RSpec.describe Map, type: :model do
     it { is_expected.to respond_to :public }
     it { is_expected.to respond_to :public_token }
     it { is_expected.to respond_to :secret_token }
+    it { is_expected.to respond_to :maintainer_email_address }
   end
 
   context 'Callbacks' do
@@ -29,5 +30,12 @@ RSpec.describe Map, type: :model do
 
   context 'Associations' do
     it { is_expected.to have_many :places }
+  end
+
+  context 'Validations' do
+    it 'validates map maintainer email address if present' do
+      map = build :map, maintainer_email_address: 'foo@bar'
+      expect(map).not_to be_valid
+    end
   end
 end

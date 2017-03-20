@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170320130613) do
+ActiveRecord::Schema.define(version: 20170320144106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,14 +67,15 @@ ActiveRecord::Schema.define(version: 20170320130613) do
   add_index "category_translations", ["locale"], name: "index_category_translations_on_locale", using: :btree
 
   create_table "maps", force: :cascade do |t|
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "title"
     t.text     "description"
     t.text     "imprint"
-    t.boolean  "is_public",    default: false, null: false
+    t.boolean  "is_public",                default: false, null: false
     t.string   "public_token"
-    t.string   "secret_token",                 null: false
+    t.string   "secret_token",                             null: false
+    t.string   "maintainer_email_address"
   end
 
   create_table "messages", force: :cascade do |t|

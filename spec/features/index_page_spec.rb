@@ -1,6 +1,6 @@
 feature 'Index page' do
-  scenario 'page has logo and map and language can be set to german', js: true do
-    create :settings, :public
+  scenario 'has logo and map and language can be set to german', js: true do
+    create :settings, :public, app_title: 'KARTE'
 
     visit root_path
     expect(page).to have_css('.logo')

@@ -1,5 +1,24 @@
 require 'sidekiq/web'
-require 'admin_constraint'
+
+class AdminConstraint
+  def matches?(request)
+    return false unless request.session[:user_id]
+    user = User.find(request.session[:user_id])
+    user && user.is_admin?
+  end
+end
+
+class PlaceAccessRestriction
+  def can_commit?
+    @settings['allow_guest_commits'] || @user.signed_in?
+  end
+
+  def matches?(request)
+    @settings = Admin::Setting.all_settings
+    @user = User.find_by(id: request.session[:user_id]) || GuestUser.new
+    can_commit?
+  end
+end
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
@@ -39,9 +58,11 @@ Rails.application.routes.draw do
     end
 
     # Place ressources
-    resources :places do
+    resources :places, except: [:index], constraints: PlaceAccessRestriction.new do
       resources :descriptions
     end
+
+    get '/places', to: 'places#index'
 
     # User accessible user resources
     resources :users, only: [:show, :edit, :update]
@@ -49,7 +70,7 @@ Rails.application.routes.draw do
     post '/login' , to: 'sessions#create'
     get '/logout' , to: 'sessions#destroy'
 
-    namespace :admin do
+    namespace :admin, constraints: AdminConstraint.new do
       get '', to: 'dashboard#index', as: :dashboard
       get '/settings', to: 'settings#edit'
       patch '/settings', to: 'settings#update'

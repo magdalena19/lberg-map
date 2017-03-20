@@ -79,10 +79,24 @@
   .search-field {
     padding: 15px;
   }
+
   .places-list-accordion-container {
     background: rgba(white, 0.5);
     padding-top: 10px;
     overflow-y: auto;
+  }
+
+  .button-container {
+    padding: 15px;
+    .sidepanel-add-place-container {
+      display: none;
+    }
+    button {
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 10px !important;
+    }
   }
 
   .collapsing {

@@ -107,8 +107,21 @@ jQuery(function() {
     };
 
     // ADD PLACE
-    jQuery('.add-place-buttons').click(function(){
-      jQuery('.add-place-slidepanel').trigger('close');
+    jQuery('.add-place-button').click(function() {
+      jQuery('.places-list-panel').fadeIn();
+      jQuery('.sidepanel-button-container').hide();
+      jQuery('.sidepanel-add-place-container').show();
+      resizeSidePanel();
+    });
+
+    jQuery('.cancel-place-addition').click(function() {
+      jQuery('.sidepanel-add-place-container').hide();
+      jQuery('.sidepanel-default-container').show();
+      resizeSidePanel();
+    });
+
+    jQuery('.hide-places-list-panel').click(function() {
+      jQuery('.places-list-panel').fadeOut();
     });
 
     jQuery('.type-in-address').click(function(){
@@ -131,24 +144,27 @@ jQuery(function() {
       });
       jQuery('#confirmation-button-no').click(function() {
         jQuery('.confirmation-button-container').fadeOut();
-        window.location.href = 'places/new';
+        map.removeLayer(locationMarker);
+        jQuery('.leaflet-overlay-pane').css('cursor', 'inherit');
+        jQuery('.places-list-panel').fadeIn();
       });
     }
 
     // Google geolocation API not working properly, so freeze this feature
     jQuery('.add-place-via-location').click(function(){
+      jQuery('.places-list-panel').fadeOut();
       function confirmation(position) {
         confirmPlaceInsert(position.coords.latitude, position.coords.longitude);
-      }
-
+      };
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(confirmation);
       } else {
         console.log('Geolocation is not supported by this browser.');
-      }
+      };
     });
 
     jQuery('.add_place_via_click').click(function(){
+      jQuery('.places-list-panel').fadeOut();
       jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
       map.on('click', function(point) {
         confirmPlaceInsert(point.latlng.lat, point.latlng.lng);
@@ -164,15 +180,19 @@ jQuery(function() {
     }, 1);
 
     // RESPONSIVE HEIGHT
-    jQuery(window).resize(function(){
+    var resizeSidePanel = function() {
       var navbarHeight = jQuery('.navbar').height();
       jQuery('.confirmation-button-container').css('top', navbarHeight + 3);
-      resizePanels();
-      var accordion = jQuery('.places-list-accordion-container');
       var placesList = jQuery('.places-list-panel');
+      var accordion = jQuery('.places-list-accordion-container');
       var searchField = jQuery('.search-field');
-      accordion.height(placesList.height() - searchField.outerHeight() - 35);
+      var buttons = jQuery('.button-container');
+      accordion.height(placesList.height() - searchField.outerHeight() - buttons.outerHeight() - 30);
       placesList.show();
+    };
+
+    jQuery(window).resize(function(){
+      resizeSidePanel();
     }).resize();
 
     // FILL PLACES LIST

@@ -122,7 +122,6 @@ ActiveRecord::Schema.define(version: 20170317094904) do
     t.string   "country"
     t.string   "district"
     t.string   "federal_state"
-    t.string   "images",        default: [],                 array: true
   end
 
   create_table "simple_captcha_data", force: :cascade do |t|

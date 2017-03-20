@@ -5,7 +5,7 @@ describe PlacesController do
   end
 
   def extract_attributes(obj)
-    obj.attributes.except("id", "created_at", "updated_at")
+    obj.attributes.except('id', 'created_at', 'updated_at')
   end
 
   def post_valid_place
@@ -49,23 +49,23 @@ describe PlacesController do
   end
 
   context 'GET #new' do
-      it 'populates new place in @place' do
-        get :new
-        expect(assigns(:place)).to be_a(Place)
-      end
+    it 'populates new place in @place' do
+      get :new
+      expect(assigns(:place)).to be_a(Place)
+    end
 
-      it 'renders :new template' do
-        get :new
-        expect(response).to render_template 'places/new'
-      end
+    it 'renders :new template' do
+      get :new
+      expect(response).to render_template 'places/new'
+    end
 
-      context 'rejects' do
-        it 'if place ressources access is restricted for guest users' do
-          create :settings, :public_restricted
-          logout
-          expect(get: 'places/new').not_to be_routable
-        end
+    context 'rejects' do
+      it 'if place ressources access is restricted for guest users' do
+        create :settings, :public_restricted
+        logout
+        expect(get: 'places/new').not_to be_routable
       end
+    end
   end
 
   context 'POST #create' do
@@ -110,7 +110,7 @@ describe PlacesController do
     end
 
     it 'creates category that is not there' do
-      Category.create name: 'OldCat'
+			Category.create name: 'OldCat'
       new_place = create :place, :unreviewed, categories: 'NewCat'
 
       post :create, place: extract_attributes(new_place)
@@ -118,7 +118,7 @@ describe PlacesController do
       expect(Category.all.map(&:name)).to include('NewCat')
     end
 
-		context 'Place created by guest user' do
+    context 'Place created by guest user' do
       before do
         logout
       end
@@ -317,7 +317,7 @@ describe PlacesController do
         expect(patch: '/places/', id: another_reviewed_place.id, place: {}).not_to be_routable
       end
     end
-    
+
 
     context 'Reviewewd translation' do
       let(:reviewed_place) { create :place, :reviewed }

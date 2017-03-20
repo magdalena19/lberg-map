@@ -28,7 +28,7 @@ jQuery(function() {
           headingLink.click();
           var list = jQuery('.places-list-accordion-container');
           list.scrollTo(accordionItemHeading.parent(), {offset: -5});
-        };
+        }
       });
     };
 
@@ -84,14 +84,14 @@ jQuery(function() {
         if ( string.toLowerCase().indexOf(word.trim().toLowerCase()) >= 0 ) {
           match = true;
           return false; // return false to quit loop
-        };
+        }
       });
       return match;
     };
 
     var textFilter = function(json) {
     var text = jQuery('#search-input').val();
-      if (!text) { return json };
+      if (!text) { return json; }
 
       var filteredJson = [];
       var words = text.replace(';', ',').split(',');
@@ -101,7 +101,7 @@ jQuery(function() {
         });
         if ( !(matches.indexOf(false) > -1) ) {
           filteredJson.push(feature);
-        };
+        }
       });
       return filteredJson;
     };
@@ -139,13 +139,13 @@ jQuery(function() {
     jQuery('.add-place-via-location').click(function(){
       function confirmation(position) {
         confirmPlaceInsert(position.coords.latitude, position.coords.longitude);
-      };
+      }
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(confirmation);
       } else {
         console.log('Geolocation is not supported by this browser.');
-      };
+      }
     });
 
     jQuery('.add_place_via_click').click(function(){
@@ -184,25 +184,25 @@ jQuery(function() {
         .attr('href', '#collapse' + feature.id)
         .attr('aria-controls', 'collapse' + feature.id)
         .attr('lon', feature.geometry.coordinates[0])
-        .attr('lat', feature.geometry.coordinates[1])
+        .attr('lat', feature.geometry.coordinates[1]);
       item.find('.name').html(feature.properties.name);
       item.find('.panel-collapse')
         .attr('id', 'collapse' + feature.id)
         .attr('aria-labelledby', 'heading' + feature.id);
       item.find('.description').append(feature.properties.description);
       var contact = item.find('.contact-container');
-      if(feature.properties.phone != '') {
+      if(feature.properties.phone !== '') {
         contact.append("<div class='contact'><div class='glyphicon glyphicon-earphone'></div>" + feature.properties.phone + "</div>");
-      };
-      if(feature.properties.email != '') {
+      }
+      if(feature.properties.email !== '') {
         contact.append("<div class='contact'><div class='glyphicon glyphicon-envelope'></div>" + feature.properties.email + "</div>");
-      };
-      if(feature.properties.homepage != '') {
+      }
+      if(feature.properties.homepage !== '') {
         contact.append("<div class='contact'><div class='glyphicon glyphicon-home'></div>" + feature.properties.homepage + "</div>");
-      };
-      if(feature.properties.address != '') {
+      }
+      if(feature.properties.address !== '') {
         contact.append("<div class='contact'><div class='glyphicon glyphicon-record'></div>" + feature.properties.address + "</div>");
-      };
+      }
       item.find('.category-names').append(feature.properties.category_names);
       item.find('.edit-place').attr('place_id', feature.id);
       jQuery('.places-list-accordion').append(item);

@@ -7,60 +7,17 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'pry'
+
+# Custom libraries
 require 'auto_translation/auto_translate'
 
-def validate_captcha
-  fill_in 'captcha', with: SimpleCaptcha::SimpleCaptchaData.first.value
-end
-
-def login_as_user
-  user = create :user, email: 'user@example.com', password: 'secret', password_confirmation: 'secret'
-  visit 'login/'
-  fill_in 'sessions_email', with: user.email
-  fill_in 'sessions_password', with: 'secret'
-  click_on 'Login'
-end
-
-def login_as_admin
-  admin = create :user, :admin, name: 'Admin', email: 'admin@example.com', password: 'secret', password_confirmation: 'secret'
-  visit login_path
-  fill_in 'sessions_email', with: admin.email
-  fill_in 'sessions_password', with: 'secret'
-  click_on 'Login'
-end
-
-def create_place_as_user(place_name)
-  login_as_user
-  visit new_place_path
-  fill_in_valid_place_information
-  fill_in('place_name', with: place_name)
-  click_on('Create Place')
-end
-
-def create_place_as_guest(place_name)
-  visit new_place_path
-  fill_in_valid_place_information
-  fill_in('place_name', with: place_name)
-  validate_captcha
-  click_on('Create Place')
-end
-
-def fill_in_valid_place_information
-  fill_in('place_name', with: 'Any place')
-  fill_in('place_street', with: 'Magdalenenstr.')
-  fill_in('place_house_number', with: '19')
-  fill_in('place_postal_code', with: '10963')
-  fill_in('place_city', with: 'Berlin')
-  fill_in('place_email', with: 'schnipp@schnapp.com')
-  fill_in('place_homepage', with: 'http://schnapp.com')
-  fill_in('place_phone', with: '03081763253')
-  fill_in('place_categories', with: 'Hospital, Cafe')
-end
+# Custom helper methods
+require 'support/capybara_helpers'
+require 'support/rspec_helpers'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
-
 
 # Stub geocoder response
 Geocoder.configure(lookup: :test)
@@ -133,4 +90,7 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+
+  config.include RSpecHelpers
+  config.include CapybaraHelpers
 end

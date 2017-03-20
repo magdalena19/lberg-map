@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Admin::UsersController, type: :controller do
-
   before do
     login_as create(:user, :admin)
   end
 
-  describe "GET #index" do
-    it "returns http success" do
+  describe 'GET #index' do
+    it 'returns http success' do
       get :index
       expect(response).to have_http_status(:success)
     end
@@ -28,8 +27,8 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
   end
 
-  describe "GET #new" do
-    it "returns http success" do
+  describe 'GET #new' do
+    it 'returns http success' do
       get :new
       expect(response).to have_http_status(:success)
     end
@@ -49,20 +48,15 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
   end
 
-  describe "POST #create" do
-    let(:new_user) { { name: 'TestUser', 
-                              email: 'user@test.com',
-                              password: 'secret',
-                              password_confirmation: 'secret' } }
-
+  describe 'POST #create' do
     it 'creates new valid user' do
       expect {
-        post :create, user: new_user
+        post :create, user: attributes_for(:user, password: 'secret', password_confirmation: 'secret')
       }.to change { User.count }.by(1)
     end
 
     it 'redirects to users index after creating new user' do
-      post :create, user: new_user
+      post :create, user: attributes_for(:user, password: 'secret', password_confirmation: 'secret')
       expect(response).to redirect_to admin_users_url
     end
 
@@ -83,7 +77,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
+  describe 'GET #edit' do
     let(:users) { create_list(:user, 3) }
 
     it 'populates right user in @user' do
@@ -107,7 +101,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
   end
 
-  describe "PATCH #update" do
+  describe 'PATCH #update' do
     let(:users) { create_list(:user, 3) }
 
     it 'updates user' do
@@ -137,7 +131,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
   end
 
-  describe "DELETE #destroy" do
+  describe 'DELETE #destroy' do
     let(:users) { create_list(:user, 3) }
 
     it 'deletes users' do

@@ -9,6 +9,7 @@ class Map < ActiveRecord::Base
   before_create :generate_public_token, if: 'is_public'
 
   validates :maintainer_email_address, email_format: true, if: 'maintainer_email_address.present?'
+  validates :translation_engine, presence: true, inclusion: { in: %w[bing yandex google] }, if: 'auto_translate'
 
   private
 

@@ -23,6 +23,9 @@ class Place < ActiveRecord::Base
   split_accessor :start_date
   split_accessor :end_date
 
+  ## ASSOCIATIONS
+  belongs_to :map
+
   ## VALIDATIONS
   validates :name, presence: true
   validates :postal_code, german_postal_code: true, if: 'postal_code.present?'

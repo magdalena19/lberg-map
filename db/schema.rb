@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317094904) do
+ActiveRecord::Schema.define(version: 20170320130613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,18 +24,6 @@ ActiveRecord::Schema.define(version: 20170317094904) do
     t.string  "translation_engine",       default: "bing",          null: false
     t.boolean "allow_guest_commits",      default: true,            null: false
   end
-
-  create_table "announcement_translations", force: :cascade do |t|
-    t.integer  "announcement_id", null: false
-    t.string   "locale",          null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "header"
-    t.text     "content"
-  end
-
-  add_index "announcement_translations", ["announcement_id"], name: "index_announcement_translations_on_announcement_id", using: :btree
-  add_index "announcement_translations", ["locale"], name: "index_announcement_translations_on_locale", using: :btree
 
   create_table "announcements", force: :cascade do |t|
     t.integer  "user_id"
@@ -77,6 +65,17 @@ ActiveRecord::Schema.define(version: 20170317094904) do
 
   add_index "category_translations", ["category_id"], name: "index_category_translations_on_category_id", using: :btree
   add_index "category_translations", ["locale"], name: "index_category_translations_on_locale", using: :btree
+
+  create_table "maps", force: :cascade do |t|
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "title"
+    t.text     "description"
+    t.text     "imprint"
+    t.boolean  "public",       default: false, null: false
+    t.string   "public_token"
+    t.string   "secret_token",                 null: false
+  end
 
   create_table "messages", force: :cascade do |t|
     t.string   "sender_name"
@@ -122,7 +121,10 @@ ActiveRecord::Schema.define(version: 20170317094904) do
     t.string   "country"
     t.string   "district"
     t.string   "federal_state"
+    t.integer  "map_id"
   end
+
+  add_index "places", ["map_id"], name: "index_places_on_map_id", using: :btree
 
   create_table "simple_captcha_data", force: :cascade do |t|
     t.string   "key",        limit: 40
@@ -157,4 +159,5 @@ ActiveRecord::Schema.define(version: 20170317094904) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "places", "maps"
 end

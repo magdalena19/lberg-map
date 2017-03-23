@@ -10,6 +10,10 @@ describe Place do
     expect(Place.find(place.id)).to eq(place)
   end
 
+  context 'Associations' do
+    it { is_expected.to belong_to(:map) }
+  end
+
   context 'Validate' do
     it 'empty place as invalid' do
       expect(Place.new).not_to be_valid

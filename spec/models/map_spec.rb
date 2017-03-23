@@ -53,5 +53,16 @@ RSpec.describe Map, type: :model do
       map = build :map, :full_public, translation_engine: 'unknownEngine'
       expect(map).not_to be_valid
     end
+
+    it 'does not pass empty secret_token' do
+      map = build :map, :full_public, secret_token: ''
+      expect(map).not_to be_valid
+    end
+
+    it 'does not pass non-unique secret_token' do
+      map1 = create :map, :full_public, secret_token: 'secret'
+      map2 = build :map, :full_public, secret_token: 'secret'
+      expect(map2).not_to be_valid
+    end
   end
 end

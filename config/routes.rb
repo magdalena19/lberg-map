@@ -46,6 +46,13 @@ class PlacesAccessRestriction
   end
 end
 
+class LoginStatusRestriction
+  def matches?(request)
+    return false unless request.session[:user_id]
+    User.find(request.session[:user_id])
+  end
+end
+
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
@@ -60,38 +67,44 @@ Rails.application.routes.draw do
     get '/reset_password/:id/:token', to: 'password_reset#reset_password', as: :reset_password
     patch '/reset_password', to: 'password_reset#set_new_password'
 
-    scope '/map/:map_token', constraints: MapAccessRestriction.new do
-      # Static pages
-      get '/about' , to: 'static_pages#about'
-      get '/show' , to: 'maps#show', as: :map
-      get '/category/:category' , to: 'places#index', as: :category
-      get '/contact' , to: 'messages#new'
-      post '/contact' , to: 'messages#create'
+    scope '/map' do
+      get '/new', to: 'maps#new', as: :new_map
+      post '/', to: 'maps#create'
 
-      # Map / place ressources
-      get '/places', to: 'places#index'
+      scope '/:map_token', constraints: MapAccessRestriction.new do
+        get '/show' , to: 'maps#show', as: :map
+        get '/edit', to: 'maps#edit', as: :edit_map
+        patch '', to: 'maps#update'
 
-      resources :places, except: [:index, :show], constraints: PlacesAccessRestriction.new do
-        resources :descriptions
-      end
+        get '/about' , to: 'maps#about'
+        get '/contact' , to: 'messages#new'
+        post '/contact' , to: 'messages#create'
 
-      # Reviewing
-      get 'places/review_index' , to: 'review#review_index'
+        # Map / place ressources
+        get '/places', to: 'places#index'
 
-      scope '/places/:id' do
-        get '/review' , to: 'places_review#review', as: :review_place
-        get '/confirm' , to: 'places_review#confirm', as: :confirm_place
-        get '/refuse' , to: 'places_review#refuse', as: :refuse_place
-
-        scope '/translation' do
-          get '/review' , to: 'translations_review#review', as: :review_translation
-          get '/confirm' , to: 'translations_review#confirm', as: :confirm_translation
-          get '/refuse' , to: 'translations_review#refuse', as: :refuse_translation
+        resources :places, except: [:index, :show], constraints: PlacesAccessRestriction.new do
+          resources :descriptions
         end
-      end
 
-      resources :announcements
-      get '/chronicle' , to: 'static_pages#chronicle'
+        # Reviewing, access restriction handled by place ressource access restriction
+        get 'places/review_index' , to: 'review#review_index'
+
+        scope '/places/:id' do
+          get '/review' , to: 'places_review#review', as: :review_place
+          get '/confirm' , to: 'places_review#confirm', as: :confirm_place
+          get '/refuse' , to: 'places_review#refuse', as: :refuse_place
+
+          scope '/translation' do
+            get '/review' , to: 'translations_review#review', as: :review_translation
+            get '/confirm' , to: 'translations_review#confirm', as: :confirm_translation
+            get '/refuse' , to: 'translations_review#refuse', as: :refuse_translation
+          end
+        end
+
+        resources :announcements
+        get '/chronicle' , to: 'maps#chronicle'
+      end
     end
 
     # User accessible user resources

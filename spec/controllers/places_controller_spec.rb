@@ -261,10 +261,10 @@ describe PlacesController do
       end
 
       context 'Access restrictions' do
-        it 'if map access is semi-public' do
-          map = create :map, :restricted_access
-          another_reviewed_place = create :place, :reviewed, map: map
+        let(:map) {create :map, :restricted_access  }
+        let(:another_reviewed_place) { create :place, :reviewed, map: map }
 
+        it 'if map access is semi-public' do
           expect(patch: place_path(id: another_reviewed_place.id, map_token: map.public_token), place: {}).not_to be_routable
         end
       end
@@ -274,6 +274,8 @@ describe PlacesController do
     context 'Reviewewd translation' do
       let(:map) { create :map, :full_public }
       let(:reviewed_place) { create :place, :reviewed, map: map}
+      let(:restricted_map) {create :map, :restricted_access  }
+      let(:another_reviewed_place) { create :place, :reviewed, map: map }
 
       before do
         logout
@@ -297,8 +299,6 @@ describe PlacesController do
       end
 
       it 'is rejected if map is semi-public' do
-        restricted_map = create :map, :restricted_access
-        another_reviewed_place = create :place, :reviewed, map: restricted_map
         expect(patch: place_path(id: another_reviewed_place.id, map_token: restricted_map.public_token), place: { description_en: 'This description has been changed!' }).not_to be_routable
       end
     end

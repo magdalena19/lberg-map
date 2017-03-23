@@ -4,14 +4,14 @@ FactoryGirl.define do
     description 'This is some map'
     imprint 'This is some imprint'
     maintainer_email_address 'foo@bar.org'
-    secret_token SecureRandom.urlsafe_base64(24)
+    secret_token { SecureRandom.urlsafe_base64(24) }
 
     trait :full_public do
       is_public true
       auto_translate true
       translation_engine 'bing'
       allow_guest_commits true
-      public_token SecureRandom.urlsafe_base64(24)
+      public_token { SecureRandom.urlsafe_base64(24) }
     end
 
     trait :restricted_access do
@@ -19,7 +19,7 @@ FactoryGirl.define do
       auto_translate true
       translation_engine 'bing'
       allow_guest_commits false
-      public_token SecureRandom.urlsafe_base64(24)
+      public_token { SecureRandom.urlsafe_base64(24) }
     end
 
     trait :private do

@@ -1,19 +1,35 @@
 require 'validators/custom_validators'
+require 'sanitize'
 
 class Map < ActiveRecord::Base
   include CustomValidators
+  include Sanitization
 
   has_many :places
   has_many :categories
   has_many :announcements
   has_many :messages
 
-  # TODO abandon this
-  before_create :generate_secret_token
-  before_create :generate_public_token, if: 'is_public'
+  before_validation :sanitize_description
+  before_validation :sanitize_imprint
 
   validates :maintainer_email_address, email_format: true, if: 'maintainer_email_address.present?'
   validates :translation_engine, presence: true, inclusion: { in: %w[bing yandex google] }, if: 'auto_translate'
+  validates :secret_token, presence: true
+  validate :secret_token_unique
+  validate :public_token_unique, if: 'public_token.present?'
+
+  def secret_token_unique
+    if Map.all.map(&:secret_token).include? secret_token
+      errors.add(:secret_token, I18n.t('.secret_token_not_uniqe'))
+    end
+  end
+
+  def public_token_unique
+    if Map.all.map(&:public_token).include? public_token
+      errors.add(:public_token, I18n.t('.public_token_not_unique'))
+    end
+  end
 
   def reviewed_places
     places.all.map(&:reviewed_version).compact
@@ -39,7 +55,7 @@ class Map < ActiveRecord::Base
     categories.all.map(&:name).join(', ')
   end
 
-  def id_for_categorey_string(category_string)
+  def id_for_category_string(category_string)
     category = Category.all.find do |cat|
       category_string.tr('_', ' ').casecmp(cat.name).zero?
     end
@@ -48,15 +64,11 @@ class Map < ActiveRecord::Base
 
   private
 
-  # TODO is Käse, muss via Formular gemacht werden
-  # Muss im form field für maps gesetzt werden, sofern noch nicht vorhanden (value: @map.public_token ? @map.public_token : SecureRandom...)
-  def generate_public_token
-    self.public_token = SecureRandom.urlsafe_base64(24)
+  def sanitize_imprint
+    self.imprint = sanitize(imprint)
   end
 
-  # TODO is Käse, muss via Formular gemacht werden
-  # Muss im form field für maps gesetzt werden, sofern noch nicht vorhanden (value: @map.public_token ? @map.public_token : SecureRandom...)
-  def generate_secret_token
-    self.secret_token = SecureRandom.urlsafe_base64(24)
+  def sanitize_description
+    self.description = sanitize(description)
   end
 end

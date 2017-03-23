@@ -11,18 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170320144858) do
+ActiveRecord::Schema.define(version: 20170323082017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "admin_settings", force: :cascade do |t|
-    t.boolean "auto_translate",           default: true,            null: false
-    t.boolean "is_private",               default: false,           null: false
-    t.string  "app_title",                default: "Generic title", null: false
-    t.string  "maintainer_email_address", default: "foo@bar.org"
-    t.string  "translation_engine",       default: "bing",          null: false
-    t.boolean "allow_guest_commits",      default: true,            null: false
+    t.string "app_title",           default: "Generic title", null: false
+    t.string "admin_email_address", default: "foo@bar.org",   null: false
   end
 
   create_table "announcements", force: :cascade do |t|
@@ -31,8 +27,10 @@ ActiveRecord::Schema.define(version: 20170320144858) do
     t.string   "content",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "map_id"
   end
 
+  add_index "announcements", ["map_id"], name: "index_announcements_on_map_id", using: :btree
   add_index "announcements", ["user_id"], name: "index_announcements_on_user_id", using: :btree
 
   create_table "bootsy_image_galleries", force: :cascade do |t|
@@ -52,7 +50,10 @@ ActiveRecord::Schema.define(version: 20170320144858) do
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "map_id"
   end
+
+  add_index "categories", ["map_id"], name: "index_categories_on_map_id", using: :btree
 
   create_table "category_translations", force: :cascade do |t|
     t.integer  "category_id",                     null: false
@@ -88,8 +89,10 @@ ActiveRecord::Schema.define(version: 20170320144858) do
     t.text     "text"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.string   "tag"
+    t.integer  "map_id"
   end
+
+  add_index "messages", ["map_id"], name: "index_messages_on_map_id", using: :btree
 
   create_table "place_translations", force: :cascade do |t|
     t.integer  "place_id",                        null: false
@@ -163,5 +166,8 @@ ActiveRecord::Schema.define(version: 20170320144858) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "announcements", "maps"
+  add_foreign_key "categories", "maps"
+  add_foreign_key "messages", "maps"
   add_foreign_key "places", "maps"
 end

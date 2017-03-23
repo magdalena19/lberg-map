@@ -27,7 +27,7 @@ module AutoTranslate
   private
 
   def active_translation_engine
-    engine = Admin::Setting.translation_engine
+    engine = Map.find(map_id).translation_engine
     engine_wrapper = "#{engine.camelize}TranslatorWrapper".singularize.constantize
   rescue
     NullTranslator.new

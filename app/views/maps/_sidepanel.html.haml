@@ -1,6 +1,6 @@
 .overlay.places-list-panel
   .row.search-field
-    %input#search-input.category-input.form-control{'data-list' => (Category.list_names), 'autocomplete' => 'off', placeholder: (t('static_pages.map.search_placeholder'))}
+    %input#search-input.category-input.form-control{'data-list' => (@map.category_names_list), 'autocomplete' => 'off', placeholder: (t('static_pages.map.search_placeholder'))}
 
   .row
     .col-xs-12.places-list-accordion-container

@@ -33,6 +33,9 @@ RSpec.describe Map, type: :model do
 
   context 'Associations' do
     it { is_expected.to have_many :places }
+    it { is_expected.to have_many :categories }
+    it { is_expected.to have_many :announcements }
+    it { is_expected.to have_many :messages }
   end
 
   context 'Validations' do

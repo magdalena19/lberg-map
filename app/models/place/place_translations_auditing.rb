@@ -1,22 +1,5 @@
 # This module holds all translation reviewing related class methods
-module PlaceTranslationsAuditingClassMethods
-  # TODO
-  # Make this private...
-  def all_translations
-    Place.all.map { |p| p.translations.to_a }.flatten
-  end
-
-  def unreviewed_translations
-    Place.all_translations.select { |t| !t.reviewed }
-  end
-end
-
-# This module holds all translation reviewing related class methods
 module PlaceTranslationsAuditing
-  def self.included(base)
-    base.extend PlaceTranslationsAuditingClassMethods
-  end
-
   def unreviewed_translations
     translations.find_all do |t|
       t.versions.length > 1 || !t.reviewed

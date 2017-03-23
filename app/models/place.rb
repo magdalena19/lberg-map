@@ -50,7 +50,7 @@ class Place < ActiveRecord::Base
   after_validation :enforce_ssl_on_urls, on: [:create, :update], if: 'homepage.present?'
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
-  after_create :enqueue_auto_translation
+  after_create :enqueue_auto_translation, if: 'map.auto_translate'
   after_create :set_description_reviewed_flags
   before_save :set_categories, if: :categories_changed?
  

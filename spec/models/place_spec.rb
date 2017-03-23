@@ -1,9 +1,6 @@
 describe Place do
-  let(:place) { build :place, :reviewed }
-
-  before do
-    create :settings
-  end
+  let(:map) { create :map, :full_public }
+  let(:place) { build :place, :reviewed, map: map }
 
   it 'can save place to database' do
     place.save
@@ -99,7 +96,8 @@ describe Place do
 
     it 'creates and autotranslates categories correctly' do
       Sidekiq::Testing.inline! do
-        create :place, :unreviewed, categories: 'Foo'
+        map = create :map, :full_public
+        create :place, :unreviewed, categories: 'Foo', map: map
       end
 
       expect(Category.count).to be 1
@@ -129,9 +127,8 @@ describe Place do
     end
 
     it 'does not auto-translate if option is not set' do
-      create :settings, :private
-      expect(Admin::Setting.is_private).to be true
-      new_place = create :place, :unreviewed
+      secret_map = create :map, :top_secret
+      new_place = create :place, :unreviewed, map: secret_map
       new_place.tap do |place|
         expect(place.translations.map(&:auto_translated).any?).to be false
       end

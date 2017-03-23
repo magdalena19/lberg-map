@@ -1,8 +1,4 @@
 feature 'Add new user' do
-  before do
-    create :settings
-  end
-
   scenario 'can find section on admin dashboard', :js do
     login_as_admin
     visit admin_dashboard_path

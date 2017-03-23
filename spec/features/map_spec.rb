@@ -2,11 +2,9 @@
 # since leaflet marker are displayed not before map tiles are loaded
 feature 'Map', js: true do
   before do
-    create :settings, :public
-    create :place, :reviewed, id: 666
+    place = create :place, :reviewed, map: create(:map, :full_public)
 
-    visit '/'
-    click_on('Select this language')
+    visit map_path(map_token: place.map.public_token)
   end
 
   scenario 'has place edit buttons' do

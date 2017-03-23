@@ -1,17 +1,16 @@
 feature 'Contact form' do
   before do
-    create :settings, :public
+    map = create :map, :full_public, maintainer_email_address: 'foo@bar.org'
+    visit contact_path(map_token: map.public_token)
   end
 
   scenario 'Can fill out contact information and click send button', :js do
-    visit contact_path
     fill_in_valid_contact_information
     validate_captcha
     click_on 'Send message'
   end
 
   scenario "Deactivate 'send copy to sender' option if no email address is present", :js do
-    visit contact_path
     expect(page).to_not  have_content('Send a copy to email address')
 
     fill_in :message_sender_email, with: 'foo@bar.org'
@@ -19,7 +18,6 @@ feature 'Contact form' do
   end
 
   def fill_in_valid_contact_information
-    find('#message_tag').find(:xpath, 'option[1]').select_option
     fill_in :message_sender_name, with: 'Test Person'
     fill_in :message_sender_email, with: 'test@test.com'
     fill_in :message_subject, with: 'I have a question'

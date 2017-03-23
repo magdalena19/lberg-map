@@ -4,18 +4,18 @@ require 'attribute_setter'
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
+  before_action :set_map
   before_action :require_login, only: [:destroy]
   before_action :set_place, only: [:edit, :update, :destroy]
   before_action :can_update?, only: [:update]
   before_action :can_create?, only: [:create]
   before_action :reverse_geocode, only: [:new], if: :supplied_coords?
-  before_action :require_login_if_private_map
   before_action :modify_params, only: [:create, :update]
 
   after_action :store_in_session_cookie, only: [:create, :update]
 
   def index
-    @places = Place.reviewed_places
+    @places = @map.reviewed_places
     unless @current_user.signed_in?
       @places += places_from_session
       @places.uniq
@@ -24,6 +24,7 @@ class PlacesController < ApplicationController
 
   def edit
     redirect_to root_url if @place.new?
+    @url = place_url(id: @place.id, map_token: request[:map_token])
     flash.now[:warning] = t('.preview_mode') unless @current_user.signed_in?
   end
 
@@ -39,12 +40,12 @@ class PlacesController < ApplicationController
   end
 
   def new
-    @place = Place.new
+    @place = @map.places.new
     flash.now[:warning] = t('.preview_mode') unless @current_user.signed_in?
   end
 
   def create
-    @place = Place.new(@params_to_commit)
+    @place = @map.places.new(@params_to_commit)
     @place.latitude ||= params[:place][:latitude]
     @place.longitude ||= params[:place][:longitude]
 
@@ -90,7 +91,7 @@ class PlacesController < ApplicationController
   end
 
   def set_place
-    @place = Place.find(params[:id])
+    @place = @map.places.find(params[:id])
   end
 
   def store_in_session_cookie

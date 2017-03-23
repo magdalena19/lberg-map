@@ -1,8 +1,4 @@
 describe PasswordResetController do
-  before do
-    create :settings, :public
-  end
-
   context 'GET #request_password_reset' do
     it 'can request new password' do
       get :request_password_reset
@@ -11,6 +7,10 @@ describe PasswordResetController do
   end
 
   context 'POST #create_password_reset' do
+    before do
+      create :settings
+    end
+
     it 'creates new password reset digest for existing account' do
       user = create :user, email: 'norbert@example.com'
       expect {

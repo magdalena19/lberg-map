@@ -1,6 +1,5 @@
 feature 'Reset password' do
   before do
-    create :settings, :public
     @user = create :user
     @user.create_digest_for(attribute: 'password_reset')
     @user.save

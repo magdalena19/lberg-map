@@ -8,33 +8,51 @@ class AdminConstraint
   end
 end
 
-class PlaceAccessRestriction
-  def can_commit?
-    @settings['allow_guest_commits'] || @user.signed_in?
+class MapAccessRestriction
+  attr_reader :token
+
+  def is_secret_link?
+    Map.find_by(secret_token: token)
+  end
+
+  def can_access_as_guest?
+    map = Map.find_by(public_token: token)
+    map && map.is_public
   end
 
   def matches?(request)
-    @settings = Admin::Setting.all_settings
-    @user = User.find_by(id: request.session[:user_id]) || GuestUser.new
-    can_commit?
+    @token = request[:map_token]
+    return true if is_secret_link? || can_access_as_guest?
+    false
+  end
+end
+
+class PlacesAccessRestriction
+  attr_reader :token
+
+  def is_secret_link?
+    Map.find_by(secret_token: token)
+  end
+
+  def can_commit_as_guest?
+    map = Map.find_by(public_token: token)
+    map && map.is_public && map.allow_guest_commits
+  end
+
+  def matches?(request)
+    @token = request[:map_token]
+    return true if is_secret_link? || can_commit_as_guest?
+    false
   end
 end
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
-  get '', to: 'static_pages#index'
+  get '', to: 'static_pages#choose_locale'
 
   scope '(:locale)', locale: /en|de|fr|ar/ do
-    root 'static_pages#map'
-    get '/:locale' , to: 'static_pages#map'
-
-    # Static pages
-    get '/about' , to: 'static_pages#about'
-    get '/map' , to: 'static_pages#map'
-    get '/category/:category' , to: 'places#index', as: :category
-    get '/contact' , to: 'messages#new'
-    post '/contact' , to: 'messages#create'
+    root 'static_pages#choose_locale'
 
     # Password reset
     get '/request_password_reset/new', to: 'password_reset#request_password_reset', as: :request_password_reset
@@ -42,27 +60,39 @@ Rails.application.routes.draw do
     get '/reset_password/:id/:token', to: 'password_reset#reset_password', as: :reset_password
     patch '/reset_password', to: 'password_reset#set_new_password'
 
-    # Reviewing
-    get 'places/review_index' , to: 'review#review_index'
+    scope '/map/:map_token', constraints: MapAccessRestriction.new do
+      # Static pages
+      get '/about' , to: 'static_pages#about'
+      get '/show' , to: 'maps#show', as: :map
+      get '/category/:category' , to: 'places#index', as: :category
+      get '/contact' , to: 'messages#new'
+      post '/contact' , to: 'messages#create'
 
-    scope '/places/:id' do
-      get '/review' , to: 'places_review#review', as: :review_place
-      get '/confirm' , to: 'places_review#confirm', as: :confirm_place
-      get '/refuse' , to: 'places_review#refuse', as: :refuse_place
+      # Map / place ressources
+      get '/places', to: 'places#index'
 
-      scope '/translation' do
-        get '/review' , to: 'translations_review#review', as: :review_translation
-        get '/confirm' , to: 'translations_review#confirm', as: :confirm_translation
-        get '/refuse' , to: 'translations_review#refuse', as: :refuse_translation
+      resources :places, except: [:index, :show], constraints: PlacesAccessRestriction.new do
+        resources :descriptions
       end
-    end
 
-    # Place ressources
-    resources :places, except: [:index], constraints: PlaceAccessRestriction.new do
-      resources :descriptions
-    end
+      # Reviewing
+      get 'places/review_index' , to: 'review#review_index'
 
-    get '/places', to: 'places#index'
+      scope '/places/:id' do
+        get '/review' , to: 'places_review#review', as: :review_place
+        get '/confirm' , to: 'places_review#confirm', as: :confirm_place
+        get '/refuse' , to: 'places_review#refuse', as: :refuse_place
+
+        scope '/translation' do
+          get '/review' , to: 'translations_review#review', as: :review_translation
+          get '/confirm' , to: 'translations_review#confirm', as: :confirm_translation
+          get '/refuse' , to: 'translations_review#refuse', as: :refuse_translation
+        end
+      end
+
+      resources :announcements
+      get '/chronicle' , to: 'static_pages#chronicle'
+    end
 
     # User accessible user resources
     resources :users, only: [:show, :edit, :update]
@@ -77,8 +107,5 @@ Rails.application.routes.draw do
 
       resources :users
     end
- 
-    resources :announcements
-    get '/chronicle' , to: 'static_pages#chronicle'
   end
 end

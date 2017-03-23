@@ -5,23 +5,10 @@
   .row
     .col-xs-12.col-md-2.col-md-offset-1.impressum
       .h3= t('.imprint')
-      %p
-        %br= link_to 'Aktiv in Lichtenberg e.V.', 'http://plattenkosmos.berlin/'
-        Magdalenenstr. 19
-        %br 10365 Berlin
-      %p
-        VR 32492 B (Amtsgericht Charlottenburg)
-      %p
-        %br
-          %i= t('.developed_by')
-        %br Code Kollektiv
     .col-xs-12.col-md-6.col-md-offset-1
       .h3= t('.send_email')
       = form_for @message, url: contact_url(protocol: 'https') do |f|
 
-        %fieldset{class: "form-group row"}
-          .col-xs-12
-            = f.select :tag, Message.tags
         %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:sender_email)}"}
           .col-xs-12
             = f.text_field :sender_email, placeholder: t('.sender_email'), class: 'form-control'

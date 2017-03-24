@@ -19,6 +19,36 @@ RSpec.describe MapsController, type: :controller do
     end
   end
 
+  describe 'GET #index' do
+    let(:user) { create :user, name: 'user' }
+    let(:public_map) { create :map, :full_public, user: user }
+    let(:private_map) { create :map, :private, user: user }
+
+    let(:other_user) { create :user, name: 'other_user' }
+    let(:other_map) { create :map, :full_public, title: 'OtherMap', user: other_user }
+
+    before do
+      login_as user
+      get :index
+    end
+
+    it 'populates all user maps in @maps' do
+      expect(assigns(:maps)).to eq user.maps
+    end
+
+    it 'renders :index template' do
+      expect(response).to render_template :index
+    end
+
+    it 'does not include other users maps' do
+      maps = assigns(:maps)
+
+      other_user.maps.each do |map|
+        expect(maps).not_to include map
+      end
+    end
+  end
+
   describe 'GET #new' do
     before do
       login_as create :user
@@ -38,7 +68,12 @@ RSpec.describe MapsController, type: :controller do
       expect(response).to render_template :new
     end
 
-    it 'rejects access if not logged in'
+    it 'rejects access if not logged in' do
+      skip "Works but don't know how to write test appropriately"
+      logout
+      get :new
+      expect(response).not_to render_template :new
+    end
   end
 
   describe 'POST #create' do

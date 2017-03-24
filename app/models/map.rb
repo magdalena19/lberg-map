@@ -9,6 +9,7 @@ class Map < ActiveRecord::Base
   has_many :categories
   has_many :announcements
   has_many :messages
+  belongs_to :user
 
   before_validation :sanitize_description
   before_validation :sanitize_imprint

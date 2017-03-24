@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170323082017) do
+ActiveRecord::Schema.define(version: 20170324073718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,10 @@ ActiveRecord::Schema.define(version: 20170323082017) do
     t.boolean  "allow_guest_commits"
     t.string   "translation_engine"
     t.boolean  "auto_translate"
+    t.integer  "user_id"
   end
+
+  add_index "maps", ["user_id"], name: "index_maps_on_user_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.string   "sender_name"
@@ -168,6 +171,7 @@ ActiveRecord::Schema.define(version: 20170323082017) do
 
   add_foreign_key "announcements", "maps"
   add_foreign_key "categories", "maps"
+  add_foreign_key "maps", "users"
   add_foreign_key "messages", "maps"
   add_foreign_key "places", "maps"
 end

@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
+  has_many :maps
+  # TODO legacy?
   has_many :announcements
 
   attr_accessor :password_reset_token

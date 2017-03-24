@@ -48,8 +48,8 @@ end
 
 class LoginStatusRestriction
   def matches?(request)
-    return false unless request.session[:user_id]
-    User.find(request.session[:user_id])
+    user = request.session[:user_id].present?
+    user.present? ? true : false
   end
 end
 
@@ -68,8 +68,9 @@ Rails.application.routes.draw do
     patch '/reset_password', to: 'password_reset#set_new_password'
 
     scope '/map' do
-      get '/new', to: 'maps#new', as: :new_map
-      post '/', to: 'maps#create'
+      get '/index', to: 'maps#index', constraints: LoginStatusRestriction.new, as: :maps
+      get '/new', to: 'maps#new', constraints: LoginStatusRestriction.new, as: :new_map
+      post '/', to: 'maps#create', constraints: LoginStatusRestriction.new
 
       scope '/:map_token', constraints: MapAccessRestriction.new do
         get '/show' , to: 'maps#show', as: :map

@@ -45,7 +45,7 @@ describe PlacesController do
 
     it 'renders :new template' do
       get :new, map_token: map.secret_token
-      expect(response).to render_template 'places/new'
+      expect(response).to render_template :new
     end
   end
 

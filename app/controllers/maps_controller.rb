@@ -14,6 +14,10 @@ class MapsController < ApplicationController
     end
   end
 
+  def index
+    @maps = @current_user.maps
+  end
+
   def new
     @map = Map.new
   end

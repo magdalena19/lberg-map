@@ -67,5 +67,9 @@ describe User do
       expect(guest_user.guest?).to be true
     end
   end
+
+  context 'Associations' do
+    it { is_expected.to have_many(:maps) }
+  end
 end
 

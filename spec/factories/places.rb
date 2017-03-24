@@ -19,6 +19,7 @@ FactoryGirl.define do
     phone '03081618254'
     event false
     categories 'Playground,Hospital'
+    map
 
     after(:create) { |place| set_reviewed_on_translations(place) }
 

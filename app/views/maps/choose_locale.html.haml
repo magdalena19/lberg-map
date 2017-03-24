@@ -5,7 +5,6 @@
       = link_to "/#{l}" do
         .locale-selection
           = t('.select_this_language', locale: l)
-
 :javascript
   jQuery(function() {
     jQuery('.locale-slidepanel').trigger('open');

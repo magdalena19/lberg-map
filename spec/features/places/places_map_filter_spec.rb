@@ -2,22 +2,19 @@
 # since leaflet marker are displayed not before map tiles are loaded
 feature 'Places map filter', js: true do
   before do
-    create :settings, :public
+    @map = create :map, :full_public
+    create :place, :reviewed, name: 'AdventurePark', categories: 'Playground', phone: 1337, map: @map
+    create :place, :reviewed, name: 'Playpital', categories: 'Hospital, Playground', map: @map
+    create :place, :reviewed, name: 'Mr Bean', categories: 'lawyer', phone: 1337, map: @map
+    create :place, :unreviewed, categories: 'Playground', map: @map
 
-    create :place, :reviewed, name: 'AdventurePark', categories: 'Playground', phone: 1337
-    create :place, :reviewed, name: 'Playpital', categories: 'Hospital, Playground'
-    create :place, :reviewed, name: 'Mr Bean', categories: 'lawyer', phone: 1337
-    create :place, :unreviewed, categories: 'Playground'
-
-    visit '/'
-    click_on('Select this language')
+    visit map_path(map_token: @map.public_token)
   end
 
   scenario 'Single word input finds correct places' do
     skip('Travis does not let this test pass (passes locally though)')
     expect(page).to have_css('#search-input')
     fill_in('search-input', with: '1337')
-    binding.pry 
     expect(page).to have_css('.leaflet-marker-icon div span', text: 2)
     expect(page).to have_content 'AdventurePark'
     expect(page).to have_content 'Mr Bean'

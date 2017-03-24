@@ -1,8 +1,8 @@
 Rails.application.config.assets.version = '1.0'
 
 Rails.application.config.assets.precompile += %w[
-                                                  static_pages/map.js
-                                                  static_pages/index.js
+                                                  maps/show.js
+                                                  maps/index.js
                                                   places/index.js.erb
                                                   review/review_translation.js
                                                   data_tables.js

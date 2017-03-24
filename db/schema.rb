@@ -11,31 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317094904) do
+ActiveRecord::Schema.define(version: 20170324073718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "admin_settings", force: :cascade do |t|
-    t.boolean "auto_translate",           default: true,            null: false
-    t.boolean "is_private",               default: false,           null: false
-    t.string  "app_title",                default: "Generic title", null: false
-    t.string  "maintainer_email_address", default: "foo@bar.org"
-    t.string  "translation_engine",       default: "bing",          null: false
-    t.boolean "allow_guest_commits",      default: true,            null: false
+    t.string "app_title",           default: "Generic title", null: false
+    t.string "admin_email_address", default: "foo@bar.org",   null: false
   end
-
-  create_table "announcement_translations", force: :cascade do |t|
-    t.integer  "announcement_id", null: false
-    t.string   "locale",          null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "header"
-    t.text     "content"
-  end
-
-  add_index "announcement_translations", ["announcement_id"], name: "index_announcement_translations_on_announcement_id", using: :btree
-  add_index "announcement_translations", ["locale"], name: "index_announcement_translations_on_locale", using: :btree
 
   create_table "announcements", force: :cascade do |t|
     t.integer  "user_id"
@@ -43,8 +27,10 @@ ActiveRecord::Schema.define(version: 20170317094904) do
     t.string   "content",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "map_id"
   end
 
+  add_index "announcements", ["map_id"], name: "index_announcements_on_map_id", using: :btree
   add_index "announcements", ["user_id"], name: "index_announcements_on_user_id", using: :btree
 
   create_table "bootsy_image_galleries", force: :cascade do |t|
@@ -64,7 +50,10 @@ ActiveRecord::Schema.define(version: 20170317094904) do
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "map_id"
   end
+
+  add_index "categories", ["map_id"], name: "index_categories_on_map_id", using: :btree
 
   create_table "category_translations", force: :cascade do |t|
     t.integer  "category_id",                     null: false
@@ -78,6 +67,24 @@ ActiveRecord::Schema.define(version: 20170317094904) do
   add_index "category_translations", ["category_id"], name: "index_category_translations_on_category_id", using: :btree
   add_index "category_translations", ["locale"], name: "index_category_translations_on_locale", using: :btree
 
+  create_table "maps", force: :cascade do |t|
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.string   "title"
+    t.text     "description"
+    t.text     "imprint"
+    t.boolean  "is_public",                default: false, null: false
+    t.string   "public_token"
+    t.string   "secret_token",                             null: false
+    t.string   "maintainer_email_address"
+    t.boolean  "allow_guest_commits"
+    t.string   "translation_engine"
+    t.boolean  "auto_translate"
+    t.integer  "user_id"
+  end
+
+  add_index "maps", ["user_id"], name: "index_maps_on_user_id", using: :btree
+
   create_table "messages", force: :cascade do |t|
     t.string   "sender_name"
     t.string   "sender_email"
@@ -85,8 +92,10 @@ ActiveRecord::Schema.define(version: 20170317094904) do
     t.text     "text"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.string   "tag"
+    t.integer  "map_id"
   end
+
+  add_index "messages", ["map_id"], name: "index_messages_on_map_id", using: :btree
 
   create_table "place_translations", force: :cascade do |t|
     t.integer  "place_id",                        null: false
@@ -122,7 +131,10 @@ ActiveRecord::Schema.define(version: 20170317094904) do
     t.string   "country"
     t.string   "district"
     t.string   "federal_state"
+    t.integer  "map_id"
   end
+
+  add_index "places", ["map_id"], name: "index_places_on_map_id", using: :btree
 
   create_table "simple_captcha_data", force: :cascade do |t|
     t.string   "key",        limit: 40
@@ -157,4 +169,9 @@ ActiveRecord::Schema.define(version: 20170317094904) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "announcements", "maps"
+  add_foreign_key "categories", "maps"
+  add_foreign_key "maps", "users"
+  add_foreign_key "messages", "maps"
+  add_foreign_key "places", "maps"
 end

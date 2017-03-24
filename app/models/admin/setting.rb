@@ -4,15 +4,14 @@ class Admin::Setting < ActiveRecord::Base
   include CustomValidators
 
   validates :app_title, length: { maximum: 20 }
-  validates :maintainer_email_address, presence: true, email_format: true
+  validates :admin_email_address, presence: true, email_format: true
 
   def self.all_settings
     self.last.attributes.except("id")
   end
 
-  # cheap...
   def self.translation_engines
-    ['bing', 'google', 'yandex']
+    %w[google bing yandex]
   end
 
   Admin::Setting.create unless Admin::Setting.any?

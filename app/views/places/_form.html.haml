@@ -1,4 +1,4 @@
-= form_for(@place) do |f|
+= form_for(@place, url: @url) do |f|
   .row
     .col-xs-12
       - if @place.unreviewed_version
@@ -49,7 +49,7 @@
   .row
     .col-xs-12
       %h4= t('.categories')
-      = f.text_field :categories, placeholder: 'Enter categories', class: 'form-control category-input', disabled: @place.unreviewed_version, value: (@place.categories ? @place.category_names.join(', ') : nil), data: { 'list' => (Category.list_names) }, autocomplete: :off
+      = f.text_field :categories, placeholder: 'Enter categories', class: 'form-control category-input', disabled: @place.unreviewed_version, value: (@place.categories ? @place.category_names.join(', ') : nil), data: { 'list' => (@map.category_names_list) }, autocomplete: :off
 
   .row
     %hr

@@ -1,5 +1,5 @@
 //= require leaflet
-//= require static_pages/_map_base
+//= require maps/_map_base
 
 jQuery(function() {
   jQuery('#map').each(function() {

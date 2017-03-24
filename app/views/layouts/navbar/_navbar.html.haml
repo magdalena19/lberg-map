@@ -1,20 +1,25 @@
 %nav.navbar.navbar-fixed-top
   .container.navbar-container
-    .navbar-header
-      %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
-        %span.sr-only Toggle navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a
-        .logo.logo-left= Admin::Setting.app_title
-      .navbar-button.home-button.pull-left
-        = link_to root_path do
-          .glyphicon.glyphicon-globe.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_the_map')}
-      .navbar-button.home-button.pull-left
-        = link_to places_path do
-          .glyphicon.glyphicon-list.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_the_list')}
+    - if request[:map_token]
+      .navbar-header
+        %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
 
-    #navbar.navbar-collapse.collapse
-      %ul.nav.navbar-nav
-        = render 'layouts/navbar/buttons_right'
+        %a
+          .logo.logo-left= @map.title
+        .navbar-button.home-button.pull-left
+          = link_to map_path(map_token: request[:map_token]) do
+            .glyphicon.glyphicon-globe.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_the_map')}
+        .navbar-button.home-button.pull-left
+          = link_to places_path(map_token: request[:map_token]) do
+            .glyphicon.glyphicon-list.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_the_list')}
+
+      #navbar.navbar-collapse.collapse
+        %ul.nav.navbar-nav
+          = render 'layouts/navbar/buttons_right'
+
+    - else
+      'To be implemented'

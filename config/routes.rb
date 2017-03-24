@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
   scope '(:locale)', locale: /en|de|fr|ar/ do
     root 'static_pages#choose_locale'
+    get '/start', to: 'static_pages#landing_page', as: :landing_page
 
     # Password reset
     get '/request_password_reset/new', to: 'password_reset#request_password_reset', as: :request_password_reset

@@ -2,7 +2,7 @@
   #map
   .overlay.locale-selection-container.text-center
     - I18n.available_locales.each do |l|
-      = link_to "/#{l}" do
+      = link_to landing_page_path(locale: l) do
         .locale-selection
           = t('.select_this_language', locale: l)
 

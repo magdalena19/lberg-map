@@ -1,57 +1,5 @@
 require 'sidekiq/web'
-
-class AdminConstraint
-  def matches?(request)
-    return false unless request.session[:user_id]
-    user = User.find(request.session[:user_id])
-    user && user.is_admin?
-  end
-end
-
-class MapAccessRestriction
-  attr_reader :token
-
-  def is_secret_link?
-    Map.find_by(secret_token: token)
-  end
-
-  def can_access_as_guest?
-    map = Map.find_by(public_token: token)
-    map && map.is_public
-  end
-
-  def matches?(request)
-    @token = request[:map_token]
-    return true if is_secret_link? || can_access_as_guest?
-    false
-  end
-end
-
-class PlacesAccessRestriction
-  attr_reader :token
-
-  def is_secret_link?
-    Map.find_by(secret_token: token)
-  end
-
-  def can_commit_as_guest?
-    map = Map.find_by(public_token: token)
-    map && map.is_public && map.allow_guest_commits
-  end
-
-  def matches?(request)
-    @token = request[:map_token]
-    return true if is_secret_link? || can_commit_as_guest?
-    false
-  end
-end
-
-class LoginStatusRestriction
-  def matches?(request)
-    user = request.session[:user_id].present?
-    user.present? ? true : false
-  end
-end
+require 'routing/access_constraints'
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
@@ -69,15 +17,18 @@ Rails.application.routes.draw do
     patch '/reset_password', to: 'password_reset#set_new_password'
 
     scope '/map' do
-      get '/index', to: 'maps#index', constraints: LoginStatusRestriction.new, as: :maps
-      get '/new', to: 'maps#new', constraints: LoginStatusRestriction.new, as: :new_map
-      post '/', to: 'maps#create', constraints: LoginStatusRestriction.new
+      # TODO remove constraint and add require_login before action in maps controller
+      get '/index', to: 'maps#index', as: :maps
+      post '', to: 'maps#create'
+      get '/new', to: 'maps#new', as: :new_map
 
       scope '/:map_token', constraints: MapAccessRestriction.new do
         get '/show' , to: 'maps#show', as: :map
-        get '/edit', to: 'maps#edit', as: :edit_map
-        patch '', to: 'maps#update'
+        get '/edit', to: 'maps#edit', constraints: MapOwnershipRestriction.new, as: :edit_map
+        patch '', to: 'maps#update', constraints: MapOwnershipRestriction.new
+        delete '', to: 'maps#destroy', constraints: MapOwnershipRestriction.new, as: :destroy_map
 
+        # map static pages
         get '/about' , to: 'maps#about'
         get '/contact' , to: 'messages#new'
         post '/contact' , to: 'messages#create'

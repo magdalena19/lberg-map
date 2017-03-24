@@ -104,6 +104,7 @@ module MassSeedPoints
       end
 
       # Generate maps with random title
+      User.create(name: 'admin', email: 'admin@test.com', password: 'secret', password_confirmation: 'secret') unless User.any?
       generate_maps
 
       # Create all categories listed in translation YAML files

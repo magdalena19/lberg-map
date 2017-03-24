@@ -2,13 +2,13 @@ require 'rails_helper'
 
 describe MessagesController do
   it 'should enqueue valid message for delivery' do
-    message = build :message
+    map = create :map, :full_public
+    message = build :message, map: map
     
     Sidekiq::Testing.fake! do
 			expect{
-				post :create, message: message.attributes
+        post :create, message: message.attributes, map_token: map.public_token
 			}.to change{ MailerWorker.jobs.size }.by(1)
-      # expect(flash[:success]).not_to be_nil
     end
   end
 end

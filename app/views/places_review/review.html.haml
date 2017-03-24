@@ -66,6 +66,6 @@
   .row
     .col-xs-12
       .col-xs-6
-        = link_to t('buttons.confirm'), confirm_place_path, class: 'btn btn-primary btn-success review-form-button'
+        = link_to t('buttons.confirm'), confirm_place_path(id: @place.id, map_token: request[:map_token]), class: 'btn btn-primary btn-success review-form-button'
       .col-xs-6.col-md-2
-        = link_to t('buttons.refuse'), refuse_place_path, class: 'btn btn-primary btn-danger review-form-button'
+        = link_to t('buttons.refuse'), refuse_place_path(id: @place.id, map_token: request[:map_token]), class: 'btn btn-primary btn-danger review-form-button'

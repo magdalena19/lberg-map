@@ -19,7 +19,7 @@
       - @places_to_review.each do |place|
         %tr
           %td
-            = link_to review_place_path(place), style: 'color: #ff6666; text-decoration: none' do
+            = link_to review_place_path(id: place.id, map_token: request[:map_token]), style: 'color: #ff6666; text-decoration: none' do
               %span{class: 'glyphicon glyphicon-eye-open'}
           %td
             - if place.new?
@@ -49,10 +49,10 @@
       - @unreviewed_translations.each do |t|
         %tr
           %td
-            = link_to review_translation_path(t.id), style: 'color: #ff6666; text-decoration: none' do
+            = link_to review_translation_path(id: t.id, map_token: request[:map_token]), style: 'color: #ff6666; text-decoration: none' do
               %span{class: 'glyphicon glyphicon-eye-open'}
           %td
-            %b.lilac= Place.find(t.place_id).name
+            %b.lilac= @map.places.find(t.place_id).name
           %td
             = t.locale
           %td

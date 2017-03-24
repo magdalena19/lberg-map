@@ -19,16 +19,16 @@ module CapybaraHelpers
     click_on 'Login'
   end
 
-  def create_place_as_user(place_name)
+  def create_place_as_user(place_name: 'SomePlace', map_token:)
     login_as_user
-    visit new_place_path
+    visit new_place_path(map_token: map_token)
     fill_in_valid_place_information
     fill_in('place_name', with: place_name)
     click_on('Create Place')
   end
 
-  def create_place_as_guest(place_name)
-    visit new_place_path
+  def create_place_as_guest(place_name: 'SomePlace', map_token:)
+    visit new_place_path(map_token: map_token)
     fill_in_valid_place_information
     fill_in('place_name', with: place_name)
     validate_captcha

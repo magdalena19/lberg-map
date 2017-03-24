@@ -13,6 +13,8 @@ de:
             address:
               address_not_found: 'konnte nicht gefunden werden!'
   errors:
+    secret_token_not_unique: 'Der geheime Schlüssel wird bereits für eine andere Karte verwendet!'
+    public_token_not_unique: 'Der öffentliche Schlüssel wird bereits für eine andere Karte verwendet!'
     format: "%{attribute} %{message}"
     messages:
       access_restricted: 'Zugang zu dieser Seite ist dir verwehrt! Bitte logge dich ein!'

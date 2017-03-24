@@ -1,9 +1,5 @@
 de:
   messages:
-    tags:
-      technically_related: 'Technische Frage'
-      content_related: 'Frage zur Karte / Inhalt'
-      misc_related: 'Sonstiges'
     new:
       sender_email: 'Deine Email'
       sender_name: 'Dein Name'

@@ -1,21 +1,21 @@
 require 'rails_helper'
 
 describe TranslationsReviewController do
+  let(:map) { create :map, :full_public }
+  let(:new_place) { create :place, :unreviewed, map: map }
+  let(:place_with_unreviewed_changes) { create :place, :reviewed, name: 'Magda19', description_en: 'This is a description.', map: map }
+  let(:translations) { place_with_unreviewed_changes.translations }
+  let(:user) { create :user, name: 'Norbert' }
+
   before do
-    create :settings, :public
     login_as user
     place_with_unreviewed_changes.update_attributes(name: 'Magda', description: 'This is an updated description.')
   end
 
-  let(:new_place) { create :place, :unreviewed }
-  let(:place_with_unreviewed_changes) { create :place, :reviewed, name: 'Magda19', description_en: 'This is a description.' }
-  let(:translations) { place_with_unreviewed_changes.translations }
-  let(:user) { create :user, name: 'Norbert' }
-
   context 'GET #confirm' do
     it 'confirms unreviewed translations' do
       translation = translations.find_by(description: 'This is an updated description.')
-      get :confirm, id: translation.id
+      get :confirm, id: translation.id, map_token: map.secret_token
 
       translation.reload
       expect(translation.versions.count).to eq(1)
@@ -26,7 +26,7 @@ describe TranslationsReviewController do
   context 'GET #refuse' do
     it 'deletes only unreviewed translation versions' do
       translation = translations.find_by(description: 'This is an updated description.')
-      get :refuse, id: translation.id
+      get :refuse, id: translation.id, map_token: map.secret_token
 
       translation.reload
       expect(translation.versions.count).to eq(1)

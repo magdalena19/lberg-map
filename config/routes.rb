@@ -8,33 +8,59 @@ class AdminConstraint
   end
 end
 
-class PlaceAccessRestriction
-  def can_commit?
-    @settings['allow_guest_commits'] || @user.signed_in?
+class MapAccessRestriction
+  attr_reader :token
+
+  def is_secret_link?
+    Map.find_by(secret_token: token)
+  end
+
+  def can_access_as_guest?
+    map = Map.find_by(public_token: token)
+    map && map.is_public
   end
 
   def matches?(request)
-    @settings = Admin::Setting.all_settings
-    @user = User.find_by(id: request.session[:user_id]) || GuestUser.new
-    can_commit?
+    @token = request[:map_token]
+    return true if is_secret_link? || can_access_as_guest?
+    false
+  end
+end
+
+class PlacesAccessRestriction
+  attr_reader :token
+
+  def is_secret_link?
+    Map.find_by(secret_token: token)
+  end
+
+  def can_commit_as_guest?
+    map = Map.find_by(public_token: token)
+    map && map.is_public && map.allow_guest_commits
+  end
+
+  def matches?(request)
+    @token = request[:map_token]
+    return true if is_secret_link? || can_commit_as_guest?
+    false
+  end
+end
+
+class LoginStatusRestriction
+  def matches?(request)
+    user = request.session[:user_id].present?
+    user.present? ? true : false
   end
 end
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
-  get '', to: 'static_pages#index'
+  get '', to: 'static_pages#choose_locale'
 
   scope '(:locale)', locale: /en|de|fr|ar/ do
-    root 'static_pages#map'
-    get '/:locale' , to: 'static_pages#map'
-
-    # Static pages
-    get '/about' , to: 'static_pages#about'
-    get '/map' , to: 'static_pages#map'
-    get '/category/:category' , to: 'places#index', as: :category
-    get '/contact' , to: 'messages#new'
-    post '/contact' , to: 'messages#create'
+    root 'static_pages#choose_locale'
+    get '/start', to: 'static_pages#landing_page', as: :landing_page
 
     # Password reset
     get '/request_password_reset/new', to: 'password_reset#request_password_reset', as: :request_password_reset
@@ -42,27 +68,46 @@ Rails.application.routes.draw do
     get '/reset_password/:id/:token', to: 'password_reset#reset_password', as: :reset_password
     patch '/reset_password', to: 'password_reset#set_new_password'
 
-    # Reviewing
-    get 'places/review_index' , to: 'review#review_index'
+    scope '/map' do
+      get '/index', to: 'maps#index', constraints: LoginStatusRestriction.new, as: :maps
+      get '/new', to: 'maps#new', constraints: LoginStatusRestriction.new, as: :new_map
+      post '/', to: 'maps#create', constraints: LoginStatusRestriction.new
 
-    scope '/places/:id' do
-      get '/review' , to: 'places_review#review', as: :review_place
-      get '/confirm' , to: 'places_review#confirm', as: :confirm_place
-      get '/refuse' , to: 'places_review#refuse', as: :refuse_place
+      scope '/:map_token', constraints: MapAccessRestriction.new do
+        get '/show' , to: 'maps#show', as: :map
+        get '/edit', to: 'maps#edit', as: :edit_map
+        patch '', to: 'maps#update'
 
-      scope '/translation' do
-        get '/review' , to: 'translations_review#review', as: :review_translation
-        get '/confirm' , to: 'translations_review#confirm', as: :confirm_translation
-        get '/refuse' , to: 'translations_review#refuse', as: :refuse_translation
+        get '/about' , to: 'maps#about'
+        get '/contact' , to: 'messages#new'
+        post '/contact' , to: 'messages#create'
+
+        # Map / place ressources
+        get '/places', to: 'places#index'
+
+        resources :places, except: [:index, :show], constraints: PlacesAccessRestriction.new do
+          resources :descriptions
+        end
+
+        # Reviewing, access restriction handled by place ressource access restriction
+        get 'places/review_index' , to: 'review#review_index'
+
+        scope '/places/:id' do
+          get '/review' , to: 'places_review#review', as: :review_place
+          get '/confirm' , to: 'places_review#confirm', as: :confirm_place
+          get '/refuse' , to: 'places_review#refuse', as: :refuse_place
+
+          scope '/translation' do
+            get '/review' , to: 'translations_review#review', as: :review_translation
+            get '/confirm' , to: 'translations_review#confirm', as: :confirm_translation
+            get '/refuse' , to: 'translations_review#refuse', as: :refuse_translation
+          end
+        end
+
+        resources :announcements
+        get '/chronicle' , to: 'maps#chronicle'
       end
     end
-
-    # Place ressources
-    resources :places, except: [:index], constraints: PlaceAccessRestriction.new do
-      resources :descriptions
-    end
-
-    get '/places', to: 'places#index'
 
     # User accessible user resources
     resources :users, only: [:show, :edit, :update]
@@ -77,8 +122,5 @@ Rails.application.routes.draw do
 
       resources :users
     end
- 
-    resources :announcements
-    get '/chronicle' , to: 'static_pages#chronicle'
   end
 end

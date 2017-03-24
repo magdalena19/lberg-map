@@ -1,186 +1,150 @@
 describe PlacesController do
   before do
     Sidekiq::Testing.inline!
-    create :settings, :public
   end
 
   def extract_attributes(obj)
     obj.attributes.except('id', 'created_at', 'updated_at')
   end
 
-  def post_valid_place
-    post :create, place: { name: 'Kiezspinne',
-                           street: 'Schulze-Boysen-Straße',
-                           house_number: '15',
-                           postal_code: '10365',
-                           city: 'Berlin',
-                           description_en: 'This is a valid place',
-                           categories: [] }
-    Place.find_by(name: 'Kiezspinne')
+  def post_valid_place(map_token:)
+    post :create, place: attributes_for(:place, name: 'Kiezspinne', description_en: 'This is a description'), map_token: map_token
   end
 
   def update_reviewed_description(place)
-    put :update, id: place.id, place: { description_en: 'This description has been changed!' }
+    patch :update, id: place.id, place: { description_en: 'This description has been changed!' }
 
     place.translations.reload
     place
   end
 
   context 'GET #index' do
-    # TODO check on cookies...
+    let(:map) { create :map, :full_public }
+
     it 'Does not crash with not up-to-date session_places cookie' do
       @request.cookies[:created_places_in_session] = [1, 2, 3, 4, 5, 772_348_7]
-      get :index
+      get :index, map_token: map.public_token
       expect(response).to render_template 'places/index'
     end
 
-    describe 'Private map' do
-      before do
-        create :settings, :private
-        logout
-      end
+    it 'Populates all places in @places' do
+      create_list(:place, 3, :reviewed, map: map)
+      get :index, map_token: map.public_token
 
-      it 'rejects index if not logged in' do
-        get :index
-        expect(response).to redirect_to login_url
-        expect(assigns(:places)).to be_nil
-      end
+      expect(assigns(:places).count).to be 3
     end
   end
 
   context 'GET #new' do
+    let(:map) { create :map, :full_public }
+
     it 'populates new place in @place' do
-      get :new
+      get :new, map_token: map.secret_token
       expect(assigns(:place)).to be_a(Place)
     end
 
     it 'renders :new template' do
-      get :new
-      expect(response).to render_template 'places/new'
-    end
-
-    context 'rejects' do
-      it 'if place ressources access is restricted for guest users' do
-        create :settings, :public_restricted
-        logout
-        expect(get: 'places/new').not_to be_routable
-      end
+      get :new, map_token: map.secret_token
+      expect(response).to render_template :new
     end
   end
 
   context 'POST #create' do
+    let(:map) { create :map, :full_public }
+
     it 'accepts new geofeatures district, country and federal state' do
-      post :create, place: { name: 'SomePlace',
-                             street: 'SomeStreet',
-                             house_number: 12,
-                             postal_code: 10573,
-                             city: 'SomeCity',
-                             district: 'SomeDistrict',
-                             federal_state: 'SomeState',
-                             country: 'SomeCountry',
-                             email: 'schnipp@schnapp.com',
-                             homepage: 'http://schnapp.com',
-                             phone: '03081618254',
-                             description: 'This is a reviewed_place' }
-      new_place = Place.find_by(name: 'SomePlace')
+      post :create, map_token: map.secret_token, place: attributes_for(:place, :unreviewed,
+                                                                       federal_state: 'SomeState',
+                                                                       country: 'SomeCountry',
+                                                                       district: 'SomeDistrict')
+      new_place = Place.find_by(country: 'SomeCountry')
       expect(new_place.district).to eq 'SomeDistrict'
       expect(new_place.federal_state).to eq 'SomeState'
       expect(new_place.country).to eq 'SomeCountry'
     end
 
     it 'Enqueues auto_translation task after create' do
-      unreviewed_place = build :place, :unreviewed, categories: 'cat1, cat2'
       Sidekiq::Testing.fake! do
         expect {
-          post :create, place: extract_attributes(unreviewed_place)
+          post :create, place: attributes_for(:place, :unreviewed), map_token: map.public_token
         }.to change { TranslationWorker.jobs.size }.by(3)
       end
     end
 
-    it 'Does not enqueues auto_translation unless true in settings' do
-      create :settings, :top_secret
-      expect(Admin::Setting.auto_translate).to be false
-
-      unreviewed_place = create :place, :unreviewed
-      Sidekiq::Testing.fake! do
-        expect {
-          post :create, place: extract_attributes(unreviewed_place)
-        }.to change { TranslationWorker.jobs.size }.by(0)
-      end
-    end
-
     it 'creates category that is not there' do
-			Category.create name: 'OldCat'
-      new_place = create :place, :unreviewed, categories: 'NewCat'
+      Category.create name: 'OldCat', map: map
+      new_place = create :place, :unreviewed, categories: 'NewCat', map: map
 
-      post :create, place: extract_attributes(new_place)
+      post :create, place: extract_attributes(new_place), map_token: map.secret_token
 
       expect(Category.all.map(&:name)).to include('NewCat')
     end
 
-    context 'Place created by guest user' do
-      before do
-        logout
-      end
-
-      it 'is not reviewed' do
-        valid_new_place = post_valid_place
-
-        expect(valid_new_place).not_to be(:reviewed)
-      end
-
-      it 'has no version history' do
-        valid_new_place = post_valid_place
-
-        expect(valid_new_place.versions.length).to be 1
-      end
-
-      it 'is rejected if map is private' do
-        create :settings, :private
-
+    it 'Does not enqueue auto_translation unless true in settings' do
+      map = create :map, auto_translate: false
+      Sidekiq::Testing.fake! do
         expect {
-          post_valid_place
-        }.to change { Place.count }.by(0)
-        expect(response).to redirect_to login_url
-      end
-
-      it 'is rejected if place ressources access is restricted' do
-        create :settings, :public_restricted
-
-        expect(post: '/places', place: {}).not_to be_routable
+          post :create, place: attributes_for(:place, :unreviewed), map_token: map.secret_token
+        }.to change { TranslationWorker.jobs.size }.by(0)
       end
     end
 
-    context 'Place-translations of place created by guest user' do
-      before do
+    context 'Restricted public maps' do
+      let(:map) { create :map, :restricted_access }
+
+      it 'is rejected if place ressources access is restricted' do
         logout
+        expect(:post => places_path(map_token: map.public_token)).not_to be_routable
       end
+    end
 
-      it 'are not reviewed' do
-        valid_new_place = post_valid_place
+    context 'On public maps' do
+      let(:map) { create :map, :full_public }
 
-        valid_new_place.translations.each do |translation|
-          expect(valid_new_place).not_to be(:reviewed)
+      context 'Place created by guest user' do
+        before do
+          logout
+          post_valid_place(map_token: map.public_token)
+          @valid_new_place = Place.last
+        end
+
+        it 'is not reviewed' do
+          expect(@valid_new_place).not_to be(:reviewed)
+        end
+
+        it 'has no version history' do
+          expect(@valid_new_place.versions.length).to be 1
         end
       end
 
-      it 'have no version history' do
-        valid_new_place = post_valid_place
-
-        valid_new_place.translations.each do |translation|
-          expect(translation.versions.length).to be 1
+      context 'Place-translations of place created by guest user' do
+        before do
+          logout
+          post_valid_place(map_token: map.public_token)
+          @valid_new_place = Place.last
         end
-      end
 
-      it 'have correct auto-translation flags' do
-        valid_new_place = post_valid_place
-        auto_translations = valid_new_place.translations.reject { |t| t.locale == :en }
+        it 'are not reviewed' do
+          @valid_new_place.translations.each do |translation|
+            expect(@valid_new_place).not_to be(:reviewed)
+          end
+        end
 
-        valid_new_place.translations.each do |translation|
-          if auto_translations.include? translation
-            expect(translation.auto_translated).to be true
-          else
-            expect(translation.auto_translated).to be false
+        it 'have no version history' do
+          @valid_new_place.translations.each do |translation|
+            expect(translation.versions.length).to be 1
+          end
+        end
+
+        it 'have correct auto-translation flags' do
+          auto_translations = @valid_new_place.translations.reject { |t| t.locale == :en }
+
+          @valid_new_place.translations.each do |translation|
+            if auto_translations.include? translation
+              expect(translation.auto_translated).to be true
+            else
+              expect(translation.auto_translated).to be false
+            end
           end
         end
       end
@@ -189,47 +153,42 @@ describe PlacesController do
     context 'Place created by authorized user' do
       before do
         login_as create :user
+        post_valid_place(map_token: map.public_token)
+        @valid_new_place = Place.last
       end
 
       it 'is reviewed' do
-        valid_new_place = post_valid_place
-
-        expect(valid_new_place.reviewed).to be true
+        expect(@valid_new_place.reviewed).to be true
       end
 
       it 'has no version history' do
-        valid_new_place = post_valid_place
-
-        expect(valid_new_place.versions.count).to be 1
+        expect(@valid_new_place.versions.count).to be 1
       end
     end
 
     context 'Place-translations created by authorized user' do
       before do
         login_as create :user
+        post_valid_place(map_token: map.public_token)
+        @valid_new_place = Place.last
       end
 
       it 'are reviewed' do
-        valid_new_place = post_valid_place
-
-        valid_new_place.translations.each do |translation|
+        @valid_new_place.translations.each do |translation|
           expect(translation.reviewed).to be true
         end
       end
 
       it 'have no version history' do
-        valid_new_place = post_valid_place
-
-        valid_new_place.translations.each do |translation|
+        @valid_new_place.translations.each do |translation|
           expect(translation.versions.count).to be 1
         end
       end
 
       it 'have correct auto-translation flags' do
-        valid_new_place = post_valid_place # posted description == en
-        auto_translations = valid_new_place.translations.reject { |t| t.locale == :en }
+        auto_translations = @valid_new_place.translations.reject { |t| t.locale == :en }
 
-        valid_new_place.translations.each do |translation|
+        @valid_new_place.translations.each do |translation|
           if auto_translations.include? translation
             expect(translation.auto_translated).to be true
           else
@@ -240,32 +199,32 @@ describe PlacesController do
 
       it 'Translations of reviewed place are also reviewed on create' do
         login_as create(:user)
-        valid_new_place = post_valid_place
-
-        valid_new_place.translations.each do |translation|
+        @valid_new_place.translations.each do |translation|
           expect(translation.reviewed).to be true
         end
       end
     end
   end
 
-  context 'PUT #update' do
-    let(:reviewed_place) { create :place, :reviewed }
+  context 'patch #update' do
+    let(:map) { create :map, :full_public }
+    let(:private_map) { create :map, :private, allow_guest_commits: false, is_public: false }
+    let(:reviewed_place) { create :place, :reviewed, map: map}
 
     context 'restrict non-reviewed access' do
       it 'Cannot update place if is not reviewed' do
-        unreviewed_place = create :place, :unreviewed
-        put :update, id: unreviewed_place.id, place: { name: 'Some other name' }
+        unreviewed_place = create :place, :unreviewed, map: map
+        patch :update, id: unreviewed_place.id, place: { name: 'Some other name' }, map_token: map.public_token
         unreviewed_place.reload
         expect(unreviewed_place.name).not_to eq('Some other name')
       end
 
       it 'Cannot update translation if is not reviewed' do
-        put :update, id: reviewed_place.id, place: { description_en: 'This description has been changed!' }
+        patch :update, id: reviewed_place.id, place: { description_en: 'This description has been changed!' }, map_token: map.public_token
         reviewed_place.reload
         expect(reviewed_place.translations.find_by(locale: :en).reviewed).to be false
 
-        put :update, id: reviewed_place.id, place: { description_en: 'Some other description text' }
+        patch :update, id: reviewed_place.id, place: { description_en: 'Some other description text' }, map_token: map.public_token
         reviewed_place.reload
         expect(reviewed_place.description_en).not_to eq('Some other description text')
       end
@@ -273,20 +232,19 @@ describe PlacesController do
 
     context 'update on categories' do
       it 'changes record references accordingly' do
-        place = create :place, :reviewed, categories: 'Foo, Bar'
-        put :update, id: place.id, place: { categories: 'Bar, Hooray' }
-        place.reload
+        patch :update, id: reviewed_place.id, place: { categories: 'Bar, Hooray' }, map_token: map.public_token
+        reviewed_place.reload
         categories = %w[Bar Hooray].map { |name| Category.find_by(name: name).id }
 
-        expect(place.categories).to eq categories.join(',')
+        expect(reviewed_place.categories).to eq categories.join(',')
       end
     end
+
 
     context 'Place updated by guest user' do
       before do
         logout
-
-        put :update, id: reviewed_place.id, place: { name: 'Some other name' }
+        patch :update, id: reviewed_place.id, place: { name: 'Some other name' }, map_token: map.public_token
         reviewed_place.reload
       end
 
@@ -302,30 +260,27 @@ describe PlacesController do
         expect(reviewed_place.versions.count).to be 2
       end
 
-      it 'is rejected if map is private' do
-        create :settings, :private
-        another_reviewed_place = create :place, :reviewed
-        put :update, id: reviewed_place.id, place: { name: 'Some other name' }
-        expect(another_reviewed_place.reload.name).to_not eq('Some other name')
-        expect(response).to redirect_to login_url
-      end
+      context 'Access restrictions' do
+        let(:map) {create :map, :restricted_access  }
+        let(:another_reviewed_place) { create :place, :reviewed, map: map }
 
-      it 'is rejected if map access is semi-public' do
-        create :settings, :public_restricted
-        another_reviewed_place = create :place, :reviewed
-
-        expect(patch: '/places/', id: another_reviewed_place.id, place: {}).not_to be_routable
+        it 'if map access is semi-public' do
+          expect(patch: place_path(id: another_reviewed_place.id, map_token: map.public_token), place: {}).not_to be_routable
+        end
       end
     end
 
 
     context 'Reviewewd translation' do
-      let(:reviewed_place) { create :place, :reviewed }
+      let(:map) { create :map, :full_public }
+      let(:reviewed_place) { create :place, :reviewed, map: map}
+      let(:restricted_map) {create :map, :restricted_access  }
+      let(:another_reviewed_place) { create :place, :reviewed, map: map }
 
       before do
         logout
 
-        put :update, id: reviewed_place.id, place: { description_en: 'This description has been changed!' }
+        patch :update, id: reviewed_place.id, place: { description_en: 'This description has been changed!' }, map_token: map.public_token
         reviewed_place.reload
         @en_translation = reviewed_place.translations.select { |t| t.locale == :en }.first
       end
@@ -343,15 +298,8 @@ describe PlacesController do
         expect(@en_translation.versions.length).to be 2
       end
 
-      it 'is rejected if map is private' do
-        create :settings, :private
-        another_reviewed_place = create :place, :reviewed
-        put :update, id: another_reviewed_place.id, place: { description_en: 'This description has been changed!' }
-        another_reviewed_place.reload
-        @en_translation = another_reviewed_place.translations.select { |t| t.locale == :en }.first
-
-        expect(@en_translation.description).to_not eq('This description has been changed!')
-        expect(response).to redirect_to login_url
+      it 'is rejected if map is semi-public' do
+        expect(patch: place_path(id: another_reviewed_place.id, map_token: restricted_map.public_token), place: { description_en: 'This description has been changed!' }).not_to be_routable
       end
     end
 
@@ -360,7 +308,7 @@ describe PlacesController do
 
       before do
         login_as user
-        put :update, id: reviewed_place.id, place: { name: 'Some other name' }
+        patch :update, id: reviewed_place.id, place: { name: 'Some other name' }, map_token: map.secret_token
         reviewed_place.reload
       end
 
@@ -383,7 +331,7 @@ describe PlacesController do
       before do
         login_as user
 
-        put :update, id: reviewed_place.id, place: { description_en: 'This description has been changed!' }
+        patch :update, id: reviewed_place.id, place: { description_en: 'This description has been changed!' }, map_token: map.secret_token
         reviewed_place.reload
         @en_translation = reviewed_place.translations.select { |t| t.locale == :en }.first
       end
@@ -403,19 +351,23 @@ describe PlacesController do
   end
 
   context 'DELETE #destroy' do
+    let(:map) { create :map, :full_public }
+
+    before do
+      @place = create :place, :reviewed, map: map
+    end
+
     it 'Authorized user can delete place' do
       login_as create(:user)
-      reviewed_place = create :place, :reviewed
       expect {
-        delete :destroy, id: reviewed_place.id
+        delete :destroy, id: @place.id, map_token: map.secret_token
       }.to change { Place.count }.by(-1)
     end
 
     it 'Guest user cannot delete place' do
       logout
-      reviewed_place = create :place, :reviewed
       expect {
-        delete :destroy, id: reviewed_place.id
+        delete :destroy, id: @place.id, map_token: map.public_token
       }.to change { Place.count }.by(0)
     end
   end

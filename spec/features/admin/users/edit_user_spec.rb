@@ -1,8 +1,4 @@
 feature 'Edit user' do
-  before do
-    create :settings
-  end
-
   scenario 'it can find edit link on index', :js do
     login_as_admin
     users = create_list(:user, 1)

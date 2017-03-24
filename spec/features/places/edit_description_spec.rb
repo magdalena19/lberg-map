@@ -1,20 +1,17 @@
 feature 'Edit description' do
-  before do
-    create :settings, :public
-  end
-
   scenario 'Do not show guest edits in place list', :js do
-    place = create :place, :reviewed
+    map = create :map, :full_public
+    place = create :place, :reviewed, map: map
 
-    visit edit_place_path id: place.id
+    visit edit_place_path id: place.id, map_token: map.public_token
     fill_in_description_field('Changed description')
     validate_captcha
     click_on('Update Place')
 
     Capybara.reset_sessions!
-    expect(Place.reviewed_places.count).to be 1
+    expect(map.reviewed_places.count).to be 1
 
-    visit '/places'
+    visit places_path(map_token: map.public_token)
     expect(page).to have_content(place.name)
     page.find('.glyphicon-triangle-bottom').trigger('click')
     expect(page).not_to have_content('Changed description')

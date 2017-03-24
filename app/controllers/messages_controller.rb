@@ -1,12 +1,13 @@
 class MessagesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
+  before_action :set_map
 
   def new
-    @message = Message.new
+    @message = @map.messages.new
   end
 
   def create
-    @message = Message.new(message_params)
+    @message = @map.messages.new(message_params)
     if simple_captcha_valid? || @current_user.signed_in?
       save_new
     else

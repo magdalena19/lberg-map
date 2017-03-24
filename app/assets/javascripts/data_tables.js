@@ -40,7 +40,7 @@ jQuery(function() {
         row.find('.triangle').addClass('glyphicon-triangle-bottom').removeClass('glyphicon-triangle-top');
       } else {
         row.find('.triangle').addClass('glyphicon-triangle-top').removeClass('glyphicon-triangle-bottom');
-      };
+      }
   });
 
   var collapseAllDetails = function() {
@@ -50,7 +50,7 @@ jQuery(function() {
   jQuery('.category-toggle').click(function() {
     jQuery('.category-toggle').removeClass('active');
     jQuery(this).addClass('active');
-    var category = jQuery(this).attr('data-category')
+    var category = jQuery(this).attr('data-category');
     collapseAllDetails();
 
     jQuery('#places > tbody > tr').each(function() {
@@ -59,7 +59,7 @@ jQuery(function() {
       } else {
         var match = jQuery(this).attr('data-categories').indexOf(category) > -1;
         jQuery(this).toggle(match);
-      };
+      }
     });
   });
 

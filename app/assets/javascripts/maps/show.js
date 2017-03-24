@@ -1,7 +1,7 @@
 //= require leaflet
 //= require leaflet.markercluster
-//= require static_pages/_map_overlays
-//= require static_pages/_map_base
+//= require maps/_map_overlays
+//= require maps/_map_base
 
 jQuery(function() {
   jQuery('#map').each(function() {
@@ -35,7 +35,7 @@ jQuery(function() {
     // do not use the simpler .click function due to dynamic creation
     jQuery('body').on('click', '.edit-place', function() {
       var placeId = jQuery(this).attr('place_id');
-      window.location.href = 'places/' + placeId + '/edit';
+      window.location.href = '/map/' + window.map_token + '/places/' + placeId + '/edit';
     });
 
     jQuery('body').on('click', 'a', function() {
@@ -90,7 +90,7 @@ jQuery(function() {
     };
 
     var textFilter = function(json) {
-    var text = jQuery('#search-input').val();
+      var text = jQuery('#search-input').val();
       if (!text) { return json; }
 
       var filteredJson = [];
@@ -125,7 +125,7 @@ jQuery(function() {
     });
 
     jQuery('.type-in-address').click(function(){
-      window.location.href = 'places/new';
+      window.location.href = '/map/' + window.map_token + '/places/new';
     });
 
     var locationMarker;
@@ -140,7 +140,7 @@ jQuery(function() {
       jQuery('#confirmation-button-yes').click(function() {
         jQuery('.confirmation-button-container').fadeOut();
         var params = 'longitude=' + lon + '&latitude=' +  lat;
-        window.location.href = 'places/new?' + params;
+        window.location.href = '/map/' + window.map_token + '/places/new?' + params;
       });
       jQuery('#confirmation-button-no').click(function() {
         jQuery('.confirmation-button-container').fadeOut();
@@ -237,14 +237,14 @@ jQuery(function() {
       .on('awesomplete-selectcomplete', function() {
         updatePlaces(textFilter(window.places));
       })
-      .on('input', function(){
-        updatePlaces(textFilter(window.places))
-      });
+    .on('input', function(){
+      updatePlaces(textFilter(window.places));
+    });
 
     // POI LOADING
     hideMapElements();
     jQuery.ajax({
-      url: '/map',
+      url: '/map/' + window.map_token + '/show',
       dataType: 'json',
       data: {
         locale: window.locale

@@ -20,6 +20,11 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }.merge options
   end
 
+  def set_map
+    token = params[:map_token]
+    @map = Map.find_by(secret_token: token) || Map.find_by(public_token: token)
+  end
+
   # User and login related stuff
   def current_user
     @current_user ||= User.find_by(id: session[:user_id]) || GuestUser.new
@@ -39,13 +44,6 @@ class ApplicationController < ActionController::Base
       Place.where(id: array).compact.find_all { |p| p.category_for(category_id) }
     else
       Place.where(id: array)
-    end
-  end
-  
-  def require_login_if_private_map
-    if Admin::Setting.is_private && @current_user.guest?
-      redirect_to login_url
-      flash[:error] = t('.private_map')
     end
   end
 end

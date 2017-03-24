@@ -1,0 +1,25 @@
+- content_for :header do
+  = t('.index')
+
+.container
+  %table
+    %thead
+      %tr
+        %th= t('.title')
+        %th= t('.public_token')
+        %th= t('.secret_token')
+        %th
+        %th
+
+    %tbody
+      - @maps.each do |map|
+        %tr{id: "user_#{map.id}"}
+          %td= map.title
+          %td= map.public_token
+          %td= map.secret_token
+          %td= link_to t('.edit'), edit_map_url(map)
+          %td= link_to t('.delete'), destroy_map(map), :method => :delete, :data => { :confirm => t('.confirm_deletion') }
+
+  %br
+
+  = link_to 'New map', new_map_url

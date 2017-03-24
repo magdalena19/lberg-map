@@ -20,6 +20,7 @@ class MapsController < ApplicationController
 
   def new
     @map = Map.new
+    @url = new_map_url
   end
 
   def create
@@ -34,6 +35,7 @@ class MapsController < ApplicationController
   end
 
   def edit
+    @url = map_url(id: @map.id)
   end
 
   def update

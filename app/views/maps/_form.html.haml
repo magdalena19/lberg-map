@@ -1,4 +1,4 @@
-= form_for(@map, url: { action: :post }) do |f|
+= form_for(@map, url: @url) do |f|
   .row
     .col-md-12
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:title) || f.object.errors.include?(:maintainer_email_address)}"}

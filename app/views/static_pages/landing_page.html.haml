@@ -1,0 +1,28 @@
+-# Eigentlich genau wie bei riseup pad
+.container
+  .row
+    .col-md-6.col-md-offset-3.text-center
+      = link_to 'Create without account', new_map_url, class: 'btn btn-primary'
+  .row
+    .col-md-6.col-md-offset-3.text-center
+      or
+  .row
+    .col-md-6.col-md-offset-3.text-center
+      = button_tag 'Create with account', class: 'btn btn-success'
+  .row
+    #login_field
+    = form_for(:sessions, url: create_with_login_path) do |f|
+      .row
+        .col-md-6.col-md-offset-3.text-center
+          %h4
+            = t('.log_in')
+          %fieldset{class: 'form-group'}
+            = f.text_field :email, placeholder: t('.enter_email'), class: 'form-control'
+          %fieldset{class: 'form-group'}
+            = f.password_field :password, placeholder: t('.enter_password'), class: 'form-control'
+      .row
+        .col-sm-2.col-sm-offset-5
+          = f.submit t('buttons.login'), class: 'btn btn-primary btn-success'
+      .row
+        .col-sm-2.col-sm-offset-5
+          = link_to t('forgot_password?'), request_password_reset_url

@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
   scope '(:locale)', locale: /en|de|fr|ar/ do
     root 'static_pages#choose_locale'
+    get '/start', to: 'static_pages#landing_page', as: :landing_page
 
     # Password reset
     get '/request_password_reset/new', to: 'password_reset#request_password_reset', as: :request_password_reset
@@ -113,6 +114,7 @@ Rails.application.routes.draw do
     get '/login' , to: 'sessions#new'
     post '/login' , to: 'sessions#create'
     get '/logout' , to: 'sessions#destroy'
+    post '/landing_page' , to: 'sessions#create_with_login', as: :create_with_login
 
     namespace :admin, constraints: AdminConstraint.new do
       get '', to: 'dashboard#index', as: :dashboard

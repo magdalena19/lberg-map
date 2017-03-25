@@ -63,6 +63,14 @@ describe PlacesController do
       expect(new_place.country).to eq 'SomeCountry'
     end
 
+    it 'redirects to correct map show' do
+      post :create, map_token: map.public_token, place: attributes_for(:place, :unreviewed,
+                                                                       federal_state: 'SomeState',
+                                                                       country: 'SomeCountry',
+                                                                       district: 'SomeDistrict')
+      expect(response).to redirect_to map_path(map_token: map.public_token, latitude: 52.5, longitude: 13.45)
+    end
+
     it 'Enqueues auto_translation task after create' do
       Sidekiq::Testing.fake! do
         expect {
@@ -210,6 +218,11 @@ describe PlacesController do
     let(:map) { create :map, :full_public }
     let(:private_map) { create :map, :private, allow_guest_commits: false, is_public: false }
     let(:reviewed_place) { create :place, :reviewed, map: map}
+
+    it 'redirects to map show view' do
+      patch :update, id: reviewed_place.id, place: { description_en: 'This description has been changed!' }, map_token: map.public_token
+      expect(response).to redirect_to map_path(map_token: map.public_token, latitude: 52.5, longitude: 13.45)
+    end
 
     context 'restrict non-reviewed access' do
       it 'Cannot update place if is not reviewed' do

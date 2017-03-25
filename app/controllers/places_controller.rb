@@ -23,7 +23,7 @@ class PlacesController < ApplicationController
   end
 
   def edit
-    redirect_to root_url if @place.new?
+    redirect_to map_url(map_token: request[:map_token]) if @place.new?
     @url = place_url(id: @place.id, map_token: request[:map_token])
     flash.now[:warning] = t('.preview_mode') unless @current_user.signed_in?
   end
@@ -32,7 +32,7 @@ class PlacesController < ApplicationController
     if @params_to_commit.any? && @place.update(@params_to_commit)
       AttributeSetter::Place.set_attributes_after_update(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
       flash[:success] = t('.changes_saved')
-      redirect_to places_url
+      redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude)
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
       render :edit, status: 400
@@ -52,7 +52,7 @@ class PlacesController < ApplicationController
     if @place.save
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
       flash[:success] = t('.created')
-      redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
+      redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude)
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
       render :new, status: 400
@@ -62,7 +62,7 @@ class PlacesController < ApplicationController
   def destroy
     @place.destroy
     flash[:success] = t('.deleted')
-    redirect_to action: 'index'
+    redirect_to places_url(map_token: request[:map_token])
   end
 
   private

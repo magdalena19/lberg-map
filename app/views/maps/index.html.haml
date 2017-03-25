@@ -18,7 +18,7 @@
           %td= map.public_token
           %td= map.secret_token
           %td= link_to t('.edit'), edit_map_url(map_token: map.secret_token)
-          -# %td= link_to t('.delete'), destroy_map(map), :method => :delete, :data => { :confirm => t('.confirm_deletion') }
+          %td= link_to t('.delete'), destroy_map_url(map_token: map.secret_token), :method => :delete, :data => { :confirm => t('.confirm_deletion') }
 
   %br
 

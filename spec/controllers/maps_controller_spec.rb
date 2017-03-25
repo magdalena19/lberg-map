@@ -19,6 +19,7 @@ RSpec.describe MapsController, type: :controller do
     end
   end
 
+
   describe 'GET #index' do
     let(:user) { create :user, name: 'user' }
     let(:public_map) { create :map, :full_public, user: user }
@@ -27,27 +28,38 @@ RSpec.describe MapsController, type: :controller do
     let(:other_user) { create :user, name: 'other_user' }
     let(:other_map) { create :map, :full_public, title: 'OtherMap', user: other_user }
 
-    before do
-      login_as user
-      get :index
+    context 'As registered user' do
+      before do
+        login_as user
+        get :index
+      end
+
+      it 'populates all user maps in @maps' do
+        expect(assigns(:maps)).to eq user.maps
+      end
+
+      it 'renders :index template' do
+        expect(response).to render_template :index
+      end
+
+      it 'does not include other users maps' do
+        maps = assigns(:maps)
+
+        other_user.maps.each do |map|
+          expect(maps).not_to include map
+        end
+      end
     end
 
-    it 'populates all user maps in @maps' do
-      expect(assigns(:maps)).to eq user.maps
-    end
-
-    it 'renders :index template' do
-      expect(response).to render_template :index
-    end
-
-    it 'does not include other users maps' do
-      maps = assigns(:maps)
-
-      other_user.maps.each do |map|
-        expect(maps).not_to include map
+    context 'If not registered' do
+      it 'redirects to landing page if not signed in' do
+        logout
+        get :index
+        expect(response).to redirect_to landing_page_path
       end
     end
   end
+
 
   describe 'GET #new' do
     before do
@@ -62,7 +74,7 @@ RSpec.describe MapsController, type: :controller do
       get :new
       expect(assigns(:map)).to be_a(Map)
     end
-    
+
     it 'renders :new template' do
       get :new
       expect(response).to render_template :new
@@ -93,45 +105,81 @@ RSpec.describe MapsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    let(:map) { create :map, :full_public }
+    let(:user) { create :user }
+    let(:map) { create :map, :full_public, user: user }
 
     before do
-      login_as create :user
+      login_as user
       get :edit, map_token: map.secret_token
     end
 
     it 'populates map in @map' do
       expect(assigns(:map)).to eq map
     end
-    
+
     it 'renders :edit template' do
       expect(response).to render_template :edit
     end
 
-    it 'rejects access if not logged in'
+    context 'rejects editing' do
+      it 'if not owned by current user' do
+        login_as create :user, name: 'AnotherUser'
+        expect(get: edit_map_path(map_token: map.secret_token)).not_to be_routable
+      end
+
+      it 'if is guest user' do
+        logout
+        expect(get: edit_map_path(map_token: map.secret_token)).not_to be_routable
+      end
+    end
   end
 
   describe 'PATCH #update' do
-    let(:map) { create :map, :full_public }
-
-    before do
-      login_as create :user
-      patch :update, map_token: map.secret_token, map: { title: 'ChangedTitle' }
-    end
+    let(:user) { create :user }
+    let(:map) { create :map, :full_public, user: user }
 
     it 'populates changes' do
+      login_as user
+      patch :update, map_token: map.secret_token, map: { title: 'ChangedTitle' }
       expect(assigns(:map).title).to eq 'ChangedTitle'
     end
-    
-    it 'rejects access if not logged in' do
-      # expect(:get => new_map_path).not_to be_routable
+
+    context 'rejects editing' do
+      it 'if not owned by current user' do
+        login_as create :user, name: 'AnotherUser'
+        expect(get: edit_map_path(map_token: map.secret_token)).not_to be_routable
+      end
+
+      it 'if is guest user' do
+        logout
+        expect(get: edit_map_path(map_token: map.secret_token)).not_to be_routable
+      end
     end
   end
 
   describe 'DELETE #destroy' do
-    it 'deletes map if owned by current user'
-    it 'rejects deleting map if not owned by current user'
-    it 'rejects access if not logged in'
+    before do
+      login_as create :user, name: 'user'
+      @map = create :map, :full_public, user: User.first
+    end
+
+    it 'deletes map' do
+      expect {
+        delete :destroy, map_token: @map.secret_token
+      }.to change { Map.count }.by(-1)
+    end
+
+    context 'rejects deleting' do
+      it 'if not owned by current user' do
+        login_as create :user, name: 'AnotherUser'
+        expect(delete: destroy_map_path(map_token: @map.secret_token)).not_to be_routable
+      end
+
+      it 'if not logged in' do
+        logout
+        expect(delete: destroy_map_path(map_token: @map.secret_token)).not_to be_routable
+      end
+    end
   end
 
 end

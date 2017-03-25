@@ -1,5 +1,6 @@
 class MapsController < ApplicationController
-  before_action :set_map
+  before_action :set_map, except: [:new, :index]
+  before_action :is_signed_in?, only: [:index]
 
   def show
     @categories = @map.categories.all
@@ -20,32 +21,39 @@ class MapsController < ApplicationController
 
   def new
     @map = Map.new
-    @url = new_map_url
+    @url = { action: :create, controller: :maps } # Specify this so map form does commit to correct route...
   end
 
   def create
     @map = Map.new(map_params)
+    @map.user = @current_user unless @current_user.guest?
+
     if @map.save
       flash.now[:success] = 'New map created!'
       redirect_to map_path(@map.secret_token)
     else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
+      flash.now[:danger] = @map.errors.full_messages.to_sentence
       render :new, status: 400
     end
   end
 
   def edit
-    @url = map_url(id: @map.id)
   end
 
   def update
     if @map.update_attributes(map_params)
       flash[:success] = t('.changes_saved')
-      redirect_to places_url
+      redirect_to maps_url
     else
       flash.now[:danger] = @map.errors.full_messages.to_sentence
       render :edit, status: 400
     end
+  end
+
+  def destroy
+    @map.destroy
+    flash[:warning] = t('.deleted')
+    redirect_to maps_url
   end
 
   def chronicle
@@ -53,6 +61,12 @@ class MapsController < ApplicationController
   end
 
   private
+
+  def is_signed_in?
+    return true unless @current_user.guest?
+    flash[:error] = 'You need to register in order to view map collections!'
+    redirect_to landing_page_url
+  end
 
   def places_to_show
     (@map.reviewed_places + places_from_session).uniq

@@ -7,11 +7,12 @@
       %li
         = link_to(t('.edit_user'), edit_user_path(session[:user_id]))
       %hr
-      %li
-        = link_to(t('.manage_announcements'), announcements_path)
-      %li
-        = link_to(t('.create_announcement'), new_announcement_path)
-      %hr
+      - if request[:map_token]
+        %li
+          = link_to(t('.manage_announcements'), announcements_path)
+        %li
+          = link_to(t('.create_announcement'), new_announcement_path)
+        %hr
     .dropdown-header
       = t('language')
     - I18n.available_locales.each do |l|

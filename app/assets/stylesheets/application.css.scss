@@ -67,6 +67,10 @@ noscript {
   }
 }
 
+.margin-above {
+  margin-top: 20px;
+}
+
 .margin-below {
   margin-bottom: 20px;
 }
@@ -171,6 +175,10 @@ noscript {
     text-decoration: none;
     color: $lilac;
   }
+}
+
+.full-width {
+  width: 100%;
 }
 
 .btn {

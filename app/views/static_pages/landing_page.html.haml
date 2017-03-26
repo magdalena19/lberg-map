@@ -1,28 +1,33 @@
--# Eigentlich genau wie bei riseup pad
+- content_for :header do
+  = t('.create_a_new_map')
+
 .container
   .row
-    .col-md-6.col-md-offset-3.text-center
-      = link_to 'Create without account', new_map_url, class: 'btn btn-primary'
-  .row
-    .col-md-6.col-md-offset-3.text-center
-      or
-  .row
-    .col-md-6.col-md-offset-3.text-center
-      = button_tag 'Create with account', class: 'btn btn-success'
-  .row
-    #login_field
-    = form_for(:sessions, url: create_with_login_path) do |f|
-      .row
-        .col-md-6.col-md-offset-3.text-center
-          %h4
-            = t('.log_in')
-          %fieldset{class: 'form-group'}
-            = f.text_field :email, placeholder: t('.enter_email'), class: 'form-control'
-          %fieldset{class: 'form-group'}
-            = f.password_field :password, placeholder: t('.enter_password'), class: 'form-control'
-      .row
-        .col-sm-2.col-sm-offset-5
-          = f.submit t('buttons.login'), class: 'btn btn-primary btn-success'
-      .row
-        .col-sm-2.col-sm-offset-5
-          = link_to t('forgot_password?'), request_password_reset_url
+    - if @current_user.signed_in?
+      .col-md-6.col-md-offset-3.text-center.margin-below
+        = link_to 'Create new map', new_map_url, class: 'btn btn-danger full-width'
+        .lilac.margin-above
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    - else
+      .col-md-6.text-center.margin-below
+        = link_to 'Create map without account', new_map_url, class: 'btn btn-danger full-width'
+        .lilac.margin-above
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      .col-md-6.text-center
+        = button_tag 'Create map with account', class: 'btn btn-success full-width create-with-account'
+        .green.margin-above
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        .login-form.margin-above
+          = form_for(:sessions, url: create_with_login_path) do |f|
+            .row
+              .col-xs-12.text-center
+                %fieldset{class: 'form-group'}
+                  = f.text_field :email, placeholder: t('.enter_email'), class: 'form-control'
+                %fieldset{class: 'form-group'}
+                  = f.password_field :password, placeholder: t('.enter_password'), class: 'form-control'
+            .row
+              .col-xs-12
+                = f.submit t('buttons.login'), class: 'btn btn-primary btn-success'
+            .row
+              .col-xs-12
+                = link_to t('forgot_password?'), request_password_reset_url

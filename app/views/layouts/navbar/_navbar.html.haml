@@ -1,15 +1,20 @@
 %nav.navbar.navbar-fixed-top
   .container.navbar-container
-    - if request[:map_token]
-      .navbar-header
-        %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
-          %span.sr-only Toggle navigation
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
+    .navbar-header
+      %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
 
-        %a
-          .logo.logo-left= @map.title
+      %a
+      - if request[:map_token]
+        .logo.logo-left= @map.title
+      - else
+        = link_to landing_page_path do
+          .logo.logo-left LBERG
+          .logo.logo-right MAP
+      - if request[:map_token]
         .navbar-button.home-button.pull-left
           = link_to map_path(map_token: request[:map_token]) do
             .glyphicon.glyphicon-globe.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_the_map')}
@@ -17,9 +22,6 @@
           = link_to places_path(map_token: request[:map_token]) do
             .glyphicon.glyphicon-list.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_the_list')}
 
-      #navbar.navbar-collapse.collapse
-        %ul.nav.navbar-nav
-          = render 'layouts/navbar/buttons_right'
-
-    - else
-      'To be implemented'
+    #navbar.navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        = render 'layouts/navbar/buttons_right'

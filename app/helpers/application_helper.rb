@@ -9,6 +9,6 @@ module ApplicationHelper
   end
 
   def on_map?
-    ['static_pages/map', 'static_pages/index'].include? "#{controller_name}/#{action_name}"
+    'maps/show' == "#{controller_name}/#{action_name}" || 'choose_locale' == action_name
   end
 end

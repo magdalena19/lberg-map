@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(version: 20170324073718) do
     t.string "admin_email_address", default: "foo@bar.org",   null: false
   end
 
+  create_table "announcement_translations", force: :cascade do |t|
+    t.integer  "announcement_id", null: false
+    t.string   "locale",          null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "header"
+    t.text     "content"
+  end
+
+  add_index "announcement_translations", ["announcement_id"], name: "index_announcement_translations_on_announcement_id", using: :btree
+  add_index "announcement_translations", ["locale"], name: "index_announcement_translations_on_locale", using: :btree
+
   create_table "announcements", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "header",     null: false

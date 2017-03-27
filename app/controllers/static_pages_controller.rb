@@ -4,6 +4,7 @@ class StaticPagesController < ApplicationController
   end
 
   def landing_page
-    session[:locale] = locale
+    session[:locale] ||= locale
+    redirect_to maps_path unless @current_user.guest?
   end
 end

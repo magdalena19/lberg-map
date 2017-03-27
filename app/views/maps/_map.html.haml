@@ -1,0 +1,27 @@
+.col-xs-12.col-lg-3.col-md-4
+  .panel.panel-default.map-panel
+    .panel-heading.row
+      .col-xs-10
+        = map.title.present? ? map.title : t('.no_title')
+      .col-xs-2.map_buttons_container
+        %ul.nav.nav-pills.map_buttons
+          %li.dropdown
+            %a.dropdown-toggle.glyphicon.glyphicon-cog.map_settings_button{ 'data-toggle': 'dropdown', href: '#map_settings' }
+            %ul.dropdown-menu
+              %li= link_to t('.edit_map'), edit_map_path(map_token: map.secret_token)
+              %li= link_to t('.delete_map'), map_path(map_token: map.secret_token), method: 'delete', data: { confirm: t('.confirm_delete') }
+    = link_to map_url(map_token: map.secret_token) do
+      .panel-body.map{'data-map-token' => map.secret_token}
+        .description
+        %p
+        - if map.description.present?
+          = truncate(map.description, length: 300)
+    .panel-footer
+      %p
+        = map.is_public? ? t('.public_map') : t('.private_map')
+        = "("
+        = map.allow_guest_commits? ? t('.guest_commits_allowed') : t('.guest_commits_not_allowed')
+        = ")"
+      %p
+        = map.auto_translate ? t('.autotranslation_on') + " #{map.translation_engine.capitalize}" : t('.autotranslation_off')
+  .row.spacer-row

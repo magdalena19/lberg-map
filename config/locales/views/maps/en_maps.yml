@@ -1,0 +1,30 @@
+en:
+  maps:
+    index:
+      no_map_yet: 'You have not created any maps yet...'
+      create_new_map: 'Create new map'
+      no_title: 'No title'
+      index: 'Map overview'
+    map:
+      edit_map: 'Map settings'
+      delete_map: 'Delete map'
+      confirm_delete: 'Are you sure you wanna delete this map?'
+      public_map: 'Public map'
+      private_map: 'Private map'
+      guest_commits_allowed: 'Guest changes allowed'
+      guest_commits_not_allowed: 'Guest changes not allowed'
+      auto_translation_off: 'No automatic translations'
+    form:
+      public_map_name: 'Public link to your map'
+      public_token: 'Public link to your map, e.g. Traveling map'
+      secret_token: 'Secret key'
+      secret_link: 'Secret link, the more cryptic the safer it becomes!'
+      title: 'Map title, e.g. traveling Moldova'
+      maintainer_email_address: 'Your email address (optional)'
+      description: 'Map description (optional)'
+      auto_translate: 'Activate automatic translation of descriptions and tags'
+      is_public: 'Map publicly available?'
+      allow_guest_commits: 'Allow guest changes'
+      imprint: 'Map imprint'
+      base_settings: 'Properties'
+      privacy_settings: 'Privacy'

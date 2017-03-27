@@ -1,0 +1,77 @@
+@import 'colors';
+
+// PANELS
+.spacer-row {
+  padding-top: 20px;
+}
+
+.panel-group .map-panel {
+  margin-bottom: 15px;
+  border-radius: 4px;
+  padding-left: 0px;
+  height: 307px;
+  
+  &:hover {
+    cursor: pointer;
+    border-color: lighten($lilac, 20);
+    .panel-heading {
+      background-color: lighten($lilac, 20);
+    }
+    // .panel-footer {
+    //   background-color: lighten($lilac, 20);
+    // }
+  }
+
+  .panel-heading {
+    padding-left: 0px;
+    background-color: $green;
+    font: bold;
+    font-size: 16px;
+    margin: 0;
+    height: 40px;
+
+    #map_name {
+      height: 35px;
+    }
+
+    .map_buttons_container {
+      padding-right: 0;
+    }
+
+    .map_buttons {
+      float: right;
+    }
+
+    .map_settings_button{
+      padding: 0px;
+      color: #000;
+      &:hover {
+        background-color: transparent;
+      }
+      &:focus {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .panel-footer {
+    font-style: italic;
+    font-size: 11px;
+    margin: 0;
+    height: 65px;
+  }
+
+  .panel-body {
+    height: 200px;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+// BUTTONS
+
+.new-map-button {
+  margin-left: 15px;
+}

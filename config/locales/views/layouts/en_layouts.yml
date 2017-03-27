@@ -8,6 +8,8 @@ en:
       announcement_panel:
         full_chronicle: 'see full chronicle'
     navbar:
+      navbar:
+        no_title: 'No title'
       user_dropdown:
         edit_user: 'User Settings'
         log_out: 'Log out'

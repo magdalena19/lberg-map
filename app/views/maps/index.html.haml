@@ -2,24 +2,12 @@
   = t('.index')
 
 .container
-  %table
-    %thead
-      %tr
-        %th= t('.title')
-        %th= t('.public_token')
-        %th= t('.secret_token')
-        %th
-        %th
+  .row
+    .panel-group{ id: 'expense-lists' }
+      - if @maps.any?
+        = render @maps
+      - else
+        %p= t('.no_map_yet')
+  .row
+    = link_to t('buttons.create_new_map'), new_map_url, class: 'btn btn-default btn-primary btn-danger new-map-button'
 
-    %tbody
-      - @maps.each do |map|
-        %tr{id: "user_#{map.id}"}
-          %td= map.title
-          %td= map.public_token
-          %td= map.secret_token
-          %td= link_to t('.edit'), edit_map_url(map_token: map.secret_token)
-          %td= link_to t('.delete'), destroy_map_url(map_token: map.secret_token), :method => :delete, :data => { :confirm => t('.confirm_deletion') }
-
-  %br
-
-  = link_to 'New map', new_map_url

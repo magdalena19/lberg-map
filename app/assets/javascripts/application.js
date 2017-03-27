@@ -63,7 +63,6 @@ jQuery(function() {
   });
 
   // Place events
-
   var picker = function() {
     var with_end_date = jQuery('#set_end_date').is(':checked');
     $('#place_start_date').daterangepicker({
@@ -96,7 +95,6 @@ jQuery(function() {
 
   jQuery('#set_end_date').on('click', function(){
         picker();
-          
   })
 
   // Enable bootstrap tooltips
@@ -129,4 +127,19 @@ jQuery(function() {
     jQuery(this).prop('disabled', true);
     jQuery('.login-form').show();
   });
+
+  // MAP VIEWS (form, index, ...)
+  var toggle_if_checked = function(checkbox_id, div_to_toggle) {
+    jQuery(checkbox_id).on('click', function(){
+      var checked = $(this).is(':checked');
+      if (checked) {
+        jQuery(div_to_toggle).show(350);
+      } else {
+        jQuery(div_to_toggle).hide(350);
+      }
+    })
+  }
+
+  toggle_if_checked('#map_auto_translate', '#map_translation_engine')
+  toggle_if_checked('#map_is_public', '.map_public_settings')
 });

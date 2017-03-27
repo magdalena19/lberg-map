@@ -71,10 +71,6 @@ class PlacesController < ApplicationController
     @params_to_commit = ParamsModification::Place.modify(place_params: place_params, place: @place)
   end
 
-  def can_commit?
-    simple_captcha_valid? || @current_user.signed_in?
-  end
-
   def can_update?
     unless can_commit?
       flash.now[:danger] = t('.invalid_captcha')

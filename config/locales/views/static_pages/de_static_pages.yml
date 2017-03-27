@@ -1,6 +1,6 @@
 de:
   static_pages:
-    index:
+    choose_locale:
       select_this_language: 'Diese Sprache auswählen'
     slidepanels:
       add_place_slidepanel:

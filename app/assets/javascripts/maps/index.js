@@ -7,7 +7,7 @@ jQuery(function() {
   });
 
   // HIDE NAVBAR ELEMENTS
-  jQuery('.navbar-dropdown').hide();
-  jQuery('.navbar-button').hide();
-  jQuery('.navbar-toggle').css('opacity', 0);
+  // jQuery('.navbar-dropdown').hide();
+  // jQuery('.navbar-button').hide();
+  // jQuery('.navbar-toggle').css('opacity', 0);
 });

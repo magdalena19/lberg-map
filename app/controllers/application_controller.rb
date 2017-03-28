@@ -37,6 +37,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def can_commit?
+    simple_captcha_valid? || @current_user.signed_in?
+  end
+
+  def can_create?
+    unless can_commit?
+      flash.now[:danger] = t('.invalid_captcha')
+      render :new
+    end
+  end
+
   def places_from_session(category_id = nil)
     ids = cookies[:created_places_in_session]
     array = ids ? ids.split(',').flatten : []

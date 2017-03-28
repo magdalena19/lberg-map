@@ -1,0 +1,32 @@
+de:
+  maps:
+    index:
+      no_map_yet: 'Du hast noch keine Karten erstellt...'
+      create_new_map: 'Neue Karte erstellen'
+      no_title: 'Ohne Titel'
+      index: 'Kartenübersicht'
+    map:
+      edit_map: 'Karteneinstellungen'
+      delete_map: 'Karte löschen'
+      confirm_delete: 'Bist du sicher, dass du die Karte löschen willst?'
+      public_map: 'Öffentliche Karte'
+      private_map: 'Private Karte'
+      guest_commits_allowed: 'Mit Gast-Änderungen'
+      guest_commits_not_allowed: 'Keine Gast-Änderungen'
+      autotranslation_on: 'Automatische Übersetzungen mit'
+      autotranslation_off: 'Keine automatische Übersetzungen'
+    form:
+      public_map_name: 'Öffentlicher Link zu deiner Karte'
+      public_token: 'Öffentlicher Link zu deiner Karte, zB Reiseziele'
+      secret_link: 'Geheimer Schlüssel'
+      secret_token: 'Geheimer Link, je kryptischer die Zeichenkette desto sicherer!'
+      title: 'Kartentitel, zB Reisen in Moldawien'
+      maintainer_email_address: 'Deine Mailadresse (optional)'
+      description: 'Kartenbeschreibung'
+      auto_translate: 'Automatische Übersetzungen von Beschreibungen und Tags'
+      is_public: 'Öffentlich erreichare Karte?'
+      allow_guest_commits: 'Erlaube Gast-Änderungen'
+      imprint: 'Impressum deiner Karte'
+      base_settings: 'Einstellungen'
+      privacy_settings: 'Privatsphäre-Einstellungen'
+

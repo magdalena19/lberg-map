@@ -9,7 +9,7 @@
 
       %a
       - if request[:map_token]
-        .logo.logo-left= @map.title
+        .logo.logo-left= @map.title.present? ? @map.title : t('.no_title')
       - else
         = link_to landing_page_path do
           .logo.logo-left LBERG

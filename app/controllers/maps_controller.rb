@@ -1,6 +1,9 @@
 class MapsController < ApplicationController
+  include SimpleCaptcha::ControllerHelpers
+
   before_action :set_map, except: [:new, :index]
   before_action :is_signed_in?, only: [:index]
+  before_action :can_create?, only: [:create]
 
   def show
     @categories = @map.categories.all

@@ -182,4 +182,45 @@ RSpec.describe MapsController, type: :controller do
     end
   end
 
+  describe 'GET #share_map' do
+    context 'as privileged guest user' do
+      before do
+        @map = create :map, :full_public, user: User.first
+        get :share_map, map_token: @map.secret_token
+      end
+
+      it 'renders proper template' do
+        expect(page).to render_template :share_map
+      end
+
+      it 'populates map in @map' do
+        expect(assigns(:map)).to eq @map
+      end
+    end
+
+    context 'POST #send_invitation'
+    before do
+      @map = create :map, :full_public, user: User.first
+    end
+
+    it 'does not break if no email addresses entered' do
+      post :send_invitations, map_token: @map.secret_token
+    end
+
+    it 'should enqueue invitations for delivery in background' do
+      Sidekiq::Testing.fake! do
+        expect{
+          post :send_invitations, map_token: @map.secret_token, guests: 'foo@bar.com, schnabel@tier.com', collaborators: 'me@you.org'
+        }.to change{ MapInvitationWorker.jobs.size }.by(3)
+      end
+    end
+
+    it 'should redirect after enqueing invitations and show flash message' do
+      Sidekiq::Testing.fake! do
+        post :send_invitations, map_token: @map.secret_token, guests: 'foo@bar.com, schnabel@tier.com', collaborators: 'me@you.org'
+      end
+      expect(response).to redirect_to map_path(map_token: @map.secret_token)
+      expect(flash[:success]).to eq 'Successfully sent invitations!'
+    end
+  end
 end

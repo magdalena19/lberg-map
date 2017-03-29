@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       get '/edit', to: 'maps#edit', constraints: MapOwnershipRestriction.new, as: :edit_map
       patch '', to: 'maps#update', constraints: MapOwnershipRestriction.new
       delete '', to: 'maps#destroy', constraints: MapOwnershipRestriction.new, as: :destroy_map
+      get '/share_map', to: 'maps#share_map', as: :share_map
+      post '/share_map', to: 'maps#send_invitations'
 
       # map static pages
       get '/about' , to: 'maps#about'

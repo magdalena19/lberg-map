@@ -24,4 +24,20 @@ class DeliveryGul < ApplicationMailer
     @password_reset_link = reset_password_url id: @user.id, token: @user.password_reset_token
     mail(from: Admin::Setting.admin_email_address, to: user.email, subject: "Password reset for #{Admin::Setting.app_title}")
   end
+
+  def invite_collaborator(map_token:, email_address:)
+    @map = Map.find_by(secret_token: map_token)
+    mail(from: Admin::Setting.admin_email_address,
+         reply_to: @map.maintainer_email_address,
+         to: email_address,
+         subject: "You've been invited to collaborate on '#{@map.title}'-map!")
+  end
+
+  def invite_guest(map_token:, email_address:)
+    @map = Map.find_by(public_token: map_token)
+    mail(from: Admin::Setting.admin_email_address,
+         reply_to: @map.maintainer_email_address,
+         to: email_address,
+         subject: "You've been invited to have a look at '#{@map.title}'-map!")
+  end
 end

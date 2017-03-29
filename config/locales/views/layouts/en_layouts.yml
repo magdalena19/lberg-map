@@ -8,6 +8,8 @@ en:
       announcement_panel:
         full_chronicle: 'see full chronicle'
     navbar:
+      buttons_right:
+        share: 'Share map'
       navbar:
         no_title: 'No title'
         to_map_index: 'Map index'

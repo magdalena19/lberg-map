@@ -1,0 +1,31 @@
+- content_for :header do
+  = t('.share_map')
+
+=form_tag(share_map_path(map_token: request[:map_token]), method: :post)
+.container
+  .row
+    .col-md-12
+      %strong= t('.public_link')
+      = map_url(map_token: @map.public_token)
+  .spacer-row
+  .col-md-12.input-group
+    %span.input-group-addon#toggle_share_public_link= check_box_tag 'share_public_link', '1', false
+    = text_field_tag 'guests', '', placeholder: t('.share_with_guests'), class: 'form-control', id: 'map_guests', disabled: true
+
+
+  .row
+    .spacer-row
+    .col-md-12
+      %strong= t('.secret_link')
+      = map_url(map_token: @map.secret_token)
+  .spacer-row
+  .col-md-12.input-group
+    %span.input-group-addon#toggle_share_secret_link= check_box_tag 'share_secret_link', '', false
+    = text_field_tag 'collaborators', '', placeholder: t('.share_secret_link'), class: 'form-control', id: 'map_collaborators', disabled: true
+
+  .spacer-row
+  .row
+    .col-xs-3
+      = submit_tag t('buttons.invite_to_map'), class: 'btn btn-success'
+    .col-xs-3
+      = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'

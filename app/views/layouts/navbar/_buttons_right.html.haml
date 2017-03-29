@@ -13,6 +13,16 @@
   -#   = link_to contact_path do
   -#     .glyphicon.glyphicon-envelope.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.contact')}
 
+- if current_map
+  - if is_secret_link?
+    .navbar-button.info-button.pull-left
+      = link_to share_map_url(map_token: map_token) do
+        .glyphicon.glyphicon-share.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.share')}
+
+  .navbar-button.info-button.pull-left
+    = link_to about_path do
+      .glyphicon.glyphicon-info-sign.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.about')}
+
   - if current_map.allow_guest_commits
     .navbar-button.pull-left
       = link_to places_review_index_path do

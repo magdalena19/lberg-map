@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
 
   def can_create?
     unless can_commit?
-      flash.now[:danger] = t('.invalid_captcha')
+      flash.now[:danger] = t('simple_captcha.captcha_invalid')
       render :new
     end
   end

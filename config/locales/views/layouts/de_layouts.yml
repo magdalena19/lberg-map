@@ -8,6 +8,8 @@ de:
       announcement_panel:
         full_chronicle: 'Alle Mitteilungen'
     navbar:
+      buttons_right:
+        share: 'Karte teilen'
       navbar:
         no_title: 'Kein Titel'
         to_map_index: 'Zur Kartenübersicht'

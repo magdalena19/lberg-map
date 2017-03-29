@@ -10,6 +10,7 @@ de:
     navbar:
       navbar:
         no_title: 'Kein Titel'
+        to_map_index: 'Zur Kartenübersicht'
       user_dropdown:
         edit_user: 'User bearbeiten'
         log_out: 'Ausloggen'

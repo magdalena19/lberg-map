@@ -10,6 +10,7 @@ en:
     navbar:
       navbar:
         no_title: 'No title'
+        to_map_index: 'Map index'
       user_dropdown:
         edit_user: 'User Settings'
         log_out: 'Log out'

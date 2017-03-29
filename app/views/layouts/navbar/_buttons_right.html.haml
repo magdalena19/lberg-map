@@ -7,16 +7,13 @@
     = link_to login_path do
       .glyphicon.glyphicon-log-in.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.login')}
 
-- if request[:map_token]
-  .navbar-button.info-button.pull-left
-    = link_to about_path do
-      .glyphicon.glyphicon-info-sign.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.about')}
+- if current_map
+  -# TODO contact management system has to be re-implemented
+  -# .navbar-button.contact-button.pull-left
+  -#   = link_to contact_path do
+  -#     .glyphicon.glyphicon-envelope.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.contact')}
 
-  .navbar-button.contact-button.pull-left
-    = link_to contact_path do
-      .glyphicon.glyphicon-envelope.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.contact')}
-
-  - if @current_user.signed_in?
+  - if current_map.allow_guest_commits
     .navbar-button.pull-left
       = link_to places_review_index_path do
         .glyphicon.glyphicon-thumbs-up.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.review')}

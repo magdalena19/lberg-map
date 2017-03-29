@@ -35,7 +35,7 @@ jQuery(function() {
     // do not use the simpler .click function due to dynamic creation
     jQuery('body').on('click', '.edit-place', function() {
       var placeId = jQuery(this).attr('place_id');
-      window.location.href = '/map/' + window.map_token + '/places/' + placeId + '/edit';
+      window.location.href = '/' + window.map_token + '/places/' + placeId + '/edit';
     });
 
     jQuery('body').on('click', 'a', function() {
@@ -125,7 +125,7 @@ jQuery(function() {
     });
 
     jQuery('.type-in-address').click(function(){
-      window.location.href = '/map/' + window.map_token + '/places/new';
+      window.location.href = '/' + window.map_token + '/places/new';
     });
 
     var locationMarker;
@@ -140,7 +140,7 @@ jQuery(function() {
       jQuery('#confirmation-button-yes').click(function() {
         jQuery('.confirmation-button-container').fadeOut();
         var params = 'longitude=' + lon + '&latitude=' +  lat;
-        window.location.href = '/map/' + window.map_token + '/places/new?' + params;
+        window.location.href = '/' + window.map_token + '/places/new?' + params;
       });
       jQuery('#confirmation-button-no').click(function() {
         jQuery('.confirmation-button-container').fadeOut();
@@ -244,7 +244,7 @@ jQuery(function() {
     // POI LOADING
     hideMapElements();
     jQuery.ajax({
-      url: '/map/' + window.map_token + '/show',
+      url: '/' + window.map_token,
       dataType: 'json',
       data: {
         locale: window.locale

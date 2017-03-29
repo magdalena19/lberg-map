@@ -16,48 +16,45 @@ Rails.application.routes.draw do
     get '/reset_password/:id/:token', to: 'password_reset#reset_password', as: :reset_password
     patch '/reset_password', to: 'password_reset#set_new_password'
 
-    scope '/map' do
-      # TODO remove constraint and add require_login before action in maps controller
-      get '/index', to: 'maps#index', as: :maps
-      post '', to: 'maps#create'
-      get '/new', to: 'maps#new', as: :new_map
+    get '/index', to: 'maps#index', as: :maps
+    post '', to: 'maps#create'
+    get '/new', to: 'maps#new', as: :new_map
 
-      scope '/:map_token', constraints: MapAccessRestriction.new do
-        get '/show' , to: 'maps#show', as: :map
-        get '/edit', to: 'maps#edit', constraints: MapOwnershipRestriction.new, as: :edit_map
-        patch '', to: 'maps#update', constraints: MapOwnershipRestriction.new
-        delete '', to: 'maps#destroy', constraints: MapOwnershipRestriction.new, as: :destroy_map
+    scope '/:map_token', constraints: MapAccessRestriction.new do
+      get '' , to: 'maps#show', as: :map
+      get '/edit', to: 'maps#edit', constraints: MapOwnershipRestriction.new, as: :edit_map
+      patch '', to: 'maps#update', constraints: MapOwnershipRestriction.new
+      delete '', to: 'maps#destroy', constraints: MapOwnershipRestriction.new, as: :destroy_map
 
-        # map static pages
-        get '/about' , to: 'maps#about'
-        get '/contact' , to: 'messages#new'
-        post '/contact' , to: 'messages#create'
+      # map static pages
+      get '/about' , to: 'maps#about'
+      get '/contact' , to: 'messages#new'
+      post '/contact' , to: 'messages#create'
 
-        # Map / place ressources
-        get '/places', to: 'places#index'
+      # Map / place ressources
+      get '/places', to: 'places#index'
 
-        resources :places, except: [:index, :show], constraints: PlacesAccessRestriction.new do
-          resources :descriptions
-        end
-
-        # Reviewing, access restriction handled by place ressource access restriction
-        get 'places/review_index' , to: 'review#review_index'
-
-        scope '/places/:id' do
-          get '/review' , to: 'places_review#review', as: :review_place
-          get '/confirm' , to: 'places_review#confirm', as: :confirm_place
-          get '/refuse' , to: 'places_review#refuse', as: :refuse_place
-
-          scope '/translation' do
-            get '/review' , to: 'translations_review#review', as: :review_translation
-            get '/confirm' , to: 'translations_review#confirm', as: :confirm_translation
-            get '/refuse' , to: 'translations_review#refuse', as: :refuse_translation
-          end
-        end
-
-        resources :announcements
-        get '/chronicle' , to: 'maps#chronicle'
+      resources :places, except: [:index, :show], constraints: PlacesAccessRestriction.new do
+        resources :descriptions
       end
+
+      # Reviewing, access restriction handled by place ressource access restriction
+      get 'places/review_index' , to: 'review#review_index'
+
+      scope '/places/:id' do
+        get '/review' , to: 'places_review#review', as: :review_place
+        get '/confirm' , to: 'places_review#confirm', as: :confirm_place
+        get '/refuse' , to: 'places_review#refuse', as: :refuse_place
+
+        scope '/translation' do
+          get '/review' , to: 'translations_review#review', as: :review_translation
+          get '/confirm' , to: 'translations_review#confirm', as: :confirm_translation
+          get '/refuse' , to: 'translations_review#refuse', as: :refuse_translation
+        end
+      end
+
+      resources :announcements
+      get '/chronicle' , to: 'maps#chronicle'
     end
 
     # User accessible user resources

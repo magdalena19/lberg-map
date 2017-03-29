@@ -5,6 +5,7 @@ class Admin::Setting < ActiveRecord::Base
 
   validates :app_title, length: { maximum: 20 }
   validates :admin_email_address, presence: true, email_format: true
+  validates :user_activation_tokens, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   def self.all_settings
     self.last.attributes.except("id")

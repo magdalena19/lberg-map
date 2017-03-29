@@ -1,5 +1,14 @@
 describe User do
 
+  context 'General attributes' do
+    it 'Generates n activation tokens on create' do
+      create :settings, user_activation_tokens: 2
+      user = build :user
+      user.save
+      expect(user.activation_tokens.count).to be 2
+    end
+  end
+
   context 'Validations' do
     let(:user) { build :user }
 
@@ -70,6 +79,13 @@ describe User do
 
   context 'Associations' do
     it { is_expected.to have_many(:maps) }
+    it { is_expected.to have_many(:activation_tokens) }
+
+    it 'destroys associated activation tokens' do
+      user = create :user
+      expect{
+        user.destroy }.to change{ ActivationToken.count }.from(2).to(0)
+    end
   end
 end
 

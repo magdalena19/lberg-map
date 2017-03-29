@@ -32,7 +32,7 @@ class MapsController < ApplicationController
     @map.user = @current_user unless @current_user.guest?
 
     if @map.save
-      flash.now[:success] = 'New map created!'
+      flash[:success] = t('.created')
       redirect_to map_path(@map.secret_token)
     else
       flash.now[:danger] = @map.errors.full_messages.to_sentence
@@ -63,11 +63,34 @@ class MapsController < ApplicationController
     @announcements = @map.announcements.all.sort_by(&:created_at).reverse
   end
 
+  def share_map
+  end
+
+  def send_invitations
+    guests_mail_addresses = params[:guests] ? params[:guests].split(/,|;|\s/).delete_if(&:empty?) : []
+    collaborators_mail_addresses = params[:collaborators] ? params[:collaborators].split(/,|;|\s/).delete_if(&:empty?) : []
+
+    guests_mail_addresses.each do |mail_address|
+      send_invitation(token: @map.public_token, email_address: mail_address)
+    end
+
+    collaborators_mail_addresses.each do |mail_address|
+      send_invitation(token: @map.secret_token, email_address: mail_address)
+    end
+
+    flash[:success] = t('.invitations_sent') if guests_mail_addresses.any? || collaborators_mail_addresses.any?
+    redirect_to map_path(map_token: @map.secret_token)
+  end
+
   private
+
+  def send_invitation(token:, email_address:)
+    MapInvitationWorker.perform_async(map_token: token, email_address: email_address)
+  end
 
   def is_signed_in?
     return true unless @current_user.guest?
-    flash[:error] = 'You need to register in order to view map collections!'
+    flash[:error] = t('.need_to_register')
     redirect_to landing_page_url
   end
 

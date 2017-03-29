@@ -8,8 +8,9 @@
           %li.dropdown
             %a.dropdown-toggle.glyphicon.glyphicon-cog.map_settings_button{ 'data-toggle': 'dropdown', href: '#map_settings' }
             %ul.dropdown-menu
-              %li= link_to t('.edit_map'), edit_map_path(map_token: map.secret_token)
-              %li= link_to t('.delete_map'), map_path(map_token: map.secret_token), method: 'delete', data: { confirm: t('.confirm_delete') }
+              %li= link_to t('.share_map'), share_map_url(map_token: map.secret_token)
+              %li= link_to t('.edit_map'), edit_map_url(map_token: map.secret_token)
+              %li= link_to t('.delete_map'), map_url(map_token: map.secret_token), method: 'delete', data: { confirm: t('.confirm_delete') }
     = link_to map_url(map_token: map.secret_token) do
       .panel-body.map{'data-map-token' => map.secret_token}
         .description

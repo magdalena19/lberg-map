@@ -9,7 +9,7 @@
 
       %a
       -# Map title
-      - if request[:map_token]
+      - if current_map
         .logo.logo-left= @map.title.present? ? @map.title : t('.no_title')
       - else
         = link_to landing_page_path do
@@ -23,12 +23,12 @@
             .glyphicon.glyphicon-th-large.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_map_index')}
 
       -# Map show and places index
-      - if request[:map_token]
+      - if current_map
         .navbar-button.home-button.pull-left
-          = link_to map_path(map_token: request[:map_token]) do
+          = link_to map_path(map_token: map_token) do
             .glyphicon.glyphicon-globe.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_the_map')}
         .navbar-button.home-button.pull-left
-          = link_to places_path(map_token: request[:map_token]) do
+          = link_to places_path(map_token: map_token) do
             .glyphicon.glyphicon-list.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_the_list')}
 
     #navbar.navbar-collapse.collapse

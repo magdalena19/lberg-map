@@ -1,0 +1,13 @@
+en:
+  maps:
+    destroy:
+      deleted: 'Map deleted!'
+    update:
+      changes_saved: 'Changes saved!'
+    create:
+      created: 'Map successfully created!'
+      invalid_captcha: 'Captcha invalid, please try again...'
+    index:
+      need_to_register: 'You need to register and login in order to do that!'
+    send_invitations:
+      invitations_sent: 'Successfully sent invitations!'

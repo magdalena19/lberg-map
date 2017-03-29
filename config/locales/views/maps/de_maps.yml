@@ -29,4 +29,9 @@ de:
       imprint: 'Impressum deiner Karte'
       base_settings: 'Einstellungen'
       privacy_settings: 'Privatsphäre-Einstellungen'
-
+    share_map:
+      share_with_guests: 'Teile deine Karte mit anderen unter eingeschränktem Zugang. Trage dazu die Email-Adressen hier ein!'
+      share_secret_link: 'Teile deine Karte mit privilegiertem Zugang. Trage dazu die Email-Adressen hier ein!'
+      share_map: 'Karte teilen'
+      public_link: 'Öffentlicher Link:'
+      secret_link: 'Geheimer Link:'

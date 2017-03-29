@@ -1,3 +1,4 @@
 de:
   simple_captcha:
     placeholder: 'Bitte gib den Code ein'
+    captcha_invalid: 'Das Captcha ist ungültig!'

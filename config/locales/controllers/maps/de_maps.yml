@@ -1,0 +1,13 @@
+de:
+  maps:
+    destroy:
+      deleted: 'Karte gelöscht!'
+    update:
+      changes_saved: 'Änderungen übernommen!'
+    create:
+      created: 'Karte erstellt!'
+      invalid_captcha: 'Captcha invalid, please try again...'
+    index:
+      need_to_register: 'Du musst dich dafür erst registrieren und/oder einloggen!'
+    send_invitations:
+      invitations_sent: 'Successfully sent invitations!'

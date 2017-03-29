@@ -140,6 +140,28 @@ jQuery(function() {
     })
   }
 
+  // MAP VIEWS
+  // Form
   toggle_if_checked('#map_auto_translate', '#map_translation_engine')
   toggle_if_checked('#map_is_public', '.map_public_settings')
+
+  // Invitation
+  jQuery('#share_public_link').on('click', function(){
+    var checked = $(this).is(':checked');
+    if (checked) {
+      jQuery('#map_guests').prop('disabled', false);
+    } else {
+      jQuery('#map_guests').prop('disabled', true);
+    }
+  })
+
+  jQuery('#share_secret_link').on('click', function(){
+    var checked = $(this).is(':checked');
+    if (checked) {
+      jQuery('#map_collaborators').prop('disabled', false);
+    } else {
+      jQuery('#map_collaborators').prop('disabled', true);
+    }
+  })
+
 });

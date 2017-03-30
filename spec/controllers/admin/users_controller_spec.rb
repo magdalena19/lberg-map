@@ -16,15 +16,6 @@ RSpec.describe Admin::UsersController, type: :controller do
       get :index
       expect(assigns(:users)).to eq(User.all)
     end
-
-    context 'rejects index' do
-      it 'without admin privileges' do
-        login_as create(:user)
-        get :index
-        expect(response).to redirect_to root_url
-        expect(assigns(:users)).to be_nil
-      end
-    end
   end
 
   describe 'GET #new' do
@@ -36,15 +27,6 @@ RSpec.describe Admin::UsersController, type: :controller do
     it 'instantiates new user in @user' do
       get :new
       expect(assigns(:user)).to be_a_new(User)
-    end
-
-    context 'rejects access' do
-      it 'without admin privileges' do
-        login_as create(:user)
-        get :new
-        expect(response).to redirect_to root_url
-        expect(assigns(:users)).to be_nil
-      end
     end
   end
 
@@ -65,16 +47,6 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response).to render_template :new
       expect(flash[:danger]).to match /blank/
     end
-
-    context 'rejects creating new user' do
-      it 'without admin privileges' do
-        login_as create(:user)
-        expect {
-          post :create, user: { name: '', email: '', password: 'secret', password_confirmation: 'secret' }
-        }.to change { User.count }.by(0)
-        expect(response).to redirect_to root_url
-      end
-    end
   end
 
   describe 'GET #edit' do
@@ -88,16 +60,6 @@ RSpec.describe Admin::UsersController, type: :controller do
     it 'renders edit template' do
       get :edit, id: users.first.id
       expect(response).to render_template :edit
-    end
-
-    context 'rejects access' do
-      it 'without admin privileges' do
-        users = create_list(:user, 3)
-        login_as users.first
-        get :edit, id: users.first.id
-        expect(assigns(:user)).to be_nil
-        expect(response).to redirect_to root_url
-      end
     end
   end
 
@@ -118,16 +80,6 @@ RSpec.describe Admin::UsersController, type: :controller do
       patch :update, id: users.first.id, user: { name: '' }
       expect(response).to render_template :edit
       expect(flash[:danger]).to match 'blank'
-    end
-
-    context 'rejects updating user' do
-      it 'without admin privileges' do
-        users = create_list(:user, 3)
-        login_as users.first
-        patch :update, id: users.last.id, user: { name: 'SomeOtherName' }
-        expect(users.last.reload.name).not_to eq('SomeOtherName')
-        expect(response).to redirect_to root_url
-      end
     end
   end
 

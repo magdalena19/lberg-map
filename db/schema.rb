@@ -11,27 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324073718) do
+ActiveRecord::Schema.define(version: 20170330073311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "activation_tokens", force: :cascade do |t|
+    t.string   "token",                       null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "user_id"
+    t.boolean  "redeemed",    default: false, null: false
+    t.date     "redeemed_on"
+  end
+
+  add_index "activation_tokens", ["user_id"], name: "index_activation_tokens_on_user_id", using: :btree
+
   create_table "admin_settings", force: :cascade do |t|
-    t.string "app_title",           default: "Generic title", null: false
-    t.string "admin_email_address", default: "foo@bar.org",   null: false
+    t.string  "app_title",              default: "Generic title", null: false
+    t.string  "admin_email_address",    default: "foo@bar.org",   null: false
+    t.integer "user_activation_tokens", default: 2,               null: false
   end
-
-  create_table "announcement_translations", force: :cascade do |t|
-    t.integer  "announcement_id", null: false
-    t.string   "locale",          null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "header"
-    t.text     "content"
-  end
-
-  add_index "announcement_translations", ["announcement_id"], name: "index_announcement_translations_on_announcement_id", using: :btree
-  add_index "announcement_translations", ["locale"], name: "index_announcement_translations_on_locale", using: :btree
 
   create_table "announcements", force: :cascade do |t|
     t.integer  "user_id"
@@ -181,6 +181,7 @@ ActiveRecord::Schema.define(version: 20170324073718) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "activation_tokens", "users"
   add_foreign_key "announcements", "maps"
   add_foreign_key "categories", "maps"
   add_foreign_key "maps", "users"

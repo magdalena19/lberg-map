@@ -1,8 +1,11 @@
 class User < ActiveRecord::Base
   has_secure_password
   has_many :maps
+  has_many :activation_tokens, dependent: :destroy
   # TODO legacy?
   has_many :announcements
+
+  before_create :create_activation_tokens, if: 'Admin::Setting.user_activation_tokens > 0'
 
   attr_accessor :password_reset_token
 
@@ -40,5 +43,13 @@ class User < ActiveRecord::Base
 
   def signed_in?
     true
+  end
+
+  private
+
+  def create_activation_tokens
+    Admin::Setting.user_activation_tokens.times do
+      self.activation_tokens << ActivationToken.create
+    end
   end
 end

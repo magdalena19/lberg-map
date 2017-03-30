@@ -1,0 +1,8 @@
+de:
+  admin:
+    settings:
+      edit:
+        settings: 'Globale Einstellungen'
+        app_title: 'Titel der Anwendung'
+        admin_email_address: 'Relay Email-Adresse'
+        update_settings: 'Einstellungen übernehmen'

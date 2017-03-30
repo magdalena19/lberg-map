@@ -1,0 +1,18 @@
+en:
+  users:
+    edit:
+      edit: 'Edit user credentials'
+      name_placeholder: 'Username'
+      email_placeholder: 'Email address'
+      submit: 'Submit changes'
+      back: 'Go back'
+      user_activation_tokens: 'Your invitation codes'
+      user_settings: 'User settings'
+      no_activation_tokens: 'No invite codes available'
+    sign_up:
+      activation_token: 'Registration code'
+      email: 'Email address'
+      name: 'Name'
+      password: 'Password'
+      password_confirmation: 'Confirm password'
+      sign_up: 'Sign up'

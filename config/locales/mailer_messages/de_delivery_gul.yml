@@ -4,3 +4,7 @@ de:
       request_copy_prefix: 'Kopie ihrer Nachricht an'
     send_to_maintainer:
       contact_form: 'Kontaktformular'
+    send_welcome_mail:
+      greeter: 'Hallo %{name},'
+      content: 'Du hast erfolgreich einen Account auf %{app_title} angelegt. Eine Übersicht über alle persönlichen Karten findest du unter %{link}'
+      footer: 'Eure Admins'

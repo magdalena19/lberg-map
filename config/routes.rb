@@ -59,8 +59,9 @@ Rails.application.routes.draw do
       get '/chronicle' , to: 'maps#chronicle'
     end
 
-    # User accessible user resources
-    resources :users, only: [:show, :edit, :update]
+    # User resources
+    resources :users, except: [:destroy, :index, :show, :new]
+    get '/sign_up', to: 'users#sign_up', as: :sign_up
     get '/login' , to: 'sessions#new'
     post '/login' , to: 'sessions#create'
     get '/logout' , to: 'sessions#destroy'

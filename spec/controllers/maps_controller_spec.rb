@@ -52,7 +52,7 @@ RSpec.describe MapsController, type: :controller do
     end
 
     context 'If not registered' do
-      it 'redirects to landing page if not signed in' do
+      it 'redirects to landing page if not signed in or no session maps' do
         logout
         get :index
         expect(response).to redirect_to landing_page_path
@@ -101,7 +101,10 @@ RSpec.describe MapsController, type: :controller do
       expect(response).to redirect_to map_path(new_map.secret_token)
     end
 
-    it 'rejects access if not logged in'
+    it 'stores new map in session cookie' do
+      post :create, map: attributes_for(:map, :full_public)
+      expect(session[:maps].count).to be 1
+    end
   end
 
   describe 'GET #edit' do
@@ -120,18 +123,6 @@ RSpec.describe MapsController, type: :controller do
     it 'renders :edit template' do
       expect(response).to render_template :edit
     end
-
-    context 'rejects editing' do
-      it 'if not owned by current user' do
-        login_as create :user, name: 'AnotherUser'
-        expect(get: edit_map_path(map_token: map.secret_token)).not_to be_routable
-      end
-
-      it 'if is guest user' do
-        logout
-        expect(get: edit_map_path(map_token: map.secret_token)).not_to be_routable
-      end
-    end
   end
 
   describe 'PATCH #update' do
@@ -142,18 +133,6 @@ RSpec.describe MapsController, type: :controller do
       login_as user
       patch :update, map_token: map.secret_token, map: { title: 'ChangedTitle' }
       expect(assigns(:map).title).to eq 'ChangedTitle'
-    end
-
-    context 'rejects editing' do
-      it 'if not owned by current user' do
-        login_as create :user, name: 'AnotherUser'
-        expect(get: edit_map_path(map_token: map.secret_token)).not_to be_routable
-      end
-
-      it 'if is guest user' do
-        logout
-        expect(get: edit_map_path(map_token: map.secret_token)).not_to be_routable
-      end
     end
   end
 
@@ -167,18 +146,6 @@ RSpec.describe MapsController, type: :controller do
       expect {
         delete :destroy, map_token: @map.secret_token
       }.to change { Map.count }.by(-1)
-    end
-
-    context 'rejects deleting' do
-      it 'if not owned by current user' do
-        login_as create :user, name: 'AnotherUser'
-        expect(delete: destroy_map_path(map_token: @map.secret_token)).not_to be_routable
-      end
-
-      it 'if not logged in' do
-        logout
-        expect(delete: destroy_map_path(map_token: @map.secret_token)).not_to be_routable
-      end
     end
   end
 

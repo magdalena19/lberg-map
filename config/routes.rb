@@ -22,9 +22,9 @@ Rails.application.routes.draw do
 
     scope '/:map_token', constraints: MapAccessRestriction.new do
       get '' , to: 'maps#show', as: :map
-      get '/edit', to: 'maps#edit', constraints: MapOwnershipRestriction.new, as: :edit_map
-      patch '', to: 'maps#update', constraints: MapOwnershipRestriction.new
-      delete '', to: 'maps#destroy', constraints: MapOwnershipRestriction.new, as: :destroy_map
+      get '/edit', to: 'maps#edit', as: :edit_map
+      patch '', to: 'maps#update'
+      delete '', to: 'maps#destroy', as: :destroy_map
       get '/share_map', to: 'maps#share_map', as: :share_map
       post '/share_map', to: 'maps#send_invitations'
 

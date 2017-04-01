@@ -63,6 +63,10 @@ class Map < ActiveRecord::Base
     category.id if category
   end
 
+  def is_restricted?
+    is_public? && !allow_guest_commits
+  end
+
   private
 
   def sanitize_imprint

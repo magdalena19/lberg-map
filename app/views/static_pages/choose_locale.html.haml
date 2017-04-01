@@ -5,8 +5,3 @@
       = link_to landing_page_path(locale: l) do
         .locale-selection
           = t('.select_this_language', locale: l)
-
-:javascript
-  jQuery(function() {
-    jQuery('.locale-slidepanel').trigger('open');
-  });

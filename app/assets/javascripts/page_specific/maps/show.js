@@ -1,14 +1,12 @@
-//= require leaflet
-//= require leaflet.markercluster
-//= require maps/_map_overlays
-//= require maps/_map_base
+//= require map_base
+//= require ./_map_overlays
 
 jQuery(function() {
   jQuery('#map').each(function() {
     // move flash message in foreground when map is displayed
     jQuery('#flash-messages').css('position', 'absolute').css('z-index', '999999');
 
-    addEsriMap();
+    addEsriMap([52.513, 13.4], 12);
 
     // still to be used!
     var autotranslatedPrefix = "<p><i>" + window.autotranslated_label + ": </i></p>";

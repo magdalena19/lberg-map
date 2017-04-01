@@ -12,6 +12,15 @@ describe TranslationsReviewController do
     place_with_unreviewed_changes.update_attributes(name: 'Magda', description: 'This is an updated description.')
   end
 
+  context 'GET #review' do
+    it 'populates correct map in @map' do
+      translation = translations.find_by(description: 'This is an updated description.')
+      get :confirm, id: translation.id, map_token: map.secret_token
+
+      expect(assigns(:map)).to be_a(Map)
+    end
+  end
+
   context 'GET #confirm' do
     it 'confirms unreviewed translations' do
       translation = translations.find_by(description: 'This is an updated description.')

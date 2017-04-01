@@ -33,7 +33,7 @@ feature 'Create event' do
     expect(page.find('#set_end_date')).not_to be_checked
     page.find('#place_start_date').trigger('click')
     expect(page).to have_css('.single')
-    within('.left') { find('td', text: '15').trigger('click')  }
+    within('.left') { find('td', text: '23').trigger('click')  }
     click_on('Apply')
     validate_captcha
     click_button('Create Place')

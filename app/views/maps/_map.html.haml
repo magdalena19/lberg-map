@@ -1,6 +1,6 @@
-.col-xs-12.col-lg-3.col-md-4
+.col-xs-12.col-lg-3.col-md-4{class: map_panel_header_class(map: map)}
   .panel.panel-default.map-panel
-    .panel-heading.row
+    .panel-heading
       .col-xs-10
         = map.title.present? ? map.title : t('.no_title')
       .col-xs-2.map_buttons_container

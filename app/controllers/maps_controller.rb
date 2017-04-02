@@ -2,7 +2,6 @@ class MapsController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
   before_action :set_map, except: [:new, :index]
-  before_action :is_signed_in?, only: [:index]
   before_action :can_create?, only: [:create]
 
   def show
@@ -19,7 +18,13 @@ class MapsController < ApplicationController
   end
 
   def index
-    @maps = @current_user.maps
+    if @current_user.signed_in?
+      @maps = @current_user.maps
+    elsif session[:maps].any?
+      @maps = session[:maps].map { |id| Map.find(id) }
+    else
+      redirect_to landing_page_path
+    end
   end
 
   def new
@@ -32,6 +37,7 @@ class MapsController < ApplicationController
     @map.user = @current_user unless @current_user.guest?
 
     if @map.save
+      session[:maps] << @map.id if @current_user.guest?
       flash[:success] = t('.created')
       redirect_to map_path(@map.secret_token)
     else

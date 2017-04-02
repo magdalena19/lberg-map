@@ -1,6 +1,9 @@
 en:
   maps:
     index:
+      session_maps_warning: 'Warning: This overview will be lost if you close your browser or delete your session cookie!'
+      here: 'here'
+      sign_up: 'Create an account %{link} in order to keep all your custom maps in one place!'
       no_map_yet: 'You have not created any maps yet...'
       create_new_map: 'Create new map'
       no_title: 'No title'

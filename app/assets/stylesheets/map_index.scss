@@ -10,25 +10,14 @@
   border-radius: 4px;
   padding-left: 0px;
   height: 307px;
-  
-  &:hover {
-    cursor: pointer;
-    border-color: lighten($lilac, 20);
-    .panel-heading {
-      background-color: lighten($lilac, 20);
-    }
-    // .panel-footer {
-    //   background-color: lighten($lilac, 20);
-    // }
-  }
 
   .panel-heading {
     padding-left: 0px;
-    background-color: $green;
     font: bold;
     font-size: 16px;
     margin: 0;
     height: 40px;
+
 
     #map_name {
       height: 35px;
@@ -63,11 +52,30 @@
 
   .panel-body {
     height: 200px;
+    background-color: #fff;
   }
 }
 
 .center {
   text-align: center;
+}
+
+.private_map {
+  .map-panel .panel-heading {
+    background-color: lighten($lilac, 20);
+  }
+}
+
+.restricted_access_map {
+  .map-panel .panel-heading {
+    background-color: lighten($orange, 20);
+  }
+}
+
+.public_map {
+  .map-panel .panel-heading {
+    background-color: lighten($green, 20);
+  }
 }
 
 // BUTTONS

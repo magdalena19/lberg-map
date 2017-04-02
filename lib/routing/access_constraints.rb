@@ -43,13 +43,3 @@ class PlacesAccessRestriction
     false
   end
 end
-
-class MapOwnershipRestriction
-  def matches?(request)
-    token = request[:map_token]
-    map = Map.find_by(secret_token: token) || Map.find_by(public_token: token)
-    user = User.find_by(id: request.session[:user_id])
-    map.user == user ? true : false
-  end
-end
-

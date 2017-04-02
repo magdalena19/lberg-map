@@ -44,17 +44,10 @@
 
       .row
         .col-md-6
-          %hr
           = show_simple_captcha unless @current_user.signed_in?
 
       .row
-        .col-md-6
-          %label{for: 'basic-url'} Blubb
-          .input-group
-            %span.input-group-addon#basic-addon3 httpss://www.heise.de/
-            %input.form-control#basic-url{type: 'text', aria: { describedby: 'basic-addon3' }}
-
-      .row
+        .spacer-row
         .col-xs-2
           = f.submit t('buttons.create_new_map'), class: 'btn btn-primary btn-success place-form-button submit-place-button'
         .col-xs-6.col-md-2

@@ -1,6 +1,6 @@
-class GuestUser
+class PrivilegedGuestUser
   def name
-    I18n.t('activerecord.attributes.guest_user.name')
+    I18n.t('activerecord.attributes.privileged_user.name')
   end
 
   def email
@@ -16,7 +16,7 @@ class GuestUser
   end
 
   def signed_in?
-    false
+    true
   end
 
   def registered?

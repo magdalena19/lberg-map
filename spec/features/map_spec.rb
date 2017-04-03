@@ -2,13 +2,21 @@
 # since leaflet marker are displayed not before map tiles are loaded
 feature 'Map', js: true do
   scenario 'shows map index in navbar' do
-    skip 'Test fails, feature works'
     login_as_user
     @place = create :place, :reviewed, map: create(:map, :full_public, user: User.first)
     visit map_path(map_token: @place.map.public_token)
 
     expect(page).to have_css('.glyphicon-th-large')
   end
+
+  scenario 'shows session map index in navbar if not signed in' do
+    visit new_map_path
+    validate_captcha
+    click_on('Create new map')
+
+    expect(page).to have_css('.glyphicon-th-large')
+  end
+
 
   context 'Public maps' do
     before do

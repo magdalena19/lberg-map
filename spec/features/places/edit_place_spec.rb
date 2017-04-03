@@ -17,7 +17,7 @@ feature 'Edit place' do
   end
 
   scenario 'Do not create new version when nothing is changed in form', :js do
-    visit edit_place_path(id: @place.id, map_token: @map.secret_token)
+    visit edit_place_path(id: @place.id, map_token: @map.public_token)
     validate_captcha
     click_on('Update Place')
     expect(Place.find(@place.id).versions.length).to be 1

@@ -31,8 +31,21 @@ class ApplicationController < ActionController::Base
   end
 
   # User and login related stuff
+  def map_access_via_secret_link
+    @map = set_map
+    @map && @map.secret_token == request[:map_token]
+  end
+
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id]) || GuestUser.new
+    user = User.find_by(id: session[:user_id])
+    set_map
+    @current_user ||= if user
+                        user
+                      elsif map_access_via_secret_link
+                        PrivilegedGuestUser.new
+                      else
+                        GuestUser.new
+                      end
   end
 
   def require_login
@@ -57,9 +70,9 @@ class ApplicationController < ActionController::Base
     ids = cookies[:created_places_in_session]
     array = ids ? ids.split(',').flatten : []
     if category_id
-      Place.where(id: array).compact.find_all { |p| p.category_for(category_id) }
+      @map.places.where(id: array).compact.find_all { |p| p.category_for(category_id) }
     else
-      Place.where(id: array)
+      @map.places.where(id: array)
     end
   end
 end

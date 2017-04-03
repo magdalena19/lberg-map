@@ -3,9 +3,9 @@
   .pull-right.glyphicon.glyphicon-cog.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
     %span.caret
   %ul.dropdown-menu
-    - if @current_user.signed_in?
+    - if @current_user.registered?
       %li
-        = link_to(t('.edit_user'), edit_user_path(session[:user_id]))
+        = link_to(t('.edit_user'), edit_user_path(@current_user.id))
       %hr
     .dropdown-header
       = t('language')

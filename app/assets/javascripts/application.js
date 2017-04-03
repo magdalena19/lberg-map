@@ -147,7 +147,7 @@ jQuery(function() {
 
   // Invitation
   jQuery('#share_admin_link').on('click', function(){
-    jQuery('#map_admins').toggle();
+    jQuery('#map_admins_field').toggle();
 
   })
 });

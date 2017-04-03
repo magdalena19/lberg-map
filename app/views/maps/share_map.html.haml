@@ -5,21 +5,22 @@
 .container
   .row
     .col-md-12
-      = t('.share_with_guests')
+      = @map.is_public? ? t('.share_with_guests') : t('.not_a_public_map')
         
   .spacer-row
   .col-md-12.input-group
-    = text_field_tag 'map_guests', '', placeholder: 'foo@bar.org, baz@bar.org', class: 'form-control', id: 'map_guests'
+    = text_field_tag 'map_guests', '', placeholder: t('.email_address_list'), class: 'form-control', id: 'map_guests', disabled: @map.is_private?
 
   .row
     .spacer-row
     .col-md-12
       = t('.share_secret_link', link: link_to(t('.admin_link'), '#', id: 'share_admin_link')).html_safe
   .spacer-row
-  .col-md-12.input-group
-    = text_field_tag 'map_admins', '', placeholder: 'foo@bar.org, baz@bar.org', class: 'form-control', id: 'map_admins'
+  .col-md-12.alert.alert-danger#map_admins_field
+    %i
+      = label_tag '', t('.admin_link_warning')
+      = text_field_tag 'map_admins', '', placeholder: t('.email_address_list'), class: 'form-control', id: 'map_admins'
 
-  .spacer-row
   .row
     .col-xs-3
       = submit_tag t('buttons.invite_to_map'), class: 'btn btn-success', id: 'submit_invitations'

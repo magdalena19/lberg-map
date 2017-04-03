@@ -73,25 +73,25 @@ class MapsController < ApplicationController
   end
 
   def send_invitations
-    guests_mail_addresses = params[:guests] ? params[:guests].split(/,|;|\s/).delete_if(&:empty?) : []
-    collaborators_mail_addresses = params[:collaborators] ? params[:collaborators].split(/,|;|\s/).delete_if(&:empty?) : []
+    map_guests_mail_addresses = params[:map_guests] ? params[:map_guests].split(/,|;|\s/).delete_if(&:empty?) : []
+    map_admin_mail_addresses = params[:map_admins] ? params[:map_admins].split(/,|;|\s/).delete_if(&:empty?) : []
 
-    guests_mail_addresses.each do |mail_address|
+    map_guests_mail_addresses.each do |mail_address|
       send_invitation(token: @map.public_token, email_address: mail_address)
     end
 
-    collaborators_mail_addresses.each do |mail_address|
+    map_admin_mail_addresses.each do |mail_address|
       send_invitation(token: @map.secret_token, email_address: mail_address)
     end
 
-    flash[:success] = t('.invitations_sent') if guests_mail_addresses.any? || collaborators_mail_addresses.any?
+    flash[:success] = t('.invitations_sent')
     redirect_to map_path(map_token: @map.secret_token)
   end
 
   private
 
   def send_invitation(token:, email_address:)
-    MapInvitationWorker.perform_async(map_token: token, email_address: email_address)
+    MapInvitationWorker.perform_async(token, email_address)
   end
 
   def is_signed_in?

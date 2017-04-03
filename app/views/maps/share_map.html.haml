@@ -5,27 +5,23 @@
 .container
   .row
     .col-md-12
-      %strong= t('.public_link')
-      = map_url(map_token: @map.public_token)
+      = t('.share_with_guests')
+        
   .spacer-row
   .col-md-12.input-group
-    %span.input-group-addon#toggle_share_public_link= check_box_tag 'share_public_link', '1', false
-    = text_field_tag 'guests', '', placeholder: t('.share_with_guests'), class: 'form-control', id: 'map_guests', disabled: true
-
+    = text_field_tag 'map_guests', '', placeholder: 'foo@bar.org, baz@bar.org', class: 'form-control', id: 'map_guests'
 
   .row
     .spacer-row
     .col-md-12
-      %strong= t('.secret_link')
-      = map_url(map_token: @map.secret_token)
+      = t('.share_secret_link', link: link_to(t('.admin_link'), '#', id: 'share_admin_link')).html_safe
   .spacer-row
   .col-md-12.input-group
-    %span.input-group-addon#toggle_share_secret_link= check_box_tag 'share_secret_link', '', false
-    = text_field_tag 'collaborators', '', placeholder: t('.share_secret_link'), class: 'form-control', id: 'map_collaborators', disabled: true
+    = text_field_tag 'map_admins', '', placeholder: 'foo@bar.org, baz@bar.org', class: 'form-control', id: 'map_admins'
 
   .spacer-row
   .row
     .col-xs-3
-      = submit_tag t('buttons.invite_to_map'), class: 'btn btn-success'
+      = submit_tag t('buttons.invite_to_map'), class: 'btn btn-success', id: 'submit_invitations'
     .col-xs-3
       = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'

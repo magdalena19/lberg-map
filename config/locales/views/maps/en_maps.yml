@@ -32,8 +32,7 @@ en:
       base_settings: 'Properties'
       privacy_settings: 'Privacy'
     share_map:
-      share_with_guests: 'Share your map with others under restricted access. Enter a list of email addresses here!'
-      share_secret_link: 'Share your map with others under privileged access rights. Enter a list of email adresses here!'
+      share_with_guests: 'Share your map with others under restricted access'
+      share_secret_link: 'Share the %{link} with others'
       share_map: 'Share map'
-      public_link: 'Public link:'
-      secret_link: 'Secret link:'
+      admin_link: 'adminstration link'

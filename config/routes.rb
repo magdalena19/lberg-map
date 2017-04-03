@@ -67,12 +67,14 @@ Rails.application.routes.draw do
     get '/logout' , to: 'sessions#destroy'
     post '/landing_page' , to: 'sessions#create_with_login', as: :create_with_login
 
+    # Admin stuff
     namespace :admin, constraints: AdminConstraint.new do
       get '', to: 'dashboard#index', as: :dashboard
       get '/settings', to: 'settings#edit'
       patch '/settings', to: 'settings#update'
 
-      resources :users
+      get 'users', to: 'users#index', as: :index_users
+      delete 'users/:id', to: 'users#destroy', as: :delete_user
     end
   end
 end

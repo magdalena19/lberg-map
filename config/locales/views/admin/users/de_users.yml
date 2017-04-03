@@ -1,21 +1,14 @@
 de:
   admin:
     users:
-      edit:
-        name_placeholder: 'User Name'
-        email_placeholder: 'User Email'
-        password_placeholder: 'Password'
-        password_confirmation_placeholder: 'Passwort bestätigen'
-        submit: 'Änderungen übernehmen'
-        back: 'Zurück'
       new:
-        name_placeholder: 'User Name'
-        email_placeholder: 'User Email'
-        password_placeholder: 'Password'
-        password_confirmation_placeholder: 'Passwort bestätigen'
-        submit: 'Neuen User anlegen'
-        back: 'Zurück'
+        new: 'Neuen User anlegen'
       index:
+        index: 'Registrierte User'
+        user_name: 'User-Name'
+        user_email: 'User Email-Addresse'
+        user_created_at: 'Erstellt am'
+        tokens_left: 'Gültige Aktivierungs-Tokens'
         confirm_deletion: 'Bist du sicher?'
         edit: 'Bearbeiten'
         delete: 'Löschen'

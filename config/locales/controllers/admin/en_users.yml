@@ -1,0 +1,5 @@
+en:
+  admin:
+    users:
+      create:
+        created: 'User has been created'

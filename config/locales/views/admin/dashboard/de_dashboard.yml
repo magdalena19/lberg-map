@@ -1,0 +1,7 @@
+de:
+  admin:
+    dashboard:
+      index:
+        admin_area: 'System-Verwaltung'
+        app_settings: 'Systemweite Einstellungen'
+        user_management: 'User-Management'

@@ -1,28 +1,23 @@
-feature 'Delete user' do
+feature 'Delete user', :js do
   before do
     @users = create_list(:user, 3)
     login_as_admin
-    visit admin_users_path
+    visit admin_index_users_path
   end
 
-  scenario 'can find link to delete user', :js do
-    expect(page).to have_content('Delete')
+  scenario 'can find link to delete user' do
+    expect(page).to have_css('.glyphicon-trash')
   end
 
-  scenario 'can delete user', :js do
-    expect {
-      within(:css, "#user_#{@users.last.id}") do
-        click_on('Delete')
-      end
-    }.to change { User.count }.by(-1)
+  scenario 'can delete user' do
+    page.all('.glyphicon-trash').last.trigger('click')
+
+    expect(page).to have_css('.glyphicon-trash', count: 3)
   end
 
-  scenario 'cannot delete own, currently logged in user', :js do
-    expect {
-      within(:css, "#user_#{User.last.id}") do
-        click_on('Delete')
-      end
-    }.to change { User.count }.by(0)
+  scenario 'cannot delete own, currently logged in user' do
+    page.all('.glyphicon-trash').first.trigger('click')
+
     expect(page).to have_css('.alert-danger', text: /cannot delete/)
   end
 end

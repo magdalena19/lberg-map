@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password
-  has_many :maps
+  has_many :maps, dependent: :nullify
   has_many :activation_tokens, dependent: :destroy
   # TODO legacy?
   has_many :announcements

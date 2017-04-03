@@ -1,0 +1,7 @@
+en:
+  admin:
+    dashboard:
+      index:
+        admin_area: 'Admin dashboard'
+        app_settings: 'Global settings'
+        user_management: 'User management'

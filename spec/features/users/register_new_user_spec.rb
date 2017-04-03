@@ -9,7 +9,7 @@ feature 'Register new user', :js do
     fill_in('user_email', with: 'foo@bar.com')
     fill_in('user_password', with: 'secret')
     fill_in('user_password_confirmation', with: 'secret')
-    click_on('Sign up')
+    click_on('Register user')
 
     expect(User.count).to be 2
   end

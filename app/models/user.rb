@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
     true
   end
 
+  def registered?
+    true
+  end
+
   private
 
   def create_activation_tokens

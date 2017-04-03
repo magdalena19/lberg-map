@@ -13,7 +13,7 @@ feature 'Create place' do
 
     scenario 'create valid place as guest', js: true do
       create_place_as_guest(place_name: 'Another place', map_token: @map.public_token)
-      visit places_path(map_token: @map.secret_token)
+      visit places_path(map_token: @map.public_token)
 
       expect(page).to have_content('Another place')
       expect(page).not_to have_css('.glyphicon-pencil')

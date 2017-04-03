@@ -47,6 +47,11 @@ describe PlacesController do
       get :new, map_token: map.secret_token
       expect(response).to render_template :new
     end
+
+    it 'sets current user as privileged when route accessed via secret link' do
+      get :new, map_token: map.secret_token
+      expect(assigns(:current_user)).to be_a(PrivilegedGuestUser)
+    end
   end
 
   context 'POST #create' do
@@ -158,7 +163,22 @@ describe PlacesController do
       end
     end
 
-    context 'Place created by authorized user' do
+    context 'Place created by privileged user' do
+      before do
+        post_valid_place(map_token: map.secret_token)
+        @valid_new_place = Place.last
+      end
+
+      it 'is reviewed' do
+        expect(@valid_new_place.reviewed).to be true
+      end
+
+      it 'has no version history' do
+        expect(@valid_new_place.versions.count).to be 1
+      end
+    end
+
+    context 'Place created by registered user' do
       before do
         login_as create :user
         post_valid_place(map_token: map.public_token)

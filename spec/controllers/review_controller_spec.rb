@@ -7,8 +7,8 @@ describe ReviewController do
     @reviewed_place = create :place, :reviewed, map: @map
 
     @controller = PlacesController.new
-    put :update, id: @reviewed_place, place: { name: 'Magda' }, map_token: @map.secret_token
-    put :update, id: @reviewed_place, place: { description_en: 'This is an updated description' }, map_token: @map.secret_token
+    put :update, id: @reviewed_place, place: { name: 'Magda' }, map_token: @map.public_token
+    put :update, id: @reviewed_place, place: { description_en: 'This is an updated description' }, map_token: @map.public_token
     @controller = ReviewController.new
   end
 

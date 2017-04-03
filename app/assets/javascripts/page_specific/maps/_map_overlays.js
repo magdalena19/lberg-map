@@ -27,6 +27,7 @@ jQuery(function() {
   showSidepanel = function() {
     toggle.find('.glyphicon').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
     panel.show();
+    toggle.show();
     toggle.css('left', panel.outerWidth());
   };
   

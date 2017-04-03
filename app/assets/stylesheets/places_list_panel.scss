@@ -10,6 +10,8 @@
   padding: 10px 5px;
   color: $grey;
   font-size: 22px;
+  display: none;
+  cursor: pointer;
 }
 
 .places-list-panel {
@@ -61,7 +63,7 @@
   }
 
   @media (max-width: 600px) {
-    width: 100%;
+    width: calc(100% - 30px);
     min-width: 0;
   }
 

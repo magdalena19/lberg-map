@@ -4,6 +4,14 @@
   display: none;
 }
 
+.toggle-panel {
+  top: 50%;
+  background: rgba(white, 0.6);
+  padding: 10px 5px;
+  color: $grey;
+  font-size: 22px;
+}
+
 .places-list-panel {
   background: rgba(white, 0.3);
   top: 40px;

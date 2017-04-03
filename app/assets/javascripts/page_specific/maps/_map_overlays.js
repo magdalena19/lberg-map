@@ -21,6 +21,20 @@ jQuery(function() {
     jQuery('.navbar-button').show();
     jQuery('.navbar-toggle').css('opacity', 100);
   };
+  
+  var panel = jQuery('.places-list-panel');
+  var toggle = jQuery('.toggle-panel');
+  showSidepanel = function() {
+    toggle.find('.glyphicon').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
+    panel.show();
+    toggle.css('left', panel.outerWidth());
+  };
+  
+  hideSidepanel = function() {
+    toggle.find('.glyphicon').removeClass('glyphicon-chevron-left').addClass('glyphicon-chevron-right');
+    panel.hide();
+    toggle.css('left', 0);
+  };
 
   // Close slidePanels on Escape keypress
   window.addEventListener("keydown", function (event) {

@@ -150,4 +150,23 @@ jQuery(function() {
     jQuery('#map_admins_field').toggle();
 
   })
+
+  var toggle_submit_invitations_button = function() {
+    var map_guests_invites = jQuery('#map_guests').val() !== '';
+    var map_admin_invites = jQuery('#map_admins').val() !== '';
+
+    if (map_guests_invites || map_admin_invites) {
+      jQuery('#submit_invitations').prop('disabled', false);
+    } else {
+      jQuery('#submit_invitations').prop('disabled', true);
+    }
+  }
+
+  jQuery('#map_admins').on('input', function(){
+    toggle_submit_invitations_button();
+  })
+
+  jQuery('#map_guests').on('input', function(){
+    toggle_submit_invitations_button();
+  })
 });

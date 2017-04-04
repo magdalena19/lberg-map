@@ -19,7 +19,7 @@ jQuery(function() {
         layer.setIcon(session_icon);
       }
       layer.on('click', function(e) {
-        jQuery('.places-list-panel').fadeIn();
+        showSidepanel();
         var accordionItemHeading = jQuery('#heading' + feature.id);
         var headingLink = accordionItemHeading.find('a');
         if (headingLink.hasClass('collapsed')) {
@@ -106,7 +106,7 @@ jQuery(function() {
 
     // ADD PLACE
     jQuery('.add-place-button').click(function() {
-      jQuery('.places-list-panel').fadeIn();
+      showSidepanel();
       jQuery('.sidepanel-button-container').hide();
       jQuery('.sidepanel-add-place-container').show();
       resizeSidePanel();
@@ -116,10 +116,6 @@ jQuery(function() {
       jQuery('.sidepanel-add-place-container').hide();
       jQuery('.sidepanel-default-container').show();
       resizeSidePanel();
-    });
-
-    jQuery('.hide-places-list-panel').click(function() {
-      jQuery('.places-list-panel').fadeOut();
     });
 
     jQuery('.type-in-address').click(function(){
@@ -144,13 +140,13 @@ jQuery(function() {
         jQuery('.confirmation-button-container').fadeOut();
         map.removeLayer(locationMarker);
         jQuery('.leaflet-overlay-pane').css('cursor', 'inherit');
-        jQuery('.places-list-panel').fadeIn();
+        showSidepanel();
       });
     }
 
     // Google geolocation API not working properly, so freeze this feature
     jQuery('.add-place-via-location').click(function(){
-      jQuery('.places-list-panel').fadeOut();
+      hideSidepanel();
       function confirmation(position) {
         confirmPlaceInsert(position.coords.latitude, position.coords.longitude);
       };
@@ -162,7 +158,7 @@ jQuery(function() {
     });
 
     jQuery('.add_place_via_click').click(function(){
-      jQuery('.places-list-panel').fadeOut();
+      hideSidepanel();
       jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
       map.on('click', function(point) {
         confirmPlaceInsert(point.latlng.lat, point.latlng.lng);
@@ -181,13 +177,27 @@ jQuery(function() {
     var resizeSidePanel = function() {
       var navbarHeight = jQuery('.navbar').height();
       jQuery('.confirmation-button-container').css('top', navbarHeight + 3);
-      var placesList = jQuery('.places-list-panel');
+      var panel = jQuery('.places-list-panel');
       var accordion = jQuery('.places-list-accordion-container');
       var searchField = jQuery('.search-field');
       var buttons = jQuery('.button-container');
-      accordion.height(placesList.height() - searchField.outerHeight() - buttons.outerHeight() - 30);
-      placesList.show();
+      var toggle = jQuery('.toggle-panel');
+      accordion.height(panel.height() - searchField.outerHeight() - buttons.outerHeight() - 30);
+      if (jQuery('.places-list-panel').is(':visible')) {
+        jQuery('.toggle-panel').css('left', panel.outerWidth());
+      } else {
+        jQuery('.toggle-panel').css('left', 0);
+      };
     };
+    
+    // TOGGLE SIDEPANEL
+    jQuery('.toggle-panel').click(function() {
+      if (jQuery('.places-list-panel').is(':visible')) {
+        hideSidepanel();
+      } else {
+        showSidepanel();
+      };
+    });
 
     jQuery(window).resize(function(){
       resizeSidePanel();
@@ -227,7 +237,7 @@ jQuery(function() {
     };
 
     jQuery('body').on('click', '.show-map', function() {
-      jQuery('.places-list-panel').fadeOut();
+      hideSidepanel();
     });
 
     // LIVE SEARCH
@@ -252,7 +262,7 @@ jQuery(function() {
         updatePlaces(window.places);
         showMapElements();
         jQuery('.loading').hide();
-        jQuery('places-list-panel').fadeIn();
+        showSidepanel();
       }
     });
   });

@@ -4,6 +4,16 @@
   display: none;
 }
 
+.toggle-panel {
+  top: 50%;
+  background: rgba(white, 0.6);
+  padding: 10px 5px;
+  color: $grey;
+  font-size: 22px;
+  display: none;
+  cursor: pointer;
+}
+
 .places-list-panel {
   background: rgba(white, 0.3);
   top: 40px;
@@ -53,7 +63,7 @@
   }
 
   @media (max-width: 600px) {
-    width: 100%;
+    width: calc(100% - 30px);
     min-width: 0;
   }
 

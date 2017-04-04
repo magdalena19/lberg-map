@@ -196,7 +196,7 @@ describe PlacesController do
 
     context 'Place-translations created by authorized user' do
       before do
-        login_as create :user
+        login_as create :user, email: 'foo@bar.org'
         post_valid_place(map_token: map.public_token)
         @valid_new_place = Place.last
       end
@@ -226,7 +226,7 @@ describe PlacesController do
       end
 
       it 'Translations of reviewed place are also reviewed on create' do
-        login_as create(:user)
+        login_as create(:user, email: 'batz@bar.org')
         @valid_new_place.translations.each do |translation|
           expect(translation.reviewed).to be true
         end

@@ -4,7 +4,7 @@ RSpec.describe Admin::SettingsController, type: :controller do
 
   describe "GET #edit" do
     before do
-      login_as create(:user, :admin)
+      login_as create(:user, :admin, email: 'batz@bar.org')
     end
 
     it "returns http success" do
@@ -26,7 +26,7 @@ RSpec.describe Admin::SettingsController, type: :controller do
 
     context 'rejects access' do
       it 'if not admin' do
-        login_as create(:user)
+        login_as create(:user, email: 'foo@bar.org')
         get :edit
         expect(response).to redirect_to root_path
       end

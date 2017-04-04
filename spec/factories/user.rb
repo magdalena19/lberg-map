@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
-    name 'User'
+    name { Faker::Name.name.split(' ').join('_') }
     email { name.downcase + "@example.com" }
     password_digest BCrypt::Password.create('secret', cost: 4)
 

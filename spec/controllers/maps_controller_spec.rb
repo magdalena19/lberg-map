@@ -177,7 +177,7 @@ RSpec.describe MapsController, type: :controller do
     it 'should enqueue invitations for delivery in background' do
       Sidekiq::Testing.fake! do
         expect{
-          post :send_invitations, map_token: @map.secret_token, guests: 'foo@bar.com, schnabel@tier.com', collaborators: 'me@you.org'
+          post :send_invitations, map_token: @map.secret_token, map_guests: 'foo@bar.com, schnabel@tier.com', map_admins: 'me@you.org'
         }.to change{ MapInvitationWorker.jobs.size }.by(3)
       end
     end

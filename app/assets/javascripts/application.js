@@ -146,22 +146,27 @@ jQuery(function() {
   toggle_if_checked('#map_is_public', '.map_public_settings')
 
   // Invitation
-  jQuery('#share_public_link').on('click', function(){
-    var checked = $(this).is(':checked');
-    if (checked) {
-      jQuery('#map_guests').prop('disabled', false);
-    } else {
-      jQuery('#map_guests').prop('disabled', true);
-    }
+  jQuery('#share_admin_link').on('click', function(){
+    jQuery('#map_admins_field').toggle();
+
   })
 
-  jQuery('#share_secret_link').on('click', function(){
-    var checked = $(this).is(':checked');
-    if (checked) {
-      jQuery('#map_collaborators').prop('disabled', false);
+  var toggle_submit_invitations_button = function() {
+    var map_guests_invites = jQuery('#map_guests').val() !== '';
+    var map_admin_invites = jQuery('#map_admins').val() !== '';
+
+    if (map_guests_invites || map_admin_invites) {
+      jQuery('#submit_invitations').prop('disabled', false);
     } else {
-      jQuery('#map_collaborators').prop('disabled', true);
+      jQuery('#submit_invitations').prop('disabled', true);
     }
+  }
+
+  jQuery('#map_admins').on('input', function(){
+    toggle_submit_invitations_button();
   })
 
+  jQuery('#map_guests').on('input', function(){
+    toggle_submit_invitations_button();
+  })
 });

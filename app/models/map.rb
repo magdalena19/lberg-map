@@ -67,6 +67,10 @@ class Map < ActiveRecord::Base
     is_public? && !allow_guest_commits
   end
 
+  def is_private?
+    !is_public?
+  end
+
   private
 
   def sanitize_imprint

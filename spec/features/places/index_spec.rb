@@ -15,14 +15,6 @@ feature 'Index' do
     expect(page).to have_content('1234')
   end
 
-  scenario 'has working category button', js: true do
-    visit places_path(map_token: @map.public_token)
-
-    find('.btn', text: 'Playground').trigger('click')
-    expect(page).to_not have_content('Katzenklo')
-    expect(page).to have_content('Haus vom Nikolaus')
-  end
-
   scenario 'has working delete buttons', js: true do
     login_as_user
     visit places_path(map_token: @map.secret_token)

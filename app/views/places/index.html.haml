@@ -4,12 +4,6 @@
   = t('.places')
 
 .container
-  .btn.btn-success.category-toggle.active{'data-category' => 'all'}
-    = t('.categories.all_categories')
-  - Category.all.each do |c|
-    .btn.btn-default.category-toggle{'data-category' => c.id}
-      = c.name
-
   %table#places.display.responsive.no-wrap.compact{cellspacing: '0', width: '100%'}
     %thead
       %tr

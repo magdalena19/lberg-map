@@ -8,6 +8,10 @@ de:
       announcement_panel:
         full_chronicle: 'Alle Mitteilungen'
     navbar:
+      dropdown:
+        admin_tasks: 'Administration'
+        user_management: 'User-Verwaltung'
+        app_settings: 'Globale Einstellungen'
       buttons_right:
         share: 'Karte teilen'
       navbar:

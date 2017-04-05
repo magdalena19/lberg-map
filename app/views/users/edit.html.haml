@@ -3,7 +3,7 @@
 
 .container
   .row
-    .col-xs-12.col-md-4.col-sm-6.activation_tokens
+    .col-md-4.activation_tokens
       .row
         %h3= t('.user_activation_tokens')
       .row
@@ -12,20 +12,5 @@
         - if @user.activation_tokens.empty?
           = t('.no_activation_tokens')
 
-    .col-xs-12.col-md-4.col-sm-6
-      %h3
-        = t('.edit')
-      = form_for(@user) do |f|
-        %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:name)}" }
-          = f.label :name, t('.name')
-          = f.text_field :name, placeholder: t('.name_placeholder'), class: 'form-control'
-        %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:email)}" }
-          = f.label :email, t('.email')
-          = f.text_field :email, placeholder: t('.email_placeholder'), class: 'form-control'
-        %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:password)}" }
-          = f.label :password, t('.password')
-          = f.password_field :password, class: 'form-control'
-        %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:password_confirmation)}" }
-          = f.label :password_confirmation, t('.password_confirmation')
-          = f.password_field :password_confirmation, class: 'form-control'
-        = f.submit t('.submit'), class: 'btn btn-primary btn-success'
+    .col-md-8
+      = render partial: 'form', locals: { button_label: '.update' }

@@ -8,6 +8,10 @@ en:
       announcement_panel:
         full_chronicle: 'see full chronicle'
     navbar:
+      dropdown:
+        admin_tasks: 'Administration'
+        user_management: 'Manage users'
+        app_settings: 'Global settings'
       buttons_right:
         share: 'Share map'
       navbar:

@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 describe UsersController do
-	let(:user) { create :user, name: 'Norbert' }
-
   before do
     create :settings
   end
 
   context 'GET #edit' do
+    let(:user) { create :user, name: 'Norbert' }
+
     it 'should populate user' do
       login_as user
       get :edit, id: user.id
@@ -40,6 +40,8 @@ describe UsersController do
   end
 
   context 'GET #sign_up' do
+    let(:user) { create :user, name: 'Norbert' }
+
     before do
       get :sign_up
     end
@@ -56,15 +58,15 @@ describe UsersController do
   context 'POST #create' do
     context 'accept request' do
       before do
-        @user = create :user
+        @user = create :user, name: 'oneUser'
         @token = @user.activation_tokens.first.token
-        post :create, user: attributes_for(:user, password: 'secret', password_confirmation: 'secret'), activation_token: @token
+        post :create, user: attributes_for(:user, name: 'AnotherUser', password: 'secret', password_confirmation: 'secret'), activation_token: @token
       end
 
       it 'sends welcome email' do
         Sidekiq::Testing.inline! do
           expect{
-            post :create, user: attributes_for(:user, password: 'secret', password_confirmation: 'secret'), activation_token: @token
+            post :create, user: attributes_for(:user, name: 'YetAnotherUser', password: 'secret', password_confirmation: 'secret'), activation_token: @token
           }.to change{ DeliveryGul.deliveries.count }.by(1)
         end
       end
@@ -94,6 +96,8 @@ describe UsersController do
   end
 
   context 'PATCH #update' do
+    let(:user) { create :user, name: 'Norbert' }
+
     it 'should update if attributes are valid' do
       login_as user
       put :update, id: user.id, user: {

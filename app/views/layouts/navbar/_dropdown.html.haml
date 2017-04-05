@@ -4,9 +4,13 @@
     %span.caret
   %ul.dropdown-menu
     - if @current_user.registered?
-      %li
-        = link_to(t('.edit_user'), edit_user_path(@current_user.id))
+      %li= link_to(t('.edit_user'), edit_user_path(@current_user.id))
       %hr
+    .dropdown-header
+      = t('.admin_tasks')
+    %li= link_to(t('.user_management'), admin_index_users_path)
+    %li= link_to(t('.app_settings'), admin_settings_path)
+    %hr
     .dropdown-header
       = t('language')
     - I18n.available_locales.each do |l|

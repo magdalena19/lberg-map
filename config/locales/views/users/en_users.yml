@@ -1,15 +1,21 @@
 en:
   users:
-    edit:
+    form:
+      user_name: 'Name'
+      user_email: 'Email address'
+      user_password: 'Password'
+      user_password_confirm: 'Confirm password'
+      name_placeholder: 'Stella Lovelight'
+      email_placeholder: 'stella@lovelight.org'
       edit: 'Edit user credentials'
-      name_placeholder: 'Username'
-      email_placeholder: 'Email address'
-      submit: 'Submit changes'
-      back: 'Go back'
       user_activation_tokens: 'Your invitation codes'
       user_settings: 'User settings'
       no_activation_tokens: 'No invite codes available'
+      sign_up: 'Register user'
+      update: 'Update credentials'
+      activation_token_info: 'You need a registration code in order to sign up. Ask friends for one, who are already registered here. If you do not know anyone around here send an email to your local administrator, maybe they can help you!'
     sign_up:
+      new: 'Register new user'
       activation_token: 'Registration code'
       email: 'Email address'
       name: 'Name'

@@ -1,0 +1,26 @@
+= form_for(@user) do |f|
+  .row
+    - if needs_activation_token?
+      %fieldset.form-group
+        = label_tag 'activation_token', t('.activation_token')
+        %p
+          %i
+            = t('.activation_token_info')
+        = text_field_tag :activation_token, '', class: 'form-control'
+    %fieldset.form-group{ class: "#{"has-error" if f.object.errors.include?(:name)}" }
+      = f.label :name, t('.user_name')
+      = f.text_field :name, placeholder: t('.name_placeholder'), class: 'form-control'
+    %fieldset.form-group{ class: "#{"has-error" if f.object.errors.include?(:email)}" }
+      = f.label :email, t('.user_email')
+      = f.text_field :email, placeholder: t('.email_placeholder'), class: 'form-control'
+    %fieldset.form-group{ class: "#{"has-error" if f.object.errors.include?(:password)}" }
+      = f.label :password, t('user_.password')
+      = f.password_field :password, class: 'form-control'
+    %fieldset.form-group{ class: "#{"has-error" if f.object.errors.include?(:password_confirmation)}" }
+      = f.label :password_confirmation, t('.user_password_confirm')
+      = f.password_field :password_confirmation, class: 'form-control'
+  .row
+    .col-md-3.col-md-offset-3
+      = f.submit t("#{button_label}"), class: 'btn btn-primary btn-success'
+    .col-md-3
+      = link_to t('.back'), '#', class: 'btn btn-primary btn-danger place-form-button back-button'

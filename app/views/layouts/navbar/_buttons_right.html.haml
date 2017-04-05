@@ -1,3 +1,4 @@
+-# CHANGE LOGIN STATUS
 - if @current_user.signed_in?
   .margin-right.navbar-button.pull-right
     = link_to logout_path do
@@ -16,6 +17,7 @@
 - if current_map
   - if is_secret_link?
     .navbar-button.info-button.pull-left
+      %span.glyphicon.glyphicon-user
       = link_to share_map_url(map_token: map_token) do
         .glyphicon.glyphicon-share.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.share')}
 

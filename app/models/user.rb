@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password
-  has_many :maps
+  has_many :maps, dependent: :nullify
   has_many :activation_tokens, dependent: :destroy
   # TODO legacy?
   has_many :announcements
@@ -10,7 +10,10 @@ class User < ActiveRecord::Base
   attr_accessor :password_reset_token
 
   validates :name, presence: true
-  validates :email, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :email,
+    presence: true,
+    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i },
+    uniqueness: true
   validates :password, length: { minimum: 5 }, if: :password
 
   def authenticated?(attribute:, token:)

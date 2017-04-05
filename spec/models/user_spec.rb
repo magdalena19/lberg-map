@@ -27,6 +27,13 @@ describe User do
       user.email = 'peokjwef@pokpwe'
       expect(user).not_to be_valid
     end
+
+    it 'cannot add user with duplicate email address' do
+      create :user, email: 'foo@bar.org'
+      user.email = 'foo@bar.org'
+
+      expect(user).not_to be_valid
+    end
   end
 
   context 'Regular user' do

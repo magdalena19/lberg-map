@@ -1,23 +1,32 @@
+= javascript_include_tag 'data_tables.js'
+
 - content_for :header do
   = t('.index')
 
 .container
-  %table
-    %thead
-      %tr
-        %th= t('.name')
-        %th= t('.email')
-        %th
-        %th
+  .col-md-12
+    %table.display.responsive.no-wrap.compact.stripe{cellspacing: '0', width: '100%', id: 'users_table'}
+      %thead
+        %tr
+          %th= t('.user_name')
+          %th= t('.user_email')
+          %th= t('.tokens_left')
+          %th= t('.user_created_at')
+          %th
+          %th
+      %tbody
+        - @users.each do |user|
+          %tr{id: "user_#{user.id}"}
+            %td= user.name
+            %td= user.email
+            %td= user.activation_tokens.count
+            %td= user.created_at.to_s
+            %td
+              = link_to edit_user_path(user) do
+                %span.glyphicon.glyphicon-pencil
+            %td
+              = link_to admin_delete_user_path(user), method: :delete, data: { confirm: t('.confirm_deletion') } do
+                %span.glyphicon.glyphicon-trash
 
-    %tbody
-      - @users.each do |user|
-        %tr{id: "user_#{user.id}"}
-          %td= user.name
-          %td= user.email
-          %td= link_to t('.edit'), edit_admin_user_url(user)
-          %td= link_to t('.delete'), admin_user_url(user), :method => :delete, :data => { :confirm => t('.confirm_deletion') }
-
-  %br
-
-  = link_to 'New User', new_admin_user_url
+  .col-md-12
+    = link_to 'New User', sign_up_path, class: 'btn btn-success'

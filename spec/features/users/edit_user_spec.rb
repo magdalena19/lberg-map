@@ -6,7 +6,7 @@ feature 'Edit user', :js do
 
     fill_in('user_name', with: 'AnotherName')
     fill_in('user_email', with: 'blubb@blobb.org')
-    click_on('Submit changes')
+    click_on('Update credentials')
 
     expect(user.reload.name).to eq 'AnotherName'
     expect(user.reload.email).to eq 'blubb@blobb.org'
@@ -19,7 +19,7 @@ feature 'Edit user', :js do
 
     fill_in('user_password', with: 'secret')
     fill_in('user_password_confirmation', with: 'notsecret')
-    click_on('Submit changes')
+    click_on('Update credentials')
 
     expect(page).to have_css('.alert-danger')
   end
@@ -42,6 +42,6 @@ feature 'Edit user', :js do
     visit edit_user_path(id: user.id)
 
     expect(page).not_to have_css('.alert')
-    expect(page).to have_content('No invite codes')
+    expect(page).to have_content('No Activation Tokens')
   end
 end

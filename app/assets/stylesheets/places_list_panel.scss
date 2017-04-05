@@ -90,6 +90,20 @@
     padding: 15px;
   }
 
+  #search-input {
+    padding-left: 25px;
+    padding-right: 30px;
+  }
+
+  #clear-search-input {
+    background-color: transparent;
+    border: 0px;
+    right: 30px;
+    z-index: 99;
+    padding: 0px 0px 5px 0px;
+    font-size: 1.3em;
+  }
+
   .places-list-accordion-container {
     background: rgba(white, 0.5);
     padding-top: 10px;

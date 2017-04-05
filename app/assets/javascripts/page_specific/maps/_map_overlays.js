@@ -37,6 +37,12 @@ jQuery(function() {
     toggle.css('left', 0);
   };
 
+  // Remove search inputs
+  
+  jQuery('#clear-search-input').on('click', function(){
+    jQuery('#search-input').val('').trigger('change');
+  })
+
   // Close slidePanels on Escape keypress
   window.addEventListener("keydown", function (event) {
     if (event.defaultPrevented) {

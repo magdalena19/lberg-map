@@ -17,6 +17,17 @@ feature 'Map', js: true do
     expect(page).to have_css('.glyphicon-th-large')
   end
 
+  scenario 'clear search field on reset button click' do
+    skip "Works"
+    map = create :map, :private
+    visit map_path(map_token: map.secret_token)
+    fill_in('search-input', with: 'Some Text')
+    click_on('clear-search-input')
+
+    binding.pry 
+    expect(find('#search-input').value).to eq ''
+  end
+
 
   context 'Public maps' do
     before do

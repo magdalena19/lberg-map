@@ -71,7 +71,21 @@ textarea {
 .green {
   color: rgb(53, 129, 33);
 }
-
 .dark_yellow {
+
   color: rgb(172, 160, 0);
+}
+
+#place_date_form {
+  display: none;
+}
+
+#end_date_toggle {
+  width: 40px;
+  border-right: 0px;
+}
+
+#end_date_descr {
+  width: 60px;
+  border-left: 0px;
 }

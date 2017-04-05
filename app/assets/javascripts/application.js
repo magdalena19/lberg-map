@@ -82,15 +82,13 @@ jQuery(function() {
     });
   };
 
-  jQuery('#place_event').on('click', function(){
-    var checked = $(this).is(':checked');
-    if (checked) {
-      jQuery('.place_start_date').show(350);
-      jQuery('.place_end_date').show(350);
-      picker();
-    } else {
-      jQuery('.place_start_date').hide(350);
-      jQuery('.place_end_date').hide(350); }
+  jQuery('#is_place').on('click', function(){
+    jQuery('#place_date_form').hide(350);
+  });
+
+  jQuery('#is_event').on('click', function(){
+    jQuery('#place_date_form').show(350);
+    picker();
   });
 
   jQuery('#set_end_date').on('click', function(){

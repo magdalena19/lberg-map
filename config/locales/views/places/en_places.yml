@@ -4,6 +4,20 @@ en:
     no_reviewed_description: 'No reviewed description yet'
     form:
       auto_translated: 'Automatic translation'
+      is_event: 'Enter an event'
+      is_place: 'Enter a place'
+      set_end_date: 'Set end date'
+      place_name: 'Name'
+      street: 'Street'
+      postal_code: 'Postal code'
+      city: 'City'
+      phone: 'Phone number'
+      email: 'Email'
+      homepage: 'Homepage'
+      address_data: 'Name and address'
+      contact_data: 'Contact information'
+      place_categories: 'Tags'
+      categories_placeholder: 'Add some tags to your place/event'
     edit:
       edit: 'Edit place'
     index:

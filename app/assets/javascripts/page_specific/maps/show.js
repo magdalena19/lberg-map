@@ -74,34 +74,68 @@ jQuery(function() {
       map.addLayer(cluster);
     };
 
-    // PLACE BUTTONS
-    var wordPresent = function(word, feature) {
-      var match = false;
-      jQuery.each(feature.properties, function(attr, key) {
-        var string = feature.properties[attr].toString();
-        if ( string.toLowerCase().indexOf(word.trim().toLowerCase()) >= 0 ) {
-          match = true;
-          return false; // return false to quit loop
-        }
-      });
-      return match;
+    // TEXT FILTER
+		var wordPresent = function(word, feature) {
+			var match = false;
+
+			jQuery.each(feature.properties, function(attr, key) {
+        var value = feature.properties[attr];
+				var string = value ? value.toString().toLowerCase() : '';
+				if ( string.indexOf(word) >= 0 ) {
+					match = true;
+					return false; // return false to quit loop
+				}
+			});
+			return match;
+		};
+
+		var textFilter = function(json) {
+			var text = jQuery('#search-input').val();
+			if (!text) { return json; }
+
+			var filteredJson = [];
+			var words = text.replace(';', ',').split(',');
+			jQuery(json).each(function (id, feature) {
+				var matches = jQuery.map(words, function(word) {
+          word = word.trim().toLowerCase();
+					return wordPresent(word, feature);
+				});
+				if ( !(matches.indexOf(false) > -1) ) {
+					filteredJson.push(feature);
+				}
+			});
+			return filteredJson;
+		};
+
+    // DATE FILTER
+    var forceUTC = function(date) {
+      // this is a workaround sinde daterangepicker localizes selection - better would be a direct input as utc timestamp
+      return date.clone()
+                 .utcOffset(0)
+                 .add(date.utcOffset(), 'minutes');
     };
 
-    var textFilter = function(json) {
-      var text = jQuery('#search-input').val();
-      if (!text) { return json; }
-
+    var dateFilter = function(json) {
+      var daterange = jQuery('#search-date-input').data('daterangepicker');
+      var startDate = forceUTC(daterange.startDate);
+      var endDate = forceUTC(daterange.endDate);
+      if (!jQuery('#search-date-input').is(':visible')) { return json; }
       var filteredJson = [];
-      var words = text.replace(';', ',').split(',');
       jQuery(json).each(function (id, feature) {
-        var matches = jQuery.map(words, function(word) {
-          return wordPresent(word, feature);
-        });
-        if ( !(matches.indexOf(false) > -1) ) {
+        var featureStartDate = moment(feature.start_date);
+        var featureEndDate = moment(feature.end_date);
+        if (
+          ( featureStartDate >= startDate && featureStartDate <= endDate ) ||
+          ( featureEndDate >= startDate && featureEndDate <= endDate )
+        ) {
           filteredJson.push(feature);
         }
       });
       return filteredJson;
+    };
+
+    var loadAndFilterPlaces = function() {
+      updatePlaces(dateFilter(textFilter(window.places)));
     };
 
     // ADD PLACE
@@ -149,12 +183,13 @@ jQuery(function() {
       hideSidepanel();
       function confirmation(position) {
         confirmPlaceInsert(position.coords.latitude, position.coords.longitude);
-      };
+      }
+
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(confirmation);
       } else {
         console.log('Geolocation is not supported by this browser.');
-      };
+      }
     });
 
     jQuery('.add_place_via_click').click(function(){
@@ -187,16 +222,16 @@ jQuery(function() {
         jQuery('.toggle-panel').css('left', panel.outerWidth());
       } else {
         jQuery('.toggle-panel').css('left', 0);
-      };
+      }
     };
-    
+
     // TOGGLE SIDEPANEL
     jQuery('.toggle-panel').click(function() {
       if (jQuery('.places-list-panel').is(':visible')) {
         hideSidepanel();
       } else {
         showSidepanel();
-      };
+      }
     });
 
     jQuery(window).resize(function(){
@@ -214,11 +249,19 @@ jQuery(function() {
         .attr('lon', feature.geometry.coordinates[0])
         .attr('lat', feature.geometry.coordinates[1]);
       item.find('.name').html(feature.properties.name);
+      if (feature.is_event === true) {
+        item.find('.place_type').addClass('glyphicon-calendar');
+      } else {
+        item.find('.place_type').addClass('glyphicon-home');
+      }
       item.find('.panel-collapse')
         .attr('id', 'collapse' + feature.id)
         .attr('aria-labelledby', 'heading' + feature.id);
       item.find('.description').append(feature.properties.description);
+
       var contact = item.find('.contact-container');
+      var event_container = item.find('.event-container');
+
       if(feature.properties.phone !== '') {
         contact.append("<div class='contact'><div class='glyphicon glyphicon-earphone'></div>" + feature.properties.phone + "</div>");
       }
@@ -230,6 +273,13 @@ jQuery(function() {
       }
       if(feature.properties.address !== '') {
         contact.append("<div class='contact'><div class='glyphicon glyphicon-record'></div>" + feature.properties.address + "</div>");
+      }
+      if(feature.start_date !== null) {
+        moment.locale('en');
+        var startDate = moment(feature.start_date).utc().format('DD-MM-YYYY HH:mm');
+        var endDate = moment(feature.end_date).utc().format('DD-MM-YYYY HH:mm');
+        date_string = feature.end_date === null ? startDate : startDate + ' - ' + endDate
+        event_container.append("<div class='event'><div class='glyphicon glyphicon-calendar'></div>" + date_string + "</div>");
       }
       item.find('.category-names').append(feature.properties.category_names);
       item.find('.edit-place').attr('place_id', feature.id);
@@ -243,10 +293,33 @@ jQuery(function() {
     // LIVE SEARCH
     jQuery('.category-input')
       .on('awesomplete-selectcomplete', function() {
-        updatePlaces(textFilter(window.places));
+        loadAndFilterPlaces();
       })
-    .on('input', function(){
-      updatePlaces(textFilter(window.places));
+
+      .on('input', function(){
+        loadAndFilterPlaces();
+      });
+
+    jQuery('.empty-text-filter').click(function() {
+      jQuery('.category-input').val('');
+      loadAndFilterPlaces();
+    });
+
+    jQuery('#search-date-input')
+      .on('apply.daterangepicker', function() {
+        loadAndFilterPlaces();
+      });
+
+    jQuery('.filter-date-row').hide();
+    jQuery('.cancel-date-filter').click(function() {
+      jQuery('.filter-date-row').hide();
+      jQuery('.add-date-filter').show();
+      loadAndFilterPlaces();
+    });
+    jQuery('.add-date-filter').click(function() {
+      jQuery('.add-date-filter').hide();
+      jQuery('.filter-date-row').show();
+      loadAndFilterPlaces();
     });
 
     // POI LOADING
@@ -259,7 +332,7 @@ jQuery(function() {
       },
       success: function(result) {
         window.places = result;
-        updatePlaces(window.places);
+        loadAndFilterPlaces();
         showMapElements();
         jQuery('.loading').hide();
         showSidepanel();

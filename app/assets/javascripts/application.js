@@ -63,9 +63,8 @@ jQuery(function() {
   });
 
   // Place events
-  var picker = function() {
-    var with_end_date = jQuery('#set_end_date').is(':checked');
-    $('#place_start_date').daterangepicker({
+  var picker = function(div, with_end_date) {
+    div.daterangepicker({
       "singleDatePicker": !with_end_date,
       "showDropdowns": true,
       "showWeekNumbers": true,
@@ -76,9 +75,7 @@ jQuery(function() {
       "showCustomRangeLabel": false,
       "locale": {
         format: 'DD.MM.YYYY h:mm A'
-      },
-    }, function(start, end, label) {
-      console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+      }
     });
   };
 
@@ -88,12 +85,23 @@ jQuery(function() {
 
   jQuery('#is_event').on('click', function(){
     jQuery('#place_date_form').show(350);
-    picker();
+    picker(
+      jQuery('#place_start_date'),
+      jQuery('#set_end_date').is(':checked')
+    );
   });
 
   jQuery('#set_end_date').on('click', function(){
-        picker();
-  })
+    picker(
+      jQuery('#place_start_date'),
+      jQuery('#set_end_date').is(':checked')
+    );
+  });
+
+  picker(
+    jQuery('#search-date-input'),
+    true
+  );
 
   // Enable bootstrap tooltips
   jQuery('[data-toggle="tooltip"]').tooltip();
@@ -118,7 +126,7 @@ jQuery(function() {
       categoryList.open();
     });
   });
-  
+
   // landing page
   jQuery('.login-form').hide();
   jQuery('.create-with-account').click(function() {
@@ -135,19 +143,18 @@ jQuery(function() {
       } else {
         jQuery(div_to_toggle).hide(350);
       }
-    })
-  }
+    });
+  };
 
   // MAP VIEWS
   // Form
-  toggle_if_checked('#map_auto_translate', '#map_translation_engine')
-  toggle_if_checked('#map_is_public', '.map_public_settings')
+  toggle_if_checked('#map_auto_translate', '#map_translation_engine');
+  toggle_if_checked('#map_is_public', '.map_public_settings');
 
   // Invitation
   jQuery('#share_admin_link').on('click', function(){
     jQuery('#map_admins_field').toggle();
-
-  })
+  });
 
   var toggle_submit_invitations_button = function() {
     var map_guests_invites = jQuery('#map_guests').val() !== '';
@@ -158,13 +165,13 @@ jQuery(function() {
     } else {
       jQuery('#submit_invitations').prop('disabled', true);
     }
-  }
+  };
 
   jQuery('#map_admins').on('input', function(){
     toggle_submit_invitations_button();
-  })
+  });
 
   jQuery('#map_guests').on('input', function(){
     toggle_submit_invitations_button();
-  })
+  });
 });

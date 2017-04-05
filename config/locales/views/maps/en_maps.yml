@@ -39,3 +39,5 @@ en:
       share_map: 'Share map'
       admin_link: 'adminstration link'
       admin_link_warning: 'Warning: People using this link have full access rights!'
+    sidepanel:
+      filter_by_date: 'Search for events'

@@ -41,6 +41,11 @@
     }
   }
 
+  .place_type {
+    padding-right: 10px;
+    color: darken($lilac, 25%);
+  }
+
   .panel-body {
     padding: 7px 14px;
     font-size: 12px;
@@ -58,6 +63,19 @@
       .glyphicon {
         padding-right: 5px;
         color: darken($green, 30%);
+      }
+    }
+    .event {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 3px 8px;
+      margin-top: 2px;
+      background-color: lighten($grey, 40%);
+      border-radius: 4px;
+      .glyphicon {
+        padding-right: 5px;
+        color: darken($grey, 20%);
       }
     }
   }
@@ -87,7 +105,22 @@
   }
 
   .search-field {
-    padding: 15px;
+    padding-bottom: 15px;
+  }
+
+  .input-icon {
+    position: absolute;
+    right: 22px;
+    top: 8px;
+    z-index: 9999;
+    font-size: 18px;
+    color: $grey;
+  }
+
+  .add-date-filter {
+    cursor: pointer;
+    font-size: 18px;
+    color: $grey;
   }
 
   .places-list-accordion-container {

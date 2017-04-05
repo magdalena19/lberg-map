@@ -1,6 +1,16 @@
 .overlay.places-list-panel
   .row.search-field
-    %input#search-input.category-input.form-control{'data-list' => (@map.category_names_list), 'autocomplete' => 'off', placeholder: (t('static_pages.map.search_placeholder'))}
+    .col-xs-12
+      %input#search-input.category-input.form-control{'data-list' => (@map.category_names_list), 'autocomplete' => 'off', placeholder: (t('static_pages.map.search_placeholder'))}
+        .empty-text-filter.input-icon.glyphicon.glyphicon-remove-sign
+  .row.filter-date-row
+    .col-xs-12.search-field
+      %input#search-date-input.form-control
+        .cancel-date-filter.input-icon.glyphicon.glyphicon-remove-sign
+  .row.add-date-filter
+    .col-xs-12.text-center
+      .glyphicon.glyphicon-plus-sign
+      = t('.filter_by_date')
 
   .row
     .col-xs-12.places-list-accordion-container
@@ -22,12 +32,14 @@
 .panel.panel-default.places-list-item.template
   .panel-heading{role: 'tab'}
     %h4.panel-title
+      .glyphicon.place_type.pull-left
       %a.collapsed{'aria-expanded' => 'false', 'data-parent' => '#accordion', 'data-toggle' => 'collapse', role: 'button'}
         .name
   .panel-collapse.collapse{role: 'tabpanel'}
     .panel-body
       .description
       .contact-container
+      .event-container
       .category-names
       .bottom-icons
         - if can_contribute?

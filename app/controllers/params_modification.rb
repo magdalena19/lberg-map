@@ -31,7 +31,7 @@ module ParamsModification
       end
 
       def modify_event_params
-        if @params[:event] == "1"
+        if @params[:event] == "true"
           @params[:event] = true
           date = @params[:start_date].split(' - ').reverse
           @params[:start_date] = date.pop.to_datetime

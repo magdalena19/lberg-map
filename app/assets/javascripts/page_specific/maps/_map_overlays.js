@@ -24,6 +24,7 @@ jQuery(function() {
   
   var panel = jQuery('.places-list-accordion-container');
   var toggle = jQuery('.toggle-panel');
+  var button_container = jQuery('.button-container');
   var zoom_container = jQuery('.zoom-container');
   var add_place_button = jQuery('.add-place-button');
 
@@ -32,6 +33,7 @@ jQuery(function() {
     panel.show();
     toggle.show();
     toggle.css('left', panel.outerWidth());
+    button_container.show();
   };
   
   hideSidepanel = function() {
@@ -39,6 +41,7 @@ jQuery(function() {
     panel.hide();
     toggle.css('left', 0);
     toggle.css('z-index', 9999);
+    button_container.hide();
   };
 
   // Close slidePanels on Escape keypress

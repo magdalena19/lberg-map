@@ -97,7 +97,7 @@ jQuery(function() {
         var matches = jQuery.map(words, function(word) {
           return wordPresent(word, feature);
         });
-        if ( !(matches.indexOf(false) > -1) ) {
+        if (matches.indexOf(false) < -1) {
           filteredJson.push(feature);
         }
       });
@@ -187,16 +187,16 @@ jQuery(function() {
         jQuery('.toggle-panel').css('left', panel.outerWidth());
       } else {
         jQuery('.toggle-panel').css('left', 0);
-      };
+      }
     };
-    
+
     // TOGGLE SIDEPANEL
     jQuery('.toggle-panel').click(function() {
-      if (jQuery('.places-list-panel').is(':visible')) {
+      if (jQuery('.places-list-accordion-container').is(':visible')) {
         hideSidepanel();
       } else {
         showSidepanel();
-      };
+      }
     });
 
     jQuery(window).resize(function(){

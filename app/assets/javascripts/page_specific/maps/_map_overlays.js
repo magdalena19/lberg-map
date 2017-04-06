@@ -22,8 +22,9 @@ jQuery(function() {
     jQuery('.navbar-toggle').css('opacity', 100);
   };
   
-  var panel = jQuery('.places-list-panel');
+  var panel = jQuery('.places-list-accordion-container');
   var toggle = jQuery('.toggle-panel');
+
   showSidepanel = function() {
     toggle.find('.glyphicon').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
     panel.show();
@@ -35,6 +36,7 @@ jQuery(function() {
     toggle.find('.glyphicon').removeClass('glyphicon-chevron-left').addClass('glyphicon-chevron-right');
     panel.hide();
     toggle.css('left', 0);
+    toggle.css('z-index', 9999);
   };
 
   // Remove search inputs

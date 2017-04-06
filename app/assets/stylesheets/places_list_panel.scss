@@ -12,15 +12,16 @@
   font-size: 22px;
   display: none;
   cursor: pointer;
+  z-index: 9999;
 }
 
 .places-list-panel {
-  background: rgba(white, 0.3);
+  background: transparent;
   top: 40px;
   height: 100%;
   width: 25%;
   min-width: 400px;
-  padding: 15px;
+  padding: 0px 15px 15px 15px;
 
   .glyphicon {
     cursor: pointer;
@@ -99,7 +100,7 @@
     background-color: transparent;
     border: 0px;
     right: 30px;
-    z-index: 99;
+    z-index: 9999;
     padding: 0px 0px 5px 0px;
     font-size: 1.3em;
   }

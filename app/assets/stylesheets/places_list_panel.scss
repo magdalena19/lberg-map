@@ -6,9 +6,9 @@
 
 .toggle-panel {
   top: 50%;
-  background: rgba(white, 0.6);
+  background: rgba(white, 0.8);
   padding: 10px 5px;
-  color: $grey;
+  // color: $grey;
   font-size: 22px;
   display: none;
   cursor: pointer;
@@ -106,7 +106,7 @@
   }
 
   .places-list-accordion-container {
-    background: rgba(white, 0.5);
+    background: rgba(white, 0.8);
     padding-top: 10px;
     overflow-y: auto;
   }

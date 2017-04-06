@@ -1,6 +1,15 @@
-.place_end_date {
+.place_date_form {
   display: none;
 }
-.place_start_date {
-  display: none;
+
+#end_date_descr {
+  padding-right: 12px;
+  padding-left: 0px;
+  border-right: 0px;
+}
+
+#end_date_toggle {
+  padding-left: 0px;
+  padding-right: 2px;
+  padding-top: 2px
 }

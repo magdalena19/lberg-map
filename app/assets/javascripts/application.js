@@ -82,12 +82,24 @@ jQuery(function() {
     });
   };
 
+  // Conditionally display event form
+  var toggle_event_form = function(is_event){
+    if (is_event === 'true') {
+      jQuery('.place_date_form').show(350);
+      picker();
+    } else {
+      jQuery('.place_date_form').hide(350);
+    }
+  }
+
+  toggle_event_form(window.is_event);
+
   jQuery('#is_place').on('click', function(){
-    jQuery('#place_date_form').hide(350);
+    jQuery('.place_date_form').hide(350);
   });
 
   jQuery('#is_event').on('click', function(){
-    jQuery('#place_date_form').show(350);
+    jQuery('.place_date_form').show(350);
     picker();
   });
 

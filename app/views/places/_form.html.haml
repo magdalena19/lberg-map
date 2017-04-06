@@ -42,23 +42,22 @@
           = f.text_field :homepage, class: 'form-control', disabled: @place.unreviewed_version
 
   .row
+    %hr
     .col-md-6
-      %hr
       .row{id: 'place_event_toggle'}
         .col-xs-1
           = f.radio_button :event, false, disabled: @place.unreviewed_version, id: 'is_place', checked: !@place.event || true
-        .col-xs-11
+        .col-xs-4
           = f.label :event, t('.is_place')
         .col-xs-1
           = f.radio_button :event, true, disabled: @place.unreviewed_version, id: 'is_event', checked: @place.event || false
-        .col-xs-11
+        .col-xs-4
           = f.label :event, t('.is_event')
 
-      .input-group.form_group.col-xs-12#place_date_form
-        = f.text_field :start_date, class: 'form-control daterange'
-        %span#end_date_toggle.input-group-addon
-          %input#set_end_date{type: 'checkbox'}
-        %span#end_date_descr.input-group-addon= t('.set_end_date')
+      .col-xs-12.input-group.place_date_form
+        %span#end_date_toggle.input-group-addon= check_box_tag 'set_end_date'
+        %span.input-group-addon#end_date_descr= t('.set_end_date')
+        = f.text_field :start_date, class: 'form-control daterange', aria: { describedby: '#end_date_descr' }, value: @place.new_record? ? '' : [@place.start_date, @place.end_date].join(' - ')
   .row
     %hr
 
@@ -113,3 +112,6 @@
       = f.submit class: 'btn btn-primary btn-success place-form-button submit-place-button'
     .col-xs-6.col-md-2
       = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
+
+:javascript
+  window.is_event = "#{@place.nil? ? false : @place.event?}"

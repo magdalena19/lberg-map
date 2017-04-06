@@ -76,13 +76,15 @@ textarea {
   color: rgb(172, 160, 0);
 }
 
-#place_date_form {
+.place_date_form {
   display: none;
+  padding-top: 20px;
 }
 
 #end_date_toggle {
   width: 40px;
   border-right: 0px;
+  padding-top: 8px;
 }
 
 #end_date_descr {

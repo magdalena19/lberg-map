@@ -24,6 +24,8 @@ jQuery(function() {
   
   var panel = jQuery('.places-list-accordion-container');
   var toggle = jQuery('.toggle-panel');
+  var zoom_container = jQuery('.zoom-container');
+  var add_place_button = jQuery('.add-place-button');
 
   showSidepanel = function() {
     toggle.find('.glyphicon').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
@@ -38,12 +40,6 @@ jQuery(function() {
     toggle.css('left', 0);
     toggle.css('z-index', 9999);
   };
-
-  // Remove search inputs
-  
-  jQuery('#clear-search-input').on('click', function(){
-    jQuery('#search-input').val('').trigger('change');
-  })
 
   // Close slidePanels on Escape keypress
   window.addEventListener("keydown", function (event) {

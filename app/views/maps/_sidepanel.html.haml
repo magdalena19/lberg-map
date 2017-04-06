@@ -1,7 +1,7 @@
 .overlay.places-list-panel
   .row.search-field
     .col-xs-12.input-group
-      %input#search-input.category-input.input-lg.form-control{'data-list' => (@map.category_names_list), 'autocomplete' => 'off', placeholder: (t('static_pages.map.search_placeholder')), aria: { describedby: '#clear-search-input' }}
+      %input#search-input.category-input.form-control{'data-list' => (@map.category_names_list), 'autocomplete' => 'off', placeholder: (t('static_pages.map.search_placeholder')), aria: { describedby: '#clear-search-input' }}
       %span.glyphicon.glyphicon-remove-circle.input-group-addon#clear-search-input
 
   .row

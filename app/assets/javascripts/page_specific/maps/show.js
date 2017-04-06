@@ -97,7 +97,7 @@ jQuery(function() {
         var matches = jQuery.map(words, function(word) {
           return wordPresent(word, feature);
         });
-        if (matches.indexOf(false) < -1) {
+        if ( !(matches.indexOf(false) > -1) ) {
           filteredJson.push(feature);
         }
       });
@@ -264,6 +264,13 @@ jQuery(function() {
         jQuery('.loading').hide();
         showSidepanel();
       }
+    });
+
+    // Remove search inputs
+    jQuery('#clear-search-input').on('click', function(){
+      jQuery('#search-input').val('').trigger('change');
+      updatePlaces(textFilter(window.places));
+      // hideSidepanel();
     });
   });
 });

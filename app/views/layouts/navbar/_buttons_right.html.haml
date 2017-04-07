@@ -8,22 +8,22 @@
     = link_to login_path do
       .glyphicon.glyphicon-log-in.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.login')}
 
-- if current_map
-  -# TODO contact management system has to be re-implemented
-  -# .navbar-button.contact-button.pull-left
-  -#   = link_to contact_path do
-  -#     .glyphicon.glyphicon-envelope.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.contact')}
+-# Map index link
+- if @current_user.registered? || session[:maps].any?
+  .navbar-button.home-button.pull-left
+    = link_to maps_path do
+      .glyphicon.glyphicon-th-large.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_map_index')}
 
+-# Map edit link
 - if current_map
   - if is_secret_link?
     .navbar-button.info-button.pull-left
-      %span.glyphicon.glyphicon-user
-      = link_to share_map_url(map_token: map_token) do
-        .glyphicon.glyphicon-share.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.share')}
+      = link_to edit_map_path(map_token: map_token) do
+        .glyphicon.glyphicon-pencil.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.map_settings')}
 
-  .navbar-button.info-button.pull-left
-    = link_to about_path do
-      .glyphicon.glyphicon-info-sign.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.about')}
+    .navbar-button.info-button.pull-left
+      = link_to share_map_path(map_token: map_token) do
+        .glyphicon.glyphicon-share.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.share')}
 
   - if current_map.allow_guest_commits
     .navbar-button.pull-left

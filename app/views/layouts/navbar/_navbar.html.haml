@@ -16,12 +16,6 @@
           .logo.logo-left LBERG
           .logo.logo-right MAP
 
-      -# Map index link
-      - if @current_user.registered? || session[:maps].any?
-        .navbar-button.home-button.pull-left
-          = link_to maps_path do
-            .glyphicon.glyphicon-th-large.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_map_index')}
-
       -# Map show and places index
       - if current_map
         .navbar-button.home-button.pull-left

@@ -13,6 +13,7 @@ de:
         user_management: 'User-Verwaltung'
         app_settings: 'Globale Einstellungen'
       buttons_right:
+        map_settings: 'Karten-Einstellungen'
         share: 'Karte teilen'
       navbar:
         no_title: 'Kein Titel'

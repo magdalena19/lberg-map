@@ -12,7 +12,7 @@ feature 'Map', js: true do
   scenario 'shows session map index in navbar if not signed in' do
     visit new_map_path
     validate_captcha
-    click_on('Create new map')
+    click_on('Create Map')
 
     expect(page).to have_css('.glyphicon-th-large')
   end
@@ -39,7 +39,8 @@ feature 'Map', js: true do
 
   context 'Restricted access' do
     before do
-      @place = create :place, :reviewed, map: create(:map, :restricted_access)
+      @map = create :map, :restricted_access
+      @place = create :place, :reviewed, map: @map
     end
 
     scenario 'has no place edit buttons fur guest users' do

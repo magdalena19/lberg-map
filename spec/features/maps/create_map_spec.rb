@@ -4,7 +4,7 @@ feature 'Create Map', js: true do
       login_as_user
       visit new_map_path
       fill_in_valid_map_attributes
-      click_on('Create new map')
+      click_on('Create Map')
       map = Map.find_by(secret_token: 'secret_token')
 
       expect(map).to be_a(Map)
@@ -16,7 +16,7 @@ feature 'Create Map', js: true do
       visit new_map_path
       fill_in_valid_map_attributes
       validate_captcha
-      click_on('Create new map')
+      click_on('Create Map')
       map = Map.find_by(secret_token: 'secret_token')
 
       expect(map).to be_a(Map)
@@ -35,7 +35,7 @@ feature 'Create Map', js: true do
       fill_in('map_public_token', with: 'public_token')
       click_on('Properties')
       validate_captcha
-      click_on('Create new map')
+      click_on('Create Map')
       map = Map.find_by(public_token: 'public_token')
 
       expect(map).to be_a(Map)

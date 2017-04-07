@@ -102,6 +102,13 @@ describe PlacesController do
       end
     end
 
+    it 'Does not enqueue auto_translation unless true in settings' do
+      place = create :place, :reviewed, map: create(:map, :full_public)
+      patch :update, id: place.id, place: attributes_for(:place, :reviewed), map_token: place.map.secret_token
+
+      expect(place.reload.versions.count).to eq 1
+    end
+
     context 'Restricted public maps' do
       let(:map) { create :map, :restricted_access }
 

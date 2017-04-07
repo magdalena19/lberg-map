@@ -16,13 +16,6 @@ feature 'Edit place' do
     expect(page).to have_content('10963 Berlin')
   end
 
-  scenario 'Do not create new version when nothing is changed in form', :js do
-    visit edit_place_path(id: @place.id, map_token: @map.public_token)
-    validate_captcha
-    click_on('Update Place')
-    expect(Place.find(@place.id).versions.length).to be 1
-  end
-
   scenario 'Do valid place update as guest and show in index afterwards as to be reviewed', :js do
     visit edit_place_path(id: @place.id, map_token: @map.public_token)
     fill_in('place_name', with: 'Some changes')

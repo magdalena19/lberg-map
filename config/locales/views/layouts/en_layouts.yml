@@ -13,6 +13,7 @@ en:
         user_management: 'Manage users'
         app_settings: 'Global settings'
       buttons_right:
+        map_settings: 'Map settings'
         share: 'Share map'
       navbar:
         no_title: 'No title'

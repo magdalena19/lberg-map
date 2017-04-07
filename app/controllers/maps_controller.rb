@@ -47,6 +47,7 @@ class MapsController < ApplicationController
   end
 
   def edit
+    @url = { action: :update, controller: :maps, map_token: @map.secret_token } # Specify this so map form does commit to correct route...
   end
 
   def update

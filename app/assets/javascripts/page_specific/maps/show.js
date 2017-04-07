@@ -187,16 +187,16 @@ jQuery(function() {
         jQuery('.toggle-panel').css('left', panel.outerWidth());
       } else {
         jQuery('.toggle-panel').css('left', 0);
-      };
+      }
     };
-    
+
     // TOGGLE SIDEPANEL
     jQuery('.toggle-panel').click(function() {
-      if (jQuery('.places-list-panel').is(':visible')) {
+      if (jQuery('.places-list-accordion-container').is(':visible')) {
         hideSidepanel();
       } else {
         showSidepanel();
-      };
+      }
     });
 
     jQuery(window).resize(function(){
@@ -264,6 +264,13 @@ jQuery(function() {
         jQuery('.loading').hide();
         showSidepanel();
       }
+    });
+
+    // Remove search inputs
+    jQuery('#clear-search-input').on('click', function(){
+      jQuery('#search-input').val('').trigger('change');
+      updatePlaces(textFilter(window.places));
+      // hideSidepanel();
     });
   });
 });

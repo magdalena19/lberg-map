@@ -24,16 +24,23 @@ jQuery(function() {
   
   var panel = jQuery('.places-list-panel');
   var toggle = jQuery('.toggle-panel');
+  var button_container = jQuery('.button-container');
+  var zoom_container = jQuery('.zoom-container');
+  var add_place_button = jQuery('.add-place-button');
+
   showSidepanel = function() {
     toggle.find('.glyphicon').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
-    panel.show();
-    toggle.show();
+    panel.fadeIn(350);
+    toggle.fadeIn(350);
     toggle.css('left', panel.outerWidth());
+    button_container.fadeIn(350);
   };
   
   hideSidepanel = function() {
     toggle.find('.glyphicon').removeClass('glyphicon-chevron-left').addClass('glyphicon-chevron-right');
-    panel.hide();
+    panel.fadeOut(350);
+    button_container.fadeOut(350);
+    toggle.css('z-index', 9999);
     toggle.css('left', 0);
   };
 

@@ -31,4 +31,5 @@ de:
       correct_location?: 'Ist diese Position korrekt?'
       new_place: 'Neuen Ort hinzufügen'
       overlay_loading: 'Lade Karte und Punkte...'
-      search_placeholder: 'Suche (kommasepariert), z.B. Café, Neukölln'
+      search_placeholder: 'Suche: Spielplatz, Neukölln, '
+      clear_search_input: 'Zurücksetzen'

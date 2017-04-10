@@ -11,15 +11,17 @@
   .col-md-12.input-group
     = text_field_tag 'map_guests', '', placeholder: t('.email_address_list'), class: 'form-control', id: 'map_guests', disabled: @map.is_private?
 
-  .row
-    .spacer-row
-    .col-md-12
-      = t('.share_secret_link', link: link_to(t('.admin_link'), '#', id: 'share_admin_link')).html_safe
-  .spacer-row
-  .col-md-12.alert.alert-danger#map_admins_field
-    %i
-      = label_tag '', t('.admin_link_warning')
-      = text_field_tag 'map_admins', '', placeholder: t('.email_address_list'), class: 'form-control', id: 'map_admins'
+  - if has_privileged_access?
+    .row
+      .spacer-row
+      .col-md-12
+        = t('.share_secret_link', link: link_to(t('.admin_link'), '#', id: 'share_admin_link')).html_safe
+
+      .spacer-row
+      .col-md-12.alert.alert-danger#map_admins_field
+        %i
+          = label_tag '', t('.admin_link_warning')
+          = text_field_tag 'map_admins', '', placeholder: t('.email_address_list'), class: 'form-control', id: 'map_admins'
 
   .row
     .col-xs-3

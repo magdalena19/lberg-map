@@ -7,6 +7,10 @@ module MapsHelper
     @current_user.registered? || session[:maps].any? 
   end
 
+  def has_privileged_access?
+    current_map.owned_by(owner: @current_user) || is_secret_link?
+  end
+
   def can_review?
     current_map.allow_guest_commits && (current_map.owner == @current_user || is_secret_link?)
   end

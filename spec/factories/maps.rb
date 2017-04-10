@@ -5,6 +5,7 @@ FactoryGirl.define do
     imprint 'This is some imprint'
     maintainer_email_address 'foo@bar.org'
     secret_token { SecureRandom.urlsafe_base64(24) }
+    user
 
     trait :full_public do
       title 'PublicMap'

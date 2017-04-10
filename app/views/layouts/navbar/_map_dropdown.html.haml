@@ -6,6 +6,6 @@
       = t('.map_features')
     %li= link_to(t('.maps_index'), maps_path)
     - if current_map
-      %li= link_to(t('.map_settings'), edit_map_path(map_token: request[:map_token])) if is_secret_link?
-      %li= link_to(t('.places_review_index'), places_review_index_path(map_token: map_token)) if can_review?
+      %li= link_to(t('.map_settings'), edit_map_path(map_token: request[:map_token])) if has_privileged_access?
+      %li= link_to(t('.places_review_index'), places_review_index_path(map_token: map_token)) if has_privileged_access?
       %li= link_to(t('.share_map'), share_map_path(map_token: request[:map_token]))

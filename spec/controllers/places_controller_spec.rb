@@ -403,6 +403,13 @@ describe PlacesController do
         delete :destroy, id: @place.id, map_token: map.secret_token
       }.to change { Place.count }.by(-1)
     end
+    
+    it 'Authorized user can delete place via ajax' do
+      login_as create(:user)
+      expect {
+        xhr :delete, :destroy, id: @place.id, map_token: map.secret_token
+      }.to change { Place.count }.by(-1)
+    end
 
     it 'Guest user cannot delete place' do
       logout

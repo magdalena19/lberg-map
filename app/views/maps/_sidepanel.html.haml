@@ -45,4 +45,6 @@
       .bottom-icons
         - if can_contribute?
           .glyphicon.glyphicon-pencil.edit-place.pull-right
-        .glyphicon.glyphicon-search.show-map.pull-right
+        - if has_privileged_access?
+          .glyphicon.glyphicon-trash.delete-place.pull-right
+

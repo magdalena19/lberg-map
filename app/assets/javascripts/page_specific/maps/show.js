@@ -36,6 +36,22 @@ jQuery(function() {
       window.location.href = '/' + window.map_token + '/places/' + placeId + '/edit';
     });
 
+    jQuery('body').on('click', '.delete-place', function() {
+      var placeId = jQuery(this).attr('place_id');
+      var panel = jQuery('#heading' + placeId).parent();
+      var confirm_delete = confirm(window.delete_confirmation_text);
+
+      if (confirm_delete == true) {
+        jQuery.ajax({
+          url: '/' + window.map_token + '/places/' + placeId,
+          type: 'DELETE',
+          success: function(result) {
+            panel.fadeOut(350, function() { jQuery(this).remove() });
+          }
+        });
+      }
+    });
+
     jQuery('body').on('click', 'a', function() {
       var lat = jQuery(this).attr('lat');
       var lon = jQuery(this).attr('lon');
@@ -286,6 +302,7 @@ jQuery(function() {
       }
       item.find('.category-names').append(feature.properties.category_names);
       item.find('.edit-place').attr('place_id', feature.id);
+      item.find('.delete-place').attr('place_id', feature.id);
       jQuery('.places-list-accordion').append(item);
     };
 

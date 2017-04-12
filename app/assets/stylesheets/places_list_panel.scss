@@ -109,13 +109,9 @@
 
   .bottom-icons {
     float: right;
-    margin: 10px;
-    .show-map {
-      font-size: 24px;
-      visibility: hidden;
-      @media (max-width: 700px) {
-        visibility: visible;
-      }
+    margin-top: 10px;
+    .edit-place {
+      padding-left: 10px;
     }
   }
   .category-names {

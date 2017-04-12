@@ -15,7 +15,7 @@ jQuery(function() {
   addEsriMap = function(center, zoom) {
     map = L.map('map', {
       zoomControl: false,
-      minZoom: 5,
+      minZoom: 3,
       maxZoom: 18
     });
 

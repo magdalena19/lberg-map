@@ -6,7 +6,7 @@ jQuery(function() {
     // move flash message in foreground when map is displayed
     jQuery('#flash-messages').css('position', 'absolute').css('z-index', '999999');
 
-    addEsriMap([52.513, 13.4], 12);
+    addEsriMap([0, 0], 3);
 
     // ZOOM BUTTONS
     jQuery('.zoom-in').click(function(){
@@ -104,6 +104,7 @@ jQuery(function() {
       });
       cluster.addLayer(marker);
       map.addLayer(cluster);
+      map.fitBounds(cluster.getBounds());
     };
 
     // TEXT FILTER

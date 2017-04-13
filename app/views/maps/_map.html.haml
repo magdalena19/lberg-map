@@ -7,7 +7,7 @@
         = map.title.present? ? map.title : t('.no_title')
       .col-xs-4.map_buttons_container
         %ul.nav.nav-pills.map_buttons
-          %li.glyphicon.glyphicon-info-sign.map-description-button{'data-map-token' => map.secret_token}
+          %li.glyphicon.glyphicon-info-sign.map_description_button{'data-map-token' => map.secret_token}
           %li.dropdown
             %a.dropdown-toggle.glyphicon.glyphicon-cog.map_settings_button{ 'data-toggle': 'dropdown', href: '#map_settings' }
             %ul.dropdown-menu
@@ -37,6 +37,15 @@
     .modal-content
       .modal-header
         %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
-        %h4.modal-title= map.title
+        %h4.modal-title= "Description for '#{map.title}'"
       .modal-body
         %p= map.description.html_safe
+        %hr
+
+        .small
+          %p
+            %b Guest link:
+            %span= link_to map_url(map_token: map.public_token) if map.is_public?
+          %p
+            %b Admin_link:
+            %span= link_to map_url(map_token: map.secret_token)

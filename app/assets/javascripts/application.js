@@ -146,10 +146,17 @@ jQuery(function() {
     });
   };
 
-  // MAP VIEWS
   // Form
   toggle_if_checked('#map_auto_translate', '#map_translation_engine');
   toggle_if_checked('#map_is_public', '.map_public_settings');
+
+  // Index
+  
+  jQuery('.map_description_button').on('click', function(){
+    secret_token = jQuery(this).data('map-token');
+    modal = jQuery('#map_description_' + secret_token);
+    modal.modal('show');
+  });
 
   // Invitation
   jQuery('#share_admin_link').on('click', function(){

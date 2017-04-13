@@ -64,11 +64,9 @@ feature 'Places map filter', js: true do
     expect(page).to have_content 'Mr Bean'
   end
 
-  scenario 'wrong word input does not find any place' do
-    skip "Works live, spec fails"
+  scenario 'wrong word input does not find any place', js_errors: false do
     fill_in('search-input', with: 'sdijfdihjgudfhugfhdudg')
 
-    binding.pry
     expect(page).to_not have_css('.leaflet-marker-icon')
   end
 

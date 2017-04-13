@@ -37,8 +37,6 @@
           %td
             = category_names(place)
           %td
-            = link_to root_path(latitude: place.latitude, longitude: place.longitude) do
-              %span{class: 'glyphicon glyphicon-share-alt zoom-to-place'}
             - if place.reviewed? && can_contribute?
               = link_to edit_place_path(place, map_token: request[:map_token]), style: 'text-decoration: none' do
                 %span{class: 'glyphicon glyphicon-pencil'}

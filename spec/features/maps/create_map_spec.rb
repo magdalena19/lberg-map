@@ -1,6 +1,6 @@
 feature 'Create Map', js: true do
   context 'Secret Map' do
-    scenario 'as registered user' do
+    scenario 'as registered user', js_errors: false do
       login_as_user
       visit new_map_path
       fill_in_valid_map_attributes
@@ -12,7 +12,7 @@ feature 'Create Map', js: true do
       expect(map.user).to eq User.first
     end
 
-    scenario 'as guest user' do
+    scenario 'as guest user', js_errors: false do
       visit new_map_path
       fill_in_valid_map_attributes
       validate_captcha
@@ -26,9 +26,8 @@ feature 'Create Map', js: true do
   end
 
   context 'Public Map' do
-    scenario 'as guest user' do
+    scenario 'as guest user', js_errors: false do
       skip "Timing issues here"
-
       visit new_map_path
       fill_in_valid_map_attributes
       click_on('Privacy')

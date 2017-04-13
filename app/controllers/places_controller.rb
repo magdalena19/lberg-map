@@ -54,18 +54,29 @@ class PlacesController < ApplicationController
       flash[:success] = t('.created')
       redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude)
     else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
-      render :new, status: 400
-    end
+      flash.now[:danger] = @place.errors.full_messages.to_sentence render :new, status: 400 end
   end
 
   def destroy
-    @place.destroy
-    flash[:success] = t('.deleted')
-    redirect_to places_url(map_token: request[:map_token])
+    respond_to do |format|
+      if @place.destroy
+        format.json do
+          render json: places_to_show.map(&:geojson), status: :ok
+          flash.now[:success] = t('.deleted') if @place.destroy
+        end
+        format.html do
+          redirect_to places_url(map_token: request[:map_token])
+          flash[:success] = t('.deleted') if @place.destroy
+        end
+      end
+    end
   end
 
   private
+
+  def places_to_show
+    (@map.reviewed_places + places_from_session).uniq
+  end
 
   def modify_params
     @params_to_commit = ParamsModification::Place.modify(place_params: place_params, place: @place)
@@ -91,11 +102,7 @@ class PlacesController < ApplicationController
   end
 
   def store_in_session_cookie
-    if places_from_session.any?
-      cookies[:created_places_in_session] += ',' + @place.id.to_s
-    else
-      cookies[:created_places_in_session] = @place.id.to_s
-    end
+    session[:places] << @place.id unless has_privileged_map_access
   end
 
   # Reverse geocoding

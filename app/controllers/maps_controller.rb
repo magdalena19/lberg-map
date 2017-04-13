@@ -89,6 +89,10 @@ class MapsController < ApplicationController
     redirect_to map_path(map_token: @map.secret_token)
   end
 
+  def places_to_show
+    (@map.reviewed_places + places_from_session).uniq
+  end
+
   private
 
   def send_invitation(token:, email_address:)
@@ -99,10 +103,6 @@ class MapsController < ApplicationController
     return true unless @current_user.guest?
     flash[:error] = t('.need_to_register')
     redirect_to landing_page_url
-  end
-
-  def places_to_show
-    (@map.reviewed_places + places_from_session).uniq
   end
 
   def last_places_created

@@ -1,6 +1,8 @@
 en:
   sessions:
     new:
-      log_in: 'Log in'
+      log_in: 'Sign in'
       enter_email: 'Enter email address'
       enter_password: 'Enter password'
+      here: 'sign up here'
+      sign_up_info: 'You do not have an account? You can %{link} using an activation token.'

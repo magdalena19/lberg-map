@@ -1,33 +1,11 @@
 -# CHANGE LOGIN STATUS
 - if @current_user.signed_in?
-  .margin-right.navbar-button.pull-right
-    = link_to logout_path do
-      .glyphicon.glyphicon-log-out.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.logout')}
+  .margin-right.navbar-button.pull-right.toggle-login
+    = link_to t('.logout'), logout_path
 - else
-  .margin-right.navbar-button.pull-right
-    = link_to login_path do
-      .glyphicon.glyphicon-log-in.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.login')}
+  .margin-right.navbar-button.pull-right.toggle-login
+    = link_to t('.login'), login_path
 
--# Map index link
-- if @current_user.registered? || session[:maps].any?
-  .navbar-button.home-button.pull-left
-    = link_to maps_path do
-      .glyphicon.glyphicon-th-large.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_map_index')}
-
--# Map edit link
-- if current_map
-  - if is_secret_link?
-    .navbar-button.info-button.pull-left
-      = link_to edit_map_path(map_token: map_token) do
-        .glyphicon.glyphicon-pencil.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.map_settings')}
-
-    .navbar-button.info-button.pull-left
-      = link_to share_map_path(map_token: map_token) do
-        .glyphicon.glyphicon-share.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.share')}
-
-  - if current_map.allow_guest_commits
-    .navbar-button.pull-left
-      = link_to places_review_index_path do
-        .glyphicon.glyphicon-thumbs-up.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.review')}
-
-= render partial: 'layouts/navbar/dropdown'
+= render partial: 'layouts/navbar/admin_dropdown' if @current_user.admin?
+= render partial: 'layouts/navbar/user_settings_dropdown'
+= render partial: 'layouts/navbar/map_dropdown' if any_maps_available?

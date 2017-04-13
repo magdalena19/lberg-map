@@ -17,6 +17,7 @@ class Map < ActiveRecord::Base
   validates :maintainer_email_address, email_format: true, if: 'maintainer_email_address.present?'
   validates :translation_engine, presence: true, inclusion: { in: %w[bing yandex google] }, if: 'auto_translate'
   validates :secret_token, presence: true
+  validates :title, length: { maximum: 25 }
   validate :secret_token_unique
   validate :public_token_unique, if: 'public_token.present?'
 
@@ -69,6 +70,14 @@ class Map < ActiveRecord::Base
 
   def is_private?
     !is_public?
+  end
+
+  def owner
+    user
+  end
+
+  def owned_by(owner:)
+    owner.registered? ? owner.id == user.id : false
   end
 
   private

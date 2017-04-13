@@ -1,7 +1,7 @@
-feature 'Share map', js: true do
+feature 'Share map', :js do
   let(:map) { create :map, :full_public }
 
-  scenario 'as privileged guest user via secret link' do
+  scenario 'as privileged guest user via secret link', js_errors: false do
     visit share_map_path(map_token: map.secret_token)
     
     fill_in('map_guests', with: 'foo@bar.org, schnabel@tier.org')
@@ -16,6 +16,20 @@ feature 'Share map', js: true do
 
     map_guests_field = page.find('#map_guests')
     expect(map_guests_field.disabled?).to be true
+  end
+
+  scenario 'Do not show admin link UI if not owner or not secret link' do
+    visit share_map_path(map_token: map.public_token)
+    
+    expect(page).not_to have_css('#map_admins_field')
+  end
+
+  scenario 'Can share admin link via public link if map owner' do
+    login_as_user
+    another_map = create :map, :full_public, user: User.last
+    visit share_map_path(map_token: another_map.public_token)
+    
+    expect(page).to have_css('#share_admin_link')
   end
 
   scenario 'Enables map admins field on link click' do

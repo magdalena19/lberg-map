@@ -6,7 +6,23 @@ jQuery(function() {
     // move flash message in foreground when map is displayed
     jQuery('#flash-messages').css('position', 'absolute').css('z-index', '999999');
 
-    addEsriMap([52.513, 13.4], 12);
+    addEsriMap([0, 0], 3);
+
+    // ZOOM BUTTONS
+    jQuery('.zoom-in').click(function(){
+      map.doubleClickZoom.disable();
+      setTimeout(function(){
+        map.doubleClickZoom.enable();
+      }, 500);
+      map.setZoom(map.getZoom() + 1);
+    });
+    jQuery('.zoom-out').click(function(){
+      map.doubleClickZoom.disable();
+      setTimeout(function(){
+        map.doubleClickZoom.enable();
+      }, 500);
+      map.setZoom(map.getZoom() - 1);
+    });
 
     // still to be used!
     var autotranslatedPrefix = "<p><i>" + window.autotranslated_label + ": </i></p>";
@@ -34,6 +50,23 @@ jQuery(function() {
     jQuery('body').on('click', '.edit-place', function() {
       var placeId = jQuery(this).attr('place_id');
       window.location.href = '/' + window.map_token + '/places/' + placeId + '/edit';
+    });
+
+    jQuery('body').on('click', '.delete-place', function() {
+      var placeId = jQuery(this).attr('place_id');
+      var confirm_delete = confirm(window.delete_confirmation_text);
+      var panel = jQuery('#heading' + placeId).parent();
+
+      if (confirm_delete == true) {
+        jQuery.ajax({
+          url: '/' + window.map_token + '/places/' + placeId,
+          type: 'DELETE',
+          success: function(result) {
+            panel.fadeOut(350, function() { jQuery(this).remove() });
+            updatePlaces(result)
+          }
+        });
+      }
     });
 
     jQuery('body').on('click', 'a', function() {
@@ -66,12 +99,13 @@ jQuery(function() {
       });
       var marker = L.geoJson(json, {
         pointToLayer: function (feature, latlng) {
-          return L.marker(latlng, {icon: icon});
+          return L.marker(latlng, {icon: icon, bla: 'blubb'});
         },
         onEachFeature: onEachFeature
       });
       cluster.addLayer(marker);
       map.addLayer(cluster);
+      if (json.length > 0) { map.fitBounds(cluster.getBounds()); }
     };
 
     // TEXT FILTER
@@ -241,6 +275,8 @@ jQuery(function() {
     // FILL PLACES LIST
     var addToPlacesList = function(feature) {
       var item = jQuery('.places-list-item.template').clone();
+      var contact = item.find('.contact-container');
+
       item.removeClass('template');
       item.find('.panel-heading').attr('id', 'heading' + feature.id);
       item.find('a')
@@ -262,6 +298,10 @@ jQuery(function() {
       var contact = item.find('.contact-container');
       var event_container = item.find('.event-container');
 
+      // Add place information sub-panels
+      if(feature.properties.address !== '') {
+        contact.append("<div class='contact'><div class='glyphicon glyphicon-record'></div>" + feature.properties.address + "</div>");
+      }
       if(feature.properties.phone !== '') {
         contact.append("<div class='contact'><div class='glyphicon glyphicon-earphone'></div>" + feature.properties.phone + "</div>");
       }
@@ -270,9 +310,6 @@ jQuery(function() {
       }
       if(feature.properties.homepage !== '') {
         contact.append("<div class='contact'><div class='glyphicon glyphicon-home'></div>" + feature.properties.homepage + "</div>");
-      }
-      if(feature.properties.address !== '') {
-        contact.append("<div class='contact'><div class='glyphicon glyphicon-record'></div>" + feature.properties.address + "</div>");
       }
       if(feature.start_date !== null) {
         moment.locale('en');
@@ -283,6 +320,7 @@ jQuery(function() {
       }
       item.find('.category-names').append(feature.properties.category_names);
       item.find('.edit-place').attr('place_id', feature.id);
+      item.find('.delete-place').attr('place_id', feature.id);
       jQuery('.places-list-accordion').append(item);
     };
 

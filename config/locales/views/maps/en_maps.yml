@@ -41,3 +41,4 @@ en:
       admin_link_warning: 'Warning: People using this link have full access rights!'
     sidepanel:
       filter_by_date: 'Search for events'
+      no_points_in_list: 'No points inserted yet...'

@@ -42,4 +42,4 @@ de:
       admin_link_warning: 'Achtung: Leute mit diesem Link haben volle Zugriffsrechte!'
     sidepanel:
       filter_by_date: 'Suche events'
-
+      no_points_in_list: 'Noch keine Punkte eingetragen...'

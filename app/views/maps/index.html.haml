@@ -13,6 +13,7 @@
         = render @maps
       - else
         %p= t('.no_map_yet')
+
   .row
-    = link_to t('buttons.create_new_map'), new_map_url, class: 'btn btn-default btn-primary btn-danger new-map-button'
+    = link_to t('buttons.create_new_map'), new_map_url, class: 'btn btn-success new-map-button'
 

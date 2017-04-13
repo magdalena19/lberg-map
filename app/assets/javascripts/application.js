@@ -86,22 +86,22 @@ jQuery(function() {
   jQuery('#is_event').on('click', function(){
     jQuery('#place_date_form').show(350);
     picker(
-      jQuery('#place_start_date'),
-      jQuery('#set_end_date').is(':checked')
-    );
+        jQuery('#place_start_date'),
+        jQuery('#set_end_date').is(':checked')
+        );
   });
 
   jQuery('#set_end_date').on('click', function(){
     picker(
-      jQuery('#place_start_date'),
-      jQuery('#set_end_date').is(':checked')
-    );
+        jQuery('#place_start_date'),
+        jQuery('#set_end_date').is(':checked')
+        );
   });
 
   picker(
-    jQuery('#search-date-input'),
-    true
-  );
+      jQuery('#search-date-input'),
+      true
+      );
 
   // Enable bootstrap tooltips
   jQuery('[data-toggle="tooltip"]').tooltip();

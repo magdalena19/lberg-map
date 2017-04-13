@@ -65,5 +65,11 @@ RSpec.describe Map, type: :model do
       map2 = build :map, :full_public, secret_token: 'secret'
       expect(map2).not_to be_valid
     end
+
+    it 'cannot have title longer than 25 characters' do
+      map = build :map, :full_public, title: 'a'*26
+
+      expect(map).not_to be_valid
+    end
   end
 end

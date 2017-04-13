@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   def prepare_session
     set_locale
     session[:maps] ||= []
+    session[:places] ||= []
   end
 
   def set_locale
@@ -31,21 +32,28 @@ class ApplicationController < ActionController::Base
   end
 
   # User and login related stuff
+  def owns_map
+    current_user == @map.user
+  end
+
   def map_access_via_secret_link
-    @map = set_map
+    set_map
     @map && @map.secret_token == request[:map_token]
   end
 
   def current_user
-    user = User.find_by(id: session[:user_id])
-    set_map
-    @current_user ||= if user
+    @current_user ||= if user = User.find_by(id: session[:user_id])
                         user
                       elsif map_access_via_secret_link
                         PrivilegedGuestUser.new
                       else
                         GuestUser.new
                       end
+  end
+
+  def has_privileged_map_access
+    set_map
+    map_access_via_secret_link || owns_map
   end
 
   def require_login
@@ -67,12 +75,10 @@ class ApplicationController < ActionController::Base
   end
 
   def places_from_session(category_id = nil)
-    ids = cookies[:created_places_in_session]
-    array = ids ? ids.split(',').flatten : []
     if category_id
-      @map.places.where(id: array).compact.find_all { |p| p.category_for(category_id) }
+      @map.places.where(id: session[:places]).compact.find_all { |p| p.category_for(category_id) }
     else
-      @map.places.where(id: array)
+      @map.places.where(id: session[:places])
     end
   end
 end

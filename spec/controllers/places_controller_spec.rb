@@ -21,9 +21,11 @@ describe PlacesController do
   context 'GET #index' do
     let(:map) { create :map, :full_public }
 
+    # TODO Whats this spec about?
     it 'Does not crash with not up-to-date session_places cookie' do
       @request.cookies[:created_places_in_session] = [1, 2, 3, 4, 5, 772_348_7]
       get :index, map_token: map.public_token
+
       expect(response).to render_template 'places/index'
     end
 

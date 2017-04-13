@@ -11,7 +11,7 @@
   .col-md-12.input-group
     = text_field_tag 'map_guests', '', placeholder: t('.email_address_list'), class: 'form-control', id: 'map_guests', disabled: @map.is_private?
 
-  - if has_privileged_access?
+  - if has_privileged_map_access?
     .row
       .spacer-row
       .col-md-12

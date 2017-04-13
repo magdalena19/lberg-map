@@ -55,9 +55,9 @@
           = f.label :event, t('.is_event')
 
       .input-group.form_group.col-xs-12#place_date_form
-        = f.text_field :start_date, class: 'form-control daterange'
+        = f.text_field :start_date, class: 'form-control daterange', disabled: @place ? !@place.event? : true
         %span#end_date_toggle.input-group-addon
-          %input#set_end_date{type: 'checkbox'}
+          %input#set_end_date{type: 'checkbox', checked: @place.end_date.present? }
         %span#end_date_descr.input-group-addon= t('.set_end_date')
   .row
     %hr
@@ -113,3 +113,35 @@
       = f.submit class: 'btn btn-primary btn-success place-form-button submit-place-button'
     .col-xs-6.col-md-2
       = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
+
+:javascript
+  window.is_event = #{@place.event};
+  window.start_date = '#{@place.start_date}';
+  window.end_date = '#{@place.end_date}';
+  window.with_end_date = #{@place.end_date.present?}
+
+  jQuery(function() {
+    if (window.is_event == true) {
+      var start_date = moment(window.start_date).utc().format('DD-MM-YYYY HH:mm');
+      var end_date = moment(window.end_date).utc().format('DD-MM-YYYY HH:mm');
+      var date_string = end_date ? start_date + ' - ' + end_date : start_date
+
+      jQuery('#place_start_date')
+      .prop('disabled', false)
+      .val(date_string)
+      .trigger('change')
+      .daterangepicker({
+        "singleDatePicker": !window.with_end_date,
+        "showDropdowns": true,
+        "showWeekNumbers": true,
+        "timePicker": true,
+        "timePicker24Hour": true,
+        "timePickerIncrement": 15,
+        "linkedCalendars": false,
+        "showCustomRangeLabel": false,
+        "locale": {
+          format: 'DD.MM.YYYY h:mm A'
+        }
+      });
+    }
+  });

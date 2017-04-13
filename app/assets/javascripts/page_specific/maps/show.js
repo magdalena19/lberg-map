@@ -54,8 +54,8 @@ jQuery(function() {
 
     jQuery('body').on('click', '.delete-place', function() {
       var placeId = jQuery(this).attr('place_id');
-      var panel = jQuery('#heading' + placeId).parent();
       var confirm_delete = confirm(window.delete_confirmation_text);
+      var panel = jQuery('#heading' + placeId).parent();
 
       if (confirm_delete == true) {
         jQuery.ajax({
@@ -63,6 +63,7 @@ jQuery(function() {
           type: 'DELETE',
           success: function(result) {
             panel.fadeOut(350, function() { jQuery(this).remove() });
+            updatePlaces(result)
           }
         });
       }
@@ -98,7 +99,7 @@ jQuery(function() {
       });
       var marker = L.geoJson(json, {
         pointToLayer: function (feature, latlng) {
-          return L.marker(latlng, {icon: icon});
+          return L.marker(latlng, {icon: icon, bla: 'blubb'});
         },
         onEachFeature: onEachFeature
       });

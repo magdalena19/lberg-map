@@ -23,6 +23,7 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import 'font-awesome';
 @import 'colors';
 
 noscript {
@@ -99,6 +100,16 @@ noscript {
   float: left;
   padding-left: 3px;
   margin-right: 10px;
+}
+
+.toggle-login {
+  line-height: 40px;
+  padding-left: 20px;
+  font-size: large;
+  a {
+    color: $lilac;
+    font-weight: bolder;
+  }
 }
 
 .navbar  {

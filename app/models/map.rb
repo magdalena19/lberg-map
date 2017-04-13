@@ -71,6 +71,10 @@ class Map < ActiveRecord::Base
     !is_public?
   end
 
+  def owner
+    user
+  end
+
   private
 
   def sanitize_imprint

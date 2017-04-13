@@ -3,8 +3,7 @@ feature 'Navbar', :js do
     map = create :map, :full_public
     visit map_path(map_token: map.secret_token)
 
-    within('#navbar') do
-      expect(page).to have_css('.glyphicon-pencil')
-    end
+    find('.fa-map-o').trigger('click')
+    expect(page).to have_content('Map settings')
   end
 end

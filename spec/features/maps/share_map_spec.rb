@@ -1,7 +1,7 @@
-feature 'Share map', js: true do
+feature 'Share map', :js do
   let(:map) { create :map, :full_public }
 
-  scenario 'as privileged guest user via secret link' do
+  scenario 'as privileged guest user via secret link', js_errors: false do
     visit share_map_path(map_token: map.secret_token)
     
     fill_in('map_guests', with: 'foo@bar.org, schnabel@tier.org')

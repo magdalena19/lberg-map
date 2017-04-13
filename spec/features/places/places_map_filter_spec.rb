@@ -64,8 +64,12 @@ feature 'Places map filter', js: true do
     expect(page).to have_content 'Mr Bean'
   end
 
+<<<<<<< HEAD
   scenario 'wrong word input does not find any place' do
     skip "Works live, spec fails"
+=======
+  scenario 'wrong word input does not find any place', js_errors: false do
+>>>>>>> 86ef8a7... Partially disable JS errors
     fill_in('search-input', with: 'sdijfdihjgudfhugfhdudg')
 
     binding.pry

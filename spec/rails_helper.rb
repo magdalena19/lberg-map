@@ -48,7 +48,7 @@ end
 
 # CAPYBARA configuration
 Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, phantomjs_options: ['--ignore-ssl-errors=true'])
+    Capybara::Poltergeist::Driver.new(app, phantomjs_options: ['--ignore-ssl-errors=true'], js_errors: false)
 end
 
 Capybara.configure do |config|
@@ -59,6 +59,22 @@ Capybara.configure do |config|
 end
 
 RSpec.configure do |config|
+  # config.around(:each) do |example|
+  #   js_error_protection = page.driver.browser.instance_variable_get(:@js_errors)
+  #
+  #   if example.metadata.has_key?(:js_errors)
+  #     page.driver.browser.js_errors = example.metadata[:js_errors]
+  #   end
+  #
+  #   example.run
+  #
+  #   page.driver.browser.js_errors = js_error_protection
+  # end
+
+  config.before(:each) do
+    create :settings
+  end
+
   config.use_transactional_fixtures = false
 
   config.before(:suite) do

@@ -15,7 +15,7 @@
 }
 
 .places-list-panel {
-  background: rgba(white, 0.3);
+  background-color: rgba(white, 0.3);
   top: 40px;
   height: 100%;
   width: 25%;
@@ -30,14 +30,25 @@
     background-color: $lilac !important;
     padding: 7px 14px;
     border: none !important;
+
+    &:hover {
+      background-color: lighten($lilac, 5) !important;
+      cursor: pointer;
+    }
+
     .panel-title {
       font-size: 15px !important;
     }
+
     .name {
       color: white;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    a {
+      text-decoration: none;
     }
   }
 

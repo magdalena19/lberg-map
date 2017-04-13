@@ -33,7 +33,8 @@
   .panel-heading{role: 'tab'}
     %h4.panel-title
       .glyphicon.place_type.pull-left
-      %a.collapsed{'aria-expanded' => 'false', 'data-parent' => '#accordion', 'data-toggle' => 'collapse', role: 'button'}
+      .glyphicon.glyphicon-triangle-bottom.pull-right{style: 'color: white'}
+      %a.toggle_place_details.collapsed{'aria-expanded' => 'false', 'data-parent' => '#accordion', 'data-toggle' => 'collapse', role: 'button'}
         .name
   .panel-collapse.collapse{role: 'tabpanel'}
     .panel-body

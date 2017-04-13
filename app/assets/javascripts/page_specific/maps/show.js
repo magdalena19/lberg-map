@@ -241,6 +241,8 @@ jQuery(function() {
     // FILL PLACES LIST
     var addToPlacesList = function(feature) {
       var item = jQuery('.places-list-item.template').clone();
+      var contact = item.find('.contact-container');
+
       item.removeClass('template');
       item.find('.panel-heading').attr('id', 'heading' + feature.id);
       item.find('a')
@@ -262,6 +264,10 @@ jQuery(function() {
       var contact = item.find('.contact-container');
       var event_container = item.find('.event-container');
 
+      // Add place information sub-panels
+      if(feature.properties.address !== '') {
+        contact.append("<div class='contact'><div class='glyphicon glyphicon-record'></div>" + feature.properties.address + "</div>");
+      }
       if(feature.properties.phone !== '') {
         contact.append("<div class='contact'><div class='glyphicon glyphicon-earphone'></div>" + feature.properties.phone + "</div>");
       }
@@ -270,9 +276,6 @@ jQuery(function() {
       }
       if(feature.properties.homepage !== '') {
         contact.append("<div class='contact'><div class='glyphicon glyphicon-home'></div>" + feature.properties.homepage + "</div>");
-      }
-      if(feature.properties.address !== '') {
-        contact.append("<div class='contact'><div class='glyphicon glyphicon-record'></div>" + feature.properties.address + "</div>");
       }
       if(feature.start_date !== null) {
         moment.locale('en');

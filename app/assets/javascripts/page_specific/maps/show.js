@@ -104,7 +104,7 @@ jQuery(function() {
       });
       cluster.addLayer(marker);
       map.addLayer(cluster);
-      map.fitBounds(cluster.getBounds());
+      if (json.length > 0) { map.fitBounds(cluster.getBounds()); }
     };
 
     // TEXT FILTER

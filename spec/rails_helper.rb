@@ -59,10 +59,6 @@ Capybara.configure do |config|
 end
 
 RSpec.configure do |config|
-  config.before(:each) do
-    create :settings
-  end
-
   config.use_transactional_fixtures = false
 
   config.before(:suite) do
@@ -84,6 +80,7 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.start
     stub_autotranslation
+    create :settings
   end
 
   config.after(:each) do

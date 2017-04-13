@@ -40,3 +40,6 @@ de:
       admin_link: 'Administrations-link'
       share_map: 'Karte teilen'
       admin_link_warning: 'Achtung: Leute mit diesem Link haben volle Zugriffsrechte!'
+    sidepanel:
+      filter_by_date: 'Suche events'
+

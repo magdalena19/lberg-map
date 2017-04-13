@@ -74,7 +74,9 @@ class Place < ActiveRecord::Base
 
   ## VIRTUAL ATTRIBUTES
   def address
-    ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')
+    address = ["#{street} #{house_number}", "#{postal_code} #{city}"].select { |e| !e.strip.empty? }.join(', ')
+    address + " (#{district})" if district
+    return address
   end
 
   ## MODEL AUDITING
@@ -98,24 +100,32 @@ class Place < ActiveRecord::Base
         coordinates: [longitude, latitude],
       },
       properties: properties,
+      is_event: event,
+      start_date: start_date,
+      end_date: end_date
     }
   end
 
   def properties
     {
-      id: id,
+      # id: id,
+      name: name,
       address: address,
+      district: district,
+      federal_state: federal_state,
+      country: country,
       phone: phone,
       email: email,
-      name: name,
-      homepage: self.homepage,
-      homepage_full_domain: homepage,
+      homepage: homepage,
+      # homepage_full_domain: homepage,
       description: reviewed_description.html_safe,
-      translation_auto_translated: translation_from_current_locale.auto_translated,
-      translation_reviewed: translation_from_current_locale.reviewed,
-      category_names: category_names.join(' | '),
-      categories: category_ids,
-      reviewed: reviewed
+      # translation_auto_translated: translation_from_current_locale.auto_translated,
+      # translation_reviewed: translation_from_current_locale.reviewed,
+      category_names: category_names.join(' | ')
+      # categories: category_ids,
+      # reviewed: reviewed
+      # start_date: start_date,
+      # end_date: end_date
     }
   end
 end

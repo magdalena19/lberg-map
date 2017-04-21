@@ -9,7 +9,7 @@ jQuery(function() {
   jQuery('#map').each(function() {
     var lat = randomFloatBetween(-70, 70);
     var lon = randomFloatBetween(00, 180);
-    addEsriMap([lat, lon], 2);
+    addEsriMap([lat, lon], 5);
   });
 
   // HIDE NAVBAR ELEMENTS

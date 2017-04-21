@@ -19,7 +19,7 @@ jQuery(function() {
       maxZoom: 18
     });
 
-    $.ajax({
+    jQuery.ajax({
       url: MAIN_TILE_SERVER_TEST,
       success: function(result) {
         addMap(map, MAIN_TILE_SERVER, center, zoom);

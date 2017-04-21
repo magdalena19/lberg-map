@@ -56,7 +56,10 @@ FactoryGirl.define do
     factory :event do
       event true
       reviewed true
+      name 'SomeEvent'
       categories 'Playground,Hospital'
+      start_date { Date.today - 10 }
+      end_date { Date.today - 5 }
 
       trait :past do
         name 'PastEvent'
@@ -74,6 +77,10 @@ FactoryGirl.define do
         name 'FutureEvent'
         start_date { Date.today + 1 }
         end_date { Date.today + 5 }
+      end
+
+      trait :unreviewed do
+        reviewed false
       end
     end
   end

@@ -33,13 +33,33 @@ class Map < ActiveRecord::Base
     end
   end
 
+  def all_places
+    places.reject(&:event)
+  end
+
+  def all_events
+    places.select(&:event)
+  end
+
+  def reviewed_events
+    all_events.map(&:reviewed_version).compact
+  end
+
   def reviewed_places
-    places.all.map(&:reviewed_version).compact
+    all_places.map(&:reviewed_version).compact
   end
 
   def unreviewed_places
-    unreviewed_places = places.all.find_all(&:unreviewed_version)
+    unreviewed_places = all_places.reject(&:reviewed)
     places_to_review = unreviewed_places.map do |p|
+      p.reviewed_version || p.unreviewed_version
+    end
+    places_to_review.sort_by(&:updated_at).reverse
+  end
+
+  def unreviewed_events
+    unreviewed_events = all_events.reject(&:reviewed)
+    places_to_review = unreviewed_events.map do |p|
       p.reviewed_version || p.unreviewed_version
     end
     places_to_review.sort_by(&:updated_at).reverse

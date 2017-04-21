@@ -1,8 +1,8 @@
-.col-xs-12.col-lg-4.col-md-4{class: map_panel_header_class(map: map)}
+.col-lg-4.col-md-4
   .panel.panel-default.map-panel
 
     -# HEADER
-    .panel-heading.map-panel-heading{data: { 'map-token' => map.secret_token }}
+    .panel-heading{data: { 'map-token' => map.secret_token }}
       .col-xs-8
         = map.title.present? ? map.title : t('.no_title')
       .col-xs-4.map_buttons_container
@@ -17,17 +17,36 @@
 
     -# BODY
     .panel-body
-      .map_specs
-        %p
-          = map.is_public? ? t('.public_map') : t('.private_map')
-          = "("
-          = map.allow_guest_commits? ? t('.guest_commits_allowed') : t('.guest_commits_not_allowed')
-          = ")"
-        %p
-          = map.auto_translate ? t('.autotranslation_on') + " #{map.translation_engine.capitalize}" : t('.autotranslation_off')
-      .go_to_map
-        = link_to map_url(map_token: map.secret_token) do
-          %span.glyphicon.fa.fa-share
+      .content
+        .map-access-level-container
+          %div{class: map_access_level(map: map)}
+            .glyphicon.fa-universal-access.pull-left
+            = map.is_public? ? t('.public_map') : t('.private_map')
+        .map-access-level-container
+          - if map.allow_guest_commits
+            .allow_guest_commits
+              .glyphicon.glyphicon-pencil.pull-left
+              = "#{map.allow_guest_commits? ? t('.guest_commits_allowed') : t('.guest_commits_not_allowed') }"
+
+        .map-specs
+          %p
+            .glyphicon.fa.fa-map-marker
+            = t('.number_of_places', total: map.all_places.count)
+            = link_to t('.unreviewed', total: map.unreviewed_places.count), places_review_index_path(map_token: map.secret_token) if map.allow_guest_commits && map.unreviewed_places.any?
+          %p
+            .glyphicon.fa.fa-calendar
+            = t('.number_of_events', total: map.all_events.count)
+            = link_to t('.unreviewed', total: map.unreviewed_events.count), places_review_index_path(map_token: map.secret_token) if map.allow_guest_commits && map.unreviewed_events.any?
+
+          %hr
+          %p
+            .glyphicon.fa.fa-globe
+            = map.auto_translate ? t('.autotranslation_on') + " (#{map.translation_engine.capitalize})" : t('(.autotranslation_off')
+
+    -# FOOTER
+    = link_to map_url(map_token: map.secret_token) do
+      .panel-footer.text-center
+        = t('.show_map')
 
   .spacer-row
 
@@ -37,15 +56,15 @@
     .modal-content
       .modal-header
         %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
-        %h4.modal-title= "Description for '#{map.title}'"
+        %h4.modal-title= t('.map_description', title: map.title)
       .modal-body
         %p= map.description.html_safe
         %hr
 
         .small
           %p
-            %b Guest link:
+            %b= t('.public_link')
             %span= link_to map_url(map_token: map.public_token) if map.is_public?
           %p
-            %b Admin_link:
+            %b= t('.admin_link')
             %span= link_to map_url(map_token: map.secret_token)

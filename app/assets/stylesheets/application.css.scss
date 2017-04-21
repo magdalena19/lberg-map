@@ -42,7 +42,7 @@ noscript {
 }
 
 .container {
-  padding-bottom: 20px;
+  padding-bottom: 70px;
 }
 
 .navbar-container {
@@ -84,6 +84,7 @@ noscript {
   font-size: 30px;
   font-weight: bold;
   letter-spacing: -1px;
+  float: left;
   &:hover {
     text-decoration: none;
   }
@@ -188,6 +189,21 @@ noscript {
   }
 }
 
+// FOOTER
+.footer {
+  background-color: rgba(darken($lilac, 50%),0.8);
+  height: 40px;
+  * {
+    line-height: 40px;
+    vertical-align: middle;
+    color: $green;
+    &:hover {
+      color: $green;
+    }
+  }
+}
+
+// BUTTONS
 .full-width {
   width: 100%;
 }

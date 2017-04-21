@@ -4,6 +4,7 @@ feature 'Create Map', js: true do
       login_as_user
       visit new_map_path
       fill_in_valid_map_attributes
+      execute_script("jQuery('.footer').css('display', 'none')") # circumvent button finding prob
       click_on('Create Map')
       map = Map.find_by(secret_token: 'secret_token')
 

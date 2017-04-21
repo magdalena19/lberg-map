@@ -1,0 +1,11 @@
+.tab-pane#language_settings
+  .map_language_settings
+    .row
+      .spacer-row
+      .col-xs-8
+        .checkbox
+          %label
+            = f.check_box :auto_translate
+          = t('.auto_translate')
+      .col-xs-4
+        = f.collection_select :translation_engine, Admin::Setting.translation_engines, :to_s, :humanize

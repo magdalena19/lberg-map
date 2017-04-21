@@ -1,0 +1,42 @@
+.tab-pane#publication_settings
+  .row
+    .spacer-row
+    .col-xs-12
+      .checkbox
+        %label
+          = f.check_box :is_public
+        = t('.is_public')
+
+  .map-public-settings
+    .row
+      .spacer-row
+      .col-md-12
+        %fieldset{class: "#{'has-error' if f.object.errors.include?(:public_token)}"}
+          .row
+            .col-xs-12
+              = f.label :public_token, t('.public_link')
+            .col-xs-12
+              .input-group
+                %span.input-group-addon#addon_public= request.base_url
+                = f.text_field :public_token, value: SecureRandom.urlsafe_base64(24), class: 'form-control', placeholder: t('.public_token'), aria: { describedby: '#addon_public'}
+
+    .row
+      .spacer-row
+      .col-xs-6
+        = f.label :maintainer_email_address, t('.maintainer_email_address')
+        = f.text_field :maintainer_email_address, class: 'form-control'
+    .row
+      .spacer-row
+      .col-md-12
+        %fieldset.input-group
+          .description-editor
+            = f.label :imprint, t('.imprint')
+            = f.text_area :imprint, class: "wysihtml5 description-area"
+
+    .row
+      .spacer-row
+      .col-xs-12
+        .checkbox
+          %label
+            = f.check_box :allow_guest_commits
+          = t('.allow_guest_commits')

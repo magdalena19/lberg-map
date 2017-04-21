@@ -1,0 +1,31 @@
+.tab-pane.fade.in.active#base_settings
+  .row
+    .spacer-row
+    .col-md-12
+      %fieldset{class: "#{'has-error' if f.object.errors.include?(:secret_token)}"}
+        .row
+          .col-xs-12
+            = f.label :secret_token, t('.secret_link')
+          .col-xs-12
+            .input-group
+              %span.input-group-addon#addon_secret= request.base_url
+              = f.text_field :secret_token, value: SecureRandom.urlsafe_base64(24), class: 'form-control', placeholder: t('.secret_token'), aria: { describedby: '#addon_secret'}
+
+  .row
+    .spacer-row
+    .col-md-12
+      %fieldset.input-group.row{class: "#{'has-error' if f.object.errors.include?(:maintainer_email_address)}"}
+        .col-xs-12
+          = f.label :title, t('.title')
+          = f.text_field :title, placeholder: t('.title_placeholder'), class: 'form-control'
+
+      .spacer-row
+      %fieldset.input-group.row
+        .col-xs-12
+          .description-editor
+            = f.label :description, t('.description')
+            = f.text_area :description, class: "wysihtml5 description-area"
+
+  .row
+    .col-md-6
+      = show_simple_captcha unless @current_user.signed_in?

@@ -1,0 +1,28 @@
+@import 'colors';
+
+.header-row {
+  color: $lilac;
+  font-weight: bold;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-size: 20px;
+
+  .toggle-switch {
+    cursor: pointer;
+    &:hover {
+      color: darken($lilac, 20)
+    }
+  }
+}
+
+.contact-information {
+  display: none;
+}
+
+.date-information {
+  display: none;
+}
+
+.button-row {
+  padding-top: 20px;
+}

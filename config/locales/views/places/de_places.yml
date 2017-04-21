@@ -18,6 +18,8 @@ de:
       contact_data: 'Kontaktdaten'
       place_categories: 'Stichworte'
       categories_placeholder: 'Füge deinem Ort / Event Stichworte hinzu'
+      place_descriptions: 'Beschreibung'
+      date_information: 'Angaben zum Datum'
     edit:
       edit: 'Bearbeiten'
     index:

@@ -52,6 +52,18 @@ jQuery(function() {
     jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
   });
 
+  jQuery('.contact-information-header').click(function() {
+    jQuery('.contact-information').toggle();
+    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
+    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
+  });
+
+  jQuery('.date-information-header').click(function() {
+    jQuery('.date-information').toggle();
+    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
+    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
+  });
+
   // Deactivate "send copy to sender" option if no email address is present
   jQuery('#message_sender_email').on('input', function(val){
     var current_value = $(this).val();

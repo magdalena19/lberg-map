@@ -18,6 +18,8 @@ en:
       contact_data: 'Contact information'
       place_categories: 'Tags'
       categories_placeholder: 'Add some tags to your place/event'
+      place_descriptions: 'Description'
+      date_information: 'Date information'
     edit:
       edit: 'Edit place'
     index:

@@ -5,7 +5,8 @@
         .red currently under review
 
     .col-md-6
-      %h4= t('.address_data')
+      %h4.header-row= t('.address_data')
+
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
         .col-xs-12
           = f.label :name, t('.place_name') + '*'
@@ -28,49 +29,54 @@
           = f.text_field :city, class: 'form-control', value: @geocoded ? @geocoded[:city] : @place.city, disabled: @place.unreviewed_version
 
 
-      %hr
-      %h4= t('.contact_data')
-      %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:phone) || f.object.errors.include?(:email) || f.object.errors.include?(:homepage)}"}
-        .col-sm-4
-          = f.label :phone, t('.phone')
-          = f.text_field :phone, class: 'form-control', disabled: @place.unreviewed_version
-        .col-sm-4
-          = f.label :email, t('.email')
-          = f.text_field :email, class: 'form-control', disabled: @place.unreviewed_version
-        .col-sm-4
-          = f.label :homepage, t('.homepage')
-          = f.text_field :homepage, class: 'form-control', disabled: @place.unreviewed_version
+      %h4.header-row.contact-information-header
+        .toggle-switch
+          = t('.contact_data')
+          %span.glyphicon.glyphicon-triangle-bottom{style: 'font-size: 16px;'}
+
+      .contact-information
+        %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:phone) || f.object.errors.include?(:email) || f.object.errors.include?(:homepage)}"}
+          .col-sm-4
+            = f.label :phone, t('.phone')
+            = f.text_field :phone, class: 'form-control', disabled: @place.unreviewed_version
+          .col-sm-4
+            = f.label :email, t('.email')
+            = f.text_field :email, class: 'form-control', disabled: @place.unreviewed_version
+          .col-sm-4
+            = f.label :homepage, t('.homepage')
+            = f.text_field :homepage, class: 'form-control', disabled: @place.unreviewed_version
 
   .row
     .col-md-6
-      %hr
-      .row{id: 'place_event_toggle'}
-        .col-xs-1
-          = f.radio_button :event, false, disabled: @place.unreviewed_version, id: 'is_place', checked: !@place.event || true
-        .col-xs-11
-          = f.label :event, t('.is_place')
-        .col-xs-1
-          = f.radio_button :event, true, disabled: @place.unreviewed_version, id: 'is_event', checked: @place.event || false
-        .col-xs-11
-          = f.label :event, t('.is_event')
+      %h4.header-row.date-information-header
+        .toggle-switch
+          = t('.date_information')
+          %span.glyphicon.glyphicon-triangle-bottom{style: 'font-size: 16px;'}
+      .date-information
+        .row{id: 'place_event_toggle'}
+          .col-xs-1
+            = f.radio_button :event, false, disabled: @place.unreviewed_version, id: 'is_place', checked: !@place.event || true
+          .col-xs-11
+            = f.label :event, t('.is_place')
+          .col-xs-1
+            = f.radio_button :event, true, disabled: @place.unreviewed_version, id: 'is_event', checked: @place.event || false
+          .col-xs-11
+            = f.label :event, t('.is_event')
 
-      .input-group.form_group.col-xs-12#place_date_form
-        = f.text_field :start_date, class: 'form-control daterange', disabled: @place ? !@place.event? : true
-        %span#end_date_toggle.input-group-addon
-          %input#set_end_date{type: 'checkbox', checked: @place.end_date.present? }
-        %span#end_date_descr.input-group-addon= t('.set_end_date')
-  .row
-    %hr
+        .input-group.form_group.col-xs-12#place_date_form
+          = f.text_field :start_date, class: 'form-control daterange', disabled: @place ? !@place.event? : true
+          %span#end_date_toggle.input-group-addon
+            %input#set_end_date{type: 'checkbox', checked: @place.end_date.present? }
+          %span#end_date_descr.input-group-addon= t('.set_end_date')
 
   .row
     .col-xs-12
-      %h4= t('.place_categories')
+      %h4.header-row= t('.place_categories')
       = f.text_field :categories, placeholder: t('.categories_placeholder'), class: 'form-control category-input', disabled: @place.unreviewed_version, value: (@place.categories ? @place.category_names.join(', ') : nil), data: { 'list' => (@map.category_names_list) }, autocomplete: :off
 
   .row
-    %hr
-
-  .row
+    .col-xs-12
+      %h4.header-row= t('.place_descriptions')
     - I18n.available_locales.in_groups_of(2, false).each do |group|
       - group.each do |lang|
         - locale != lang ? hidden = 'hidden-description' : hidden = ''
@@ -80,9 +86,11 @@
           .description-header
             %h4= t(column)
             - if locale != lang
-              %h4.description-header.glyphicon.glyphicon-triangle-bottom
+              %h4.description-header
+                %span.glyphicon.glyphicon-triangle-top{style: 'font-size: 14px;'}
             - else
-              %h4.description-header.glyphicon.glyphicon-triangle-top
+              %h4.description-header
+                %span.glyphicon.glyphicon-triangle-bottom{style: 'font-size: 14px;'}
           .description-editor{dir: "#{'rtl' if lang == 'ar'}", class: hidden}
             - if translation && translation.versions.length > 1
               %br
@@ -95,15 +103,12 @@
               = f.text_area column.to_sym, class: "wysihtml5 description-area #{column}"
 
   .row
-    %hr
 
   .row
     .col-md-6
       = show_simple_captcha unless @current_user.signed_in?
-  .row
-    .submit-process-bar.text-center
-      = render 'layouts/loading'
-    .col-xs-6
+  .row.button-row
+    .col-xs-3.col-md-2
       = f.hidden_field :latitude, value: params[:latitude]
       = f.hidden_field :longitude, value: params[:longitude]
       - if @geocoded
@@ -111,7 +116,7 @@
         = f.hidden_field :federal_state, value: @place.federal_state || @geocoded[:federal_state]
         = f.hidden_field :country, value: @place.country || @geocoded[:country]
       = f.submit class: 'btn btn-primary btn-success place-form-button submit-place-button'
-    .col-xs-6.col-md-2
+    .col-xs-3.col-md-2
       = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
 
 :javascript

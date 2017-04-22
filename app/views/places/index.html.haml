@@ -4,12 +4,6 @@
   = t('.places')
 
 .container
-  .btn.btn-success.category-toggle.active{'data-category' => 'all'}
-    = t('.categories.all_categories')
-  - Category.all.each do |c|
-    .btn.btn-default.category-toggle{'data-category' => c.id}
-      = c.name
-
   %table#places.display.responsive.no-wrap.compact{cellspacing: '0', width: '100%'}
     %thead
       %tr
@@ -43,20 +37,18 @@
           %td
             = category_names(place)
           %td
-            = link_to root_path(latitude: place.latitude, longitude: place.longitude) do
-              %span{class: 'glyphicon glyphicon-share-alt zoom-to-place'}
             - if place.reviewed? && can_contribute?
-              = link_to edit_place_path(place), style: 'text-decoration: none' do
+              = link_to edit_place_path(place, map_token: request[:map_token]), style: 'text-decoration: none' do
                 %span{class: 'glyphicon glyphicon-pencil'}
             - else
               - if @current_user.signed_in?
-                = link_to review_place_path(place), style: 'color: #ff6666; text-decoration: none' do
+                = link_to review_place_path(place, map_token: request[:map_token]), style: 'color: #ff6666; text-decoration: none' do
                   %span{class: 'glyphicon glyphicon-eye-open'}
               - else
                 %span{class: 'glyphicon glyphicon-eye-open', style: 'color: #AB756B;'}
 
             - if @current_user.signed_in?
-              = link_to place_path(place), {method: 'delete', data: { confirm: t('.confirm_delete') }} do
+              = link_to place_path(place, map_token: request[:map_token]), {method: 'delete', data: { confirm: t('.confirm_delete') }} do
                 %span{class: 'glyphicon glyphicon-trash'}
           %td
             = place.address

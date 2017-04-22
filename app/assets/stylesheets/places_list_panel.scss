@@ -4,8 +4,18 @@
   display: none;
 }
 
+.toggle-panel {
+  top: 50%;
+  background: rgba(white, 0.6);
+  padding: 10px 5px;
+  color: $grey;
+  font-size: 22px;
+  display: none;
+  cursor: pointer;
+}
+
 .places-list-panel {
-  background: rgba(white, 0.3);
+  background-color: rgba(white, 0.3);
   top: 40px;
   height: 100%;
   width: 25%;
@@ -20,23 +30,37 @@
     background-color: $lilac !important;
     padding: 7px 14px;
     border: none !important;
+
+    &:hover {
+      background-color: lighten($lilac, 5) !important;
+      cursor: pointer;
+    }
+
     .panel-title {
       font-size: 15px !important;
     }
+
     .name {
       color: white;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .place_type {
+    padding-right: 10px;
+    color: darken($lilac, 25%);
   }
 
   .panel-body {
     padding: 7px 14px;
     font-size: 12px;
-    .description {
-      margin: 7px 0;
-    }
+
     .contact {
       white-space: nowrap;
       overflow: hidden;
@@ -50,22 +74,44 @@
         color: darken($green, 30%);
       }
     }
+
+    .event {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 3px 8px;
+      margin-top: 2px;
+      background-color: lighten($grey, 40%);
+      border-radius: 4px;
+      .glyphicon {
+        padding-right: 5px;
+        color: darken($grey, 20%);
+      }
+    }
+
+    .description {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 15px;
+      margin-top: 2px;
+      margin-bottom: 5px;
+      background-color: lighten($grey, 50%);
+      border: 1px solid lighten($grey, 30%);
+      border-radius: 4px;
+    }
   }
 
   @media (max-width: 600px) {
-    width: 100%;
+    width: calc(100% - 30px);
     min-width: 0;
   }
 
   .bottom-icons {
     float: right;
-    margin: 10px;
-    .show-map {
-      font-size: 24px;
-      visibility: hidden;
-      @media (max-width: 700px) {
-        visibility: visible;
-      }
+    margin-top: 10px;
+    .edit-place {
+      padding-left: 10px;
     }
   }
   .category-names {
@@ -77,7 +123,22 @@
   }
 
   .search-field {
-    padding: 15px;
+    padding-bottom: 15px;
+  }
+
+  .input-icon {
+    position: absolute;
+    right: 22px;
+    top: 8px;
+    z-index: 9999;
+    font-size: 18px;
+    color: $grey;
+  }
+
+  .add-date-filter {
+    cursor: pointer;
+    font-size: 18px;
+    color: $grey;
   }
 
   .places-list-accordion-container {

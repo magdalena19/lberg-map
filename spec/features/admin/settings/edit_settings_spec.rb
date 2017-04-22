@@ -1,60 +1,12 @@
-feature 'Configure application' do
-  before do
-    create :settings, :public
-  end
-
-  scenario 'it can update settings via form', :js do
+feature 'Configure application', :js do
+  scenario 'can update settings' do
     login_as_admin
     visit admin_settings_path
-    fill_in('admin_setting_app_title', with: 'SomeAppTitle')
-    click_on('Update Setting')
-    expect(Admin::Setting.app_title).to eq('SomeAppTitle')
-  end
+    fill_in('admin_setting_app_title', with: 'SomeTitle')
+    fill_in('admin_setting_admin_email_address', with: 'foo@bar.org')
+    click_on('Update settings')
 
-  scenario 'it can select another translation engine', :js do
-    create :settings, translation_engine: 'bing'
-    login_as_admin
-    visit admin_settings_path
-    find('#admin_setting_translation_engine').find(:xpath, 'option[3]').select_option
-    click_on('Update Setting')
-    expect(Admin::Setting.translation_engine).to eq('yandex')
-  end
-
-  scenario 'it can set map semi-public', :js do
-    create :settings, :public
-    login_as_admin
-    visit admin_settings_path
-    page.find('#admin_setting_allow_guest_commits').trigger('click')
-    click_on('Update Setting')
-    visit '/en/logout'
-    visit '/en'
-
-    expect(Admin::Setting.allow_guest_commits).to be false
-    expect(page).not_to have_css('.place-control-container')
-  end
-
-  scenario 'it can set app title', :js do
-    create :settings, :public
-    login_as_admin
-    visit admin_settings_path
-    fill_in('admin_setting_app_title', with: 'SOMETHING DIFFERENT')
-    click_on('Update Setting')
-    visit '/en/logout'
-    visit '/en'
-
-    expect(page.title).to eq 'SOMETHING DIFFERENT'
-    expect(page).to have_css('.logo', text: 'SOMETHING DIFFERENT')
-  end
-
-  scenario 'it can set maintainer email address', :js do
-    create :settings, :public, maintainer_email_address: 'foo@bar.org'
-    login_as_admin
-    visit admin_settings_path
-    fill_in('admin_setting_maintainer_email_address', with: 'bar@foo.org')
-    click_on('Update Setting')
-    visit '/en/logout'
-    visit '/en'
-
-    expect(Admin::Setting.maintainer_email_address).to eq 'bar@foo.org'
+    expect(page).to have_css('input#admin_setting_app_title', exact: 'SomeTitle')
+    expect(page).to have_css('input#admin_setting_admin_email_address', exact: 'foo@bar.org')
   end
 end

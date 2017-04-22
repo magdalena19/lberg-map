@@ -1,0 +1,5 @@
+- content_for :header do
+  = t('.new')
+
+.container
+  = render partial: 'form', locals: { button_label: '.sign_up' }

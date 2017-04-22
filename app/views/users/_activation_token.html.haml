@@ -1,0 +1,6 @@
+.alert{class: "alert-#{token.redeemed ? 'danger' : 'success'}"}
+  %p.code{class: "code-#{token.redeemed ? 'redeemed' : 'valid'}"}
+    = token.token
+  - if token.redeemed
+    %p.redeem_date
+      = t('.redeemed_on') + ': ' + token.redeemed_on.to_s

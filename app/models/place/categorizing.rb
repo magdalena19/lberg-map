@@ -4,7 +4,7 @@ module Categorizing
   end
 
   def category_names
-    category_ids.map { |id| Category.find(id.to_s).name }
+    category_ids.map { |id| map.categories.find(id.to_s).name }
   end
 
   def category_ids
@@ -22,7 +22,7 @@ module Categorizing
       if matches.any?
         res << matches.map(&:id)
       else
-        new_category = Category.create name: category
+        new_category = map.categories.create name: category
         res << new_category.id
       end
     end
@@ -37,8 +37,8 @@ module Categorizing
   end
 
   def match_existing(category_string)
-    return [] unless Category.any?
-    Category.all.select do |category|
+    return [] unless map.categories.any?
+    map.categories.all.select do |category|
       translated_names = category.translations.map(&:name)
       translated_names.include? category_string
     end

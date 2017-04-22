@@ -11,15 +11,5 @@ describe AutoTranslate do
       place = build :place, :unreviewed
       expect(place).to respond_to(:auto_translate_empty_attributes)
     end
-
-    it 'Translates using correct translation engine wrapper' do
-      settings = create :settings, translation_engine: 'google', auto_translate: true
-
-      Sidekiq::Testing.inline! do
-        p = create :place, :unreviewed
-        expect(settings.translation_engine).to eq('google')
-        expect(p.reload.description_de).to eq 'stubbed autotranslation'
-      end
-    end
   end
 end

@@ -1,10 +1,6 @@
 require 'mass_seed_points'
 
 describe MassSeedPoints do
-  before do
-    create :settings
-  end
-
   it 'can generate 1 point in Berlin Lichtenberg' do
     expect {
       MassSeedPoints.generate(number_of_points: 1, city: 'Berlin, Lichtenberg')

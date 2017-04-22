@@ -1,6 +1,7 @@
 class TranslationsReviewController < ApplicationController
   before_action :require_login
   before_action :set_translation
+  before_action :set_map
 
   def review
     @reviewed_translation = reviewed_version(@unreviewed_translation)

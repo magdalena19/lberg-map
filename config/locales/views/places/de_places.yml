@@ -4,6 +4,20 @@ de:
     no_reviewed_description: 'Noch keine bestätigte Beschreibung'
     form:
       auto_translated: 'Automatische Übersetzung'
+      is_event: 'Ein Event eintragen'
+      is_place: 'Einen festen Ort eintragen'
+      set_end_date: 'Ende festlegen'
+      place_name: 'Name'
+      street: 'Straße'
+      postal_code: 'Postleitzahl'
+      city: 'Stadt'
+      phone: 'Telefon'
+      email: 'Email'
+      homepage: 'Homepage'
+      address_data: 'Name und Addresse'
+      contact_data: 'Kontaktdaten'
+      place_categories: 'Stichworte'
+      categories_placeholder: 'Füge deinem Ort / Event Stichworte hinzu'
     edit:
       edit: 'Bearbeiten'
     index:

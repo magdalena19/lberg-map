@@ -3,14 +3,16 @@ require 'auto_translation/auto_translate'
 class Category < ActiveRecord::Base
   include AutoTranslate
 
+  belongs_to :map
+
   translates :name
   globalize_accessors
 
   before_create :prepare_for_autotranslation
-  after_create :enqueue_auto_translation
+  after_create :enqueue_auto_translation, if: 'map.auto_translate'
 
   def enqueue_auto_translation
-    TranslationWorker.perform_async('Category', id) if Admin::Setting.auto_translate
+    TranslationWorker.perform_async('Category', id)
   end
 
   # Set all name columns to empty in order to create translation records on create
@@ -19,16 +21,5 @@ class Category < ActiveRecord::Base
       next if send("name_#{locale}").present?
       send("name_#{locale}=", '')
     end
-  end
-
-  def self.list_names
-    Category.all.map(&:name).join(', ')
-  end
-
-  def self.id_for(category_string)
-    category = Category.all.find do |cat|
-      category_string.tr('_', ' ').casecmp(cat.name).zero?
-    end
-    category.id if category
   end
 end

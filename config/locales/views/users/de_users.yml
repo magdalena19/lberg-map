@@ -1,0 +1,28 @@
+de:
+  users:
+    form:
+      user_name: 'Name'
+      user_email: 'Email-Addresse'
+      user_password: 'Passwort'
+      user_password_confirm: 'Passwort bestätigen'
+      name_placeholder: 'Stella Lovelight'
+      email_placeholder: 'stella@lovelight.org'
+      edit: 'User-Daten ändern'
+      name_placeholder: 'User-Name'
+      email_placeholder: 'User-Email'
+      submit: 'Änderungen bestätigen'
+      back: 'Zurück'
+      sign_up: 'Register user'
+      update: 'Update credentials'
+      user_activation_tokens: 'Deine Registrierungs-Codes'
+      user_settings: 'User Einstellungen'
+      no_activation_tokens: 'Keine Registrierungs-Codes verfügbar'
+      activation_token_info: 'Du brauchst einen Registrierungs-Code, um dich anzumelden. Frag Freund_innen, die bereits hier einen Account haben, ob sie dir einen geben können. Wenn du niemanden kennst schreib deinen lokalen Admins eine Email, vielleicht können sie dir weiterhelfen!'
+    sign_up:
+      new: 'Neuen User registrieren'
+      activation_token: 'Registrierungs-Code'
+      email: 'Email-Adresse'
+      name: 'Name'
+      password: 'Passwort'
+      password_confirmation: 'Passwort bestätigen'
+      sign_up: 'Registrieren'

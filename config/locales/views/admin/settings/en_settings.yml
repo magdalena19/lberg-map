@@ -1,0 +1,8 @@
+en:
+  admin:
+    settings:
+      edit:
+        settings: 'Application settings'
+        app_title: 'Application title'
+        admin_email_address: 'Relay email address'
+        update_settings: 'Update settings'

@@ -3,6 +3,7 @@ require 'sanitize'
 class Announcement < ActiveRecord::Base
   include Sanitization
   belongs_to :user
+  belongs_to :map
 
   validates :header, :content, presence: true
   validates :header, length: { minimum: 5, maximum: 100 }

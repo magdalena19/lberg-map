@@ -1,17 +1,10 @@
 feature 'Reset password' do
   before do
-    create :settings, :public
     @user = create :user
     @user.create_digest_for(attribute: 'password_reset')
     @user.save
 
     visit reset_password_path id: @user.id, token: @user.password_reset_token
-  end
-
-  scenario 'Has all UI elements', js: true do
-    expect(page).to have_css("input[placeholder='New password']")
-    expect(page).to have_css("input[placeholder='Repeat new password']")
-    expect(page).to have_css("input[value='Reset password']")
   end
 
   scenario 'Resets password if inputs match', js: true do
@@ -37,8 +30,7 @@ feature 'Reset password' do
     fill_in('new_password_password_confirmation', with: 'i_do_not_match')
     click_on('Reset password')
 
-    expect(page).to have_css("input[placeholder='New password']")
-    expect(page).to have_css("input[placeholder='Repeat new password']")
-    expect(page).to have_css("input[value='Reset password']")
+    expect(page).to have_css('.alert-danger')
+    expect(page).to have_content('Passwords do not match')
   end
 end

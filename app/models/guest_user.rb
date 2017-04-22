@@ -18,4 +18,8 @@ class GuestUser
   def signed_in?
     false
   end
+
+  def registered?
+    false
+  end
 end

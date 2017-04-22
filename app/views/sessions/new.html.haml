@@ -11,6 +11,10 @@
     .row
       .col-sm-2.col-sm-offset-5
         = f.submit t('buttons.login'), class: 'btn btn-primary btn-success'
-    .row
-      .col-sm-2.col-sm-offset-5
+    .row{style: 'padding-top: 10px;'}
+      .col-sm-2.col-sm-offset-5.text-center
         = link_to t('forgot_password?'), request_password_reset_url
+    .row{style: 'padding-top: 10px;'}
+      .col-sm-4.col-sm-offset-4.text-center
+        %i
+          = t('.sign_up_info', link: link_to(t('.here'), sign_up_path)).html_safe

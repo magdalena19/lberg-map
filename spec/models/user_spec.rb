@@ -1,5 +1,14 @@
 describe User do
 
+  context 'General attributes' do
+    it 'Generates n activation tokens on create' do
+      create :settings, user_activation_tokens: 2
+      user = build :user
+      user.save
+      expect(user.activation_tokens.count).to be 2
+    end
+  end
+
   context 'Validations' do
     let(:user) { build :user }
 
@@ -16,6 +25,13 @@ describe User do
 
     it 'cannot add user with invalid email' do
       user.email = 'peokjwef@pokpwe'
+      expect(user).not_to be_valid
+    end
+
+    it 'cannot add user with duplicate email address' do
+      create :user, email: 'foo@bar.org'
+      user.email = 'foo@bar.org'
+
       expect(user).not_to be_valid
     end
   end
@@ -65,6 +81,17 @@ describe User do
 
     it "guest user is guest" do
       expect(guest_user.guest?).to be true
+    end
+  end
+
+  context 'Associations' do
+    it { is_expected.to have_many(:maps) }
+    it { is_expected.to have_many(:activation_tokens) }
+
+    it 'destroys associated activation tokens' do
+      user = create :user
+      expect{
+        user.destroy }.to change{ ActivationToken.count }.from(2).to(0)
     end
   end
 end

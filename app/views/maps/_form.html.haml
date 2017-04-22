@@ -1,0 +1,92 @@
+= form_for(@map, url: @url) do |f|
+  %ul.nav.nav-tabs
+    %li.nav.active
+      %a{'data-toggle' => 'tab', href: '#base_settings'}
+        = t('.base_settings')
+    %li.nav
+      %a{'data-toggle' => 'tab', href: '#privacy_settings'}
+        = t('.privacy_settings')
+
+  .tab-content
+    .tab-pane.fade.in.active{id: 'base_settings'}
+      .row
+        .spacer-row
+        .col-md-12
+          %fieldset{class: "#{'has-error' if f.object.errors.include?(:secret_token)}"}
+            .col-xs-12
+              = f.label :secret_token, t('.secret_link')
+            .col-xs-12.input-group
+              %span.input-group-addon#addon_secret= request.base_url
+              = f.text_field :secret_token, value: SecureRandom.urlsafe_base64(24), class: 'form-control', placeholder: t('.secret_token'), aria: { describedby: '#addon_secret'}
+
+      .row
+        .spacer-row
+        .col-md-12
+          %fieldset.input-group.row{class: "#{'has-error' if f.object.errors.include?(:maintainer_email_address)}"}
+            .col-xs-12
+              = f.text_field :title, placeholder: t('.title'), class: 'form-control'
+
+          .spacer-row
+          %fieldset.input-group.row
+            .col-xs-12
+              .description-editor
+                = f.text_area :description, class: "wysihtml5 description-area", placeholder: t('.description')
+
+      .row
+        .spacer-row
+        .col-md-12
+          .col-xs-1
+            = f.check_box :auto_translate
+          .col-xs-5
+            = f.label :auto_translate, t('.auto_translate')
+          .col-xs-5
+            = f.collection_select :translation_engine, Admin::Setting.translation_engines, :to_s, :humanize
+
+      .row
+        .col-md-6
+          = show_simple_captcha unless @current_user.signed_in?
+
+      .row
+        .spacer-row
+        .col-xs-2
+          = f.submit class: 'btn btn-primary btn-success place-form-button submit-place-button'
+        .col-xs-6.col-md-2
+          = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
+
+    .tab-pane{id: 'privacy_settings'}
+      .spacer-row
+      .row
+        .col-md-12
+          .col-xs-1
+            = f.check_box :is_public
+          .col-xs-11
+            = f.label :is_public, t('.is_public')
+
+      .map_public_settings
+        .spacer-row
+        .row
+          .col-md-12
+            %fieldset{class: "#{'has-error' if f.object.errors.include?(:public_token)}"}
+              .col-xs-12
+                = f.label :public_token, t('.public_link')
+              .col-xs-12.input-group
+                %span.input-group-addon#addon_public= request.base_url
+                = f.text_field :public_token, value: SecureRandom.urlsafe_base64(24), class: 'form-control', placeholder: t('.public_token'), aria: { describedby: '#addon_public'}
+
+        .row
+          .spacer-row
+          .col-xs-4
+            = f.text_field :maintainer_email_address, placeholder: t('.maintainer_email_address'), class: 'form-control'
+            .spacer-row
+          .col-md-12
+            %fieldset.input-group.row
+              .col-xs-12
+                .description-editor
+                  = f.text_area :imprint, class: "wysihtml5 description-area", placeholder: t('.imprint')
+
+        .row
+          .col-md-12
+            .col-xs-1
+              = f.check_box :allow_guest_commits
+            .col-xs-11
+              = f.label :allow_guest_commits, t('.allow_guest_commits')

@@ -8,15 +8,30 @@ en:
       announcement_panel:
         full_chronicle: 'see full chronicle'
     navbar:
+      dropdown:
+        admin_tasks: 'Administration'
+      navbar:
+        no_title: 'No title'
       user_dropdown:
         edit_user: 'User Settings'
-        log_out: 'Log out'
-      places_dropdown:
-        new_place: 'Create new place'
-        index_places: 'Find places'
-        review: 'Review'
+        log_out: 'Sign out'
       language_dropdown:
         language: 'Language'
       announcements_dropdown:
         manage: 'Manage announcements'
         create_announcement: 'Create new announcement'
+      admin_dropdown:
+        admin_tasks: 'Admin tasks'
+        user_management: 'Manage users'
+        app_settings: 'Global settings'
+      user_settings_dropdown:
+        user_settings: 'Personal settings'
+        account_settings: 'Account settings'
+      map_dropdown:
+        map_features: 'Map features'
+        maps_index: 'Map index'
+        share_map: 'Share map'
+        map_settings: 'Map settings'
+        new_place: 'Create new place'
+        index_places: 'Find places'
+        places_review_index: 'Review'

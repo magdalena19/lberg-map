@@ -60,13 +60,11 @@ jQuery(function() {
     } else {
       jQuery('.email_reply').hide(350);
     }
-  })
-  
-  // Place events
+  });
 
-  var picker = function() {
-    var with_end_date = jQuery('#set_end_date').is(':checked');
-    $('#place_start_date').daterangepicker({
+  // Place events
+  var picker = function(div, with_end_date) {
+    div.daterangepicker({
       "singleDatePicker": !with_end_date,
       "showDropdowns": true,
       "showWeekNumbers": true,
@@ -77,22 +75,47 @@ jQuery(function() {
       "showCustomRangeLabel": false,
       "locale": {
         format: 'DD.MM.YYYY h:mm A'
-      },
-    }, function(start, end, label) {
-      console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+      }
     });
-  }
+  };
 
-  jQuery('#place_event').on('click', function(){
-    var checked = $(this).is(':checked');
-    if (checked) {
-      jQuery('.place_start_date').show(350);
-      jQuery('.place_end_date').show(350);
-      picker();
+  jQuery('#is_place').on('click', function(){
+    jQuery('#place_start_date').prop('disabled', true);
+    jQuery('#set_end_date').prop('disabled', true);
+  });
+
+  jQuery('#is_event').on('click', function(){
+    jQuery('#place_start_date').prop('disabled', false);
+    jQuery('#set_end_date').prop('disabled', false);
+    picker(
+        jQuery('#place_start_date'),
+        jQuery('#set_end_date').is(':checked')
+        );
+  });
+
+  jQuery('#set_end_date').on('click', function(){
+    var with_end_date = jQuery(this).prop('checked');
+    var date_input = jQuery('#place_start_date');
+    var orig_value = date_input.val();
+    var start_date = orig_value.split(' - ')[0];
+    var end_date = orig_value.split(' - ')[1];
+
+    if (with_end_date === false) {
+      date_input.val(start_date).trigger('change');
     } else {
-      jQuery('.place_start_date').hide(350);
-      jQuery('.place_end_date').hide(350); }
-  })
+      date_input.val(start_date + ' - ' + start_date).trigger('change');
+    }
+
+    picker(
+        jQuery('#place_start_date'),
+        with_end_date
+        );
+  });
+
+  picker(
+      jQuery('#search-date-input'),
+      true
+      );
 
   // Enable bootstrap tooltips
   jQuery('[data-toggle="tooltip"]').tooltip();
@@ -118,26 +141,58 @@ jQuery(function() {
     });
   });
 
-	jQuery('#place_start_date').daterangepicker({
-		"timePicker": true,
-		"timePicker24Hour": true,
-		"timePickerIncrement": 15,
-		"locale": {
-			format: 'DD.MM.YYYY h:mm A'
-		},
-		"ranges": {
-			'Today': [moment().startOf('day'), moment().endOf('day')],
-			'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-			'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-			'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-			'This Month': [moment().startOf('month'), moment().endOf('month')],
-			'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-		},
-	}, function(start, end, label) {
-		console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
-	});
+  // landing page
+  jQuery('.login-form').hide();
+  jQuery('.create-with-account').click(function() {
+    jQuery(this).prop('disabled', true);
+    jQuery('.login-form').show();
+  });
 
-  jQuery('#set_end_date').on('click', function(){
-    picker();
-  })
+  // MAP VIEWS (form, index, ...)
+  var toggle_if_checked = function(checkbox_id, div_to_toggle) {
+    jQuery(checkbox_id).on('click', function(){
+      var checked = $(this).is(':checked');
+      if (checked) {
+        jQuery(div_to_toggle).show(350);
+      } else {
+        jQuery(div_to_toggle).hide(350);
+      }
+    });
+  };
+
+  // Form
+  toggle_if_checked('#map_auto_translate', '#map_translation_engine');
+  toggle_if_checked('#map_is_public', '.map_public_settings');
+
+  // Index
+  
+  jQuery('.map_description_button').on('click', function(){
+    secret_token = jQuery(this).data('map-token');
+    modal = jQuery('#map_description_' + secret_token);
+    modal.modal('show');
+  });
+
+  // Invitation
+  jQuery('#share_admin_link').on('click', function(){
+    jQuery('#map_admins_field').toggle();
+  });
+
+  var toggle_submit_invitations_button = function() {
+    var map_guests_invites = jQuery('#map_guests').val() !== '';
+    var map_admin_invites = jQuery('#map_admins').val() !== '';
+
+    if (map_guests_invites || map_admin_invites) {
+      jQuery('#submit_invitations').prop('disabled', false);
+    } else {
+      jQuery('#submit_invitations').prop('disabled', true);
+    }
+  };
+
+  jQuery('#map_admins').on('input', function(){
+    toggle_submit_invitations_button();
+  });
+
+  jQuery('#map_guests').on('input', function(){
+    toggle_submit_invitations_button();
+  });
 });

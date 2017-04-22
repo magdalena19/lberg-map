@@ -8,15 +8,35 @@ de:
       announcement_panel:
         full_chronicle: 'Alle Mitteilungen'
     navbar:
+      dropdown:
+        admin_dropdown: 'Administration'
+      buttons_right:
+        map_settings: 'Karten-Einstellungen'
+        share: 'Karte teilen'
+      navbar:
+        no_title: 'Kein Titel'
+        to_map_index: 'Zur Kartenübersicht'
       user_dropdown:
         edit_user: 'User bearbeiten'
         log_out: 'Ausloggen'
-      places_dropdown:
-        new_place: 'Ort erstellen'
-        index_places: 'Orte suchen'
-        review: 'Änderungen prüfen'
       language_dropdown:
         language: 'Sprachen'
       announcements_dropdown:
         manage: 'Mitteilungen verwalten'
         create_announcement: 'Mitteilung erstellen'
+      admin_dropdown:
+        admin_tasks: 'Administration'
+        user_management: 'User management'
+        app_settings: 'Globale Einstellungen'
+      user_settings_dropdown:
+        user_settings: 'Persönliche Einstellungen'
+        account_settings: 'Account-Einstellungen'
+      map_dropdown:
+        map_features: 'Kartenfunktionen'
+        maps_index: 'Kartenübersicht'
+        share_map: 'Karte teilen'
+        map_settings: 'Karteneinstellungen'
+        review: 'Änderungen prüfen'
+        new_place: 'Ort erstellen'
+        index_places: 'Orte suchen'
+        places_review_index: 'Änderungen prüfen'

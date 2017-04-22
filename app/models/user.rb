@@ -1,11 +1,19 @@
 class User < ActiveRecord::Base
   has_secure_password
+  has_many :maps, dependent: :nullify
+  has_many :activation_tokens, dependent: :destroy
+  # TODO legacy?
   has_many :announcements
+
+  before_create :create_activation_tokens, if: 'Admin::Setting.user_activation_tokens > 0'
 
   attr_accessor :password_reset_token
 
   validates :name, presence: true
-  validates :email, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :email,
+    presence: true,
+    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i },
+    uniqueness: true
   validates :password, length: { minimum: 5 }, if: :password
 
   def authenticated?(attribute:, token:)
@@ -38,5 +46,17 @@ class User < ActiveRecord::Base
 
   def signed_in?
     true
+  end
+
+  def registered?
+    true
+  end
+
+  private
+
+  def create_activation_tokens
+    Admin::Setting.user_activation_tokens.times do
+      self.activation_tokens << ActivationToken.create
+    end
   end
 end

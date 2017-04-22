@@ -1,0 +1,11 @@
+.map-container
+  #map
+  .overlay.locale-selection-container.text-center
+    - I18n.available_locales.each do |l|
+      = link_to "/#{l}" do
+        .locale-selection
+          = t('.select_this_language', locale: l)
+:javascript
+  jQuery(function() {
+    jQuery('.locale-slidepanel').trigger('open');
+  });

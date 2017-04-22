@@ -1,0 +1,51 @@
+.col-xs-12.col-lg-4.col-md-4{class: map_panel_header_class(map: map)}
+  .panel.panel-default.map-panel
+
+    -# HEADER
+    .panel-heading.map-panel-heading{data: { 'map-token' => map.secret_token }}
+      .col-xs-8
+        = map.title.present? ? map.title : t('.no_title')
+      .col-xs-4.map_buttons_container
+        %ul.nav.nav-pills.map_buttons
+          %li.glyphicon.glyphicon-info-sign.map_description_button{'data-map-token' => map.secret_token}
+          %li.dropdown
+            %a.dropdown-toggle.glyphicon.glyphicon-cog.map_settings_button{ 'data-toggle': 'dropdown', href: '#map_settings' }
+            %ul.dropdown-menu
+              %li= link_to t('.share_map'), share_map_url(map_token: map.secret_token)
+              %li= link_to t('.edit_map'), edit_map_url(map_token: map.secret_token)
+              %li= link_to t('.delete_map'), map_url(map_token: map.secret_token), method: 'delete', data: { confirm: t('.confirm_delete') }
+
+    -# BODY
+    .panel-body
+      .map_specs
+        %p
+          = map.is_public? ? t('.public_map') : t('.private_map')
+          = "("
+          = map.allow_guest_commits? ? t('.guest_commits_allowed') : t('.guest_commits_not_allowed')
+          = ")"
+        %p
+          = map.auto_translate ? t('.autotranslation_on') + " #{map.translation_engine.capitalize}" : t('.autotranslation_off')
+      .go_to_map
+        = link_to map_url(map_token: map.secret_token) do
+          %span.glyphicon.fa.fa-share
+
+  .spacer-row
+
+-# DESCRIPTION MODAL
+.modal.fade{role: 'dialog', id: "map_description_#{map.secret_token}"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
+        %h4.modal-title= "Description for '#{map.title}'"
+      .modal-body
+        %p= map.description.html_safe
+        %hr
+
+        .small
+          %p
+            %b Guest link:
+            %span= link_to map_url(map_token: map.public_token) if map.is_public?
+          %p
+            %b Admin_link:
+            %span= link_to map_url(map_token: map.secret_token)

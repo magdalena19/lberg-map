@@ -1,54 +1,47 @@
 feature 'Edit place' do
   before do
-    create :settings, :public
-    @place = create :place, :reviewed, categories: 'Playground, Café'
+    @map = create :map, :full_public
+    @place = create :place, :reviewed, categories: 'Playground, Café', map: @map
   end
 
   scenario 'Do valid place update as user and show in index afterwards', :js do
     login_as_user
-    visit edit_place_path(id: @place.id)
+    visit edit_place_path(id: @place.id, map_token: @map.public_token)
 
     fill_in('place_name', with: 'Any place')
     fill_in('place_postal_code', with: '10963')
     click_on('Update Place')
-    visit places_path
+    visit places_path(map_token: @map.public_token)
     expect(page).to have_content('Any place')
     expect(page).to have_content('10963 Berlin')
   end
 
-  scenario 'Do not create new version when nothing is changed in form', :js do
-    visit edit_place_path(id: @place.id)
-    validate_captcha
-    click_on('Update Place')
-    expect(Place.find(@place.id).versions.length).to be 1
-  end
-
   scenario 'Do valid place update as guest and show in index afterwards as to be reviewed', :js do
-    visit edit_place_path(id: @place.id)
+    visit edit_place_path(id: @place.id, map_token: @map.public_token)
     fill_in('place_name', with: 'Some changes')
     validate_captcha
     click_on('Update Place')
-    visit places_path
+    visit places_path(map_token: @map.public_token)
 
     expect(page).to have_content('Some changes')
     expect(page).to have_css('.glyphicon-eye-open')
   end
 
   scenario 'Do valid place update as guest and do not show changes within other users session', :js do
-    visit edit_place_path(id: @place.id)
+    visit edit_place_path(id: @place.id, map_token: @map.public_token)
     fill_in('place_name', with: 'SomeOtherName')
     validate_captcha
     click_on('Update Place')
 
     Capybara.reset_sessions!
-    visit places_path
+    visit places_path(map_token: @map.public_token)
     expect(page).not_to have_content('SomeOtherName')
     expect(page).to have_content('SomeReviewedPlace')
     expect(page).not_to have_css('.glyphicon-eye-open')
   end
 
   scenario 'Display category names in edit field', :js do
-    visit edit_place_path(id: @place.id)
+    visit edit_place_path(id: @place.id, map_token: @map.public_token)
     expect(page.find('#place_categories').value).to eq 'Café, Playground'
   end
 end

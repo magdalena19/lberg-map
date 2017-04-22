@@ -18,7 +18,7 @@ class Admin::SettingsController < AdminController
   private
 
   def settings_params
-    params.require(:admin_setting).permit(:auto_translate, :is_private, :app_title, :maintainer_email_address, :translation_engine, :allow_guest_commits)
+    params.require(:admin_setting).permit(:app_title, :admin_email_address, :user_activation_tokens)
   end
 
   def init_settings

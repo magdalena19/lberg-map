@@ -4,3 +4,5 @@ de:
       log_in: 'Einloggen'
       enter_email: 'Email-Adresse eingeben'
       enter_password: 'Passwort'
+      here: 'hier registrieren'
+      sign_up_info: 'Du hast keinen Account? Mithilfe eines Aktivierungs-Codes kannst du dich %{link}.'

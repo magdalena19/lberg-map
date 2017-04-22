@@ -28,6 +28,11 @@ en:
     about:
       about: 'About the project'
       link_to_imprint: 'Jump to imprint'
+    landing_page:
+      create_guest_map: 'Create map as guest'
+      app_info: 'Welcome to %{app_title}! This is a software libre web application that allows for collaboratively mapping points of interest (POIs) on customized maps.'
+      or: 'or'
+      login: 'Sign in'
     map:
       correct_location?: 'Correct location?'
       new_place: 'New Place'

@@ -1,0 +1,19 @@
+- content_for :header do
+  = t('.index')
+
+.container
+  - if @current_user.guest?
+    .row
+      .col-md-12.col-xs-12.alert.alert-warning
+        = t('.session_maps_warning')
+        = raw t('.sign_up', link: link_to(t('.here'), sign_up_path))
+  .row
+    .panel-group
+      - if @maps.any?
+        = render @maps
+      - else
+        %p= t('.no_map_yet')
+
+  .row
+    = link_to t('buttons.create_new_map'), new_map_url, class: 'btn btn-success new-map-button'
+

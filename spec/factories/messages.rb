@@ -4,5 +4,6 @@ FactoryGirl.define do
     sender_email 'me@you.com'
     subject 'This is a test request'
     text 'This is some sample test'
+    map
   end
 end

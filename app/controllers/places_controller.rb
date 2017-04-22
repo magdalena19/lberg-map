@@ -4,18 +4,18 @@ require 'attribute_setter'
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
+  before_action :set_map
   before_action :require_login, only: [:destroy]
   before_action :set_place, only: [:edit, :update, :destroy]
   before_action :can_update?, only: [:update]
   before_action :can_create?, only: [:create]
   before_action :reverse_geocode, only: [:new], if: :supplied_coords?
-  before_action :require_login_if_private_map
   before_action :modify_params, only: [:create, :update]
 
   after_action :store_in_session_cookie, only: [:create, :update]
 
   def index
-    @places = Place.reviewed_places
+    @places = @map.reviewed_places
     unless @current_user.signed_in?
       @places += places_from_session
       @places.uniq
@@ -23,7 +23,8 @@ class PlacesController < ApplicationController
   end
 
   def edit
-    redirect_to root_url if @place.new?
+    redirect_to map_url(map_token: request[:map_token]) if @place.new?
+    @url = place_url(id: @place.id, map_token: request[:map_token])
     flash.now[:warning] = t('.preview_mode') unless @current_user.signed_in?
   end
 
@@ -31,7 +32,7 @@ class PlacesController < ApplicationController
     if @params_to_commit.any? && @place.update(@params_to_commit)
       AttributeSetter::Place.set_attributes_after_update(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
       flash[:success] = t('.changes_saved')
-      redirect_to places_url
+      redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude)
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
       render :edit, status: 400
@@ -39,39 +40,46 @@ class PlacesController < ApplicationController
   end
 
   def new
-    @place = Place.new
+    @place = @map.places.new
     flash.now[:warning] = t('.preview_mode') unless @current_user.signed_in?
   end
 
   def create
-    @place = Place.new(@params_to_commit)
+    @place = @map.places.new(@params_to_commit)
     @place.latitude ||= params[:place][:latitude]
     @place.longitude ||= params[:place][:longitude]
 
     if @place.save
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
       flash[:success] = t('.created')
-      redirect_to root_url(latitude: @place.latitude, longitude: @place.longitude)
+      redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude)
     else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
-      render :new, status: 400
-    end
+      flash.now[:danger] = @place.errors.full_messages.to_sentence render :new, status: 400 end
   end
 
   def destroy
-    @place.destroy
-    flash[:success] = t('.deleted')
-    redirect_to action: 'index'
+    respond_to do |format|
+      if @place.destroy
+        format.json do
+          render json: places_to_show.map(&:geojson), status: :ok
+          flash.now[:success] = t('.deleted') if @place.destroy
+        end
+        format.html do
+          redirect_to places_url(map_token: request[:map_token])
+          flash[:success] = t('.deleted') if @place.destroy
+        end
+      end
+    end
   end
 
   private
 
-  def modify_params
-    @params_to_commit = ParamsModification::Place.modify(place_params: place_params, place: @place)
+  def places_to_show
+    (@map.reviewed_places + places_from_session).uniq
   end
 
-  def can_commit?
-    simple_captcha_valid? || @current_user.signed_in?
+  def modify_params
+    @params_to_commit = ParamsModification::Place.modify(place_params: place_params, place: @place)
   end
 
   def can_update?
@@ -90,15 +98,11 @@ class PlacesController < ApplicationController
   end
 
   def set_place
-    @place = Place.find(params[:id])
+    @place = @map.places.find(params[:id])
   end
 
   def store_in_session_cookie
-    if places_from_session.any?
-      cookies[:created_places_in_session] += ',' + @place.id.to_s
-    else
-      cookies[:created_places_in_session] = @place.id.to_s
-    end
+    session[:places] << @place.id unless has_privileged_map_access
   end
 
   # Reverse geocoding

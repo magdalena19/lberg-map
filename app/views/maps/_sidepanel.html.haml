@@ -1,0 +1,50 @@
+.overlay.places-list-panel
+  .row.search-field
+    .col-xs-12
+      %input#search-input.category-input.form-control{'data-list' => (@map.category_names_list), 'autocomplete' => 'off', placeholder: (t('static_pages.map.search_placeholder'))}
+        .empty-text-filter.input-icon.glyphicon.glyphicon-remove-sign
+  .row.filter-date-row
+    .col-xs-12.search-field
+      %input#search-date-input.form-control
+        .cancel-date-filter.input-icon.glyphicon.glyphicon-remove-sign
+  .row.add-date-filter
+    .col-xs-12.text-center
+      .glyphicon.glyphicon-plus-sign
+      = t('.filter_by_date')
+
+  .row
+    .col-xs-12.places-list-accordion-container
+      #accordion.places-list-accordion.panel-group{'aria-multiselectable' => 'true', role: 'tablist'}
+
+  .row
+    .col-xs-12.button-container.text-center
+      .sidepanel-button-container.sidepanel-add-place-container
+        %h4.slidepanel-title= t('.how_to_add_place')
+        %button.type-in-address.btn.btn-dark
+          = t('.type_in_address')
+        %button.add_place_via_click.btn.btn-dark
+          = t('.click_on_map')
+        %button.add-place-via-location.btn.btn-dark
+          = t('.add_via_location')
+        %button.btn.btn-default.cancel-place-addition
+          = t('cancel')
+
+.panel.panel-default.places-list-item.template
+  .panel-heading{role: 'tab'}
+    %h4.panel-title
+      .glyphicon.place_type.pull-left
+      .glyphicon.glyphicon-triangle-bottom.pull-right{style: 'color: white'}
+      %a.toggle_place_details.collapsed{'aria-expanded' => 'false', 'data-parent' => '#accordion', 'data-toggle' => 'collapse', role: 'button'}
+        .name
+  .panel-collapse.collapse{role: 'tabpanel'}
+    .panel-body
+      .description
+      .contact-container
+      .event-container
+      .category-names
+      .bottom-icons
+        - if can_contribute?
+          .glyphicon.glyphicon-pencil.edit-place.pull-right
+        - if has_privileged_map_access?
+          .glyphicon.glyphicon-trash.delete-place.pull-right
+

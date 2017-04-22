@@ -1,19 +1,16 @@
+- content_for :header do
+  = t('.user_settings')
+
 .container
-  = form_for(@user) do |f|
-    .row
-      .col-md-6.col-md-offset-3.text-center
-        %h4
-          = t('.edit')
-        %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:name)}" }
-          = f.text_field :name, placeholder: t('.name_placeholder'), class: 'form-control'
-        %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:email)}" }
-          = f.text_field :email, placeholder: t('.email_placeholder'), class: 'form-control'
-        %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:password)}" }
-          = f.password_field :password, class: 'form-control'
-        %fieldset{ class: "form-group #{"has-error" if f.object.errors.include?(:password_confirmation)}" }
-          = f.password_field :password_confirmation, class: 'form-control'
-    .row
-      .col-xs-3.col-md-offset-3
-        = f.submit t('.submit'), class: 'btn btn-primary btn-success'
-      .col-xs-3
-        = link_to t('.back'), action_name == 'edit' ? places_path : root_url, class: 'btn btn-primary btn-danger'
+  .row
+    .col-md-4.activation_tokens
+      .row
+        %h3= t('.user_activation_tokens')
+      .row
+        - @user.activation_tokens.each do |token|
+          = render partial: 'activation_token', locals: { token: token }
+        - if @user.activation_tokens.empty?
+          = t('.no_activation_tokens')
+
+    .col-md-8
+      = render partial: 'form', locals: { button_label: '.update' }

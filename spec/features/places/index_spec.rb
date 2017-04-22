@@ -1,12 +1,12 @@
 feature 'Index' do
   before do
-    create :settings, :public
-    create(:place, :reviewed, name: 'Haus vom Nikolaus', phone: 1234, categories: 'Playground')
-    create(:place, :reviewed, name: 'Katzenklo', categories: 'Lawyer')
+    @map = create :map, :full_public
+    create :place, :reviewed, name: 'Haus vom Nikolaus', phone: 1234, categories: 'Playground', map: @map
+    create :place, :reviewed, name: 'Katzenklo', categories: 'Lawyer', map: @map
   end
 
   scenario 'shows places in datatable', js: true do
-    visit places_path
+    visit places_path(map_token: @map.public_token)
 
     expect(page).to have_content('Katzenklo')
     expect(page).to have_content('Haus vom Nikolaus')
@@ -15,17 +15,9 @@ feature 'Index' do
     expect(page).to have_content('1234')
   end
 
-  scenario 'has working category button', js: true do
-    visit places_path
-
-    find('.btn', text: 'Playground').trigger('click')
-    expect(page).to_not have_content('Katzenklo')
-    expect(page).to have_content('Haus vom Nikolaus')
-  end
-
   scenario 'has working delete buttons', js: true do
     login_as_user
-    visit places_path
+    visit places_path(map_token: @map.secret_token)
 
     all('.glyphicon-trash').first.click
     expect(page).to have_content('Katzenklo')

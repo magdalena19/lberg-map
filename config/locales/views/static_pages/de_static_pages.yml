@@ -1,6 +1,6 @@
 de:
   static_pages:
-    index:
+    choose_locale:
       select_this_language: 'Diese Sprache auswählen'
     slidepanels:
       add_place_slidepanel:
@@ -27,6 +27,11 @@ de:
     about:
       about: 'Über das Projekt'
       link_to_imprint: 'Zum Impressum'
+    landing_page:
+      create_guest_map: 'Karte als Gast erstellen'
+      app_info: 'Willkommen auf %{app_title}! Diese Webseite erlaubt dir, gemeinsam mit anderen interessante Orte (sog. POIs) und Events auf deinen eigenen Karten einzutragen.'
+      or: 'oder'
+      login: 'Einloggen'
     map:
       correct_location?: 'Ist diese Position korrekt?'
       new_place: 'Neuen Ort hinzufügen'

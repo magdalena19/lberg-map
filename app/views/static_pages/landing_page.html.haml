@@ -1,0 +1,11 @@
+.container
+  .row
+    .col-md-4.col-md-offset-4.text-center.margin-below
+      .lilac.margin-above
+        = t('.app_info', app_title: Admin::Setting.app_title)
+    .col-md-4.col-md-offset-4.text-center.margin-below
+      = link_to t('.create_guest_map'), new_map_url, class: 'btn btn-danger full-width'
+      .lilac.margin-above
+        %i= t('.or')
+      .lilac.margin-above
+        = link_to t('.login'), login_path, class: 'btn btn-success'

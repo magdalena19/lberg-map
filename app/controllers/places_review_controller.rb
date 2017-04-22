@@ -1,5 +1,6 @@
 class PlacesReviewController < ApplicationController
   before_action :require_login
+  before_action :set_map
   before_action :set_place
 
   def review
@@ -26,6 +27,6 @@ class PlacesReviewController < ApplicationController
   private
 
   def set_place
-    @place = Place.find(params[:id])
+    @place = @map.places.find(params[:id])
   end
 end

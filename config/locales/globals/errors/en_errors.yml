@@ -12,6 +12,8 @@ en:
             address:
               address_not_found: 'not found!'
   errors:
+    secret_token_not_unique: 'Secret token has already been taken by another map!'
+    public_token_not_unique: 'Public token has already been taken by another map!'
     format: "%{attribute} %{message}"
     messages:
       access_restricted: 'Access to this page has been restricted. Please login first!'

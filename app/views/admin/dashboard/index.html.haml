@@ -2,7 +2,5 @@
   = t('.admin_area')
 
 .container
-  -# TODO Translation!
-  = link_to 'Application settings', admin_settings_url
-  -# TODO Translation!
-  = link_to 'User management', admin_users_url
+  = link_to t('.app_settings'), admin_settings_url
+  = link_to t('.user_management'), admin_index_users_path

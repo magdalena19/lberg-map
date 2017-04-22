@@ -1,4 +1,8 @@
 de:
+  translations_review:
+    confirm:
+      translation_confirmed: 'Änderungen übernommen'
+      translation_refused: 'Änderungen verworfen'
   review:
     review_index:
       change_type: 'Änderung'

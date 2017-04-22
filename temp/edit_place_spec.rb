@@ -9,7 +9,6 @@ RSpec.feature 'Edit place', type: feature do
     fill_in('place_postal_code', with: '10963')
     click_on('Update Place')
     visit '/places'
-    binding.pry
     expect(page).to have_content('Any place')
     expect(page).to have_content('10963 Berlin')
   end

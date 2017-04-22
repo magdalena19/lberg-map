@@ -1,55 +1,71 @@
-= form_for(@place) do |f|
+= form_for(@place, url: @url) do |f|
   .row
     .col-xs-12
       - if @place.unreviewed_version
         .red currently under review
 
     .col-md-6
+      %h4= t('.address_data')
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
         .col-xs-12
-          = f.text_field :name, placeholder: Place.human_attribute_name('name'), class: 'form-control', disabled: @place.unreviewed_version
+          = f.label :name, t('.place_name') + '*'
+          = f.text_field :name, class: 'form-control', disabled: @place.unreviewed_version
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:street)}"}
         .col-xs-8
-          = f.text_field :street, placeholder: Place.human_attribute_name('street'), class: 'form-control', value: @geocoded ? @geocoded[:street] : @place.street, disabled: @place.unreviewed_version
+          = f.label :street, t('.street') + '*'
+          = f.text_field :street, class: 'form-control', value: @geocoded ? @geocoded[:street] : @place.street, disabled: @place.unreviewed_version
         .col-xs-4
-          = f.text_field :house_number, placeholder: 'Nr.', class: 'form-control', value: @geocoded ? @geocoded[:house_number] : @place.house_number, disabled: @place.unreviewed_version
+          = f.label :house_number, 'Nr'
+          = f.text_field :house_number, class: 'form-control', value: @geocoded ? @geocoded[:house_number] : @place.house_number, disabled: @place.unreviewed_version
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:postal_code) || f.object.errors.include?(:city)}"}
         .col-xs-5
-          = f.text_field :postal_code, placeholder: Place.human_attribute_name('postal_code'), class: 'form-control', value: @geocoded ? @geocoded[:postal_code] : @place.postal_code, disabled: @place.unreviewed_version
+          = f.label :postal_code, t('.postal_code') + '*'
+          = f.text_field :postal_code, class: 'form-control', value: @geocoded ? @geocoded[:postal_code] : @place.postal_code, disabled: @place.unreviewed_version
         .col-xs-7
-          = f.text_field :city, placeholder: Place.human_attribute_name('city'), class: 'form-control', value: @geocoded ? @geocoded[:city] : @place.city, disabled: @place.unreviewed_version
+          = f.label :city, t('.city')
+          = f.text_field :city, class: 'form-control', value: @geocoded ? @geocoded[:city] : @place.city, disabled: @place.unreviewed_version
 
+
+      %hr
+      %h4= t('.contact_data')
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:phone) || f.object.errors.include?(:email) || f.object.errors.include?(:homepage)}"}
         .col-sm-4
-          = f.text_field :phone, placeholder: Place.human_attribute_name('phone'), class: 'form-control', disabled: @place.unreviewed_version
+          = f.label :phone, t('.phone')
+          = f.text_field :phone, class: 'form-control', disabled: @place.unreviewed_version
         .col-sm-4
-          = f.text_field :email, placeholder: Place.human_attribute_name('email'), class: 'form-control', disabled: @place.unreviewed_version
+          = f.label :email, t('.email')
+          = f.text_field :email, class: 'form-control', disabled: @place.unreviewed_version
         .col-sm-4
-          = f.text_field :homepage, placeholder: Place.human_attribute_name('Homepage'), class: 'form-control', disabled: @place.unreviewed_version
+          = f.label :homepage, t('.homepage')
+          = f.text_field :homepage, class: 'form-control', disabled: @place.unreviewed_version
 
+  .row
     .col-md-6
+      %hr
       .row{id: 'place_event_toggle'}
         .col-xs-1
-          = f.check_box :event, disabled: @place.unreviewed_version
-        .col-xs-5
-          = f.label :event
-        .col-xs-1.place_end_date
-          = check_box_tag 'set_end_date'
-        .col-xs-5.place_end_date
-          = label_tag 'With end date'
+          = f.radio_button :event, false, disabled: @place.unreviewed_version, id: 'is_place', checked: !@place.event || true
+        .col-xs-11
+          = f.label :event, t('.is_place')
+        .col-xs-1
+          = f.radio_button :event, true, disabled: @place.unreviewed_version, id: 'is_event', checked: @place.event || false
+        .col-xs-11
+          = f.label :event, t('.is_event')
 
-      %fieldset{class: "place_start_date form-group row #{'has-error' if f.object.errors.include?(:start_date)}"}
-        .col-xs-8
-          = f.text_field :start_date, class: 'form-control daterange', placeholder: 'asd'
+      .input-group.form_group.col-xs-12#place_date_form
+        = f.text_field :start_date, class: 'form-control daterange', disabled: @place ? !@place.event? : true
+        %span#end_date_toggle.input-group-addon
+          %input#set_end_date{type: 'checkbox', checked: @place.end_date.present? }
+        %span#end_date_descr.input-group-addon= t('.set_end_date')
   .row
     %hr
 
   .row
     .col-xs-12
-      %h4= t('.categories')
-      = f.text_field :categories, placeholder: 'Enter categories', class: 'form-control category-input', disabled: @place.unreviewed_version, value: (@place.categories ? @place.category_names.join(', ') : nil), data: { 'list' => (Category.list_names) }, autocomplete: :off
+      %h4= t('.place_categories')
+      = f.text_field :categories, placeholder: t('.categories_placeholder'), class: 'form-control category-input', disabled: @place.unreviewed_version, value: (@place.categories ? @place.category_names.join(', ') : nil), data: { 'list' => (@map.category_names_list) }, autocomplete: :off
 
   .row
     %hr
@@ -97,3 +113,35 @@
       = f.submit class: 'btn btn-primary btn-success place-form-button submit-place-button'
     .col-xs-6.col-md-2
       = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
+
+:javascript
+  window.is_event = #{@place.event};
+  window.start_date = '#{@place.start_date}';
+  window.end_date = '#{@place.end_date}';
+  window.with_end_date = #{@place.end_date.present?}
+
+  jQuery(function() {
+    if (window.is_event == true) {
+      var start_date = moment(window.start_date).utc().format('DD-MM-YYYY HH:mm');
+      var end_date = moment(window.end_date).utc().format('DD-MM-YYYY HH:mm');
+      var date_string = end_date ? start_date + ' - ' + end_date : start_date
+
+      jQuery('#place_start_date')
+      .prop('disabled', false)
+      .val(date_string)
+      .trigger('change')
+      .daterangepicker({
+        "singleDatePicker": !window.with_end_date,
+        "showDropdowns": true,
+        "showWeekNumbers": true,
+        "timePicker": true,
+        "timePicker24Hour": true,
+        "timePickerIncrement": 15,
+        "linkedCalendars": false,
+        "showCustomRangeLabel": false,
+        "locale": {
+          format: 'DD.MM.YYYY h:mm A'
+        }
+      });
+    }
+  });

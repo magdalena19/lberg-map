@@ -17,7 +17,7 @@
 .places-list-panel {
   background-color: rgba(white, 0.3);
   top: 40px;
-  height: 100%;
+  height: calc(100% - 45px);
   width: 25%;
   min-width: 400px;
   padding: 15px;

@@ -165,7 +165,6 @@ jQuery(function() {
   toggle_if_checked('#map_is_public', '.map_public_settings');
 
   // Index
-  
   jQuery('.map_description_button').on('click', function(){
     secret_token = jQuery(this).data('map-token');
     modal = jQuery('#map_description_' + secret_token);

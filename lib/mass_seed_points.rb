@@ -60,6 +60,7 @@ module MassSeedPoints
       updated_at = Date.today - rand(0..365)
       created_at = updated_at - rand(5..100)
       categories = map.categories.all
+      reviewed_status = map.allow_guest_commits ? [true, false].sample : true
       @place = map.places.create(name: Faker::Hipster.word.capitalize,
                                  street: Faker::Address.street_name,
                                  house_number: house_number,
@@ -73,7 +74,7 @@ module MassSeedPoints
                                  description_en: Faker::Hipster.paragraph(rand(1..2)),
                                  description_de: Faker::Hipster.paragraph(rand(1..2)),
                                  categories: categories.sample(rand(1..3)).map(&:name).join(','),
-                                 reviewed: [true, false].sample,
+                                 reviewed: reviewed_status,
                                  created_at: created_at,
                                  updated_at: updated_at)
       update_place_translations_attr(place: @place)

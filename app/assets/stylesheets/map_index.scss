@@ -2,110 +2,99 @@
 
 // PANELS
 .spacer-row {
-  padding-top: 20px;
+	padding-top: 20px;
 }
 
 .panel-group .map-panel {
-  margin-bottom: 15px;
-  border-radius: 4px;
-  padding-left: 0px;
-  height: 377;
+	margin-bottom: 15px;
+	border-radius: 4px;
+	padding-left: 0px;
 
-  .panel-heading {
-    padding-left: 0px;
-    font: bold;
-    font-size: 16px;
-    margin: 0;
-    height: 40px;
+	.panel-heading {
+		padding-left: 0px;
+		font: bold;
+		font-size: 16px;
+		margin: 0;
+		height: 40px;
+		background: $grey;
+		color: white;
 
-    #map_name {
-      height: 35px;
-    }
+		.map_buttons_container {
+			padding-right: 0;
+			li {
+				padding-left: 5px;
+			}
+		}
 
-    .map_buttons_container {
-      padding-right: 0;
-      li {
-        padding-left: 5px;
-      }
-    }
+		.map_buttons {
+			float: right;
+		}
 
-    .map_buttons {
-      float: right;
-    }
+		.map_description_button {
+			color: white;
+		}
 
-    .map_settings_button{
-      padding: 0px;
-      color: #000;
-      &:hover {
-        background-color: transparent;
-      }
-      &:focus {
-        background-color: transparent;
-      }
-    }
-  }
+		.map_settings_button{
+			padding: 0px;
+			color: white;
+			&:hover {
+				background-color: transparent;
+			}
+			&:focus {
+				background-color: transparent;
+			}
+		}
+	}
 
   .panel-body {
-    font-style: italic;
+    .map-access-level-container {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 3px;
+      border-radius: 4px;
+
+      .private-map {
+        padding-left: 3px;
+        background-color: lighten($lilac, 30%);
+        .glyphicon {
+          padding-right: 5px;
+          color: darken($lilac, 20%);
+        }
+      }
+
+      .allow_guest_commits {
+        padding-left: 3px;
+        background-color: lighten($orange, 30%);
+        .glyphicon {
+          padding-right: 5px;
+          color: darken($orange, 20%);
+        }
+      }
+
+      .public-map {
+        padding-left: 3px;
+        background-color: lighten($green, 30%);
+        .glyphicon {
+          padding-right: 5px;
+          color: darken($green, 20%);
+        }
+      }
+    }
+
+    .map-specs {
+      padding-left: 5px;
+    }
+
+    // font-style: italic;
     font-size: 12px;
     height: 200px;
     background-color: #fff;
-
-		.map_specs {
-			opacity: 1;
-			display: block;
-			width: 100%;
-			height: auto;
-			transition: .25s ease;
-			backface-visibility: hidden;
-		}
-
-		.go_to_map {
-      font-size: 4em;
-			transition: .5s ease;
-			opacity: 0;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			-ms-transform: translate(-50%, -50%)
-		}
-
-    &:hover {
-      .map_specs {
-        opacity: 0.2;
-      }
-      .go_to_map {
-        opacity: 1;
-      }
-    }
-
-    .myButtonLink:hover {
-      background-position: 0 0;
-    }
   }
 }
 
 .center {
   text-align: center;
-}
-
-.private_map {
-  .map-panel .panel-heading {
-    background-color: lighten($lilac, 20);
-  }
-
-}
-.restricted_access_map {
-  .map-panel .panel-heading {
-    background-color: lighten($orange, 20);
-  }
-}
-
-.public_map {
-  .map-panel .panel-heading {
-    background-color: lighten($green, 20);
-  }
 }
 
 // BUTTONS

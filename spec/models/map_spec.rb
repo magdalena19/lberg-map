@@ -72,4 +72,29 @@ RSpec.describe Map, type: :model do
       expect(map).not_to be_valid
     end
   end
+
+  context 'Instance methods' do 
+    before do
+      @map = create :map, :full_public 
+      @reviewed_places = create_list :place, 4, :reviewed, map: @map
+      @unreviewed_places = create_list :place, 2, :unreviewed , map: @map
+      @reviewed_events = create_list :event, 5, map: @map
+      @unreviewed_events = create_list :event, 1, :unreviewed, map: @map
+    end
+
+    it 'returns exact number of reviewed places' do
+      expect(@map.reviewed_places.count).to eq 4
+    end
+
+    it 'returns exact number of unreviewed places' do
+      expect(@map.unreviewed_places.count).to eq 2
+    end
+
+    it 'returns exact number of reviewed events' do
+      expect(@map.reviewed_events.count).to eq 5
+    end
+    it 'returns exact number of unreviewed events' do
+      expect(@map.unreviewed_events.count).to eq 1
+    end
+  end
 end

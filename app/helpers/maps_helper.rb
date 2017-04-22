@@ -19,13 +19,11 @@ module MapsHelper
     request[:map_token]
   end
 
-  def map_panel_header_class(map:)
+  def map_access_level(map:)
     if not map.is_public?
-      'private_map'
-    elsif map.is_restricted?
-      'restricted_access_map'
+      'private-map'
     else
-      'public_map'
+      'public-map'
     end
   end
 end

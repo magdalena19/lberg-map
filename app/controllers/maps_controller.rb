@@ -90,7 +90,7 @@ class MapsController < ApplicationController
   end
 
   def places_to_show
-    (@map.reviewed_places + places_from_session).uniq
+    (@map.reviewed_places + @map.reviewed_events + items_from_session).uniq
   end
 
   private

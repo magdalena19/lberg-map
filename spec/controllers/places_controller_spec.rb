@@ -35,6 +35,14 @@ describe PlacesController do
 
       expect(assigns(:places).count).to be 3
     end
+
+    it 'Also populates events in @places' do
+      create_list(:place, 3, :reviewed, map: map)
+      create_list(:event, 2, map: map)
+      get :index, map_token: map.public_token
+
+      expect(assigns(:places).count).to be 5
+    end
   end
 
   context 'GET #new' do

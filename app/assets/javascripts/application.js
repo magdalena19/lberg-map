@@ -52,6 +52,18 @@ jQuery(function() {
     jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
   });
 
+  jQuery('.contact-information-header').click(function() {
+    jQuery('.contact-information').toggle();
+    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
+    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
+  });
+
+  jQuery('.date-information-header').click(function() {
+    jQuery('.date-information').toggle();
+    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
+    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
+  });
+
   // Deactivate "send copy to sender" option if no email address is present
   jQuery('#message_sender_email').on('input', function(val){
     var current_value = $(this).val();
@@ -162,7 +174,26 @@ jQuery(function() {
 
   // Form
   toggle_if_checked('#map_auto_translate', '#map_translation_engine');
-  toggle_if_checked('#map_is_public', '.map_public_settings');
+
+  jQuery('#map_is_public').on('click', function(){
+    var checked = jQuery(this).is(':checked');
+    if (checked) {
+      jQuery('.map-public-settings').show(350);
+    } else {
+      jQuery('.map-public-settings').hide(350);
+    }
+  })
+
+  // generate public token
+  function camelize(string) {
+    return string.toLowerCase().split(' ').join('_');
+  }
+
+  jQuery('#map_title').on('input', function(){
+    title = jQuery(this).val();
+    var public_token_input = jQuery('#map_public_token');
+    public_token_input.val(camelize(title)).trigger('change');
+  })
 
   // Index
   jQuery('.map_description_button').on('click', function(){

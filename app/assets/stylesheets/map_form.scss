@@ -1,7 +1,13 @@
+@import 'colors';
+
 #map_translation_engine {
   display: none;
 }
 
-.map_public_settings {
+.map-public-settings {
   display: none;
+}
+
+.checkbox input{
+  width: auto;
 }

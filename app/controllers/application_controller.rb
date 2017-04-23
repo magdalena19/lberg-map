@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def places_from_session(category_id = nil)
+  def items_from_session(category_id = nil)
     if category_id
       @map.places.where(id: session[:places]).compact.find_all { |p| p.category_for(category_id) }
     else

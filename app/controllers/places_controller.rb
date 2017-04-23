@@ -15,9 +15,9 @@ class PlacesController < ApplicationController
   after_action :store_in_session_cookie, only: [:create, :update]
 
   def index
-    @places = @map.reviewed_places
+    @places = @map.reviewed_places + @map.reviewed_events
     unless @current_user.signed_in?
-      @places += places_from_session
+      @places += items_from_session
       @places.uniq
     end
   end
@@ -75,7 +75,7 @@ class PlacesController < ApplicationController
   private
 
   def places_to_show
-    (@map.reviewed_places + places_from_session).uniq
+    (@map.reviewed_places + items_from_session).uniq
   end
 
   def modify_params

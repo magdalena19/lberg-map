@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330073311) do
+ActiveRecord::Schema.define(version: 20170424081716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 20170330073311) do
     t.string  "app_title",              default: "Generic title", null: false
     t.string  "admin_email_address",    default: "foo@bar.org",   null: false
     t.integer "user_activation_tokens", default: 2,               null: false
+    t.text    "app_privacy_policy"
+    t.text    "app_imprint"
   end
 
   create_table "announcements", force: :cascade do |t|
@@ -66,6 +68,16 @@ ActiveRecord::Schema.define(version: 20170330073311) do
   end
 
   add_index "categories", ["map_id"], name: "index_categories_on_map_id", using: :btree
+
+  create_table "categorizings", force: :cascade do |t|
+    t.integer  "place_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "categorizings", ["category_id"], name: "index_categorizings_on_category_id", using: :btree
+  add_index "categorizings", ["place_id"], name: "index_categorizings_on_place_id", using: :btree
 
   create_table "category_translations", force: :cascade do |t|
     t.integer  "category_id",                     null: false
@@ -184,6 +196,8 @@ ActiveRecord::Schema.define(version: 20170330073311) do
   add_foreign_key "activation_tokens", "users"
   add_foreign_key "announcements", "maps"
   add_foreign_key "categories", "maps"
+  add_foreign_key "categorizings", "categories"
+  add_foreign_key "categorizings", "places"
   add_foreign_key "maps", "users"
   add_foreign_key "messages", "maps"
   add_foreign_key "places", "maps"

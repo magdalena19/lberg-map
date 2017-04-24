@@ -5,4 +5,7 @@ en:
         settings: 'Application settings'
         app_title: 'Application title'
         admin_email_address: 'Relay email address'
-        update_settings: 'Update settings'
+        user_activation_tokens: 'Number of activation tokens per user'
+        app_imprint: 'Application Imprint'
+        app_privacy_policy: 'Application privacy policy'
+        update_settings: 'Update'

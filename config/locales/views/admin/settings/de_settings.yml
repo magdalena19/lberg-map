@@ -5,4 +5,7 @@ de:
         settings: 'Globale Einstellungen'
         app_title: 'Titel der Anwendung'
         admin_email_address: 'Relay Email-Adresse'
-        update_settings: 'Einstellungen übernehmen'
+        user_activation_tokens: 'Aktivierungs-Tokens pro User'
+        app_imprint: 'Impressum'
+        app_privacy_policy: 'Datenschutzbestimmungen'
+        update_settings: 'Übernehmen'

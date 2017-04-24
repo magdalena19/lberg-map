@@ -42,6 +42,13 @@ class Map < ActiveRecord::Base
     places.select(&:event)
   end
 
+  def all_events_date_range
+    min = places.pluck(:start_date).compact.sort.first
+    max = places.pluck(:end_date).compact.sort.last
+
+    [min, max].join(',')
+  end
+
   def reviewed_events
     all_events.map(&:reviewed_version).compact
   end

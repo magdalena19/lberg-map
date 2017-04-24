@@ -121,9 +121,10 @@ class Place < ActiveRecord::Base
       description: reviewed_description.html_safe,
       # translation_auto_translated: translation_from_current_locale.auto_translated,
       # translation_reviewed: translation_from_current_locale.reviewed,
-      category_names: category_names.join(' | ')
+      category_names: category_names.join(' | '),
+      is_event: event,
       # categories: category_ids,
-      # reviewed: reviewed
+      reviewed: reviewed
       # start_date: start_date,
       # end_date: end_date
     }

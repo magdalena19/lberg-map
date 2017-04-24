@@ -1,40 +1,53 @@
-.overlay.places-list-panel
+.overlay.filter-field
+  .row.switches
+    .col-xs-6
+      - if @places_to_show.select(&:event).any?
+        %label.switch
+          %input{type: 'checkbox', class: 'show-events-toggle', checked: false}
+          .slider.round.events
+        = t('.show_events')
+
+    .col-xs-6
+      %label.switch
+        %input{type: 'checkbox', class: 'show-places-toggle', checked: true}
+        .slider.round.places
+      = t('.show_places')
+
   .row.search-field
     .col-xs-12
-      %input#search-input.category-input.form-control{'data-list' => (@map.category_names_list), 'autocomplete' => 'off', placeholder: (t('static_pages.map.search_placeholder'))}
+      .search-input
+        %input#search-input.category-input.form-control{'data-list' => (@map.category_names_list), 'autocomplete' => 'off', placeholder: (t('static_pages.map.search_placeholder'))}
         .empty-text-filter.input-icon.glyphicon.glyphicon-remove-sign
+
   .row.filter-date-row
     .col-xs-12.search-field
-      %input#search-date-input.form-control
-        .cancel-date-filter.input-icon.glyphicon.glyphicon-remove-sign
-  .row.add-date-filter
-    .col-xs-12.text-center
-      .glyphicon.glyphicon-plus-sign
-      = t('.filter_by_date')
+      %input#search-date-input.form-control{value: 'asd'}
 
-  .row
-    .col-xs-12.places-list-accordion-container
+.overlay.places-list-panel
+  .button-container.text-center
+    .sidepanel-button-container.sidepanel-add-place-container
+      %h4.slidepanel-title= t('.how_to_add_place')
+      %button.type-in-address.btn.btn-dark
+        = t('.type_in_address')
+      %button.add_place_via_click.btn.btn-dark
+        = t('.click_on_map')
+      %button.add-place-via-location.btn.btn-dark
+        = t('.add_via_location')
+      %button.btn.btn-default.cancel-place-addition
+        = t('cancel')
+  .places-list-accordion-container
+    - if @places_to_show.any?
       #accordion.places-list-accordion.panel-group{'aria-multiselectable' => 'true', role: 'tablist'}
-
-  .row
-    .col-xs-12.button-container.text-center
-      .sidepanel-button-container.sidepanel-add-place-container
-        %h4.slidepanel-title= t('.how_to_add_place')
-        %button.type-in-address.btn.btn-dark
-          = t('.type_in_address')
-        %button.add_place_via_click.btn.btn-dark
-          = t('.click_on_map')
-        %button.add-place-via-location.btn.btn-dark
-          = t('.add_via_location')
-        %button.btn.btn-default.cancel-place-addition
-          = t('cancel')
+    - else
+      .text-center
+        = t('.no_items_in_map')
 
 .panel.panel-default.places-list-item.template
   .panel-heading{role: 'tab'}
     %h4.panel-title
       .glyphicon.place_type.pull-left
-      .glyphicon.glyphicon-triangle-bottom.pull-right{style: 'color: white'}
-      %a.toggle_place_details.collapsed{'aria-expanded' => 'false', 'data-parent' => '#accordion', 'data-toggle' => 'collapse', role: 'button'}
+      .glyphicon.glyphicon-triangle-bottom.pull-right
+      %a.toggle-place-details.collapsed{'aria-expanded' => 'false', 'data-parent' => '#accordion', 'data-toggle' => 'collapse', role: 'button'}
         .name
   .panel-collapse.collapse{role: 'tabpanel'}
     .panel-body
@@ -47,4 +60,3 @@
           .glyphicon.glyphicon-pencil.edit-place.pull-right
         - if has_privileged_map_access?
           .glyphicon.glyphicon-trash.delete-place.pull-right
-

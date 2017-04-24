@@ -58,6 +58,9 @@ en:
       admin_link: 'adminstration link'
       admin_link_warning: 'Warning: People using this link have full access rights!'
     sidepanel:
+      show_events: 'Events'
+      show_places: 'Places'
+      no_items_in_map: 'No items inserted yet...'
       filter_by_date: 'Search for events'
       no_points_in_list: 'No points inserted yet...'
     map_overlays:

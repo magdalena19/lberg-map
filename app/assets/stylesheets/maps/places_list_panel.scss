@@ -1,0 +1,257 @@
+@import 'colors';
+
+.template {
+	display: none;
+}
+
+.toggle-panel {
+	top: 50%;
+	background: rgba(white, 0.9);
+	padding: 10px 5px;
+	color: $grey;
+	font-size: 22px;
+	display: none;
+	cursor: pointer;
+}
+
+.filter-field {
+	top: 40px;
+  width: 25%;
+  min-width: 400px;
+	background-color: rgba(darken($verylightgrey, 10%), 0.9);
+	border-bottom: 1px solid rgba(200, 200, 200, 1);
+	border-right: 1px solid rgba(200, 200, 200, 1);
+	padding: 15px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .row {
+    padding-bottom: 10px;
+  }
+
+	.input-icon {
+		position: absolute;
+		right: 22px;
+		top: 8px;
+		z-index: 9999;
+		font-size: 18px;
+		color: $grey;
+	}
+
+	.switch {
+		position: relative;
+		display: inline-block;
+		float: left;
+		width: 30px;
+		height: 17px;
+    margin-right: 5px;
+
+		/* Hide default HTML checkbox */
+		.switch input {display:none;}
+
+		.slider {
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+      background: $grey;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+
+		.slider:before {
+			position: absolute;
+			content: "";
+			height: 10px;
+			width: 10px;
+			left: 4px;
+			bottom: 4px;
+			background-color: white;
+			-webkit-transition: .2s;
+			transition: .2s;
+		}
+
+		input:checked + .slider {
+      &.places {
+        background: $lilac;
+      }
+
+      &.events {
+        background: $green;
+      }
+		}
+
+		input:focus + .slider {
+			box-shadow: 0 0 1px #2196F3;
+		}
+
+		input:checked + .slider:before {
+			-webkit-transform: translateX(13px);
+			-ms-transform: translateX(13px);
+			transform: translateX(13px);
+		}
+
+		/* Rounded sliders */
+		.slider.round {
+			border-radius: 34px;
+		}
+
+		.slider.round:before {
+			border-radius: 50%;
+		}
+  }
+}
+
+.places-list-panel {
+  overflow-y: auto;
+  background-color: rgba(white, 0.9);
+  height: calc(100% - 120px);
+  width: 25%;
+  min-width: 400px;
+  padding: 15px;
+
+  .glyphicon {
+    cursor: pointer;
+  }
+
+  .panel-heading {
+    padding: 7px 14px;
+    border: none !important;
+    cursor: pointer;
+
+    .panel-title {
+      font-size: 15px !important;
+    }
+
+    &.event-panel {
+      background-color: $green !important;
+      &:hover {
+        background-color: lighten($green, 5) !important;
+      }
+    }
+
+    &.place-panel {
+      background-color: $lilac !important;
+      &:hover {
+        background-color: lighten($lilac, 5) !important;
+      }
+    }
+
+    .name {
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .place_type {
+    padding-right: 10px;
+  }
+
+  .panel-body {
+    padding: 7px 14px;
+    font-size: 12px;
+
+    .item-panel {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 3px 8px;
+      margin-top: 2px;
+      border-radius: 4px;
+    }
+
+    .event-panel {
+      background-color: lighten($green, 20%);
+      .glyphicon {
+        padding-right: 5px;
+        color: darken($green, 30%);
+      }
+    }
+
+    .place-panel {
+      background-color: lighten($lilac, 20%);
+      .glyphicon {
+        padding-right: 5px;
+        color: darken($lilac, 30%);
+      }
+    }
+
+    .event {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 3px 8px;
+      margin-top: 2px;
+      background-color: lighten($grey, 40%);
+      border-radius: 4px;
+      .glyphicon {
+        padding-right: 5px;
+        color: darken($grey, 20%);
+      }
+    }
+
+    .description {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 15px;
+      margin-top: 2px;
+      margin-bottom: 5px;
+      background-color: lighten($grey, 50%);
+      border: 1px solid lighten($grey, 30%);
+      border-radius: 4px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    width: calc(100% - 30px);
+    min-width: 0;
+  }
+
+  .bottom-icons {
+    float: right;
+    margin-top: 10px;
+    .edit-place {
+      padding-left: 10px;
+    }
+  }
+  .category-names {
+    margin-top: 10px;
+    float: left;
+    color: $grey;
+    font-style: italic;
+    width: 70%;
+  }
+
+  .places-list-accordion-container {
+    background: rgba(white, 0.5);
+  }
+
+  .button-container {
+    .sidepanel-add-place-container {
+      display: none;
+    }
+    button {
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 10px !important;
+    }
+  }
+
+  .collapsing {
+    -webkit-transition: none;
+    transition: none;
+  }
+}

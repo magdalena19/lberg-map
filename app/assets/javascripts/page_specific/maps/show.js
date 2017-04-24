@@ -3,20 +3,25 @@
 
 jQuery(function() {
   // Marker icons
-  var icon =  L.icon({
-    iconUrl: marker,
-    iconSize: [40, 40]
+  var current_position_icon = L.icon({
+    iconUrl: marker_current_position
   });
 
-  var session_icon =  L.icon({
-    iconUrl: sessionMarker,
-    iconSize: [40, 40]
+  var place_icon = L.icon({
+    iconUrl: placeMarker
   });
 
-  var current_position_marker = L.icon({
-    iconUrl: marker_current_position,
-    iconSize: [30, 30]
-  })
+  var event_icon = L.icon({
+    iconUrl: eventMarker
+  });
+
+  var session_event_icon = L.icon({
+    iconUrl: sessionEventMarker
+  });
+
+  var session_place_icon = L.icon({
+    iconUrl: sessionPlaceMarker
+  });
 
   jQuery('#map').each(function() {
     // move flash message in foreground when map is displayed
@@ -48,15 +53,26 @@ jQuery(function() {
       addToPlacesList(feature);
       var prop = feature.properties;
       if (prop.reviewed === false) {
-        layer.setIcon(session_icon);
+        if (prop.is_event === true) {
+          layer.setIcon(session_event_icon);
+        } else {
+          layer.setIcon(session_place_icon);
+        }
+      } else {
+        if (prop.is_event === true) {
+          layer.setIcon(event_icon);;
+        } else {
+          layer.setIcon(place_icon);;
+        }
       }
+
       layer.on('click', function(e) {
         showSidepanel();
         var accordionItemHeading = jQuery('#heading' + feature.id);
         var headingLink = accordionItemHeading.find('a');
         if (headingLink.hasClass('collapsed')) {
           headingLink.click();
-          var list = jQuery('.places-list-accordion-container');
+          var list = jQuery('.places-list-panel');
           list.scrollTo(accordionItemHeading.parent(), {offset: -5});
         }
       });
@@ -93,9 +109,11 @@ jQuery(function() {
 
     var updatePlaces = function(json) {
       jQuery('.places-list-accordion').empty();
+
       if (typeof cluster !== 'undefined') {
         map.removeLayer(cluster);
       }
+
       cluster = L.markerClusterGroup({
         polygonOptions: {
           fillColor: 'rgb(109, 73, 129)',
@@ -103,15 +121,22 @@ jQuery(function() {
           fillOpacity: 0.3
         }
       });
+
       var marker = L.geoJson(json, {
         pointToLayer: function (feature, latlng) {
-          return L.marker(latlng, {icon: icon, bla: 'blubb'});
+          return L.marker(latlng, {icon: place_icon});
         },
         onEachFeature: onEachFeature
       });
+
       cluster.addLayer(marker);
       map.addLayer(cluster);
-      if (json.length > 0) { map.fitBounds(cluster.getBounds()); }
+      if (json.length > 0) {
+        map.fitBounds(cluster.getBounds());
+        jQuery('.zoom-to-bbox').removeClass('inactive');
+      } else {
+        jQuery('.zoom-to-bbox').addClass('inactive');
+      }
     };
 
     // TEXT FILTER
@@ -156,17 +181,22 @@ jQuery(function() {
     };
 
     var dateFilter = function(json) {
-      var daterange = jQuery('#search-date-input').data('daterangepicker');
-      var startDate = forceUTC(daterange.startDate);
-      var endDate = forceUTC(daterange.endDate);
       if (!jQuery('#search-date-input').is(':visible')) { return json; }
       var filteredJson = [];
+
+      // Iterate features and push on filter match
       jQuery(json).each(function (id, feature) {
+        var daterange = jQuery('#search-date-input').data('daterangepicker');
+        var startDate = forceUTC(daterange.startDate);
+        var endDate = forceUTC(daterange.endDate);
         var featureStartDate = moment(feature.start_date);
         var featureEndDate = moment(feature.end_date);
+        var showPlaces = jQuery('.show-places-toggle')[0].checked;
+
         if (
             ( featureStartDate >= startDate && featureStartDate <= endDate ) ||
-            ( featureEndDate >= startDate && featureEndDate <= endDate )
+            ( featureEndDate >= startDate && featureEndDate <= endDate ) ||
+            ( !feature.is_event && showPlaces )
            ) {
           filteredJson.push(feature);
         }
@@ -174,13 +204,35 @@ jQuery(function() {
       return filteredJson;
     };
 
+    // PLACE TYPE FILTER
+    function showFeature(feature) {
+      var showEvents = jQuery('.show-events-toggle')[0].checked;
+      var showPlaces = jQuery('.show-places-toggle')[0].checked;
+      if ( (feature.is_event && showEvents) || (!feature.is_event && showPlaces) ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    var placeTypeFilter = function(json) {
+      var filteredJson = [];
+      jQuery(json).each(function (id, feature) {
+        if (showFeature(feature)) {
+          filteredJson.push(feature);
+        }
+      });
+      return filteredJson;
+    };
+
     var loadAndFilterPlaces = function() {
-      updatePlaces(dateFilter(textFilter(window.places)));
+      updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
     };
 
     // ADD PLACE
     jQuery('.add-place-button').click(function() {
       showSidepanel();
+      jQuery('.places-list-panel').scrollTo(0);
       jQuery('.sidepanel-button-container').hide();
       jQuery('.sidepanel-add-place-container').show();
       resizeSidePanel();
@@ -250,15 +302,16 @@ jQuery(function() {
 
     // RESPONSIVE HEIGHT
     var resizeSidePanel = function() {
-      var navbarHeight = jQuery('.navbar').height();
+      var navbarHeight = jQuery('.navbar').outerHeight();
+      var footerHeight = jQuery('.footer').outerHeight();
       jQuery('.confirmation-button-container').css('top', navbarHeight + 3);
       var panel = jQuery('.places-list-panel');
-      var accordion = jQuery('.places-list-accordion-container');
-      var searchField = jQuery('.search-field');
+      var filterField = jQuery('.filter-field');
       var buttons = jQuery('.button-container');
       var toggle = jQuery('.toggle-panel');
-      accordion.height(panel.height() - searchField.outerHeight() - buttons.outerHeight() - 30);
-      if (jQuery('.places-list-panel').is(':visible')) {
+      panel.css('top', filterField.outerHeight() + navbarHeight + 3);
+      panel.height(jQuery(document).height() - filterField.outerHeight() - navbarHeight - footerHeight - 33);
+      if (panel.is(':visible')) {
         jQuery('.toggle-panel').css('left', panel.outerWidth());
       } else {
         jQuery('.toggle-panel').css('left', 0);
@@ -283,8 +336,10 @@ jQuery(function() {
       var item = jQuery('.places-list-item.template').clone();
       var contact = item.find('.contact-container');
       var event_container = item.find('.event-container');
+      var panelType = feature.is_event ? 'event-panel' : 'place-panel'
 
       item.removeClass('template');
+      item.find('.panel-heading').addClass(panelType);
       item.find('.panel-heading').attr('id', 'heading' + feature.id);
       item.find('a')
         .attr('href', '#collapse' + feature.id)
@@ -293,9 +348,9 @@ jQuery(function() {
         .attr('lat', feature.geometry.coordinates[1]);
       item.find('.name').html(feature.properties.name);
       if (feature.is_event === true) {
-        item.find('.place_type').addClass('glyphicon-calendar');
+        item.find('.place_type').addClass('fa-calendar ' + panelType);
       } else {
-        item.find('.place_type').addClass('glyphicon-home');
+        item.find('.place_type').addClass('glyphicon-home ' + panelType);
       }
       item.find('.panel-collapse')
         .attr('id', 'collapse' + feature.id)
@@ -305,23 +360,23 @@ jQuery(function() {
 
       // Add place information sub-panels
       if(feature.properties.address !== '') {
-        contact.append("<div class='contact'><div class='glyphicon glyphicon-record'></div>" + feature.properties.address + "</div>");
+        contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-record'></div>" + feature.properties.address + "</div>");
       }
       if(feature.properties.phone !== '') {
-        contact.append("<div class='contact'><div class='glyphicon glyphicon-earphone'></div>" + feature.properties.phone + "</div>");
+        contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-earphone'></div>" + feature.properties.phone + "</div>");
       }
       if(feature.properties.email !== '') {
-        contact.append("<div class='contact'><div class='glyphicon glyphicon-envelope'></div>" + feature.properties.email + "</div>");
+        contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-envelope'></div>" + feature.properties.email + "</div>");
       }
       if(feature.properties.homepage !== '') {
-        contact.append("<div class='contact'><div class='glyphicon glyphicon-home'></div>" + feature.properties.homepage + "</div>");
+        contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-home'></div>" + feature.properties.homepage + "</div>");
       }
       if(feature.start_date !== null) {
         moment.locale('en');
         var startDate = moment(feature.start_date).utc().format('DD-MM-YYYY HH:mm');
         var endDate = moment(feature.end_date).utc().format('DD-MM-YYYY HH:mm');
-        date_string = feature.end_date === null ? startDate : startDate + ' - ' + endDate;
-        event_container.append("<div class='event'><div class='glyphicon glyphicon-calendar'></div>" + date_string + "</div>");
+        date_string = feature.end_date === null ? startDate : startDate + ' - ' + endDate
+        event_container.append("<div class='event'><div class='glyphicon fa fa-calendar'></div>" + date_string + "</div>");
       }
       item.find('.category-names').append(feature.properties.category_names);
       item.find('.edit-place').attr('place_id', feature.id);
@@ -340,7 +395,14 @@ jQuery(function() {
       })
 
     .on('input', function(){
-      loadAndFilterPlaces();
+      var timeout;
+      if (timeout !== undefined) {
+        clearTimeout(timeout);
+      } else {
+        timeout = setTimeout(function () {
+          loadAndFilterPlaces();
+        }, 350);
+      }
     });
 
     jQuery('.empty-text-filter').click(function() {
@@ -348,20 +410,37 @@ jQuery(function() {
       loadAndFilterPlaces();
     });
 
-    jQuery('#search-date-input')
-      .on('apply.daterangepicker', function() {
-        loadAndFilterPlaces();
-      });
-
     jQuery('.filter-date-row').hide();
-    jQuery('.cancel-date-filter').click(function() {
-      jQuery('.filter-date-row').hide();
-      jQuery('.add-date-filter').show();
+
+    jQuery('.show-events-toggle').click(function() {
+      filter = jQuery(this)[0].checked;
+      if (filter === true) {
+        var dateRange = window.event_date_range.split(',');
+        var startDate = moment(dateRange[0]).utc();
+        var endDate = moment(dateRange[1]).utc();
+        var dateString = endDate === null ? startDate : startDate + ' - ' + endDate;
+
+        jQuery('.filter-date-row').show();
+        jQuery('#search-date-input').daterangepicker({
+          "startDate": startDate,
+          "endDate": endDate,
+          "showDropdowns": true,
+          "showWeekNumbers": true,
+          "timePicker": true,
+          "timePicker24Hour": true,
+          "timePickerIncrement": 15,
+          "locale": { "format": 'DD.MM.YYYY HH:mm' }
+        }).on('apply.daterangepicker', function() {
+          loadAndFilterPlaces();
+        });
+      } else {
+        jQuery('.filter-date-row').hide();
+      }
       loadAndFilterPlaces();
+      resizeSidePanel();
     });
-    jQuery('.add-date-filter').click(function() {
-      jQuery('.add-date-filter').hide();
-      jQuery('.filter-date-row').show();
+
+    jQuery('.show-places-toggle').click(function() {
       loadAndFilterPlaces();
     });
 
@@ -379,6 +458,8 @@ jQuery(function() {
         showMapElements();
         jQuery('.loading').hide();
         showSidepanel();
+        resizeSidePanel();
+        hideSidepanel();
       }
     });
   });
@@ -391,7 +472,7 @@ jQuery(function() {
     if (cluster.getLayers().length > 0) {
       map.fitBounds(cluster.getBounds());
     }
-  })
+  });
 
 
   // Show / Hide geolocation
@@ -403,8 +484,8 @@ jQuery(function() {
     function showPosition(position) {
       lat = position.coords.latitude;
       lon = position.coords.longitude;
-      current_location = L.marker([lat, lon], {icon: current_position_marker}).addTo(map);
-      L.DomUtil.addClass(current_location._icon, 'current_location_marker')
+      current_location = L.marker([lat, lon], {icon: current_position_icon}).addTo(map);
+      L.DomUtil.addClass(current_location._icon, 'current_location_marker');
       map.current_location = current_location;
       jQuery('.toggle-show-geolocation').toggleClass('inactive');
 
@@ -430,11 +511,11 @@ jQuery(function() {
       map.current_location = undefined;
       jQuery('.toggle-show-geolocation').toggleClass('inactive');
     }
-  })
+  });
 
 
   // Toggle map info modal
   jQuery('.show-map-description').on('click', function() {
     jQuery('.map-description-modal').modal().show();
-  })
+  });
 });

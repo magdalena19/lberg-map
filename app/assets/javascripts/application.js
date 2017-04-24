@@ -225,4 +225,13 @@ jQuery(function() {
   jQuery('#map_guests').on('input', function(){
     toggle_submit_invitations_button();
   });
+
+  // FOOTER ACTIONS
+  jQuery('.app_imprint_toggle').on('click', function(){
+    jQuery('#app_imprint').modal('show');
+  });
+  
+  jQuery('.app_privacy_policy_toggle').on('click', function(){
+    jQuery('#app_privacy_policy').modal('show');
+  });
 });

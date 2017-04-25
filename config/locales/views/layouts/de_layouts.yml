@@ -1,5 +1,8 @@
 de:
   layouts:
+    application:
+      app_imprint: 'Impressum'
+      app_privacy_policy: 'Datenschutz'
     loading:
       processing: 'Automatische Übersetzung in die verfügbaren Sprachen, bitte warten...'
     sidebar:

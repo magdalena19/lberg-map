@@ -5,25 +5,32 @@
   %h1
   = form_for(@settings, url: admin_settings_path) do |f|
     %fieldset.form-group.row{class: "#{'has-error' if f.object.errors.include?(:app_title)}"}
-      .col-xs-3
-        = f.label :app_title
-      .col-xs-3
+      .col-xs-12
+        = f.label :app_title, t('.app_title')
         = f.text_field :app_title, class: 'form-control', placeholder: t('.app_title')
 
     %fieldset.form-group.row{class: "#{'has-error' if f.object.errors.include?(:admin_email_address)}"}
-      .col-xs-3
-        = f.label :admin_email_address
-      .col-xs-3
+      .col-xs-12
+        = f.label :admin_email_address, t('.admin_email_address')
         = f.text_field :admin_email_address, class: 'form-control', placeholder: t('.admin_email_address')
 
     %fieldset.form-group.row{class: "#{'has-error' if f.object.errors.include?(:user_activation_tokens)}"}
-      .col-xs-3
-        = f.label :user_activation_tokens
-      .col-xs-3
+      .col-xs-12
+        = f.label :user_activation_tokens, t('.user_activation_tokens')
         = f.number_field :user_activation_tokens, min: 0, class: 'form-control'
 
+    %fieldset.form-group.row
+      .col-xs-12
+        = f.label :app_imprint, t('.app_imprint')
+        = f.text_area :app_imprint, class: "wysihtml5 description-area"
+
+    %fieldset.form-group.row
+      .col-xs-12
+        = f.label :app_privacy_policy, t('.app_privacy_policy')
+        = f.text_area :app_privacy_policy, class: "wysihtml5 description-area"
+
     .row
-      .col-xs-2
+      .col-xs-6.col-md-3
         = f.submit t('.update_settings'), class: 'btn btn-primary btn-success'
-      .col-xs-2
+      .col-xs-6.col-md-3
         = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger back-button'

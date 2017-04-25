@@ -22,8 +22,30 @@
     .footer.navbar-fixed-bottom
       .container
         .pull-left
-          = link_to 'powered by codeRat', 'https://coderat.cc'
+          %i
+            powered by
+          = link_to 'ratMap', 'https://github.com/magdalena19/lberg-map', style: 'font-size: large; font-weight: bold;'
         .pull-right
-          = link_to 'Impressum'
+          = link_to t('.app_imprint'), '#', class: 'app_imprint_toggle'
           = ' | '
-          = link_to 'Datenschutz'
+          = link_to t('.app_privacy_policy'), '#', class: 'app_privacy_policy_toggle'
+
+-# App imprint
+.modal.fade{role: 'dialog', id: 'app_imprint' }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
+        %h4.modal-title= t('.app_imprint')
+      .modal-body
+        %p= Admin::Setting.app_imprint
+
+-# App privacy policy
+.modal.fade{role: 'dialog', id: 'app_privacy_policy' }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
+        %h4.modal-title= t('.app_privacy_policy')
+      .modal-body
+        %p= Admin::Setting.app_privacy_policy

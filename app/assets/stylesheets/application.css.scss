@@ -281,3 +281,15 @@ table.dataTable {
 a {
   color: $lilac;
 }
+
+// EXPLANATIONS
+.explanation {
+  font-size: 18px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+#explanation-modal {
+  font-size: 18px;
+  color: $green;
+}

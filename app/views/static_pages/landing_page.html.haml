@@ -8,3 +8,4 @@
         = t('.app_info', app_title: Admin::Setting.app_title)
     .col-md-4.col-md-offset-4.text-center.margin-below
       = link_to t('.create_guest_map'), new_map_url, class: 'btn btn-danger btn-lg full-width'
+      .explanation.lilac{'data-explanation' => t('explanations.create_guest_map')}

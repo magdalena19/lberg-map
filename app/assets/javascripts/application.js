@@ -234,4 +234,13 @@ jQuery(function() {
   jQuery('.app_privacy_policy_toggle').on('click', function(){
     jQuery('#app_privacy_policy').modal('show');
   });
+
+  // EXPLANATION MODALS
+  var explanationIcon = jQuery('.explanation');
+  explanationIcon.addClass('glyphicon glyphicon-question-sign');
+  explanationIcon.click(function() {
+    var text = jQuery(this).data('explanation');
+    jQuery('#explanation-modal').find('.modal-body').text(text);
+    jQuery('#explanation-modal').modal('show');
+  });
 });

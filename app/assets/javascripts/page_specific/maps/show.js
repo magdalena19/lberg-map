@@ -57,13 +57,13 @@ jQuery(function() {
       var confirm_delete = confirm(window.delete_confirmation_text);
       var panel = jQuery('#heading' + placeId).parent();
 
-      if (confirm_delete == true) {
+      if (confirm_delete === true) {
         jQuery.ajax({
           url: '/' + window.map_token + '/places/' + placeId,
           type: 'DELETE',
           success: function(result) {
-            panel.fadeOut(350, function() { jQuery(this).remove() });
-            updatePlaces(result)
+            panel.fadeOut(350, function() { jQuery(this).remove(); });
+            updatePlaces(result);
           }
         });
       }
@@ -276,6 +276,7 @@ jQuery(function() {
     var addToPlacesList = function(feature) {
       var item = jQuery('.places-list-item.template').clone();
       var contact = item.find('.contact-container');
+      var event_container = item.find('.event-container');
 
       item.removeClass('template');
       item.find('.panel-heading').attr('id', 'heading' + feature.id);
@@ -295,8 +296,6 @@ jQuery(function() {
         .attr('aria-labelledby', 'heading' + feature.id);
       item.find('.description').append(feature.properties.description);
 
-      var contact = item.find('.contact-container');
-      var event_container = item.find('.event-container');
 
       // Add place information sub-panels
       if(feature.properties.address !== '') {
@@ -315,7 +314,7 @@ jQuery(function() {
         moment.locale('en');
         var startDate = moment(feature.start_date).utc().format('DD-MM-YYYY HH:mm');
         var endDate = moment(feature.end_date).utc().format('DD-MM-YYYY HH:mm');
-        date_string = feature.end_date === null ? startDate : startDate + ' - ' + endDate
+        date_string = feature.end_date === null ? startDate : startDate + ' - ' + endDate;
         event_container.append("<div class='event'><div class='glyphicon glyphicon-calendar'></div>" + date_string + "</div>");
       }
       item.find('.category-names').append(feature.properties.category_names);

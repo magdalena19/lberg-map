@@ -12,7 +12,7 @@ class Category < ActiveRecord::Base
   after_create :enqueue_auto_translation, if: 'map.auto_translate'
 
   def enqueue_auto_translation
-    TranslationWorker.perform_async('Category', id)
+    TranslationWorker.perform_async('Category', id, map.supported_languages)
   end
 
   # Set all name columns to empty in order to create translation records on create

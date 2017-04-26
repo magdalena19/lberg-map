@@ -12,6 +12,7 @@ RSpec.describe Map, type: :model do
     it { is_expected.to respond_to :auto_translate }
     it { is_expected.to respond_to :translation_engine }
     it { is_expected.to respond_to :allow_guest_commits }
+    it { is_expected.to respond_to :supported_languages }
   end
 
   context 'Callbacks' do
@@ -69,6 +70,12 @@ RSpec.describe Map, type: :model do
     it 'cannot have title longer than 25 characters' do
       map = build :map, :full_public, title: 'a'*26
 
+      expect(map).not_to be_valid
+    end
+
+    it 'cannot have no supported_languages' do
+      map = build :map, :full_public, supported_languages: []
+      
       expect(map).not_to be_valid
     end
   end

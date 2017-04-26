@@ -41,7 +41,9 @@ en:
       imprint: 'Map imprint (optional)'
       base_settings: 'Base setup'
       publication_settings: 'Publication settings'
-      language_settings: 'Language settings'
+      language_settings: 'Multi-language support'
+    form_language_settings_tab:
+      supported_languages: 'Supported Languages on your map'
     share_map:
       share_with_guests: 'Invite others to see what you have mapped'
       share_secret_link: 'Share the %{link} with others'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170424081716) do
+ActiveRecord::Schema.define(version: 20170426133404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,16 +69,6 @@ ActiveRecord::Schema.define(version: 20170424081716) do
 
   add_index "categories", ["map_id"], name: "index_categories_on_map_id", using: :btree
 
-  create_table "categorizings", force: :cascade do |t|
-    t.integer  "place_id"
-    t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "categorizings", ["category_id"], name: "index_categorizings_on_category_id", using: :btree
-  add_index "categorizings", ["place_id"], name: "index_categorizings_on_place_id", using: :btree
-
   create_table "category_translations", force: :cascade do |t|
     t.integer  "category_id",                     null: false
     t.string   "locale",                          null: false
@@ -92,19 +82,20 @@ ActiveRecord::Schema.define(version: 20170424081716) do
   add_index "category_translations", ["locale"], name: "index_category_translations_on_locale", using: :btree
 
   create_table "maps", force: :cascade do |t|
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.string   "title"
     t.text     "description"
     t.text     "imprint"
-    t.boolean  "is_public",                default: false, null: false
+    t.boolean  "is_public",                default: false,  null: false
     t.string   "public_token"
-    t.string   "secret_token",                             null: false
+    t.string   "secret_token",                              null: false
     t.string   "maintainer_email_address"
     t.boolean  "allow_guest_commits"
     t.string   "translation_engine"
     t.boolean  "auto_translate"
     t.integer  "user_id"
+    t.text     "supported_languages",      default: ["en"], null: false, array: true
   end
 
   add_index "maps", ["user_id"], name: "index_maps_on_user_id", using: :btree
@@ -196,8 +187,6 @@ ActiveRecord::Schema.define(version: 20170424081716) do
   add_foreign_key "activation_tokens", "users"
   add_foreign_key "announcements", "maps"
   add_foreign_key "categories", "maps"
-  add_foreign_key "categorizings", "categories"
-  add_foreign_key "categorizings", "places"
   add_foreign_key "maps", "users"
   add_foreign_key "messages", "maps"
   add_foreign_key "places", "maps"

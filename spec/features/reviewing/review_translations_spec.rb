@@ -6,6 +6,7 @@ feature 'Review translations', :js do
 
   scenario 'Show guest edits in review index and review place' do
     visit edit_place_path id: @place.id, map_token: @map.public_token
+    find('h4', text: 'English description').trigger('click')
     fill_in_description_field('ChangedDescription')
     validate_captcha
     click_on('Update Place')

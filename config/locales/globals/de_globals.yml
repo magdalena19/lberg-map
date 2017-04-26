@@ -4,6 +4,9 @@ de:
   description_de: 'Deutsche Beschreibung'
   description_fr: 'Fanzösische Beschreibung'
   description_ar: 'Arabische Beschreibung'
+  languages:
+    en: 'Englisch'
+    de: 'Deutsch'
   helpers:
     select:
       prompt: Bitte wählen

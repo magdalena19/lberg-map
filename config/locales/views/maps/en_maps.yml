@@ -8,6 +8,8 @@ en:
       create_new_map: 'Create new map'
       no_title: 'No title'
       index: 'Map overview'
+    new:
+      new: 'Create new map'
     map:
       edit_map: 'Map settings'
       delete_map: 'Delete map'
@@ -26,23 +28,26 @@ en:
       number_of_places: '%{total} places on map'
       number_of_events: '%{total} events on map'
     form:
-      public_map_name: 'Public link to your map'
-      public_token: 'Public link to your map, e.g. Traveling map'
+      base_settings: 'Base setup'
+      publication_settings: 'Publication settings'
+      language_settings: 'Multi-language support'
+    form_base_settings_tab:
       secret_token: 'Secret key'
       secret_link: 'Secret link'
       secret_link_explanation: 'The more cryptic the safer it becomes!'
       title: 'Map title'
       title_placeholder: 'Traveling Moldova'
-      maintainer_email_address: 'Your email address (optional)'
       description: 'Map description (optional)'
-      auto_translate: 'Activate automatic translation of descriptions and tags'
-      is_public: 'Map publicly available?'
+    form_publication_settings_tab:
+      public_link: 'Public link'
+      public_token: 'Public link to your map, e.g. Traveling map'
+      public_map_name: 'Public link to your map'
+      maintainer_email_address: 'Your email address (optional)'
+      is_public: 'Publish map'
       allow_guest_commits: 'Allow guest changes'
       imprint: 'Map imprint (optional)'
-      base_settings: 'Base setup'
-      publication_settings: 'Publication settings'
-      language_settings: 'Multi-language support'
     form_language_settings_tab:
+      auto_translate: 'Activate automatic translation of descriptions and tags'
       supported_languages: 'Supported Languages on your map'
     share_map:
       share_with_guests: 'Invite others to see what you have mapped'

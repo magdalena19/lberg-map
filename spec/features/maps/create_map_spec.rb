@@ -4,7 +4,7 @@ feature 'Create Map', js: true do
       login_as_user
       visit new_map_path
       fill_in_valid_map_attributes
-      click_on('Language settings')
+      click_on('Multi-language support')
       find("#map_supported_languages_[value='de']").set(true)
       find("#map_supported_languages_[value='en']").set(false)
       execute_script("jQuery('.footer').css('display', 'none')") # circumvent button finding prob

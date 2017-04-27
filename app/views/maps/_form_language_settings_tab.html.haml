@@ -17,5 +17,8 @@
             .col-xs-12
               .checkbox
                 %label
-                  = check_box_tag 'map[supported_languages][]', locale, locale == I18n.locale ? true : false
+                  - if @map.new_record?
+                    = check_box_tag 'map[supported_languages][]', locale, locale == I18n.locale ? true : false
+                  - else
+                    = check_box_tag 'map[supported_languages][]', locale, @map.supported_languages.include?(locale.to_s) ? true : false
                 = t("languages.#{locale}") + " (#{locale})"

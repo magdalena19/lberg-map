@@ -15,8 +15,9 @@ module AutoTranslate
     end
   end
 
-  def auto_translate_empty_attributes
+  def auto_translate_empty_attributes(supported_languages: I18n.available_locales)
     @translator = active_translation_engine
+    @languages_set = supported_languages.map(&:to_s)
     translated_attributes.each do |attr, _value|
       @attribute = attr
       @native_translation = guess_native_language
@@ -49,10 +50,11 @@ module AutoTranslate
     translation
   end
 
-  private
-
+  # crucial
   def autotranslated_or_empty
-    translations.select { |t| !t[@attribute].present? || t.auto_translated }
+    translations.
+      select { |t| @languages_set.include? t.locale.to_s }.
+      select { |t| !t[@attribute].present? || t.auto_translated }
   end
 
   def missing_locales

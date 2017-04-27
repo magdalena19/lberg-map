@@ -18,6 +18,7 @@ class Map < ActiveRecord::Base
   validates :translation_engine, presence: true, inclusion: { in: %w[bing yandex google] }, if: 'auto_translate'
   validates :secret_token, presence: true
   validates :title, length: { maximum: 25 }
+  validates :supported_languages, presence: true
   validate :secret_token_unique
   validate :public_token_unique, if: 'public_token.present?'
 
@@ -98,6 +99,10 @@ class Map < ActiveRecord::Base
 
   def owned_by(owner:)
     owner.registered? ? owner.id == user.id : false
+  end
+
+  def supported_languages_string
+    supported_languages.sort.map { |l| I18n.t("languages.#{l}") }.join(', ')
   end
 
   private

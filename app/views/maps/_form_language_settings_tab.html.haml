@@ -9,3 +9,13 @@
           = t('.auto_translate')
       .col-xs-4
         = f.collection_select :translation_engine, Admin::Setting.translation_engines, :to_s, :humanize
+    .row
+      .col-xs-12
+        %h4= t('.supported_languages')
+        - I18n.available_locales.each do |locale|
+          .row
+            .col-xs-12
+              .checkbox
+                %label
+                  = check_box_tag 'map[supported_languages][]', locale, locale == I18n.locale ? true : false
+                = t("languages.#{locale}") + " (#{locale})"

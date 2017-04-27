@@ -4,6 +4,9 @@ en:
   description_de: 'German description'
   description_fr: 'French description'
   description_ar: 'Arabic description'
+  languages:
+    en: 'English'
+    de: 'German'
   helpers:
     select:
       prompt: 'Please select'

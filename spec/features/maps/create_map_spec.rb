@@ -1,4 +1,21 @@
 feature 'Create Map', js: true do
+  context 'Specific language support' do
+    scenario 'Can select supported map languages from all available languages', js_errors: false do
+      login_as_user
+      visit new_map_path
+      fill_in_valid_map_attributes
+      click_on('Language settings')
+      find("#map_supported_languages_[value='de']").set(true)
+      find("#map_supported_languages_[value='en']").set(false)
+      execute_script("jQuery('.footer').css('display', 'none')") # circumvent button finding prob
+      click_on('Create Map')
+      map = Map.find_by(secret_token: 'secret_token')
+
+      expect(map.supported_languages).to eq ['de']
+    end
+
+  end
+
   context 'Secret Map' do
     scenario 'as registered user', js_errors: false do
       login_as_user

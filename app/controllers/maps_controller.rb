@@ -120,7 +120,8 @@ class MapsController < ApplicationController
       :secret_token,
       :allow_guest_commits,
       :auto_translate,
-      :translation_engine
+      :translation_engine,
+      supported_languages: []
     )
   end
 end

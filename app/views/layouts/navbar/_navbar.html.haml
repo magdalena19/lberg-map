@@ -10,20 +10,12 @@
       %a
       -# Map title
       - if current_map
-        .logo.logo-left= @map.title.present? ? @map.title : t('.no_title')
+        = link_to map_path(map_token: map_token) do
+          .logo.logo-left= @map.title.present? ? @map.title : t('.no_title')
       - else
         = link_to landing_page_path do
           .logo.logo-left LBERG
           .logo.logo-right MAP
-
-      -# Map show and places index
-      - if current_map
-        .navbar-button.home-button.pull-left
-          = link_to map_path(map_token: map_token) do
-            .glyphicon.glyphicon-globe.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_the_map')}
-        .navbar-button.home-button.pull-left
-          = link_to places_path(map_token: map_token) do
-            .glyphicon.glyphicon-list.green{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.to_the_list')}
 
     #navbar.navbar-collapse.collapse
       %ul.nav.navbar-nav

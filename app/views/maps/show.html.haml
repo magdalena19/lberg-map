@@ -8,6 +8,7 @@
 
   = render 'map_overlays'
   = render 'sidepanel'
+  = render 'map_description_modal'
 
 :javascript
   window.locale = '#{locale}';
@@ -20,4 +21,5 @@
   window.longitude = #{@longitude || 0};
   window.marker = '#{image_path 'marker.png'}';
   window.sessionMarker = '#{image_path 'marker_session.png'}';
+  window.marker_current_position = '#{image_path 'marker_current_position.png'}';
   window.map_token = "#{request[:map_token]}"

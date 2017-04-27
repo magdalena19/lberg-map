@@ -61,3 +61,11 @@ de:
     sidepanel:
       filter_by_date: 'Suche events'
       no_points_in_list: 'Noch keine Punkte eingetragen...'
+    map_overlays:
+      zoom_in: 'Vergrößern'
+      zoom_out: 'Verkleinern'
+      fit_to_bbox: 'Kartenausschnitt anpassen'
+      show_current_position: 'Standort anzeigen'
+      show_map_description: 'Kartenbeschreibung'
+      show_places_list: 'Zur Listenansicht'
+      new_place: 'Ort hinzufügen'

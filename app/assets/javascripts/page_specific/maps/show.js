@@ -2,6 +2,22 @@
 //= require ./_map_overlays
 
 jQuery(function() {
+  // Marker icons
+  var icon =  L.icon({
+    iconUrl: marker,
+    iconSize: [40, 40]
+  });
+
+  var session_icon =  L.icon({
+    iconUrl: sessionMarker,
+    iconSize: [40, 40]
+  });
+
+  var current_position_marker = L.icon({
+    iconUrl: marker_current_position,
+    iconSize: [30, 30]
+  })
+
   jQuery('#map').each(function() {
     // move flash message in foreground when map is displayed
     jQuery('#flash-messages').css('position', 'absolute').css('z-index', '999999');
@@ -75,16 +91,6 @@ jQuery(function() {
       map.setView([lat, lon], 14);
     });
 
-    var icon =  L.icon({
-      iconUrl: marker,
-      iconSize: [40, 40]
-    });
-
-    var session_icon =  L.icon({
-      iconUrl: sessionMarker,
-      iconSize: [40, 40]
-    });
-
     var updatePlaces = function(json) {
       jQuery('.places-list-accordion').empty();
       if (typeof cluster !== 'undefined') {
@@ -109,44 +115,44 @@ jQuery(function() {
     };
 
     // TEXT FILTER
-		var wordPresent = function(word, feature) {
-			var match = false;
+    var wordPresent = function(word, feature) {
+      var match = false;
 
-			jQuery.each(feature.properties, function(attr, key) {
+      jQuery.each(feature.properties, function(attr, key) {
         var value = feature.properties[attr];
-				var string = value ? value.toString().toLowerCase() : '';
-				if ( string.indexOf(word) >= 0 ) {
-					match = true;
-					return false; // return false to quit loop
-				}
-			});
-			return match;
-		};
+        var string = value ? value.toString().toLowerCase() : '';
+        if ( string.indexOf(word) >= 0 ) {
+          match = true;
+          return false; // return false to quit loop
+        }
+      });
+      return match;
+    };
 
-		var textFilter = function(json) {
-			var text = jQuery('#search-input').val();
-			if (!text) { return json; }
+    var textFilter = function(json) {
+      var text = jQuery('#search-input').val();
+      if (!text) { return json; }
 
-			var filteredJson = [];
-			var words = text.replace(';', ',').split(',');
-			jQuery(json).each(function (id, feature) {
-				var matches = jQuery.map(words, function(word) {
+      var filteredJson = [];
+      var words = text.replace(';', ',').split(',');
+      jQuery(json).each(function (id, feature) {
+        var matches = jQuery.map(words, function(word) {
           word = word.trim().toLowerCase();
-					return wordPresent(word, feature);
-				});
-				if ( !(matches.indexOf(false) > -1) ) {
-					filteredJson.push(feature);
-				}
-			});
-			return filteredJson;
-		};
+          return wordPresent(word, feature);
+        });
+        if ( !(matches.indexOf(false) > -1) ) {
+          filteredJson.push(feature);
+        }
+      });
+      return filteredJson;
+    };
 
     // DATE FILTER
     var forceUTC = function(date) {
       // this is a workaround sinde daterangepicker localizes selection - better would be a direct input as utc timestamp
       return date.clone()
-                 .utcOffset(0)
-                 .add(date.utcOffset(), 'minutes');
+        .utcOffset(0)
+        .add(date.utcOffset(), 'minutes');
     };
 
     var dateFilter = function(json) {
@@ -159,9 +165,9 @@ jQuery(function() {
         var featureStartDate = moment(feature.start_date);
         var featureEndDate = moment(feature.end_date);
         if (
-          ( featureStartDate >= startDate && featureStartDate <= endDate ) ||
-          ( featureEndDate >= startDate && featureEndDate <= endDate )
-        ) {
+            ( featureStartDate >= startDate && featureStartDate <= endDate ) ||
+            ( featureEndDate >= startDate && featureEndDate <= endDate )
+           ) {
           filteredJson.push(feature);
         }
       });
@@ -333,9 +339,9 @@ jQuery(function() {
         loadAndFilterPlaces();
       })
 
-      .on('input', function(){
-        loadAndFilterPlaces();
-      });
+    .on('input', function(){
+      loadAndFilterPlaces();
+    });
 
     jQuery('.empty-text-filter').click(function() {
       jQuery('.category-input').val('');
@@ -376,4 +382,59 @@ jQuery(function() {
       }
     });
   });
+
+
+  // MAP CONTROLS
+
+  // Reset view to bbox of current place selection
+  jQuery('.zoom-to-bbox').on('click', function() {
+    if (cluster.getLayers().length > 0) {
+      map.fitBounds(cluster.getBounds());
+    }
+  })
+
+
+  // Show / Hide geolocation
+  function zoomTo(lat, lon) {
+    map.setView([lat, lon], 18);
+  }
+
+  jQuery('.toggle-show-geolocation').on('click', function() {
+    function showPosition(position) {
+      lat = position.coords.latitude;
+      lon = position.coords.longitude;
+      current_location = L.marker([lat, lon], {icon: current_position_marker}).addTo(map);
+      L.DomUtil.addClass(current_location._icon, 'current_location_marker')
+      map.current_location = current_location;
+      jQuery('.toggle-show-geolocation').toggleClass('inactive');
+
+      // Zoom in if no POIs on map
+      if (cluster.getLayers().length === 0) {
+        zoomTo(lat, lon);
+      }
+    }
+
+    function getAndShowPosition(){
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert('Geolocation is not supported by this browser.');
+      }
+    }
+
+    if (map.current_location === undefined) {
+      getAndShowPosition();
+    } else {
+      map.removeLayer(map.current_location);
+      jQuery('.current_location_marker').remove();
+      map.current_location = undefined;
+      jQuery('.toggle-show-geolocation').toggleClass('inactive');
+    }
+  })
+
+
+  // Toggle map info modal
+  jQuery('.show-map-description').on('click', function() {
+    jQuery('.map-description-modal').modal().show();
+  })
 });

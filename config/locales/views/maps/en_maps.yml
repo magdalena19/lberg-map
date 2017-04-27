@@ -60,3 +60,11 @@ en:
     sidepanel:
       filter_by_date: 'Search for events'
       no_points_in_list: 'No points inserted yet...'
+    map_overlays:
+      zoom_in: 'Zoom in'
+      zoom_out: 'Zoom out'
+      fit_to_bbox: 'Fit view size'
+      show_current_position: 'Show my location'
+      show_map_description: 'Show map description'
+      show_places_list: 'Go to list view'
+      new_place: 'Add a place'

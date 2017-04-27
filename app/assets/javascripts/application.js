@@ -146,10 +146,29 @@ jQuery(function() {
       }
     });
 
-    jQuery(input).click(function() {
+    function proposeTags(inputField) {
+      // Determine diff of category and input words array
+      var origList = jQuery(inputField).data('list').replace(/ /g, '').split(',');
+      var inputWords = jQuery(inputField)[0].value.replace(/ /g, '').split(',');
+      var diff = origList.filter(function(n) {
+        return inputWords.indexOf(n) === -1;
+      });
+
+      categoryList._list = diff;
       categoryList.minChars = 0;
       categoryList.evaluate();
-      categoryList.open();
+
+      if (diff.length !== 0) {
+        categoryList.open();
+      }
+    }
+
+    jQuery(input).click(function() {
+      proposeTags(this);
+    });
+
+    jQuery(input).on('input', function() {
+      proposeTags(this);
     });
   });
 
@@ -233,5 +252,14 @@ jQuery(function() {
   
   jQuery('.app_privacy_policy_toggle').on('click', function(){
     jQuery('#app_privacy_policy').modal('show');
+  });
+
+  // EXPLANATION MODALS
+  var explanationIcon = jQuery('.explanation');
+  explanationIcon.addClass('glyphicon glyphicon-question-sign');
+  explanationIcon.click(function() {
+    var text = jQuery(this).data('explanation');
+    jQuery('#explanation-modal').find('.modal-body').text(text);
+    jQuery('#explanation-modal').modal('show');
   });
 });

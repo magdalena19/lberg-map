@@ -8,6 +8,9 @@ de:
       create_new_map: 'Neue Karte erstellen'
       no_title: 'Ohne Titel'
       index: 'Kartenübersicht'
+    new:
+      new: 'Neue Karte'
+
     map:
       edit_map: 'Karteneinstellungen'
       delete_map: 'Karte löschen'
@@ -26,23 +29,26 @@ de:
       number_of_places: '%{total} Orte eingetragen'
       number_of_events: '%{total} Ereignisse eingetragen'
     form:
-      public_map_name: 'Öffentlicher Link zu deiner Karte'
-      public_token: 'Öffentlicher Link zu deiner Karte, zB Reiseziele'
+      base_settings: 'Grundeinstellungen'
+      publication_settings: 'Veröffentlichungs-Einstellungen'
+      language_settings: 'Mehrsprachigkeit'
+    form_base_settings_tab:
       secret_link: 'Geheimer Link'
       secret_token: 'Geheimer Schlüssel'
       secret_link_explanation: 'Dieser Link sollte so kryptisch wie möglich sein, da er dir und anderen das editieren der Karte erlaubt'
       title: 'Kartentitel'
       title_placeholder: 'Reisen in Moldawien'
-      maintainer_email_address: 'Deine Mailadresse (optional)'
       description: 'Kartenbeschreibung'
-      auto_translate: 'Automatische Übersetzungen von Beschreibungen und Tags'
-      is_public: 'Öffentlich erreichare Karte?'
+    form_publication_settings_tab:
+      public_link: 'Öffentlicher Link'
+      public_token: 'Öffentlicher Link zu deiner Karte, zB Reiseziele'
+      public_map_name: 'Öffentlicher Link zu deiner Karte'
+      maintainer_email_address: 'Deine Mailadresse (optional)'
+      is_public: 'Karte veröffentlichen'
       allow_guest_commits: 'Erlaube Gast-Änderungen'
       imprint: 'Impressum deiner Karte (optional)'
-      base_settings: 'Grundeinstellungen'
-      publication_settings: 'Veröffentlichungs-Einstellungen'
-      language_settings: 'Mehrsprachigkeit'
     form_language_settings_tab:
+      auto_translate: 'Automatische Übersetzungen von Beschreibungen und Tags'
       supported_languages: 'Unterstützte Sprachen auf deiner Karte'
     share_map:
       share_with_guests: 'Zeige anderen Menschen, was du kartiert hast:'

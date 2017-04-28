@@ -1,7 +1,8 @@
 !!!
 %html
   %head
-    %title= @map.present? ? @map.title : 'KartenApp'
+    %title= @map.present? ? @map.title : Admin::Setting.app_title
+    = favicon_link_tag 'favicon'
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = include_page_specific_javascript

@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
 
   def set_map
     token = params[:map_token]
+    return nil if token.nil?
     @map = Map.find_by(secret_token: token) || Map.find_by(public_token: token)
   end
 

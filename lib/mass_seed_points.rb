@@ -55,6 +55,19 @@ module MassSeedPoints
       end
     end
 
+    def place_to_event(place:)
+      start_date = Date.today - rand(0..365)
+      end_date = start_date + rand(5..100)
+
+      place.without_versioning do
+        place.update_attributes(
+          start_date: start_date.to_time,
+          end_date: end_date.to_time,
+          event: true
+        )
+      end
+    end
+
     def generate_point(boundaries:, map:)
       random_point = random_point_inside_bbox(boundaries)
       updated_at = Date.today - rand(0..365)
@@ -74,14 +87,20 @@ module MassSeedPoints
                                  description_en: Faker::Hipster.paragraph(rand(1..2)),
                                  description_de: Faker::Hipster.paragraph(rand(1..2)),
                                  categories: categories.sample(rand(1..3)).map(&:name).join(','),
+                                 event: false,
                                  reviewed: reviewed_status,
                                  created_at: created_at,
                                  updated_at: updated_at)
+
+      # Make place an event
+      if [true, false].sample
+        place_to_event(place: @place)
+      end
+
       update_place_translations_attr(place: @place)
     end
 
     # Quick'n dirty, otherwise parse locale files for categories
-
     def populate_predefined_categories(map:)
       map.categories.create(name_en: 'Playground', locale: 'en',
                             name_de: 'Spielplatz', locale: 'de')
@@ -89,6 +108,14 @@ module MassSeedPoints
                             name_de: 'Anwalt', locale: 'de')
       map.categories.create(name_en: 'Hospital', locale: 'en',
                             name_de: 'Krankenhaus', locale: 'de')
+      map.categories.create(name_en: 'Drugstore', locale: 'en',
+                            name_de: 'Apotheke', locale: 'de')
+      map.categories.create(name_en: 'Cafe', locale: 'en',
+                            name_de: 'Café', locale: 'de')
+      map.categories.create(name_en: 'Consultation', locale: 'en',
+                            name_de: 'Beratung', locale: 'de')
+      map.categories.create(name_en: 'Event location', locale: 'en',
+                            name_de: 'Veranstaltungsort', locale: 'de')
     end
 
     def generate_maps

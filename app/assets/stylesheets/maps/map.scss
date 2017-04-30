@@ -1,0 +1,119 @@
+@import 'colors';
+
+.map-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+};
+
+#map {
+  height:100%;
+}
+.tooltip-inner {
+  max-width: none;
+  white-space: nowrap;
+}
+
+.overlay {
+  position: absolute !important;
+  z-index: 999;
+  .filter-button {
+    width: 130px !important;
+    &.active {
+      font-weight: bold;
+    }
+  }
+}
+
+.loading {
+  bottom: 50%;
+  left: 50%;
+  .loading-text {
+    font-weight: bold;
+    background: rgba(255,255,255,0.7);
+    border-radius: 7px;
+    padding: 10px;
+    position: relative;
+    left: -50%;
+    bottom: -30px;
+    border: none;
+    font-size: 15px;
+  }
+}
+
+.control-container {
+  right: -7px;
+  width: 50px;
+  background: rgba(darken($lilac, 50%),0.8);
+  border-radius: 4px;
+
+  .control-button :hover {
+    cursor: pointer;
+  }
+
+  .glyphicon {
+    top: 0px;
+    padding: 10px;
+    text-align: center;
+    color: $green;
+    font-size: 20px;
+    width: 45px;
+    height: 40px;
+    &.inactive {
+      color: rgba(121, 198, 130, 0.5);
+    }
+  }
+
+  &.zoom-container {
+    top: 60px;
+  }
+
+  &.map-info-container {
+    top: 240px;
+  }
+
+  &.place-control-container {
+    top: 340px;
+    height: 60px;
+    img {
+      width: 25px;
+    }
+  }
+}
+
+
+.confirmation-button-container {
+  display: none;
+  top: 60px;
+  text-align: center;
+  button {
+    font-size: 35px;
+    opacity: 0.8;
+  }
+}
+
+.add-place-button {
+  cursor: pointer;
+}
+
+.show-places {
+  color: #333333;
+  &:hover {
+    color: #333333;
+    text-decoration: none;
+  };
+}
+
+.leaflet-control-attribution {
+  display: none;
+}
+
+.place-list-header-buttons {
+  float: right;
+  cursor: pointer;
+}
+
+#accordion {
+  padding: none;
+  margin-bottom: 0;
+}

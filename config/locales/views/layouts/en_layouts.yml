@@ -14,6 +14,8 @@ en:
       dropdown:
         admin_tasks: 'Administration'
       navbar:
+        to_the_map: To map view
+        to_the_list: To list view
         no_title: 'No title'
       user_dropdown:
         edit_user: 'User Settings'

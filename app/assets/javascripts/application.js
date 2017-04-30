@@ -249,7 +249,7 @@ jQuery(function() {
   jQuery('.app_imprint_toggle').on('click', function(){
     jQuery('#app_imprint').modal('show');
   });
-  
+
   jQuery('.app_privacy_policy_toggle').on('click', function(){
     jQuery('#app_privacy_policy').modal('show');
   });
@@ -262,4 +262,22 @@ jQuery(function() {
     jQuery('#explanation-modal').find('.modal-body').text(text);
     jQuery('#explanation-modal').modal('show');
   });
+
+  // Close modals on Escape keypress
+  window.addEventListener("keydown", function (event) {
+    if (event.defaultPrevented) {
+      return; // Should do nothing if the key event was already consumed.
+    }
+
+    switch (event.key) {
+      case "Escape":
+        jQuery('.modal').modal('hide');
+      break;
+      default:
+      return; // Quit when this doesn't handle the key event.
+    }
+
+    // Consume the event to avoid it being handled twice
+    event.preventDefault();
+  }, true);
 });

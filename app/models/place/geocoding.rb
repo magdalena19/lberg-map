@@ -23,13 +23,13 @@ module PlaceGeocoding
     {
       latitude: search_results.lat,
       longitude: search_results.lon,
-      house_number: search_results.address["house_number"],
-      street: search_results.address["street"] || search_results.address["road"],
-      postal_code: search_results.address["postcode"],
-      district: search_results.address["suburb"] || search_results.address["district"],
-      city: search_results.address["village"] || search_results.address["town"] || search_results.address["state"],
-      federal_state: search_results.address["state"],
-      country: search_results.address["country"]
+      house_number: search_results.address['house_number'],
+      street: search_results.address['street'] || search_results.address['road'],
+      postal_code: search_results.address['postcode'],
+      district: search_results.address['city_district'] || search_results.address['suburb'] || search_results.address['district'],
+      city: search_results.address['village'] || search_results.address['town'] || search_results.address['state'],
+      federal_state: search_results.address['state'],
+      country: search_results.address['country']
     }
   end
 

@@ -101,12 +101,6 @@ jQuery(function() {
       }
     });
 
-    jQuery('body').on('click', 'a', function() {
-      var lat = jQuery(this).attr('lat');
-      var lon = jQuery(this).attr('lon');
-      map.setView([lat, lon], 14);
-    });
-
     var updatePlaces = function(json) {
       jQuery('.places-list-accordion').empty();
 
@@ -231,17 +225,8 @@ jQuery(function() {
 
     // ADD PLACE
     jQuery('.add-place-button').click(function() {
-      showSidepanel();
-      jQuery('.places-list-panel').scrollTo(0);
-      jQuery('.sidepanel-button-container').hide();
-      jQuery('.sidepanel-add-place-container').show();
-      resizeSidePanel();
-    });
-
-    jQuery('.cancel-place-addition').click(function() {
-      jQuery('.sidepanel-add-place-container').hide();
-      jQuery('.sidepanel-default-container').show();
-      resizeSidePanel();
+      jQuery('.right-sidebar-tray').hide();
+      jQuery('.create-place-methods-tray').toggleClass('hidden');
     });
 
     jQuery('.type-in-address').click(function(){
@@ -517,5 +502,22 @@ jQuery(function() {
   // Toggle map info modal
   jQuery('.show-map-description').on('click', function() {
     jQuery('.map-description-modal').modal().show();
+  })
+
+  jQuery('.control-button[tray]').on('click', function(){
+    jQuery('.right-sidebar-tray').hide();
+    var trayName = jQuery(this).attr('tray');
+    console.log(trayName);
+    jQuery(trayName).show();
   });
+
+  jQuery('.select-tile-layer').on('click', function(){
+    var url = jQuery(this).data('url');
+    var attr = jQuery(this).data('attr');
+    oldLayer = map.baseLayer;
+    map.baseLayer = L.tileLayer(url, {attribution: attr});
+    map.addLayer(map.baseLayer);
+    map.removeLayer(oldLayer);
+    jQuery('.tile-layers').toggleClass('hidden');
+  })
 });

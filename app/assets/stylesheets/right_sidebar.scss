@@ -1,0 +1,93 @@
+@import 'colors';
+
+// right control container
+.right-sidebar-tray {
+  display: none;
+}
+
+.control-container {
+  right: -7px;
+  width: 50px;
+  background: rgba(darken($lilac, 50%),0.8);
+  border-radius: 4px;
+
+  .control-button :hover {
+    cursor: pointer;
+  }
+
+  .glyphicon {
+    top: 0px;
+    padding: 10px;
+    text-align: center;
+    color: $green;
+    font-size: 20px;
+    width: 45px;
+    height: 40px;
+    &.inactive {
+      color: rgba(121, 198, 130, 0.5);
+    }
+  }
+
+  &.zoom-container {
+    top: 60px;
+  }
+
+  &.map-info-container {
+    top: 240px;
+  }
+
+  // SELECT TILE LAYERS
+  &.tile-layers-tray {
+    top: 240px;
+    right: 50px;
+    width: 240px;
+    padding: 10px;
+    padding-bottom: 0px;
+    overflow: hidden;
+
+
+    .select-tile-layer {
+      height: 100px;
+      width: 100%;
+      overflow: hidden;
+      margin-bottom: 10px;
+
+      img {
+        position: relative;
+        margin-bottom: 10px;
+        width: 100%;
+      }
+    }
+  }
+
+  // CREATE PLACE BUTTONS
+  &.place-control-container {
+    top: 400px;
+    height: 60px;
+    img {
+      width: 25px;
+    }
+  }
+
+  &.create-place-methods-tray {
+    top: 400px;
+    right: 50px;
+    width: 210px;
+    line-height: 20px;
+    padding: 10px;
+    overflow: hidden;
+    font-size: larger;
+
+    * {
+      color: $green;
+      cursor: pointer;
+    }
+
+    button {
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 10px !important;
+    }
+  }
+}

@@ -59,6 +59,9 @@ de:
       share_map: 'Karte teilen'
       admin_link_warning: 'Achtung: Leute mit diesem Link haben volle Zugriffsrechte!'
     sidepanel:
+      show_events: 'Events'
+      show_places: 'Orte'
+      no_items_in_map: 'Noch keine Einträge vorhanden...'
       filter_by_date: 'Suche events'
       no_points_in_list: 'Noch keine Punkte eingetragen...'
     map_overlays:

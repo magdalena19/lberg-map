@@ -16,7 +16,6 @@
 
 .overlay {
   position: absolute !important;
-  z-index: 999;
   .filter-button {
     width: 130px !important;
     &.active {
@@ -47,8 +46,15 @@
   background: rgba(darken($lilac, 50%),0.8);
   border-radius: 4px;
 
-  .control-button :hover {
-    cursor: pointer;
+  .control-button {
+    &.inactive {
+      .glyphicon {
+        color: rgba($green, 0.5);        
+      }
+    }
+    :hover {
+      cursor: pointer;
+    }
   }
 
   .glyphicon {
@@ -59,21 +65,18 @@
     font-size: 20px;
     width: 45px;
     height: 40px;
-    &.inactive {
-      color: rgba(121, 198, 130, 0.5);
-    }
   }
 
   &.zoom-container {
-    top: 60px;
+    top: 220px;
   }
 
   &.map-info-container {
-    top: 240px;
+    top: 400px;
   }
 
   &.place-control-container {
-    top: 340px;
+    top: 500px;
     height: 60px;
     img {
       width: 25px;

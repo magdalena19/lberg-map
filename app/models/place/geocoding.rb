@@ -20,16 +20,17 @@ module PlaceGeocoding
   end
 
   def self.prepare(search_results:)
+    search_results = OpenStruct.new search_results
     {
       latitude: search_results.lat,
       longitude: search_results.lon,
-      house_number: search_results.address['house_number'],
-      street: search_results.address['street'] || search_results.address['road'],
-      postal_code: search_results.address['postcode'],
-      district: search_results.address['city_district'] || search_results.address['suburb'] || search_results.address['district'],
-      city: search_results.address['village'] || search_results.address['town'] || search_results.address['state'],
-      federal_state: search_results.address['state'],
-      country: search_results.address['country']
+      house_number: search_results.house_number,
+      street: search_results.street || search_results.road,
+      postal_code: search_results.postcode,
+      district: search_results.city_district || search_results.suburb || search_results.district,
+      city: search_results.village || search_results.town || search_results.state,
+      federal_state: search_results.state,
+      country: search_results.country
     }
   end
 

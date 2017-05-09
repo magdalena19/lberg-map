@@ -1,5 +1,6 @@
 require 'params_modification'
 require 'attribute_setter'
+require 'place/geocoding'
 
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
@@ -110,10 +111,20 @@ class PlacesController < ApplicationController
     params[:longitude] && params[:latitude]
   end
 
+  # Check if any parts of an address have been submitted
+  def supplied_address?
+    params[:road] || params[:suburb] || params[:city_district] || params[:state] || params[:postcode] || params[:country]
+  end
+
   def reverse_geocode
-    require 'place/geocoding'
-    query = params[:latitude].to_s + ',' + params[:longitude].to_s
-    results = OpenStruct.new Geocoder.search(query).first.data
+    results = if supplied_address?
+       params
+    else
+      query = params[:latitude].to_s + ',' + params[:longitude].to_s
+      query_results = OpenStruct.new Geocoder.search(query).first.data
+      lat_lon = { "latitude" => query_results.lat, "longitude" => query_results.lon }
+      query_results.address.merge(lat_lon)
+    end
     @geocoded = PlaceGeocoding.prepare(search_results: results)
   end
 

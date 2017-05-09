@@ -62,6 +62,9 @@ de:
       show_events: 'Events'
       show_places: 'Orte'
       no_items_in_map: 'Noch keine Einträge vorhanden...'
+      click_on_map: 'Auf Karte klicken'
+      add_from_location: 'Von Standort'
+      add_via_address_search: 'Suche Adresse'
       filter_by_date: 'Suche events'
       no_points_in_list: 'Noch keine Punkte eingetragen...'
     map_overlays:
@@ -72,3 +75,8 @@ de:
       show_map_description: 'Kartenbeschreibung'
       show_places_list: 'Zur Listenansicht'
       new_place: 'Ort hinzufügen'
+      choose_background_layer: 'Hintergrund auswählen'
+      search_address: 'Addresse suchen'
+      type_in_address: 'Manuell eingeben'
+      click_on_map: 'Auf Karte klicken'
+      add_via_location: 'Eigener Standort'

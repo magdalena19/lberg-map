@@ -40,6 +40,21 @@
   }
 }
 
+.fade-background {
+  background: rgba(darken($lilac, 50%),0.8);
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  background: rgba(255,255,255,0.7);
+  border-radius: 7px;
+  padding: 10px;
+  position: relative;
+  bottom: -30px;
+  border: none;
+  font-size: 15px;
+  display: none;
+}
+
 .control-container {
   right: -7px;
   width: 50px;
@@ -49,7 +64,7 @@
   .control-button {
     &.inactive {
       .glyphicon {
-        color: rgba($green, 0.5);        
+        color: rgba($green, 0.5);
       }
     }
     :hover {
@@ -84,6 +99,11 @@
   }
 }
 
+
+.address-search-bar-container {
+  top: 60px;
+  margin-left: 20px;
+}
 
 .confirmation-button-container {
   display: none;

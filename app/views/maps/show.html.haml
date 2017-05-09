@@ -1,10 +1,13 @@
 .map-container
   #map
-  .col-xs-12.overlay.confirmation-button-container
-    = t('.correct_location?')
-    %br
-    = button_tag('', type: 'button', class: 'btn btn-success glyphicon glyphicon-ok', id: 'confirmation-button-yes')
-    = button_tag('', type: 'button', class: 'btn btn-danger glyphicon glyphicon-remove', id: 'confirmation-button-no')
+  .overlays
+    .row
+      .col-xs-12.overlay.address-search-bar-container
+      .col-xs-12.overlay.confirmation-button-container
+        = t('.correct_location?')
+        %br
+        = button_tag('', type: 'button', class: 'btn btn-success glyphicon glyphicon-ok', id: 'confirmation-button-yes')
+        = button_tag('', type: 'button', class: 'btn btn-danger glyphicon glyphicon-remove', id: 'confirmation-button-no')
 
   = render 'map_overlays'
   = render 'sidepanel'

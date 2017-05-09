@@ -24,20 +24,18 @@ Geocoder.configure(lookup: :test)
 Geocoder::Lookup::Test.set_default_stub(
   [
     { data:
-      { 'lat' => 52,
-        'lon' => 12,
-        'address' => {
-          'house_number' => '19',
-          'street' => 'Magdalenenstraße',
-          'postcode' => '10365',
-          'district' => 'Lichtenberg',
-          'town' => 'Berlin',
-          'state' => 'Berlin',
-          'country' => 'Germany'
-        },
-        'type' => 'house',
-        'boundingbox' => [52.5, 52.3, 13.0, 12.5],
-      }
+      { 
+      'lat' => 52,
+      'lon' => 12,
+      'house_number' => '19',
+      'street' => 'Magdalenenstraße',
+      'postcode' => '10365',
+      'district' => 'Lichtenberg',
+      'town' => 'Berlin',
+      'state' => 'Berlin',
+      'country' => 'Germany',
+      'type' => 'house',
+      'boundingbox' => [52.5, 52.3, 13.0, 12.5] }
     }
   ]
 )
@@ -54,23 +52,9 @@ end
 Capybara.configure do |config|
   config.javascript_driver = :poltergeist
   config.current_driver = Capybara.javascript_driver
-  # config.run_server = true
-  # config.app_host = 'http://localhost:3000/en'
 end
 
 RSpec.configure do |config|
-  # config.around(:each) do |example|
-  #   js_error_protection = page.driver.browser.instance_variable_get(:@js_errors)
-  #
-  #   if example.metadata.has_key?(:js_errors)
-  #     page.driver.browser.js_errors = example.metadata[:js_errors]
-  #   end
-  #
-  #   example.run
-  #
-  #   page.driver.browser.js_errors = js_error_protection
-  # end
-
   config.before(:each) do
     create :settings
   end

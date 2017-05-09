@@ -1,54 +1,57 @@
 .overlay.toggle-panel
   .glyphicon.glyphicon-chevron-left.open-sidebar
 
-.overlay.control-container.right-sidebar-tray.tile-layers-tray
+.overlay.control-container.right-sidebar-tray.tile-layers-tray.closed
   - Map::TILE_LAYERS.each do |name, attr|
     .control-button.select-tile-layer{data: { url: attr[:url], attribution: attr[:attribution] }}
       = image_tag attr[:image_url]
 
-
-.overlay.control-container.right-sidebar-tray.create-place-methods-tray
-  .type-in-address
+.overlay.control-container.right-sidebar-tray.create-place-methods-tray.closed
+  .add-place-via-address-search
+    .glyphicon.fa.fa-search
+    = t('.search_address')
+  .add-place-manually
     .glyphicon.fa.fa-keyboard-o
     = t('.type_in_address')
-  .add_place_via_click
+  .add-place-via-click
     .glyphicon.fa.fa-mouse-pointer
     = t('.click_on_map')
   .add-place-via-location
     .glyphicon.fa.fa-crosshairs
     = t('.add_via_location')
 
-.overlay.control-container.zoom-container
-  %span.zoom-in.icon.glyphicon.fa.fa-plus{data: { toggle: 'tooltip', placement: 'left' }, title: t('.zoom_in')}
-  %br
+.map-controls-container
+  .overlay.control-container.zoom-container
+    = link_to '#', class: 'control-button' do
+      %span.zoom-in.icon.glyphicon.fa.fa-plus{data: { toggle: 'tooltip', placement: 'left' }, title: t('.zoom_in')}
 
-  %span.glyphicon.fa.fa-minus.zoom-out{data: { toggle: 'tooltip', placement: 'left' }, title: t('.zoom_out')}
-    %br
-  = link_to '#', class: 'control-button zoom-to-bbox' do
-    %span.glyphicon.fa.fa-compress{data: { toggle: 'tooltip', placement: 'left'  }, title: t('.fit_to_bbox')}
-    %br
+    = link_to '#', class: 'control-button' do
+      %span.glyphicon.fa.fa-minus.zoom-out{data: { toggle: 'tooltip', placement: 'left' }, title: t('.zoom_out')}
 
-  = link_to '#', class: 'control-button toggle-show-geolocation inactive' do
-    %span.glyphicon.fa.fa-crosshairs{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_current_position')}
+    = link_to '#', class: 'control-button zoom-to-bbox' do
+      %span.glyphicon.fa.fa-compress{data: { toggle: 'tooltip', placement: 'left'  }, title: t('.fit_to_bbox')}
 
-.overlay.control-container.map-info-container
-  = link_to '#', class: 'control-button choose-background-layer', tray: '.tile-layers-tray' do
-    %span.glyphicon.fa.fa-sliders{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_places_list')}
-    %br
+    = link_to '#', class: 'control-button toggle-show-geolocation inactive' do
+      %span.glyphicon.fa.fa-crosshairs{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_current_position')}
 
-  = link_to places_path(map_token: map_token), class: 'control-button' do
-    %span.glyphicon.fa.fa-list-alt{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_places_list')}
-    %br
+  .overlay.control-container.map-info-container
+    = link_to '#', class: 'control-button show-map-description' do
+      %span.glyphicon.fa.fa-info{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_map_description')}
 
-  = link_to '#', class: 'control-button choose-background-layer' do
-    %span.glyphicon.fa.fa-trash{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_places_list')}
+    = link_to '#', class: 'control-button choose-background-layer', tray: '.tile-layers-tray' do
+      %span.glyphicon.fa.fa-sliders{data: { toggle: 'tooltip', placement: 'left' }, title: t('.choose_background_layer')}
 
-- if can_contribute?
-  .overlay.control-container.place-control-container
-    = link_to '#', class: 'control-button add-place-button', tray: '.create-place-methods-tray' do
-      %span.glyphicon{data: { toggle: 'tooltip', placement: 'left' }, title: t('.new_place')}
-        = image_tag('marker_button.png')
+    = link_to places_path(map_token: map_token), class: 'control-button' do
+      %span.glyphicon.fa.fa-list-alt{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_places_list')}
+
+  - if can_contribute?
+    .overlay.control-container.place-control-container
+      = link_to '#', class: 'control-button add-place-button', tray: '.create-place-methods-tray' do
+        %span.glyphicon{data: { toggle: 'tooltip', placement: 'left' }, title: t('.new_place')}
+          = image_tag('marker_button.png')
 
 .overlay.loading
   .loading-text
     = t('.overlay_loading')
+
+.overlay.fade-background

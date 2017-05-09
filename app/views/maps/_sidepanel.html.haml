@@ -42,6 +42,21 @@
       .text-center
         = t('.no_items_in_map')
 
+  .row
+    .col-xs-12.button-container.text-center
+      .sidepanel-button-container.sidepanel-add-place-container
+        %h4.slidepanel-title= t('.how_to_add_place')
+        %button.add-place-manually.btn.btn-dark
+          = t('.add_place_manually')
+        %button.add_place_via_click.btn.btn-dark
+          = t('.click_on_map')
+        %button.add-place-via-location.btn.btn-dark
+          = t('.add_from_location')
+        %button.add-place-via-address-search.btn.btn-dark
+          = t('.add_via_address_search')
+        %button.btn.btn-default.cancel-place-addition
+          = t('cancel')
+
 .panel.panel-default.places-list-item.template
   .panel-heading{role: 'tab'}
     %h4.panel-title

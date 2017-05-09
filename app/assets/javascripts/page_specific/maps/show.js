@@ -223,41 +223,67 @@ jQuery(function() {
       updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
     };
 
-    // ADD PLACE
-    jQuery('.add-place-button').click(function() {
-      jQuery('.right-sidebar-tray').hide();
-      jQuery('.create-place-methods-tray').toggleClass('hidden');
-    });
-
-    jQuery('.type-in-address').click(function(){
-      window.location.href = '/' + window.map_token + '/places/new';
-    });
-
+    // INSERT CONFIRMATION ACTION
     var locationMarker;
 
-    function confirmPlaceInsert(lat, lon) {
+    function confirmPlaceInsert(lat, lon, geocoding_result) {
+      // display marker
       map.setView([lat, lon], 18);
       if (locationMarker) {
         map.removeLayer(locationMarker);
       }
       locationMarker = L.circleMarker([lat, lon]).addTo(map);
+
+      // confirmation button
       jQuery('.confirmation-button-container').fadeIn();
       jQuery('#confirmation-button-yes').click(function() {
+        var address = {latitude: lat, longitude: lon};
+        if (geocoding_result) {
+          jQuery.extend(address, geocoding_result.properties.address);
+          hideAddressSearchBar();
+        }
+
         jQuery('.confirmation-button-container').fadeOut();
-        var params = 'longitude=' + lon + '&latitude=' +  lat;
-        window.location.href = '/' + window.map_token + '/places/new?' + params;
+        url = '/' + window.map_token + '/places/new?';
+
+        // Generate URL
+        jQuery.each(address, function(prop) {
+          url += prop + '=' + address[prop] + '&';
+        });
+
+        // Redirect
+        window.location.href = url;
       });
+
+      // cancel button
       jQuery('#confirmation-button-no').click(function() {
         jQuery('.confirmation-button-container').fadeOut();
         map.removeLayer(locationMarker);
         jQuery('.leaflet-overlay-pane').css('cursor', 'inherit');
-        showSidepanel();
+        showMapElements();
+        fit_to_bbox();
       });
     }
 
-    // Google geolocation API not working properly, so freeze this feature
+    // INSERT PLACE MANUALLY
+    jQuery('.add-place-manually').on('click', function() {
+      window.location.href = '/' + window.map_token + '/places.new';
+    });
+
+    // ADD PLACE VIA ONCLICK
+    jQuery('.add-place-via-click').click(function(){
+      hideMapElements();
+      jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
+      map.on('click', function(point) {
+        confirmPlaceInsert(point.latlng.lat, point.latlng.lng);
+      });
+    });
+
+
+    // ADD PLACE VIA CURRENT GEOLOCATION
     jQuery('.add-place-via-location').click(function(){
-      hideSidepanel();
+      hideMapElements();
+      jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
       function confirmation(position) {
         confirmPlaceInsert(position.coords.latitude, position.coords.longitude);
       }
@@ -269,12 +295,28 @@ jQuery(function() {
       }
     });
 
-    jQuery('.add_place_via_click').click(function(){
-      hideSidepanel();
-      jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
-      map.on('click', function(point) {
-        confirmPlaceInsert(point.latlng.lat, point.latlng.lng);
-      });
+    // ADD PLACE VIA ADDRESS SEARCH
+    jQuery('.add-place-via-address-search').on('click', function() {
+      hideMapElements();
+
+      geocode_field = L.Control.geocoder({
+        position: 'bottomright',
+        collapsed: false
+      }).addTo(map);
+
+      showAddressSearchBar();
+
+      geocode_field.markGeocode = function(geocoding_result) {
+        lat = geocoding_result.properties.lat;
+        lon = geocoding_result.properties.lon;
+        hideAddressSearchBar();
+        confirmPlaceInsert(lat, lon, geocoding_result);
+      };
+    });
+
+    jQuery('.fade-background').on('click', function() {
+      hideAddressSearchBar();
+      showMapElements();
     });
 
     // external request
@@ -451,12 +493,15 @@ jQuery(function() {
 
 
   // MAP CONTROLS
-
-  // Reset view to bbox of current place selection
-  jQuery('.zoom-to-bbox').on('click', function() {
+  function fit_to_bbox() {
     if (cluster.getLayers().length > 0) {
       map.fitBounds(cluster.getBounds());
     }
+  }
+
+  // Reset view to bbox of current place selection
+  jQuery('.zoom-to-bbox').on('click', function() {
+    fit_to_bbox();
   });
 
 
@@ -502,13 +547,19 @@ jQuery(function() {
   // Toggle map info modal
   jQuery('.show-map-description').on('click', function() {
     jQuery('.map-description-modal').modal().show();
-  })
+  });
 
   jQuery('.control-button[tray]').on('click', function(){
     jQuery('.right-sidebar-tray').hide();
     var trayName = jQuery(this).attr('tray');
-    console.log(trayName);
-    jQuery(trayName).show();
+    var tray = jQuery(trayName);
+    var trayClosed = tray.hasClass('closed');
+
+    if (trayClosed) {
+      tray.removeClass('closed').show();
+    } else {
+      tray.addClass('closed').hide();
+    }
   });
 
   jQuery('.select-tile-layer').on('click', function(){
@@ -519,5 +570,9 @@ jQuery(function() {
     map.addLayer(map.baseLayer);
     map.removeLayer(oldLayer);
     jQuery('.tile-layers').toggleClass('hidden');
-  })
+  });
+
+  jQuery(this).on('click', '#map', function() {
+    hideMapTrays();
+  });
 });

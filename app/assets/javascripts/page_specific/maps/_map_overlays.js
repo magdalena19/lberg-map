@@ -1,13 +1,19 @@
 jQuery(function() {
+  var panel = jQuery('.places-list-panel');
+  var toggle = jQuery('.toggle-panel');
 
   hideMapElements = function() {
     jQuery('.places-list-panel').hide();
-    jQuery('.control-container').hide();
+    hideMapControls();
+    hideFilterField();
   };
 
   showMapElements = function() {
-    jQuery('.places-list-panel').fadeIn();
-    jQuery('.control-container').show();
+    showMapControls();
+    showFilterField();
+    if (window.outerWidth > 600) {
+      jQuery('.places-list-panel').fadeIn();
+    }
   };
 
   hideNavbarElements = function() {
@@ -22,17 +28,46 @@ jQuery(function() {
     jQuery('.navbar-toggle').css('opacity', 100);
   };
 
-  var mapControls = jQuery('.map-controls-container');
-  var panel = jQuery('.places-list-panel');
-  var toggle = jQuery('.toggle-panel');
-  
+  hideFilterField = function() {
+    jQuery('.filter-field').hide();
+  };
+
+  showFilterField = function() {
+    jQuery('.filter-field').show();
+  };
+
+  hideMapTrays = function() {
+    jQuery('.right-sidebar-tray').hide();
+  };
+
+  hideMapControls = function() {
+    jQuery('.map-controls-container').hide();
+    jQuery('.right-sidebar-tray').hide();
+  };
+
+  showMapControls = function() {
+    jQuery('.map-controls-container').show();
+  };
+
+  hideAddressSearchBar = function() {
+    jQuery('.leaflet-control').remove();
+    jQuery('.fade-background').hide();
+  };
+
+  showAddressSearchBar = function() {
+    var leaflet_control = jQuery('.leaflet-control');
+    leaflet_control.remove();
+    jQuery('.address-search-bar-container').append(leaflet_control);
+    jQuery('.fade-background').show();
+  }
+
   showSidepanel = function() {
     toggle.find('.glyphicon').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
     panel.show();
     toggle.show();
     toggle.css('left', panel.outerWidth());
-    if (window.outerWidth <= 400) {
-      mapControls.hide();
+    if (window.outerWidth <= 600) {
+      hideMapControls();
     }
   };
 
@@ -40,6 +75,6 @@ jQuery(function() {
     toggle.find('.glyphicon').removeClass('glyphicon-chevron-left').addClass('glyphicon-chevron-right');
     panel.hide();
     toggle.css('left', 0);
-    mapControls.show();
+    showMapControls();
   };
 });

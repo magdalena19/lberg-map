@@ -43,6 +43,9 @@ feature 'Create place', :js do
     end
 
     scenario 'visit new place view with coordinate parameters' do
+      # Redefine geocoder response to match geocoder return
+      switch_geocoder_stub    
+
       visit new_place_path(map_token: @map.public_token) + '?longitude=1&latitude=1'
 
       expect(find_field('place_city').value).to eq('Berlin')

@@ -2,10 +2,18 @@
 
 // right control container
 .right-sidebar-tray {
-  display: none;
+  display: block;
+
+  &.closed {
+    display: none !important;
+  }
 }
 
+$top-dist: 160px;
+
 .control-container {
+
+  // control container
   right: -7px;
   width: 50px;
   background: rgba(darken($lilac, 50%),0.8);
@@ -13,6 +21,7 @@
 
   .control-button :hover {
     cursor: pointer;
+    color: $lilac;
   }
 
   .glyphicon {
@@ -29,16 +38,16 @@
   }
 
   &.zoom-container {
-    top: 60px;
+    top: $top-dist;
   }
 
   &.map-info-container {
-    top: 240px;
+    top: $top-dist + 180px;
   }
 
   // SELECT TILE LAYERS
   &.tile-layers-tray {
-    top: 240px;
+    top: $top-dist + 180px;
     right: 50px;
     width: 240px;
     padding: 10px;
@@ -62,7 +71,7 @@
 
   // CREATE PLACE BUTTONS
   &.place-control-container {
-    top: 400px;
+    top: $top-dist + 340px;
     height: 60px;
     img {
       width: 25px;
@@ -70,9 +79,9 @@
   }
 
   &.create-place-methods-tray {
-    top: 400px;
+    top: $top-dist + 340px;
     right: 50px;
-    width: 210px;
+    width: 220px;
     line-height: 20px;
     padding: 10px;
     overflow: hidden;

@@ -117,14 +117,13 @@ class PlacesController < ApplicationController
   end
 
   def reverse_geocode
-    results = if supplied_address?
-       params
-    else
-      query = params[:latitude].to_s + ',' + params[:longitude].to_s
-      query_results = OpenStruct.new Geocoder.search(query).first.data
-      lat_lon = { "latitude" => query_results.lat, "longitude" => query_results.lon }
-      query_results.address.merge(lat_lon)
-    end
+    results = 
+      if supplied_address?
+        params
+      else
+        query = params[:latitude].to_s + ',' + params[:longitude].to_s
+        Geocoder.search(query).first.data
+      end
     @geocoded = PlaceGeocoding.prepare(search_results: results)
   end
 

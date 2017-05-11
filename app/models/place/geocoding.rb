@@ -16,6 +16,7 @@ module PlaceGeocoding
     node_geoms = results.select { |result| result.type == 'node' }
     other_geoms = results - node_geoms
     @geoms = node_geoms.any? ? node_geoms.first : other_geoms.first
+    @geoms = PlaceGeocoding.prepare(search_results: @geoms)
     update_geofeatures_if_missing
   end
 
@@ -24,18 +25,18 @@ module PlaceGeocoding
     {
       latitude: search_results.lat,
       longitude: search_results.lon,
-      house_number: search_results.house_number,
-      street: search_results.street || search_results.road,
-      postal_code: search_results.postcode,
-      district: search_results.city_district || search_results.suburb || search_results.district,
-      city: search_results.village || search_results.town || search_results.state,
-      federal_state: search_results.state,
-      country: search_results.country
+      house_number: search_results.house_number || search_results.address['house_number'],
+      street: search_results.street || search_results.road || search_results.address['street'] || search_results.address['road'],
+      postal_code: search_results.postcode || search_results.address['postcode'],
+      district: search_results.city_district || search_results.suburb || search_results.district || search_results.address['city_district'] || search_results.address['suburb '] || search_results.address['district'],
+      city: search_results.village || search_results.town || search_results.state || search_results.address['village'] || search_results.address['town'] || search_results.address['state'],
+      federal_state: search_results.state || search_results.address['state'],
+      country: search_results.country || search_results.address['country']
     }
   end
 
   def update_geofeatures_if_missing
-    PlaceGeocoding.prepare(search_results: @geoms).each do |geo_feature, value|
+    @geoms.each do |geo_feature, value|
       self.send("#{geo_feature}=", value) unless self.send("#{geo_feature}").present?
     end
   end

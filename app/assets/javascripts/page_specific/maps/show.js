@@ -267,7 +267,7 @@ jQuery(function() {
 
     // INSERT PLACE MANUALLY
     jQuery('.add-place-manually').on('click', function() {
-      window.location.href = '/' + window.map_token + '/places.new';
+      window.location.href = '/' + window.map_token + '/places/new';
     });
 
     // ADD PLACE VIA ONCLICK

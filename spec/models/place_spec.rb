@@ -120,7 +120,7 @@ describe Place do
 
       it 'automatically fills empty geofeatures from geocoding lookup' do
         switch_geocoder_stub
-
+        
         place = build :place, :without_coordinates
         expect {
           place.save

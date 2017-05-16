@@ -35,6 +35,9 @@ $top-dist: 160px;
     &.inactive {
       color: rgba(121, 198, 130, 0.5);
     }
+    &.choose-background-layer {
+      height: 45px;
+    }
   }
 
   &.zoom-container {

@@ -1,6 +1,7 @@
 # Wildcards
 *~
 *.swp
+*.swo
 .pyc
 *.orig
 

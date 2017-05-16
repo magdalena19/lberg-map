@@ -67,7 +67,7 @@ en:
       add_via_address_search: 'Search for address'
       filter_by_date: 'Search for events'
       no_points_in_list: 'No points inserted yet...'
-    map_overlays:
+    right_sidebar:
       zoom_in: 'Zoom in'
       zoom_out: 'Zoom out'
       fit_to_bbox: 'Fit view size'

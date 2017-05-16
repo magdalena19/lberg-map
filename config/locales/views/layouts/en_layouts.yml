@@ -2,7 +2,7 @@ en:
   layouts:
     application:
       app_imprint: 'Imprint'
-      app_privacy_policy: 'Privacy policy'
+      app_privacy_policy: 'Privacy'
     loading:
       processing: 'processing, please wait!'
     sidebar:

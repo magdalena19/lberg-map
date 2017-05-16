@@ -5,6 +5,22 @@ jQuery(function() {
     iconUrl: marker_current_position
   });
 
+  // ZOOM BUTTONS
+  jQuery('.zoom-in').click(function(){
+    map.doubleClickZoom.disable();
+    setTimeout(function(){
+      map.doubleClickZoom.enable();
+    }, 500);
+    map.setZoom(map.getZoom() + 1);
+  });
+  jQuery('.zoom-out').click(function(){
+    map.doubleClickZoom.disable();
+    setTimeout(function(){
+      map.doubleClickZoom.enable();
+    }, 500);
+    map.setZoom(map.getZoom() - 1);
+  });
+
   // INSERT CONFIRMATION ACTION
   var locationMarker;
 

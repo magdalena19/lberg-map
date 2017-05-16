@@ -26,22 +26,6 @@ jQuery(function() {
 
     addEsriMap([0, 0], 3);
 
-    // ZOOM BUTTONS
-    jQuery('.zoom-in').click(function(){
-      map.doubleClickZoom.disable();
-      setTimeout(function(){
-        map.doubleClickZoom.enable();
-      }, 500);
-      map.setZoom(map.getZoom() + 1);
-    });
-    jQuery('.zoom-out').click(function(){
-      map.doubleClickZoom.disable();
-      setTimeout(function(){
-        map.doubleClickZoom.enable();
-      }, 500);
-      map.setZoom(map.getZoom() - 1);
-    });
-
     // still to be used!
     var autotranslatedPrefix = "<p><i>" + window.autotranslated_label + ": </i></p>";
     var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";

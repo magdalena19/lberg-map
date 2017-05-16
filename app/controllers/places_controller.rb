@@ -66,7 +66,7 @@ class PlacesController < ApplicationController
           flash.now[:success] = t('.deleted') if @place.destroy
         end
         format.html do
-          redirect_to places_url(map_token: request[:map_token])
+          redirect_to map_path(map_token: request[:map_token])
           flash[:success] = t('.deleted') if @place.destroy
         end
       end

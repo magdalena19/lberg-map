@@ -6,7 +6,7 @@ feature 'Create place', :js do
 
     scenario 'create valid place as user' do
       create_place_as_user(place_name: 'Any place', map_token: @map.secret_token)
-      visit places_path(map_token: @map.secret_token)
+      show_places_index
 
       expect(page).to have_content('Any place', count: 1)
     end

@@ -7,6 +7,10 @@
 //= require bootstrap-wysihtml5
 //= require awesomplete
 //= require moment
+//= require dataTables/jquery.dataTables
+//= require dataTables.fixedHeader.min
+//= require dataTables_responsive
+//= require datetime-moment
 //= require daterangepicker
 
 jQuery(function() {

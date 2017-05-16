@@ -11,7 +11,7 @@ feature 'Edit place' do
     fill_in('place_name', with: 'Any place')
     fill_in('place_postal_code', with: '10963')
     click_on('Update Place')
-    visit places_path(map_token: @map.public_token)
+    show_places_index(map_token: @map.public_token)
     expect(page).to have_content('Any place')
     expect(page).to have_content('10963 Berlin')
   end
@@ -21,7 +21,7 @@ feature 'Edit place' do
     fill_in('place_name', with: 'Some changes')
     validate_captcha
     click_on('Update Place')
-    visit places_path(map_token: @map.public_token)
+    show_places_index(map_token: @map.public_token)
 
     expect(page).to have_content('Some changes')
     expect(page).to have_css('.glyphicon-eye-open')
@@ -34,7 +34,8 @@ feature 'Edit place' do
     click_on('Update Place')
 
     Capybara.reset_sessions!
-    visit places_path(map_token: @map.public_token)
+
+    show_places_index(map_token: @map.public_token)
     expect(page).not_to have_content('SomeOtherName')
     expect(page).to have_content('SomeReviewedPlace')
     expect(page).not_to have_css('.glyphicon-eye-open')

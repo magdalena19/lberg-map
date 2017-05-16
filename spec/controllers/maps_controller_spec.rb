@@ -17,6 +17,25 @@ RSpec.describe MapsController, type: :controller do
       get :show, map_token: @map.public_token
       expect(assigns(:places_to_show).sort_by(&:id)).to eq @places
     end
+
+    context '#index places' do
+      let(:map) { create :map, :full_public }
+
+      it 'Populates all places in @places' do
+        create_list(:place, 3, :reviewed, map: map)
+        get :show, map_token: map.public_token
+
+        expect(assigns(:places_to_show).count).to be 3
+      end
+
+      it 'Also populates events in @places' do
+        create_list(:place, 3, :reviewed, map: map)
+        create_list(:event, 2, map: map)
+        get :show, map_token: map.public_token
+
+        expect(assigns(:places_to_show).count).to be 5
+      end
+    end
   end
 
 

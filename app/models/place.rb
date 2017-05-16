@@ -60,6 +60,10 @@ class Place < ActiveRecord::Base
   scope :future_events, -> { all_events.where("start_date > ?", Date.today) }
   scope :past_events, -> { all_events.where("end_date < ?", Date.today) }
 
+  def daterange
+    [start_date, end_date].map { |date| date.strftime('%d.%m.%Y %H:%M') if date }.join(' - ')
+  end
+
   def past_event?
     event && end_date < Date.today
   end

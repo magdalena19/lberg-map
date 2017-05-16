@@ -34,8 +34,6 @@ Rails.application.routes.draw do
       post '/contact' , to: 'messages#create'
 
       # Map / place ressources
-      get '/places', to: 'places#index'
-
       resources :places, except: [:index, :show], constraints: PlacesAccessRestriction.new do
         resources :descriptions
       end

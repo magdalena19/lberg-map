@@ -14,6 +14,7 @@
  *= require MarkerCluster
  *= require dataTables/jquery.dataTables
  *= require dataTables/extras/dataTables.responsive
+ *= require fixedHeader.dataTables.min
  *= require bootstrap-wysihtml5
  *= require awesomplete
  *= require daterangepicker
@@ -249,22 +250,8 @@ noscript {
 }
 
 // Pagination
-
 .previous_page.disabled {
   color: $grey;
-}
-
-table.dataTable {
-  tbody td {
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-  }
-  th:first-child::before { display: none !important; }
-  td:first-child::before { display: none !important; }
-  tr.even > .sorting_1 { background: lighten($green, 30%) !important; }
-  tr.even { background: lighten($green, 30%) !important; }
-  tr.odd > .sorting_1 { background: lighten($green, 35%) !important; }
-  tr.odd { background: lighten($green, 35%) !important; }
 }
 
 // remove tooltip arrow gap in chromium

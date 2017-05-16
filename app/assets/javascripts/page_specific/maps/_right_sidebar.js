@@ -1,11 +1,12 @@
 // RIGHT SIDEBAR FUNCTIONALITY
 
 jQuery(function() {
+  // MAP CONTROL BUTTONS
   var current_position_icon = L.icon({
     iconUrl: marker_current_position
   });
 
-  // ZOOM BUTTONS
+  // Zoom buttons
   jQuery('.zoom-in').click(function(){
     map.doubleClickZoom.disable();
     setTimeout(function(){
@@ -21,6 +22,21 @@ jQuery(function() {
     map.setZoom(map.getZoom() - 1);
   });
 
+  // Show places index
+  jQuery('.show-places-index').on('click', function() {
+    jQuery('#places-index').modal('show');
+    var searchField = jQuery('#places_filter').find('input');
+    var dataList = $('.search-input').find('input').data('list');
+
+    searchField.
+      detach().appendTo('#search_area').
+      addClass('form-control category-input col-xs-12').
+      attr('placeholder', 'Search').
+      data('list', dataList)
+  });
+
+
+  // --- PLACE INSERT BUTTONS
   // INSERT CONFIRMATION ACTION
   var locationMarker;
 
@@ -94,7 +110,7 @@ jQuery(function() {
   });
 
   // ADD PLACE VIA ADDRESS SEARCH
-  jQuery('.add-place-via-address-search').on('click', 'a', function() {
+  jQuery('.add-place-via-address-search').on('click', function() {
     hideMapElements();
 
     geocode_field = L.Control.geocoder({

@@ -11,16 +11,18 @@
 
 $top-dist: 160px;
 
+// control container
 .control-container {
-
-  // control container
   right: -7px;
   width: 50px;
   background: rgba(darken($lilac, 50%),0.8);
   border-radius: 4px;
 
-  .control-button :hover {
+  .control-button {
     cursor: pointer;
+  }
+
+  .control-button :hover {
     color: $lilac;
   }
 

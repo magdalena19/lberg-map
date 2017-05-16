@@ -56,4 +56,9 @@ module CapybaraHelpers
     fill_in('place_end_date_date', with: '01.01.2018')
     fill_in('place_end_date_time', with: '23:00')
   end
+
+  def show_places_index(map_token:)
+    visit map_path(map_token: map_token)
+    find(:css, '.show-places-index').trigger('click')
+  end
 end

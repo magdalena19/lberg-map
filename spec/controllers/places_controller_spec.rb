@@ -18,33 +18,6 @@ describe PlacesController do
     place
   end
 
-  context 'GET #index' do
-    let(:map) { create :map, :full_public }
-
-    # TODO Whats this spec about?
-    it 'Does not crash with not up-to-date session_places cookie' do
-      @request.cookies[:created_places_in_session] = [1, 2, 3, 4, 5, 772_348_7]
-      get :index, map_token: map.public_token
-
-      expect(response).to render_template 'places/index'
-    end
-
-    it 'Populates all places in @places' do
-      create_list(:place, 3, :reviewed, map: map)
-      get :index, map_token: map.public_token
-
-      expect(assigns(:places).count).to be 3
-    end
-
-    it 'Also populates events in @places' do
-      create_list(:place, 3, :reviewed, map: map)
-      create_list(:event, 2, map: map)
-      get :index, map_token: map.public_token
-
-      expect(assigns(:places).count).to be 5
-    end
-  end
-
   context 'GET #new' do
     let(:map) { create :map, :full_public }
 

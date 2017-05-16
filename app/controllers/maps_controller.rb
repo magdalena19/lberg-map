@@ -6,7 +6,6 @@ class MapsController < ApplicationController
 
   def show
     @categories = @map.categories.all
-    @last_places_created = last_places_created
     @latitude = params[:latitude]
     @longitude = params[:longitude]
     @places_to_show = places_to_show
@@ -103,10 +102,6 @@ class MapsController < ApplicationController
     return true unless @current_user.guest?
     flash[:error] = t('.need_to_register')
     redirect_to landing_page_url
-  end
-
-  def last_places_created
-    places_to_show.sort_by(&:created_at).last(5)
   end
 
   def map_params

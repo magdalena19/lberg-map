@@ -69,13 +69,19 @@ jQuery(function() {
       var placeId = jQuery(this).attr('place_id');
       var confirm_delete = confirm(window.delete_confirmation_text);
       var panel = jQuery('#heading' + placeId).parent();
+      var modalRow = jQuery('#places').find('#row_' + placeId);
 
       if (confirm_delete === true) {
         jQuery.ajax({
           url: '/' + window.map_token + '/places/' + placeId,
           type: 'DELETE',
           success: function(result) {
+            console.log('jo');
             panel.fadeOut(350, function() { jQuery(this).remove(); });
+            modalRow.fadeOut(350, function() { 
+              modalRow.next('.child').fadeOut(350).remove();
+              jQuery(this).remove();
+            });
             updatePlaces(result);
           }
         });

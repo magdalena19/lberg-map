@@ -1,0 +1,76 @@
+-# Places index modal
+= javascript_include_tag 'data_tables.js'
+
+#places-index.modal.fade{role: 'dialog'}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
+        #search_area
+      .modal-body
+        .table-container
+          %table#places.display.hover.responsive.no-wrap.compact{cellspacing: '0', width: '100%'}
+            %thead
+              %tr
+                %th.all
+                %th.all
+                  = t('activerecord.attributes.place.name')
+                %th.tablet-l.desktop
+                  = t('activerecord.attributes.place.start')
+                %th.tablet-l.desktop
+                  = t('activerecord.attributes.place.end')
+                %th.desktop
+                  = t('activerecord.attributes.place.address')
+                %th.none
+                  = t('activerecord.attributes.place.district')
+                %th.none
+                  = t('.categories')
+                %th.none
+                  = t('activerecord.attributes.place.email')
+                %th.none
+                  = t('activerecord.attributes.place.phone')
+                %th.none
+                  = t('activerecord.attributes.place.homepage')
+                %th.none
+                  = t('activerecord.attributes.place.description')
+            %tbody
+              - @places_to_show.each do |place|
+                %tr{height: '50px', 'data-categories' => place.category_ids, class: "#{place.event ? 'event' : 'place'}", id: "row_#{place.id}"}
+                  %td.place_type_col
+                    %span.glyphicon.place_type.pull-left{class: "#{place.event ? 'event fa-calendar' : 'place glyphicon-home'}"}
+                  %td.details-control
+                    %b= place.name
+                  %td
+                    = place.start_date if place.start_date
+                  %td
+                    = place.end_date if place.end_date
+                  %td
+                    = place.address
+                  %td
+                    = place.district
+                  %td
+                    %i= category_names(place)
+                  %td
+                    = place.email
+                  %td
+                    = place.phone
+                  %td
+                    = link_to place.homepage, place.homepage
+                  %td
+                    .description
+                      = place.reviewed_description.html_safe
+                    - if can_contribute?
+                      .place-description-footer
+                        - if place.reviewed? && can_contribute?
+                          = link_to edit_place_path(place, map_token: request[:map_token]), style: 'text-decoration: none' do
+                            %span{class: 'glyphicon glyphicon-pencil'}
+                        - else
+                          - if @current_user.signed_in?
+                            = link_to review_place_path(place, map_token: request[:map_token]), style: 'color: #ff6666; text-decoration: none' do
+                              %span{class: 'glyphicon glyphicon-eye-open'}
+                          - else
+                            %span{class: 'glyphicon glyphicon-eye-open', style: 'color: #AB756B;'}
+
+                        - if @current_user.signed_in?
+                          -# = link_to place_path(place, map_token: request[:map_token]), {method: 'delete', data: { confirm: t('.confirm_delete') }} do
+                          %span{class: 'glyphicon glyphicon-trash delete-place', place_id: place.id}

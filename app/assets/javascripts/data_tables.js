@@ -1,77 +1,81 @@
-//= require dataTables/jquery.dataTables
-//= require dataTables_responsive
-
 jQuery(function() {
-	jQuery('#places').DataTable({
-		responsive: true,
-		"paging": false,
-		"bInfo": false,
-		"order": [[ 1, "asc" ]],
-		"aoColumnDefs": [
-		{ 'bSortable': false, 'aTargets': [0, 4] }
-		]
-	});
+  $.fn.dataTable.moment( 'YYYY-MM-DD HH:mm:ss');
 
-	jQuery('#users_table').DataTable({
-		responsive: true,
-		paging: true,
-		lengthChange: false,
-		info: false,
-		pageLength: 25,
-		"aoColumnDefs": [
-		{ 'bSortable': false, 'aTargets': [4, 5] }
-		]
-	});
+  function renderDate(date) {
+    if (date === '') {
+      return ''
+    } else {
+      return moment(date).utc().format('DD.MM.YYYY HH:mm');
+    }
+  }
 
-	jQuery('#places_to_review').DataTable({
-		responsive: true,
-		"searching": false,
-		"paging": false,
-		"bInfo": false,
-		"order": [[ 1, "asc" ]],
-		"aoColumnDefs": [
-		{ 'bSortable': false, 'aTargets': [0] }
-		]
-	});
+  jQuery('#places').DataTable({
+    fixedHeader: {
+      header: true,
+      headerOffset: $('.modal-header').outerHeight()
+    },
+    responsive: true,
+    "paging": false,
+    "bInfo": false,
+    "order": [[ 0, "asc" ]],
+    "language": { search: ""  },
+    "aoColumnDefs": [ {
+      "aTargets": [2, 3],
+      "mDataProp": function (source, type, val) {
+        if (type === 'set') {
+          source[0] = val;
+          source.date_rendered = renderDate(val);
+          return;
+        } else if (type === 'display' || type === 'filter') {
+          return source.date_rendered;
+        }
+        return source[0];
+      }
+    } ]
+  });
 
-	jQuery('#translations').DataTable({
-		responsive: true,
-		"searching": false,
-		"paging": false,
-		"bInfo": false,
-		"order": [[ 1, "asc" ]],
-		"aoColumnDefs": [
-		{ 'bSortable': false, 'aTargets': [0] }
-		]
-	});
+  jQuery('#users_table').DataTable({
+    responsive: true,
+    paging: true,
+    lengthChange: false,
+    info: false,
+    pageLength: 25,
+    "aoColumnDefs": [
+    { 'bSortable': false, 'aTargets': [4, 5] }
+    ]
+  });
 
-	jQuery('.dataTable').find('td').click(function() {
-		var row = jQuery(this);
-		if (row.parent().hasClass('parent')) {
-			row.find('.triangle').addClass('glyphicon-triangle-bottom').removeClass('glyphicon-triangle-top');
-		} else {
-			row.find('.triangle').addClass('glyphicon-triangle-top').removeClass('glyphicon-triangle-bottom');
-		}
-	});
+  jQuery('#places_to_review').DataTable({
+    responsive: true,
+    "searching": false,
+    "paging": false,
+    "bInfo": false,
+    "order": [[ 1, "asc" ]],
+    "aoColumnDefs": [
+    { 'bSortable': false, 'aTargets': [0] }
+    ]
+  });
 
-	var collapseAllDetails = function() {
-		jQuery('#places').find('.parent').find('td').trigger('click');
-	};
+  jQuery('#translations').DataTable({
+    responsive: true,
+    "searching": false,
+    "paging": false,
+    "bInfo": false,
+    "order": [[ 1, "asc" ]],
+    "aoColumnDefs": [
+    { 'bSortable': false, 'aTargets': [0] }
+    ]
+  });
 
-	jQuery('.category-toggle').click(function() {
-		jQuery('.category-toggle').removeClass('active');
-		jQuery(this).addClass('active');
-		var category = jQuery(this).attr('data-category');
-		collapseAllDetails();
+  var collapseAllDetails = function() {
+    jQuery('#places').find('.parent').find('td').trigger('click');
+  };
 
-		jQuery('#places > tbody > tr').each(function() {
-			if (category == 'all') {
-				jQuery(this).show();
-			} else {
-				var match = jQuery(this).attr('data-categories').indexOf(category) > -1;
-				jQuery(this).toggle(match);
-			}
-		});
-	});
-
+  // Does not work...
+  $('#places > tbody').on('click', 'td.details-control', function () {
+    var table = jQuery('#places').dataTable();
+    var tr = $(this).closest('tr');
+    var row = table.api().row( tr );
+    var hiddenColumns = row.find('td:hidden').addClass('hidden');
+  } );
 });

@@ -1,0 +1,114 @@
+@import 'colors';
+
+.modal-dialog {
+}
+
+.modal-dialog,
+.modal-content {
+  height: 90vh;
+  top: 0.9vh;
+}
+
+.modal-body {
+  max-height: calc(100% - 120px);
+  overflow-y: auto;
+}
+
+.modal-header {
+  background: rgba(darken($lilac, 50%),0.8);
+  color: white;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  .glyphicon {
+    color: white;
+    z-index: 11;
+  }
+}
+
+#places-index {
+  .modal-dialog {
+    @media (max-width: 1440px) {
+      width: calc(94%)
+    }
+
+    @media (min-width: 1441px) {
+      width: calc(50%)
+    }
+
+    .place-description-footer {
+      border-top: 1px solid #c7c7c7;
+      margin-top: 10px;
+      padding-top: 10px;
+      text-align: center;
+      letter-spacing: 6px;
+    }
+  }
+}
+
+#search_area {
+  @media (max-width: 1440px) {
+    input {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 1441px) {
+    input {
+      width: 80%;
+      margin-left: 10%;
+    }
+  }
+}
+
+table.dataTable {
+  tbody td {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    padding-left: 15px !important;
+  }
+
+  th:first-child::before { display: none !important; }
+  td:first-child::before { display: none !important; }
+
+  tr.place > .sorting_1 {
+    background: lighten($lilac, 5%) !important;
+  }
+
+  tr.place {
+    background: lighten($lilac, 5%) !important;
+    color: white;
+  }
+
+  tr.event {
+    background: lighten($green, 5%)!important;
+    color: white;
+  }
+
+  tr.event > .sorting_1 {
+    background: lighten($green, 5%) !important;
+  }
+
+  .place_type {
+    &.event {
+      color: darken($green, 40%);
+    }
+    &.place {
+      color: darken($lilac, 30%);
+    }
+  }
+}
+
+table.dataTable thead .sorting_asc {
+  background: url("http://cdn.datatables.net/1.10.0/images/sort_asc.png") no-repeat center left;
+}
+table.dataTable thead .sorting_desc {
+  background: url("http://cdn.datatables.net/1.10.0/images/sort_desc.png") no-repeat center left;
+}
+table.dataTable thead .sorting {
+  background: url("http://cdn.datatables.net/1.10.0/images/sort_both.png") no-repeat center left;
+}
+
+table.dataTable thead > tr > th {
+  padding-left: 15px !important;
+  padding-right: initial !important;
+}

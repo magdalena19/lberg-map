@@ -1,0 +1,26 @@
+-# App imprint
+.modal.fade{role: 'dialog', id: 'app_imprint' }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
+        %h4.modal-title= t('.app_imprint')
+      .modal-body
+        %p= Admin::Setting.app_imprint
+
+-# App privacy policy
+.modal.fade{role: 'dialog', id: 'app_privacy_policy' }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
+        %h4.modal-title= t('.app_privacy_policy')
+      .modal-body
+        %p= Admin::Setting.app_privacy_policy
+
+#explanation-modal.modal.fade{role: 'dialog'}
+  .modal-dialog
+    .modal-content
+      .modal-body
+      .modal-footer
+        %button.btn.btn-success.full-width{'data-dismiss' => 'modal', type: 'button'} Okay

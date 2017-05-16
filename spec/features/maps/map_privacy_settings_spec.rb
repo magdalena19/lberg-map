@@ -6,13 +6,14 @@ feature 'Map privacy settings', :js do
 
     scenario 'Cannot insert places / events via form', js_errors: false do
       visit map_path(map_token: @map.public_token)
+      show_places_index(map_token: @map.public_token)
 
       expect(page).not_to have_css('.place-control-container')
     end
 
     scenario 'Cannot edit places / events via place list index' do
       create :place, :reviewed, name: 'SomePlace', map: @map
-      visit places_path(map_token: @map.public_token)
+      show_places_index(map_token: @map.public_token)
 
       expect(page).not_to have_css('.glyphicon-pencil')
     end

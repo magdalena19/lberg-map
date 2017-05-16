@@ -55,51 +55,6 @@
   display: none;
 }
 
-.control-container {
-  right: -7px;
-  width: 50px;
-  background: rgba(darken($lilac, 50%),0.8);
-  border-radius: 4px;
-
-  .control-button {
-    &.inactive {
-      .glyphicon {
-        color: rgba($green, 0.5);
-      }
-    }
-    :hover {
-      cursor: pointer;
-    }
-  }
-
-  .glyphicon {
-    top: 0px;
-    padding: 10px;
-    text-align: center;
-    color: $green;
-    font-size: 20px;
-    width: 45px;
-    height: 40px;
-  }
-
-  &.zoom-container {
-    top: 220px;
-  }
-
-  &.map-info-container {
-    top: 400px;
-  }
-
-  &.place-control-container {
-    top: 500px;
-    height: 60px;
-    img {
-      width: 25px;
-    }
-  }
-}
-
-
 .address-search-bar-container {
   top: 60px;
   margin-left: 20px;

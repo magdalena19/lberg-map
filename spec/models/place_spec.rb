@@ -152,19 +152,23 @@ describe Place do
       expect(Place.all_events.count).to be 9
     end
 
-    it "scopes future events" do
+    it 'scopes future events' do
       create_list(:event, 3, :future)
       expect(Place.future_events.count).to be 3
     end
 
-    it "scopes past events" do
+    it 'scopes past events' do
       create_list(:event, 3, :past)
       expect(Place.past_events.count).to be 3
     end
 
-    it "scopes ongoing events" do
+    it 'scopes ongoing events' do
       create_list(:event, 3, :ongoing)
       expect(Place.ongoing_events.count).to be 3
+    end
+
+    it 'returns full date attribute' do
+      expect(Place.new).to respond_to(:daterange)
     end
   end
 

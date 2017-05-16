@@ -12,7 +12,7 @@ feature 'Edit description' do
     Capybara.reset_sessions!
     expect(map.reviewed_places.count).to be 1
 
-    visit places_path(map_token: map.public_token)
+    show_places_index(map_token: @map.public_token)
     expect(page).to have_content(place.name)
     page.find('.glyphicon-triangle-bottom').trigger('click')
     expect(page).not_to have_content('Changed description')

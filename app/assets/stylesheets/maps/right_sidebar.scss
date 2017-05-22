@@ -19,11 +19,14 @@ $top-dist: 160px;
   border-radius: 4px;
 
   .control-button {
-    cursor: pointer;
-  }
+    & :hover {
+      cursor: pointer;
+      color: $lilac;
+    }
 
-  .control-button :hover {
-    color: $lilac;
+    &.choose-background-layer {
+      height: 45px;
+    }
   }
 
   .glyphicon {
@@ -34,11 +37,9 @@ $top-dist: 160px;
     font-size: 20px;
     width: 45px;
     height: 40px;
+
     &.inactive {
       color: rgba(121, 198, 130, 0.5);
-    }
-    &.choose-background-layer {
-      height: 45px;
     }
   }
 

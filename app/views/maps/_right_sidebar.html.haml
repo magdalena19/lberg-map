@@ -19,24 +19,32 @@
 
 .map-controls-container
   .overlay.control-container.zoom-container
-    %span.control-button.zoom-in.icon.glyphicon.fa.fa-plus{data: { toggle: 'tooltip', placement: 'left' }, title: t('.zoom_in')}
+    %span.control-button.zoom-in.icon{data: { toggle: 'tooltip', placement: 'left' }, title: t('.zoom_in')}
+      .glyphicon.fa.fa-plus
 
-    %span.control-button.glyphicon.fa.fa-minus.zoom-out{data: { toggle: 'tooltip', placement: 'left' }, title: t('.zoom_out')}
+    %span.control-button.zoom-out{data: { toggle: 'tooltip', placement: 'left' }, title: t('.zoom_out')}
+      .glyphicon.fa.fa-minus
 
-    %span.control-button.zoom-to-bbox.glyphicon.fa.fa-compress{data: { toggle: 'tooltip', placement: 'left'  }, title: t('.fit_to_bbox')}
+    %span.control-button.zoom-to-bbox{data: { toggle: 'tooltip', placement: 'left'  }, title: t('.fit_to_bbox')}
+      .glyphicon.fa.fa-compress
 
-    %span.control-button.toggle-show-geolocation.inactive.glyphicon.fa.fa-crosshairs{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_current_position')}
+    %span.control-button.toggle-show-geolocation.inactive{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_current_position')}
+      .glyphicon.fa.fa-crosshairs
 
   .overlay.control-container.map-info-container
-    %span.control-button.show-map-description.glyphicon.fa.fa-info{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_map_description')}
+    %span.control-button.show-map-description{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_map_description')}
+      .glyphicon.fa.fa-info
 
-    %span.control-button.glyphicon.choose-background-layer{data: { toggle: 'tooltip', placement: 'left' }, title: t('.choose_background_layer'), tray: '.tile-layers-tray'}
-      = image_tag('tile_layers_button.svg')
+    %span.control-button.choose-background-layer{data: { toggle: 'tooltip', placement: 'left' }, title: t('.choose_background_layer'), tray: '.tile-layers-tray'}
+      .glyphicon
+        = image_tag('tile_layers_button.svg')
 
-    %span.control-button.show-places-index.glyphicon.fa.fa-list-alt{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_places_list')}
+    = link_to places_path(map_token: map_token) do
+      %span.control-button{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_places_list')}
+        .glyphicon.fa.fa-list-alt
 
   - if can_contribute?
     .overlay.control-container.place-control-container
-      %span.control-button.add-place-button.glyphicon{data: { toggle: 'tooltip', placement: 'left' }, title: t('.new_place'), tray: '.create-place-methods-tray'}
-        = image_tag('marker_button.png')
-
+      %span.control-button.add-place-button{data: { toggle: 'tooltip', placement: 'left' }, title: t('.new_place'), tray: '.create-place-methods-tray' }
+        .glyphicon
+          = image_tag('marker_button.png')

@@ -78,7 +78,7 @@ jQuery(function() {
           success: function(result) {
             console.log('jo');
             panel.fadeOut(350, function() { jQuery(this).remove(); });
-            modalRow.fadeOut(350, function() { 
+            modalRow.fadeOut(350, function() {
               modalRow.next('.child').fadeOut(350).remove();
               jQuery(this).remove();
             });
@@ -231,30 +231,39 @@ jQuery(function() {
       panel.height(jQuery(document).height() - filterField.outerHeight() - navbarHeight - footerHeight - 33);
       if (panel.is(':visible')) {
         jQuery('.toggle-panel').css('left', panel.outerWidth());
+        if (window.innerWidth < 600) {
+          hideMapControls();
+        } else {
+          showMapControls();
+        }
       } else {
         jQuery('.toggle-panel').css('left', 0);
+        showMapControls();
       }
     };
+
+    jQuery(window).resize(function(){
+      resizeSidePanel();
+    }).resize();
+
 
     // TOGGLE SIDEPANEL
     jQuery('.toggle-panel').click(function() {
       if (jQuery('.places-list-panel').is(':visible')) {
         hideSidepanel();
+        showMapControls();
       } else {
         showSidepanel();
+        if (window.innerWidth < 600) { hideMapControls() };
       }
     });
-
-    jQuery(window).resize(function(){
-      resizeSidePanel();
-    }).resize();
 
     // FILL PLACES LIST
     var addToPlacesList = function(feature) {
       var item = jQuery('.places-list-item.template').clone();
       var contact = item.find('.contact-container');
       var event_container = item.find('.event-container');
-      var panelType = feature.is_event ? 'event-panel' : 'place-panel'
+      var panelType = feature.is_event ? 'event-panel' : 'place-panel';
 
       item.removeClass('template');
       item.find('.panel-heading').addClass(panelType);
@@ -293,7 +302,7 @@ jQuery(function() {
         moment.locale('en');
         var startDate = moment(feature.start_date).utc().format('DD-MM-YYYY HH:mm');
         var endDate = moment(feature.end_date).utc().format('DD-MM-YYYY HH:mm');
-        date_string = feature.end_date === null ? startDate : startDate + ' - ' + endDate
+        date_string = feature.end_date === null ? startDate : startDate + ' - ' + endDate;
         event_container.append("<div class='event'><div class='glyphicon fa fa-calendar'></div>" + date_string + "</div>");
       }
       item.find('.category-names').append(feature.properties.category_names);
@@ -327,8 +336,6 @@ jQuery(function() {
       jQuery('.category-input').val('');
       loadAndFilterPlaces();
     });
-
-    jQuery('.filter-date-row').hide();
 
     jQuery('.show-events-toggle').click(function() {
       filter = jQuery(this)[0].checked;

@@ -1,18 +1,4 @@
 .overlay.filter-field
-  .row.switches
-    .col-xs-6
-      - if @places_to_show.select(&:event).any?
-        %label.switch
-          %input{type: 'checkbox', class: 'show-events-toggle', checked: false}
-          .slider.round.events
-        = t('.show_events')
-
-    .col-xs-6
-      %label.switch
-        %input{type: 'checkbox', class: 'show-places-toggle', checked: true}
-        .slider.round.places
-      = t('.show_places')
-
   .row.search-field
     .col-xs-12
       .search-input

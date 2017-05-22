@@ -9,6 +9,8 @@ class MapsController < ApplicationController
     @latitude = params[:latitude]
     @longitude = params[:longitude]
     @places_to_show = places_to_show
+    @events_to_show = @places_to_show.select(&:event)
+    @static_places_to_show= @places_to_show.select { |p| !p.event }
 
     respond_to do |format|
       format.json { render json: places_to_show.map(&:geojson), status: 200 }

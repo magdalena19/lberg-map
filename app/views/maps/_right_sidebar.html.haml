@@ -17,6 +17,27 @@
     .glyphicon.fa.fa-crosshairs
     = t('.add_via_location')
 
+.overlay.control-container.right-sidebar-tray.display-options-tray.closed
+  .toggle-show-geolocation.inactive.tray-element
+    %label.switch.icon
+      %input{type: 'checkbox', class: 'show-current-position-toggle', checked: false}
+      .slider.round.events
+    .text= t('.show_current_position')
+
+  - if @events_to_show.any?
+    .places-switch.tray-element
+      %label.switch.icon
+        %input#asd{type: 'checkbox', class: 'show-events-toggle', checked: true}
+        .slider.round.events
+      .text= t('.show_events')
+
+  - if @static_places_to_show.any?
+    .events-switch.tray-element
+      %label.switch.icon
+        %input{type: 'checkbox', class: 'show-places-toggle', checked: true}
+        .slider.round.places
+      .text= t('.show_places')
+
 .map-controls-container
   .overlay.control-container.zoom-container
     %span.control-button.zoom-in.icon{data: { toggle: 'tooltip', placement: 'left' }, title: t('.zoom_in')}
@@ -28,10 +49,11 @@
     %span.control-button.zoom-to-bbox{data: { toggle: 'tooltip', placement: 'left'  }, title: t('.fit_to_bbox')}
       .glyphicon.fa.fa-compress
 
-    %span.control-button.toggle-show-geolocation.inactive{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_current_position')}
-      .glyphicon.fa.fa-crosshairs
+    %span.control-button.toggle-display-options{data: { toggle: 'tooltip', placement: 'left' }, title: t('.display_options'), tray: '.display-options-tray'}
+      .glyphicon.fa.fa-eye
 
   .overlay.control-container.map-info-container
+
     %span.control-button.show-map-description{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_map_description')}
       .glyphicon.fa.fa-info
 

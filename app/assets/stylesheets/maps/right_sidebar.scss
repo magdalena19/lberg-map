@@ -7,17 +7,30 @@
   &.closed {
     display: none !important;
   }
+
+  .tray-element { 
+    line-height: 25px;
+
+    .icon {
+      width: 15%;
+      float: left;
+    }
+
+    .text {
+      width: 80%;
+      margin-left: 20%;
+    }
+  }
 }
 
 $top-dist: 160px;
 
 // control container
 .control-container {
+  z-index: 9999;
   right: -7px;
   width: 50px;
   height: auto;
-  // padding-bottom: 10px;
-  // padding-top: 10px;
   background: rgba(darken($lilac, 50%),0.8);
   border-radius: 4px;
 
@@ -56,7 +69,6 @@ $top-dist: 160px;
 
   // SELECT TILE LAYERS
   &.tile-layers-tray {
-    top: $top-dist + 180px;
     right: 50px;
     width: 240px;
     padding: 10px;
@@ -89,7 +101,6 @@ $top-dist: 160px;
   }
 
   &.create-place-methods-tray {
-    top: $top-dist + 340px;
     right: 50px;
     width: 220px;
     line-height: 20px;
@@ -107,6 +118,91 @@ $top-dist: 160px;
       cursor: pointer;
       width: 100%;
       margin-bottom: 10px !important;
+    }
+  }
+
+  &.display-options-tray {
+    right: 50px;
+    width: 220px;
+    line-height: 20px;
+    padding: 10px;
+    overflow: hidden;
+    font-size: larger;
+
+    * {
+      color: $green;
+      cursor: pointer;
+    }
+
+    button {
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 10px !important;
+    }
+
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 27px;
+    height: 14px;
+    margin-right: 5px;
+    top: 5px;
+
+    /* Hide default HTML checkbox */
+    input {
+      display:none;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: $grey;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    // Round dot
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 8px;
+      width: 8px;
+      left: 4px;
+      bottom: 3px;
+      background-color: white;
+      -webkit-transition: .2s;
+      transition: .2s;
+    }
+
+    input:checked + .slider {
+      background: $green;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(13px);
+      -ms-transform: translateX(13px);
+      transform: translateX(13px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 10px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
     }
   }
 }

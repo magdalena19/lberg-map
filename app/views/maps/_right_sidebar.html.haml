@@ -35,9 +35,8 @@
     %span.control-button.show-map-description{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_map_description')}
       .glyphicon.fa.fa-info
 
-    %span.control-button.choose-background-layer{data: { toggle: 'tooltip', placement: 'left' }, title: t('.choose_background_layer'), tray: '.tile-layers-tray'}
-      .glyphicon
-        = image_tag('tile_layers_button.svg')
+    %span.glyphicon.control-button.choose-background-layer{data: { toggle: 'tooltip', placement: 'left' }, title: t('.choose_background_layer'), tray: '.tile-layers-tray'}
+      = image_tag('tile_layers_button.svg')
 
     = link_to places_path(map_token: map_token) do
       %span.control-button{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_places_list')}

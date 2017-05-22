@@ -41,9 +41,9 @@ jQuery(function() {
         }
       } else {
         if (prop.is_event === true) {
-          layer.setIcon(event_icon);;
+          layer.setIcon(event_icon);
         } else {
-          layer.setIcon(place_icon);;
+          layer.setIcon(place_icon);
         }
       }
 

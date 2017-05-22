@@ -36,7 +36,7 @@
       .glyphicon.fa.fa-info
 
     %span.glyphicon.control-button.choose-background-layer{data: { toggle: 'tooltip', placement: 'left' }, title: t('.choose_background_layer'), tray: '.tile-layers-tray'}
-      = image_tag('tile_layers_button.svg')
+      = image_tag('buttons/tile_layers_button.svg')
 
     = link_to places_path(map_token: map_token) do
       %span.control-button{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_places_list')}
@@ -45,5 +45,9 @@
   - if can_contribute?
     .overlay.control-container.place-control-container
       %span.control-button.add-place-button{data: { toggle: 'tooltip', placement: 'left' }, title: t('.new_place'), tray: '.create-place-methods-tray' }
-        .glyphicon
-          = image_tag('marker_button.png')
+        .glyphicon.fa.fa-plus-circle
+
+      - if can_review?
+        = link_to places_review_index_path(map_token: map_token) do
+          %span.control-button.review-places-button{data: { toggle: 'tooltip', placement: 'left' }, title: t('.review_changes')}
+            .glyphicon.fa.fa-eye

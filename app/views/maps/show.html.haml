@@ -24,10 +24,10 @@
   window.delete_confirmation_text = '#{t('places.index.confirm_delete')}'
   window.latitude = #{@latitude || 0};
   window.longitude = #{@longitude || 0};
-  window.marker_current_position = '#{image_path 'marker_current_position.png'}';
-  window.placeMarker = '#{image_path 'marker_place.png'}';
-  window.eventMarker = '#{image_path 'marker_event.png'}';
-  window.sessionPlaceMarker= '#{image_path 'marker_session_place.png'}';
-  window.sessionEventMarker= '#{image_path 'marker_session_event.png'}';
+  window.marker_current_position = '#{image_path 'marker/png/marker_current_position.png'}';
+  window.placeMarker = '#{image_path 'marker/png/marker_place.png'}';
+  window.eventMarker = '#{image_path 'marker/png/marker_event.png'}';
+  window.sessionPlaceMarker= '#{image_path 'marker/png/marker_session_place.png'}';
+  window.sessionEventMarker= '#{image_path 'marker/png/marker_session_event.png'}';
   window.event_date_range = '#{@map.all_events_date_range}';
   window.map_token = "#{request[:map_token]}"

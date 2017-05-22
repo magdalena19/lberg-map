@@ -15,6 +15,9 @@ $top-dist: 160px;
 .control-container {
   right: -7px;
   width: 50px;
+  height: auto;
+  // padding-bottom: 10px;
+  // padding-top: 10px;
   background: rgba(darken($lilac, 50%),0.8);
   border-radius: 4px;
 
@@ -77,11 +80,12 @@ $top-dist: 160px;
 
   // CREATE PLACE BUTTONS
   &.place-control-container {
-    top: $top-dist + 340px;
-    height: 60px;
-    img {
-      width: 25px;
+    .glyphicon {
+      font-size: 24px;
     }
+
+    top: $top-dist + 340px;
+    height: auto;
   }
 
   &.create-place-methods-tray {

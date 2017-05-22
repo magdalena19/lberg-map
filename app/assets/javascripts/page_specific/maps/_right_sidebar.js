@@ -153,13 +153,13 @@ jQuery(function() {
     map.setView([lat, lon], 18);
   }
 
-  jQuery('.toggle-show-geolocation').on('click', function() {
+  jQuery('.show-current-position-toggle').on('click', function() {
     function showPosition(position) {
       lat = position.coords.latitude;
       lon = position.coords.longitude;
       current_location = L.marker([lat, lon], {icon: current_position_icon}).addTo(map);
-      L.DomUtil.addClass(current_location._icon, 'current_location_marker');
       map.current_location = current_location;
+      L.DomUtil.addClass(current_location._icon, 'current_location_marker');
       jQuery('.toggle-show-geolocation').toggleClass('inactive');
 
       // Zoom in if no POIs on map
@@ -176,7 +176,8 @@ jQuery(function() {
       }
     }
 
-    if (map.current_location === undefined) {
+    var shallDisplayPos= jQuery('.show-current-position-toggle')[0].checked;
+    if (shallDisplayPos) {
       getAndShowPosition();
     } else {
       map.removeLayer(map.current_location);
@@ -185,6 +186,7 @@ jQuery(function() {
       jQuery('.toggle-show-geolocation').toggleClass('inactive');
     }
   });
+
   // Toggle map info modal
   jQuery('.show-map-description').on('click', function() {
     jQuery('.map-description-modal').modal().show();
@@ -192,11 +194,13 @@ jQuery(function() {
 
   jQuery('.control-button[tray]').on('click', function(){
     jQuery('.right-sidebar-tray').hide();
+    var topPos = jQuery(this).offset().top;
     var trayName = jQuery(this).attr('tray');
     var tray = jQuery(trayName);
     var trayClosed = tray.hasClass('closed');
 
     if (trayClosed) {
+      tray.offset({top: topPos});
       tray.removeClass('closed').show();
     } else {
       tray.addClass('closed').hide();

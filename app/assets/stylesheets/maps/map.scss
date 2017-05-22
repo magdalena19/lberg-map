@@ -16,6 +16,7 @@
 
 .overlay {
   position: absolute !important;
+  z-index: 10;
   .filter-button {
     width: 130px !important;
     &.active {

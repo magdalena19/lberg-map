@@ -1,0 +1,30 @@
+@import 'colors';
+
+.filter-field {
+  z-index: 10;
+  top: 40px;
+  width: 25%;
+  min-width: 400px;
+  background-color: rgba(darken($verylightgrey, 10%), 0.9);
+  border-bottom: 1px solid rgba(200, 200, 200, 1);
+  border-right: 1px solid rgba(200, 200, 200, 1);
+  padding: 15px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .filter-date-row {
+    padding-top: 10px;
+  }
+
+  .input-icon {
+    position: absolute;
+    right: 22px;
+    top: 8px;
+    z-index: 10;
+    font-size: 18px;
+    color: $grey;
+  }
+}

@@ -57,8 +57,51 @@ module CapybaraHelpers
     fill_in('place_end_date_time', with: '23:00')
   end
 
-  def show_places_index(map_token:)
-    visit map_path(map_token: map_token)
+  def show_places_index
+    show_map_controls
     find(:css, '.show-places-index').trigger('click')
+  end
+
+  # RIGHT SIDEBAR ACTIONS
+  def show_map_controls
+    page.find('.toggle-panel').trigger('click') unless page.has_css?('.map-controls-container')
+  end
+
+  def show_display_options
+    show_map_controls
+    find(:css, '.toggle-display-options').trigger('click')
+  end
+
+  def show_places_list_panel
+    page.find('.toggle-panel').trigger('click') if page.has_css?('.map-controls-container')
+  end
+
+  def show_places_index
+    show_map_controls
+    page.find('.show-places-index').trigger('click')
+  end
+
+  def show_events
+    show_display_options
+    switch = find('.show-events-toggle', visible: false)
+    switch.trigger('click') unless switch.checked?
+  end
+  
+  def hide_events
+    show_display_options
+    switch = find('.show-events-toggle', visible: false)
+    switch.trigger('click') if switch.checked?
+  end
+  
+  def show_places
+    show_display_options
+    switch = find('.show-places-toggle', visible: false)
+    switch.trigger('click') unless switch.checked?
+  end
+  
+  def hide_places
+    show_display_options
+    switch = find('.show-places-toggle', visible: false)
+    switch.trigger('click') if switch.checked?
   end
 end

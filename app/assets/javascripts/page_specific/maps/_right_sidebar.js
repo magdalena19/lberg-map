@@ -71,12 +71,18 @@ jQuery(function() {
 
     // cancel button
     jQuery('#confirmation-button-no').click(function() {
+      map.off('click', confirmClickEvent)
       jQuery('.confirmation-button-container').fadeOut();
       map.removeLayer(locationMarker);
       jQuery('.leaflet-overlay-pane').css('cursor', 'inherit');
       showMapElements();
       fit_to_bbox();
     });
+  }
+
+  // Whats gonna happen after selecting target point on map?
+  function confirmClickEvent(point) {
+    confirmPlaceInsert(point.latlng.lat, point.latlng.lng);
   }
 
   // INSERT PLACE MANUALLY
@@ -88,9 +94,7 @@ jQuery(function() {
   jQuery('.add-place-via-click').click(function(){
     hideMapElements();
     jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
-    map.on('click', function(point) {
-      confirmPlaceInsert(point.latlng.lat, point.latlng.lng);
-    });
+    map.on('click', confirmClickEvent);   
   });
 
 

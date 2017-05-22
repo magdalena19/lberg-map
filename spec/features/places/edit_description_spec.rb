@@ -1,5 +1,6 @@
 feature 'Edit description' do
   scenario 'Do not show guest edits in place list', :js do
+    skip 'Map rendering issue'
     map = create :map, :full_public
     place = create :place, :reviewed, map: map
 

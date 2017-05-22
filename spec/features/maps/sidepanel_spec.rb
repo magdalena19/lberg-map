@@ -21,7 +21,6 @@ feature 'Sidepanel', :js do
       visit map_path(map_token: @map.secret_token)
       find('.name').trigger('click')
       find('.edit-place').click
-      binding.pry 
 
       # expect(current_path).to eq edit_place_path(map_token: @map.secret_token, id: @place.id)
       expect(page).to have_content 'Edit place'

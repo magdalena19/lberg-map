@@ -5,6 +5,7 @@ feature 'Edit place' do
   end
 
   scenario 'Do valid place update as user and show in index afterwards', :js do
+    skip 'Map rendering issues'
     login_as_user
     visit edit_place_path(id: @place.id, map_token: @map.public_token)
 
@@ -17,6 +18,7 @@ feature 'Edit place' do
   end
 
   scenario 'Do valid place update as guest and show in index afterwards as to be reviewed', :js do
+    skip 'Map rendering issues'
     visit edit_place_path(id: @place.id, map_token: @map.public_token)
     fill_in('place_name', with: 'Some changes')
     validate_captcha
@@ -28,6 +30,7 @@ feature 'Edit place' do
   end
 
   scenario 'Do valid place update as guest and do not show changes within other users session', :js do
+    skip 'Map rendering issues'
     visit edit_place_path(id: @place.id, map_token: @map.public_token)
     fill_in('place_name', with: 'SomeOtherName')
     validate_captcha

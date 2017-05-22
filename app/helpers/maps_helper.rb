@@ -12,7 +12,7 @@ module MapsHelper
   end
 
   def can_review?
-    current_map.allow_guest_commits && (current_map.owner == @current_user || is_secret_link?)
+    current_map.allow_guest_commits && has_privileged_map_access?
   end
 
   def map_token

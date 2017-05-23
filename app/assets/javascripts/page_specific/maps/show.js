@@ -121,16 +121,21 @@ jQuery(function() {
     };
 
     // TEXT FILTER
-    var wordPresent = function(word, feature) {
+    var wordPresent = function(wordGroup, feature) {
       var match = false;
 
       jQuery.each(feature.properties, function(attr, key) {
         var value = feature.properties[attr];
         var string = value ? value.toString().toLowerCase() : '';
-        if ( string.indexOf(word) >= 0 ) {
-          match = true;
-          return false; // return false to quit loop
-        }
+        // Split search string again for OR search and return true if there is a match
+        var words = wordGroup.split('OR');
+        jQuery(words).each(function(index, word) {
+          word = word.trim().toLowerCase();
+          if ( string.indexOf(word) >= 0 ) {
+            match = true;
+            return false; // return false to quit loop
+          }
+        });
       });
       return match;
     };
@@ -140,13 +145,14 @@ jQuery(function() {
       if (!text) { return json; }
 
       var filteredJson = [];
-      var words = text.replace(';', ',').split(',');
+      var wordGroups = text.replace(';', ',').split(',');
+
+      // Parse every json element for occurences of separated search string
       jQuery(json).each(function (id, feature) {
-        var matches = jQuery.map(words, function(word) {
-          word = word.trim().toLowerCase();
-          return wordPresent(word, feature);
+        var matches = jQuery.map(wordGroups, function(wordGroup) {
+          return wordPresent(wordGroup, feature);
         });
-        if ( !(matches.indexOf(false) > -1) ) {
+        if ( matches.every( function(match) { return match === true } ) ) {
           filteredJson.push(feature);
         }
       });

@@ -105,4 +105,20 @@ feature 'Places map filter', js: true do
     expect(page).to have_css('.awesomplete ul li', text: 'Playground')
     expect(page).to have_css('.awesomplete ul li', text: 'lawyer')
   end
+
+  # Test OR search
+  scenario 'performs simple OR search' do
+    fill_in('search-input', with: 'AdventurePark OR lawyer')
+
+    expect(page).to have_content 'AdventurePark'
+    expect(page).to have_content 'Mr Bean'
+  end
+
+  scenario 'performs OR search combined with comma separated term' do
+    fill_in('search-input', with: 'AdventurePark OR lawyer, Mr Bean')
+
+    expect(page).not_to have_content 'AdventurePark'
+    expect(page).to have_content 'Mr Bean'
+
+  end
 end

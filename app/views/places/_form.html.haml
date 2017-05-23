@@ -114,7 +114,7 @@
 
   -# BUTTONS
   .row.button-row
-    .col-xs-3.col-md-2
+    .col-xs-6.col-sm-4.col-md-3
       = f.hidden_field :latitude, value: params[:latitude]
       = f.hidden_field :longitude, value: params[:longitude]
       - if @geocoded
@@ -122,7 +122,7 @@
         = f.hidden_field :federal_state, value: @place.federal_state || @geocoded[:federal_state]
         = f.hidden_field :country, value: @place.country || @geocoded[:country]
       = f.submit class: 'btn btn-primary btn-success place-form-button submit-place-button'
-    .col-xs-3.col-md-2
+    .col-xs-6.col-sm-4.col-md-3
       = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
 
 :javascript

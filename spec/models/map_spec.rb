@@ -13,6 +13,7 @@ RSpec.describe Map, type: :model do
     it { is_expected.to respond_to :translation_engine }
     it { is_expected.to respond_to :allow_guest_commits }
     it { is_expected.to respond_to :supported_languages }
+    it { is_expected.to respond_to :password_digest }
   end
 
   context 'Callbacks' do
@@ -78,6 +79,20 @@ RSpec.describe Map, type: :model do
       
       expect(map).not_to be_valid
     end
+
+    context 'Password protection' do
+      it 'Map password has to be longer or equal 5 chars' do
+        map = build :map, :full_public, password: '1234', password_confirmation: '1234'
+      
+        expect(map).not_to be_valid
+      end
+
+      it 'Does not accept unequal passwords' do
+        map = build :map, :full_public, password: 'abcdef', password_confirmation: 'Something different'
+      
+        expect(map).not_to be_valid
+      end
+    end
   end
 
   context 'Instance methods' do 
@@ -100,8 +115,39 @@ RSpec.describe Map, type: :model do
     it 'returns exact number of reviewed events' do
       expect(@map.reviewed_events.count).to eq 5
     end
+
     it 'returns exact number of unreviewed events' do
       expect(@map.unreviewed_events.count).to eq 1
+    end
+
+    context 'Password protection' do
+      it 'can be asked if password set' do
+        expect(@map).to respond_to(:password_protected?)
+      end
+
+      it 'password_set? responds false if no password set' do
+        map = build :map, :full_public
+
+        expect(map.password_protected?).to eq false
+      end
+
+      it 'password_set? responds true if password set' do
+        map = build :map, :full_public, password: 'secret', password_confirmation: 'secret'
+
+        expect(map.password_protected?).to eq true
+      end
+
+      it 'authenticates map' do
+        map = create :map, :full_public, password: 'secret', password_confirmation: 'secret'
+
+        expect(map.authenticated?(attribute: 'password', token: 'secret')).to be true
+      end
+
+      it 'does not authenticate map if given password is invalid' do
+        map = create :map, :full_public, password: 'secret', password_confirmation: 'secret'
+
+        expect(map.authenticated?(attribute: 'password', token: 'wrong')).to be false
+      end
     end
   end
 end

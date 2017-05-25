@@ -2,6 +2,7 @@ require 'validators/custom_validators'
 require 'sanitize'
 
 class Map < ActiveRecord::Base
+  has_secure_password validations: false
   include CustomValidators
   include Sanitization
 
@@ -13,12 +14,15 @@ class Map < ActiveRecord::Base
 
   before_validation :sanitize_description
   before_validation :sanitize_imprint
+  before_validation lambda { password_digest = 'no password set' }
 
   validates :maintainer_email_address, email_format: true, if: 'maintainer_email_address.present?'
   validates :translation_engine, presence: true, inclusion: { in: %w[bing yandex google] }, if: 'auto_translate'
   validates :secret_token, presence: true
   validates :title, length: { maximum: 25 }
   validates :supported_languages, presence: true
+  validates :password, length: { minimum: 5 }, if: :password
+  validates :password, confirmation: true, if: :password
   validate :secret_token_unique
   validate :public_token_unique, if: 'public_token.present?'
 
@@ -33,7 +37,28 @@ class Map < ActiveRecord::Base
       errors.add(:public_token, I18n.t('.public_token_not_unique'))
     end
   end
+  
 
+  # AUTHENTICATION
+  def authenticated?(attribute:, token:)
+    return false unless digest = self.send("#{attribute}_digest") 
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  def create_digest_for(attribute:)
+    token = SecureRandom.urlsafe_base64(24)
+    cost = Rails.env == "production" ? BCrypt::Engine::MAX_SALT_LENGTH : 4
+    digest = BCrypt::Password.create(token, cost: cost)
+
+    self.send("#{attribute}_digest=", digest)
+  end
+
+  def password_protected?
+    password_digest.present?
+  end
+
+
+  # HELPER FUNCTIONS
   def all_places
     places.reject(&:event)
   end

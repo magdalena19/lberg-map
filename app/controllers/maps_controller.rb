@@ -1,9 +1,36 @@
 class MapsController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
 
+  helper_method :needs_to_be_unlocked?
+
   before_action :set_map, except: [:new, :index]
+  before_action :authenticate, only: [:update, :destroy, :edit, :share_map, :send_invitations]
   before_action :can_create?, only: [:create]
 
+  def needs_unlock
+    respond_to do |format|
+      format.json { render json: { needs_auth: needs_to_be_unlocked? }.to_json, status: 200 }
+    end
+  end
+
+  def unlock
+    password = params[:password]
+    unlocked = @map.authenticated?(attribute: 'password', token: password)
+    session[:unlocked_maps].append(request[:map_token]).uniq! if unlocked
+
+    respond_to do |format|
+      format.js do
+        if unlocked?
+          render nothing: true, status: 200
+        else
+          render nothing: true, status: 401
+        end
+      end
+    end
+  end
+
+  # HTTP response does not need to be authenticated as it renders only the template
+  # ajax calls 
   def show
     @categories = @map.categories.all
     @latitude = params[:latitude]
@@ -13,7 +40,13 @@ class MapsController < ApplicationController
     @static_places_to_show= @places_to_show.select { |p| !p.event }
 
     respond_to do |format|
-      format.json { render json: places_to_show.map(&:geojson), status: 200 }
+      format.json do
+        if unlocked?
+          render json: places_to_show.map(&:geojson), status: 200
+        else
+          render nothing: true, status: 401
+        end
+      end
       format.html
     end
   end
@@ -90,11 +123,19 @@ class MapsController < ApplicationController
     redirect_to map_path(map_token: @map.secret_token)
   end
 
-  def places_to_show
-    (@map.reviewed_places + @map.reviewed_events + items_from_session).uniq
+  def needs_to_be_unlocked?
+    @map.password_protected? && !session[:unlocked_maps].include?(params[:map_token])
   end
 
   private
+
+  def unlocked?
+    !@map.password_protected? || session[:unlocked_maps].include?(request[:map_token])
+  end
+
+  def places_to_show
+    (@map.reviewed_places + @map.reviewed_events + items_from_session).uniq
+  end
 
   def send_invitation(token:, email_address:)
     MapInvitationWorker.perform_async(token, email_address)
@@ -104,6 +145,13 @@ class MapsController < ApplicationController
     return true unless @current_user.guest?
     flash[:error] = t('.need_to_register')
     redirect_to landing_page_url
+  end
+
+  # Redirect to password prompt if not unlocked
+  def authenticate
+    if @map.password_protected?
+      redirect_to map_path(map_token: request[:map_token]) unless session[:unlocked_maps].include? request[:map_token]
+    end
   end
 
   def map_params
@@ -117,6 +165,8 @@ class MapsController < ApplicationController
       :secret_token,
       :allow_guest_commits,
       :auto_translate,
+      :password,
+      :password_confirmation,
       :translation_engine,
       supported_languages: []
     )

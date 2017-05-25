@@ -1,7 +1,7 @@
 //= require phantomjs_polyfill-rails/bind-polyfill
 //= require jquery
-//= require jquery_ujs
 //= require jquery.scrollTo
+//= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require bootstrap-wysihtml5
@@ -18,7 +18,7 @@ jQuery(function() {
     jQuery('.back-button').hide();
   }
 
-  jQuery('#flash-messages').delay(8000).fadeOut(800);
+  jQuery('#flash-messages').delay(4000).fadeOut(800);
   jQuery('.dropdown-toggle').dropdown();
   jQuery('.back-button').click(function() {
     window.history.back();
@@ -196,6 +196,32 @@ jQuery(function() {
   };
 
   // Form
+
+  // Password
+  jQuery('.password-checkbox').on('click', 'input', function() {
+    var checkbox = jQuery(this)[0];
+    var passwordField = jQuery('#map_password');
+    var passwordConfirmationField = jQuery('#map_password_confirmation');
+
+    if (checkbox.checked) {
+      passwordField.
+        attr('disabled', false).
+        attr('placeholder', '•••••')
+      passwordConfirmationField.
+        attr('disabled', false).
+        attr('placeholder', '•••••')
+    } else {
+      passwordField.
+        attr('disabled', true).
+        val('').
+        attr('placeholder', '')
+      passwordConfirmationField.
+        attr('disabled', true).
+        val('').
+        attr('placeholder', '')
+    }
+  });
+
   toggle_if_checked('#map_auto_translate', '#map_translation_engine');
 
   jQuery('#map_is_public').on('click', function(){

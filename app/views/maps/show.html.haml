@@ -14,6 +14,8 @@
   = render 'sidepanel'
   = render 'map_description_modal'
   = render 'places_index_modal'
+  - if needs_to_be_unlocked?
+    = render 'map_password_modal'
 
 :javascript
   window.locale = '#{locale}';
@@ -30,4 +32,5 @@
   window.sessionPlaceMarker= '#{image_path 'marker/png/marker_session_place.png'}';
   window.sessionEventMarker= '#{image_path 'marker/png/marker_session_event.png'}';
   window.event_date_range = '#{@map.all_events_date_range}';
-  window.map_token = "#{request[:map_token]}"
+  window.map_token = '#{request[:map_token]}'
+  window.mapId= #{@map.id}

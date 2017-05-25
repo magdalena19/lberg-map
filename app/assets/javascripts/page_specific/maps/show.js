@@ -375,24 +375,65 @@ jQuery(function() {
       loadAndFilterPlaces();
     });
 
-    // POI LOADING
     hideMapElements();
-    jQuery.ajax({
-      url: '/' + window.map_token,
-      dataType: 'json',
-      data: {
-        locale: window.locale
-      },
-      success: function(result) {
-        window.places = result;
-        loadAndFilterPlaces();
-        showMapElements();
-        jQuery('.loading').hide();
-        showSidepanel();
-        resizeSidePanel();
-        hideSidepanel();
+
+    // CHECK IF MAP IS LOCKED VIA PASSWORD
+    jQuery.when( $.ajax( {
+      url: '/needs_unlock',
+      data: { map_token: window.map_token }
+    }) ).then(function(data) { 
+      if (data.needs_auth) {
+        showPasswordPrompt();
+      } else {
+        jQuery('.map-password-dialog').modal('hide');
+        getPois();
       }
-    });
+    } );
+
+    // PROMPT FOR MAP PASSWORD
+    function showPasswordPrompt() {
+      jQuery('.map-password-dialog').modal().show;
+      jQuery('.unlock').on('click', function() {
+        var password = jQuery('.password-input').val();
+
+        jQuery.ajax({
+          url: '/' + window.map_token + '/unlock',
+          data: { password: password },
+          dataType: 'script',
+          success: function() {
+            getPois()
+            jQuery('.map-password-dialog').modal('hide');
+          },
+          error: function() {
+            var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">Wrong password</div>'
+            jQuery('.error-messages').append(errorMessage);
+            jQuery('.error-messages #flash-messages').delay(3000).fadeOut(800).promise().done(function() {
+              jQuery(this).remove();
+            });
+          }
+        });
+      });
+    }
+
+    // RECEIVE POIS
+    function getPois() {
+      jQuery.ajax({
+        url: '/' + window.map_token,
+        dataType: 'json',
+        data: {
+          locale: window.locale
+        },
+        success: function(result) {
+          window.places = result;
+          loadAndFilterPlaces();
+          showMapElements();
+          jQuery('.loading').hide();
+          showSidepanel();
+          resizeSidePanel();
+          hideSidepanel();
+        }
+      });
+    }
   });
 
   function fit_to_bbox() {

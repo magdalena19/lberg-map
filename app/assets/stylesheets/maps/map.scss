@@ -14,6 +14,17 @@
   white-space: nowrap;
 }
 
+.map-password-dialog {
+  .modal-content {
+    height: auto;
+    top: calc(50% - 100px);
+  }
+
+  .unlock {
+    margin-top: 15px;
+  }
+}
+
 .overlay {
   position: absolute !important;
   z-index: 10;

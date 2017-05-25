@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     set_locale
     session[:maps] ||= []
     session[:places] ||= []
+    session[:unlocked_maps] ||= []
   end
 
   def set_locale

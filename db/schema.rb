@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426133404) do
+ActiveRecord::Schema.define(version: 20170524124213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20170426133404) do
     t.boolean  "auto_translate"
     t.integer  "user_id"
     t.text     "supported_languages",      default: ["en"], null: false, array: true
+    t.string   "password_digest"
   end
 
   add_index "maps", ["user_id"], name: "index_maps_on_user_id", using: :btree
@@ -151,6 +152,43 @@ ActiveRecord::Schema.define(version: 20170426133404) do
 
   add_index "places", ["map_id"], name: "index_places_on_map_id", using: :btree
 
+  create_table "route_translations", force: :cascade do |t|
+    t.integer  "route_id",                        null: false
+    t.string   "locale",                          null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.text     "description"
+    t.boolean  "auto_translated", default: false, null: false
+    t.boolean  "reviewed",        default: false, null: false
+  end
+
+  add_index "route_translations", ["locale"], name: "index_route_translations_on_locale", using: :btree
+  add_index "route_translations", ["route_id"], name: "index_route_translations_on_route_id", using: :btree
+
+  create_table "routes", force: :cascade do |t|
+    t.string   "name",                           null: false
+    t.text     "points",                         null: false, array: true
+    t.text     "postal_codes",                                array: true
+    t.text     "streets",                                     array: true
+    t.text     "cities",                                      array: true
+    t.boolean  "reviewed",       default: false, null: false
+    t.text     "categories",     default: ""
+    t.string   "phone"
+    t.string   "email"
+    t.string   "homepage"
+    t.boolean  "event",          default: true,  null: false
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.text     "districts",                                   array: true
+    t.text     "federal_states",                              array: true
+    t.text     "countries",                                   array: true
+    t.integer  "map_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "routes", ["map_id"], name: "index_routes_on_map_id", using: :btree
+
   create_table "simple_captcha_data", force: :cascade do |t|
     t.string   "key",        limit: 40
     t.string   "value",      limit: 6
@@ -190,4 +228,5 @@ ActiveRecord::Schema.define(version: 20170426133404) do
   add_foreign_key "maps", "users"
   add_foreign_key "messages", "maps"
   add_foreign_key "places", "maps"
+  add_foreign_key "routes", "maps"
 end

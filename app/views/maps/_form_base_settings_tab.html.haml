@@ -1,4 +1,5 @@
 .tab-pane.fade.in.active#base_settings
+  -# Secret link
   .row
     .spacer-row
     .col-md-12
@@ -11,6 +12,19 @@
               %span.input-group-addon#addon_secret= request.base_url
               = f.text_field :secret_token, value: SecureRandom.urlsafe_base64(24), class: 'form-control', placeholder: t('.secret_token'), aria: { describedby: '#addon_secret'}
 
+  -# Password field
+  .row
+    .spacer-row
+    .col-xs-12
+      = f.label :password
+    .col-xs-12
+      .input-group.password_input
+        %span.input-group-addon.password-checkbox
+          = check_box_tag :password_protect, true, @map.password_protected? ? true : false
+        = f.password_field :password, class: 'form-control', aria: { describedby: '#addon_secret'}, disabled: @map.password_protected? ? false : true, placeholder: @map.password_protected? ? raw('&bull;&bull;&bull;&bull;&bull;') : ''
+        = f.password_field :password_confirmation, class: 'form-control password-confirmation', aria: { describedby: '#addon_secret'}, disabled: @map.password_protected? ? false : true, placeholder: @map.password_protected? ? raw('&bull;&bull;&bull;&bull;&bull;') : ''
+
+  -# Title
   .row
     .spacer-row
     .col-md-12
@@ -19,6 +33,7 @@
           = f.label :title, t('.title')
           = f.text_field :title, placeholder: t('.title_placeholder'), class: 'form-control'
 
+      -# Description
       .spacer-row
       %fieldset.input-group.row
         .col-xs-12

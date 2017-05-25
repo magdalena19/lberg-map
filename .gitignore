@@ -38,3 +38,7 @@ postgesqldata/*
 
 # Ignore test coverage report
 /coverage
+
+# Ignore test assets
+public/assets_test/
+public/capybara.html

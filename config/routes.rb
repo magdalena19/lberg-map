@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     get '/index', to: 'maps#index', as: :maps
     post '', to: 'maps#create'
     get '/new', to: 'maps#new', as: :new_map
+    get '/needs_unlock', to: 'maps#needs_unlock'
 
     scope '/:map_token', constraints: MapAccessRestriction.new do
       get '' , to: 'maps#show', as: :map
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
       delete '', to: 'maps#destroy', as: :destroy_map
       get '/share_map', to: 'maps#share_map', as: :share_map
       post '/share_map', to: 'maps#send_invitations'
+      get '/unlock', to: 'maps#unlock'
 
       # map static pages
       get '/about' , to: 'maps#about'

@@ -32,6 +32,7 @@ de:
       base_settings: 'Grundeinstellungen'
       publication_settings: 'Veröffentlichungs-Einstellungen'
       language_settings: 'Mehrsprachigkeit'
+      password_protection: 'Passwort-Schutz'
     form_base_settings_tab:
       secret_link: 'Geheimer Link'
       secret_token: 'Geheimer Schlüssel'
@@ -47,6 +48,7 @@ de:
       is_public: 'Karte veröffentlichen'
       allow_guest_commits: 'Erlaube Gast-Änderungen'
       imprint: 'Impressum deiner Karte (optional)'
+    form_password_protection_tab:
     form_language_settings_tab:
       auto_translate: 'Automatische Übersetzungen von Beschreibungen und Tags'
       supported_languages: 'Unterstützte Sprachen auf deiner Karte'

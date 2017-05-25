@@ -31,6 +31,7 @@ en:
       base_settings: 'Base setup'
       publication_settings: 'Publication settings'
       language_settings: 'Multi-language support'
+      password_protection: 'Password protection'
     form_base_settings_tab:
       secret_token: 'Secret key'
       secret_link: 'Secret link'
@@ -46,6 +47,7 @@ en:
       is_public: 'Publish map'
       allow_guest_commits: 'Allow guest changes'
       imprint: 'Map imprint (optional)'
+    form_password_protection_tab:
     form_language_settings_tab:
       auto_translate: 'Activate automatic translation of descriptions and tags'
       supported_languages: 'Supported Languages on your map'

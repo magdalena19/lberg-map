@@ -381,7 +381,7 @@ jQuery(function() {
     jQuery.when( $.ajax( {
       url: '/needs_unlock',
       data: { map_token: window.map_token }
-    }) ).then(function(data) { 
+    }) ).then(function(data) {
       if (data.needs_auth) {
         showPasswordPrompt();
       } else {
@@ -416,6 +416,7 @@ jQuery(function() {
     }
 
     // RECEIVE POIS
+    jQuery('.fade-background').show();
     function getPois() {
       jQuery.ajax({
         url: '/' + window.map_token,
@@ -428,6 +429,7 @@ jQuery(function() {
           loadAndFilterPlaces();
           showMapElements();
           jQuery('.loading').hide();
+          jQuery('.fade-background').hide();
           showSidepanel();
           resizeSidePanel();
           hideSidepanel();

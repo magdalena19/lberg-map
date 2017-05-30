@@ -1,5 +1,5 @@
 -# CHANGE LOGIN STATUS
-- if @current_user.signed_in?
+- if @current_user.registered?
   .margin-right.navbar-button.pull-right.toggle-login
     = link_to t('.logout'), logout_path
 - else

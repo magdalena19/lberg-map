@@ -11,7 +11,7 @@
       -# Map title
       - if current_map
         = link_to map_path(map_token: map_token) do
-          .logo.logo-left= @map.title.present? ? @map.title : t('.no_title')
+          .logo.logo-left.text-center= @map.title.present? ? @map.title : t('.no_title')
       - else
         = link_to landing_page_path do
           .logo.logo-left LBERG

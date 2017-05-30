@@ -2,7 +2,5 @@
 %li.pull-right.dropdown.navbar-dropdown{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.admin_tasks')}
   .pull-right.glyphicon.glyphicon-tasks.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
   %ul.dropdown-menu
-    .dropdown-header
-      = t('.admin_tasks')
     %li= link_to(t('.user_management'), admin_index_users_path)
     %li= link_to(t('.app_settings'), admin_settings_path)

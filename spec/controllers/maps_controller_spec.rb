@@ -9,24 +9,24 @@ RSpec.describe MapsController, type: :controller do
 
     it 'access ressource if map is unlocked' do
       session[:unlocked_maps] = [@map.id]
-      get :show, map_token: @map.public_token
+      get :show, map_token: @map.secret_token
 
       expect(assigns(:map)).to be_a(Map)
     end
 
     it 'returns success for correct password' do
-      xhr :get, :unlock, map_token: @map.public_token, password: 'secret'
+      xhr :get, :unlock, map_token: @map.secret_token, password: 'secret'
       expect(response).to have_http_status 200
     end
 
     it 'returns error for incorrect password' do
-      xhr :get, :unlock, map_token: @map.public_token, password: 'wrong'
+      xhr :get, :unlock, map_token: @map.secret_token, password: 'wrong'
       expect(response).to have_http_status 401
     end
 
     it 'does not need to unlock already unlocked routes' do
-      session[:unlocked_maps] = [@map.public_token, 'some_other_token']
-      xhr :get, :needs_unlock, map_token: @map.public_token
+      session[:unlocked_maps] = [@map.secret_token, 'some_other_token']
+      xhr :get, :needs_unlock, map_token: @map.secret_token
 
       unlocked_maps = JSON.parse(response.body)
       expectation = { 'needs_auth' => false }
@@ -35,7 +35,7 @@ RSpec.describe MapsController, type: :controller do
 
     it 'does not need to unlock non-password-protected maps' do
       non_protected_map = create :map, :full_public
-      xhr :get, :needs_unlock, map_token: non_protected_map.public_token
+      xhr :get, :needs_unlock, map_token: non_protected_map.secret_token
 
       unlocked_maps = JSON.parse(response.body)
       expectation = { 'needs_auth' => false }
@@ -47,6 +47,12 @@ RSpec.describe MapsController, type: :controller do
         xhr :get, :show, format: :json, map_token: @map.secret_token
 
         expect(response.status).to eq 401
+      end
+
+      it 'Does not demand password via public link' do
+        xhr :get, :show, format: :json, map_token: @map.public_token
+
+        expect(response.status).to eq 200
       end
     end
 

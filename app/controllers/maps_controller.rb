@@ -14,9 +14,8 @@ class MapsController < ApplicationController
   end
 
   def unlock
-    password = params[:password]
-    unlocked = @map.authenticated?(attribute: 'password', token: password)
-    session[:unlocked_maps].append(request[:map_token]).uniq! if unlocked
+    authenticated = @map.authenticated?(attribute: 'password', token: params[:password])
+    session[:unlocked_maps].append(request[:map_token]).uniq! if authenticated
 
     respond_to do |format|
       format.js do
@@ -129,8 +128,14 @@ class MapsController < ApplicationController
 
   private
 
+  def is_public_token?
+    Map.pluck(:public_token).include?(request[:map_token])
+  end
+
   def unlocked?
-    !@map.password_protected? || session[:unlocked_maps].include?(request[:map_token])
+    is_public_token? ||
+      !@map.password_protected? || 
+      session[:unlocked_maps].include?(request[:map_token])
   end
 
   def places_to_show

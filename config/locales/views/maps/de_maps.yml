@@ -10,7 +10,6 @@ de:
       index: 'Kartenübersicht'
     new:
       new: 'Neue Karte'
-
     map:
       edit_map: 'Karteneinstellungen'
       delete_map: 'Karte löschen'
@@ -28,6 +27,7 @@ de:
       unreviewed: '(%{total} unbestätigt)'
       number_of_places: '%{total} Orte eingetragen'
       number_of_events: '%{total} Ereignisse eingetragen'
+      password_protected: 'Passwortschutz aktiviert'
     form:
       base_settings: 'Grundeinstellungen'
       publication_settings: 'Veröffentlichungs-Einstellungen'

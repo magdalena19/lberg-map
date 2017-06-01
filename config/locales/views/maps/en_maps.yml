@@ -27,6 +27,7 @@ en:
       unreviewed: '(%{total} not confirmed)'
       number_of_places: '%{total} places on map'
       number_of_events: '%{total} events on map'
+      password_protected: 'Password protection enabled'
     form:
       base_settings: 'Base setup'
       publication_settings: 'Publication settings'

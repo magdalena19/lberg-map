@@ -80,6 +80,15 @@
           color: darken($green, 20%);
         }
       }
+
+      .password-protected {
+        padding-left: 3px;
+        background-color: lighten(red, 40%);
+        .glyphicon {
+          padding-right: 1px;
+          color: darken(red, 20%);
+        }
+      }
     }
 
     .map-specs {

@@ -18,6 +18,11 @@
     -# BODY
     .panel-body
       .content
+        - if map.password_protected?
+          .map-access-level-container
+            .password-protected
+              .glyphicon.fa.fa-key.pull-left
+              = t('.password_protected')
         .map-access-level-container
           %div{class: map_access_level(map: map)}
             .glyphicon.fa-universal-access.pull-left

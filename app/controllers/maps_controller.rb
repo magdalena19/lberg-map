@@ -1,18 +1,20 @@
 class MapsController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
-
-  helper_method :needs_to_be_unlocked?
+  include MapAccessGateway
 
   before_action :set_map, except: [:new, :index]
-  before_action :authenticate, only: [:update, :destroy, :edit, :share_map, :send_invitations]
+  before_action :auth_map, if: :map_password_protected?, only: [:update, :destroy, :edit, :share_map, :send_invitations]
   before_action :can_create?, only: [:create]
 
+  # Ressources for map unlocking maps via password
+  # Return true/false server-side if map is password protected and has not been unlocked yet
   def needs_unlock
     respond_to do |format|
-      format.json { render json: { needs_auth: needs_to_be_unlocked? }.to_json, status: 200 }
+      format.json { render json: { needs_unlock: needs_to_be_unlocked? }.to_json, status: 200 }
     end
   end
 
+  # Unlock server-side, i.e. accept password and add map token to session hash if auth success
   def unlock
     authenticated = @map.authenticated?(attribute: 'password', token: params[:password])
     session[:unlocked_maps].append(request[:map_token]).uniq! if authenticated
@@ -122,10 +124,6 @@ class MapsController < ApplicationController
     redirect_to map_path(map_token: @map.secret_token)
   end
 
-  def needs_to_be_unlocked?
-    @map.password_protected? && !session[:unlocked_maps].include?(params[:map_token])
-  end
-
   private
 
   def is_public_token?
@@ -150,13 +148,6 @@ class MapsController < ApplicationController
     return true unless @current_user.guest?
     flash[:error] = t('.need_to_register')
     redirect_to landing_page_url
-  end
-
-  # Redirect to password prompt if not unlocked
-  def authenticate
-    if @map.password_protected?
-      redirect_to map_path(map_token: request[:map_token]) unless session[:unlocked_maps].include? request[:map_token]
-    end
   end
 
   def map_params

@@ -18,6 +18,33 @@ describe PlacesController do
     place
   end
 
+  context 'Password protection' do
+    let(:map) { create :map, :full_public, password: 'secret', password_confirmation: 'secret' }
+    let(:place) { create :place, :reviewed }
+
+    after do
+      expect(response.status).to eq 302
+    end
+
+    it 'cannot post place before unlocking a protected map' do
+      expect {
+        post :create, map_token: map.secret_token, place: attributes_for(:place, :unreviewed)
+      }.to change { Place.count }.by(0)
+    end
+
+    it 'cannot update place before unlocking a protected map' do
+      patch :update, id: place.id, place: { name: 'Some other name' }, map_token: map.secret_token
+    end
+
+    it 'cannot delete place before unlocking a protected map' do
+      delete :destroy, id: place.id, map_token: map.secret_token
+    end
+
+    it 'cannot edit place before unlocking a protected map' do
+      get :edit, id: place.id, map_token: map.secret_token
+    end
+  end
+
   context 'GET #new' do
     let(:map) { create :map, :full_public }
 
@@ -386,7 +413,7 @@ describe PlacesController do
         delete :destroy, id: @place.id, map_token: map.secret_token
       }.to change { Place.count }.by(-1)
     end
-    
+
     it 'Authorized user can delete place via ajax' do
       login_as create(:user)
       expect {

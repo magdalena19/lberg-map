@@ -11,21 +11,21 @@ describe PlacesReviewController do
 
   context 'GET #review' do
     it 'populates the right place to be reviewed' do
-      get :review, id: new_place.id, map_token: map.public_token
+      get :review, id: new_place.id, map_token: map.secret_token
       
       expect(assigns(:unreviewed_place)).to eq(new_place)
       expect(assigns(:reviewed_place)).to be_nil
     end
 
     it 'renders review template' do
-      get :review, id: new_place.id, map_token: map.public_token
+      get :review, id: new_place.id, map_token: map.secret_token
       expect(response).to render_template 'places_review/review'
     end
   end
 
   context 'GET #confirm' do
     it 'accepts changes and does not show place to be reviewed' do
-      get :confirm, id: new_place.id, map_token: map.public_token
+      get :confirm, id: new_place.id, map_token: map.secret_token
 
       new_place.reload
       expect(new_place.reviewed).to be true
@@ -33,7 +33,7 @@ describe PlacesReviewController do
 
     # TODO is that right??
     it 'redirects to places review index path' do
-      get :confirm, id: new_place.id, map_token: map.public_token
+      get :confirm, id: new_place.id, map_token: map.secret_token
       expect(response).to redirect_to places_review_index_path
     end
   end
@@ -49,20 +49,20 @@ describe PlacesReviewController do
       place_with_changes.update_attributes(name: 'SomeOtherName', description: 'This is an updated description.')
 
       login_as user
-      get :refuse, id: place_with_changes.id, map_token: @map.public_token
+      get :refuse, id: place_with_changes.id, map_token: @map.secret_token
 
       place_with_changes.reload
       expect(Place.find_by(name: 'SomeName')).to eq(place_with_changes)
     end
 
     it 'redirects to places review index path' do
-      get :refuse, id: @another_unreviewed_place.id, map_token: @map.public_token
+      get :refuse, id: @another_unreviewed_place.id, map_token: @map.secret_token
 
       expect(response).to redirect_to places_review_index_path
     end
 
     it 'removes new places entirely' do
-      get :refuse, id: @another_unreviewed_place.id, map_token: @map.public_token
+      get :refuse, id: @another_unreviewed_place.id, map_token: @map.secret_token
       expect(Place.all).not_to include(@another_unreviewed_place)
     end
   end

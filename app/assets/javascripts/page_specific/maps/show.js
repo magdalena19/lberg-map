@@ -381,8 +381,8 @@ jQuery(function() {
     jQuery.when( $.ajax( {
       url: '/needs_unlock',
       data: { map_token: window.map_token }
-    }) ).then(function(data) {
-      if (data.needs_auth) {
+    }) ).then(function(data) { 
+      if (data.needs_unlock) {
         showPasswordPrompt();
       } else {
         jQuery('.map-password-dialog').modal('hide');

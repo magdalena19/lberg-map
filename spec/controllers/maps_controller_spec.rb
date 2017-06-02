@@ -29,7 +29,7 @@ RSpec.describe MapsController, type: :controller do
       xhr :get, :needs_unlock, map_token: @map.secret_token
 
       unlocked_maps = JSON.parse(response.body)
-      expectation = { 'needs_auth' => false }
+      expectation = { 'needs_unlock' => false }
       expect(unlocked_maps).to eq expectation
     end
 
@@ -38,7 +38,7 @@ RSpec.describe MapsController, type: :controller do
       xhr :get, :needs_unlock, map_token: non_protected_map.secret_token
 
       unlocked_maps = JSON.parse(response.body)
-      expectation = { 'needs_auth' => false }
+      expectation = { 'needs_unlock' => false }
       expect(unlocked_maps).to eq expectation
     end
 

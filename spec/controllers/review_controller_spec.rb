@@ -15,23 +15,23 @@ describe ReviewController do
   let(:user) { create :user }
 
   context 'GET #review_index' do
-    it 'populates items to be reviewed if signed in' do
+    it 'populates items to be reviewed if accessed via secret link' do
       login_as user
-      get :review_index, map_token: @map.public_token
+      get :review_index, map_token: @map.secret_token
       expect(assigns(:places_to_review).count).to eq 2
       expect(assigns(:unreviewed_translations).count).to eq 3
     end
 
     it 'renders review index template' do
       login_as user
-      get :review_index, map_token: @map.public_token
+      get :review_index, map_token: @map.secret_token
       expect(response).to render_template 'review/review_index'
     end
 
-    it 'does not populates items if not signed in' do
+    it 'does not populates items if not accessed via secret ĺink' do
       logout
       get :review_index, map_token: @map.public_token
-      expect(response).to redirect_to login_path
+      expect(response.status).to eq 401
     end
   end
 end

@@ -1,6 +1,9 @@
 class PlacesReviewController < ApplicationController
-  before_action :require_login
+  include MapAccessGateway
+
+  before_action :can_access?
   before_action :set_map
+  before_action :auth_map, if: :map_password_protected?
   before_action :set_place
 
   def review

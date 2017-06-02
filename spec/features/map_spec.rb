@@ -58,12 +58,6 @@ feature 'Map', js: true do
 
       expect(page).not_to have_css('.edit-place')
     end
-
-    scenario 'does not show review button in navbar for privileged users' do
-      visit map_path(map_token: @place.map.secret_token)
-
-      expect(page).not_to have_css('.glyphicon-thumbs-up')
-    end
   end
 
   context 'Private map' do

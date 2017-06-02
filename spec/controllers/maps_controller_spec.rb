@@ -16,29 +16,31 @@ RSpec.describe MapsController, type: :controller do
 
     it 'returns success for correct password' do
       xhr :get, :unlock, map_token: @map.secret_token, password: 'secret'
+
       expect(response).to have_http_status 200
     end
 
     it 'returns error for incorrect password' do
       xhr :get, :unlock, map_token: @map.secret_token, password: 'wrong'
+
       expect(response).to have_http_status 401
     end
 
     it 'does not need to unlock already unlocked routes' do
       session[:unlocked_maps] = [@map.secret_token, 'some_other_token']
       xhr :get, :needs_unlock, map_token: @map.secret_token
-
       unlocked_maps = JSON.parse(response.body)
       expectation = { 'needs_unlock' => false }
+
       expect(unlocked_maps).to eq expectation
     end
 
     it 'does not need to unlock non-password-protected maps' do
       non_protected_map = create :map, :full_public
       xhr :get, :needs_unlock, map_token: non_protected_map.secret_token
-
       unlocked_maps = JSON.parse(response.body)
       expectation = { 'needs_unlock' => false }
+
       expect(unlocked_maps).to eq expectation
     end
 
@@ -62,6 +64,13 @@ RSpec.describe MapsController, type: :controller do
 
         expect(response.status).to eq 302
       end
+
+      it 'Can edit protected map if unlocked' do
+        session[:unlocked_maps] = @map.secret_token
+        get :edit, map_token: @map.secret_token
+
+        expect(response.status).to eq 200
+      end
     end
 
     context 'PATCH #update' do
@@ -69,6 +78,20 @@ RSpec.describe MapsController, type: :controller do
         patch :update, map_token: @map.secret_token, map: { title: 'Somethin different' }
 
         expect(response.status).to eq 302
+      end
+
+      it 'can update map if unlocked' do
+        session[:unlocked_maps] = [@map.secret_token]
+        patch :update, map_token: @map.secret_token, map: { title: 'ChangedTitle' }
+
+        expect(@map.reload.title).to eq 'ChangedTitle'
+      end
+
+      it 'can unset password if unlocked' do
+        session[:unlocked_maps] = [@map.secret_token]
+        patch :update, map_token: @map.secret_token, map: { password_protect: false }
+
+        expect(@map.reload.password_digest).to be_nil
       end
     end
   end
@@ -80,12 +103,14 @@ RSpec.describe MapsController, type: :controller do
 
     it 'returns http success' do
       get :show, map_token: @map.public_token
+
       expect(response).to have_http_status(:success)
     end
 
     it 'populates all places in map in @places_to_show' do
       @places = create_list(:place, 3, :reviewed, map: @map)
       get :show, map_token: @map.public_token
+      
       expect(assigns(:places_to_show).sort_by(&:id)).to eq @places
     end
 
@@ -145,6 +170,7 @@ RSpec.describe MapsController, type: :controller do
       it 'redirects to landing page if not signed in or no session maps' do
         logout
         get :index
+
         expect(response).to redirect_to landing_page_path
       end
     end
@@ -162,11 +188,13 @@ RSpec.describe MapsController, type: :controller do
 
     it 'populates new map in @map' do
       get :new
+
       expect(assigns(:map)).to be_a(Map)
     end
 
     it 'renders :new template' do
       get :new
+
       expect(response).to render_template :new
     end
 
@@ -174,6 +202,7 @@ RSpec.describe MapsController, type: :controller do
       skip "Works but don't know how to write test appropriately"
       logout
       get :new
+
       expect(response).not_to render_template :new
     end
   end
@@ -188,11 +217,13 @@ RSpec.describe MapsController, type: :controller do
     it 'redirects to map' do
       post :create, map: attributes_for(:map, :full_public)
       new_map = assigns(:map)
+
       expect(response).to redirect_to map_path(new_map.secret_token)
     end
 
     it 'stores new map in session cookie' do
       post :create, map: attributes_for(:map, :full_public)
+
       expect(session[:maps].count).to be 1
     end
   end
@@ -220,15 +251,14 @@ RSpec.describe MapsController, type: :controller do
     let(:map) { create :map, :full_public, user: user }
 
     it 'populates changes' do
-      login_as user
       patch :update, map_token: map.secret_token, map: { title: 'ChangedTitle' }
+
       expect(assigns(:map).title).to eq 'ChangedTitle'
     end
   end
 
   describe 'DELETE #destroy' do
     before do
-      login_as create :user, name: 'user'
       @map = create :map, :full_public, user: User.first
     end
 
@@ -276,6 +306,7 @@ RSpec.describe MapsController, type: :controller do
       Sidekiq::Testing.fake! do
         post :send_invitations, map_token: @map.secret_token, guests: 'foo@bar.com, schnabel@tier.com', collaborators: 'me@you.org'
       end
+
       expect(response).to redirect_to map_path(map_token: @map.secret_token)
       expect(flash[:success]).to eq 'Successfully sent invitations!'
     end

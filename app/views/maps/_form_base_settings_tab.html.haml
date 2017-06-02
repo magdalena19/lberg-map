@@ -20,7 +20,8 @@
     .col-xs-12
       .input-group.password_input
         %span.input-group-addon.password-checkbox
-          = check_box_tag :password_protect, true, @map.password_protected? ? true : false
+          = hidden_field_tag 'map[password_protect]', nil
+          = check_box_tag 'map[password_protect]', true, @map.password_protected? ? true : false
         = f.password_field :password, class: 'form-control', aria: { describedby: '#addon_secret'}, disabled: @map.password_protected? ? false : true, placeholder: @map.password_protected? ? raw('&bull;&bull;&bull;&bull;&bull;') : ''
         = f.password_field :password_confirmation, class: 'form-control password-confirmation', aria: { describedby: '#addon_secret'}, disabled: @map.password_protected? ? false : true, placeholder: @map.password_protected? ? raw('&bull;&bull;&bull;&bull;&bull;') : ''
 

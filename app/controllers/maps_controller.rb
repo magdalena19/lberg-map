@@ -5,6 +5,7 @@ class MapsController < ApplicationController
   before_action :set_map, except: [:new, :index]
   before_action :auth_map, if: :map_password_protected?, only: [:update, :destroy, :edit, :share_map, :send_invitations]
   before_action :can_create?, only: [:create]
+  before_action :unset_password_if_unchecked, only: [:update]
 
   # Ressources for map unlocking maps via password
   # Return true/false server-side if map is password protected and has not been unlocked yet
@@ -90,6 +91,7 @@ class MapsController < ApplicationController
       flash[:success] = t('.changes_saved')
       redirect_to maps_url
     else
+      binding.pry 
       flash.now[:danger] = @map.errors.full_messages.to_sentence
       render :edit, status: 400
     end
@@ -125,6 +127,10 @@ class MapsController < ApplicationController
   end
 
   private
+
+  def unset_password_if_unchecked
+    @map.update_attributes(password_digest: nil) unless params[:map][:password_protect].present?
+  end
 
   def is_public_token?
     Map.pluck(:public_token).include?(request[:map_token])
@@ -163,6 +169,7 @@ class MapsController < ApplicationController
       :auto_translate,
       :password,
       :password_confirmation,
+      # :password_protect,
       :translation_engine,
       supported_languages: []
     )

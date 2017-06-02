@@ -46,7 +46,10 @@ end
 
 # CAPYBARA configuration
 Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, phantomjs_options: ['--ignore-ssl-errors=true'], js_errors: false)
+    Capybara::Poltergeist::Driver.new(app,
+                                      phantomjs_options: ['--ignore-ssl-errors=true'],
+                                      js_errors: false,
+                                      inspector: true)
 end
 
 Capybara.configure do |config|

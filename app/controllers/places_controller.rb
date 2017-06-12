@@ -7,7 +7,7 @@ class PlacesController < ApplicationController
   include MapAccessGateway
 
   before_action :set_map
-  before_action :auth_map, if: :map_password_protected?
+  before_action :auth_map, if: :needs_to_be_unlocked?
   before_action :require_login, only: [:destroy]
   before_action :set_place, only: [:edit, :update, :destroy]
   before_action :can_update?, only: [:update]

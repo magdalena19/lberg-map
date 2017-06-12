@@ -1,9 +1,9 @@
 class MapsController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
-  include MapAccessGateway
+  include MapAccessGateway # Includes authentication and access restriction methods
 
   before_action :set_map, except: [:new, :index]
-  before_action :auth_map, if: :map_password_protected?, only: [:update, :destroy, :edit, :share_map, :send_invitations]
+  before_action :auth_map, if: :needs_to_be_unlocked?, only: [:update, :destroy, :edit, :share_map, :send_invitations]
   before_action :can_create?, only: [:create]
   before_action :unset_password_if_unchecked, only: [:update]
 

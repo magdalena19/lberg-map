@@ -4,7 +4,6 @@ module MapAccessGateway
   included do
     helper_method :set_map
     helper_method :auth_map
-    helper_method :map_password_protected?
     helper_method :needs_to_be_unlocked?
     helper_method :can_access?
     helper_method :map_access_via_secret_link
@@ -21,17 +20,22 @@ module MapAccessGateway
   end
 
   # AUTHENTICATION
+  def map_access_via_secret_link
+    set_map
+    @map && @map.secret_token == token
+  end
+
   def auth_map
     redirect_to map_path(map_token: token ) unless session[:unlocked_maps].include? token
   end
 
-  def map_password_protected?
-    @map.password_protected?
+  def map_in_session_cache
+    session[:unlocked_maps].include?(params[:map_token])
   end
 
   def needs_to_be_unlocked?
     set_map
-    @map.password_protected? && !session[:unlocked_maps].include?(params[:map_token])
+    map_access_via_secret_link && @map.password_protected? && !map_in_session_cache
   end
   
   # ACCESS RIGHTS
@@ -53,11 +57,6 @@ module MapAccessGateway
   def owns_map
     set_map
     current_user == @map.user
-  end
-
-  def map_access_via_secret_link
-    set_map
-    @map && @map.secret_token == token
   end
 
   def has_privileged_map_access

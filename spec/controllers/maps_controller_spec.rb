@@ -45,16 +45,18 @@ RSpec.describe MapsController, type: :controller do
     end
 
     context 'XHR #show' do
-      it 'Does not receive any data without password' do
+      it 'Does not receive any data without password via secret link' do
         xhr :get, :show, format: :json, map_token: @map.secret_token
 
         expect(response.status).to eq 401
       end
 
       it 'Does not demand password via public link' do
+        create :place, :reviewed, map: @map
         xhr :get, :show, format: :json, map_token: @map.public_token
 
         expect(response.status).to eq 200
+        expect(assigns(:places_to_show)).not_to be_empty
       end
     end
 

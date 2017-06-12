@@ -3,7 +3,7 @@ class PlacesReviewController < ApplicationController
 
   before_action :can_access?
   before_action :set_map
-  before_action :auth_map, if: :map_password_protected?
+  before_action :auth_map, if: :needs_to_be_unlocked?
   before_action :set_place
 
   def review

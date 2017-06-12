@@ -4,7 +4,7 @@ class TranslationsReviewController < ApplicationController
   before_action :can_access?
   before_action :set_map
   before_action :set_translation
-  before_action :auth_map, if: :map_password_protected?
+  before_action :auth_map, if: :needs_to_be_unlocked?
 
   def review
     @reviewed_translation = reviewed_version(@unreviewed_translation)

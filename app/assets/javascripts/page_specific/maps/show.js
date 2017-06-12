@@ -168,7 +168,10 @@ jQuery(function() {
     };
 
     var dateFilter = function(json) {
-      if (!jQuery('#search-date-input').is(':visible')) { return json; }
+      // Check if shall filter by date, pass unfiltered json if not...
+      var filterByDate = jQuery('.show-events-toggle')[0].checked;
+      if ( filterByDate ) { return json; }
+
       var filteredJson = [];
 
       // Iterate features and push on filter match

@@ -32,22 +32,14 @@
     border: none !important;
     cursor: pointer;
 
+    background-color: $lilac!important;
+
+    &:hover {
+      background-color: lighten($lilac, 5) !important;
+    }
+
     .panel-title {
       font-size: 15px !important;
-    }
-
-    &.event-panel {
-      background-color: $green !important;
-      &:hover {
-        background-color: lighten($green, 5) !important;
-      }
-    }
-
-    &.place-panel {
-      background-color: $lilac !important;
-      &:hover {
-        background-color: lighten($lilac, 5) !important;
-      }
     }
 
     .name {

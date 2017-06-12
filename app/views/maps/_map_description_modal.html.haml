@@ -10,10 +10,11 @@
         %hr
 
         .small
-          %p
-            %b= t('.public_link')
-            %span= link_to map_url(map_token: @map.public_token) if @map.is_public?
+          - if @map.is_public?
+            %p
+              %b= t('.public_link')
+              %span= link_to map_url(map_token: @map.public_token), map_url(map_token: @map.public_token)
           - if has_privileged_map_access?
             %p
               %b= t('.admin_link')
-              %span= link_to map_url(map_token: @map.secret_token) 
+              %span= link_to map_url(map_token: @map.secret_token), map_url(map_token: @map.secret_token)

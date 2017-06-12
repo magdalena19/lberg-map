@@ -60,7 +60,7 @@
   .spacer-row
 
 -# DESCRIPTION MODAL
-.modal.fade{role: 'dialog', id: "map_description_#{map.secret_token}"}
+.modal.fade.map-description-modal{role: 'dialog', id: "map_description_#{map.secret_token}"}
   .modal-dialog
     .modal-content
       .modal-header
@@ -71,9 +71,10 @@
         %hr
 
         .small
-          %p
-            %b= t('.public_link')
-            %span= link_to map_url(map_token: map.public_token) if map.is_public?
+          - if map.is_public?
+            %p
+              %b= t('.public_link')
+              %span= link_to map_url(map_token: map.public_token), map_url(map_token: map.public_token)
           %p
             %b= t('.admin_link')
-            %span= link_to map_url(map_token: map.secret_token)
+            %span= link_to map_url(map_token: map.secret_token), map_url(map_token: map.secret_token)

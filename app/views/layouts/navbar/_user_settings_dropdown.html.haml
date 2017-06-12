@@ -1,12 +1,12 @@
 -# Settings dropdown
 %li.pull-right.dropdown.navbar-dropdown{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: t('.user_settings')}
-  .pull-right.glyphicon.glyphicon-cog.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+  .pull-right.personal-settings-dropdown.glyphicon.glyphicon-cog.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
   %ul.dropdown-menu
     - if @current_user.registered?
       %li= link_to(t('.account_settings'), edit_user_path(@current_user.id))
       %hr
     .dropdown-header
       = t('language')
-    - I18n.available_locales.each do |l|
+    - supported_languages.each do |l|
       %li{class: "#{'active' if l == locale}"}
         = link_to l.to_s, locale: l.to_s

@@ -8,6 +8,15 @@ class ApplicationController < ActionController::Base
   include MapAccessGateway
 
   before_action :prepare_session
+  before_action :set_locale
+  helper_method :current_user
+  helper_method :supported_languages
+
+  def supported_languages
+    set_map
+    locales = @map ? @map.supported_languages : I18n.available_locales
+    locales.map(&:to_sym)
+  end
 
   def prepare_session
     set_locale

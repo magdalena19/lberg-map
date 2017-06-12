@@ -64,16 +64,9 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'guard'
-  gem 'launchy'
   gem 'poltergeist' # headless javascript testing
   gem 'rspec-rails'
   gem 'rspec-sidekiq'
-  gem 'selenium-webdriver', '~> 2.53.4' # non-headless javascript testing
   gem 'shoulda'
   gem 'simplecov'
-end
-
-group :production do
-  gem 'debase'
-  gem 'ruby-debug-ide'
 end

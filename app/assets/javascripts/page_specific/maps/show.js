@@ -30,6 +30,11 @@ jQuery(function() {
     var autotranslatedPrefix = "<p><i>" + window.autotranslated_label + ": </i></p>";
     var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";
 
+    function zoomTo(lat, lon) {
+      var latlng = {'lat': lat, 'lon': lon}
+      map.setView(latlng, 16);
+    }
+
     var onEachFeature = function(feature, layer) {
       addToPlacesList(feature);
       var prop = feature.properties;
@@ -49,6 +54,8 @@ jQuery(function() {
 
       layer.on('click', function(e) {
         showSidepanel();
+        zoomTo(e.latlng.lat, e.latlng.lng);
+
         var accordionItemHeading = jQuery('#heading' + feature.id);
         var headingLink = accordionItemHeading.find('a');
         if (headingLink.hasClass('collapsed')) {
@@ -58,6 +65,13 @@ jQuery(function() {
         }
       });
     };
+
+    jQuery('.places-list-panel').on('click', 'a', function() {
+      var lat = jQuery(this).attr('lat');
+      var lon = jQuery(this).attr('lon');
+
+      zoomTo(lat, lon);
+    });
 
     // do not use the simpler .click function due to dynamic creation
     jQuery('body').on('click', '.edit-place', function() {

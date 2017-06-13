@@ -119,12 +119,14 @@ module MassSeedPoints
     end
 
     def generate_maps
-      Map.create(title: 'Private map', maintainer_email_address: 'foo@bar.com', description: 'This is a private map', auto_translate: true, is_public: false, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret1', user_id: User.first.id, supported_languages: I18n.available_locales.sample(rand(1..2)))
-      Map.create(title: 'Restricted access map', maintainer_email_address: 'foo@bar.org', description: 'This is a map under restricted access', auto_translate: true, is_public: true, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret2', user_id: User.first.id, public_token: 'public2', supported_languages: I18n.available_locales.sample(rand(1..2)))
-      Map.create(title: 'Public map', maintainer_email_address: 'foo@bar.org', description: 'This is a fully public map', auto_translate: true, is_public: true, allow_guest_commits: true, translation_engine: 'bing', secret_token: 'secret4', user_id: User.first.id, public_token: 'public3', supported_languages: I18n.available_locales.sample(rand(1..2)))
+      owner = User.find_by(name: 'user') || User.find_by(name: 'admin')
+
+      Map.create(title: 'Private map', maintainer_email_address: 'foo@bar.com', description: 'This is a private map', auto_translate: true, is_public: false, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret1', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)))
+      Map.create(title: 'Restricted access map', maintainer_email_address: 'foo@bar.org', description: 'This is a map under restricted access', auto_translate: true, is_public: true, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret2', user_id: owner.id, public_token: 'public2', supported_languages: I18n.available_locales.sample(rand(1..2)))
+      Map.create(title: 'Public map', maintainer_email_address: 'foo@bar.org', description: 'This is a fully public map', auto_translate: true, is_public: true, allow_guest_commits: true, translation_engine: 'bing', secret_token: 'secret4', user_id: owner.id, public_token: 'public3', supported_languages: I18n.available_locales.sample(rand(1..2)))
 
       # Create password protected map
-      Map.create(title: 'Password', maintainer_email_address: 'foo@bar.com', description: 'This is a password protected map', auto_translate: true, is_public: false, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret5', user_id: User.first.id, supported_languages: I18n.available_locales.sample(rand(1..2)), password: 'secret', password_confirmation: 'secret')
+      Map.create(title: 'Password', maintainer_email_address: 'foo@bar.com', description: 'This is a password protected map', auto_translate: true, is_public: false, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret5', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)), password: 'secret', password_confirmation: 'secret')
     end
 
     def generate(number_of_points:, city:)

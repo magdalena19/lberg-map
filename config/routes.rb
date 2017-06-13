@@ -21,8 +21,10 @@ Rails.application.routes.draw do
     get '/new', to: 'maps#new', as: :new_map
     get '/needs_unlock', to: 'maps#needs_unlock'
 
+    # Embedded stuff
     scope '/:map_token', constraints: MapAccessRestriction.new do
       get '' , to: 'maps#show', as: :map
+      get '/embedded', to: 'maps#show', as: :map_embedded
       get '/edit', to: 'maps#edit', as: :edit_map
       patch '', to: 'maps#update'
       delete '', to: 'maps#destroy', as: :destroy_map

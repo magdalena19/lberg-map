@@ -1,0 +1,20 @@
+-# DESCRIPTION MODAL
+.modal.fade.map-description-modal{role: 'dialog', id: "map_description_#{map.secret_token}"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
+        %h4.modal-title= t('.map_description', title: map.title)
+      .modal-body
+        %p= map.description.html_safe
+        %hr
+
+        .small
+          - if map.is_public?
+            %p
+              %b= t('.public_link')
+              %span= link_to map_url(map_token: map.public_token), map_url(map_token: map.public_token)
+          - if has_privileged_map_access?(map: map)
+            %p
+              %b= t('.admin_link')
+              %span= link_to map_url(map_token: map.secret_token), map_url(map_token: map.secret_token)

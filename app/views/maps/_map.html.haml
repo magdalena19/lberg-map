@@ -1,3 +1,7 @@
+= render partial: 'maps/modals/map_description_modal', locals: { map: map }
+= render partial: 'maps/modals/embed_map_modal', locals: { map: map } if map.is_public?
+
+-# MAP PANEL CONTENT
 .col-lg-4.col-md-4
   .panel.panel-default.map-panel
 
@@ -12,6 +16,7 @@
             %a.dropdown-toggle.glyphicon.glyphicon-cog.map_settings_button{ 'data-toggle': 'dropdown', href: '#map_settings' }
             %ul.dropdown-menu
               %li= link_to t('.share_map'), share_map_url(map_token: map.secret_token)
+              %li= link_to t('.embed_map'), '#', data: { 'map-token' => map.public_token }, class: 'embed-map-button' if map.is_public?
               %li= link_to t('.edit_map'), edit_map_url(map_token: map.secret_token)
               %li= link_to t('.delete_map'), map_url(map_token: map.secret_token), method: 'delete', data: { confirm: t('.confirm_delete') }
 
@@ -58,23 +63,3 @@
         = t('.show_map')
 
   .spacer-row
-
--# DESCRIPTION MODAL
-.modal.fade.map-description-modal{role: 'dialog', id: "map_description_#{map.secret_token}"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
-        %h4.modal-title= t('.map_description', title: map.title)
-      .modal-body
-        %p= map.description.html_safe
-        %hr
-
-        .small
-          - if map.is_public?
-            %p
-              %b= t('.public_link')
-              %span= link_to map_url(map_token: map.public_token), map_url(map_token: map.public_token)
-          %p
-            %b= t('.admin_link')
-            %span= link_to map_url(map_token: map.secret_token), map_url(map_token: map.secret_token)

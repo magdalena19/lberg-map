@@ -39,7 +39,7 @@
 .loading {
   bottom: calc(50% - 50px); // spinner height 50px
   left: calc(50% - 50px); // spinner width 50px
-  z-index: 9999;
+  z-index: 11;
 }
 
 .fade-background {

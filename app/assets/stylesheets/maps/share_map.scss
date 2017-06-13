@@ -15,3 +15,14 @@
 	border-color: #ebccd1;
 	color: #a94442;
 }
+
+// Map embedding modal
+#iframe_src {
+  cursor: default;
+}
+
+.embed-form-element {
+  &.text-field {
+    cursor: default;
+  }
+}

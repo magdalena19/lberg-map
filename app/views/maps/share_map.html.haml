@@ -3,13 +3,15 @@
 
 =form_tag(share_map_path(map_token: request[:map_token]), method: :post)
 .container
+  %h3 Share link with others
   .row
     .col-md-12
       = @map.is_public? ? t('.share_with_guests') : t('.not_a_public_map')
         
   .spacer-row
-  .col-md-12.input-group
-    = text_field_tag 'map_guests', '', placeholder: t('.email_address_list'), class: 'form-control', id: 'map_guests', disabled: @map.is_private?
+  .row
+    .col-md-12.col-xs-12
+      = text_field_tag 'map_guests', '', placeholder: t('.email_address_list'), class: 'form-control', id: 'map_guests', disabled: @map.is_private?
 
   - if has_privileged_map_access?
     .row
@@ -24,7 +26,7 @@
           = text_field_tag 'map_admins', '', placeholder: t('.email_address_list'), class: 'form-control', id: 'map_admins'
 
   .row
-    .col-xs-3
+    .col-xs-6.col-sm-4.col-md-3
       = submit_tag t('buttons.invite_to_map'), class: 'btn btn-success', id: 'submit_invitations', disabled: true
-    .col-xs-3
+    .col-xs-6.col-sm-4.col-md-3
       = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'

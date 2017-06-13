@@ -203,10 +203,19 @@ noscript {
 .footer {
   background-color: rgba(darken($lilac, 50%),0.8);
   height: 40px;
-  * {
+
+  .container {
     line-height: 40px;
     vertical-align: middle;
     color: $green;
+    a {
+      color: $green
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
     &:hover {
       color: $green;
     }

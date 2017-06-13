@@ -3,6 +3,7 @@ class MapsController < ApplicationController
   include MapAccessGateway # Includes authentication and access restriction methods
 
   before_action :set_map, except: [:new, :index]
+  before_action :allow_iframe_request, only: [:show_embedded, :show]
   before_action :auth_map, if: :needs_to_be_unlocked?, only: [:update, :destroy, :edit, :share_map, :send_invitations]
   before_action :can_create?, only: [:create]
   before_action :unset_password_if_unchecked, only: [:update]
@@ -49,7 +50,13 @@ class MapsController < ApplicationController
           render nothing: true, status: 401
         end
       end
-      format.html
+      format.html do
+        if params[:iframe] == 'true'
+          render layout: 'iframe' 
+        else
+          render layout: 'application'
+        end
+      end
     end
   end
 
@@ -127,6 +134,10 @@ class MapsController < ApplicationController
   end
 
   private
+
+  def allow_iframe_request
+    response.headers.delete('X-Frame-Options')
+  end
 
   def unset_password_if_unchecked
     @map.update_attributes(password_digest: nil) unless params[:map][:password_protect].present?

@@ -12,10 +12,8 @@
   = render 'map_overlays'
   = render 'right_sidebar'
   = render 'sidepanel'
-  = render partial: 'maps/modals/map_description_modal', locals: { map: @map }
+  = render 'map_description_modal'
   = render 'places_index_modal'
-  - if needs_to_be_unlocked?
-    = render partial: 'maps/modals/map_password_modal'
 
 :javascript
   window.locale = '#{locale}';

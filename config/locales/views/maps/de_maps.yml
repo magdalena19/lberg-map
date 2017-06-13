@@ -52,6 +52,10 @@ de:
     form_language_settings_tab:
       auto_translate: 'Automatische Übersetzungen von Beschreibungen und Tags'
       supported_languages: 'Unterstützte Sprachen auf deiner Karte'
+    modals:
+      embed_map_modal:
+        width: 'Breite'
+        height: 'Höhe'
     share_map:
       share_with_guests: 'Zeige anderen Menschen, was du kartiert hast:'
       share_secret_link: 'Teile den %{link} mit anderen'

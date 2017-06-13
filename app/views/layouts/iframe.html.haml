@@ -1,0 +1,29 @@
+!!!
+%html
+  %head
+    %title= @map.present? ? @map.title : Admin::Setting.app_title
+    = favicon_link_tag 'favicon'
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = include_page_specific_javascript
+    = csrf_meta_tags
+    %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}/
+  %body
+    %noscript
+      This site is built on JavaScript. Please activate...
+    .container-full.main-container
+      = render 'layouts/flash_messages'
+      = yield
+
+    .footer.navbar-fixed-bottom
+      .container
+        .pull-left
+          %i
+            powered by
+          = link_to 'ratMap', 'https://github.com/magdalena19/lberg-map', style: 'font-size: large; font-weight: bold;'
+        .pull-right
+          %span.app_imprint_toggle{style: 'cursor: pointer;'}= t('.app_imprint')
+          = ' | '
+          %span.app_privacy_policy_toggle{style: 'cursor: pointer;'}= t('.app_privacy_policy')
+
+= render partial: 'layouts/modals'

@@ -7,8 +7,9 @@ module MapsHelper
     @current_user.registered? || session[:maps].any? 
   end
 
-  def has_privileged_map_access?
-    current_map.owned_by(owner: @current_user) || is_secret_link?
+  def has_privileged_map_access?(map: nil)
+    map_in_scope = map || current_map
+    map_in_scope.owned_by(owner: @current_user) || is_secret_link?
   end
 
   def can_review?

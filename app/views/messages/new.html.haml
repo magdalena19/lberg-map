@@ -8,7 +8,6 @@
     .col-xs-12.col-md-6.col-md-offset-1
       .h3= t('.send_email')
       = form_for @message, url: contact_url(protocol: 'https') do |f|
-
         %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:sender_email)}"}
           .col-xs-12
             = f.text_field :sender_email, placeholder: t('.sender_email'), class: 'form-control'
@@ -27,7 +26,11 @@
           .col-xs-11
             = t('.send_a_copy_to_email_address')
 
+        -# CAPTCHA
         .row
-          .col-md-6.col-offset-md-2
-            = show_simple_captcha unless @current_user.signed_in?
-            = f.submit t('.send_message'), class: 'btn btn-primary btn-success place-form-button submit-place-button'
+          .col-md-6
+            = recaptcha_tags(hl: I18n.locale)
+
+        .row
+          .col-xs-6.col-sm-4.col-md-4
+            = f.submit t('.send_message'), class: 'btn btn-primary btn-success'

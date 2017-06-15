@@ -21,7 +21,7 @@ feature 'Edit place' do
     skip 'Map rendering issues'
     visit edit_place_path(id: @place.id, map_token: @map.public_token)
     fill_in('place_name', with: 'Some changes')
-    validate_captcha
+    
     click_on('Update Place')
     show_places_index(map_token: @map.public_token)
 
@@ -33,7 +33,7 @@ feature 'Edit place' do
     skip 'Map rendering issues'
     visit edit_place_path(id: @place.id, map_token: @map.public_token)
     fill_in('place_name', with: 'SomeOtherName')
-    validate_captcha
+    
     click_on('Update Place')
 
     Capybara.reset_sessions!

@@ -6,6 +6,11 @@ en:
         app_title: 'Application title'
         admin_email_address: 'Relay email address'
         user_activation_tokens: 'Number of activation tokens per user'
+        captcha_system: 'Captcha system'
         app_imprint: 'Application Imprint'
         app_privacy_policy: 'Application privacy policy'
         update_settings: 'Update'
+      captcha_system_status:
+        captcha_system_working: 'Captcha system working'
+        no_valid_api_key: 'One or more API keys missing, please check your environment variable setup'
+        fetching_captcha_status: 'Checking if captcha system is ready to be used...'

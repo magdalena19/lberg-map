@@ -110,7 +110,7 @@
   -# CAPTCHA
   .row
     .col-md-6
-      = show_simple_captcha unless @current_user.signed_in?
+      = recaptcha_tags(hl: I18n.locale) unless @current_user.signed_in?
 
   -# BUTTONS
   .row.button-row

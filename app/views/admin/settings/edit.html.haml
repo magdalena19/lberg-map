@@ -21,16 +21,32 @@
 
     %fieldset.form-group.row
       .col-xs-12
+        .label-div
+          = f.label :captcha_system, t('.captcha_system')
+        .selection-div
+          = f.collection_select :captcha_system, Admin::Setting.captcha_systems, :to_s, :humanize, class: 'form-control'
+          .notification
+            .icon.pull-left
+              .status-icon.spinner-icon.fa.fa-circle-o-notch.fa-spin.fa-1x.fa-fw
+              .status-icon.error-icon.fa.fa-exclamation-triangle
+              .success-icon.fa.fa-check-circle
+            .status-text
+
+    %fieldset.form-group.row
+      .col-xs-12
         = f.label :app_imprint, t('.app_imprint')
-        = f.text_area :app_imprint, class: "wysihtml5 description-area"
+        = f.text_area :app_imprint, class: 'wysihtml5 description-area'
 
     %fieldset.form-group.row
       .col-xs-12
         = f.label :app_privacy_policy, t('.app_privacy_policy')
-        = f.text_area :app_privacy_policy, class: "wysihtml5 description-area"
+        = f.text_area :app_privacy_policy, class: 'wysihtml5 description-area'
 
     .row
       .col-xs-6.col-md-3
         = f.submit t('.update_settings'), class: 'btn btn-primary btn-success'
       .col-xs-6.col-md-3
         = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger back-button'
+
+:javascript
+  window.fetch_captcha_translation = '#{t('.fetching_captcha_status')}'

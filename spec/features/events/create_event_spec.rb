@@ -43,7 +43,7 @@ feature 'Create event', :js do
     expect(page).to have_css('.single')
     within('.left') { find('td', text: '23').trigger('click')  }
     click_on('Apply')
-    validate_captcha
+    
     click_button('Create Place')
 
     new_place = Place.last
@@ -59,7 +59,7 @@ feature 'Create event', :js do
     page.find('#place_start_date').trigger('click')
     within('.left') { find('td', text: '15').trigger('click')  }
     within('.right') { find('td', text: '21').trigger('click') }
-    validate_captcha
+    
     click_button('Create Place')
     new_place = Place.last
 

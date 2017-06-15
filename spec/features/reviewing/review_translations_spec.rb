@@ -8,7 +8,7 @@ feature 'Review translations', :js do
     visit edit_place_path id: @place.id, map_token: @map.public_token
     find('h4', text: 'English description').trigger('click')
     fill_in_description_field('ChangedDescription')
-    validate_captcha
+    
     click_on('Update Place')
     login_as_user
     visit places_review_index_path(map_token: @map.secret_token)

@@ -1,8 +1,4 @@
 module CapybaraHelpers
-  def validate_captcha
-    fill_in 'captcha', with: SimpleCaptcha::SimpleCaptchaData.first.value
-  end
-
   def login_as_user
     user = create :user, email: 'user@example.com', password: 'secret', password_confirmation: 'secret'
     visit 'login/'
@@ -31,7 +27,7 @@ module CapybaraHelpers
     visit new_place_path(map_token: map_token)
     fill_in_valid_place_information
     fill_in('place_name', with: place_name)
-    validate_captcha
+    
     find(:css, '.submit-place-button').trigger('click')
   end
 

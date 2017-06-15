@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
-  include SimpleCaptcha::ControllerHelpers
+  include Recaptcha::Verify
+
   before_action :set_map
 
   def new
@@ -8,18 +9,7 @@ class MessagesController < ApplicationController
 
   def create
     @message = @map.messages.new(message_params)
-    if simple_captcha_valid? || @current_user.signed_in?
-      save_new
-    else
-      flash[:danger] = t('.invalid_captcha')
-      render :new
-    end
-  end
-
-  private
-
-  def save_new
-    if @message.save
+    if verify_recaptcha(model: @message) && @message.save
       send_email_message
       flash[:success] = t('.message_successfully_sent')
       redirect_to contact_url
@@ -28,6 +18,8 @@ class MessagesController < ApplicationController
       render :new
     end
   end
+
+  private
 
   def send_email_message
     MailerWorker.perform_async(message_id: @message.id, copy_to_sender: params[:copy_to_sender])

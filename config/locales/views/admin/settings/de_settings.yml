@@ -6,6 +6,11 @@ de:
         app_title: 'Titel der Anwendung'
         admin_email_address: 'Relay Email-Adresse'
         user_activation_tokens: 'Aktivierungs-Tokens pro User'
+        captcha_system: 'Captcha-Methode'
         app_imprint: 'Impressum'
         app_privacy_policy: 'Datenschutzbestimmungen'
         update_settings: 'Übernehmen'
+      captcha_system_status:
+        captcha_system_working: 'Captcha-Methode läuft'
+        no_valid_api_key: 'Einer oder mehrere API Schlüssel konnten nicht gefunden werden. Bitte checke das Setup deiner Umgebungsvariablen!'
+        fetching_captcha_status: 'Prüfe ob gewählte Captcha-Methode eingesetzt werden kann...'

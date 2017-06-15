@@ -317,13 +317,17 @@ jQuery(function() {
 
   jQuery('.modal-content .invite-form-field').on('input', function(){
     var parentModal = jQuery(this).closest('.share-map-modal');
-    var mapGuestInvitees = parentModal.find('#map_guests').val() !== '';
-    var mapAdminInvitees = parentModal.find('#map_admins').val() !== '';
+    var bla1 = parentModal.find('#map_guests').val();
+    var bla2 = parentModal.find('#map_admins').val();
+    var hasMapGuestInvitees = bla1 === '' || bla1 === undefined ? false : true;
+    var hasMapAdminInvitees = bla2 === '' || bla2 === undefined ? false : true;
 
-    if (mapGuestInvitees || mapAdminInvitees) {
+    if ( hasMapGuestInvitees || hasMapAdminInvitees ) {
       jQuery('.modal-content #submit_invitations').prop('disabled', false);
+      jQuery('.modal-content .captcha').fadeIn(350);
     } else {
       jQuery('.modal-content #submit_invitations').prop('disabled', true);
+      jQuery('.modal-content .captcha').fadeOut(350);
     }
   });
 

@@ -1,12 +1,13 @@
 feature 'Contact form' do
   before do
     map = create :map, :full_public, maintainer_email_address: 'foo@bar.org'
+
     visit contact_path(map_token: map.public_token)
   end
 
   scenario 'Can fill out contact information and click send button', :js do
     fill_in_valid_contact_information
-    validate_captcha
+    
     click_on 'Send message'
   end
 

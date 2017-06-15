@@ -11,6 +11,7 @@ class Admin::Setting < ActiveRecord::Base
   validates :app_title, length: { maximum: 20 }
   validates :admin_email_address, presence: true, email_format: true
   validates :user_activation_tokens, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :captcha_system, inclusion: { in: %w[recaptcha simple_captcha] }
 
   ## SANITIZE
   def sanitize_app_imprint
@@ -27,6 +28,10 @@ class Admin::Setting < ActiveRecord::Base
 
   def self.translation_engines
     %w[google bing yandex]
+  end
+
+  def self.captcha_systems
+    %w[recaptcha simple_captcha]
   end
 
   Admin::Setting.create unless Admin::Setting.any?

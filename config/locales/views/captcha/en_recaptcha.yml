@@ -1,0 +1,5 @@
+en:
+  recaptcha:
+    errors:
+      verification_failed: 'reCaptcha verification failed, please verify as a human being'
+      recaptcha_unreachable: 'reCaptcha service is unreachable at the moment, please try again later...'

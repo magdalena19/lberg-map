@@ -33,7 +33,7 @@ feature 'Create Map', js: true do
     scenario 'as guest user', js_errors: false do
       visit new_map_path
       fill_in_valid_map_attributes
-      validate_captcha
+      
       click_on('Create Map')
       map = Map.find_by(secret_token: 'secret_token')
 
@@ -53,7 +53,7 @@ feature 'Create Map', js: true do
       fill_in('map_maintainer_email_address', with: 'foo@bar.com')
       fill_in('map_public_token', with: 'public_token')
       click_on('Properties')
-      validate_captcha
+      
       click_on('Create Map')
       map = Map.find_by(public_token: 'public_token')
 

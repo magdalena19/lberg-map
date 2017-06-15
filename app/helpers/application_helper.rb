@@ -16,4 +16,12 @@ module ApplicationHelper
     token = request[:map_token]
     Map.find_by(secret_token: token) || Map.find_by(public_token: token) if token
   end
+
+  def display_captcha
+    if Admin::Setting.captcha_system == 'recaptcha'
+      return raw recaptcha_tags(hl: I18n.locale)
+    else
+      return raw show_simple_captcha
+    end
+  end
 end

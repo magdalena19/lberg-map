@@ -4,6 +4,7 @@ require 'place/geocoding'
 
 class PlacesController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
+  include Recaptcha::Verify
   include MapAccessGateway
 
   before_action :set_map
@@ -11,7 +12,6 @@ class PlacesController < ApplicationController
   before_action :require_login, only: [:destroy]
   before_action :set_place, only: [:edit, :update, :destroy]
   before_action :can_update?, only: [:update]
-  before_action :can_create?, only: [:create]
   before_action :reverse_geocode, only: [:new], if: :supplied_coords?
   before_action :modify_params, only: [:create, :update]
 
@@ -52,12 +52,14 @@ class PlacesController < ApplicationController
     @place.latitude ||= params[:place][:latitude]
     @place.longitude ||= params[:place][:longitude]
 
-    if @place.save
+    if can_commit?(model: @place) && @place.save
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
       flash[:success] = t('.created')
       redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude)
     else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence render :new, status: 400 end
+      flash.now[:danger] = @place.errors.full_messages.to_sentence
+      render :new, status: 400
+    end
   end
 
   def destroy
@@ -86,17 +88,10 @@ class PlacesController < ApplicationController
   end
 
   def can_update?
-    unless can_commit?
+    unless can_commit?(model: @place)
       flash.now[:danger] = t('.invalid_captcha')
       @place.assign_attributes(modified_params)
       render :edit
-    end
-  end
-
-  def can_create?
-    unless can_commit?
-      flash.now[:danger] = t('.invalid_captcha')
-      render :new
     end
   end
 

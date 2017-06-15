@@ -1,11 +1,11 @@
 class MapsController < ApplicationController
   include SimpleCaptcha::ControllerHelpers
+  include Recaptcha::Verify
   include MapAccessGateway # Includes authentication and access restriction methods
 
   before_action :set_map, except: [:new, :index]
   before_action :allow_iframe_request, only: [:show_embedded, :show]
   before_action :auth_map, if: :needs_to_be_unlocked?, only: [:update, :destroy, :edit, :share_map, :send_invitations]
-  before_action :can_create?, only: [:create]
   before_action :unset_password_if_unchecked, only: [:update]
 
   # Ressources for map unlocking maps via password
@@ -79,7 +79,7 @@ class MapsController < ApplicationController
     @map = Map.new(map_params)
     @map.user = @current_user unless @current_user.guest?
 
-    if @map.save
+    if can_commit?(model: @map) && @map.save
       session[:maps] << @map.id if @current_user.guest?
       flash[:success] = t('.created')
       redirect_to map_path(@map.secret_token)
@@ -94,11 +94,10 @@ class MapsController < ApplicationController
   end
 
   def update
-    if @map.update_attributes(map_params)
+    if can_commit?(model: @map) && @map.update_attributes(map_params)
       flash[:success] = t('.changes_saved')
       redirect_to maps_url
     else
-      binding.pry 
       flash.now[:danger] = @map.errors.full_messages.to_sentence
       render :edit, status: 400
     end

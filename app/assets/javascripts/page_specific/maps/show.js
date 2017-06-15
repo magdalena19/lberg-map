@@ -422,14 +422,14 @@ jQuery(function() {
     jQuery.when( $.ajax( {
       url: '/needs_unlock',
       data: { map_token: window.map_token }
-    }) ).then(function(data) { 
+    }) ).then( function(data) { 
       if (data.needs_unlock) {
         showPasswordPrompt();
       } else {
         jQuery('.map-password-dialog').modal('hide');
         getPois();
       }
-    } );
+    });
 
     // PROMPT FOR MAP PASSWORD
     function showPasswordPrompt() {

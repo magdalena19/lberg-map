@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/galetahub/simple-captcha.git
+  revision: 2602bf19a63df25929960b5a7721a9d265281ec1
+  specs:
+    simple_captcha (0.1.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -284,6 +290,8 @@ GEM
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
     rdoc (4.3.0)
+    recaptcha (4.3.1)
+      json
     redis (3.3.3)
     request_store (1.3.2)
     rspec (3.5.0)
@@ -352,8 +360,6 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
-    simple_captcha2 (0.4.3)
-      rails (>= 4.1)
     simplecov (0.14.0)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -464,6 +470,7 @@ DEPENDENCIES
   rack-attack
   rails (= 4.2.7.1)
   rails-html-sanitizer
+  recaptcha
   rspec-rails
   rspec-sidekiq
   rubocop
@@ -471,7 +478,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   shoulda
   sidekiq
-  simple_captcha2
+  simple_captcha!
   simplecov
   spring
   time_splitter

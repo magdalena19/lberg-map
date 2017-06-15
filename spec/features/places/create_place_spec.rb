@@ -73,7 +73,7 @@ feature 'Create place', :js do
     scenario 'Commits hidden geofeatures district, federal state and country' do
       visit new_place_path(map_token: @map.public_token) + '?longitude=12&latitude=52'
       fill_in('place_name', with: 'SomePlace')
-      validate_captcha
+      
       click_on('Create Place')
       new_place = Place.find_by(name: 'SomePlace')
 

@@ -1,0 +1,5 @@
+de:
+  recaptcha:
+    errors:
+      verification_failed: 'reCaptcha Verifizierung fehlgeschlagen, bitte verifiziere dich als Mensch'
+      recaptcha_unreachable: 'Der reCaptcha-Service ist momentan nicht erreichbar, bitte versuche es zu einem späteren Zeitpunkt noch einmal'

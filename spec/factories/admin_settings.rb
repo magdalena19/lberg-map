@@ -5,5 +5,6 @@ FactoryGirl.define do
     user_activation_tokens 2
     app_imprint ''
     app_privacy_policy ''
+    captcha_system 'recaptcha'
   end
 end

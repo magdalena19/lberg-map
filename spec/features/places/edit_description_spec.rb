@@ -7,7 +7,7 @@ feature 'Edit description' do
     visit edit_place_path id: place.id, map_token: map.public_token
     find('h4', text: 'English description').trigger('click')
     fill_in_description_field('Changed description')
-    validate_captcha
+    
     click_on('Update Place')
 
     Capybara.reset_sessions!

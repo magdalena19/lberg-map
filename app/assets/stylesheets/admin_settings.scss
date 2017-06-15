@@ -1,0 +1,30 @@
+@import 'colors';
+
+.selection-div * {
+  float: left;
+}
+
+.notification {
+  &.success {
+    color: green;
+  }
+
+  &.error {
+    color: darkred;
+  }
+
+  .icon {
+    margin-right: 5px;
+    margin-left: 10px;
+    margin-top: 3px;
+
+    .spinner-icon {
+      width: 20px;
+      color: black !important;
+    }
+  }
+
+  .status-text {
+    font-style: italic;
+  }
+}

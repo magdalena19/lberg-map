@@ -17,7 +17,7 @@ feature 'Review place' do
   scenario 'Show guest edits in review index and review place', :js do
     visit edit_place_path id: @place.id, map_token: @map.public_token
     fill_in('place_name', with: 'GUEST CHANGE')
-    validate_captcha
+    
     click_on('Update Place')
     login_as_user
     visit places_review_index_path(map_token: @map.secret_token)

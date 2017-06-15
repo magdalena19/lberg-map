@@ -21,7 +21,6 @@ feature 'Map', js: true do
 
     prot_map = create :map, :full_public, password: 'secret', password_confirmation: 'secret'
     visit edit_map_path(map_token: prot_map.secret_token)
-    binding.pry 
     checkbox.trigger('click') if checkbox.checked?
     click_on 'Create Map'
 

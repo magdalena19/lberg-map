@@ -1,5 +1,6 @@
 module MapAccessGateway
   extend ActiveSupport::Concern
+  attr_accessor :model
 
   included do
     helper_method :set_map
@@ -10,7 +11,6 @@ module MapAccessGateway
     helper_method :require_login
     helper_method :current_user
     helper_method :can_commit?
-    helper_method :can_create?
   end
 
   def set_map
@@ -38,20 +38,23 @@ module MapAccessGateway
     map_access_via_secret_link && @map.password_protected? && !map_in_session_cache
   end
   
+  # CAPTCHA
+  def captcha_valid?
+    if Admin::Setting.captcha_system == 'recaptcha'
+      return verify_recaptcha(model: @model)
+    else
+      return simple_captcha_valid?
+    end
+  end
+
   # ACCESS RIGHTS
   def can_access?
     render nothing: true, status: 401 unless map_access_via_secret_link
   end
 
-  def can_commit?
-    simple_captcha_valid? || @current_user.signed_in?
-  end
-
-  def can_create?
-    unless can_commit?
-      flash.now[:danger] = t('simple_captcha.captcha_invalid')
-      render :new
-    end
+  def can_commit?(model:)
+    @model = model
+    @current_user.signed_in? || captcha_valid?
   end
 
   def owns_map

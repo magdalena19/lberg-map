@@ -39,6 +39,21 @@ RSpec.describe Admin::SettingsController, type: :controller do
     end
   end
 
+  describe 'GET #captcha-status' do
+    before do
+      login_as create(:user, :admin, email: 'batz@bar.org')
+    end
+
+    context 'simple captcha' do
+      it 'reports working for simple_captcha' do
+        xhr :get, :captcha_system_status, captcha_system: 'simple_captcha' 
+
+        expected_response = {status_code: 'working', status_message: 'Captcha system working'}.to_json
+        expect(response.body).to eq expected_response
+      end
+    end
+  end
+
   describe 'PUT #update' do
   end
 

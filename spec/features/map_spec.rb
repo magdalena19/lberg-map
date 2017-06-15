@@ -16,7 +16,7 @@ feature 'Map', js: true do
 
   scenario 'shows session map index in navbar if not signed in', js_errors: false do
     visit new_map_path
-    validate_captcha
+    
     click_on('Create Map')
 
     find('.fa-map-o').trigger('click')

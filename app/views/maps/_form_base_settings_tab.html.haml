@@ -41,7 +41,3 @@
           .description-editor
             = f.label :description, t('.description')
             = f.text_area :description, class: "wysihtml5 description-area"
-
-  .row
-    .col-md-6
-      = show_simple_captcha unless @current_user.signed_in?

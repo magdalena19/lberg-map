@@ -74,6 +74,7 @@ Rails.application.routes.draw do
     namespace :admin, constraints: AdminConstraint.new do
       get '', to: 'dashboard#index', as: :dashboard
       get '/settings', to: 'settings#edit'
+      get '/settings/captcha_system_status', to: 'settings#captcha_system_status'
       patch '/settings', to: 'settings#update'
 
       get 'users', to: 'users#index', as: :index_users

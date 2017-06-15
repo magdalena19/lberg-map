@@ -15,6 +15,12 @@
     = render partial: 'form_publication_settings_tab', locals: { f: f }
     = render partial: 'form_language_settings_tab', locals: { f: f }
 
+  -# CAPTCHA
+  .row
+    .col-md-6
+      = display_captcha unless @current_user.signed_in?
+
+  -# BUTTONS
   .row
     .spacer-row
     .col-xs-6.col-sm-4.col-md-3

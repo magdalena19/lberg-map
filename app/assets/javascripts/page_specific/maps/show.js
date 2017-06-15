@@ -184,29 +184,34 @@ jQuery(function() {
 
     var dateFilter = function(json) {
       // Check if shall filter by date, pass unfiltered json if not...
-      var filterByDate = jQuery('.show-events-toggle')[0].checked;
-      if ( filterByDate ) { return json; }
+      var showEventsToggle = jQuery('.show-events-toggle')[0];
+      var filterByDate = showEventsToggle && showEventsToggle.checked || false;
 
-      var filteredJson = [];
+      if ( !filterByDate ) {
+        return json; 
+      } else {
+        var filteredJson = [];
 
-      // Iterate features and push on filter match
-      jQuery(json).each(function (id, feature) {
+        // Iterate features and push on filter match
         var daterange = jQuery('#search-date-input').data('daterangepicker');
         var startDate = forceUTC(daterange.startDate);
         var endDate = forceUTC(daterange.endDate);
-        var featureStartDate = moment(feature.start_date);
-        var featureEndDate = moment(feature.end_date);
         var showPlaces = jQuery('.show-places-toggle')[0].checked;
 
-        if (
+        jQuery(json).each(function (id, feature) {
+          var featureStartDate = moment(feature.start_date);
+          var featureEndDate = moment(feature.end_date);
+
+          if (
             ( featureStartDate >= startDate && featureStartDate <= endDate ) ||
             ( featureEndDate >= startDate && featureEndDate <= endDate ) ||
             ( !feature.is_event && showPlaces )
-           ) {
-          filteredJson.push(feature);
-        }
-      });
-      return filteredJson;
+          ) {
+            filteredJson.push(feature);
+          }
+        });
+        return filteredJson;
+      }
     };
 
     // PLACE TYPE FILTER
@@ -345,43 +350,61 @@ jQuery(function() {
         loadAndFilterPlaces();
       })
 
-    .on('input', function(){
-      var timeout;
-      if (timeout !== undefined) {
-        clearTimeout(timeout);
-      } else {
-        timeout = setTimeout(function () {
-          loadAndFilterPlaces();
-        }, 350);
-      }
-    });
+      .on('input', function(){
+        var timeout;
+        if (timeout !== undefined) {
+          clearTimeout(timeout);
+        } else {
+          timeout = setTimeout(function () {
+            loadAndFilterPlaces();
+          }, 350);
+        }
+      });
 
     jQuery('.empty-text-filter').click(function() {
       jQuery('.category-input').val('');
       loadAndFilterPlaces();
     });
 
-    jQuery('.show-events-toggle').click(function() {
-      filter = jQuery(this)[0].checked;
-      if (filter === true) {
-        var dateRange = window.event_date_range.split(',');
-        var startDate = moment(dateRange[0]).utc();
-        var endDate = moment(dateRange[1]).utc();
-        var dateString = endDate === null ? startDate : startDate + ' - ' + endDate;
 
+    // Evente toggling
+    function showEvents() {
+      return jQuery('.show-events-toggle')[0].checked;
+    }
+
+    function eventDateRange() {
+      var dateRange = window.event_date_range.split(',');
+      var startDate = moment(dateRange[0]).utc();
+      var endDate = moment(dateRange[1]).utc();
+
+      return {'startDate': startDate, 'endDate': endDate};
+    }
+
+    function appendDateRangePicker() {
+      jQuery('#search-date-input').daterangepicker({
+        "startDate": eventDateRange().startDate,
+        "endDate": eventDateRange().endDate,
+        "showDropdowns": true,
+        "showWeekNumbers": true,
+        "timePicker": true,
+        "timePicker24Hour": true,
+        "timePickerIncrement": 15,
+        "locale": { "format": 'DD.MM.YYYY HH:mm' }
+      }).on('apply.daterangepicker', function() {
+        loadAndFilterPlaces();
+      });
+    }
+
+
+    // Initially feed correct date range of all events if events are to be shown
+    if ( showEvents() ) {
+      appendDateRangePicker();
+    }
+    
+    jQuery('.show-events-toggle').click(function() {
+      if ( showEvents() ) {
         jQuery('.filter-date-row').show();
-        jQuery('#search-date-input').daterangepicker({
-          "startDate": startDate,
-          "endDate": endDate,
-          "showDropdowns": true,
-          "showWeekNumbers": true,
-          "timePicker": true,
-          "timePicker24Hour": true,
-          "timePickerIncrement": 15,
-          "locale": { "format": 'DD.MM.YYYY HH:mm' }
-        }).on('apply.daterangepicker', function() {
-          loadAndFilterPlaces();
-        });
+        appendDateRangePicker();
       } else {
         jQuery('.filter-date-row').hide();
       }

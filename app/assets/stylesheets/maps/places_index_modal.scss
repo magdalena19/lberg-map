@@ -1,8 +1,5 @@
 @import 'colors';
 
-.modal-dialog {
-}
-
 .modal-dialog,
 .modal-content {
   height: 90vh;
@@ -15,7 +12,8 @@
 }
 
 .modal-header {
-  background: rgba(darken($lilac, 50%),0.8);
+  background: $grey;
+  border-radius: 4px 4px 0 0;
   color: white;
   padding-left: 10px !important;
   padding-right: 10px !important;

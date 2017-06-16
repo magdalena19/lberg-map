@@ -18,6 +18,9 @@
 		height: 40px;
 		background: $grey;
 		color: white;
+    .glyphicon {
+      cursor: pointer;
+    }
 
 		.map_buttons_container {
 			padding-right: 0;

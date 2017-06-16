@@ -1,14 +1,15 @@
 @import 'colors';
 
-.modal-dialog,
-.modal-content {
-  height: 90vh;
-  top: 0.9vh;
-}
-
-.modal-body {
-  max-height: calc(100% - 120px);
-  overflow-y: auto;
+#places-index {
+  .modal-dialog,
+  .modal-content {
+    height: 90vh;
+    top: 0.9vh;
+  }
+  .modal-body {
+    max-height: calc(100% - 80px);
+    overflow-y: auto;
+  }
 }
 
 .modal-header {

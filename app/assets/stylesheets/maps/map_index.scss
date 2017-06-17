@@ -18,6 +18,12 @@
 		height: 40px;
 		background: $grey;
 		color: white;
+
+    &:hover {
+      background: rgba(darken($lilac, 50%),0.8);
+      cursor: pointer;
+    }
+
     .glyphicon {
       cursor: pointer;
     }
@@ -50,6 +56,8 @@
 	}
 
   .panel-body {
+		margin-bottom: 10px;
+		
     .map-access-level-container {
       white-space: nowrap;
       overflow: hidden;
@@ -100,7 +108,7 @@
 
     // font-style: italic;
     font-size: 12px;
-    height: 200px;
+    // height: 200px;
     background-color: #fff;
   }
 }

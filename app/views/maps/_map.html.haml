@@ -6,17 +6,20 @@
   .panel.panel-default.map-panel
 
     -# HEADER
-    .panel-heading{data: { 'map-token' => map.secret_token }}
-      .col-xs-8
+    .map-index.panel-heading
+      .col-xs-8.map-title{data: { 'map-token' => map.secret_token }}
         = map.title.present? ? map.title : t('.no_title')
       .col-xs-4.map_buttons_container
         %ul.nav.nav-pills.map_buttons
-          %li.glyphicon.glyphicon-info-sign.map_description_button{'data-map-token' => map.secret_token}
+          %li.glyphicon.glyphicon-info-sign.map_description_button{'data-map-id' => map.id}
           %li.dropdown
-            %a.dropdown-toggle.glyphicon.glyphicon-cog.map_settings_button{ 'data-toggle': 'dropdown', href: '#map_settings' }
+            %a.dropdown-toggle.fa.fa-share-alt.map_settings_button{ 'data-toggle': 'dropdown', href: '#map_settings' }
             %ul.dropdown-menu
               %li= link_to t('.share_map'), share_map_url(map_token: map.secret_token)
-              %li= link_to t('.embed_map'), '#', data: { 'map-token' => map.public_token }, class: 'embed-map-button' if map.is_public?
+              %li= link_to t('.embed_map'), '#', data: { 'map-id' => map.id}, class: 'embed-map-button' if map.is_public?
+          %li.dropdown
+            %a.dropdown-toggle.fa.fa-cog.map_settings_button{ 'data-toggle': 'dropdown', href: '#map_settings' }
+            %ul.dropdown-menu
               %li= link_to t('.edit_map'), edit_map_url(map_token: map.secret_token)
               %li= link_to t('.delete_map'), map_url(map_token: map.secret_token), method: 'delete', data: { confirm: t('.confirm_delete') }
 
@@ -56,10 +59,5 @@
           %p
             .glyphicon.fa.fa-globe
             = map.auto_translate ? t('.autotranslation_on') + " (#{map.translation_engine.capitalize})" : t('(.autotranslation_off')
-
-    -# FOOTER
-    = link_to map_url(map_token: map.secret_token) do
-      .panel-footer.text-center
-        = t('.show_map')
 
   .spacer-row

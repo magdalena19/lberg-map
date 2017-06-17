@@ -23,7 +23,6 @@ de:
       map_description: 'Kartenbeschreibung für %{title}'
       public_link: 'Öffentlicher Link'
       admin_link: 'Administrations-Link'
-      show_map: 'Zur Karte'
       unreviewed: '(%{total} unbestätigt)'
       number_of_places: '%{total} Orte eingetragen'
       number_of_events: '%{total} Ereignisse eingetragen'

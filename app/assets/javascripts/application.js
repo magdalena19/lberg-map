@@ -244,64 +244,14 @@ jQuery(function() {
     public_token_input.val(camelize(title)).trigger('change');
   })
 
-  // MAP INDEX
-  // map description
+  // ------ MAP DESCRIPTION MODAL
   jQuery('.map_description_button').on('click', function(){
-    token = jQuery(this).data('map-token');
-    modal = jQuery('#map_description_' + token);
+    id = jQuery(this).data('map-id');
+    modal = jQuery('#map_description_' + id);
     modal.modal('show');
   });
 
-  // map embedding
-  jQuery('.embed-map-button').on('click', function(){
-    token = jQuery(this).data('map-token');
-    jQuery('#embed_map_' + token).modal('show');
-  });
-
-  function updateIframeString(element) {
-    var iframeString = jQuery('#iframe_src').val()
-    var attribute = element.data('target');
-    var newValue = element.val();
-    var oldValMatcher= new RegExp(attribute + '="\\d*"');
-    var newValueString = attribute + '="' + newValue + '"';
-
-    jQuery('.modal-content #iframe_src').val(iframeString.replace(oldValMatcher, newValueString)).trigger('change');
-  }
-
-  function updateValues(element) {
-    var attribute = element.data('target');
-    var newValue = element.val();
-
-    jQuery('.embed_map .modal-content .text-field').each( function() {
-      if (jQuery(this).data('target') === attribute ) {
-        jQuery(this).val(newValue).change();
-      }
-    });
-  }
-
-  jQuery('.embed-form-element').on('change', function() {
-    var element = jQuery(this);
-
-    updateIframeString(element);
-    updateValues(element);
-  });
-
-
-  // copy to clipboard
-  jQuery('.modal-content .clipboard-btn').on('click', function() {
-    var input = jQuery(this).parent().prev();
-
-    input.select(); // Select input field text
-    try {
-        // copy text
-        document.execCommand('copy');
-        input.blur();
-      }
-      catch (err) {
-        alert('please press Ctrl/Cmd+C to copy');
-      }
-  });
-
+  // MAP INDEX
   // Invitation
   jQuery('#share_admin_link').on('click', function(){
     jQuery('#map_admins_field').toggle();

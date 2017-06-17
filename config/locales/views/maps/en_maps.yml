@@ -23,7 +23,6 @@ en:
       map_description: 'Description for %{title}'
       public_link: 'Public link'
       admin_link: 'Admin link'
-      show_map: 'Show map'
       unreviewed: '(%{total} not confirmed)'
       number_of_places: '%{total} places on map'
       number_of_events: '%{total} events on map'

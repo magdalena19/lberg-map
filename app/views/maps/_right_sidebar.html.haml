@@ -38,6 +38,16 @@
         .slider.round.places
       .text= t('.show_places')
 
+.overlay.control-container.right-sidebar-tray.share-map-tray.closed
+  .embed-map
+    .glyphicon.fa.fa-code
+    %span.map-modal-button{ data: { target: 'embed_map', 'map-id' => @map.id} }
+      = t('.embed_map')
+  .share-map
+    .glyphicon.fa.fa-share-alt
+    %span.map-modal-button{ data: { target: 'share_map', 'map-id' => @map.id} }
+      = t('.share_map')
+
 .map-controls-container
   .overlay.control-container.zoom-container
     %span.control-button.zoom-in.icon{data: { toggle: 'tooltip', placement: 'left' }, title: t('.zoom_in')}
@@ -53,9 +63,11 @@
       .glyphicon.fa.fa-eye
 
   .overlay.control-container.map-info-container
-
     %span.control-button.show-map-description{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_map_description')}
       .glyphicon.fa.fa-info
+
+    %span.control-button.share-map{ data: { toggle: 'tooltip', placement: 'left' }, title: t('.distribute_map'), tray: '.share-map-tray' }
+      .glyphicon.fa.fa-share-alt
 
     %span.glyphicon.control-button.choose-background-layer{data: { toggle: 'tooltip', placement: 'left' }, title: t('.choose_background_layer'), tray: '.tile-layers-tray'}
       = image_tag('buttons/tile_layers_button.svg')

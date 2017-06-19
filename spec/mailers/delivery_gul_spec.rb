@@ -29,7 +29,7 @@ describe DeliveryGul do
     end
 
     it 'invites collaborators' do
-      email = DeliveryGul.invite_collaborator(map_token: @map.secret_token, email_address: 'foo@bar.com').deliver_now
+      email = DeliveryGul.invite_collaborator(id: @map.id, email_address: 'foo@bar.com').deliver_now
       user = create :user, email: 'user@foo.bar'
 
       expect(ActionMailer::Base.deliveries.empty?).to be false
@@ -41,7 +41,7 @@ describe DeliveryGul do
     end
 
     it 'invites guest' do
-      email = DeliveryGul.invite_guest(map_token: @map.public_token, email_address: 'foo@bar.com').deliver_now
+      email = DeliveryGul.invite_guest(id: @map.id, email_address: 'foo@bar.com').deliver_now
       user = create :user, email: 'user@foo.bar'
 
       expect(ActionMailer::Base.deliveries.empty?).to be false

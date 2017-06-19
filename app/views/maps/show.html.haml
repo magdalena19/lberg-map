@@ -12,8 +12,10 @@
   = render 'map_overlays'
   = render 'right_sidebar'
   = render 'sidepanel'
+  = render partial: 'maps/modals/places_index_modal'
   = render partial: 'maps/modals/map_description_modal', locals: { map: @map }
-  = render 'places_index_modal'
+  = render partial: 'maps/modals/share_map_modal', locals: { map: @map }
+  = render partial: 'maps/modals/embed_map_modal', locals: { map: @map }
   - if needs_to_be_unlocked?
     = render partial: 'maps/modals/map_password_modal'
 

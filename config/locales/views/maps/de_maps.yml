@@ -53,16 +53,17 @@ de:
       supported_languages: 'Unterstützte Sprachen auf deiner Karte'
     modals:
       embed_map_modal:
+        embed_map: 'Karten einbetten'
         width: 'Breite'
         height: 'Höhe'
-    share_map:
-      share_with_guests: 'Zeige anderen Menschen, was du kartiert hast:'
-      share_secret_link: 'Teile den %{link} mit anderen'
-      email_address_list: 'Liste von Email-Addressen, zB foo@bar.org, batz@bar.org'
-      not_a_public_map: 'Private Karte, kann nicht mit Gästen geteilt werden!'
-      admin_link: 'Administrations-link'
-      share_map: 'Karte teilen'
-      admin_link_warning: 'Achtung: Leute mit diesem Link haben volle Zugriffsrechte!'
+      share_map_modal:
+        share_secret_link: 'Teile den %{link} mit anderen'
+        admin_link: 'Administrations-link'
+        admin_link_warning: 'Achtung: Leute mit diesem Link haben volle Zugriffsrechte!'
+        share_with_guests: 'Zeige anderen Menschen, was du kartiert hast:'
+        email_address_list: 'Liste von Email-Addressen, zB foo@bar.org, batz@bar.org'
+        share_map: 'Karte teilen'
+        not_a_public_map: 'Private Karte, kann nicht mit Gästen geteilt werden!'
     sidepanel:
       show_events: 'Events'
       show_places: 'Orte'
@@ -87,3 +88,6 @@ de:
       add_via_location: 'Eigener Standort'
       review_changes: 'Änderungen ansehen'
       display_options: 'Anzeige-Einstellungen'
+      distribute_map: 'Karte verbreiten'
+      embed_map: 'Karten einbetten'
+      share_map: 'Karte teilen'

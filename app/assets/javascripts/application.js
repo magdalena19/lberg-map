@@ -244,36 +244,98 @@ jQuery(function() {
     public_token_input.val(camelize(title)).trigger('change');
   })
 
-  // ------ MAP DESCRIPTION MODAL
-  jQuery('.map_description_button').on('click', function(){
+  // ------ MAP MODALS
+  jQuery('.map-modal-button').on('click', function(){
+    target = jQuery(this).data('target');
     id = jQuery(this).data('map-id');
-    modal = jQuery('#map_description_' + id);
-    modal.modal('show');
+
+    jQuery('#' + target + '_' + id).modal('show');
   });
 
-  // MAP INDEX
-  // Invitation
-  jQuery('#share_admin_link').on('click', function(){
-    jQuery('#map_admins_field').toggle();
+  // ----- MAP EMBEDDING
+  function updateIframeString(element) {
+    var iframeString = jQuery('#iframe_src').val()
+    var attribute = element.data('target');
+    var newValue = element.val();
+    var oldValMatcher= new RegExp(attribute + '="\\d*"');
+    var newValueString = attribute + '="' + newValue + '"';
+
+    jQuery('.modal-content #iframe_src').val(iframeString.replace(oldValMatcher, newValueString)).trigger('change');
+  }
+
+  function updateValues(element) {
+    var attribute = element.data('target');
+    var newValue = element.val();
+
+    jQuery('.embed-map .modal-content .text-field').each( function() {
+      if (jQuery(this).data('target') === attribute ) {
+        jQuery(this).val(newValue).change();
+      }
+    });
+  }
+
+  jQuery('.embed-form-element').on('change', function() {
+    var element = jQuery(this);
+
+    updateIframeString(element);
+    updateValues(element);
   });
 
-  var toggle_submit_invitations_button = function() {
-    var map_guests_invites = jQuery('#map_guests').val() !== '';
-    var map_admin_invites = jQuery('#map_admins').val() !== '';
 
-    if (map_guests_invites || map_admin_invites) {
-      jQuery('#submit_invitations').prop('disabled', false);
-    } else {
-      jQuery('#submit_invitations').prop('disabled', true);
+  // copy to clipboard
+  jQuery('.modal-content .clipboard-btn').on('click', function() {
+    var inputVal = jQuery(this).parent().prev().val();
+
+    try {
+      // document.execCommand(...) not working within BS modals
+      // Workaround: Create DOM element, copy content of input field, copy to clipboard, remove DOM element
+      var temp = $("<input>");
+
+      $("body").append(temp); 
+      temp.val(inputVal).select();
+      document.execCommand('copy'); // copy text
+      temp.remove();
     }
-  };
-
-  jQuery('#map_admins').on('input', function(){
-    toggle_submit_invitations_button();
+    catch (err) {
+      alert('please press Ctrl/Cmd+C to copy');
+    }
   });
 
-  jQuery('#map_guests').on('input', function(){
-    toggle_submit_invitations_button();
+  // ------ MAP SHARING
+  jQuery('.share-admin-link').on('click', function(){
+    jQuery('.modal-content #map_admins').toggle();
+  });
+
+  jQuery('.modal-content .invite-form-field').on('input', function(){
+    var parentModal = jQuery(this).closest('.share-map-modal');
+    var mapGuestInvitees = parentModal.find('#map_guests').val() !== '';
+    var mapAdminInvitees = parentModal.find('#map_admins').val() !== '';
+
+    if (mapGuestInvitees || mapAdminInvitees) {
+      jQuery('.modal-content #submit_invitations').prop('disabled', false);
+    } else {
+      jQuery('.modal-content #submit_invitations').prop('disabled', true);
+    }
+  });
+
+  jQuery('.modal-content #submit_invitations').on('click', function() {
+    var mapId = jQuery(this).data('map-id');
+    var parentModal = jQuery(this).closest('.share-map-modal');
+    var mapGuestInvitees = parentModal.find('#map_guests').val();
+    var mapAdminInvitees = parentModal.find('#map_admins').val();
+
+    jQuery.ajax({
+      url: '/share_map/' + mapId,
+      data: { map_admins: mapAdminInvitees, map_guests: mapGuestInvitees, id: mapId },
+      type: 'POST',
+      context: this,
+      success: function() {
+        jQuery(this).closest('.share-map-modal').modal('hide');
+      },
+      error: function() {
+        alert('Something went wrong!')
+      }
+    })
   });
 
   // FOOTER ACTIONS

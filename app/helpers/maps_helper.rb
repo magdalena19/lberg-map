@@ -9,7 +9,7 @@ module MapsHelper
 
   def has_privileged_map_access?(map: nil)
     map_in_scope = map || current_map
-    map_in_scope.owned_by(owner: @current_user) || is_secret_link?
+    map_in_scope ? map_in_scope.owned_by(owner: @current_user) || is_secret_link? : false
   end
 
   def can_review?

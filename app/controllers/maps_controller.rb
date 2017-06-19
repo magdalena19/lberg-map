@@ -118,19 +118,23 @@ class MapsController < ApplicationController
   end
 
   def send_invitations
-    map_guests_mail_addresses = params[:map_guests] ? params[:map_guests].split(/,|;|\s/).delete_if(&:empty?) : []
-    map_admin_mail_addresses = params[:map_admins] ? params[:map_admins].split(/,|;|\s/).delete_if(&:empty?) : []
+    respond_to do |format|
+      format.js do
+        map_guests_mail_addresses = params[:map_guests] ? params[:map_guests].split(/,|;|\s/).delete_if(&:empty?) : []
+        map_admin_mail_addresses = params[:map_admins] ? params[:map_admins].split(/,|;|\s/).delete_if(&:empty?) : []
 
-    map_guests_mail_addresses.each do |mail_address|
-      send_invitation(token: @map.public_token, email_address: mail_address)
+        map_guests_mail_addresses.each do |email_address|
+          send_invitation(receiver: 'guest', email_address: email_address, id: params[:id])
+        end
+
+        map_admin_mail_addresses.each do |email_address|
+          send_invitation(receiver: 'admin', email_address: email_address, id: params[:id])
+        end
+
+        flash.now[:success] = t('.invitations_sent')
+        render nothing: true, status: 200
+      end
     end
-
-    map_admin_mail_addresses.each do |mail_address|
-      send_invitation(token: @map.secret_token, email_address: mail_address)
-    end
-
-    flash[:success] = t('.invitations_sent')
-    redirect_to map_path(map_token: @map.secret_token)
   end
 
   private
@@ -157,8 +161,8 @@ class MapsController < ApplicationController
     (@map.reviewed_places + @map.reviewed_events + items_from_session).uniq
   end
 
-  def send_invitation(token:, email_address:)
-    MapInvitationWorker.perform_async(token, email_address)
+  def send_invitation(receiver:, email_address:, id:)
+    MapInvitationWorker.perform_async(receiver, email_address, id)
   end
 
   def is_signed_in?
@@ -180,7 +184,6 @@ class MapsController < ApplicationController
       :auto_translate,
       :password,
       :password_confirmation,
-      # :password_protect,
       :translation_engine,
       supported_languages: []
     )

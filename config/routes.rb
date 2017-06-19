@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     get '/new', to: 'maps#new', as: :new_map
     get '/needs_unlock', to: 'maps#needs_unlock'
 
+    # Map invitation
+    post '/share_map/:id', to: 'maps#send_invitations', as: :send_invitations
+
     # Embedded stuff
     scope '/:map_token', constraints: MapAccessRestriction.new do
       get '' , to: 'maps#show', as: :map
@@ -28,8 +31,6 @@ Rails.application.routes.draw do
       get '/edit', to: 'maps#edit', as: :edit_map
       patch '', to: 'maps#update'
       delete '', to: 'maps#destroy', as: :destroy_map
-      get '/share_map', to: 'maps#share_map', as: :share_map
-      post '/share_map', to: 'maps#send_invitations'
       get '/unlock', to: 'maps#unlock'
 
       # map static pages

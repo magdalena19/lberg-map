@@ -34,16 +34,16 @@ class DeliveryGul < ApplicationMailer
     mail(from: Admin::Setting.admin_email_address, to: user.email, subject: "Password reset for #{Admin::Setting.app_title}")
   end
 
-  def invite_collaborator(map_token:, email_address:)
-    @map = Map.find_by(secret_token: map_token)
+  def invite_collaborator(id:, email_address:)
+    @map = Map.find_by(id: id)
     mail(from: Admin::Setting.admin_email_address,
          reply_to: @map.maintainer_email_address,
          to: email_address,
          subject: "You've been invited to collaborate on '#{@map.title}'-map!")
   end
 
-  def invite_guest(map_token:, email_address:)
-    @map = Map.find_by(public_token: map_token)
+  def invite_guest(id:, email_address:)
+    @map = Map.find_by(id: id)
     mail(from: Admin::Setting.admin_email_address,
          reply_to: @map.maintainer_email_address,
          to: email_address,

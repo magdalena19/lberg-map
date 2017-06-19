@@ -252,6 +252,15 @@ jQuery(function() {
     jQuery('#' + target + '_' + id).modal('show');
   });
 
+  // Toggle map elements if modal action is triggered
+  jQuery('.map-container .modal').on('hidden.bs.modal', function() {
+    showMapElements();
+  });
+
+  jQuery('.map-container .modal').on('show.bs.modal', function() {
+    hideMapElements();
+  });
+
   // ----- MAP EMBEDDING
   function updateIframeString(element) {
     var iframeString = jQuery('#iframe_src').val()

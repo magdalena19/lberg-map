@@ -1,102 +1,125 @@
 @import 'colors';
 
-// right control container
+// TRAYS
+// Generic
 .right-sidebar-tray {
-  display: block;
+  z-index: 12;
+  height: auto;
+  position: absolute !important;
+  right: 50px;
+  background: rgba(darken($lilac, 50%), 0.8);
+  border-radius: 4px;
+
+  width: 200px;
+  line-height: 20px;
+  padding: 10px;
+  overflow: hidden;
+  font-size: larger;
+
+  * {
+    color: $green;
+    cursor: pointer;
+  }
+
+  button {
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px !important;
+  }
 
   &.closed {
     display: none !important;
   }
 
-  .tray-element { 
+  // Tray elements
+  .tray-element {
     line-height: 25px;
 
     .icon {
+      float: left;
+      width: 25px;
+      top: 4px;
+    }
+
+    .slider-icon {
       width: 15%;
       float: left;
     }
 
-    .text {
+    .slider-text {
       width: 80%;
       margin-left: 20%;
     }
-  }
-}
 
-$top-dist: 160px;
+    // Fancy toggle switches
+    .switch {
+      position: relative;
+      display: inline-block;
+      float: left;
+      width: 27px;
+      height: 14px;
+      margin-right: 5px;
+      top: 5px;
 
-// control container
-.control-container {
-  z-index: 9999;
-  right: -7px;
-  width: 50px;
-  height: auto;
-  background: rgba(darken($lilac, 50%),0.8);
-  border-radius: 4px;
+      /* Hide default HTML checkbox */
+      input {
+        display:none;
+      }
 
-  .control-button {
-    & :hover {
-      cursor: pointer;
-      color: $lilac;
-    }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: $grey;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
 
-    &.choose-background-layer {
-      height: 45px;
-    }
-  }
+      // Round dot
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 8px;
+        width: 8px;
+        left: 4px;
+        bottom: 3px;
+        background-color: white;
+        -webkit-transition: .2s;
+        transition: .2s;
+      }
 
-  .glyphicon {
-    top: 0px;
-    padding: 10px;
-    text-align: center;
-    color: $green;
-    font-size: 20px;
-    width: 45px;
-    height: 40px;
+      input:checked + .slider {
+        background: $green;
+      }
 
-    &.inactive {
-      color: rgba(121, 198, 130, 0.5);
-    }
-  }
+      input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+      }
 
-  &.zoom-container {
-    top: $top-dist;
-  }
+      input:checked + .slider:before {
+        -webkit-transform: translateX(13px);
+        -ms-transform: translateX(13px);
+        transform: translateX(13px);
+      }
 
-  &.map-info-container {
-    top: $top-dist + 180px;
-  }
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 10px;
+      }
 
-  // SHARE METHODS TRAY
-  &.share-map-tray {
-    right: 50px;
-    width: 220px;
-    line-height: 20px;
-    padding: 10px;
-    overflow: hidden;
-    font-size: larger;
-
-    * {
-      color: $green;
-      cursor: pointer;
-    }
-
-    button {
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-      margin-bottom: 10px !important;
+      .slider.round:before {
+        border-radius: 50%;
+      }
     }
   }
 
-  // SELECT TILE LAYERS
+  // Tile layers tray
   &.tile-layers-tray {
-    right: 50px;
     width: 240px;
-    padding: 10px;
-    padding-bottom: 0px;
-    overflow: hidden;
-
 
     .select-tile-layer {
       height: 100px;
@@ -111,121 +134,59 @@ $top-dist: 160px;
       }
     }
   }
+}
 
-  // CREATE PLACE BUTTONS
-  &.place-control-container {
-    .glyphicon {
-      font-size: 24px;
-      margin-bottom: 5px;
-    }
+// RIGHT SIDEBAR
+.right-sidebar {
+  position: absolute;
+  top: 160px;
+  right: -7px;
+  width: 50px;
+  height: auto;
 
-    top: $top-dist + 365px;
+  // Map controls container
+  .control-container {
+    z-index: 9999;
     height: auto;
-  }
+    margin-bottom: 25px;
+    position: relative !important;
+    background: rgba(darken($lilac, 50%), 0.8);
+    border-radius: 4px;
 
-  &.create-place-methods-tray {
-    right: 50px;
-    width: 220px;
-    line-height: 20px;
-    padding: 10px;
-    overflow: hidden;
-    font-size: larger;
+    .control-button {
+      & :hover {
+        cursor: pointer;
+        color: $lilac;
+      }
 
-    * {
+      &.choose-background-layer {
+        height: 45px;
+      }
+    }
+
+    .glyphicon {
+      top: 0px;
+      padding: 10px;
+      text-align: center;
       color: $green;
-      cursor: pointer;
+      font-size: 20px;
+      width: 45px;
+      height: 40px;
+
+      &.inactive {
+        color: rgba(121, 198, 130, 0.5);
+      }
     }
 
-    button {
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-      margin-bottom: 10px !important;
-    }
-  }
 
-  &.display-options-tray {
-    right: 50px;
-    width: 220px;
-    line-height: 20px;
-    padding: 10px;
-    overflow: hidden;
-    font-size: larger;
+    // CREATE PLACE BUTTONS
+    &.place-control-container {
+      .glyphicon {
+        font-size: 24px;
+        margin-bottom: 5px;
+      }
 
-    * {
-      color: $green;
-      cursor: pointer;
-    }
-
-    button {
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-      margin-bottom: 10px !important;
-    }
-
-  }
-
-  .switch {
-    position: relative;
-    display: inline-block;
-    float: left;
-    width: 27px;
-    height: 14px;
-    margin-right: 5px;
-    top: 5px;
-
-    /* Hide default HTML checkbox */
-    input {
-      display:none;
-    }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: $grey;
-      -webkit-transition: .4s;
-      transition: .4s;
-    }
-
-    // Round dot
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 8px;
-      width: 8px;
-      left: 4px;
-      bottom: 3px;
-      background-color: white;
-      -webkit-transition: .2s;
-      transition: .2s;
-    }
-
-    input:checked + .slider {
-      background: $green;
-    }
-
-    input:focus + .slider {
-      box-shadow: 0 0 1px #2196F3;
-    }
-
-    input:checked + .slider:before {
-      -webkit-transform: translateX(13px);
-      -ms-transform: translateX(13px);
-      transform: translateX(13px);
-    }
-
-    /* Rounded sliders */
-    .slider.round {
-      border-radius: 10px;
-    }
-
-    .slider.round:before {
-      border-radius: 50%;
+      height: auto;
     }
   }
 }

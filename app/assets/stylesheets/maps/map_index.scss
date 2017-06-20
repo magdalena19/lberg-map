@@ -1,10 +1,6 @@
 @import 'colors';
 
 // PANELS
-.spacer-row {
-	padding-top: 20px;
-}
-
 .panel-group .map-panel {
 	margin-bottom: 15px;
 	border-radius: 4px;
@@ -57,7 +53,7 @@
 
   .panel-body {
 		margin-bottom: 10px;
-		
+
     .map-access-level-container {
       white-space: nowrap;
       overflow: hidden;
@@ -118,7 +114,6 @@
 }
 
 // BUTTONS
-
 .new-map-button {
   margin-left: 15px;
 }

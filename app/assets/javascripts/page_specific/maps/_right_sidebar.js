@@ -135,6 +135,7 @@ jQuery(function() {
   jQuery('.fade-background').on('click', function() {
     hideAddressSearchBar();
     showMapElements();
+    hideSidepanel();
   });
 
   // Reset view to bbox of current place selection

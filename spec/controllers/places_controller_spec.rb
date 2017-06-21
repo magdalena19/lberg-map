@@ -86,6 +86,13 @@ describe PlacesController do
       expect(response).to redirect_to map_path(map_token: map.public_token, latitude: 52.5, longitude: 13.45)
     end
 
+    it 'does accept POIs without house number' do
+      expect {
+        post :create, map_token: map.secret_token, place: attributes_for(:place, :unreviewed,
+                                                                         house_number: nil)
+      }.to change{ Place.count }.by(1)
+    end
+
     it 'Enqueues auto_translation task after create' do
       Sidekiq::Testing.fake! do
         expect {

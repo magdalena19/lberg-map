@@ -25,13 +25,13 @@ module PlaceGeocoding
     {
       latitude: search_results.lat,
       longitude: search_results.lon,
-      house_number: search_results.house_number || search_results.address['house_number'],
-      street: search_results.street || search_results.road || search_results.address['street'] || search_results.address['road'],
-      postal_code: search_results.postcode || search_results.address['postcode'],
-      district: search_results.city_district || search_results.suburb || search_results.district || search_results.address['city_district'] || search_results.address['suburb '] || search_results.address['district'],
-      city: search_results.village || search_results.town || search_results.state || search_results.address['village'] || search_results.address['town'] || search_results.address['state'],
-      federal_state: search_results.state || search_results.address['state'],
-      country: search_results.country || search_results.address['country']
+      house_number: search_results.house_number || (search_results.address['house_number'] if search_results.address),
+      street: search_results.street || search_results.road || (search_results.address['street'] || search_results.address['road'] if search_results.address),
+      postal_code: search_results.postcode || (search_results.address['postcode'] if search_results.address),
+      district: search_results.city_district || search_results.suburb || search_results.district || (search_results.address['city_district'] || search_results.address['suburb '] || search_results.address['district'] if search_results.address),
+      city: search_results.village || search_results.town || search_results.state || (search_results.address['village'] || search_results.address['town'] || search_results.address['state'] if search_results.address),
+      federal_state: search_results.state || (search_results.address['state'] if search_results.address),
+      country: search_results.country || (search_results.address['country'] if search_results.address)
     }
   end
 

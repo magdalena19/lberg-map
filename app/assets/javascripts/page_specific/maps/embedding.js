@@ -12,7 +12,6 @@ jQuery(function() {
       find('.container').
       css('color', 'black'). // Black font
       css('text-shadow', '1px 1px 8px'). // Shadow
-      find('a').css('color', 'black') // Black link font
+      find('a').css('color', 'black'); // Black link font
   }
-
 });

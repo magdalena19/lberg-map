@@ -1,3 +1,4 @@
+// VENDOR CODE
 //= require phantomjs_polyfill-rails/bind-polyfill
 //= require jquery
 //= require jquery.scrollTo
@@ -12,6 +13,9 @@
 //= require dataTables_responsive
 //= require datetime-moment
 //= require daterangepicker
+
+// CUSTOM CODE
+//= require ./modals
 
 jQuery(function() {
   if (window.history.length === 1) {
@@ -78,61 +82,6 @@ jQuery(function() {
     }
   });
 
-  // Place events
-  var picker = function(div, with_end_date) {
-    div.daterangepicker({
-      "singleDatePicker": !with_end_date,
-      "showDropdowns": true,
-      "showWeekNumbers": true,
-      "timePicker": true,
-      "timePicker24Hour": true,
-      "timePickerIncrement": 15,
-      "linkedCalendars": false,
-      "showCustomRangeLabel": false,
-      "locale": {
-        format: 'DD.MM.YYYY h:mm A'
-      }
-    });
-  };
-
-  jQuery('#is_place').on('click', function(){
-    jQuery('#place_start_date').prop('disabled', true);
-    jQuery('#set_end_date').prop('disabled', true);
-  });
-
-  jQuery('#is_event').on('click', function(){
-    jQuery('#place_start_date').prop('disabled', false);
-    jQuery('#set_end_date').prop('disabled', false);
-    picker(
-        jQuery('#place_start_date'),
-        jQuery('#set_end_date').is(':checked')
-        );
-  });
-
-  jQuery('#set_end_date').on('click', function(){
-    var with_end_date = jQuery(this).prop('checked');
-    var date_input = jQuery('#place_start_date');
-    var orig_value = date_input.val();
-    var start_date = orig_value.split(' - ')[0];
-    var end_date = orig_value.split(' - ')[1];
-
-    if (with_end_date === false) {
-      date_input.val(start_date).trigger('change');
-    } else {
-      date_input.val(start_date + ' - ' + start_date).trigger('change');
-    }
-
-    picker(
-        jQuery('#place_start_date'),
-        with_end_date
-        );
-  });
-
-  picker(
-      jQuery('#search-date-input'),
-      true
-      );
-
   // Enable bootstrap tooltips
   jQuery('[data-toggle="tooltip"]').tooltip();
 
@@ -176,180 +125,11 @@ jQuery(function() {
     });
   });
 
-  // landing page
+  // LANDING PAGE
   jQuery('.login-form').hide();
   jQuery('.create-with-account').click(function() {
     jQuery(this).prop('disabled', true);
     jQuery('.login-form').show();
-  });
-
-  // MAP VIEWS (form, index, ...)
-  var toggle_if_checked = function(checkbox_id, div_to_toggle) {
-    jQuery(checkbox_id).on('click', function(){
-      var checked = $(this).is(':checked');
-      if (checked) {
-        jQuery(div_to_toggle).show(350);
-      } else {
-        jQuery(div_to_toggle).hide(350);
-      }
-    });
-  };
-
-  // Form
-
-  // Password
-  jQuery('.password-checkbox').on('click', 'input', function() {
-    var checkbox = jQuery(this)[0];
-    var passwordField = jQuery('#map_password');
-    var passwordConfirmationField = jQuery('#map_password_confirmation');
-
-    if (checkbox.checked) {
-      passwordField.
-        attr('disabled', false).
-        attr('placeholder', '•••••')
-      passwordConfirmationField.
-        attr('disabled', false).
-        attr('placeholder', '•••••')
-    } else {
-      passwordField.
-        attr('disabled', true).
-        val('').
-        attr('placeholder', '')
-      passwordConfirmationField.
-        attr('disabled', true).
-        val('').
-        attr('placeholder', '')
-    }
-  });
-
-  toggle_if_checked('#map_auto_translate', '#map_translation_engine');
-
-  jQuery('#map_is_public').on('click', function(){
-    var checked = jQuery(this).is(':checked');
-    if (checked) {
-      jQuery('.map-public-settings').show(350);
-    } else {
-      jQuery('.map-public-settings').hide(350);
-    }
-  })
-
-  // generate public token
-  function camelize(string) {
-    return string.toLowerCase().split(' ').join('_');
-  }
-
-  jQuery('#map_title').on('input', function(){
-    title = jQuery(this).val();
-    var public_token_input = jQuery('#map_public_token');
-    public_token_input.val(camelize(title)).trigger('change');
-  })
-
-  // ------ MAP MODALS
-  jQuery('.map-modal-button').on('click', function(){
-    target = jQuery(this).data('target');
-    id = jQuery(this).data('map-id');
-
-    jQuery('#' + target + '_' + id).modal('show');
-  });
-
-  // Toggle map elements if modal action is triggered
-  jQuery('.map-container .modal').on('hidden.bs.modal', function() {
-    showMapElements();
-    hideSidepanel();
-  });
-
-  jQuery('.map-container .modal').on('show.bs.modal', function() {
-    hideMapElements();
-  });
-
-  // ----- MAP EMBEDDING
-  function updateIframeString(element) {
-    var iframeString = jQuery('#iframe_src').val()
-    var attribute = element.data('target');
-    var newValue = element.val();
-    var oldValMatcher= new RegExp(attribute + '="\\d*"');
-    var newValueString = attribute + '="' + newValue + '"';
-
-    jQuery('.modal-content #iframe_src').val(iframeString.replace(oldValMatcher, newValueString)).trigger('change');
-  }
-
-  function updateValues(element) {
-    var attribute = element.data('target');
-    var newValue = element.val();
-
-    jQuery('.embed-map .modal-content .text-field').each( function() {
-      if (jQuery(this).data('target') === attribute ) {
-        jQuery(this).val(newValue).change();
-      }
-    });
-  }
-
-  jQuery('.embed-form-element').on('change', function() {
-    var element = jQuery(this);
-
-    updateIframeString(element);
-    updateValues(element);
-  });
-
-
-  // copy to clipboard
-  jQuery('.modal-content .clipboard-btn').on('click', function() {
-    var inputVal = jQuery(this).parent().prev().val();
-
-    try {
-      // document.execCommand(...) not working within BS modals
-      // Workaround: Create DOM element, copy content of input field, copy to clipboard, remove DOM element
-      var temp = $("<input>");
-
-      $("body").append(temp); 
-      temp.val(inputVal).select();
-      document.execCommand('copy'); // copy text
-      temp.remove();
-    }
-    catch (err) {
-      alert('please press Ctrl/Cmd+C to copy');
-    }
-  });
-
-  // ------ MAP SHARING
-  jQuery('.share-admin-link').on('click', function(){
-    jQuery('.modal-content #map_admins').toggle();
-  });
-
-  jQuery('.modal-content .invite-form-field').on('input', function(){
-    var parentModal = jQuery(this).closest('.share-map-modal');
-    var bla1 = parentModal.find('#map_guests').val();
-    var bla2 = parentModal.find('#map_admins').val();
-    var hasMapGuestInvitees = bla1 === '' || bla1 === undefined ? false : true;
-    var hasMapAdminInvitees = bla2 === '' || bla2 === undefined ? false : true;
-
-    if ( hasMapGuestInvitees || hasMapAdminInvitees ) {
-      jQuery('.modal-content #submit_invitations').prop('disabled', false);
-      jQuery('.modal-content .captcha').fadeIn(350);
-    } else {
-      jQuery('.modal-content #submit_invitations').prop('disabled', true);
-      jQuery('.modal-content .captcha').fadeOut(350);
-    }
-  });
-
-  jQuery('.modal-content #submit_invitations').on('click', function() {
-    var mapId = jQuery(this).data('map-id');
-    var parentModal = jQuery(this).closest('.share-map-modal');
-    var mapGuestInvitees = parentModal.find('#map_guests').val();
-    var mapAdminInvitees = parentModal.find('#map_admins').val();
-
-    jQuery.ajax({
-      url: '/share_map/' + mapId,
-      data: { map_admins: mapAdminInvitees, map_guests: mapGuestInvitees, id: mapId },
-      type: 'POST',
-      context: this,
-      success: function() {
-        jQuery(this).closest('.share-map-modal').modal('hide');
-      },
-      error: function() {
-        alert('Something went wrong!')
-      }
-    })
   });
 
   // FOOTER ACTIONS
@@ -360,31 +140,4 @@ jQuery(function() {
   jQuery('.app_privacy_policy_toggle').on('click', function(){
     jQuery('#app_privacy_policy').modal('show');
   });
-
-  // EXPLANATION MODALS
-  var explanationIcon = jQuery('.explanation');
-  explanationIcon.addClass('glyphicon glyphicon-question-sign');
-  explanationIcon.click(function() {
-    var text = jQuery(this).data('explanation');
-    jQuery('#explanation-modal').find('.modal-body').text(text);
-    jQuery('#explanation-modal').modal('show');
-  });
-
-  // Close modals on Escape keypress
-  window.addEventListener("keydown", function (event) {
-    if (event.defaultPrevented) {
-      return; // Should do nothing if the key event was already consumed.
-    }
-
-    switch (event.key) {
-      case "Escape":
-        jQuery('.modal').modal('hide');
-      break;
-      default:
-      return; // Quit when this doesn't handle the key event.
-    }
-
-    // Consume the event to avoid it being handled twice
-    event.preventDefault();
-  }, true);
 });

@@ -39,9 +39,8 @@ class MapsController < ApplicationController
     @categories = @map.categories.all
     @latitude = params[:latitude]
     @longitude = params[:longitude]
-    @places_to_show = places_to_show
-    @events_to_show = @places_to_show.select(&:event)
-    @static_places_to_show= @places_to_show.select { |p| !p.event }
+    @reviewed_places_available = @map.reviewed_places?
+    @reviewed_events_available = @map.reviewed_events?
 
     respond_to do |format|
       format.json do

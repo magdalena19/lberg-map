@@ -22,7 +22,7 @@
       %button.btn.btn-default.cancel-place-addition
         = t('cancel')
   .places-list-accordion-container
-    - if @places_to_show.any?
+    - if @reviewed_places_available
       #accordion.places-list-accordion.panel-group{'aria-multiselectable' => 'true', role: 'tablist'}
     - else
       .text-center

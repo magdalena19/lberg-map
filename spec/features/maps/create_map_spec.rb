@@ -13,7 +13,6 @@ feature 'Create Map', js: true do
 
       expect(map.supported_languages).to eq ['de']
     end
-
   end
 
   context 'Secret Map' do
@@ -33,7 +32,7 @@ feature 'Create Map', js: true do
     scenario 'as guest user', js_errors: false do
       visit new_map_path
       fill_in_valid_map_attributes
-      
+
       click_on('Create Map')
       map = Map.find_by(secret_token: 'secret_token')
 
@@ -45,7 +44,7 @@ feature 'Create Map', js: true do
 
   context 'Public Map' do
     scenario 'as guest user', js_errors: false do
-      skip "Timing issues here"
+      skip 'Timing issues here'
       visit new_map_path
       fill_in_valid_map_attributes
       click_on('Privacy')
@@ -53,7 +52,7 @@ feature 'Create Map', js: true do
       fill_in('map_maintainer_email_address', with: 'foo@bar.com')
       fill_in('map_public_token', with: 'public_token')
       click_on('Properties')
-      
+
       click_on('Create Map')
       map = Map.find_by(public_token: 'public_token')
 

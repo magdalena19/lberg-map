@@ -81,6 +81,15 @@ class Map < ActiveRecord::Base
     end
   end
 
+  # HELPER FUNCTIONS
+  def reviewed_places?
+    places.pluck(:reviewed).any?
+  end
+
+  def reviewed_events?
+    places.pluck(:reviewed, :event).include?([true, true])
+  end
+
   def all_places
     places.reject(&:event)
   end

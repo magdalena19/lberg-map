@@ -34,7 +34,7 @@
                 %th.none
                   = t('activerecord.attributes.place.description')
             %tbody
-              - @places_to_show.each do |place|
+              - @reviewed_places_available.each do |place|
                 %tr{height: '50px', 'data-categories' => place.category_ids, class: "#{place.event ? 'event' : 'place'}", id: "row_#{place.id}"}
                   %td.place_type_col
                     %span.glyphicon.place_type.pull-left{class: "#{place.event ? 'event fa-calendar' : 'place glyphicon-home'}"}

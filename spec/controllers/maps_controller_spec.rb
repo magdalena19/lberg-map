@@ -53,9 +53,10 @@ RSpec.describe MapsController, type: :controller do
       it 'Does not demand password via public link' do
         create :place, :reviewed, map: @map
         xhr :get, :show, format: :json, map_token: @map.public_token
+        coordinates_from_json = JSON.parse(response.body).first['geometry']['coordinates']
 
         expect(response.status).to eq 200
-        expect(assigns(:places_to_show)).not_to be_empty
+        expect(coordinates_from_json).to eq [13.45, 52.5]
       end
 
       it 'Updates maps last visit attribute' do
@@ -117,30 +118,11 @@ RSpec.describe MapsController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
-    it 'populates all places in map in @places_to_show' do
+    it 'has indicator for poi presence' do
       @places = create_list(:place, 3, :reviewed, map: @map)
       get :show, map_token: @map.public_token
 
-      expect(assigns(:places_to_show).sort_by(&:id)).to eq @places
-    end
-
-    context '#index places' do
-      let(:map) { create :map, :full_public }
-
-      it 'Populates all places in @places' do
-        create_list(:place, 3, :reviewed, map: map)
-        get :show, map_token: map.public_token
-
-        expect(assigns(:places_to_show).count).to be 3
-      end
-
-      it 'Also populates events in @places' do
-        create_list(:place, 3, :reviewed, map: map)
-        create_list(:event, 2, map: map)
-        get :show, map_token: map.public_token
-
-        expect(assigns(:places_to_show).count).to be 5
-      end
+      expect(assigns(:reviewed_places_available)).to be true
     end
   end
 

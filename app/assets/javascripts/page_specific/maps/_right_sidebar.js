@@ -194,7 +194,7 @@ jQuery(function() {
 
   jQuery('.control-button[tray]').on('click', function(){
     jQuery('.right-sidebar-tray').hide();
-    var topPos = jQuery(this).offset().top;
+    var topPos = jQuery(this).children().offset().top;
     var trayName = jQuery(this).attr('tray');
     var tray = jQuery(trayName);
     var trayClosed = tray.hasClass('closed');

@@ -9,11 +9,11 @@
         = button_tag('', type: 'button', class: 'btn btn-success glyphicon glyphicon-ok', id: 'confirmation-button-yes')
         = button_tag('', type: 'button', class: 'btn btn-danger glyphicon glyphicon-remove', id: 'confirmation-button-no')
 
-  = render 'map_overlays'
-  = render 'right_sidebar'
-  = render 'sidepanel'
-  = render 'map_description_modal'
-  = render 'places_index_modal'
+  = render partial: '/maps/show/map_overlays'
+  = render partial: '/maps/show/right_sidebar'
+  = render partial: '/maps/show/places_list_panel'
+  = render partial: 'maps/modals/places_index_modal'
+  = render partial: 'maps/modals/map_description_modal', locals: { map: @map }
 
 :javascript
   window.locale = '#{locale}';

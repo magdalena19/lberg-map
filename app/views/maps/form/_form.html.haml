@@ -11,9 +11,9 @@
         = t('.language_settings')
 
   .tab-content
-    = render partial: 'form_base_settings_tab', locals: { f: f }
-    = render partial: 'form_publication_settings_tab', locals: { f: f }
-    = render partial: 'form_language_settings_tab', locals: { f: f }
+    = render partial: 'maps/form/form_base_settings_tab', locals: { f: f }
+    = render partial: 'maps/form/form_publication_settings_tab', locals: { f: f }
+    = render partial: 'maps/form/form_language_settings_tab', locals: { f: f }
 
   -# CAPTCHA
   .row

@@ -1,6 +1,7 @@
 jQuery(function() {
-  var panel = jQuery('.places-list-panel');
-  var toggle = jQuery('.toggle-panel');
+  var placesListPanel = jQuery('.places-list-panel');
+  var placesListPanelToggle = jQuery('.toggle-panel');
+  var mapControls = jQuery('.map-controls-container');
 
   // Disable default password modal click behaviour
   $('.map-password-dialog').modal({
@@ -9,18 +10,20 @@ jQuery(function() {
   })
 
   hideMapElements = function() {
-    jQuery('.places-list-panel').hide();
-    hideMapControls();
+    placesListPanel.hide();
+    mapControls.hide();
     hideFilterField();
-    hideMapControls();
   };
 
   showMapElements = function() {
-    showMapControls();
     showFilterField();
-    if (window.outerWidth > 600) {
-      jQuery('.places-list-panel').fadeIn();
-    }
+    // showMapControls();
+    mapControls.hasClass('active') && showMapControls();
+    placesListPanel.hasClass('active') && showSidepanel();
+
+    // if (window.outerWidth > 600) {
+    //   jQuery('.toggle-panel').trigger('click');
+    // }
   };
 
   hideNavbarElements = function() {
@@ -48,12 +51,12 @@ jQuery(function() {
   };
 
   hideMapControls = function() {
-    jQuery('.map-controls-container').hide();
+    mapControls.removeClass('active').hide();
     jQuery('.right-sidebar-tray').hide();
   };
 
   showMapControls = function() {
-    jQuery('.map-controls-container').show();
+    mapControls.addClass('active').show();
   };
 
   hideAddressSearchBar = function() {
@@ -69,19 +72,19 @@ jQuery(function() {
   }
 
   showSidepanel = function() {
-    toggle.find('.glyphicon').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
-    panel.show();
-    toggle.show();
-    toggle.css('left', panel.outerWidth());
+    placesListPanelToggle.find('.glyphicon').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
+    placesListPanel.addClass('active').show();
+    placesListPanelToggle.show();
+    placesListPanelToggle.css('left', placesListPanel.outerWidth());
     if (window.outerWidth <= 600) {
       hideMapControls();
     }
   };
 
   hideSidepanel = function() {
-    toggle.find('.glyphicon').removeClass('glyphicon-chevron-left').addClass('glyphicon-chevron-right');
-    panel.hide();
-    toggle.css('left', 0);
+    placesListPanelToggle.find('.glyphicon').removeClass('glyphicon-chevron-left').addClass('glyphicon-chevron-right');
+    placesListPanel.removeClass('active').hide();
+    placesListPanelToggle.css('left', 0);
     showMapControls();
   };
 });

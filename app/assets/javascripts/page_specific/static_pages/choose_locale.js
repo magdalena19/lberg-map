@@ -1,4 +1,4 @@
-//= require map_base
+//= require ../../common/map_base
 
 jQuery(function() {
   // Random float between

@@ -1,5 +1,7 @@
+//= require ../page_specific/maps
+
 jQuery(function() {
-  
+
   // ------ COMMON MODAL RELATED
   jQuery('.map-modal-button').on('click', function() {
     target = jQuery(this).data('target');

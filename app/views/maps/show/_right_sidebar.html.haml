@@ -1,0 +1,87 @@
+.overlay.control-container.right-sidebar-tray.tile-layers-tray.closed
+  - Map::TILE_LAYERS.each do |name, attr|
+    .control-button.select-tile-layer{data: { url: attr[:url], attribution: attr[:attribution] }}
+      = image_tag attr[:image_url]
+
+.overlay.control-container.right-sidebar-tray.create-place-methods-tray.closed
+  .add-place-via-address-search.tray-element
+    .glyphicon.fa.fa-search.icon
+    .text= t('.search_address')
+  .add-place-manually.tray-element.icon
+    .glyphicon.fa.fa-keyboard-o.icon
+    .text= t('.type_in_address')
+  .add-place-via-click.tray-element
+    .glyphicon.fa.fa-mouse-pointer.icon
+    .text= t('.click_on_map')
+  .add-place-via-location.tray-element
+    .glyphicon.fa.fa-crosshairs.icon
+    .text= t('.add_via_location')
+
+.overlay.control-container.right-sidebar-tray.display-options-tray.closed
+  .toggle-show-geolocation.inactive.tray-element
+    %label.switch.slider-icon
+      %input{type: 'checkbox', class: 'show-current-position-toggle', checked: false}
+      .slider.round.events
+    .slider-text= t('.show_current_position')
+
+  - if @events_to_show.any?
+    .places-switch.tray-element
+      %label.switch.slider-icon
+        %input{type: 'checkbox', class: 'show-events-toggle', checked: true}
+        .slider.round.events
+      .slider-text= t('.show_events')
+
+  - if @static_places_to_show.any?
+    .events-switch.tray-element
+      %label.switch.slider-icon
+        %input{type: 'checkbox', class: 'show-places-toggle', checked: true}
+        .slider.round.places
+      .slider-text= t('.show_places')
+
+.overlay.control-container.right-sidebar-tray.share-map-tray.closed
+  .embed-map.tray-element
+    .glyphicon.fa.fa-code.pull-left.icon
+    %span.map-modal-button.text{ data: { target: 'embed_map', 'map-id' => @map.id} }
+      = t('.embed_map')
+  .share-map.tray-element
+    .glyphicon.fa.fa-share-alt.pull-left.icon
+    %span.map-modal-button.text{ data: { target: 'share_map', 'map-id' => @map.id} }
+      = t('.share_map')
+
+.right-sidebar
+  .map-controls-container
+    .overlay.control-container.zoom-container
+      %span.control-button.zoom-in.icon{data: { toggle: 'tooltip', placement: 'left' }, title: t('.zoom_in')}
+        .glyphicon.fa.fa-plus
+
+      %span.control-button.zoom-out{data: { toggle: 'tooltip', placement: 'left' }, title: t('.zoom_out')}
+        .glyphicon.fa.fa-minus
+
+      %span.control-button.zoom-to-bbox{data: { toggle: 'tooltip', placement: 'left'  }, title: t('.fit_to_bbox')}
+        .glyphicon.fa.fa-compress
+
+      %span.control-button.toggle-display-options{data: { toggle: 'tooltip', placement: 'left' }, title: t('.display_options'), tray: '.display-options-tray'}
+        .glyphicon.fa.fa-eye
+
+    .overlay.control-container.map-info-container
+      %span.control-button.show-map-description{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_map_description')}
+        .glyphicon.fa.fa-info
+
+      %span.control-button.share-map{ data: { toggle: 'tooltip', placement: 'left' }, title: t('.distribute_map'), tray: '.share-map-tray' }
+        .glyphicon.fa.fa-share-alt
+
+      %span.glyphicon.control-button.choose-background-layer{data: { toggle: 'tooltip', placement: 'left' }, title: t('.choose_background_layer'), tray: '.tile-layers-tray'}
+        = image_tag('buttons/tile_layers_button.svg')
+
+      %span.control-button.show-places-index{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_places_list')}
+        .glyphicon.fa.fa-list-alt
+
+    - if can_contribute?
+      .overlay.control-container.place-control-container
+        %span.control-button.add-place-button{data: { toggle: 'tooltip', placement: 'left' }, title: t('.new_place'), tray: '.create-place-methods-tray' }
+          .glyphicon.fa.fa-plus-circle
+
+        - if can_review?
+          = link_to places_review_index_path(map_token: map_token) do
+            %span.control-button.review-places-button{data: { toggle: 'tooltip', placement: 'left' }, title: t('.review_changes')}
+              .glyphicon.fa.fa-eye

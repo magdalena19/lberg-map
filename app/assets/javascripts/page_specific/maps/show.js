@@ -1,4 +1,4 @@
-//= require map_base
+//= require ../../common/map_base
 //= require ./embedding
 //= require ./_right_sidebar
 //= require ./_map_overlays

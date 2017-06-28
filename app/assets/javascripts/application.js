@@ -12,6 +12,8 @@
 //= require dataTables_responsive
 //= require datetime-moment
 //= require daterangepicker
+//
+//= require ./page_specific/maps/_map_overlays
 
 jQuery(function() {
   if (window.history.length === 1) {

@@ -13,6 +13,8 @@
 //= require datetime-moment
 //= require daterangepicker
 
+//= require ./page_specific/maps/_map_overlays
+
 jQuery(function() {
   if (window.history.length === 1) {
     jQuery('.back-button').hide();
@@ -255,6 +257,7 @@ jQuery(function() {
   // Toggle map elements if modal action is triggered
   jQuery('.map-container .modal').on('hidden.bs.modal', function() {
     showMapElements();
+    hideSidepanel();
   });
 
   jQuery('.map-container .modal').on('show.bs.modal', function() {

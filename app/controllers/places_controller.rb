@@ -52,7 +52,7 @@ class PlacesController < ApplicationController
     @place.latitude ||= params[:place][:latitude]
     @place.longitude ||= params[:place][:longitude]
 
-    if can_commit?(model: @place) && @place.save
+    if can_commit_to?(model: @place) && @place.save
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
       flash[:success] = t('.created')
       redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude)
@@ -88,7 +88,7 @@ class PlacesController < ApplicationController
   end
 
   def can_update?
-    unless can_commit?(model: @place)
+    unless can_commit_to?(model: @place)
       flash.now[:danger] = t('.invalid_captcha')
       @place.assign_attributes(modified_params)
       render :edit
@@ -133,7 +133,7 @@ class PlacesController < ApplicationController
       *Place.globalize_attribute_names,
       :phone, :homepage, :email,
       :event, :start_date,
-      :categories
+      :categories_string
     )
   end
 end

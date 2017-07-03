@@ -41,7 +41,7 @@ module CapybaraHelpers
     fill_in('place_email', with: 'schnipp@schnapp.com')
     fill_in('place_homepage', with: 'http://schnapp.com')
     fill_in('place_phone', with: '03081763253')
-    fill_in('place_categories', with: 'Hospital, Cafe')
+    fill_in('place_categories_string', with: 'Hospital, Cafe')
   end
 
   def fill_in_valid_date_information

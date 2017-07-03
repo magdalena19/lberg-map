@@ -1,7 +1,7 @@
 //= require map_base
 //= require ./embedding
-//= require ./_right_sidebar
-//= require ./_map_overlays
+//= require ./show/_right_sidebar
+//= require ./show/_map_overlays
 
 jQuery(function() {
   // Marker icons
@@ -160,7 +160,11 @@ jQuery(function() {
       if (!text) { return json; }
 
       var filteredJson = [];
-      var wordGroups = text.replace(';', ',').split(',');
+      var wordGroups = text.
+        replace(';', ',').
+        replace(', ', ',').
+        split(',').
+        filter(Boolean);
 
       // Parse every json element for occurences of separated search string
       jQuery(json).each(function (id, feature) {
@@ -188,7 +192,7 @@ jQuery(function() {
       var filterByDate = showEventsToggle && showEventsToggle.checked || false;
 
       if ( !filterByDate ) {
-        return json; 
+        return json;
       } else {
         var filteredJson = [];
 
@@ -400,7 +404,7 @@ jQuery(function() {
     if ( showEvents() ) {
       appendDateRangePicker();
     }
-    
+
     jQuery('.show-events-toggle').click(function() {
       if ( showEvents() ) {
         jQuery('.filter-date-row').show();
@@ -422,7 +426,7 @@ jQuery(function() {
     jQuery.when( $.ajax( {
       url: '/needs_unlock',
       data: { map_token: window.map_token }
-    }) ).then( function(data) { 
+    }) ).then( function(data) {
       if (data.needs_unlock) {
         showPasswordPrompt();
       } else {

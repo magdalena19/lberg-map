@@ -33,6 +33,7 @@ en:
         publication_settings: 'Publication settings'
         language_settings: 'Multi-language support'
         password_protection: 'Password protection'
+        tag_maintainance: 'Tags'
       form_base_settings_tab:
         secret_token: 'Secret key'
         secret_link: 'Secret link'
@@ -48,10 +49,15 @@ en:
         is_public: 'Publish map'
         allow_guest_commits: 'Allow guest changes'
         imprint: 'Map imprint (optional)'
-      form_password_protection_tab:
       form_language_settings_tab:
         auto_translate: 'Automatic translation of descriptions and tags'
         supported_languages: 'Supported Languages on your map'
+      form_tag_maintainance_tab:
+        no_translation_yet: 'Please insert a translation'
+        no_tags_yet: 'No tags present yet...'
+        maintain_tags: 'Tag settings'
+        add_new_tag: 'Add new tag'
+        headline: 'Tags on map'
     modals:
       embed_map_modal:
         embed_map: 'Embedding'

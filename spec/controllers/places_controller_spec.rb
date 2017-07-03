@@ -103,7 +103,7 @@ describe PlacesController do
 
     it 'creates category that is not there' do
       Category.create name: 'OldCat', map: map
-      new_place = create :place, :unreviewed, categories: 'NewCat', map: map
+      new_place = create :place, :unreviewed, categories_string: 'NewCat', map: map
 
       post :create, place: extract_attributes(new_place), map_token: map.secret_token
 
@@ -289,11 +289,11 @@ describe PlacesController do
 
     context 'update on categories' do
       it 'changes record references accordingly' do
-        patch :update, id: reviewed_place.id, place: { categories: 'Bar, Hooray' }, map_token: map.public_token
+        patch :update, id: reviewed_place.id, place: { categories_string: 'Bar, Hooray' }, map_token: map.public_token
         reviewed_place.reload
-        categories = %w[Bar Hooray].map { |name| Category.find_by(name: name).id }
+        categories = %w[Hooray Bar].map { |name| Category.find_by(name: name) }
 
-        expect(reviewed_place.categories).to eq categories.join(',')
+        expect(reviewed_place.categories.sort_by(&:id).to_a).to eq categories.sort_by(&:id)
       end
     end
 

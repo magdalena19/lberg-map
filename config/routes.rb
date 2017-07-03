@@ -38,6 +38,14 @@ Rails.application.routes.draw do
       get '/contact' , to: 'messages#new'
       post '/contact' , to: 'messages#create'
 
+      # map categories
+      scope '/categories', constraints: CategoriesAccessRestriction.new do
+        patch '/:id', to: 'categories#update'
+        delete '/:id', to: 'categories#destroy'
+        post '/', to: 'categories#create'
+        get '/', to: 'categories#index'
+      end
+
       # Map / place ressources
       resources :places, except: [:index, :show], constraints: PlacesAccessRestriction.new do
         resources :descriptions

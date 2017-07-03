@@ -25,6 +25,8 @@ class Place < ActiveRecord::Base
 
   ## ASSOCIATIONS
   belongs_to :map
+  has_many :place_category, dependent: :nullify
+  has_many :categories, through: :place_category, dependent: :nullify
 
   ## VALIDATIONS
   validates :name, presence: true
@@ -52,9 +54,9 @@ class Place < ActiveRecord::Base
   before_update :geocode_with_nodes, if: :address_changed?
   after_create :enqueue_auto_translation, if: 'map.auto_translate'
   after_create :set_description_reviewed_flags
-  before_save :set_categories, if: :categories_changed?
+  after_save :set_categories
  
-  ## EVENT STUFF
+  # EVENT STUFF
   scope :all_events, -> { where(event: true) }
   scope :ongoing_events, -> { all_events.where("end_date > ? AND start_date < ?", Date.today, Date.today) }
   scope :future_events, -> { all_events.where("start_date > ?", Date.today) }
@@ -84,7 +86,8 @@ class Place < ActiveRecord::Base
   end
 
   ## MODEL AUDITING
-  has_paper_trail on: [:create, :update], ignore: [:reviewed, :description]
+  # Hack categories auditing which is experimental for n:n-relations => audit categories_string, which is DB column
+  has_paper_trail on: [:create, :update], ignore: [:reviewed, :description, :categories]
 
   ## SANITIZE
   def sanitize_descriptions
@@ -112,7 +115,6 @@ class Place < ActiveRecord::Base
 
   def properties
     {
-      # id: id,
       name: name,
       address: address,
       district: district,
@@ -121,16 +123,10 @@ class Place < ActiveRecord::Base
       phone: phone,
       email: email,
       homepage: homepage,
-      # homepage_full_domain: homepage,
       description: reviewed_description.html_safe,
-      # translation_auto_translated: translation_from_current_locale.auto_translated,
-      # translation_reviewed: translation_from_current_locale.reviewed,
-      category_names: category_names.join(' | '),
+      category_names: categories.map(&:name).join(' | '),
       is_event: event,
-      # categories: category_ids,
       reviewed: reviewed
-      # start_date: start_date,
-      # end_date: end_date
     }
   end
 end

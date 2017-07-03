@@ -27,11 +27,11 @@ feature 'Create place', :js do
       login_as_user
       visit new_place_path(map_token: @map.public_token)
       fill_in_valid_place_information
-      fill_in('place_categories', with: 'Hospital, Cafe')
+      fill_in('place_categories_string', with: 'Hospital, Cafe')
       click_button('Create Place')
 
       expect(Category.count).to eq 2
-      expect(Place.last.categories).to eq Category.first(2).map(&:id).join(',')
+      expect(Place.last.categories.sort_by(&:id).to_a).to eq Category.all.sort_by(&:id)
     end
 
     scenario 'see guests session places on map' do

@@ -1,0 +1,21 @@
+-# DESCRIPTION MODAL
+.modal.fade.create-map-tags-modal{role: 'dialog'}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
+        %h4.modal-title= t('.create_new_tag')
+      .modal-body
+        -# NEW TAG FORM
+        .row
+          .col-xs-12
+            - map.supported_languages.each do |language|
+              .col-md-6.col-xs-12
+                %fieldset
+                  .input-group
+                    %span.input-group-addon= language
+                    = text_field_tag :name, '', class: "form-control", data: { attribute: "name_#{language}" }
+        .row.button-row
+          .col-xs-6.col-sm-4.col-md-3.text-center
+            %span.btn.btn-primary.btn-success.create-tag-button{disabled: true}
+              = t('buttons.submit')

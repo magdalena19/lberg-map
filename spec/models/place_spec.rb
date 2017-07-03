@@ -97,7 +97,7 @@ describe Place do
     it 'creates and autotranslates categories correctly' do
       Sidekiq::Testing.inline! do
         map = create :map, :full_public
-        create :place, :unreviewed, categories: 'Foo', map: map
+        create :place, :unreviewed, categories_string: 'Foo', map: map
       end
 
       expect(Category.count).to be 1

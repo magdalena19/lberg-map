@@ -1,8 +1,8 @@
 feature 'Index', :js do
   before do
     @map = create :map, :full_public
-    create :place, :reviewed, name: 'Haus vom Nikolaus', phone: 1234, categories: 'Playground', map: @map
-    create :place, :reviewed, name: 'Katzenklo', categories: 'Lawyer', map: @map
+    create :place, :reviewed, name: 'Haus vom Nikolaus', phone: 1234, categories_string: 'Playground', map: @map
+    create :place, :reviewed, name: 'Katzenklo', categories_string: 'Lawyer', map: @map
   end
 
   scenario 'shows places in datatable' do

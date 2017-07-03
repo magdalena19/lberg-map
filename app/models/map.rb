@@ -45,11 +45,10 @@ class Map < ActiveRecord::Base
       errors.add(:public_token, I18n.t('.public_token_not_unique'))
     end
   end
-  
 
   # AUTHENTICATION
   def authenticated?(attribute:, token:)
-    return false unless digest = self.send("#{attribute}_digest") 
+    return false unless digest = self.send("#{attribute}_digest")
     BCrypt::Password.new(digest).is_password?(token)
   end
 
@@ -114,10 +113,6 @@ class Map < ActiveRecord::Base
     all_translations.select { |t| !t.reviewed }
   end
 
-  def category_names_list
-    categories.all.map(&:name).join(', ')
-  end
-
   def id_for_category_string(category_string)
     category = Category.all.find do |cat|
       category_string.tr('_', ' ').casecmp(cat.name).zero?
@@ -145,6 +140,10 @@ class Map < ActiveRecord::Base
     supported_languages.sort.map { |l| I18n.t("languages.#{l}") }.join(', ')
   end
 
+  def category_names
+    categories.sort_by(&:name).map(&:name)
+  end
+
   private
 
   def sanitize_imprint
@@ -155,7 +154,7 @@ class Map < ActiveRecord::Base
     self.description = sanitize(description)
   end
 
-  TILE_POSITION = { 
+  TILE_POSITION = {
     z: 16,
     y: 25541,
     x: 18877

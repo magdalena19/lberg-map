@@ -43,3 +43,17 @@ class PlacesAccessRestriction
     false
   end
 end
+
+class CategoriesAccessRestriction
+  attr_reader :token
+
+  def is_secret_link?
+    Map.find_by(secret_token: token)
+  end
+
+  def matches?(request)
+    @token = request[:map_token]
+    return true if is_secret_link?
+    false
+  end
+end

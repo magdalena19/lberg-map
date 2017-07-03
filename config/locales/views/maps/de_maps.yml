@@ -33,6 +33,7 @@ de:
         publication_settings: 'Veröffentlichungs-Einstellungen'
         language_settings: 'Mehrsprachigkeit'
         password_protection: 'Passwort-Schutz'
+        tag_maintainance: 'Tags'
       form_base_settings_tab:
         secret_link: 'Geheimer Link'
         secret_token: 'Geheimer Schlüssel'
@@ -48,10 +49,15 @@ de:
         is_public: 'Karte veröffentlichen'
         allow_guest_commits: 'Erlaube Gast-Änderungen'
         imprint: 'Impressum deiner Karte (optional)'
-      form_password_protection_tab:
       form_language_settings_tab:
         auto_translate: 'Automatische Übersetzungen von Beschreibungen und Tags'
         supported_languages: 'Unterstützte Sprachen auf deiner Karte'
+      form_tag_maintainance_tab:
+        no_translation_yet: 'Bitte Übersetzung eintragen'
+        no_tags_yet: 'Noch keine Tags eingetragen...'
+        maintain_tags: 'Tags bearbeiten'
+        add_new_tag: 'Tag hinzufügen'
+        headline: 'Vorhandene Tags'
     modals:
       embed_map_modal:
         embed_map: 'Karten einbetten'

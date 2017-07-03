@@ -18,7 +18,7 @@ FactoryGirl.define do
     homepage 'https://bar.com'
     phone '03081618254'
     event false
-    categories 'Playground,Hospital'
+    categories_string 'Playground,Hospital'
     map
 
     after(:create) { |place| set_reviewed_on_translations(place) }
@@ -57,9 +57,10 @@ FactoryGirl.define do
       event true
       reviewed true
       name 'SomeEvent'
-      categories 'Playground,Hospital'
+      categories_string 'Playground,Hospital'
       start_date { Date.today - 10 }
       end_date { Date.today - 5 }
+      map
 
       trait :past do
         name 'PastEvent'

@@ -11,4 +11,8 @@ class NullTranslator
   def char_balance_sufficient?
     true
   end
+ 
+  def self.working?
+    false
+  end
 end

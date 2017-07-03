@@ -24,4 +24,10 @@ class BingTranslatorWrapper
   else
     matches.all?
   end
+
+  # Method for reflecting availability of translation engine
+  # TODO Can query API directly?
+  def self.working?
+    ENV['bing_id'].present? && ENV['bing_secret'].present? && ENV['microsoft_account_key'].present?
+  end
 end

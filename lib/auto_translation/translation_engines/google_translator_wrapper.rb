@@ -17,4 +17,10 @@ class GoogleTranslatorWrapper
   else
     matches.any?
   end
+
+  # Method for reflecting availability of translation engine
+  # TODO Can query API directly?
+  def self.working?
+    ENV['google_translate_secret'].present?
+  end
 end

@@ -228,6 +228,13 @@ RSpec.describe MapsController, type: :controller do
 
       expect(session[:maps].count).to be 1
     end
+
+    it 'sets auto_translation to false if translation engine is none' do
+      post :create, map: attributes_for(:map, :full_public, translation_engine: 'none')
+      map = assigns(:map)
+
+      expect(map.auto_translate).to be false
+    end
   end
 
   describe 'GET #edit' do

@@ -5,6 +5,15 @@ require 'auto_translation/translation_engines/null_translator'
 
 # Module containing methods extending objects with auto-translation capabilities
 module AutoTranslate
+
+  module Helpers
+    # Translation system status
+    def self.translation_engine_working?(engine:)
+      engine_wrapper = "#{engine.camelize}TranslatorWrapper".singularize.constantize
+      engine_wrapper.working?
+    end
+  end
+
   class TranslationRequest
     attr_reader :text, :from, :to
 
@@ -74,8 +83,8 @@ module AutoTranslate
   def translate_and_update
     missing_locales.each do |missing_locale|
       request = TranslationRequest.new(text: @native_translation.send("#{@attribute}"),
-                                      from: @native_translation.locale,
-                                      to: missing_locale)
+                                       from: @native_translation.locale,
+                                       to: missing_locale)
       auto_translation = translate(translation_request: @request)
       translation_record = translations.find_by(locale: missing_locale)
       update = -> { translation_record.send "update_attributes", { "#{@attribute}": auto_translation, auto_translated: true } }

@@ -1,4 +1,5 @@
 require 'validators/custom_validators'
+require 'auto_translation/auto_translate'
 require 'sanitize'
 
 class Admin::Setting < ActiveRecord::Base
@@ -26,8 +27,11 @@ class Admin::Setting < ActiveRecord::Base
     self.last.attributes.except("id")
   end
 
-  def self.translation_engines
-    %w[google bing yandex]
+  def self.working_translation_engines
+    engines = self.translation_engines.select do |engine|
+      AutoTranslate::Helpers.translation_engine_working?(engine: engine)
+    end
+    engines.unshift 'none'
   end
 
   def self.captcha_systems
@@ -41,5 +45,11 @@ class Admin::Setting < ActiveRecord::Base
     define_singleton_method(attribute.to_sym) do
       last.send(attribute)
     end
+  end
+
+  private
+
+  def self.translation_engines
+    %w[google bing yandex]
   end
 end

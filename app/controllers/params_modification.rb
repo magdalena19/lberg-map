@@ -24,9 +24,9 @@ module ParamsModification
       private
 
       def modify_category_params
-        if @params[:categories]
-          category_param = @params[:categories].split(/,|;/).map(&:strip).sort || []
-          @params[:categories] = category_param.reject(&:empty?).join(',')
+        if @params[:categories_string]
+          category_param = @params[:categories_string].split(/,|;/).map(&:strip).sort || []
+          @params[:categories_string] = category_param.reject(&:empty?).join(',')
         end
       end
 

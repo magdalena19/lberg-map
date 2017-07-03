@@ -13,10 +13,6 @@ module PlacesHelper
     end
   end
 
-  def category_names(place)
-    place.category_names.join(', ')
-  end
-
   def address(place)
     ["#{place.street} #{place.house_number}", "#{place.postal_code} #{place.city}"].select(&:present?).join(', ')
   end

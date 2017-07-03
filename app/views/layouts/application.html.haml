@@ -32,3 +32,6 @@
           %span.app_privacy_policy_toggle{style: 'cursor: pointer;'}= t('.app_privacy_policy')
 
 = render partial: 'layouts/modals'
+
+:javascript
+  window.delete_confirmation_text = '#{t('prompts.confirm_delete')}'

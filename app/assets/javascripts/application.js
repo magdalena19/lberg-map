@@ -13,7 +13,7 @@
 //= require datetime-moment
 //= require daterangepicker
 
-//= require ./page_specific/maps/_map_overlays
+//= require ./page_specific/maps/show/_map_overlays
 
 jQuery(function() {
   if (window.history.length === 1) {
@@ -185,67 +185,6 @@ jQuery(function() {
     jQuery('.login-form').show();
   });
 
-  // MAP VIEWS (form, index, ...)
-  var toggle_if_checked = function(checkbox_id, div_to_toggle) {
-    jQuery(checkbox_id).on('click', function(){
-      var checked = $(this).is(':checked');
-      if (checked) {
-        jQuery(div_to_toggle).show(350);
-      } else {
-        jQuery(div_to_toggle).hide(350);
-      }
-    });
-  };
-
-  // Form
-
-  // Password
-  jQuery('.password-checkbox').on('click', 'input', function() {
-    var checkbox = jQuery(this)[0];
-    var passwordField = jQuery('#map_password');
-    var passwordConfirmationField = jQuery('#map_password_confirmation');
-
-    if (checkbox.checked) {
-      passwordField.
-        attr('disabled', false).
-        attr('placeholder', '•••••')
-      passwordConfirmationField.
-        attr('disabled', false).
-        attr('placeholder', '•••••')
-    } else {
-      passwordField.
-        attr('disabled', true).
-        val('').
-        attr('placeholder', '')
-      passwordConfirmationField.
-        attr('disabled', true).
-        val('').
-        attr('placeholder', '')
-    }
-  });
-
-  toggle_if_checked('#map_auto_translate', '#map_translation_engine');
-
-  jQuery('#map_is_public').on('click', function(){
-    var checked = jQuery(this).is(':checked');
-    if (checked) {
-      jQuery('.map-public-settings').show(350);
-    } else {
-      jQuery('.map-public-settings').hide(350);
-    }
-  })
-
-  // generate public token
-  function camelize(string) {
-    return string.toLowerCase().split(' ').join('_');
-  }
-
-  jQuery('#map_title').on('input', function(){
-    title = jQuery(this).val();
-    var public_token_input = jQuery('#map_public_token');
-    public_token_input.val(camelize(title)).trigger('change');
-  })
-
   // ------ MAP MODALS
   jQuery('.map-modal-button').on('click', function(){
     target = jQuery(this).data('target');
@@ -303,7 +242,7 @@ jQuery(function() {
       // Workaround: Create DOM element, copy content of input field, copy to clipboard, remove DOM element
       var temp = $("<input>");
 
-      $("body").append(temp); 
+      $("body").append(temp);
       temp.val(inputVal).select();
       document.execCommand('copy'); // copy text
       temp.remove();
@@ -381,9 +320,9 @@ jQuery(function() {
     switch (event.key) {
       case "Escape":
         jQuery('.modal').modal('hide');
-      break;
+        break;
       default:
-      return; // Quit when this doesn't handle the key event.
+        return; // Quit when this doesn't handle the key event.
     }
 
     // Consume the event to avoid it being handled twice

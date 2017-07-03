@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615141750) do
+ActiveRecord::Schema.define(version: 20170704085932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,16 @@ ActiveRecord::Schema.define(version: 20170615141750) do
 
   add_index "messages", ["map_id"], name: "index_messages_on_map_id", using: :btree
 
+  create_table "place_categories", force: :cascade do |t|
+    t.integer  "place_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "place_categories", ["category_id"], name: "index_place_categories_on_category_id", using: :btree
+  add_index "place_categories", ["place_id"], name: "index_place_categories_on_place_id", using: :btree
+
   create_table "place_translations", force: :cascade do |t|
     t.integer  "place_id",                        null: false
     t.string   "locale",                          null: false
@@ -128,23 +138,23 @@ ActiveRecord::Schema.define(version: 20170615141750) do
   add_index "place_translations", ["place_id"], name: "index_place_translations_on_place_id", using: :btree
 
   create_table "places", force: :cascade do |t|
-    t.float    "latitude",                      null: false
-    t.float    "longitude",                     null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.string   "name",                          null: false
+    t.float    "latitude",                          null: false
+    t.float    "longitude",                         null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "name",                              null: false
     t.string   "postal_code"
     t.string   "street"
     t.string   "house_number"
     t.string   "city"
-    t.boolean  "reviewed",      default: false, null: false
-    t.text     "categories",    default: ""
+    t.boolean  "reviewed",          default: false, null: false
+    t.text     "categories_string", default: ""
     t.string   "phone"
     t.string   "email"
     t.string   "homepage"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.boolean  "event",         default: false, null: false
+    t.boolean  "event",             default: false, null: false
     t.string   "country"
     t.string   "district"
     t.string   "federal_state"
@@ -191,5 +201,7 @@ ActiveRecord::Schema.define(version: 20170615141750) do
   add_foreign_key "categories", "maps"
   add_foreign_key "maps", "users"
   add_foreign_key "messages", "maps"
+  add_foreign_key "place_categories", "categories"
+  add_foreign_key "place_categories", "places"
   add_foreign_key "places", "maps"
 end

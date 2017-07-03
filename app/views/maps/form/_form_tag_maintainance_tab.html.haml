@@ -1,0 +1,28 @@
+.tab-pane#tag_maintainance
+  -# TAG FORM FIELDS
+  .spacer-row
+  .header
+    %h4.pull-left= t('.headline')
+    %span.btn.btn-success.toggle-create-tag-modal.pull-right= t('.add_new_tag')
+  .tag-list
+    .category-translations.template#category-form-template
+      .row
+        .spacer-row
+        .col-xs-12
+          = f.label :name, class: 'current-tag-translation'
+          %span.category-count
+        - @map.supported_languages.each do |language|
+          .col-md-3.col-xs-12
+            %fieldset
+              .input-group
+                %span.input-group-addon= language
+                = text_field_tag :name, '',
+                  class: "form-control name_#{language}",
+                  data: { 'attribute' => "name_#{language}" }
+
+      -# BUTTONS
+      .row
+        .col-xs-12.col-md-12
+          .maintain-tag-buttons.pull-left
+            %span.glyphicon.btn.btn-success.fa.fa-check-circle.update-tag-button
+            %span.glyphicon.btn.btn-danger.fa.fa-trash.delete-tag-button

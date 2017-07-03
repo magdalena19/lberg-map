@@ -1,7 +1,7 @@
 feature 'Edit place' do
   before do
     @map = create :map, :full_public
-    @place = create :place, :reviewed, categories: 'Playground, Café', map: @map
+    @place = create :place, :reviewed, categories_string: 'Café, Playground', map: @map
   end
 
   scenario 'Do valid place update as user and show in index afterwards', :js do
@@ -46,6 +46,7 @@ feature 'Edit place' do
 
   scenario 'Display category names in edit field', :js do
     visit edit_place_path(id: @place.id, map_token: @map.public_token)
-    expect(page.find('#place_categories').value).to eq 'Café, Playground'
+
+    expect(page.find('#place_categories_string').value).to eq 'Café, Playground'
   end
 end

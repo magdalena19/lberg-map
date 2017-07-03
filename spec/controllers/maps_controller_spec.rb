@@ -112,7 +112,7 @@ RSpec.describe MapsController, type: :controller do
     it 'populates all places in map in @places_to_show' do
       @places = create_list(:place, 3, :reviewed, map: @map)
       get :show, map_token: @map.public_token
-      
+
       expect(assigns(:places_to_show).sort_by(&:id)).to eq @places
     end
 

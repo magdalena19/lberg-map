@@ -72,7 +72,8 @@ module MassSeedPoints
       random_point = random_point_inside_bbox(boundaries)
       updated_at = Date.today - rand(0..365)
       created_at = updated_at - rand(5..100)
-      categories = map.categories.all
+      categories = map.categories.sample(rand(1..3))
+      categories_string = categories.map(&:name).join(', ')
       reviewed_status = map.allow_guest_commits ? [true, false].sample : true
       @place = map.places.create(name: Faker::Hipster.word.capitalize,
                                  street: Faker::Address.street_name,
@@ -86,7 +87,8 @@ module MassSeedPoints
                                  longitude: random_point[:longitude],
                                  description_en: Faker::Hipster.paragraph(rand(1..2)),
                                  description_de: Faker::Hipster.paragraph(rand(1..2)),
-                                 categories: categories.sample(rand(1..3)).map(&:name).join(','),
+                                 categories: categories,
+                                 categories_string: categories_string,
                                  event: false,
                                  reviewed: reviewed_status,
                                  created_at: created_at,

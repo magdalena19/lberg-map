@@ -35,6 +35,7 @@ gem 'phantomjs_polyfill-rails'
 gem 'rack-attack'
 gem 'rails-html-sanitizer'
 gem "recaptcha", require: "recaptcha/rails"
+gem 'responders', '~> 2.0'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'

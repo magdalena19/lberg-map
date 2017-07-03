@@ -52,7 +52,7 @@ module MapAccessGateway
     render nothing: true, status: 401 unless map_access_via_secret_link
   end
 
-  def can_commit?(model:)
+  def can_commit_to?(model:)
     @model = model
     @current_user.signed_in? || captcha_valid?
   end

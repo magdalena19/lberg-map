@@ -33,7 +33,7 @@ class MapsController < ApplicationController
   end
 
   # HTTP response does not need to be authenticated as it renders only the template
-  # ajax calls 
+  # ajax calls
   def show
     @categories = @map.categories.all
     @latitude = params[:latitude]
@@ -52,7 +52,7 @@ class MapsController < ApplicationController
       end
       format.html do
         if params[:iframe] == 'true'
-          render layout: 'iframe' 
+          render layout: 'iframe'
         else
           render layout: 'application'
         end
@@ -79,7 +79,7 @@ class MapsController < ApplicationController
     @map = Map.new(map_params)
     @map.user = @current_user unless @current_user.guest?
 
-    if can_commit?(model: @map) && @map.save
+    if can_commit_to?(model: @map) && @map.save
       session[:maps] << @map.id if @current_user.guest?
       flash[:success] = t('.created')
       redirect_to map_path(@map.secret_token)
@@ -94,7 +94,7 @@ class MapsController < ApplicationController
   end
 
   def update
-    if can_commit?(model: @map) && @map.update_attributes(map_params)
+    if can_commit_to?(model: @map) && @map.update_attributes(map_params)
       flash[:success] = t('.changes_saved')
       redirect_to maps_url
     else
@@ -152,7 +152,7 @@ class MapsController < ApplicationController
 
   def unlocked?
     is_public_token? ||
-      !@map.password_protected? || 
+      !@map.password_protected? ||
       session[:unlocked_maps].include?(request[:map_token])
   end
 

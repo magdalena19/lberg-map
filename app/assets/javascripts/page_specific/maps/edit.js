@@ -1,1 +1,1 @@
-//= require ./_form
+//= require ./form/_form

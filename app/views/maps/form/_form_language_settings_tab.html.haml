@@ -2,14 +2,13 @@
   .map_language_settings
     .row
       .spacer-row
-      .col-xs-8
-        .checkbox
-          %label
-            = f.check_box :auto_translate
-          = t('.auto_translate')
-      .col-xs-4
-        = f.collection_select :translation_engine, Admin::Setting.translation_engines, :to_s, :humanize
+      .col-xs-12
+        %h4= t('.auto_translate') 
+      .col-xs-12
+        = f.collection_select :translation_engine, Admin::Setting.working_translation_engines, :to_s, :humanize, {selected: @map.translation_engine || 'none'}
+
     .row
+      .spacer-row
       .col-xs-12
         %h4= t('.supported_languages')
         - I18n.available_locales.each do |locale|

@@ -50,7 +50,7 @@ en:
         imprint: 'Map imprint (optional)'
       form_password_protection_tab:
       form_language_settings_tab:
-        auto_translate: 'Activate automatic translation of descriptions and tags'
+        auto_translate: 'Automatic translation of descriptions and tags'
         supported_languages: 'Supported Languages on your map'
     modals:
       embed_map_modal:

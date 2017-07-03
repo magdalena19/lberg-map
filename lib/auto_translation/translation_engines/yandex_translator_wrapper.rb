@@ -20,4 +20,10 @@ class YandexTranslatorWrapper
   else
     matches.any?
   end
+
+  # Method for reflecting availability of translation engine
+  # TODO Can query API directly?
+  def self.working?
+    ENV['yandex_secret'].present?
+  end
 end

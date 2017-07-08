@@ -18,10 +18,22 @@ class MapAccessRestriction
     map && map.is_public
   end
 
+  def is_map_admin_ressource?(request:)
+    ressource = request.env["action_dispatch.request.parameters"]
+    ressource[:controller] == "maps" && ["edit", "update", "destroy"].include?(ressource[:action])
+  end
+
   def matches?(request)
     @token = request[:map_token]
-    return true if is_secret_link? || can_access_as_guest?
-    false
+
+    # Conditionally permit route access
+    if is_map_admin_ressource?(request: request)
+      return true if is_secret_link?
+    else
+      return true if is_secret_link? || can_access_as_guest?
+    end
+
+    return false
   end
 end
 

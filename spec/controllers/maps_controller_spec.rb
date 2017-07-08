@@ -253,6 +253,10 @@ RSpec.describe MapsController, type: :controller do
     it 'renders :edit template' do
       expect(response).to render_template :edit
     end
+
+    it 'cannot get edit if requested via public token' do
+      expect(get: "/#{map.public_token}/edit").not_to be_routable
+    end
   end
 
   describe 'PATCH #update' do
@@ -263,6 +267,10 @@ RSpec.describe MapsController, type: :controller do
       patch :update, map_token: map.secret_token, map: { title: 'ChangedTitle' }
 
       expect(assigns(:map).title).to eq 'ChangedTitle'
+    end
+
+    it 'cannot update if requested via public token' do
+      expect(patch: "/#{map.public_token}").not_to be_routable
     end
   end
 
@@ -275,6 +283,10 @@ RSpec.describe MapsController, type: :controller do
       expect {
         delete :destroy, map_token: @map.secret_token
       }.to change { Map.count }.by(-1)
+    end
+
+    it 'cannot destroy if requested via public token' do
+      expect(delete: "/#{@map.public_token}").not_to be_routable
     end
   end
 

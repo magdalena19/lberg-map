@@ -9,7 +9,7 @@ feature 'Modify place categories', js: true do
     end
 
     scenario 'create category if not there and properly update place categories' do
-      login_as_user
+      # login_as_user
       visit edit_place_path(id: @place.id, map_token: @map.public_token)
 
       fill_in('place_categories_string', with: 'Hospital, Lawyer')

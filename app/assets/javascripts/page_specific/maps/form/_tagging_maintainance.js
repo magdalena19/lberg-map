@@ -207,11 +207,8 @@ jQuery(function() {
         context: this,
         success: function() {
           jQuery(this).closest('.category-translations').fadeOut(350);
-          // jQuery(this).closest('.category-translations').remove();
         }
       });
     }
   });
-
-
 })

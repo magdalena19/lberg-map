@@ -23,6 +23,15 @@ class Place < ActiveRecord::Base
   split_accessor :start_date
   split_accessor :end_date
 
+  # PLACE COLORS
+  COLORS_AVAILABLE = [
+    'red', 'orange-dark', 'orange', 'yellow', 'blue-dark', 'cyan', 'purple', 'violet', 'pink', 'green-dark', 'green', 'green-light', 'white' # Exclude black although available -> reserved for session places/events
+  ].freeze
+
+  def self.available_colors
+    COLORS_AVAILABLE
+  end
+
   ## ASSOCIATIONS
   belongs_to :map
   has_many :place_category, dependent: :nullify
@@ -35,6 +44,7 @@ class Place < ActiveRecord::Base
   validates :phone, phone_number_format: true, if: 'phone.present?'
   validates :homepage, url_format: true, if: 'homepage.present?'
   validate :end_date, :is_after_start_date?, if: 'start_date.present? && end_date.present?'
+  validates :color, inclusion: { in: COLORS_AVAILABLE }
 
   def is_after_start_date?
     if end_date < start_date
@@ -126,6 +136,7 @@ class Place < ActiveRecord::Base
       description: reviewed_description.html_safe,
       category_names: categories.map(&:name).join(' | '),
       is_event: event,
+      color: color,
       reviewed: reviewed
     }
   end

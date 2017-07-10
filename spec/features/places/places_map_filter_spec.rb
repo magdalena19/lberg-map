@@ -72,7 +72,7 @@ feature 'Places map filter', js: true do
   scenario 'wrong word input does not find any place', js_errors: false do
     fill_in('search-input', with: 'sdijfdihjgudfhugfhdudg')
 
-    expect(page).to_not have_css('.leaflet-marker-icon')
+    expect(page).to_not have_css('.awesome-marker')
   end
 
   scenario 'multiple word input finds correct place' do
@@ -86,13 +86,6 @@ feature 'Places map filter', js: true do
 
     expect(page).to_not have_content 'Playpital'
     expect(page).to have_content 'AdventurePark'
-
-    # also with semicolon separation
-    fill_in('search-input', with: 'Playground;1337')
-
-    expect(page).to_not have_content 'Playpital'
-    expect(page).to have_content 'AdventurePark'
-    expect(page.all('.leaflet-marker-icon').count).to be 1
   end
 
   scenario 'existing categories are suggested via dropdown' do

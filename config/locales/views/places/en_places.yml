@@ -20,6 +20,7 @@ en:
       categories_placeholder: 'Add some tags to your place/event'
       place_descriptions: 'Description'
       date_information: 'Date information'
+      place_color: 'Color'
     edit:
       edit: 'Edit place'
     index:

@@ -18,6 +18,16 @@ describe PlacesController do
     place
   end
 
+  context 'Place color' do
+    let(:map) { create :map, :full_public }
+
+    it 'can post color' do
+      expect {
+        post :create, map_token: map.public_token, place: attributes_for(:place, :unreviewed, color: Place.available_colors.first)
+      }.to change { Place.count }.by(1)
+    end
+  end
+
   context 'Password protection' do
     let(:map) { create :map, :full_public, password: 'secret', password_confirmation: 'secret' }
     let(:place) { create :place, :reviewed }

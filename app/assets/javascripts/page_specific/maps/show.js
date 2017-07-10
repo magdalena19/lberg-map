@@ -5,21 +5,39 @@
 
 jQuery(function() {
   // Marker icons
-  var place_icon = L.icon({
-    iconUrl: placeMarker
-  });
+  function place_icon(color) {
+    return L.ExtraMarkers.icon({
+      prefix: 'fa',
+      icon: 'fa-home',
+      markerColor: color
+    });
+  }
 
-  var event_icon = L.icon({
-    iconUrl: eventMarker
-  });
+  function event_icon(color) {
+    return L.ExtraMarkers.icon({
+      prefix: 'fa',
+      icon: 'fa-calendar',
+      markerColor: color
+    });
+  }
 
-  var session_event_icon = L.icon({
-    iconUrl: sessionEventMarker
-  });
+  function session_event_icon(color) {
+    return L.ExtraMarkers.icon({
+      prefix: 'fa',
+      icon: 'fa-calendar',
+      shape: 'star',
+      markerColor: 'black'
+    });
+  }
 
-  var session_place_icon = L.icon({
-    iconUrl: sessionPlaceMarker
-  });
+  function session_place_icon(color) {
+    return L.ExtraMarkers.icon({
+      prefix: 'fa',
+      icon: 'fa-home',
+      shape: 'star',
+      markerColor: 'black'
+    });
+  }
 
   jQuery('#map').each(function() {
     // move flash message in foreground when map is displayed
@@ -41,15 +59,15 @@ jQuery(function() {
       var prop = feature.properties;
       if (prop.reviewed === false) {
         if (prop.is_event === true) {
-          layer.setIcon(session_event_icon);
+          layer.setIcon(session_event_icon(prop.color));
         } else {
-          layer.setIcon(session_place_icon);
+          layer.setIcon(session_place_icon(prop.color));
         }
       } else {
         if (prop.is_event === true) {
-          layer.setIcon(event_icon);
+          layer.setIcon(event_icon(prop.color));
         } else {
-          layer.setIcon(place_icon);
+          layer.setIcon(place_icon(prop.color));
         }
       }
 

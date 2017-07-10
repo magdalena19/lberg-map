@@ -40,6 +40,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
+gem 'spectrum-rails'
 gem 'time_splitter'
 gem 'translate-rails3', require: 'translate', group: :development
 gem 'travis'

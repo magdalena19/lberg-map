@@ -20,14 +20,16 @@
  *= require daterangepicker
  *= require leaflet.draw
  *= require Control.Geocoder
+ *= require spectrum
+ *= require leaflet.extra-markers.min
  *= require_tree .
  *= require_self
  */
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
-@import 'font-awesome';
 @import 'colors';
+@import 'font-awesome';
 
 noscript {
   width: 100%;

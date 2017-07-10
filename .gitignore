@@ -42,3 +42,5 @@ postgesqldata/*
 # Ignore test assets
 public/assets_test/
 public/capybara.html
+
+vendor/bundle/*

@@ -11,7 +11,19 @@ describe Place do
     it { is_expected.to belong_to(:map) }
   end
 
+  context 'Place colors' do
+    it 'queries available place colors' do
+      expect(Place).to respond_to(:available_colors)
+    end
+  end
+
   context 'Validate' do
+    it 'has one of the pre-defined colors' do
+      place.color = 'some invalid color'
+
+      expect(place).to be_invalid
+    end
+
     it 'empty place as invalid' do
       expect(Place.new).not_to be_valid
     end

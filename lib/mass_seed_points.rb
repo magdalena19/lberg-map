@@ -91,6 +91,7 @@ module MassSeedPoints
                                  categories_string: categories_string,
                                  event: false,
                                  reviewed: reviewed_status,
+                                 color: Place.available_colors.sample(1).first,
                                  created_at: created_at,
                                  updated_at: updated_at)
 

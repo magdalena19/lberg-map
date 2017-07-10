@@ -1,5 +1,19 @@
 @import 'colors';
 
+.extra-marker i {
+  &.fa-calendar {
+    margin-top: 11px;
+    margin-left: 1px;
+    font-size: 14px;
+  }
+
+  &.fa-home {
+    margin-top: 9px;
+    font-size: 17px;
+    margin-left: 1px;
+  }
+}
+
 .map-container {
   width: 100%;
   position: relative;
@@ -9,6 +23,7 @@
 #map {
   height:100%;
 }
+
 .tooltip-inner {
   max-width: none;
   white-space: nowrap;

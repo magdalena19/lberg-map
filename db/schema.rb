@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704085932) do
+ActiveRecord::Schema.define(version: 20170710112758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,27 +138,28 @@ ActiveRecord::Schema.define(version: 20170704085932) do
   add_index "place_translations", ["place_id"], name: "index_place_translations_on_place_id", using: :btree
 
   create_table "places", force: :cascade do |t|
-    t.float    "latitude",                          null: false
-    t.float    "longitude",                         null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.string   "name",                              null: false
+    t.float    "latitude",                             null: false
+    t.float    "longitude",                            null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "name",                                 null: false
     t.string   "postal_code"
     t.string   "street"
     t.string   "house_number"
     t.string   "city"
-    t.boolean  "reviewed",          default: false, null: false
+    t.boolean  "reviewed",          default: false,    null: false
     t.text     "categories_string", default: ""
     t.string   "phone"
     t.string   "email"
     t.string   "homepage"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.boolean  "event",             default: false, null: false
+    t.boolean  "event",             default: false,    null: false
     t.string   "country"
     t.string   "district"
     t.string   "federal_state"
     t.integer  "map_id"
+    t.string   "color",             default: "purple", null: false
   end
 
   add_index "places", ["map_id"], name: "index_places_on_map_id", using: :btree

@@ -370,6 +370,8 @@ GEM
     simplecov-html (0.10.0)
     slop (3.6.0)
     socksify (1.7.1)
+    spectrum-rails (1.6.2)
+      railties (>= 3.1)
     spring (2.0.1)
       activesupport (>= 4.2)
     sprockets (3.7.1)
@@ -484,6 +486,7 @@ DEPENDENCIES
   sidekiq
   simple_captcha!
   simplecov
+  spectrum-rails
   spring
   time_splitter
   translate-rails3

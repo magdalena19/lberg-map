@@ -133,7 +133,8 @@ class PlacesController < ApplicationController
       *Place.globalize_attribute_names,
       :phone, :homepage, :email,
       :event, :start_date,
-      :categories_string
+      :categories_string,
+      :color
     )
   end
 end

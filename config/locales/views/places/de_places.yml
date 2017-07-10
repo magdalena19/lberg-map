@@ -20,6 +20,7 @@ de:
       categories_placeholder: 'Füge deinem Ort / Event Stichworte hinzu'
       place_descriptions: 'Beschreibung'
       date_information: 'Angaben zum Datum'
+      place_color: 'Farbe'
     edit:
       edit: 'Bearbeiten'
     index:

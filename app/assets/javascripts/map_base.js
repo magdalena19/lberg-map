@@ -3,6 +3,7 @@
 //= require leaflet.markercluster
 //= require leaflet-providers
 //= require Control.Geocoder
+//= require leaflet.extra-markers.min
 
 jQuery(function() {
   var MAIN_TILE_SERVER_TEST = 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/1/1/1.jpg';

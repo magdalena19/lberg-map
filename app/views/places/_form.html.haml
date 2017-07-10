@@ -9,9 +9,12 @@
       %h4.header-row= t('.address_data')
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
-        .col-xs-12
+        .col-xs-10
           = f.label :name, t('.place_name') + '*'
           = f.text_field :name, class: 'form-control', disabled: @place.unreviewed_version
+        .col-xs-2
+          = f.label :color, t('.place_color')
+          = f.text_field :color, class: 'color-picker', value: @place.color
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:street)}"}
         .col-xs-8
@@ -130,6 +133,7 @@
   window.start_date = '#{@place.start_date}';
   window.end_date = '#{@place.end_date}';
   window.with_end_date = #{@place.end_date.present?}
+  window.available_place_colors = #{Place.available_colors}
 
   jQuery(function() {
     if (window.is_event == true) {

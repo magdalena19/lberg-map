@@ -72,7 +72,7 @@ jQuery(function() {
       }
 
       layer.on('click', function(e) {
-        showSidepanel();
+        showPlacesListPanel();
         zoomTo(e.latlng.lat, e.latlng.lng);
 
         var accordionItemHeading = jQuery('#heading' + feature.id);
@@ -301,10 +301,10 @@ jQuery(function() {
     // TOGGLE SIDEPANEL
     jQuery('.toggle-panel').click(function() {
       if (jQuery('.places-list-panel').is(':visible')) {
-        hideSidepanel();
+        hidePlacesListPanel();
         showMapControls();
       } else {
-        showSidepanel();
+        showPlacesListPanel();
         if (window.innerWidth < 600) { hideMapControls() };
       }
     });
@@ -363,7 +363,7 @@ jQuery(function() {
     };
 
     jQuery('body').on('click', '.show-map', function() {
-      hideSidepanel();
+      hidePlacesListPanel();
     });
 
     // LIVE SEARCH
@@ -493,9 +493,9 @@ jQuery(function() {
           showMapElements();
           jQuery('.loading').hide();
           jQuery('.fade-background').hide();
-          showSidepanel();
+          showPlacesListPanel();
           resizeSidePanel();
-          hideSidepanel();
+          hidePlacesListPanel();
         }
       });
     }

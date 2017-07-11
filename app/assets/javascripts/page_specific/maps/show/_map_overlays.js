@@ -58,6 +58,7 @@ jQuery(function() {
   hideAddressSearchBar = function() {
     jQuery('.leaflet-control').remove();
     jQuery('.fade-background').hide();
+    placesListPanelToggle.show();
   };
 
   showAddressSearchBar = function() {
@@ -66,6 +67,7 @@ jQuery(function() {
     jQuery('.address-search-bar-container').append(leaflet_control);
     jQuery('.fade-background').show();
     hideMapElements();
+    placesListPanelToggle.hide();
   }
 
   showPlacesListPanel = function() {

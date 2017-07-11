@@ -142,7 +142,7 @@ jQuery(function() {
   // Toggle map elements if modal action is triggered
   jQuery('.map-container .modal').on('hidden.bs.modal', function() {
     showMapElements();
-    hideSidepanel();
+    hidePlacesListPanel();
   });
 
   jQuery('.map-container .modal').on('show.bs.modal', function() {

@@ -39,6 +39,10 @@ class Admin::Setting < ActiveRecord::Base
     %w[recaptcha simple_captcha]
   end
 
+  def self.auto_destroy_expired_maps?
+    expiry_days > 0
+  end
+
   Admin::Setting.create unless Admin::Setting.any?
   # spawn default values (-> schema) if no current settings available
   attributes = column_names.reject { |x| x == 'id' }

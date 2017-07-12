@@ -53,7 +53,8 @@ class Admin::SettingsController < AdminController
       :app_imprint,
       :app_privacy_policy,
       :multi_color_pois,
-      :default_poi_color
+      :default_poi_color,
+      :expiry_days
     )
 
   end

@@ -13,7 +13,7 @@ en:
         # Tabs
         public_settings: 'Public information'
         user_settings: 'User settings'
-        place_creation_settings: 'POI-Setup'
+        place_creation_settings: 'POIs and Maps'
         security: 'Security'
       captcha_system_status:
         captcha_system_working: 'Captcha system working'

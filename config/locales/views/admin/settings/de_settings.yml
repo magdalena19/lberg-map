@@ -12,7 +12,7 @@ de:
         update_settings: 'Übernehmen'
         public_settings: 'App-Herausgeber_in'
         user_settings: 'User-Einstellungen'
-        place_creation_settings: 'POI-Setup'
+        place_creation_settings: 'POIs und Karten'
         security: 'Sicherheit'
       captcha_system_status:
         captcha_system_working: 'Captcha-Methode läuft'

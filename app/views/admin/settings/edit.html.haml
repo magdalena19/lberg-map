@@ -11,7 +11,7 @@
         %a{'data-toggle' => 'tab', href: '#user_settings'}
           = t('.user_settings')
       %li.nav
-        %a{'data-toggle' => 'tab', href: '#place_creation_settings'}
+        %a{'data-toggle' => 'tab', href: '#pois_and_maps_settings'}
           = t('.place_creation_settings')
       %li.nav
         %a{'data-toggle' => 'tab', href: '#security'}
@@ -50,18 +50,29 @@
 
 
       -# PLACE CREATION SETTINGS
-      .tab-pane#place_creation_settings
-        %h3 Color setup
+      .tab-pane#pois_and_maps_settings
+        .row
+          .col-xs-12
+            %h3 POIs
+            %h4 Color setup
 
-        .col-xs-12
-          .checkbox
-            = f.check_box :multi_color_pois
-            = f.label :multi_color_pois
+          .col-xs-12
+            .checkbox
+              = f.check_box :multi_color_pois
+              = f.label :multi_color_pois
 
-        .col-xs-12
-          .checkbox
-            = f.text_field :default_poi_color, class: 'color-picker', value: @settings_hash[:default_poi_color] || Place.available_colors.first
-            = f.label :default_poi_color
+          .col-xs-12
+            .checkbox
+              = f.text_field :default_poi_color, class: 'color-picker', value: @settings_hash[:default_poi_color] || Place.available_colors.first
+              = f.label :default_poi_color
+
+          .col-xs-12
+            %h3 Maps
+
+          .col-xs-12
+            = f.label :expiry_days
+            = f.number_field :expiry_days, class: 'form-control'
+
 
 
       -# SECURITY SETTINGS

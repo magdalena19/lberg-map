@@ -31,7 +31,7 @@ feature 'Configure application', :js do
   end
 
   scenario 'can change place color settings' do
-    click_on('POI-Setup')
+    click_on('POIs and Maps')
     page.find("input[type='checkbox']").trigger('click')
     click_on('Update')
 
@@ -40,10 +40,28 @@ feature 'Configure application', :js do
 
   scenario 'can change default color' do
     new_color = Place.available_colors.first
-    click_on('POI-Setup')
+    click_on('POIs and Maps')
     fill_in("admin_setting_default_poi_color", with: new_color, visible: false)
     click_on('Update')
 
     expect(Admin::Setting.default_poi_color).to eq new_color
+  end
+
+  scenario 'can set expiry days for guest maps' do
+    click_on('POIs and Maps')
+    fill_in('admin_setting_expiry_days', with: '10')
+    click_on('Update')
+
+    expect(Admin::Setting.expiry_days).to eq 10
+    expect(Admin::Setting.auto_destroy_expired_maps?).to be true
+  end
+
+  scenario 'can unset auto_destroy for guest maps' do
+    click_on('POIs and Maps')
+    fill_in('admin_setting_expiry_days', with: '0')
+    click_on('Update')
+
+    expect(Admin::Setting.expiry_days).to eq 0
+    expect(Admin::Setting.auto_destroy_expired_maps?).to be false
   end
 end

@@ -1,3 +1,9 @@
+- if current_user.guest?
+  .row
+    .col-md-12
+      .alert.alert-danger
+        = raw t('.auto_destruct_warning', days_left_till_destruction: @map.days_left_till_destruction, link: link_to(t('.register_account'), sign_up_path))
+
 = form_for(@map, url: @url) do |f|
   %ul.nav.nav-tabs
     %li.nav.active

@@ -11,6 +11,11 @@ RSpec.describe Admin::Setting, type: :model do
     it { is_expected.to respond_to :user_activation_tokens }
     it { is_expected.to respond_to :multi_color_pois }
     it { is_expected.to respond_to :default_poi_color }
+    it { is_expected.to respond_to :expiry_days }
+
+    it 'can ask if should auto_destruct expired maps' do
+      expect(Admin::Setting).to respond_to(:auto_destroy_expired_maps?)
+    end
   end
 
   context 'Activation tokens' do

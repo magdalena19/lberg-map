@@ -8,6 +8,16 @@ FactoryGirl.define do
     supported_languages I18n.available_locales
     user
 
+    trait :public_guest_map do
+      title 'PublicGuestMap'
+      is_public true
+      auto_translate true
+      translation_engine 'bing'
+      allow_guest_commits true
+      public_token { SecureRandom.urlsafe_base64(24) }
+      user nil
+    end
+
     trait :full_public do
       title 'PublicMap'
       is_public true

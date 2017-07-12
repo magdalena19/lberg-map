@@ -8,5 +8,6 @@ FactoryGirl.define do
     captcha_system 'recaptcha'
     default_poi_color Place.available_colors.first
     multi_color_pois true
+    expiry_days 30
   end
 end

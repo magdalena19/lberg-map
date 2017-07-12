@@ -1,7 +1,7 @@
 en:
   maps:
     index:
-      session_maps_warning: 'Warning: This overview will be lost if you close your browser or delete your session cookie!'
+      session_maps_warning: 'Warning: This overview will be lost if your session gets lost (e.g. after computer reset)!'
       here: 'here'
       sign_up: 'Create an account %{link} in order to keep all your custom maps in one place!'
       no_map_yet: 'You have not created any maps yet...'
@@ -34,6 +34,8 @@ en:
         language_settings: 'Multi-language support'
         password_protection: 'Password protection'
         tag_maintainance: 'Tags'
+        auto_destruct_warning: 'If you do not visit this guest map within %{days_left_till_destruction} or %{link} it will be destroyed!'
+        register_account: 'create an account'
       form_base_settings_tab:
         secret_token: 'Secret key'
         secret_link: 'Secret link'

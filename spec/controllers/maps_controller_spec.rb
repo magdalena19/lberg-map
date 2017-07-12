@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe MapsController, type: :controller do
-
   describe 'Password protection' do
     before do
       @map = create :map, :full_public, password: 'secret', password_confirmation: 'secret'
@@ -57,6 +56,15 @@ RSpec.describe MapsController, type: :controller do
 
         expect(response.status).to eq 200
         expect(assigns(:places_to_show)).not_to be_empty
+      end
+
+      it 'Updates maps last visit attribute' do
+        create :settings, expiry_days: 10
+        map = create :map, :public_guest_map, last_visit: Date.today - 2.days
+        xhr :get, :show, format: :json, map_token: map.public_token
+
+        expect(map.reload.last_visit).to eq Date.today
+        expect(map.reload.days_left_till_destruction).to eq 10
       end
     end
 

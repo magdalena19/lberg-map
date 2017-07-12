@@ -115,7 +115,6 @@ jQuery(function() {
               modalRow.next('.child').fadeOut(350).remove();
               jQuery(this).remove();
             });
-            updatePlaces(result);
           }
         });
       }
@@ -331,10 +330,7 @@ jQuery(function() {
       var panelHeading = item.find('.panel-heading');
 
       panelHeading.css('background-color', feature.properties.color);
-
-      var backgroundRGB = panelHeading.css('background-color');
-
-      item.find('.panel-heading .name').css('color', bestContrastFontColor(backgroundRGB));
+      item.find('.panel-heading .name').css('color', bestContrastFontColor(feature.properties.color));
       item.removeClass('template');
       item.find('.panel-heading').addClass(panelType);
       item.find('.panel-heading').attr('id', 'heading' + feature.id);

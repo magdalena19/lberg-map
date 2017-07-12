@@ -66,7 +66,7 @@ class PlacesController < ApplicationController
     respond_to do |format|
       if @place.destroy
         format.json do
-          render json: places_to_show.map(&:geojson), status: :ok
+          render json: {}, status: :ok
           flash.now[:success] = t('.deleted') if @place.destroy
         end
         format.html do
@@ -78,10 +78,6 @@ class PlacesController < ApplicationController
   end
 
   private
-
-  def places_to_show
-    (@map.reviewed_places + items_from_session).uniq
-  end
 
   def modify_params
     @params_to_commit = ParamsModification::Place.modify(place_params: place_params, place: @place)

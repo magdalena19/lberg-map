@@ -310,6 +310,19 @@ jQuery(function() {
     });
 
     // FILL PLACES LIST
+    // Return black or white as font color depending on background color
+    function bestContrastFontColor(backgroundColor) {
+      needsWhiteFont = ['red', 'darkorange', 'darkblue', 'purple', 'darkgreen', 'green'];
+      needsBlackFont = ['orange', 'yellow', 'lightgreen', 'violet', 'pink'];
+
+      if (needsWhiteFont.includes(backgroundColor)) {
+        return('white');
+      } else {
+        return('black');
+      }
+    }
+
+    // Add places to places side panel
     var addToPlacesList = function(feature) {
       var item = jQuery('.places-list-item.template').clone();
       var contact = item.find('.contact-container');

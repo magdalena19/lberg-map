@@ -10,6 +10,11 @@ en:
         app_imprint: 'Application Imprint'
         app_privacy_policy: 'Application privacy policy'
         update_settings: 'Update'
+        # Tabs
+        public_settings: 'Public information'
+        user_settings: 'User settings'
+        place_creation_settings: 'POI-Setup'
+        security: 'Security'
       captcha_system_status:
         captcha_system_working: 'Captcha system working'
         no_valid_api_key: 'One or more API keys missing, please check your environment variable setup'

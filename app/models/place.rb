@@ -18,14 +18,14 @@ class Place < ActiveRecord::Base
   include Sanitization
   include CustomValidators
   include PlaceModelHelpers
-  
+
   extend TimeSplitter::Accessors
   split_accessor :start_date
   split_accessor :end_date
 
   # PLACE COLORS
   COLORS_AVAILABLE = [
-    'red', 'orange-dark', 'orange', 'yellow', 'blue-dark', 'cyan', 'purple', 'violet', 'pink', 'green-dark', 'green', 'green-light', 'white' # Exclude black although available -> reserved for session places/events
+    'red', 'darkorange', 'orange', 'yellow', 'darkblue', 'purple', 'violet', 'pink', 'darkgreen', 'green', 'lightgreen'
   ].freeze
 
   def self.available_colors
@@ -65,7 +65,7 @@ class Place < ActiveRecord::Base
   after_create :enqueue_auto_translation, if: 'map.auto_translate'
   after_create :set_description_reviewed_flags
   after_save :set_categories
- 
+
   # EVENT STUFF
   scope :all_events, -> { where(event: true) }
   scope :ongoing_events, -> { all_events.where("end_date > ? AND start_date < ?", Date.today, Date.today) }

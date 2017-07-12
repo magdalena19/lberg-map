@@ -51,7 +51,9 @@ class Admin::SettingsController < AdminController
       :user_activation_tokens,
       :captcha_system,
       :app_imprint,
-      :app_privacy_policy
+      :app_privacy_policy,
+      :multi_color_pois,
+      :default_poi_color
     )
 
   end

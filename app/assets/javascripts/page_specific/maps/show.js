@@ -328,7 +328,13 @@ jQuery(function() {
       var contact = item.find('.contact-container');
       var event_container = item.find('.event-container');
       var panelType = feature.is_event ? 'event-panel' : 'place-panel';
+      var panelHeading = item.find('.panel-heading');
 
+      panelHeading.css('background-color', feature.properties.color);
+
+      var backgroundRGB = panelHeading.css('background-color');
+
+      item.find('.panel-heading .name').css('color', bestContrastFontColor(backgroundRGB));
       item.removeClass('template');
       item.find('.panel-heading').addClass(panelType);
       item.find('.panel-heading').attr('id', 'heading' + feature.id);
@@ -349,26 +355,37 @@ jQuery(function() {
       item.find('.description').append(feature.properties.description);
 
 
-      // Add place information sub-panels
-      if(feature.properties.address !== '') {
-        contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-record'></div>" + feature.properties.address + "</div>");
-      }
-      if(feature.properties.phone !== '') {
-        contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-earphone'></div>" + feature.properties.phone + "</div>");
-      }
-      if(feature.properties.email !== '') {
-        contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-envelope'></div>" + feature.properties.email + "</div>");
-      }
-      if(feature.properties.homepage !== '') {
-        contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-home'></div>" + feature.properties.homepage + "</div>");
-      }
+      // Place information sub-panels
+      // Date (if event)
       if(feature.start_date !== null) {
         moment.locale('en');
         var startDate = moment(feature.start_date).utc().format('DD-MM-YYYY HH:mm');
         var endDate = moment(feature.end_date).utc().format('DD-MM-YYYY HH:mm');
         date_string = feature.end_date === null ? startDate : startDate + ' - ' + endDate;
-        event_container.append("<div class='event'><div class='glyphicon fa fa-calendar'></div>" + date_string + "</div>");
+        event_container.append("<div class='event item-panel event-panel'><div class='glyphicon fa fa-calendar'></div>" + date_string + "</div>");
       }
+
+      // Address
+      if(feature.properties.address !== '') {
+        contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-record'></div>" + feature.properties.address + "</div>");
+      }
+
+      // Phone
+      if(feature.properties.phone !== '') {
+        contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-earphone'></div>" + feature.properties.phone + "</div>");
+      }
+
+      // Email
+      if(feature.properties.email !== '') {
+        contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-envelope'></div>" + feature.properties.email + "</div>");
+      }
+
+      // Homepage
+      if(feature.properties.homepage !== '') {
+        contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-home'></div>" + feature.properties.homepage + "</div>");
+      }
+
+      // Footer
       item.find('.category-names').append(feature.properties.category_names);
       item.find('.edit-place').attr('place_id', feature.id);
       item.find('.delete-place').attr('place_id', feature.id);

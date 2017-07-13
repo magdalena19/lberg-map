@@ -32,18 +32,11 @@
     border: none !important;
     cursor: pointer;
 
-    background-color: $lilac!important;
-
-    &:hover {
-      background-color: lighten($lilac, 5) !important;
-    }
-
     .panel-title {
       font-size: 15px !important;
     }
 
     .name {
-      color: white;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -69,21 +62,11 @@
       padding: 3px 8px;
       margin-top: 2px;
       border-radius: 4px;
-    }
+      background-color: lighten($grey, 20%);
 
-    .event-panel {
-      background-color: lighten($green, 20%);
       .glyphicon {
         padding-right: 5px;
-        color: darken($green, 30%);
-      }
-    }
-
-    .place-panel {
-      background-color: lighten($lilac, 20%);
-      .glyphicon {
-        padding-right: 5px;
-        color: darken($lilac, 30%);
+        color: darken($grey, 30%);
       }
     }
 
@@ -93,11 +76,12 @@
       text-overflow: ellipsis;
       padding: 3px 8px;
       margin-top: 2px;
-      background-color: lighten($grey, 40%);
+      margin-bottom: 15px;
+      background-color: $grey;
       border-radius: 4px;
       .glyphicon {
         padding-right: 5px;
-        color: darken($grey, 20%);
+        color: darken($grey, 40%);
       }
     }
 

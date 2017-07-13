@@ -1,4 +1,13 @@
 jQuery(function() {
+  // Place color
+  jQuery('.color-picker').spectrum({
+    showPaletteOnly: true,
+    showPalette:true,
+    palette: [
+      window.available_place_colors
+    ]
+  });
+
   function checkCaptchaStatus(captcha_system) {
     // Notify about status
     jQuery('.notification').find('.spinner-icon').show();

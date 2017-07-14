@@ -109,13 +109,11 @@ jQuery(function() {
           url: '/' + window.map_token + '/places/' + placeId,
           type: 'DELETE',
           success: function(result) {
-            console.log('jo');
             panel.fadeOut(350, function() { jQuery(this).remove(); });
             modalRow.fadeOut(350, function() {
               modalRow.next('.child').fadeOut(350).remove();
               jQuery(this).remove();
             });
-            updatePlaces(result);
           }
         });
       }

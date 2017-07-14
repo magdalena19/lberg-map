@@ -15,16 +15,18 @@
     %li.nav
       %a{'data-toggle' => 'tab', href: '#language_settings'}
         = t('.language_settings')
-    %li.nav
-      %a{'data-toggle' => 'tab', href: '#tag_maintainance'}
-        = t('.tag_maintainance')
+    - unless @map.new_record?
+      %li.nav
+        %a{'data-toggle' => 'tab', href: '#tag_maintainance'}
+          = t('.tag_maintainance')
 
   .tab-content
     = render partial: 'maps/form/form_base_settings_tab', locals: { f: f }
     = render partial: 'maps/form/form_publication_settings_tab', locals: { f: f }
     = render partial: 'maps/form/form_language_settings_tab', locals: { f: f }
-    = render partial: 'maps/form/form_tag_maintainance_tab', locals: { f: f }
-    = render partial: 'maps/modals/new_tag_modal', locals: { map: @map }
+    - unless @map.new_record?
+      = render partial: 'maps/form/form_tag_maintainance_tab', locals: { f: f }
+      = render partial: 'maps/modals/new_tag_modal', locals: { map: @map }
 
   -# CAPTCHA
   .row

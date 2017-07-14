@@ -1,4 +1,12 @@
 feature 'Create Map', js: true do
+  context 'Tagging support' do
+    scenario 'Do not show tagging support on new map form' do
+      visit new_map_path
+      
+      expect(page).not_to have_css('#tag_maintainance')
+    end
+  end
+
   context 'Specific language support' do
     scenario 'Can select supported map languages from all available languages', js_errors: false do
       login_as_user

@@ -60,6 +60,8 @@ describe UsersController do
       before do
         @user = create :user, name: 'oneUser'
         @token = @user.activation_tokens.first.token
+        @maps = create_list :map, 3, :public_guest_map
+        session[:maps] = @maps
         post :create, user: attributes_for(:user, name: 'AnotherUser', password: 'secret', password_confirmation: 'secret'), activation_token: @token
       end
 
@@ -82,6 +84,12 @@ describe UsersController do
 
       it 'redirects to map index after creating new user' do
         expect(response).to redirect_to maps_path
+      end
+
+      it 'associates session maps with new user' do
+        user = User.find_by(name: 'AnotherUser')
+
+        expect(user.maps.sort.to_a).to eq @maps.sort.to_a
       end
     end
 

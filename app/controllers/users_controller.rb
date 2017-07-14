@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     if @user.save
       @activation_token.invalidate if @activation_token
       WelcomeUserWorker.perform_async(@user.id)
+      @user.update_attributes(maps: session[:maps])
       flash[:success] = t('.changes_saved')
       redirect
     else

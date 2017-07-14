@@ -66,8 +66,7 @@ class PlacesController < ApplicationController
     respond_to do |format|
       if @place.destroy
         format.json do
-          render json: places_to_show.map(&:geojson), status: :ok
-          flash.now[:success] = t('.deleted') if @place.destroy
+          render json: {}, status: :ok
         end
         format.html do
           redirect_to map_path(map_token: request[:map_token])

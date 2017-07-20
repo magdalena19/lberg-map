@@ -42,3 +42,10 @@ postgesqldata/*
 # Ignore test assets
 public/assets_test/
 public/capybara.html
+
+# Ignore /vendor/bundle
+/vendor/bundle
+
+# CTags
+.tags*
+

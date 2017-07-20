@@ -1,15 +1,15 @@
-# defines which mages should be used, which software installed in the 
-# webapp container
-#FROM ruby:2.3.1
 FROM ruby:2.3.3-slim
+MAINTAINER coderat@systemli.org
+
 RUN apt-get update -qq && apt-get install -y \
 	build-essential \
 	libpq-dev \
-	nodejs \
-	imagemagick \
-    ghostscript \
-    libsqlite3-dev \
-    supervisor
+  nodejs \
+  imagemagick \
+  ghostscript \
+  git \
+  supervisor \
+  phantomjs
 RUN mkdir /lbergmap
 WORKDIR /lbergmap
 ADD Gemfile /lbergmap/Gemfile

@@ -1,0 +1,26 @@
+production:
+  # Email relay services
+  relay_address:
+  relay_login:
+  relay_port:
+  relay_passwd:
+  relay_auth:
+
+  # Postgres
+  POSTGRES_HOST:
+  POSTGRES_USER:
+  POSTGRES_PASSWORD:
+
+  # Application secret key
+  SECRET_KEY_BASE:
+
+# Captcha
+RECAPTCHA_SITE_KEY:
+RECAPTCHA_SECRET_KEY:
+captcha_secret:
+
+# Machine translation APIs
+bing_id:
+bing_secret:
+microsoft_account_key:
+yandex_secret:

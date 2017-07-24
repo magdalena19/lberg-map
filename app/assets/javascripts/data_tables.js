@@ -1,9 +1,9 @@
 jQuery(function() {
-  $.fn.dataTable.moment( 'YYYY-MM-DD HH:mm:ss');
+  $.fn.dataTable.moment('YYYY-MM-DD HH:mm:ss');
 
   function renderDate(date) {
     if (date === '') {
-      return ''
+      return '';
     } else {
       return moment(date).utc().format('DD.MM.YYYY HH:mm');
     }
@@ -15,13 +15,13 @@ jQuery(function() {
       headerOffset: $('.modal-header').outerHeight()
     },
     responsive: true,
-    "paging": false,
-    "bInfo": false,
-    "order": [[ 0, "asc" ]],
-    "language": { search: ""  },
-    "aoColumnDefs": [ {
-      "aTargets": [2, 3],
-      "mDataProp": function (source, type, val) {
+    'paging': false,
+    'bInfo': false,
+    'order': [[0, 'asc']],
+    'language': {search: ''},
+    'aoColumnDefs': [{
+      'aTargets': [2, 3],
+      'mDataProp': function(source, type, val) {
         if (type === 'set') {
           source[0] = val;
           source.date_rendered = renderDate(val);
@@ -31,7 +31,7 @@ jQuery(function() {
         }
         return source[0];
       }
-    } ]
+    }]
   });
 
   jQuery('#users_table').DataTable({
@@ -40,30 +40,30 @@ jQuery(function() {
     lengthChange: false,
     info: false,
     pageLength: 25,
-    "aoColumnDefs": [
-    { 'bSortable': false, 'aTargets': [4, 5] }
+    'aoColumnDefs': [
+    {'bSortable': false, 'aTargets': [4, 5]}
     ]
   });
 
   jQuery('#places_to_review').DataTable({
     responsive: true,
-    "searching": false,
-    "paging": false,
-    "bInfo": false,
-    "order": [[ 1, "asc" ]],
-    "aoColumnDefs": [
-    { 'bSortable': false, 'aTargets': [0] }
+    'searching': false,
+    'paging': false,
+    'bInfo': false,
+    'order': [[1, 'asc']],
+    'aoColumnDefs': [
+    {'bSortable': false, 'aTargets': [0]}
     ]
   });
 
   jQuery('#translations').DataTable({
     responsive: true,
-    "searching": false,
-    "paging": false,
-    "bInfo": false,
-    "order": [[ 1, "asc" ]],
-    "aoColumnDefs": [
-    { 'bSortable': false, 'aTargets': [0] }
+    'searching': false,
+    'paging': false,
+    'bInfo': false,
+    'order': [[1, 'asc']],
+    'aoColumnDefs': [
+    {'bSortable': false, 'aTargets': [0]}
     ]
   });
 
@@ -72,10 +72,10 @@ jQuery(function() {
   };
 
   // Does not work...
-  $('#places > tbody').on('click', 'td.details-control', function () {
+  $('#places > tbody').on('click', 'td.details-control', function() {
     var table = jQuery('#places').dataTable();
     var tr = $(this).closest('tr');
-    var row = table.api().row( tr );
+    var row = table.api().row(tr); // Maybe cause of that?
     var hiddenColumns = row.find('td:hidden').addClass('hidden');
-  } );
+  });
 });

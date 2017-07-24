@@ -3,7 +3,7 @@
 jQuery(function() {
   // Random float between
   var randomFloatBetween = function(minValue, maxValue) {
-    return parseFloat(Math.min(minValue + (Math.random() * (maxValue - minValue)), maxValue).toFixed(2));
+    return parseFloat(Math.min(minValue + Math.random() * (maxValue - minValue), maxValue).toFixed(2));
   };
 
   jQuery('#map').each(function() {

@@ -1,6 +1,6 @@
 // MAP MODALS
-jQuery(function(){
-  jQuery('.map-modal-button').on('click', function(){
+jQuery(function() {
+  jQuery('.map-modal-button').on('click', function() {
     target = jQuery(this).data('target');
     id = jQuery(this).data('map-id');
 
@@ -19,21 +19,23 @@ jQuery(function(){
 
   // MAP EMBEDDING
   function updateIframeString(element) {
-    var iframeString = jQuery('#iframe_src').val()
+    var iframeString = jQuery('#iframe_src').val();
     var attribute = element.data('target');
     var newValue = element.val();
-    var oldValMatcher= new RegExp(attribute + '="\\d*"');
-    var newValueString = attribute + '="' + newValue + '"';
+    var oldValMatcher = new RegExp(attribute + '="\\d*"');
+    var newValueString = attribute + '=' + newValue + '';
 
-    jQuery('.modal-content #iframe_src').val(iframeString.replace(oldValMatcher, newValueString)).trigger('change');
+    jQuery('.modal-content #iframe_src')
+      .val(iframeString.replace(oldValMatcher, newValueString))
+      .trigger('change');
   }
 
   function updateValues(element) {
     var attribute = element.data('target');
     var newValue = element.val();
 
-    jQuery('.embed-map .modal-content .text-field').each( function() {
-      if (jQuery(this).data('target') === attribute ) {
+    jQuery('.embed-map .modal-content .text-field').each(function() {
+      if (jQuery(this).data('target') === attribute) {
         jQuery(this).val(newValue).change();
       }
     });
@@ -46,7 +48,6 @@ jQuery(function(){
     updateValues(element);
   });
 
-
   // copy to clipboard
   jQuery('.modal-content .clipboard-btn').on('click', function() {
     var inputVal = jQuery(this).parent().prev().val();
@@ -54,31 +55,30 @@ jQuery(function(){
     try {
       // document.execCommand(...) not working within BS modals
       // Workaround: Create DOM element, copy content of input field, copy to clipboard, remove DOM element
-      var temp = $("<input>");
+      var temp = $('<input>');
 
-      $("body").append(temp);
+      $('body').append(temp);
       temp.val(inputVal).select();
       document.execCommand('copy'); // copy text
       temp.remove();
-    }
-    catch (err) {
+    } catch (err) {
       alert('please press Ctrl/Cmd+C to copy');
     }
   });
 
   // MAP SHARING
-  jQuery('.share-admin-link').on('click', function(){
+  jQuery('.share-admin-link').on('click', function() {
     jQuery('.modal-content #map_admins').toggle();
   });
 
-  jQuery('.modal-content .invite-form-field').on('input', function(){
+  jQuery('.modal-content .invite-form-field').on('input', function() {
     var parentModal = jQuery(this).closest('.share-map-modal');
     var bla1 = parentModal.find('#map_guests').val();
     var bla2 = parentModal.find('#map_admins').val();
     var hasMapGuestInvitees = bla1 === '' || bla1 === undefined ? false : true;
     var hasMapAdminInvitees = bla2 === '' || bla2 === undefined ? false : true;
 
-    if ( hasMapGuestInvitees || hasMapAdminInvitees ) {
+    if (hasMapGuestInvitees || hasMapAdminInvitees) {
       jQuery('.modal-content #submit_invitations').prop('disabled', false);
       jQuery('.modal-content .captcha').fadeIn(350);
     } else {
@@ -95,7 +95,11 @@ jQuery(function(){
 
     jQuery.ajax({
       url: '/share_map/' + mapId,
-      data: { map_admins: mapAdminInvitees, map_guests: mapGuestInvitees, id: mapId },
+      data: {
+        map_admins: mapAdminInvitees,
+        map_guests: mapGuestInvitees,
+        id: mapId
+      },
       type: 'POST',
       context: this,
       success: function() {
@@ -104,7 +108,7 @@ jQuery(function(){
       error: function() {
         alert('Something went wrong!');
       }
-    })
+    });
   });
 
   // EXPLANATION MODALS
@@ -117,20 +121,24 @@ jQuery(function(){
   });
 
   // Close modals on Escape keypress
-  window.addEventListener("keydown", function (event) {
-    if (event.defaultPrevented) {
-      return; // Should do nothing if the key event was already consumed.
-    }
+  window.addEventListener(
+    'keydown',
+    function(event) {
+      if (event.defaultPrevented) {
+        return; // Should do nothing if the key event was already consumed.
+      }
 
-    switch (event.key) {
-      case "Escape":
-        jQuery('.modal').modal('hide');
-        break;
-      default:
-        return; // Quit when this doesn't handle the key event.
-    }
+      switch (event.key) {
+        case 'Escape':
+          jQuery('.modal').modal('hide');
+          break;
+        default:
+          return; // Quit when this doesn't handle the key event.
+      }
 
-    // Consume the event to avoid it being handled twice
-    event.preventDefault();
-  }, true);
-})
+      // Consume the event to avoid it being handled twice
+      event.preventDefault();
+    },
+    true
+  );
+});

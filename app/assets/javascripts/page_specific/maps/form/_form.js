@@ -2,7 +2,6 @@
 
 // MAP FORM FUNCTIONALITY
 jQuery(function() {
-
   // Password
   jQuery('.password-checkbox').on('click', 'input', function() {
     var checkbox = jQuery(this)[0];
@@ -10,11 +9,11 @@ jQuery(function() {
     var passwordConfirmationField = jQuery('#map_password_confirmation');
 
     if (checkbox.checked) {
-      passwordField.attr('disabled', false).attr('placeholder', '•••••')
-      passwordConfirmationField.attr('disabled', false).attr('placeholder', '•••••')
+      passwordField.attr('disabled', false).attr('placeholder', '•••••');
+      passwordConfirmationField.attr('disabled', false).attr('placeholder', '•••••');
     } else {
-      passwordField.attr('disabled', true).val('').attr('placeholder', '')
-      passwordConfirmationField.attr('disabled', true).val('').attr('placeholder', '')
+      passwordField.attr('disabled', true).val('').attr('placeholder', '');
+      passwordConfirmationField.attr('disabled', true).val('').attr('placeholder', '');
     }
   });
 
@@ -39,7 +38,7 @@ jQuery(function() {
   }
 
   jQuery('#map_is_public').on('click', function() {
-    toggleIfChecked('#map_is_public', '.map-public-settings')
+    toggleIfChecked('#map_is_public', '.map-public-settings');
   });
 
   // Toggle publication settings initially
@@ -55,4 +54,4 @@ jQuery(function() {
     var public_token_input = jQuery('#map_public_token');
     public_token_input.val(camelize(title)).trigger('change');
   });
-})
+});

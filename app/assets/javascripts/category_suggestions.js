@@ -1,6 +1,6 @@
 // category suggestions
 jQuery(function() {
-  jQuery(".category-input").each(function() {
+  jQuery('.category-input').each(function() {
     var input = this;
     var categoryList = new Awesomplete(input, {
       minChars: 1,
@@ -9,17 +9,17 @@ jQuery(function() {
       },
       replace: function(text) {
         var before = this.input.value.match(/^.+,\s*|/)[0];
-        this.input.value = before + text + ", ";
+        this.input.value = before + text + ', ';
       }
     });
 
     function proposeTags(inputField) {
       // Determine diff of category and input words array
       var origList = jQuery(inputField)
-        .data("list")
-        .replace(/ /g, "")
-        .split(",");
-      var inputWords = jQuery(inputField)[0].value.replace(/ /g, "").split(",");
+        .data('list')
+        .replace(/ /g, '')
+        .split(',');
+      var inputWords = jQuery(inputField)[0].value.replace(/ /g, '').split(',');
       var diff = origList.filter(function(n) {
         return inputWords.indexOf(n) === -1;
       });
@@ -37,7 +37,7 @@ jQuery(function() {
       proposeTags(this);
     });
 
-    jQuery(input).on("input", function() {
+    jQuery(input).on('input', function() {
       proposeTags(this);
     });
   });

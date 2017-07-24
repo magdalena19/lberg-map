@@ -7,16 +7,16 @@ jQuery(function() {
   });
 
   // Zoom buttons
-  jQuery('.zoom-in').click(function(){
+  jQuery('.zoom-in').click(function() {
     map.doubleClickZoom.disable();
-    setTimeout(function(){
+    setTimeout(function() {
       map.doubleClickZoom.enable();
     }, 500);
     map.setZoom(map.getZoom() + 1);
   });
-  jQuery('.zoom-out').click(function(){
+  jQuery('.zoom-out').click(function() {
     map.doubleClickZoom.disable();
-    setTimeout(function(){
+    setTimeout(function() {
       map.doubleClickZoom.enable();
     }, 500);
     map.setZoom(map.getZoom() - 1);
@@ -28,13 +28,13 @@ jQuery(function() {
     var searchField = jQuery('#places_filter').find('input');
     var dataList = $('.search-input').find('input').data('list');
 
-    searchField.
-      detach().appendTo('#search_area').
-      addClass('form-control category-input col-xs-12').
-      attr('placeholder', 'Search').
-      data('list', dataList)
+    searchField
+      .detach()
+      .appendTo('#search_area')
+      .addClass('form-control category-input col-xs-12')
+      .attr('placeholder', 'Search')
+      .data('list', dataList);
   });
-
 
   // --- PLACE INSERT BUTTONS
   // INSERT CONFIRMATION ACTION
@@ -51,7 +51,7 @@ jQuery(function() {
     // confirmation button
     jQuery('.confirmation-button-container').fadeIn();
     jQuery('#confirmation-button-yes').click(function() {
-      var address = {latitude: lat, longitude: lon};
+      var address = { latitude: lat, longitude: lon };
       if (geocoding_result) {
         jQuery.extend(address, geocoding_result.properties.address);
         hideAddressSearchBar();
@@ -71,7 +71,7 @@ jQuery(function() {
 
     // cancel button
     jQuery('#confirmation-button-no').click(function() {
-      map.off('click', confirmClickEvent)
+      map.off('click', confirmClickEvent);
       jQuery('.confirmation-button-container').fadeOut();
       map.removeLayer(locationMarker);
       jQuery('.leaflet-overlay-pane').css('cursor', 'inherit');
@@ -91,17 +91,16 @@ jQuery(function() {
   });
 
   // ADD PLACE VIA ONCLICK
-  jQuery('.add-place-via-click').click(function(){
+  jQuery('.add-place-via-click').click(function() {
     hideMapElements();
-    jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
-    map.on('click', confirmClickEvent);   
+    jQuery('.leaflet-overlay-pane').css('cursor', 'crosshair');
+    map.on('click', confirmClickEvent);
   });
 
-
   // ADD PLACE VIA CURRENT GEOLOCATION
-  jQuery('.add-place-via-location').click(function(){
+  jQuery('.add-place-via-location').click(function() {
     hideMapElements();
-    jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
+    jQuery('.leaflet-overlay-pane').css('cursor', 'crosshair');
     function confirmation(position) {
       confirmPlaceInsert(position.coords.latitude, position.coords.longitude);
     }
@@ -117,10 +116,12 @@ jQuery(function() {
   jQuery('.add-place-via-address-search').on('click', function() {
     hideMapElements();
 
-    geocode_field = L.Control.geocoder({
-      position: 'bottomright',
-      collapsed: false
-    }).addTo(map);
+    geocode_field = L.Control
+      .geocoder({
+        position: 'bottomright',
+        collapsed: false
+      })
+      .addTo(map);
 
     showAddressSearchBar();
 
@@ -157,7 +158,9 @@ jQuery(function() {
     function showPosition(position) {
       lat = position.coords.latitude;
       lon = position.coords.longitude;
-      current_location = L.marker([lat, lon], {icon: current_position_icon}).addTo(map);
+      current_location = L.marker([lat, lon], {
+        icon: current_position_icon
+      }).addTo(map);
       map.current_location = current_location;
       L.DomUtil.addClass(current_location._icon, 'current_location_marker');
       jQuery('.toggle-show-geolocation').toggleClass('inactive');
@@ -168,7 +171,7 @@ jQuery(function() {
       }
     }
 
-    function getAndShowPosition(){
+    function getAndShowPosition() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
       } else {
@@ -176,7 +179,7 @@ jQuery(function() {
       }
     }
 
-    var shallDisplayPos= jQuery('.show-current-position-toggle')[0].checked;
+    var shallDisplayPos = jQuery('.show-current-position-toggle')[0].checked;
     if (shallDisplayPos) {
       getAndShowPosition();
     } else {
@@ -192,7 +195,7 @@ jQuery(function() {
     jQuery('.map-description-modal').modal().show();
   });
 
-  jQuery('.control-button[tray]').on('click', function(){
+  jQuery('.control-button[tray]').on('click', function() {
     jQuery('.right-sidebar-tray').hide();
     var topPos = jQuery(this).children().offset().top;
     var trayName = jQuery(this).attr('tray');
@@ -200,7 +203,7 @@ jQuery(function() {
     var trayClosed = tray.hasClass('closed');
 
     if (trayClosed) {
-      tray.offset({top: topPos});
+      tray.offset({ top: topPos });
       tray.removeClass('closed').show();
     } else {
       tray.addClass('closed').hide();
@@ -208,11 +211,11 @@ jQuery(function() {
   });
 
   // Toggle tile layer selection
-  jQuery('.select-tile-layer').on('click', function(){
+  jQuery('.select-tile-layer').on('click', function() {
     var url = jQuery(this).data('url');
     var attr = jQuery(this).data('attr');
     oldLayer = map.baseLayer;
-    map.baseLayer = L.tileLayer(url, {attribution: attr});
+    map.baseLayer = L.tileLayer(url, { attribution: attr });
     map.addLayer(map.baseLayer);
     map.removeLayer(oldLayer);
     jQuery('.tile-layers').toggleClass('hidden');
@@ -221,4 +224,4 @@ jQuery(function() {
   jQuery(this).on('click', '#map', function() {
     hideMapTrays();
   });
-})
+});

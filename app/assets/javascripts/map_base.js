@@ -6,12 +6,18 @@
 //= require leaflet.extra-markers.min
 
 jQuery(function() {
-  var MAIN_TILE_SERVER_TEST = 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/1/1/1.jpg';
-  var MAIN_TILE_SERVER = 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg';
-  var FALLBACK_TILE_SERVER = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+  var MAIN_TILE_SERVER_TEST =
+    'https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/1/1/1.jpg';
+  var MAIN_TILE_SERVER =
+    'https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg';
+  var FALLBACK_TILE_SERVER =
+    'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
 
   var addMap = function(map, url, center, zoom) {
-    map.baseLayer = L.tileLayer(url, {attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'});
+    map.baseLayer = L.tileLayer(url, {
+      attribution:
+        "&copy; <a href='https://osm.org/copyright'>OpenStreetMap</a> contributors"
+    });
     map.addLayer(map.baseLayer);
     map.setView(center, zoom);
   };
@@ -33,4 +39,4 @@ jQuery(function() {
       }
     });
   };
-})
+});

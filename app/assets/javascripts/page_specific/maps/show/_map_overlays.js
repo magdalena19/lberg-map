@@ -7,13 +7,13 @@ jQuery(function() {
   $('.map-password-dialog').modal({
     backdrop: 'static',
     keyboard: false
-  })
+  });
 
   hideMapElements = function() {
     placesListPanel.hide();
     mapControls.hide();
     hideFilterField();
-    hideMapTrays()
+    hideMapTrays();
   };
 
   showMapElements = function() {
@@ -62,13 +62,13 @@ jQuery(function() {
   };
 
   showAddressSearchBar = function() {
-    var leaflet_control = jQuery('.leaflet-control');
-    leaflet_control.remove();
-    jQuery('.address-search-bar-container').append(leaflet_control);
+    var leafletControl = jQuery('.leaflet-control');
+    leafletControl.remove();
+    jQuery('.address-search-bar-container').append(leafletControl);
     jQuery('.fade-background').show();
     hideMapElements();
     placesListPanelToggle.hide();
-  }
+  };
 
   showPlacesListPanel = function() {
     // Activate and show places list
@@ -78,6 +78,7 @@ jQuery(function() {
     placesListPanelToggle.find('.glyphicon').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
     placesListPanelToggle.show();
     placesListPanelToggle.css('left', placesListPanel.outerWidth());
+
     if (window.outerWidth <= 600) {
       hideMapControls();
     }

@@ -4,13 +4,13 @@ jQuery(function() {
     $(elem).wysihtml5({
       toolbar: {
         'font-styles': false,
-        'emphasis': true,
-        'lists': true,
-        'html': true,
-        'link': true,
-        'image': false,
-        'color': false
+        emphasis: true,
+        lists: true,
+        html: true,
+        link: true,
+        image: false,
+        color: false
       }
     });
   });
-})
+});

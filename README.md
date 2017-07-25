@@ -15,7 +15,7 @@
 * **Reviewing contributions**: Let guests contribute POIs on public maps and either accept or revert their entries as map admin
 * **Multi-language support**: Optionally machine-translate to other languages supported by the system (so far english and german)
 
-Check out the **[Demo](http://hase.pavo.uberspace.de/)** either as
+Check out the **[Demo](https://korner.lynx.uberspace.de)** either as
 * guest 
 * user (_user@test.com / secret_)
 * admin (_admin@test.com / secret_)

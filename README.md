@@ -18,7 +18,8 @@
 Check out the **[Demo](https://korner.lynx.uberspace.de)** either as
 * guest 
 * user (_user@test.com / secret_)
-* admin (_admin@test.com / secret_)
+
+_=> Passwords for the user account as well as the demo password-protected map is 'secret'_
   
 ## **System prerequisits**
 ---

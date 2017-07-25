@@ -4,9 +4,9 @@ class MapInvitationWorker
   def perform(receiver, email_address, id)
     case receiver
     when 'admin'
-      DeliveryGul.delay.invite_collaborator(email_address: email_address, id: id)
+      DeliveryGul.invite_collaborator(email_address: email_address, id: id).deliver
     when 'guest'
-      DeliveryGul.delay.invite_guest(email_address: email_address, id: id)
+      DeliveryGul.invite_guest(email_address: email_address, id: id).deliver
     end
   end
 end

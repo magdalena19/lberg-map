@@ -9,7 +9,7 @@ class PasswordResetController < ApplicationController
   def create_password_reset
     @user.create_digest_for(attribute: 'password_reset')
     if @user.save
-      DeliveryGul.send_password_reset_link(@user).deliver_now
+      DeliveryGul.password_reset_mail(@user).deliver_now
       flash[:success] = t('.reset_link_sent')
     else
       flash[:danger] = t('.could_not_send_reset_link')

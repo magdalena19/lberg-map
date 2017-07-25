@@ -58,6 +58,10 @@ module CapybaraHelpers
     find(:css, '.show-places-index').trigger('click')
   end
 
+  def show_date_information
+    page.find(:css, '.date-information-header').trigger('click')
+  end
+
   # RIGHT SIDEBAR ACTIONS
   def show_map_controls
     page.find('.toggle-panel').trigger('click') unless page.has_css?('.map-controls-container')
@@ -66,15 +70,6 @@ module CapybaraHelpers
   def show_display_options
     show_map_controls
     find(:css, '.toggle-display-options').trigger('click')
-  end
-
-  def show_places_list_panel
-    page.find('.toggle-panel').trigger('click') if page.has_css?('.map-controls-container')
-  end
-
-  def show_places_index
-    show_map_controls
-    page.find('.show-places-index').trigger('click')
   end
 
   def show_events
@@ -100,4 +95,10 @@ module CapybaraHelpers
     switch = find('.show-places-toggle', visible: false)
     switch.trigger('click') if switch.checked?
   end
+
+  # RIGHT SIDEBAR ACTIONS
+  def show_places_list_panel
+    page.find('.open-sidebar').trigger('click') if page.has_css?('.map-controls-container')
+  end
+
 end

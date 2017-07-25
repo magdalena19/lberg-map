@@ -29,8 +29,7 @@ feature 'Places map filter', js: true do
   end
 
   scenario 'Nothing filters nothing' do
-    skip 'Travis does not take it, works locally though...'
-
+    skip "Does not show places list panel"
     show_places
     show_events
     show_places_list_panel
@@ -43,7 +42,6 @@ feature 'Places map filter', js: true do
   end
 
   scenario 'filters by date', js_errors: false do
-    skip 'Feature works as specified in test, capybara does not buy it, dunno why...'
     show_places
     show_events
     show_places_list_panel

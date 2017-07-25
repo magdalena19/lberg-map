@@ -16,9 +16,7 @@ feature 'Map', js: true do
 
   scenario 'shows session map index in navbar if not signed in', js_errors: false do
     visit new_map_path
-    
     click_on('Create Map')
-
     find('.fa-map-o').trigger('click')
 
     expect(page).to have_content 'Map index'
@@ -31,7 +29,6 @@ feature 'Map', js: true do
     end
 
     scenario 'has place edit buttons fur guest users' do
-      skip 'Test fails, feature works'
       visit map_path(map_token: @place.map.secret_token)
       page.find('.leaflet-marker-icon').trigger('click')
 
@@ -39,9 +36,9 @@ feature 'Map', js: true do
     end
 
     scenario 'has review button in navbar for privileged users' do
-      skip 'Test fails, feature works'
       visit map_path(map_token: @place.map.secret_token)
-      expect(page).to have_css('.glyphicon-thumbs-up')
+
+      expect(page).to have_css('.review-places-button')
     end
   end
 
@@ -52,7 +49,6 @@ feature 'Map', js: true do
     end
 
     scenario 'has no place edit buttons fur guest users' do
-      skip 'Test fails, feature works'
       visit map_path(map_token: @place.map.public_token)
       page.find('.leaflet-marker-icon').trigger('click')
 
@@ -66,10 +62,9 @@ feature 'Map', js: true do
     end
 
     scenario 'does not show review button in navbar for privileged users' do
-      skip 'Test fails, feature works'
       visit map_path(map_token: @place.map.secret_token)
 
-      expect(page).not_to have_css('.glyphicon-thumbs-up')
+      expect(page).not_to have_css('.review-places-button')
     end
   end
 end

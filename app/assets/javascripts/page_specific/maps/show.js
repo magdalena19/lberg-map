@@ -205,11 +205,7 @@ jQuery(function() {
     };
 
     var dateFilter = function(json) {
-      // Check if shall filter by date, pass unfiltered json if not...
-      var showEventsToggle = jQuery('.show-events-toggle')[0];
-      var filterByDate = (showEventsToggle && showEventsToggle.checked) || false;
-
-      if (!filterByDate) {
+      if (!showEvents()) {
         return json;
       } else {
         var filteredJson = [];
@@ -218,7 +214,6 @@ jQuery(function() {
         var daterange = jQuery('#search-date-input').data('daterangepicker');
         var startDate = forceUTC(daterange.startDate);
         var endDate = forceUTC(daterange.endDate);
-        var showPlaces = jQuery('.show-places-toggle')[0].checked;
 
         jQuery(json).each(function(id, feature) {
           var featureStartDate = moment(feature.start_date);
@@ -227,7 +222,7 @@ jQuery(function() {
           if (
             (featureStartDate >= startDate && featureStartDate <= endDate) ||
             (featureEndDate >= startDate && featureEndDate <= endDate) ||
-            (!feature.is_event && showPlaces)
+            (!feature.is_event && showStaticPlaces())
           ) {
             filteredJson.push(feature);
           }
@@ -237,10 +232,20 @@ jQuery(function() {
     };
 
     // PLACE TYPE FILTER
+    function showEvents() {
+      // Check if shall filter by date, pass unfiltered json if not...
+      var showEventsToggle = jQuery('.show-events-toggle')[0];
+      return (showEventsToggle !== undefined && showEventsToggle.checked) || false;
+    }
+
+    function showStaticPlaces() {
+      // Check if shall filter by date, pass unfiltered json if not...
+      var showPlacesToggle= jQuery('.show-places-toggle')[0];
+      return (showPlacesToggle !== undefined && showPlacesToggle.checked) || false;
+    }
+
     function showFeature(feature) {
-      var showEvents = jQuery('.show-events-toggle')[0].checked;
-      var showPlaces = jQuery('.show-places-toggle')[0].checked;
-      if ((feature.is_event && showEvents) || (!feature.is_event && showPlaces)) {
+      if ((feature.is_event && showEvents()) || (!feature.is_event && showStaticPlaces())) {
         return true;
       } else {
         return false;
@@ -428,10 +433,6 @@ jQuery(function() {
     });
 
     // Event toggling
-    function showEvents() {
-      return jQuery('.show-events-toggle')[0].checked;
-    }
-
     function eventDateRange() {
       var dateRange = window.event_date_range.split(',');
       var startDate = moment(dateRange[0]).utc();

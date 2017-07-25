@@ -26,7 +26,7 @@ tmp/**/*
 
 /config/application.yml
 
-# unicorn files like logs failures sockets 
+# unicorn files like logs failures sockets
 /shared/*
 
 # Ignore application configuration
@@ -48,4 +48,3 @@ public/capybara.html
 
 # CTags
 .tags*
-

@@ -85,4 +85,4 @@ Test that your instance is running via `export SECRET_KEY_BASE=test123 && rails 
 The app uses [Sidekiq](https://sidekiq.org/) for background processing of machine-translations and email transport. Sidekiq will look for a running redis instance (Default: port 6379). You can start the app using `bundle exec sidekiq &`. You might want to consider creating a separate service.
 
 ## **Application configuration**
-Check out this [wiki page] for further information on ratMap configuration.
+Check out this [wiki page](https://github.com/magdalena19/lberg-map/wiki/Application-configuration) for further information on ratMap configuration.

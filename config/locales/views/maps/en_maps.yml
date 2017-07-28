@@ -34,7 +34,7 @@ en:
         language_settings: 'Multi-language support'
         password_protection: 'Password protection'
         tag_maintainance: 'Tags'
-        auto_destruct_warning: 'If you do not visit this guest map within %{days_left_till_destruction} or %{link} it will be destroyed!'
+        auto_destruct_warning: 'If you do not visit this guest map within %{days_left_till_destruction} days or %{link} it will be destroyed!'
         register_account: 'create an account'
       form_base_settings_tab:
         secret_token: 'Secret key'

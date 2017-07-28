@@ -4,42 +4,44 @@
       .alert.alert-danger
         = raw t('.auto_destruct_warning', days_left_till_destruction: @map.days_left_till_destruction, link: link_to(t('.register_account'), sign_up_path))
 
-= form_for(@map, url: @url) do |f|
-  %ul.nav.nav-tabs
-    %li.nav.active
-      %a{'data-toggle' => 'tab', href: '#base_settings'}
-        = t('.base_settings')
-    %li.nav
-      %a{'data-toggle' => 'tab', href: '#publication_settings'}
-        = t('.publication_settings')
-    %li.nav
-      %a{'data-toggle' => 'tab', href: '#language_settings'}
-        = t('.language_settings')
-    - unless @map.new_record?
-      %li.nav
-        %a{'data-toggle' => 'tab', href: '#tag_maintainance'}
-          = t('.tag_maintainance')
+.row
+  .col-xs-12
+    = form_for(@map, url: @url) do |f|
+      %ul.nav.nav-tabs
+        %li.nav.active
+          %a{'data-toggle' => 'tab', href: '#base_settings'}
+            = t('.base_settings')
+        %li.nav
+          %a{'data-toggle' => 'tab', href: '#publication_settings'}
+            = t('.publication_settings')
+        %li.nav
+          %a{'data-toggle' => 'tab', href: '#language_settings'}
+            = t('.language_settings')
+        - unless @map.new_record?
+          %li.nav
+            %a{'data-toggle' => 'tab', href: '#tag_maintainance'}
+              = t('.tag_maintainance')
 
-  .tab-content
-    = render partial: 'maps/form/form_base_settings_tab', locals: { f: f }
-    = render partial: 'maps/form/form_publication_settings_tab', locals: { f: f }
-    = render partial: 'maps/form/form_language_settings_tab', locals: { f: f }
-    - unless @map.new_record?
-      = render partial: 'maps/form/form_tag_maintainance_tab', locals: { f: f }
-      = render partial: 'maps/modals/new_tag_modal', locals: { map: @map }
+      .tab-content
+        = render partial: 'maps/form/form_base_settings_tab', locals: { f: f }
+        = render partial: 'maps/form/form_publication_settings_tab', locals: { f: f }
+        = render partial: 'maps/form/form_language_settings_tab', locals: { f: f }
+        - unless @map.new_record?
+          = render partial: 'maps/form/form_tag_maintainance_tab', locals: { f: f }
+          = render partial: 'maps/modals/new_tag_modal', locals: { map: @map }
 
-  -# CAPTCHA
-  .row
-    .col-md-6
-      = display_captcha unless @current_user.signed_in?
+      -# CAPTCHA
+      .row.captcha-row
+        .col-md-6
+          = display_captcha unless @current_user.signed_in?
 
-  -# BUTTONS
-  .row
-    .spacer-row
-    .col-xs-6.col-sm-4.col-md-3
-      = f.submit class: 'btn btn-primary btn-success place-form-button submit-place-button'
-    .col-xs-6.col-sm-4.col-md-3
-      = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
+      -# BUTTONS
+      .row
+        .spacer-row
+        .col-xs-6.col-sm-4.col-md-3
+          = f.submit class: 'btn btn-primary btn-success place-form-button submit-place-button'
+        .col-xs-6.col-sm-4.col-md-3
+          = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
 
 :javascript
   window.map_token = '#{request[:map_token]}'

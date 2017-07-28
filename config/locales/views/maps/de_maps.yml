@@ -34,7 +34,7 @@ de:
         language_settings: 'Mehrsprachigkeit'
         password_protection: 'Passwort-Schutz'
         tag_maintainance: 'Tags'
-        auto_destruct_warning: 'Wenn du diese Karte nicht innerhalb von %{days_left_till_destruction} besuchst oder dir %{link} wird sie gelöscht!'
+        auto_destruct_warning: 'Wenn du diese Karte nicht innerhalb von %{days_left_till_destruction} Tagen besuchst oder dir %{link} wird sie gelöscht!'
         register_account: 'einen Account erstellst'
       form_base_settings_tab:
         secret_link: 'Geheimer Link'

@@ -4,7 +4,7 @@ gem 'rails', '4.2.7.1'
 
 gem 'awesomplete'
 gem 'bcrypt', '~> 3.1.7'
-gem 'bing_translator', '~> 4.6.0'
+gem 'bing_translator', '~> 5.0.0'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootstrap-wysihtml5-rails'
 gem 'differ'

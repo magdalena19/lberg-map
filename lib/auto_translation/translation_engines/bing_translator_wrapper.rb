@@ -1,11 +1,7 @@
 # Wrapper for bing translation engine
 class BingTranslatorWrapper
   def initialize
-    id = ENV['bing_id']
-    secret = ENV['bing_secret']
-    account_key = ENV['microsoft_account_key']
-
-    @translator= BingTranslator.new(id, secret, false, account_key)
+    @translator= BingTranslator.new(ENV['bing_secret'])
   end
 
   def translate(translation_request:)
@@ -28,6 +24,6 @@ class BingTranslatorWrapper
   # Method for reflecting availability of translation engine
   # TODO Can query API directly?
   def self.working?
-    ENV['bing_id'].present? && ENV['bing_secret'].present? && ENV['microsoft_account_key'].present?
+    ENV['bing_secret'].present?
   end
 end

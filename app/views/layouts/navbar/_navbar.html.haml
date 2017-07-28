@@ -11,11 +11,10 @@
       -# Map title
       - if current_map
         = link_to map_path(map_token: map_token) do
-          .logo.logo-left.text-center= @map.title.present? ? @map.title : t('.no_title')
+          .navbar-logo.text-center= @map.title.present? ? @map.title : t('.no_title')
       - else
         = link_to landing_page_path do
-          .logo.logo-left LBERG
-          .logo.logo-right MAP
+          .navbar-logo.text-center= Admin::Setting.app_title
 
     #navbar.navbar-collapse.collapse
       %ul.nav.navbar-nav

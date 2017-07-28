@@ -3,7 +3,7 @@
     .row
       .spacer-row
       .col-xs-12
-        %h4= t('.auto_translate') 
+        %h4= t('.auto_translate')
       .col-xs-12
         = f.collection_select :translation_engine, Admin::Setting.working_translation_engines, :to_s, :humanize, {selected: @map.translation_engine || 'none'}
 
@@ -20,4 +20,4 @@
                     = check_box_tag 'map[supported_languages][]', locale, locale == I18n.locale ? true : false
                   - else
                     = check_box_tag 'map[supported_languages][]', locale, @map.supported_languages.include?(locale.to_s) ? true : false
-                = t("languages.#{locale}") + " (#{locale})"
+                  = t("languages.#{locale}") + " (#{locale})"

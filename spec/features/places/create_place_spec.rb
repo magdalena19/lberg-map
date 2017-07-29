@@ -8,8 +8,9 @@ feature 'Create place', :js do
       skip 'Map rendering issue'
       create_place_as_user(place_name: 'Any place', map_token: @map.secret_token)
       visit map_path(map_token: @map.secret_token)
-      find(:css, '.show-places-index').trigger('click')
+      show_places_list_panel
 
+      require 'pry'; binding.pry
       expect(page).to have_content('Any place', count: 1)
     end
 

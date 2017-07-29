@@ -6,7 +6,7 @@ feature 'Index', :js do
   end
 
   scenario 'shows places in datatable' do
-    skip 'Map rendering issues'
+    skip 'DEPRECATED: Map index no longer existent...'
     show_places_index(map_token: @map.public_token)
 
     expect(page).to have_content('Katzenklo')
@@ -17,7 +17,7 @@ feature 'Index', :js do
   end
 
   scenario 'has working delete buttons' do
-    skip 'Map rendering issues'
+    skip 'DEPRECATED: Map index no longer existent...'
     login_as_user
     show_places_index(map_token: @map.public_token)
     all('.place_type_col').first.click

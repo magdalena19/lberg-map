@@ -1,6 +1,7 @@
 feature 'Edit description' do
   scenario 'Do not show guest edits in place list', :js do
-    skip 'Map rendering issue'
+    skip "Does not show places list panel, dunno why"
+
     map = create :map, :full_public
     place = create :place, :reviewed, map: map
 
@@ -11,11 +12,12 @@ feature 'Edit description' do
     click_on('Update Place')
 
     Capybara.reset_sessions!
-    expect(map.reviewed_places.count).to be 1
+    visit map_path(map_token: map.public_token)
+    show_places_list_panel
+    find(:css, '.name').trigger('click')
 
-    show_places_index(map_token: @map.public_token)
+    expect(map.reviewed_places.count).to be 1
     expect(page).to have_content(place.name)
-    page.find('.glyphicon-triangle-bottom').trigger('click')
     expect(page).not_to have_content('Changed description')
   end
 

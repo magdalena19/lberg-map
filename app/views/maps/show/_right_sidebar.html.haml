@@ -27,14 +27,14 @@
   - if @reviewed_events_available
     .places-switch.tray-element
       %label.switch.slider-icon
-        %input{type: 'checkbox', class: 'show-events-toggle', checked: true}
+        %input{type: 'checkbox', class: 'show-events-toggle', checked: true, data: { 'place-type' => 'event' }}
         .slider.round.events
       .slider-text= t('.show_events')
 
   - if @reviewed_places_available
     .events-switch.tray-element
       %label.switch.slider-icon
-        %input{type: 'checkbox', class: 'show-places-toggle', checked: true}
+        %input{type: 'checkbox', class: 'show-places-toggle', checked: true, data: { 'place-type' => 'event' }}
         .slider.round.places
       .slider-text= t('.show_places')
 
@@ -75,7 +75,7 @@
 
       -# %span.control-button.show-places-index{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_places_list')}
       -#   .glyphicon.fa.fa-list-alt
-      -#
+
     - if can_contribute?
       .overlay.control-container.place-control-container
         %span.control-button.add-place-button{data: { toggle: 'tooltip', placement: 'left' }, title: t('.new_place'), tray: '.create-place-methods-tray' }

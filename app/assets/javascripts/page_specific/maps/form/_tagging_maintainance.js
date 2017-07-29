@@ -18,7 +18,7 @@ jQuery(function() {
       error: function(e) {
         console.log(e);
       }
-    })
+    });
   }
 
   // TODO does not assign data attributes at all... oO
@@ -51,9 +51,7 @@ jQuery(function() {
         if (categoryName === '' || undefined) input.addClass('alert alert-danger');
 
         // Add proper data attributes
-        input.
-          attr('data-category-id', tag.categoryId).
-          attr('data-original-value', categoryName);
+        input.attr('data-category-id', tag.categoryId).attr('data-original-value', categoryName);
       });
 
       // Assign Button attributes
@@ -85,9 +83,9 @@ jQuery(function() {
     });
 
     if (inputsFilled.includes(true)) {
-      submitButton.removeAttr('disabled')
+      submitButton.removeAttr('disabled');
     } else {
-      submitButton.attr('disabled', 'disabled')
+      submitButton.attr('disabled', 'disabled');
     }
   });
 
@@ -102,7 +100,7 @@ jQuery(function() {
       var value = jQuery(input).val();
 
       newTagData[attr] = value;
-    })
+    });
 
     // POST new Tag
     jQuery.ajax({
@@ -119,9 +117,8 @@ jQuery(function() {
       error: function(e) {
         console.log(e);
       }
-    })
+    });
   });
-
 
   //--- UPDATE tag names
   jQuery('.tag-list').on('click', '.update-tag-button', function() {
@@ -138,7 +135,7 @@ jQuery(function() {
       var attribute = jQuery(this).data('attribute');
       var value = jQuery(this).val();
 
-      new_vals.category[attribute] = value
+      new_vals.category[attribute] = value;
     });
 
     // Send ajax request with new values
@@ -182,17 +179,16 @@ jQuery(function() {
 
     // Traverse and query all inputs for changes
     var inputsChanged = jQuery.map(inputs, function(input) {
-      return jQuery(input).val() !== jQuery(input).data('original-value')
+      return jQuery(input).val() !== jQuery(input).data('original-value');
     });
 
     // Enable / disable update button if any input has changes
     if (inputsChanged.includes(true)) {
-      updateButton.removeAttr('disabled')
+      updateButton.removeAttr('disabled');
     } else {
-      updateButton.attr('disabled', 'disabled')
+      updateButton.attr('disabled', 'disabled');
     }
   });
-
 
   //--- DELETE tags
   jQuery('.tag-list').on('click', '.delete-tag-button', function() {
@@ -211,4 +207,4 @@ jQuery(function() {
       });
     }
   });
-})
+});

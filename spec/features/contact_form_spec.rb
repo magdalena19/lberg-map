@@ -7,12 +7,12 @@ feature 'Contact form' do
 
   scenario 'Can fill out contact information and click send button', :js do
     fill_in_valid_contact_information
-    
+
     click_on 'Send message'
   end
 
   scenario "Deactivate 'send copy to sender' option if no email address is present", :js do
-    expect(page).to_not  have_content('Send a copy to email address')
+    expect(page).to_not have_content('Send a copy to email address')
 
     fill_in :message_sender_email, with: 'foo@bar.org'
     expect(page).to have_content('Send a copy to email address')

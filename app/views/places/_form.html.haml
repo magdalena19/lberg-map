@@ -1,4 +1,4 @@
-= form_for(@place, url: @url) do |f|
+= form_for(@place, url: @url, remote: true) do |f|
   .row
     .col-xs-12
       - if @place.unreviewed_version
@@ -139,7 +139,7 @@
   window.end_date = '#{@place.end_date}';
   window.with_end_date = #{@place.end_date.present?}
   window.available_place_colors = #{Place.available_colors}
-  window.default_poi_color= #{Admin::Setting.default_poi_color}
+  window.default_poi_color = '#{Admin::Setting.default_poi_color}'
 
   jQuery(function() {
     if (window.is_event == true) {

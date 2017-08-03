@@ -55,7 +55,11 @@ class PlacesController < ApplicationController
     if can_commit_to?(model: @place) && @place.save
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
       flash[:success] = t('.created')
-      redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude)
+
+      respond_to do |format|
+        format.json { render json: @place, status: :created }
+        format.html { redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude) }
+      end
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence
       render :new, status: 400
@@ -113,7 +117,7 @@ class PlacesController < ApplicationController
   end
 
   def reverse_geocode
-    results = 
+    results =
       if supplied_address?
         params
       else

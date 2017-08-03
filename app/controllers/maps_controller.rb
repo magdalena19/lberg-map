@@ -36,6 +36,7 @@ class MapsController < ApplicationController
   # HTTP response does not need to be authenticated as it renders only the template
   # ajax calls
   def show
+    @place = @map.places.new # for place creation form
     @categories = @map.categories.all
     @latitude = params[:latitude]
     @longitude = params[:longitude]

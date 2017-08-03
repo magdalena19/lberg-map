@@ -1,21 +1,17 @@
 feature 'Create event', :js do
   before do
     map = create :map, :full_public, maintainer_email_address: 'foo@bar.org'
-    visit new_place_path(map_token: map.public_token)
+    open_new_place_modal(map_token: map.public_token)
   end
 
   scenario 'can check place to be an event' do
-    skip("Travis does not buy the spec, passes though...")
     page.find(:css, '.contact-information-header').trigger('click')
 
-    expect(page).to have_css('#is_event')
+    expect(page).to have_css('#is_event', visible: false)
   end
 
   scenario 'event flag is false by default' do
-    skip('User agent does not display aria describedby very well...')
-    expect(page.find('#is_event')).not_to be_checked
-    expect(page).to_not have_css('#place_start_date')
-    expect(page).to_not have_css('#set_end_date')
+    expect(page.find('#is_event', visible: false)).not_to be_checked
   end
 
   scenario 'can enter dates if place is flagged as event' do

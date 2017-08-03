@@ -51,6 +51,16 @@
   }
 }
 
+.map-flash {
+  .alert {
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+  }
+  left: calc(50% - 100px);
+  top: 70px;
+}
+
 .loading {
   bottom: calc(50% - 50px); // spinner height 50px
   left: calc(50% - 50px); // spinner width 50px

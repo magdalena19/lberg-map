@@ -514,9 +514,14 @@ jQuery(function() {
     // UPDATE CONTENT AFTER POI MANIPULATION
     jQuery(document).ajaxComplete(function( event, xhr, settings ) {
       if (settings.type == ('POST' || 'DELETE')) {
-        window.places = xhr.responseJSON;
-        updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
-        jQuery('.modal').modal('hide');
+        if (xhr.status !== 200) {
+          var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';
+          jQuery('.modal-body').prepend(errorMessage);
+        } else {
+          window.places = xhr.responseJSON;
+          updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
+          jQuery('.modal').modal('hide');
+        }
       };
     });
   });

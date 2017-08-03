@@ -2,6 +2,7 @@
 //= require ./embedding
 //= require ./show/_right_sidebar
 //= require ./show/_map_overlays
+//= require ../places/_form
 
 jQuery(function() {
   // Marker icons
@@ -510,6 +511,15 @@ jQuery(function() {
         }
       });
     }
+
+    // UPDATE CONTENT AFTER POI MANIPULATION
+    jQuery(document).ajaxComplete(function( event, xhr, settings ) {
+      if (settings.type == ('POST' || 'DELETE')) {
+        console.log(xhr.responseJSON);
+        updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
+        jQuery('.modal').modal('hide');
+      };
+    });
   });
 
   function fit_to_bbox() {

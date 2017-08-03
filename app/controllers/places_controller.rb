@@ -56,15 +56,18 @@ class PlacesController < ApplicationController
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
       flash[:success] = t('.created')
 
-      places_to_show = (@map.reviewed_places + @map.reviewed_events + items_from_session).uniq
-
       respond_to do |format|
         format.json { render json: places_to_show.map(&:geojson), status: 200 }
       end
     else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
-      render :new, status: 400
+      respond_to do |format|
+        format.json { render json: @place.errors.full_messages.to_sentence, status: 403 }
+      end
     end
+  end
+
+  def places_to_show
+    (@map.reviewed_places + @map.reviewed_events + items_from_session).uniq
   end
 
   def destroy

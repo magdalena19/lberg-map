@@ -87,14 +87,14 @@ jQuery(function() {
 
   // INSERT PLACE MANUALLY
   jQuery('.add-place-manually').on('click', function() {
-    window.location.href = '/' + window.map_token + '/places/new';
+    jQuery('.place-modal').modal('show');
   });
 
   // ADD PLACE VIA ONCLICK
   jQuery('.add-place-via-click').click(function(){
     hideMapElements();
     jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
-    map.on('click', confirmClickEvent);   
+    map.on('click', confirmClickEvent);
   });
 
 

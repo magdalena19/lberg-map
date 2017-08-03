@@ -514,7 +514,7 @@ jQuery(function() {
     // UPDATE CONTENT AFTER POI MANIPULATION
     jQuery(document).ajaxComplete(function( event, xhr, settings ) {
       if (settings.type == ('POST' || 'DELETE')) {
-        console.log(xhr.responseJSON);
+        window.places = xhr.responseJSON;
         updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
         jQuery('.modal').modal('hide');
       };

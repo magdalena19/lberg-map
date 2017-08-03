@@ -29,10 +29,11 @@ feature 'Places map filter', js: true do
   end
 
   scenario 'Nothing filters nothing' do
-    skip 'Travis does not take it, works locally though...'
-
     show_places
     show_events
+    show_places_list_panel
+    fill_in('search-date-input', with: '01.06.2015 19:00 - 02.08.2015 11:00')
+    click_on 'Apply'
     show_places_list_panel
 
     expect(page).to have_content 'AdventurePark'
@@ -43,7 +44,6 @@ feature 'Places map filter', js: true do
   end
 
   scenario 'filters by date', js_errors: false do
-    skip 'Feature works as specified in test, capybara does not buy it, dunno why...'
     show_places
     show_events
     show_places_list_panel

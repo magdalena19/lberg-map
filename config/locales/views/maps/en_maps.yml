@@ -61,18 +61,13 @@ en:
         add_new_tag: 'Add new tag'
         headline: 'Tags on map'
     modals:
-      embed_map_modal:
-        embed_map: 'Embedding'
-        width: 'Width'
-        height: 'Height'
       share_map_modal:
-        share_secret_link: 'Share the %{link} with others'
-        admin_link: 'adminstration link'
+        public_link: 'Public link'
+        admin_link: 'Adminstration link'
         admin_link_warning: 'Warning: People using this link have full access rights!'
-        share_with_guests: 'Invite others to see what you have mapped'
-        email_address_list: 'List of email addresses, e.g foo@bar.org, batz@bar.org'
-        not_a_public_map: 'Private map; cannot be shared with guests'
+        not_a_public_map: 'Private map; cannot only be used by admins'
         share_map: 'Share map'
+        embed_map_via_iframe: 'Karte als iFrame einbetten'
     show:
       places_list_panel:
         show_events: 'Events'

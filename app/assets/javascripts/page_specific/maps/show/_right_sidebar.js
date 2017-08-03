@@ -57,7 +57,7 @@ jQuery(function() {
         hideAddressSearchBar();
       }
 
-      jQuery('.confirmation-button-container').fadeOut();
+      // Generate URL
       url = '/' + window.map_token + '/places/new?';
 
       // Generate URL
@@ -65,8 +65,7 @@ jQuery(function() {
         url += prop + '=' + address[prop] + '&';
       });
 
-      // Redirect
-      window.location.href = url;
+      jQuery.ajax({ url: url + 'remote=true' });
     });
 
     // cancel button
@@ -87,7 +86,7 @@ jQuery(function() {
 
   // INSERT PLACE MANUALLY
   jQuery('.add-place-manually').on('click', function() {
-    jQuery('.place-modal').modal('show');
+    jQuery.ajax({ url: '/' + window.map_token + '/places/new?remote=true' });
   });
 
   // ADD PLACE VIA ONCLICK

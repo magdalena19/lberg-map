@@ -58,7 +58,6 @@ class PlacesController < ApplicationController
 
       respond_to do |format|
         format.json { render json: @place, status: :created }
-        format.html { redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude) }
       end
     else
       flash.now[:danger] = @place.errors.full_messages.to_sentence

@@ -133,7 +133,7 @@ class Place < ActiveRecord::Base
       phone: phone,
       email: email,
       homepage: homepage,
-      description: reviewed_description.html_safe,
+      description: reviewed_description&.html_safe,
       category_names: categories.map(&:name).join(' | '),
       is_event: event,
       color: color,

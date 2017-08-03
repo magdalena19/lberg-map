@@ -50,7 +50,17 @@ jQuery(function() {
 
     // confirmation button
     jQuery('.confirmation-button-container').fadeIn();
+    var removeConfirmationButtons = function() {
+      map.off('click', confirmClickEvent)
+      jQuery('.confirmation-button-container').fadeOut();
+      map.removeLayer(locationMarker);
+      jQuery('.leaflet-overlay-pane').css('cursor', 'inherit');
+      showMapElements();
+    };
+
     jQuery('#confirmation-button-yes').click(function() {
+      removeConfirmationButtons();
+
       var address = {latitude: lat, longitude: lon};
       if (geocoding_result) {
         jQuery.extend(address, geocoding_result.properties.address);
@@ -70,11 +80,7 @@ jQuery(function() {
 
     // cancel button
     jQuery('#confirmation-button-no').click(function() {
-      map.off('click', confirmClickEvent)
-      jQuery('.confirmation-button-container').fadeOut();
-      map.removeLayer(locationMarker);
-      jQuery('.leaflet-overlay-pane').css('cursor', 'inherit');
-      showMapElements();
+      removeConfirmationButtons();
       fit_to_bbox();
     });
   }

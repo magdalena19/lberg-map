@@ -17,7 +17,10 @@
   = render partial: 'maps/modals/share_map_modal', locals: { map: @map }
   = render partial: 'maps/modals/embed_map_modal', locals: { map: @map }
 
-  -# DESCRIPTION MODAL
+  -# = render 'places_index_modal'
+  - if needs_to_be_unlocked?
+    = render partial: 'maps/modals/map_password_modal'
+
   .modal.fade.place-modal
     .modal-dialog
       .modal-content
@@ -25,11 +28,6 @@
           %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
           %h4.modal-title Place
         .modal-body
-          = render partial: '/places/form'
-
-  -# = render 'places_index_modal'
-  - if needs_to_be_unlocked?
-    = render partial: 'maps/modals/map_password_modal'
 
 :javascript
   window.locale = '#{locale}';

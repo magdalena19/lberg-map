@@ -2,7 +2,6 @@
 //= require ./embedding
 //= require ./show/_right_sidebar
 //= require ./show/_map_overlays
-//= require ../places/_form
 
 jQuery(function() {
   // Marker icons

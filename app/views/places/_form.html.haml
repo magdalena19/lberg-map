@@ -5,7 +5,7 @@
         .red currently under review
 
     -# ADDRESS
-    .col-md-6
+    .col-xs-12
       %h4.header-row= t('.address_data')
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
@@ -58,7 +58,7 @@
 
   -# DATE INFORMATION
   .row
-    .col-md-6
+    .col-xs-12
       %h4.header-row.date-information-header
         .toggle-switch
           = t('.date_information')

@@ -15,6 +15,7 @@
 //= require daterangepicker
 
 //= require ./page_specific/maps/show/_map_overlays
+//= require place_form
 
 jQuery(function() {
   if (window.history.length === 1) {
@@ -51,24 +52,6 @@ jQuery(function() {
         'color': false
       }
     });
-  });
-
-  jQuery('.description-header').click(function() {
-    jQuery(this).siblings('.description-editor').toggleClass('hidden-description');
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
-  });
-
-  jQuery('.contact-information-header').click(function() {
-    jQuery('.contact-information').toggle();
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
-  });
-
-  jQuery('.date-information-header').click(function() {
-    jQuery('.date-information').toggle();
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
   });
 
   // Deactivate "send copy to sender" option if no email address is present

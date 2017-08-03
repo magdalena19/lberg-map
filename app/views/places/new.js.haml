@@ -1,0 +1,4 @@
+var modal = jQuery('.place-modal');
+modal.find('.modal-body').html('#{escape_javascript(render 'form')}');
+modal.modal('show');
+makePlaceFormInteractive();

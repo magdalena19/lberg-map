@@ -108,18 +108,18 @@ jQuery(function() {
         jQuery.ajax({
           url: '/' + window.map_token + '/places/' + placeId,
           type: 'DELETE',
-          success: function(result) {
-            panel.fadeOut(350, function() { jQuery(this).remove(); });
-            modalRow.fadeOut(350, function() {
-              modalRow.next('.child').fadeOut(350).remove();
-              jQuery(this).remove();
-            });
-          }
+          // success: function(result) {
+          //   panel.fadeOut(350, function() { jQuery(this).remove(); });
+          //   modalRow.fadeOut(350, function() {
+          //     modalRow.next('.child').fadeOut(350).remove();
+          //     jQuery(this).remove();
+          //   });
+          // }
         });
       }
     });
 
-    var updatePlaces = function(json) {
+    var updatePlaces = function(json, options) {
       jQuery('.places-list-accordion').empty();
 
       if (typeof cluster !== 'undefined') {
@@ -143,12 +143,15 @@ jQuery(function() {
 
       cluster.addLayer(marker);
       map.addLayer(cluster);
-      if (json.length > 0) {
-        map.fitBounds(cluster.getBounds());
-        jQuery('.zoom-to-bbox').removeClass('inactive');
-      } else {
-        jQuery('.zoom-to-bbox').addClass('inactive');
-      }
+
+      if (options && (options.fitBounds == true)) {
+        if (json.length > 0) {
+          map.fitBounds(cluster.getBounds());
+          jQuery('.zoom-to-bbox').removeClass('inactive');
+        } else {
+          jQuery('.zoom-to-bbox').addClass('inactive');
+        }
+      };
     };
 
     // TEXT FILTER
@@ -256,7 +259,7 @@ jQuery(function() {
     };
 
     var loadAndFilterPlaces = function() {
-      updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
+      updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))), {fitBounds: true});
     };
 
     // external request
@@ -513,11 +516,13 @@ jQuery(function() {
 
     // UPDATE CONTENT AFTER POI MANIPULATION
     jQuery(document).ajaxComplete(function( event, xhr, settings ) {
-      if (settings.type == ('POST' || 'DELETE')) {
+      if (['POST', 'DELETE'].includes(settings.type)) {
+        console.log(xhr.status);
         if (xhr.status !== 200) {
           var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';
           jQuery('.modal-body').prepend(errorMessage);
         } else {
+          console.log(xhr.responseJSON);
           window.places = xhr.responseJSON;
           updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
           jQuery('.modal').modal('hide');

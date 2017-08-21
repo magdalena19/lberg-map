@@ -88,12 +88,12 @@ describe PlacesController do
       expect(new_place.country).to eq 'SomeCountry'
     end
 
-    it 'redirects to correct map show' do
+    it 'returns all points to be shown as json' do
       post :create, map_token: map.public_token, place: attributes_for(:place, :unreviewed,
                                                                        federal_state: 'SomeState',
                                                                        country: 'SomeCountry',
                                                                        district: 'SomeDistrict')
-      expect(response).to redirect_to map_path(map_token: map.public_token, latitude: 52.5, longitude: 13.45)
+      expect(response).to be 'json'
     end
 
     it 'does accept POIs without house number' do

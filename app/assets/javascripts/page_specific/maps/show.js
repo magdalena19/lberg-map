@@ -95,7 +95,8 @@ jQuery(function() {
     // do not use the simpler .click function due to dynamic creation
     jQuery('body').on('click', '.edit-place', function() {
       var placeId = jQuery(this).attr('place_id');
-      window.location.href = '/' + window.map_token + '/places/' + placeId + '/edit';
+      var url = '/' + window.map_token + '/places/' + placeId + '/edit';
+      jQuery.ajax({ url: url + '?remote=true' });
     });
 
     jQuery('body').on('click', '.delete-place', function() {
@@ -108,13 +109,6 @@ jQuery(function() {
         jQuery.ajax({
           url: '/' + window.map_token + '/places/' + placeId,
           type: 'DELETE',
-          // success: function(result) {
-          //   panel.fadeOut(350, function() { jQuery(this).remove(); });
-          //   modalRow.fadeOut(350, function() {
-          //     modalRow.next('.child').fadeOut(350).remove();
-          //     jQuery(this).remove();
-          //   });
-          // }
         });
       }
     });
@@ -517,7 +511,6 @@ jQuery(function() {
     // UPDATE CONTENT AFTER POI MANIPULATION
     jQuery(document).ajaxComplete(function( event, xhr, settings ) {
       if (['POST', 'DELETE'].includes(settings.type)) {
-        console.log(xhr.status);
         if (xhr.status !== 200) {
           var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';
           jQuery('.modal-body').prepend(errorMessage);

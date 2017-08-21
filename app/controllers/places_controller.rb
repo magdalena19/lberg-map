@@ -34,11 +34,14 @@ class PlacesController < ApplicationController
   def update
     if @params_to_commit.any? && @place.update(@params_to_commit)
       AttributeSetter::Place.set_attributes_after_update(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
-      flash[:success] = t('.changes_saved')
-      redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude)
+
+      respond_to do |format|
+        format.json { render json: places_to_show.map(&:geojson), status: 200 }
+      end
     else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
-      render :edit, status: 400
+      respond_to do |format|
+        format.json { render json: @place.errors.full_messages.to_sentence, status: 403 }
+      end
     end
   end
 

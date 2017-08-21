@@ -74,7 +74,7 @@ class PlacesController < ApplicationController
     respond_to do |format|
       if @place.destroy
         format.json do
-          render json: {}, status: :ok
+          render json: places_to_show.map(&:geojson), status: 200
         end
         format.html do
           redirect_to map_path(map_token: request[:map_token])

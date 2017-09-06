@@ -511,14 +511,20 @@ jQuery(function() {
     // UPDATE CONTENT AFTER POI MANIPULATION
     jQuery(document).ajaxComplete(function( event, xhr, settings ) {
       if (['POST', 'DELETE'].includes(settings.type)) {
-        if (xhr.status !== 200) {
-          var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';
-          jQuery('.modal-body').prepend(errorMessage);
-        } else {
-          console.log(xhr.responseJSON);
+        if ([200, 201].includes(xhr.status)) {
+          if (xhr.status == 200) {
+            var alertText = 'Successfully updated!'
+          } else if (xhr.status == 201) {
+            var alertText = 'Successfully created!'
+          };
+          jQuery('.modal').modal('hide');
           window.places = xhr.responseJSON;
           updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
-          jQuery('.modal').modal('hide');
+          var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + alertText + '</div>';
+          jQuery('.map-flash').html(errorMessage).show().fadeOut(4000);
+        } else {
+          var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';
+          jQuery('.modal-body').prepend(errorMessage);
         }
       };
     });

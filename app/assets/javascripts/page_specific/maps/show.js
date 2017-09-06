@@ -510,6 +510,7 @@ jQuery(function() {
 
     // UPDATE CONTENT AFTER POI MANIPULATION
     jQuery(document).ajaxComplete(function( event, xhr, settings ) {
+      var response = xhr.responseJSON;
       if (['POST', 'DELETE'].includes(settings.type)) {
         if ([200, 201].includes(xhr.status)) {
           if (xhr.status == 200) {
@@ -518,9 +519,10 @@ jQuery(function() {
             var alertText = 'Successfully created!'
           };
           jQuery('.modal').modal('hide');
-          window.places = xhr.responseJSON;
+          window.places = response.places;
           updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
-          var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + alertText + '</div>';
+          var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + response.success_message + '</div>';
+          map.panTo(response.coordinates);
           jQuery('.map-flash').html(errorMessage).show().fadeOut(4000);
         } else {
           var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';

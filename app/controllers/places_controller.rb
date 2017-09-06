@@ -36,7 +36,11 @@ class PlacesController < ApplicationController
       AttributeSetter::Place.set_attributes_after_update(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
 
       respond_to do |format|
-        format.json { render json: places_to_show.map(&:geojson), status: 200 }
+        format.json { render json: {
+          places: places_to_show.map(&:geojson),
+          coordinates: [@place.latitude, @place.longitude],
+          success_message: 'Successfully updated!'
+        }, status: 200 }
       end
     else
       respond_to do |format|
@@ -59,7 +63,11 @@ class PlacesController < ApplicationController
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
 
       respond_to do |format|
-        format.json { render json: places_to_show.map(&:geojson), status: 201 }
+        format.json { render json: {
+          places: places_to_show.map(&:geojson),
+          coordinates: [@place.latitude, @place.longitude],
+          success_message: 'Successfully created!'
+        }, status: 201 }
       end
     else
       respond_to do |format|

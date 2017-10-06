@@ -116,9 +116,9 @@
               = f.text_area column.to_sym, class: "wysihtml5 description-area #{column}"
 
   -# CAPTCHA
-  .row
+  .row.captcha-row
     .col-md-6
-      = recaptcha_tags(hl: I18n.locale) unless @current_user.signed_in?
+      #place-form-captcha
 
   -# BUTTONS
   .row.button-row

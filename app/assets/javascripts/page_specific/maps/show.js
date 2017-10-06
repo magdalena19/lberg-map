@@ -210,7 +210,6 @@ jQuery(function() {
         var daterange = jQuery('#search-date-input').data('daterangepicker');
         var startDate = forceUTC(daterange.startDate);
         var endDate = forceUTC(daterange.endDate);
-        var showPlaces = jQuery('.show-places-toggle')[0].checked;
 
         jQuery(json).each(function (id, feature) {
           var featureStartDate = moment(feature.start_date);
@@ -219,7 +218,7 @@ jQuery(function() {
           if (
             ( featureStartDate >= startDate && featureStartDate <= endDate ) ||
             ( featureEndDate >= startDate && featureEndDate <= endDate ) ||
-            ( !feature.is_event && showPlaces )
+            ( !feature.is_event && showPlaces() )
           ) {
             filteredJson.push(feature);
           }
@@ -230,8 +229,7 @@ jQuery(function() {
 
     // PLACE TYPE FILTER
     function showFeature(feature) {
-      var showPlaces = jQuery('.show-places-toggle')[0].checked;
-      if ( (feature.is_event && showEvents()) || (!feature.is_event && showPlaces) ) {
+      if ( (feature.is_event && showEvents()) || (!feature.is_event && showPlaces()) ) {
         return true;
       } else {
         return false;
@@ -392,6 +390,11 @@ jQuery(function() {
       loadAndFilterPlaces();
     });
 
+    // Place toggling
+    function showPlaces() {
+      var placesToggle = jQuery('.show-places-toggle')[0];
+      return placesToggle && placesToggle.checked;
+    }
 
     // Event toggling
     function showEvents() {
@@ -508,8 +511,8 @@ jQuery(function() {
     // UPDATE CONTENT AFTER POI MANIPULATION
     jQuery(document).ajaxComplete(function( event, xhr, settings ) {
       var response = xhr.responseJSON;
-      if (['POST', 'DELETE'].includes(settings.type)) {
-        if ([200, 201].includes(xhr.status)) {
+      if (['POST', 'DELETE'].indexOf(settings.type) != -1) {
+        if ([200, 201].indexOf(xhr.status) != -1) {
           if (xhr.status == 200) {
             var alertText = 'Successfully updated!'
           } else if (xhr.status == 201) {

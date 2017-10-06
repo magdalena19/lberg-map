@@ -201,10 +201,7 @@ jQuery(function() {
 
     var dateFilter = function(json) {
       // Check if shall filter by date, pass unfiltered json if not...
-      var showEventsToggle = jQuery('.show-events-toggle')[0];
-      var filterByDate = showEventsToggle && showEventsToggle.checked || false;
-
-      if ( !filterByDate ) {
+      if ( !showEvents() ) {
         return json;
       } else {
         var filteredJson = [];
@@ -233,9 +230,8 @@ jQuery(function() {
 
     // PLACE TYPE FILTER
     function showFeature(feature) {
-      var showEvents = jQuery('.show-events-toggle')[0].checked;
       var showPlaces = jQuery('.show-places-toggle')[0].checked;
-      if ( (feature.is_event && showEvents) || (!feature.is_event && showPlaces) ) {
+      if ( (feature.is_event && showEvents()) || (!feature.is_event && showPlaces) ) {
         return true;
       } else {
         return false;
@@ -397,9 +393,10 @@ jQuery(function() {
     });
 
 
-    // Evente toggling
+    // Event toggling
     function showEvents() {
-      return jQuery('.show-events-toggle')[0].checked;
+      var eventsToggle = jQuery('.show-events-toggle')[0];
+      return eventsToggle && eventsToggle.checked;
     }
 
     function eventDateRange() {

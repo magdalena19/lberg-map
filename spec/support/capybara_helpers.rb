@@ -17,17 +17,14 @@ module CapybaraHelpers
 
   def create_place_as_user(place_name: 'SomePlace', map_token:)
     login_as_user
-    visit new_place_path(map_token: map_token)
-    fill_in_valid_place_information
-    fill_in('place_name', with: place_name)
-    find(:css, '.submit-place-button').trigger('click')
+    create_place(place_name: place_name, map_token: map_token)
   end
 
-  def create_place_as_guest(place_name: 'SomePlace', map_token:)
-    visit new_place_path(map_token: map_token)
+  def create_place(place_name: 'SomePlace', map_token:)
+    visit map_path(map_token: @map.secret_token)
+    find(:css, '.add-place-button').trigger('click')
+    find(:css, '.add-place-manually').trigger('click')
     fill_in_valid_place_information
-    fill_in('place_name', with: place_name)
-    
     find(:css, '.submit-place-button').trigger('click')
   end
 
@@ -82,19 +79,19 @@ module CapybaraHelpers
     switch = find('.show-events-toggle', visible: false)
     switch.trigger('click') unless switch.checked?
   end
-  
+
   def hide_events
     show_display_options
     switch = find('.show-events-toggle', visible: false)
     switch.trigger('click') if switch.checked?
   end
-  
+
   def show_places
     show_display_options
     switch = find('.show-places-toggle', visible: false)
     switch.trigger('click') unless switch.checked?
   end
-  
+
   def hide_places
     show_display_options
     switch = find('.show-places-toggle', visible: false)

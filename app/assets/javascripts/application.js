@@ -182,6 +182,8 @@ jQuery(function() {
   });
 
   // ------ MAP SHARING
+  // grecaptcha.render('share-map-captcha', {'sitekey' : '6LeGjiUUAAAAABqmRwzkgx4svjseCaFSgeoKcABM'});
+
   jQuery('.share-admin-link').on('click', function(){
     jQuery('.modal-content #map_admins').toggle();
   });

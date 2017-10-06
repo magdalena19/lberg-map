@@ -80,4 +80,6 @@ function makePlaceFormInteractive() {
     jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
     jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
   });
+
+  grecaptcha.render('place-form-captcha', {'sitekey' : '6LeGjiUUAAAAABqmRwzkgx4svjseCaFSgeoKcABM'});
 }

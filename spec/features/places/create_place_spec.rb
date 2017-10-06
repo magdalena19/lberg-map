@@ -4,20 +4,26 @@ feature 'Create place', :js do
       @map = create :map, :full_public
     end
 
-    scenario 'create valid place as user' do
-      skip 'Map rendering issue'
-      create_place_as_user(place_name: 'Any place', map_token: @map.secret_token)
-      visit map_path(map_token: @map.secret_token)
-      find(:css, '.show-places-index').trigger('click')
+    scenario 'can insert place manually as guest' do
+      create_place(map_token: @map.public_token)
 
-      expect(page).to have_content('Any place', count: 1)
+      expect(page).to have_css('.leaflet-marker-icon', count: 1)
+      expect(page).not_to have_css('.glyphicon-pencil', visible: false)
+    end
+
+    scenario 'can insert place manually as user' do
+      create_place_as_user(map_token: @map.public_token)
+
+      expect(page).to have_css('.leaflet-marker-icon', count: 1)
+      expect(page).to have_css('.glyphicon-pencil', visible: false)
     end
 
     scenario 'create valid place as guest' do
-      skip("Works live, dunno why not in specs")
       create_place_as_guest(place_name: 'Another place', map_token: @map.public_token)
-      visit places_path(map_token: @map.public_token)
-
+      find(:css, '.close').trigger('click')
+      sleep(1)
+      find(:css, '.toggle-panel').trigger('click')
+      screenshot_and_open_image
       expect(page).to have_content('Another place')
       expect(page).not_to have_css('.glyphicon-pencil')
     end
@@ -25,11 +31,13 @@ feature 'Create place', :js do
     scenario 'should create new categories if not existent already' do
       expect(Category.count).to eq 0
       login_as_user
-      visit new_place_path(map_token: @map.public_token)
+      visit map_path(map_token: @map.secret_token)
+      find(:css, '.add-place-button').trigger('click')
+      find(:css, '.add-place-manually').trigger('click')
       fill_in_valid_place_information
       fill_in('place_categories_string', with: 'Hospital, Cafe')
-      click_button('Create Place')
-
+      find(:css, '.submit-place-button').trigger('click')
+      sleep(1)
       expect(Category.count).to eq 2
       expect(Place.last.categories.sort_by(&:id).to_a).to eq Category.all.sort_by(&:id)
     end
@@ -73,7 +81,7 @@ feature 'Create place', :js do
     scenario 'Commits hidden geofeatures district, federal state and country' do
       visit new_place_path(map_token: @map.public_token) + '?longitude=12&latitude=52'
       fill_in('place_name', with: 'SomePlace')
-      
+
       click_on('Create Place')
       new_place = Place.find_by(name: 'SomePlace')
 

@@ -47,5 +47,5 @@ public/capybara.html
 /vendor/bundle
 
 # CTags
-.tags*
+*tags*
 

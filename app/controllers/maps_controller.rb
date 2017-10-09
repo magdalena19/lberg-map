@@ -5,7 +5,7 @@ class MapsController < ApplicationController
 
   before_action :set_map, except: [:new, :index]
   before_action :allow_iframe_request, only: [:show_embedded, :show]
-  before_action :auth_map, if: :needs_to_be_unlocked?, only: [:update, :destroy, :edit, :share_map, :send_invitations]
+  before_action :auth_map, if: :needs_to_be_unlocked?, only: [:update, :destroy, :edit, :send_invitations]
   before_action :unset_password_if_unchecked, only: [:update]
   after_action :update_visit_timestamp, only: [:show, :update, :edit]
 
@@ -111,9 +111,6 @@ class MapsController < ApplicationController
 
   def chronicle
     @announcements = @map.announcements.all.sort_by(&:created_at).reverse
-  end
-
-  def share_map
   end
 
   def send_invitations

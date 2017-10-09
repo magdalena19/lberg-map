@@ -181,49 +181,6 @@ jQuery(function() {
     }
   });
 
-  // ------ MAP SHARING
-  // grecaptcha.render('share-map-captcha', {'sitekey' : '6LeGjiUUAAAAABqmRwzkgx4svjseCaFSgeoKcABM'});
-
-  jQuery('.share-admin-link').on('click', function(){
-    jQuery('.modal-content #map_admins').toggle();
-  });
-
-  jQuery('.modal-content .invite-form-field').on('input', function(){
-    var parentModal = jQuery(this).closest('.share-map-modal');
-    var bla1 = parentModal.find('#map_guests').val();
-    var bla2 = parentModal.find('#map_admins').val();
-    var hasMapGuestInvitees = bla1 === '' || bla1 === undefined ? false : true;
-    var hasMapAdminInvitees = bla2 === '' || bla2 === undefined ? false : true;
-
-    if ( hasMapGuestInvitees || hasMapAdminInvitees ) {
-      jQuery('.modal-content #submit_invitations').prop('disabled', false);
-      jQuery('.modal-content .captcha').fadeIn(350);
-    } else {
-      jQuery('.modal-content #submit_invitations').prop('disabled', true);
-      jQuery('.modal-content .captcha').fadeOut(350);
-    }
-  });
-
-  jQuery('.modal-content #submit_invitations').on('click', function() {
-    var mapId = jQuery(this).data('map-id');
-    var parentModal = jQuery(this).closest('.share-map-modal');
-    var mapGuestInvitees = parentModal.find('#map_guests').val();
-    var mapAdminInvitees = parentModal.find('#map_admins').val();
-
-    jQuery.ajax({
-      url: '/share_map/' + mapId,
-      data: { map_admins: mapAdminInvitees, map_guests: mapGuestInvitees, id: mapId },
-      type: 'POST',
-      context: this,
-      success: function() {
-        jQuery(this).closest('.share-map-modal').modal('hide');
-      },
-      error: function() {
-        alert('Something went wrong!')
-      }
-    })
-  });
-
   // FOOTER ACTIONS
   jQuery('.app_imprint_toggle').on('click', function(){
     jQuery('#app_imprint').modal('show');

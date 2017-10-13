@@ -116,6 +116,8 @@ jQuery(function() {
     var updatePlaces = function(json, options) {
       jQuery('.places-list-accordion').empty();
 
+      if (json.length == 0) { jQuery('.places-list-accordion').append('No places yet!') };
+
       if (typeof cluster !== 'undefined') {
         map.removeLayer(cluster);
       }
@@ -521,12 +523,12 @@ jQuery(function() {
           jQuery('.modal').modal('hide');
           window.places = response.places;
           updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
-          var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + response.success_message + '</div>';
-          map.panTo(response.coordinates);
-          jQuery('.map-flash').html(errorMessage).show().fadeOut(4000);
+          var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + response.success_message + '</div>';
+          jQuery('.map-flash').html(flashMessage).show().fadeOut(4000);
+          if (response.coordinates) { map.panTo(response.coordinates) };
         } else {
-          var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';
-          jQuery('.modal-body').prepend(errorMessage);
+          var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';
+          jQuery('.modal-body').prepend(flashMessage);
         }
       };
     });

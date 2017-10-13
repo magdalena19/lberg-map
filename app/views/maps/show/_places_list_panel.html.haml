@@ -22,11 +22,7 @@
       %button.btn.btn-default.cancel-place-addition
         = t('cancel')
   .places-list-accordion-container
-    - if @reviewed_places_available
-      #accordion.places-list-accordion.panel-group{'aria-multiselectable' => 'true', role: 'tablist'}
-    - else
-      .text-center
-        = t('.no_items_in_map')
+    #accordion.places-list-accordion.panel-group{'aria-multiselectable' => 'true', role: 'tablist'}
 
 .panel.panel-default.places-list-item.template
   .panel-heading{role: 'tab'}

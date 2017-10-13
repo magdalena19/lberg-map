@@ -118,7 +118,7 @@
   -# CAPTCHA
   .row.captcha-row
     .col-md-6
-      = display_captcha
+      = display_captcha unless @current_user.signed_in?
 
   -# BUTTONS
   .row.button-row

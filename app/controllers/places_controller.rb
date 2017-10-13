@@ -76,10 +76,6 @@ class PlacesController < ApplicationController
     end
   end
 
-  def places_to_show
-    (@map.reviewed_places + @map.reviewed_events + items_from_session).uniq
-  end
-
   def destroy
     respond_to do |format|
       if @place.destroy
@@ -97,7 +93,7 @@ class PlacesController < ApplicationController
   private
 
   def places_to_show
-    (@map.reviewed_places + items_from_session).uniq
+    (@map.reviewed_places + @map.reviewed_events + items_from_session).uniq
   end
 
   def modify_params

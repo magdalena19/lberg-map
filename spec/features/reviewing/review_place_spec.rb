@@ -1,6 +1,6 @@
 feature 'Review place', :js do
   before(:each) do
-    @map = create :map, :full_public 
+    @map = create :map, :full_public
     @place = create :place, :reviewed, name: 'Some reviewed place', map: @map
   end
 
@@ -23,7 +23,7 @@ feature 'Review place', :js do
       fill_in('place_name', with: 'GUEST CHANGE')
       click_on('Update Place')
 
-      sleep(2)
+      expect(page).to have_content('Successfully updated!')
       login_as_user
     end
 

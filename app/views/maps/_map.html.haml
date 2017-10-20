@@ -1,5 +1,5 @@
 = render partial: 'maps/modals/map_description_modal', locals: { map: map }
-= render partial: 'maps/modals/embed_map_modal', locals: { map: map } if map.is_public?
+= render partial: 'maps/modals/share_map_modal', locals: { map: map } if map.is_public?
 
 -# MAP PANEL CONTENT
 .col-lg-4.col-md-4
@@ -12,10 +12,7 @@
       .col-xs-4.map_buttons_container
         %ul.nav.nav-pills.map_buttons
           %li.glyphicon.glyphicon-info-sign.map-modal-button{ data: { target: 'map_description', 'map-id' => map.id}}
-          %li.dropdown
-            %a.dropdown-toggle.fa.fa-share-alt.map_settings_button{ 'data-toggle': 'dropdown', href: '#map_settings' }
-            %ul.dropdown-menu
-              %li= link_to t('.embed_map'), '#', data: { target: 'embed_map', 'map-id' => map.id}, class: 'map-modal-button' if map.is_public?
+          %li.fa.fa-share-alt.map-modal-button{ data: { target: 'share_map', 'map-id' => map.id }}
           %li.dropdown
             %a.dropdown-toggle.fa.fa-cog.map_settings_button{ 'data-toggle': 'dropdown', href: '#map_settings' }
             %ul.dropdown-menu

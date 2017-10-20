@@ -15,17 +15,35 @@ module CapybaraHelpers
     click_on 'Login'
   end
 
-  def create_place_as_user(place_name: 'SomePlace', map_token:)
+  def create_place_as_user(map_token:)
     login_as_user
-    create_place(place_name: place_name, map_token: map_token)
+    create_place(map_token: map_token)
   end
 
-  def create_place(place_name: 'SomePlace', map_token:)
+  def open_new_place_modal(map_token:)
+    visit map_path(map_token: map_token)
+    find(:css, '.add-place-button').trigger('click')
+    find(:css, '.add-place-manually').trigger('click')
+  end
+
+  def create_place(map_token:)
     visit map_path(map_token: @map.secret_token)
     find(:css, '.add-place-button').trigger('click')
     find(:css, '.add-place-manually').trigger('click')
     fill_in_valid_place_information
     find(:css, '.submit-place-button').trigger('click')
+  end
+
+  def open_edit_place_modal(id:)
+    find("div.edit-place[place_id='#{id}']", visible: false).trigger('click') #Find correct edit button
+  end
+
+  def update_place_name(map_token:, id:, name:)
+      visit map_path(map_token: map_token)
+      open_edit_place_modal(id: id)
+      fill_in('place_name', with: name)
+      click_on('Update Place')
+      wait_for_ajax
   end
 
   def fill_in_valid_place_information

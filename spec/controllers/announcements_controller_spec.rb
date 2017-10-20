@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 describe AnnouncementsController do
-  let(:user1) {create :user, name: 'Susanne'}
-  let(:user2) {create :user, name: 'Norbert'}
-  let(:admin) {create :user, :admin, name: 'Admin'}
-  let(:announcement) {create :announcement, header: 'something', content: 'something', user: user1}
+  let(:user1) { create :user, name: 'Susanne' }
+  let(:user2) { create :user, name: 'Norbert' }
+  let(:admin) { create :user, :admin, name: 'Admin' }
+  let(:announcement) { create :announcement, header: 'something', content: 'something', user: user1 }
 
   before do
     login_as user1
@@ -85,9 +85,9 @@ describe AnnouncementsController do
 
   context 'POST #create' do
     it 'creates new announcement' do
-      expect {
+      expect do
         post :create, announcement: attributes_for(:announcement), map_token: @map.public_token
-      }.to change { Announcement.count }.by(1)
+      end.to change { Announcement.count }.by(1)
     end
 
     it 'sets correct ownership' do
@@ -103,9 +103,9 @@ describe AnnouncementsController do
     context 'rejects new announcement' do
       it 'if not logged in' do
         logout
-        expect {
+        expect do
           post :create, announcement: attributes_for(:announcement), map_token: @map.public_token
-        }.to change { Announcement.count }.by(0)
+        end.to change { Announcement.count }.by(0)
         expect(response).to redirect_to login_path
       end
     end
@@ -115,10 +115,10 @@ describe AnnouncementsController do
     it 'accepts update on own announcement' do
       login_as user1
 
-      expect {
+      expect do
         put :update, id: announcement.id, announcement: { header: 'Changed!',
                                                           content: 'Changed!' }, map_token: @map.public_token
-      }.to change { announcement.reload.header }.from('something').to('Changed!')
+      end.to change { announcement.reload.header }.from('something').to('Changed!')
     end
     it 'redirects to announcement index' do
       login_as user1
@@ -128,15 +128,14 @@ describe AnnouncementsController do
       expect(response).to redirect_to announcements_path
     end
 
-
     it 'accepts updating other users announcement if is admin' do
       announce_of_user1 = create :announcement, header: 'SomeHeader', user: user1
       login_as admin
 
-      expect{
+      expect do
         put :update, id: announce_of_user1.id, announcement: { header: 'Changed!',
                                                                content: 'Changed!' }, map_token: @map.public_token
-      }.to change { announce_of_user1.reload.header }.to('Changed!')
+      end.to change { announce_of_user1.reload.header }.to('Changed!')
     end
 
     context 'rejects update' do
@@ -165,9 +164,9 @@ describe AnnouncementsController do
       announce_of_user1 = create :announcement, user: user1
       login_as user1
 
-      expect {
+      expect do
         delete :destroy, id: announce_of_user1.id, map_token: @map.public_token
-      }.to change { Announcement.count }.from(1).to(0)
+      end.to change { Announcement.count }.from(1).to(0)
     end
 
     it 'redirects to announcement index' do
@@ -182,9 +181,9 @@ describe AnnouncementsController do
       announce_of_user1 = create :announcement, header: 'SomeHeader', user: user1
       login_as admin
 
-      expect{
+      expect do
         delete :destroy, id: announce_of_user1.id, map_token: @map.public_token
-      }.to change { Announcement.count }.by(-1)
+      end.to change { Announcement.count }.by(-1)
     end
 
     context 'rejects deletion' do
@@ -199,9 +198,9 @@ describe AnnouncementsController do
       it 'if is other users announcement' do
         announce_of_user1 = create :announcement, user: user1
         login_as user2
-        expect {
+        expect do
           delete :destroy, id: announce_of_user1.id, map_token: @map.public_token
-        }.to change { Announcement.count }.by(0)
+        end.to change { Announcement.count }.by(0)
         expect(response).to redirect_to announcements_path
       end
     end

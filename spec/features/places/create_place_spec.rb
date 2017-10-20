@@ -1,36 +1,11 @@
 feature 'Create place', :js do
-  context 'Full public maps' do
-    before do
-      @map = create :map, :full_public
-    end
+  before do
+    @map = create :map, :full_public
+  end
 
-    scenario 'can insert place manually as guest' do
-      create_place(map_token: @map.public_token)
-
-      expect(page).to have_css('.leaflet-marker-icon', count: 1)
-      expect(page).not_to have_css('.glyphicon-pencil', visible: false)
-    end
-
-    scenario 'can insert place manually as user' do
-      create_place_as_user(map_token: @map.public_token)
-
-      expect(page).to have_css('.leaflet-marker-icon', count: 1)
-      expect(page).to have_css('.glyphicon-pencil', visible: false)
-    end
-
-    scenario 'create valid place as guest' do
-      create_place_as_guest(place_name: 'Another place', map_token: @map.public_token)
-      find(:css, '.close').trigger('click')
-      sleep(1)
-      find(:css, '.toggle-panel').trigger('click')
-      screenshot_and_open_image
-      expect(page).to have_content('Another place')
-      expect(page).not_to have_css('.glyphicon-pencil')
-    end
-
+  context 'As privileged user' do
     scenario 'should create new categories if not existent already' do
       expect(Category.count).to eq 0
-      login_as_user
       visit map_path(map_token: @map.secret_token)
       find(:css, '.add-place-button').trigger('click')
       find(:css, '.add-place-manually').trigger('click')
@@ -38,8 +13,46 @@ feature 'Create place', :js do
       fill_in('place_categories_string', with: 'Hospital, Cafe')
       find(:css, '.submit-place-button').trigger('click')
       sleep(1)
+
       expect(Category.count).to eq 2
       expect(Place.last.categories.sort_by(&:id).to_a).to eq Category.all.sort_by(&:id)
+    end
+
+    scenario 'can insert place manually as user' do
+      create_place_as_user(map_token: @map.secret_token)
+
+      expect(page).to have_css('.leaflet-marker-icon', count: 1)
+      expect(page).to have_css('.glyphicon-pencil', visible: false)
+    end
+
+    scenario 'show only one wysiwyg editor for current locale' do
+      skip 'WYSIWIG EDITOR NOT WORKING'
+
+      open_new_place_modal(map_token: @map.secret_token)
+      expect(page).to have_css('.wysihtml5-toolbar', count: 1)
+
+      page.find_all('.glyphicon-triangle-bottom').last.trigger('click')
+      expect(page).to have_css('.wysihtml5-toolbar', count: 2)
+    end
+
+    scenario 'Commits hidden geofeatures district, federal state and country' do
+      create_place_as_user(map_token: @map.secret_token)
+      sleep(1)
+      new_place = Place.find_by(name: 'Any place')
+
+      expect(new_place.district).to eq 'Lichtenberg'
+      expect(new_place.federal_state).to eq 'Berlin'
+      expect(new_place.country).to eq 'Germany'
+    end
+  end
+
+  context 'As guest' do
+    scenario 'can insert place manually as guest' do
+      skip 'To be implemented'
+      create_place(map_token: @map.public_token)
+
+      expect(page).to have_css('.leaflet-marker-icon', count: 1)
+      expect(page).not_to have_css('.glyphicon-pencil', visible: false)
     end
 
     scenario 'see guests session places on map' do
@@ -50,58 +63,6 @@ feature 'Create place', :js do
 
       expect(page).to have_content('Another place')
       expect(page).to have_content('Still another place')
-    end
-
-    scenario 'visit new place view with coordinate parameters' do
-      # Redefine geocoder response to match geocoder return
-      switch_geocoder_stub
-
-      visit new_place_path(map_token: @map.public_token) + '?longitude=1&latitude=1'
-
-      expect(find_field('place_city').value).to eq('Berlin')
-    end
-
-    scenario 'show only one wysiwyg editor for current locale' do
-      skip "Feature works, dunno how to write the test properly..."
-      visit new_place_path(map_token: @map.public_token)
-      expect(page).to have_css('.wysihtml5-toolbar', count: 1)
-
-      page.find_all('.glyphicon-triangle-bottom').last.trigger('click')
-      expect(page).to have_css('.wysihtml5-toolbar', count: 2)
-    end
-
-    scenario 'Reverse geocodes if lat/lon is provided and populates value to form fields' do
-      visit new_place_path(map_token: @map.public_token) + '?longitude=12&latitude=52'
-
-      expect(page.find('#place_street').value).to eq('Magdalenenstraße')
-      expect(page.find('#place_postal_code').value).to eq('10365')
-      expect(page.find('#place_city').value).to eq('Berlin')
-    end
-
-    scenario 'Commits hidden geofeatures district, federal state and country' do
-      visit new_place_path(map_token: @map.public_token) + '?longitude=12&latitude=52'
-      fill_in('place_name', with: 'SomePlace')
-
-      click_on('Create Place')
-      new_place = Place.find_by(name: 'SomePlace')
-
-      expect(new_place.district).to eq 'Lichtenberg'
-      expect(new_place.federal_state).to eq 'Berlin'
-      expect(new_place.country).to eq 'Germany'
-    end
-
-    scenario 'Can create place without house number coming from address search' do
-      # parameters generated by address search
-      visit new_place_path(map_token: @map.public_token) + '?latitude=52.5107837&longitude=13.4596902441948&park=Boxhagener%20Platz&road=Krossener%20Stra%C3%9Fe&suburb=Fhain&city_district=Friedrichshain-Kreuzberg&state=Berlin&postcode=10245&country=Germany&country_code=de&'
-
-      expect(page.find('#place_street').value).to eq 'Krossener Straße'
-    end
-
-    scenario 'Do not break if geo features missing (e.g. malformatted API response or response format change)' do
-      # parameters generated by address search
-      visit new_place_path(map_token: @map.public_token) + '?latitude=52.5107837&longitude=13.4596902441948&park=Boxhagener%20Platz&road=Krossener%20Stra%C3%9Fe'
-
-      expect(page.find('#place_street').value).to eq 'Krossener Straße'
     end
   end
 end

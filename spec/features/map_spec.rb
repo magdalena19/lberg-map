@@ -7,18 +7,15 @@ feature 'Map', js: true do
 
   scenario 'shows map index in navbar' do
     login_as_user
-    @place = create :place, :reviewed, map: create(:map, :full_public, user: User.first)
-    visit map_path(map_token: @place.map.public_token)
-    find('.fa-map-o').trigger('click')
+    place = create :place, :reviewed, map: create(:map, :full_public, user: User.first)
+    visit map_path(map_token: place.map.public_token)
 
-    expect(page).to have_content 'Map index'
+    expect(page).to have_css('.fa-map-o')
   end
 
-  scenario 'shows session map index in navbar if not signed in', js_errors: false do
+  scenario 'shows session map index in navbar if not signed in' do
     visit new_map_path
-    
     click_on('Create Map')
-
     find('.fa-map-o').trigger('click')
 
     expect(page).to have_content 'Map index'

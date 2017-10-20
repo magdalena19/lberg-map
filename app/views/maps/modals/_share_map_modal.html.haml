@@ -1,0 +1,32 @@
+-# SHARE MAP MODAL
+.modal.fade.share-map{role: 'dialog', id: "share_map_#{map.id}"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
+        %h4.modal-title= t('.share_map')
+      .modal-body
+        .row.margin-below
+          .col-xs-12
+            %h4
+              - if map.is_public?
+                %b= t('.public_link')
+                %p= link_to map_url(map_token: map.public_token), map_url(map_token: map.public_token)
+              - else
+                %p= t('.not_a_public_map')
+
+        - if has_privileged_map_access?(map: map)
+          .row.margin-below
+            .col-xs-12
+              %b.red
+                = t('.admin_link')
+                = " (#{t('.admin_link_warning')})"
+              %p= link_to map_url(map_token: map.secret_token), map_url(map_token: map.secret_token)
+          %hr
+
+        .row.margin-below
+          .col-xs-12
+            %h4
+              %b= t('.embed_map_via_iframe')
+            %code
+              = "<iframe src=" + '"' + "#{root_url}/#{map.public_token}/embedded?iframe=true" + '"' + ' width="600" height="600"></iframe>'

@@ -36,12 +36,6 @@
       .slider.round.places
     .slider-text= t('.show_places')
 
-.overlay.control-container.right-sidebar-tray.share-map-tray.closed
-  .embed-map.tray-element
-    .glyphicon.fa.fa-code.pull-left.icon
-    %span.map-modal-button.text{ data: { target: 'embed_map', 'map-id' => @map.id} }
-      = t('.embed_map')
-
 .right-sidebar
   .map-controls-container
     .overlay.control-container.zoom-container
@@ -61,7 +55,7 @@
       %span.control-button.show-map-description{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_map_description')}
         .glyphicon.fa.fa-info
 
-      %span.control-button.share-map{ data: { toggle: 'tooltip', placement: 'left' }, title: t('.distribute_map'), tray: '.share-map-tray' }
+      %span.control-button.map-modal-button.share-map{ data: { toggle: 'tooltip', placement: 'left', target: 'share_map', 'map-id' => @map.id }, title: t('.share_map'), tray: '.share-map-tray' }
         .glyphicon.fa.fa-share-alt
 
       %span.glyphicon.control-button.choose-background-layer{data: { toggle: 'tooltip', placement: 'left' }, title: t('.choose_background_layer'), tray: '.tile-layers-tray'}

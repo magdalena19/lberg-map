@@ -18,8 +18,9 @@ feature 'Configure application', :js do
     click_on('Security')
     find('#admin_setting_captcha_system').find(:xpath, 'option[2]').select_option
     click_on('Update')
+    click_on('Security')
 
-    expect(Admin::Setting.captcha_system).to eq 'simple_captcha'
+    expect(find('#admin_setting_captcha_system').value).to eq('simple_captcha')
   end
 
   scenario 'can change user activation tokens' do

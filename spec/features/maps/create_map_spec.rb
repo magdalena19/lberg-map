@@ -2,7 +2,7 @@ feature 'Create Map', js: true do
   context 'Tagging support' do
     scenario 'Do not show tagging support on new map form' do
       visit new_map_path
-      
+
       expect(page).not_to have_css('#tag_maintainance')
     end
   end
@@ -30,6 +30,8 @@ feature 'Create Map', js: true do
       fill_in_valid_map_attributes
       execute_script("jQuery('.footer').css('display', 'none')") # circumvent button finding prob
       click_on('Create Map')
+      expect(page).to have_content('Map successfully created!')
+
       map = Map.find_by(secret_token: 'secret_token')
 
       expect(map).to be_a(Map)
@@ -42,8 +44,9 @@ feature 'Create Map', js: true do
       fill_in_valid_map_attributes
 
       click_on('Create Map')
-      map = Map.find_by(secret_token: 'secret_token')
+      expect(page).to have_content('Map successfully created!')
 
+      map = Map.find_by(secret_token: 'secret_token')
       expect(map).to be_a(Map)
       expect(map.is_public).to be false
       expect(map.user).to be_nil

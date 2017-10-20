@@ -13,6 +13,7 @@ feature 'Edit place', :js do
     scenario 'Do valid place update as user and show in index afterwards' do
       fill_in('place_name', with: 'CHANGE')
       click_on('Update Place')
+      expect(page).to have_content('Successfully updated!')
 
       show_places_list_panel
 

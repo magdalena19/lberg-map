@@ -68,7 +68,9 @@ jQuery(function() {
     });
   }
 
-  receiveTags();
+  if (window.map_token != "") {
+    receiveTags();
+  }
 
   //--- CREATE tags
   jQuery('.toggle-create-tag-modal').on('click', function() {

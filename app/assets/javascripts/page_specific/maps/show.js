@@ -95,7 +95,8 @@ jQuery(function() {
     // do not use the simpler .click function due to dynamic creation
     jQuery('body').on('click', '.edit-place', function() {
       var placeId = jQuery(this).attr('place_id');
-      window.location.href = '/' + window.map_token + '/places/' + placeId + '/edit';
+      var url = '/' + window.map_token + '/places/' + placeId + '/edit';
+      jQuery.ajax({ url: url + '?remote=true' });
     });
 
     jQuery('body').on('click', '.delete-place', function() {
@@ -108,19 +109,14 @@ jQuery(function() {
         jQuery.ajax({
           url: '/' + window.map_token + '/places/' + placeId,
           type: 'DELETE',
-          success: function(result) {
-            panel.fadeOut(350, function() { jQuery(this).remove(); });
-            modalRow.fadeOut(350, function() {
-              modalRow.next('.child').fadeOut(350).remove();
-              jQuery(this).remove();
-            });
-          }
         });
       }
     });
 
-    var updatePlaces = function(json) {
+    var updatePlaces = function(json, options) {
       jQuery('.places-list-accordion').empty();
+
+      if (json.length == 0) { jQuery('.places-list-accordion').append('No places yet!') };
 
       if (typeof cluster !== 'undefined') {
         map.removeLayer(cluster);
@@ -143,12 +139,15 @@ jQuery(function() {
 
       cluster.addLayer(marker);
       map.addLayer(cluster);
-      if (json.length > 0) {
-        map.fitBounds(cluster.getBounds());
-        jQuery('.zoom-to-bbox').removeClass('inactive');
-      } else {
-        jQuery('.zoom-to-bbox').addClass('inactive');
-      }
+
+      if (options && (options.fitBounds == true)) {
+        if (json.length > 0) {
+          map.fitBounds(cluster.getBounds());
+          jQuery('.zoom-to-bbox').removeClass('inactive');
+        } else {
+          jQuery('.zoom-to-bbox').addClass('inactive');
+        }
+      };
     };
 
     // TEXT FILTER
@@ -204,10 +203,7 @@ jQuery(function() {
 
     var dateFilter = function(json) {
       // Check if shall filter by date, pass unfiltered json if not...
-      var showEventsToggle = jQuery('.show-events-toggle')[0];
-      var filterByDate = showEventsToggle && showEventsToggle.checked || false;
-
-      if ( !filterByDate ) {
+      if ( !showEvents() ) {
         return json;
       } else {
         var filteredJson = [];
@@ -216,7 +212,6 @@ jQuery(function() {
         var daterange = jQuery('#search-date-input').data('daterangepicker');
         var startDate = forceUTC(daterange.startDate);
         var endDate = forceUTC(daterange.endDate);
-        var showPlaces = jQuery('.show-places-toggle')[0].checked;
 
         jQuery(json).each(function (id, feature) {
           var featureStartDate = moment(feature.start_date);
@@ -225,7 +220,7 @@ jQuery(function() {
           if (
             ( featureStartDate >= startDate && featureStartDate <= endDate ) ||
             ( featureEndDate >= startDate && featureEndDate <= endDate ) ||
-            ( !feature.is_event && showPlaces )
+            ( !feature.is_event && showPlaces() )
           ) {
             filteredJson.push(feature);
           }
@@ -236,9 +231,7 @@ jQuery(function() {
 
     // PLACE TYPE FILTER
     function showFeature(feature) {
-      var showEvents = jQuery('.show-events-toggle')[0].checked;
-      var showPlaces = jQuery('.show-places-toggle')[0].checked;
-      if ( (feature.is_event && showEvents) || (!feature.is_event && showPlaces) ) {
+      if ( (feature.is_event && showEvents()) || (!feature.is_event && showPlaces()) ) {
         return true;
       } else {
         return false;
@@ -256,7 +249,7 @@ jQuery(function() {
     };
 
     var loadAndFilterPlaces = function() {
-      updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
+      updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))), {fitBounds: true});
     };
 
     // external request
@@ -399,10 +392,16 @@ jQuery(function() {
       loadAndFilterPlaces();
     });
 
+    // Place toggling
+    function showPlaces() {
+      var placesToggle = jQuery('.show-places-toggle')[0];
+      return placesToggle && placesToggle.checked;
+    }
 
-    // Evente toggling
+    // Event toggling
     function showEvents() {
-      return jQuery('.show-events-toggle')[0].checked;
+      var eventsToggle = jQuery('.show-events-toggle')[0];
+      return eventsToggle && eventsToggle.checked;
     }
 
     function eventDateRange() {
@@ -510,6 +509,29 @@ jQuery(function() {
         }
       });
     }
+
+    // UPDATE CONTENT AFTER POI MANIPULATION
+    jQuery(document).ajaxComplete(function( event, xhr, settings ) {
+      var response = xhr.responseJSON;
+      if (['POST', 'DELETE'].indexOf(settings.type) != -1) {
+        if ([200, 201].indexOf(xhr.status) != -1) {
+          if (xhr.status == 200) {
+            var alertText = 'Successfully updated!'
+          } else if (xhr.status == 201) {
+            var alertText = 'Successfully created!'
+          };
+          jQuery('.modal').modal('hide');
+          window.places = response.places;
+          updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
+          var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + response.success_message + '</div>';
+          jQuery('.map-flash').html(flashMessage).show().fadeOut(4000);
+          if (response.coordinates) { map.panTo(response.coordinates) };
+        } else {
+          var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';
+          jQuery('.modal-body').prepend(flashMessage);
+        }
+      };
+    });
   });
 
   function fit_to_bbox() {

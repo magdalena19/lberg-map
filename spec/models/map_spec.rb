@@ -14,6 +14,7 @@ RSpec.describe Map, type: :model do
     it { is_expected.to respond_to :allow_guest_commits }
     it { is_expected.to respond_to :supported_languages }
     it { is_expected.to respond_to :password_digest }
+    it { is_expected.to respond_to :last_visit }
   end
 
   context 'Callbacks' do
@@ -39,6 +40,15 @@ RSpec.describe Map, type: :model do
     it { is_expected.to have_many :announcements }
     it { is_expected.to have_many :messages }
     it { is_expected.to belong_to :user }
+
+    context 'delete map' do
+      it 'deletes places on map' do
+        map = create :map, :full_public
+        place = create :place, :reviewed, map: map
+
+        expect { map.destroy }.to change { Place.count }.by(-1)
+      end
+    end
   end
 
   context 'Validations' do
@@ -95,6 +105,12 @@ RSpec.describe Map, type: :model do
     end
   end
 
+  context 'Class methods' do
+    it 'can query all guest maps' do
+      expect(Map).to respond_to(:guest_maps)
+    end
+  end
+
   context 'Instance methods' do 
     before do
       @map = create :map, :full_public 
@@ -102,6 +118,19 @@ RSpec.describe Map, type: :model do
       @unreviewed_places = create_list :place, 2, :unreviewed , map: @map
       @reviewed_events = create_list :event, 5, map: @map
       @unreviewed_events = create_list :event, 1, :unreviewed, map: @map
+      create :settings, expiry_days: 10
+    end
+
+    it 'can query maps to expire for days till destruction' do
+      guest_map = create :map, :public_guest_map, last_visit: Date.today - 2.days
+
+      expect(guest_map.days_left_till_destruction).to eq 8
+    end
+
+    it 'returns expiry days for new map' do
+      guest_map = build :map, :public_guest_map
+
+      expect(guest_map.days_left_till_destruction).to eq 10
     end
 
     it 'returns exact number of reviewed places' do

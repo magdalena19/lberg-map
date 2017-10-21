@@ -56,7 +56,7 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bing_translator (4.6.0)
+    bing_translator (5.0.0)
       json (~> 1.8.0)
       nokogiri (~> 1.6.0)
       savon (~> 2.10.0)
@@ -77,19 +77,10 @@ GEM
     capybara-screenshot (1.0.14)
       capybara (>= 1.0, < 3)
       launchy
-    capybara-slow_finder_errors (0.1.4)
-      capybara (~> 2.5)
     cliver (0.3.2)
     codeclimate-test-reporter (1.0.7)
       simplecov
     coderay (1.1.1)
-    coffee-rails (4.1.1)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.1.x)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     database_cleaner (1.5.3)
@@ -370,6 +361,8 @@ GEM
     simplecov-html (0.10.0)
     slop (3.6.0)
     socksify (1.7.1)
+    spectrum-rails (1.6.2)
+      railties (>= 3.1)
     spring (2.0.1)
       activesupport (>= 4.2)
     sprockets (3.7.1)
@@ -433,14 +426,12 @@ PLATFORMS
 DEPENDENCIES
   awesomplete
   bcrypt (~> 3.1.7)
-  bing_translator (~> 4.6.0)
+  bing_translator (~> 5.0.0)
   bootstrap-sass (~> 3.3.6)
   bootstrap-wysihtml5-rails
   capybara
   capybara-screenshot
-  capybara-slow_finder_errors
   codeclimate-test-reporter (~> 1.0.0)
-  coffee-rails (~> 4.1.0)
   database_cleaner
   differ
   easy_translate
@@ -484,6 +475,7 @@ DEPENDENCIES
   sidekiq
   simple_captcha!
   simplecov
+  spectrum-rails
   spring
   time_splitter
   translate-rails3
@@ -495,4 +487,4 @@ DEPENDENCIES
   yandex-translator
 
 BUNDLED WITH
-   1.13.7
+   1.15.3

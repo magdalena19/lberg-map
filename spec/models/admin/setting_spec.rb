@@ -9,6 +9,13 @@ RSpec.describe Admin::Setting, type: :model do
     it { is_expected.to respond_to :app_imprint }
     it { is_expected.to respond_to :app_privacy_policy }
     it { is_expected.to respond_to :user_activation_tokens }
+    it { is_expected.to respond_to :multi_color_pois }
+    it { is_expected.to respond_to :default_poi_color }
+    it { is_expected.to respond_to :expiry_days }
+
+    it 'can ask if should auto_destruct expired maps' do
+      expect(Admin::Setting).to respond_to(:auto_destroy_expired_maps?)
+    end
   end
 
   context 'Activation tokens' do
@@ -18,6 +25,7 @@ RSpec.describe Admin::Setting, type: :model do
 
     it 'does not except invalid number of activation tokens' do
       settings = build :settings, user_activation_tokens: -1
+
       expect(settings).not_to be_valid
     end
   end
@@ -25,12 +33,22 @@ RSpec.describe Admin::Setting, type: :model do
   context 'Callbacks' do
     it 'should sanitize app imprint before validation' do
       settings = create :settings, app_imprint: '<center>This is an imprint</center>'
+
       expect(settings.app_imprint).to eq 'This is an imprint'
     end
 
     it 'should sanitize app privacy policy before validation' do
       settings = create :settings, app_privacy_policy: '<center>Privacy rulez!</center>'
+
       expect(settings.app_privacy_policy).to eq 'Privacy rulez!'
+    end
+  end
+
+  context 'Validations' do
+    it 'should not accept POI colors not in #Place.available_colors' do
+      settings = build :settings, default_poi_color: 'some invalid color'
+
+      expect(settings).not_to be_valid
     end
   end
 end

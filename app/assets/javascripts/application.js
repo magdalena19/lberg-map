@@ -2,6 +2,7 @@
 //= require jquery
 //= require jquery.scrollTo
 //= require jquery_ujs
+//= require spectrum
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require bootstrap-wysihtml5
@@ -80,61 +81,6 @@ jQuery(function() {
     }
   });
 
-  // Place events
-  var picker = function(div, with_end_date) {
-    div.daterangepicker({
-      "singleDatePicker": !with_end_date,
-      "showDropdowns": true,
-      "showWeekNumbers": true,
-      "timePicker": true,
-      "timePicker24Hour": true,
-      "timePickerIncrement": 15,
-      "linkedCalendars": false,
-      "showCustomRangeLabel": false,
-      "locale": {
-        format: 'DD.MM.YYYY h:mm A'
-      }
-    });
-  };
-
-  jQuery('#is_place').on('click', function(){
-    jQuery('#place_start_date').prop('disabled', true);
-    jQuery('#set_end_date').prop('disabled', true);
-  });
-
-  jQuery('#is_event').on('click', function(){
-    jQuery('#place_start_date').prop('disabled', false);
-    jQuery('#set_end_date').prop('disabled', false);
-    picker(
-        jQuery('#place_start_date'),
-        jQuery('#set_end_date').is(':checked')
-        );
-  });
-
-  jQuery('#set_end_date').on('click', function(){
-    var with_end_date = jQuery(this).prop('checked');
-    var date_input = jQuery('#place_start_date');
-    var orig_value = date_input.val();
-    var start_date = orig_value.split(' - ')[0];
-    var end_date = orig_value.split(' - ')[1];
-
-    if (with_end_date === false) {
-      date_input.val(start_date).trigger('change');
-    } else {
-      date_input.val(start_date + ' - ' + start_date).trigger('change');
-    }
-
-    picker(
-        jQuery('#place_start_date'),
-        with_end_date
-        );
-  });
-
-  picker(
-      jQuery('#search-date-input'),
-      true
-      );
-
   // Enable bootstrap tooltips
   jQuery('[data-toggle="tooltip"]').tooltip();
 
@@ -196,7 +142,7 @@ jQuery(function() {
   // Toggle map elements if modal action is triggered
   jQuery('.map-container .modal').on('hidden.bs.modal', function() {
     showMapElements();
-    hideSidepanel();
+    hidePlacesListPanel();
   });
 
   jQuery('.map-container .modal').on('show.bs.modal', function() {
@@ -328,4 +274,13 @@ jQuery(function() {
     // Consume the event to avoid it being handled twice
     event.preventDefault();
   }, true);
+
+  // color logo
+  var logo = jQuery('.navbar-logo');
+  var words = logo.text().split(' ');
+  logo.empty();
+  jQuery.each(words, function(i, word) {
+    var color = i % 2 == 0 ? 'green' : 'lilac'
+    logo.append("<div class='navbar-logo-" + color + "'>" + word + "</div>");
+  });
 });

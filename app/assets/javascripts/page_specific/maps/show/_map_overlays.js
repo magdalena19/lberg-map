@@ -13,17 +13,13 @@ jQuery(function() {
     placesListPanel.hide();
     mapControls.hide();
     hideFilterField();
+    hideMapTrays()
   };
 
   showMapElements = function() {
     showFilterField();
-    // showMapControls();
     mapControls.hasClass('active') && showMapControls();
-    placesListPanel.hasClass('active') && showSidepanel();
-
-    // if (window.outerWidth > 600) {
-    //   jQuery('.toggle-panel').trigger('click');
-    // }
+    placesListPanel.hasClass('active') && showPlacesListPanel();
   };
 
   hideNavbarElements = function() {
@@ -62,6 +58,7 @@ jQuery(function() {
   hideAddressSearchBar = function() {
     jQuery('.leaflet-control').remove();
     jQuery('.fade-background').hide();
+    placesListPanelToggle.show();
   };
 
   showAddressSearchBar = function() {
@@ -69,11 +66,16 @@ jQuery(function() {
     leaflet_control.remove();
     jQuery('.address-search-bar-container').append(leaflet_control);
     jQuery('.fade-background').show();
+    hideMapElements();
+    placesListPanelToggle.hide();
   }
 
-  showSidepanel = function() {
-    placesListPanelToggle.find('.glyphicon').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
+  showPlacesListPanel = function() {
+    // Activate and show places list
     placesListPanel.addClass('active').show();
+
+    // Modify switch
+    placesListPanelToggle.find('.glyphicon').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
     placesListPanelToggle.show();
     placesListPanelToggle.css('left', placesListPanel.outerWidth());
     if (window.outerWidth <= 600) {
@@ -81,7 +83,7 @@ jQuery(function() {
     }
   };
 
-  hideSidepanel = function() {
+  hidePlacesListPanel = function() {
     placesListPanelToggle.find('.glyphicon').removeClass('glyphicon-chevron-left').addClass('glyphicon-chevron-right');
     placesListPanel.removeClass('active').hide();
     placesListPanelToggle.css('left', 0);

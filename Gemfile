@@ -4,10 +4,9 @@ gem 'rails', '4.2.7.1'
 
 gem 'awesomplete'
 gem 'bcrypt', '~> 3.1.7'
-gem 'bing_translator', '~> 4.6.0'
+gem 'bing_translator', '~> 5.0.0'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootstrap-wysihtml5-rails'
-gem 'coffee-rails', '~> 4.1.0'
 gem 'differ'
 gem 'easy_translate'
 gem 'faker'
@@ -40,6 +39,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
+gem 'spectrum-rails'
 gem 'time_splitter'
 gem 'translate-rails3', require: 'translate', group: :development
 gem 'travis'
@@ -61,7 +61,6 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
-  gem 'capybara-slow_finder_errors'
   gem 'codeclimate-test-reporter', '~> 1.0.0'
   gem 'database_cleaner'
   gem 'factory_girl_rails'

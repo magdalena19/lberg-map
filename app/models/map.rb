@@ -6,10 +6,10 @@ class Map < ActiveRecord::Base
   include CustomValidators
   include Sanitization
 
-  has_many :places
-  has_many :categories
-  has_many :announcements
-  has_many :messages
+  has_many :places, dependent: :destroy
+  has_many :categories, dependent: :destroy
+  has_many :announcements, dependent: :destroy
+  has_many :messages, dependent: :destroy
   belongs_to :user
 
   before_validation :sanitize_description
@@ -26,6 +26,7 @@ class Map < ActiveRecord::Base
   validate :secret_token_unique, if: :secret_token_changed
   validate :public_token_unique, if: 'public_token.present? && public_token_changed'
 
+  # VALIDATIONS
   def secret_token_changed
     secret_token_changed?
   end
@@ -46,6 +47,9 @@ class Map < ActiveRecord::Base
     end
   end
 
+  # CLASS METHODS
+  scope :guest_maps, -> { Map.where(user: nil) }
+
   # AUTHENTICATION
   def authenticated?(attribute:, token:)
     return false unless digest = self.send("#{attribute}_digest")
@@ -64,8 +68,28 @@ class Map < ActiveRecord::Base
     password_digest.present?
   end
 
+  # INSTANCE METHODS
+  def guest_map?
+    user.nil?
+  end
+
+  def days_left_till_destruction
+    if Admin::Setting.auto_destroy_expired_maps?
+      days_since_last_visit = last_visit ? (Date.today - last_visit).to_i : 0
+      days_left = Admin::Setting.expiry_days - days_since_last_visit
+      days_left >= 0 ? days_left : 0
+    end
+  end
 
   # HELPER FUNCTIONS
+  def reviewed_places?
+    places.pluck(:reviewed).any?
+  end
+
+  def reviewed_events?
+    places.pluck(:reviewed, :event).include?([true, true])
+  end
+
   def all_places
     places.reject(&:event)
   end
@@ -175,6 +199,6 @@ class Map < ActiveRecord::Base
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
       attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
       image_url: "http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/#{TILE_POSITION[:z]}/#{TILE_POSITION[:y]}/#{TILE_POSITION[:x]}"
-      }
+    }
   }.freeze
 end

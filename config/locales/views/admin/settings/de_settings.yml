@@ -10,6 +10,10 @@ de:
         app_imprint: 'Impressum'
         app_privacy_policy: 'Datenschutzbestimmungen'
         update_settings: 'Übernehmen'
+        public_settings: 'App-Herausgeber_in'
+        user_settings: 'User-Einstellungen'
+        place_creation_settings: 'POIs und Karten'
+        security: 'Sicherheit'
       captcha_system_status:
         captcha_system_working: 'Captcha-Methode läuft'
         no_valid_api_key: 'Einer oder mehrere API Schlüssel konnten nicht gefunden werden. Bitte checke das Setup deiner Umgebungsvariablen!'

@@ -18,10 +18,19 @@ class Place < ActiveRecord::Base
   include Sanitization
   include CustomValidators
   include PlaceModelHelpers
-  
+
   extend TimeSplitter::Accessors
   split_accessor :start_date
   split_accessor :end_date
+
+  # PLACE COLORS
+  COLORS_AVAILABLE = [
+    'red', 'darkorange', 'orange', 'yellow', 'darkblue', 'purple', 'violet', 'pink', 'darkgreen', 'green', 'lightgreen'
+  ].freeze
+
+  def self.available_colors
+    COLORS_AVAILABLE
+  end
 
   ## ASSOCIATIONS
   belongs_to :map
@@ -35,6 +44,7 @@ class Place < ActiveRecord::Base
   validates :phone, phone_number_format: true, if: 'phone.present?'
   validates :homepage, url_format: true, if: 'homepage.present?'
   validate :end_date, :is_after_start_date?, if: 'start_date.present? && end_date.present?'
+  validates :color, inclusion: { in: COLORS_AVAILABLE }
 
   def is_after_start_date?
     if end_date < start_date
@@ -55,7 +65,7 @@ class Place < ActiveRecord::Base
   after_create :enqueue_auto_translation, if: 'map.auto_translate'
   after_create :set_description_reviewed_flags
   after_save :set_categories
- 
+
   # EVENT STUFF
   scope :all_events, -> { where(event: true) }
   scope :ongoing_events, -> { all_events.where("end_date > ? AND start_date < ?", Date.today, Date.today) }
@@ -126,6 +136,7 @@ class Place < ActiveRecord::Base
       description: reviewed_description.html_safe,
       category_names: categories.map(&:name).join(' | '),
       is_event: event,
+      color: color,
       reviewed: reviewed
     }
   end

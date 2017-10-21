@@ -1,26 +1,54 @@
 $address-search-big-width: 90%;
 $address-search-big-height: 50px;
-$address-search-mobile-width: 89%;
+$address-search-medium-width: 90%;
+$address-search-medium-height: 40px;
+$address-search-mobile-width: 100%;
 $address-search-mobile-height: 25px;
+$search-bar-top: 60px;
 
+// MOBILE
 @media (max-width: 600px) {
   .leaflet-control-geocoder {
     width: 97%;
-    top: 60px !important;
+    top: $search-bar-top !important;
   }
 
-  .leaflet-control-geocoder-expanded input, .leaflet-control-geocoder-error {
+  .leaflet-control-geocoder-error,
+  .leaflet-control-geocoder-expanded input {
     width: $address-search-mobile-width;
   }
 }
 
-@media (min-width: 601px) {
+// MEDIUM SCREENS
+@media (min-width: 601px), (max-width: 1024px) {
+  .leaflet-control-geocoder {
+    width: 80%;
+    left: 10%;
+    top: $search-bar-top !important;
+  }
+
+  .leaflet-control-geocoder-error,
+  .leaflet-control-geocoder-expanded input {
+    width: $address-search-medium-width;
+    height: $address-search-medium-height;
+    font-size: large;
+  }
+
+  .leaflet-control-geocoder-icon {
+    width: $address-search-medium-height;
+    height: $address-search-medium-height;
+  }
+}
+
+// BIG SCREENS
+@media (min-width: 1024px) {
   .leaflet-control-geocoder {
     width: 60%;
     left: 20%;
   }
 
-  .leaflet-control-geocoder-expanded input, .leaflet-control-geocoder-error {
+  .leaflet-control-geocoder-error,
+  .leaflet-control-geocoder-expanded input {
     width: $address-search-big-width;
     height: $address-search-big-height;
     font-size: large;
@@ -31,4 +59,3 @@ $address-search-mobile-height: 25px;
     height: $address-search-big-height;
   }
 }
-

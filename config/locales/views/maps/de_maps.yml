@@ -1,7 +1,7 @@
 de:
   maps:
     index:
-      session_maps_warning: 'Achtung: Dieser Index verschwindet, sobald du deinen Browser schließt oder dein Cookie gelöscht wird!'
+      session_maps_warning: 'Achtung: Dieser Index verschwindet, sobald deine Session verschwindet (z.B. durch einen Rechnerneustart)!'
       here: 'hier'
       sign_up: 'Erstelle %{link} einen User-account für dauerhafte Speicherung deiner Karten!'
       no_map_yet: 'Du hast noch keine Karten erstellt...'
@@ -34,6 +34,8 @@ de:
         language_settings: 'Mehrsprachigkeit'
         password_protection: 'Passwort-Schutz'
         tag_maintainance: 'Tags'
+        auto_destruct_warning: 'Wenn du diese Karte nicht innerhalb von %{days_left_till_destruction} Tagen besuchst oder dir %{link} wird sie gelöscht!'
+        register_account: 'einen Account erstellst'
       form_base_settings_tab:
         secret_link: 'Geheimer Link'
         secret_token: 'Geheimer Schlüssel'

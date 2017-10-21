@@ -7,6 +7,7 @@ class MapsController < ApplicationController
   before_action :allow_iframe_request, only: [:show_embedded, :show]
   before_action :auth_map, if: :needs_to_be_unlocked?, only: [:update, :destroy, :edit, :share_map, :send_invitations]
   before_action :unset_password_if_unchecked, only: [:update]
+  after_action :update_visit_timestamp, except: [:destroy, :index, :send_invitations]
 
   # Ressources for map unlocking maps via password
   # Return true/false server-side if map is password protected and has not been unlocked yet
@@ -38,9 +39,8 @@ class MapsController < ApplicationController
     @categories = @map.categories.all
     @latitude = params[:latitude]
     @longitude = params[:longitude]
-    @places_to_show = places_to_show
-    @events_to_show = @places_to_show.select(&:event)
-    @static_places_to_show= @places_to_show.select { |p| !p.event }
+    @reviewed_places_available = @map.reviewed_places?
+    @reviewed_events_available = @map.reviewed_events?
 
     respond_to do |format|
       format.json do
@@ -137,6 +137,10 @@ class MapsController < ApplicationController
   end
 
   private
+
+  def update_visit_timestamp
+    @map.update_attributes(last_visit: Date.today)
+  end
 
   def allow_iframe_request
     response.headers.delete('X-Frame-Options')

@@ -2,46 +2,100 @@
   = t('.settings')
 
 .container
-  %h1
   = form_for(@settings, url: admin_settings_path) do |f|
-    %fieldset.form-group.row{class: "#{'has-error' if f.object.errors.include?(:app_title)}"}
-      .col-xs-12
-        = f.label :app_title, t('.app_title')
-        = f.text_field :app_title, class: 'form-control', placeholder: t('.app_title')
+    %ul.nav.nav-tabs
+      %li.nav.active
+        %a{'data-toggle' => 'tab', href: '#public_settings'}
+          = t('.public_settings')
+      %li.nav
+        %a{'data-toggle' => 'tab', href: '#user_settings'}
+          = t('.user_settings')
+      %li.nav
+        %a{'data-toggle' => 'tab', href: '#pois_and_maps_settings'}
+          = t('.place_creation_settings')
+      %li.nav
+        %a{'data-toggle' => 'tab', href: '#security'}
+          = t('.security')
 
-    %fieldset.form-group.row{class: "#{'has-error' if f.object.errors.include?(:admin_email_address)}"}
-      .col-xs-12
-        = f.label :admin_email_address, t('.admin_email_address')
-        = f.text_field :admin_email_address, class: 'form-control', placeholder: t('.admin_email_address')
+    .tab-content
+      -# PUBLIC SETTINGS
+      .tab-pane.active#public_settings
+        %fieldset.form-group.row{class: "#{'has-error' if f.object.errors.include?(:app_title)}"}
+          .col-xs-12
+            = f.label :app_title, t('.app_title')
+            = f.text_field :app_title, class: 'form-control', placeholder: t('.app_title')
 
-    %fieldset.form-group.row{class: "#{'has-error' if f.object.errors.include?(:user_activation_tokens)}"}
-      .col-xs-12
-        = f.label :user_activation_tokens, t('.user_activation_tokens')
-        = f.number_field :user_activation_tokens, min: 0, class: 'form-control'
+        %fieldset.form-group.row{class: "#{'has-error' if f.object.errors.include?(:admin_email_address)}"}
+          .col-xs-12
+            = f.label :admin_email_address, t('.admin_email_address')
+            = f.text_field :admin_email_address, class: 'form-control', placeholder: t('.admin_email_address')
 
-    %fieldset.form-group.row
-      .col-xs-12
-        .label-div
-          = f.label :captcha_system, t('.captcha_system')
-        .selection-div
-          = f.collection_select :captcha_system, Admin::Setting.captcha_systems, :to_s, :humanize, class: 'form-control'
-          .notification
-            .icon.pull-left
-              .status-icon.spinner-icon.fa.fa-circle-o-notch.fa-spin.fa-1x.fa-fw
-              .status-icon.error-icon.fa.fa-exclamation-triangle
-              .success-icon.fa.fa-check-circle
-            .status-text
+        %fieldset.form-group.row
+          .col-xs-12
+            = f.label :app_imprint, t('.app_imprint')
+            = f.text_area :app_imprint, class: 'wysihtml5 description-area'
 
-    %fieldset.form-group.row
-      .col-xs-12
-        = f.label :app_imprint, t('.app_imprint')
-        = f.text_area :app_imprint, class: 'wysihtml5 description-area'
+        %fieldset.form-group.row
+          .col-xs-12
+            = f.label :app_privacy_policy, t('.app_privacy_policy')
+            = f.text_area :app_privacy_policy, class: 'wysihtml5 description-area'
 
-    %fieldset.form-group.row
-      .col-xs-12
-        = f.label :app_privacy_policy, t('.app_privacy_policy')
-        = f.text_area :app_privacy_policy, class: 'wysihtml5 description-area'
 
+      -# USER SETTINGS
+      .tab-pane#user_settings
+        %fieldset.form-group.row{class: "#{'has-error' if f.object.errors.include?(:user_activation_tokens)}"}
+          .col-xs-12.col-md-6.col-lg-4
+            = f.label :user_activation_tokens, t('.user_activation_tokens')
+            = f.number_field :user_activation_tokens, min: 0, class: 'form-control'
+
+
+      -# PLACE CREATION SETTINGS
+      .tab-pane#pois_and_maps_settings
+        .row
+          .col-xs-12
+            %h3 POIs
+            %h4 Color setup
+
+          .col-xs-12
+            .checkbox
+              %label
+                = f.check_box :multi_color_pois
+                = f.label :multi_color_pois
+
+          .col-xs-12
+            .checkbox
+              = f.text_field :default_poi_color, class: 'color-picker', value: @settings_hash[:default_poi_color] || Place.available_colors.first
+              = f.label :default_poi_color
+
+          .col-xs-12
+            %h3 Maps
+
+          .col-xs-12
+            = f.label :expiry_days
+            = f.number_field :expiry_days, class: 'form-control'
+
+
+
+      -# SECURITY SETTINGS
+      .tab-pane#security
+        %fieldset.form-group.row
+          .col-xs-12
+            .label-div
+              = f.label :captcha_system, t('.captcha_system')
+            .selection-div
+              = f.collection_select :captcha_system, Admin::Setting.captcha_systems, :to_s, :humanize, class: 'form-control'
+              .notification
+                .icon.pull-left
+                  .status-icon.spinner-icon.fa.fa-circle-o-notch.fa-spin.fa-1x.fa-fw
+                  .status-icon.error-icon.fa.fa-exclamation-triangle
+                  .success-icon.fa.fa-check-circle
+                .status-text
+
+
+
+
+    -# BUTTONS
+    .spacer-row
     .row
       .col-xs-6.col-md-3
         = f.submit t('.update_settings'), class: 'btn btn-primary btn-success'
@@ -50,3 +104,4 @@
 
 :javascript
   window.fetch_captcha_translation = '#{t('.fetching_captcha_status')}'
+  window.available_place_colors = #{Place.available_colors}

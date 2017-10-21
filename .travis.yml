@@ -1,5 +1,5 @@
 before_script:
-- psql -c 'create database "lberg-map_test";' -U postgres
+- psql -c 'create database "ratmap_test";' -U postgres
 - RAILS_ENV=test bundle exec rake db:migrate
 - bundle exec rake db:test:prepare
 language: ruby

@@ -43,4 +43,9 @@ postgesqldata/*
 public/assets_test/
 public/capybara.html
 
-vendor/bundle/*
+# Ignore /vendor/bundle
+/vendor/bundle
+
+# CTags
+.tags*
+

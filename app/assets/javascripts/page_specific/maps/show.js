@@ -5,21 +5,39 @@
 
 jQuery(function() {
   // Marker icons
-  var place_icon = L.icon({
-    iconUrl: placeMarker
-  });
+  function place_icon(color) {
+    return L.ExtraMarkers.icon({
+      prefix: 'fa',
+      icon: 'fa-home',
+      markerColor: color
+    });
+  }
 
-  var event_icon = L.icon({
-    iconUrl: eventMarker
-  });
+  function event_icon(color) {
+    return L.ExtraMarkers.icon({
+      prefix: 'fa',
+      icon: 'fa-calendar',
+      markerColor: color
+    });
+  }
 
-  var session_event_icon = L.icon({
-    iconUrl: sessionEventMarker
-  });
+  function session_event_icon(color) {
+    return L.ExtraMarkers.icon({
+      prefix: 'fa',
+      icon: 'fa-calendar',
+      shape: 'star',
+      markerColor: 'black'
+    });
+  }
 
-  var session_place_icon = L.icon({
-    iconUrl: sessionPlaceMarker
-  });
+  function session_place_icon(color) {
+    return L.ExtraMarkers.icon({
+      prefix: 'fa',
+      icon: 'fa-home',
+      shape: 'star',
+      markerColor: 'black'
+    });
+  }
 
   jQuery('#map').each(function() {
     // move flash message in foreground when map is displayed
@@ -41,20 +59,20 @@ jQuery(function() {
       var prop = feature.properties;
       if (prop.reviewed === false) {
         if (prop.is_event === true) {
-          layer.setIcon(session_event_icon);
+          layer.setIcon(session_event_icon(prop.color));
         } else {
-          layer.setIcon(session_place_icon);
+          layer.setIcon(session_place_icon(prop.color));
         }
       } else {
         if (prop.is_event === true) {
-          layer.setIcon(event_icon);
+          layer.setIcon(event_icon(prop.color));
         } else {
-          layer.setIcon(place_icon);
+          layer.setIcon(place_icon(prop.color));
         }
       }
 
       layer.on('click', function(e) {
-        showSidepanel();
+        showPlacesListPanel();
         zoomTo(e.latlng.lat, e.latlng.lng);
 
         var accordionItemHeading = jQuery('#heading' + feature.id);
@@ -91,13 +109,11 @@ jQuery(function() {
           url: '/' + window.map_token + '/places/' + placeId,
           type: 'DELETE',
           success: function(result) {
-            console.log('jo');
             panel.fadeOut(350, function() { jQuery(this).remove(); });
             modalRow.fadeOut(350, function() {
               modalRow.next('.child').fadeOut(350).remove();
               jQuery(this).remove();
             });
-            updatePlaces(result);
           }
         });
       }
@@ -283,15 +299,28 @@ jQuery(function() {
     // TOGGLE SIDEPANEL
     jQuery('.toggle-panel').click(function() {
       if (jQuery('.places-list-panel').is(':visible')) {
-        hideSidepanel();
+        hidePlacesListPanel();
         showMapControls();
       } else {
-        showSidepanel();
+        showPlacesListPanel();
         if (window.innerWidth < 600) { hideMapControls() };
       }
     });
 
     // FILL PLACES LIST
+    // Return black or white as font color depending on background color
+    function bestContrastFontColor(backgroundColor) {
+      needsWhiteFont = ['red', 'darkorange', 'darkblue', 'purple', 'darkgreen', 'green'];
+      needsBlackFont = ['orange', 'yellow', 'lightgreen', 'violet', 'pink'];
+
+      if (needsWhiteFont.includes(backgroundColor)) {
+        return('white');
+      } else {
+        return('black');
+      }
+    }
+
+    // Add places to places side panel
     var addToPlacesList = function(feature) {
       var item = jQuery('.places-list-item.template').clone();
       var contact = item.find('.contact-container');
@@ -345,7 +374,7 @@ jQuery(function() {
     };
 
     jQuery('body').on('click', '.show-map', function() {
-      hideSidepanel();
+      hidePlacesListPanel();
     });
 
     // LIVE SEARCH
@@ -475,9 +504,9 @@ jQuery(function() {
           showMapElements();
           jQuery('.loading').hide();
           jQuery('.fade-background').hide();
-          showSidepanel();
+          showPlacesListPanel();
           resizeSidePanel();
-          hideSidepanel();
+          hidePlacesListPanel();
         }
       });
     }

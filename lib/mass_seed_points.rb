@@ -91,6 +91,7 @@ module MassSeedPoints
                                  categories_string: categories_string,
                                  event: false,
                                  reviewed: reviewed_status,
+                                 color: Place.available_colors.sample(1).first,
                                  created_at: created_at,
                                  updated_at: updated_at)
 
@@ -141,6 +142,9 @@ module MassSeedPoints
       # Generate maps with random title
       User.create(name: 'admin', email: 'admin@test.com', password: 'secret', password_confirmation: 'secret') unless User.any?
       generate_maps
+
+      # Generate expired map in order to test rake task in ENV
+      Map.create(title: 'Expired map', maintainer_email_address: 'foo@bar.com', description: 'This is an expired map', auto_translate: true, is_public: false, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret6', user: nil, supported_languages: I18n.available_locales.sample(rand(1..2)), last_visit: Date.today - 3000.days)
 
       # Create all categories listed in translation YAML files
       Map.all.each do |map|

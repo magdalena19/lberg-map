@@ -35,13 +35,6 @@ feature 'Map privacy settings', :js do
       expect(page).not_to have_css('.place-control-container')
     end
 
-    scenario 'Cannot edit places / events via place list index' do
-      show_places_index
-      find('.modal-body').find_all('.place_type').first.trigger('click')
-
-      expect(page).not_to have_css('.glyphicon-pencil')
-    end
-
     scenario 'Cannot edit places / events via place via sidebar' do
       show_places_list_panel
       find_all('.places-list-panel .name').first.trigger('click')

@@ -13,6 +13,7 @@ class Admin::Setting < ActiveRecord::Base
   validates :admin_email_address, presence: true, email_format: true
   validates :user_activation_tokens, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :captcha_system, inclusion: { in: %w[recaptcha simple_captcha] }
+  validates :default_poi_color, inclusion: { in: Place.available_colors }
 
   ## SANITIZE
   def sanitize_app_imprint
@@ -36,6 +37,10 @@ class Admin::Setting < ActiveRecord::Base
 
   def self.captcha_systems
     %w[recaptcha simple_captcha]
+  end
+
+  def self.auto_destroy_expired_maps?
+    expiry_days > 0
   end
 
   Admin::Setting.create unless Admin::Setting.any?

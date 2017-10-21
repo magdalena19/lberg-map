@@ -20,14 +20,16 @@
  *= require daterangepicker
  *= require leaflet.draw
  *= require Control.Geocoder
+ *= require spectrum
+ *= require leaflet.extra-markers.min
  *= require_tree .
  *= require_self
  */
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
-@import 'font-awesome';
 @import 'colors';
+@import 'font-awesome';
 
 noscript {
   width: 100%;
@@ -83,34 +85,30 @@ noscript {
   margin-right: 10px;
 }
 
-.logo {
+.navbar-logo {
   @media (max-width: 425px) {
     font-size: 20px;
   }
-
   @media (min-width: 426px) {
     font-size: 30px;
   }
-
   font-weight: bold;
   letter-spacing: -1px;
   float: center;
   &:hover {
     text-decoration: none;
   }
+  * {
+    float: left;
+  }
 }
 
-.logo-left {
-  margin-left: 7px;
+.navbar-logo-lilac {
   color: $lilac;
-  float: left;
 }
 
-.logo-right {
+.navbar-logo-green {
   color: $green;
-  float: left;
-  padding-left: 3px;
-  margin-right: 10px;
 }
 
 .toggle-login {
@@ -302,4 +300,9 @@ a {
 // HELPERS
 .spacer-row {
 	padding-top: 20px;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  width: 18px;
 }

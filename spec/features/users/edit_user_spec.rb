@@ -8,8 +8,8 @@ feature 'Edit user', :js do
     fill_in('user_email', with: 'blubb@blobb.org')
     click_on('Update credentials')
 
-    expect(user.reload.name).to eq 'AnotherName'
-    expect(user.reload.email).to eq 'blubb@blobb.org'
+    expect(find('#user_name').value).to eq 'AnotherName'
+    expect(find('#user_email').value).to eq 'blubb@blobb.org'
   end
 
   scenario 'it flashes warning if passwords do not match' do

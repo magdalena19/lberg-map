@@ -55,16 +55,16 @@ feature 'Create Map', js: true do
 
   context 'Public Map' do
     scenario 'as guest user', js_errors: false do
-      skip 'Timing issues here'
       visit new_map_path
       fill_in_valid_map_attributes
-      click_on('Privacy')
+      click_on('Publication settings')
       page.find('#map_is_public').trigger('click')
       fill_in('map_maintainer_email_address', with: 'foo@bar.com')
       fill_in('map_public_token', with: 'public_token')
-      click_on('Properties')
 
       click_on('Create Map')
+      expect(page).to have_content('Map successfully created!')
+
       map = Map.find_by(public_token: 'public_token')
 
       expect(map).to be_a(Map)

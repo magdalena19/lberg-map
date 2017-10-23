@@ -140,29 +140,3 @@
   window.with_end_date = #{@place.end_date.present?}
   window.available_place_colors = #{Place.available_colors}
   window.default_poi_color = '#{Admin::Setting.default_poi_color}'
-
-  jQuery(function() {
-    if (window.is_event == true) {
-      var start_date = moment(window.start_date).utc().format('DD-MM-YYYY HH:mm');
-      var end_date = moment(window.end_date).utc().format('DD-MM-YYYY HH:mm');
-      var date_string = end_date ? start_date + ' - ' + end_date : start_date
-
-      jQuery('#place_start_date')
-      .prop('disabled', false)
-      .val(date_string)
-      .trigger('change')
-      .daterangepicker({
-        "singleDatePicker": !window.with_end_date,
-        "showDropdowns": true,
-        "showWeekNumbers": true,
-        "timePicker": true,
-        "timePicker24Hour": true,
-        "timePickerIncrement": 15,
-        "linkedCalendars": false,
-        "showCustomRangeLabel": false,
-        "locale": {
-          format: 'DD.MM.YYYY h:mm A'
-        }
-      });
-    }
-  });

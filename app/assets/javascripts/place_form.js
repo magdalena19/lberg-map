@@ -15,6 +15,8 @@ jQuery(function() {
     // Place events
     var picker = function(div, with_end_date) {
       div.daterangepicker({
+        "startDate": moment(window.start_date,'YYYY-MM-DD hh:mm:ss').utc(),
+        "endDate": moment(window.end_date,'YYYY-MM-DD hh:mm:ss').utc(),
         "singleDatePicker": !with_end_date,
         "showDropdowns": true,
         "showWeekNumbers": true,
@@ -37,10 +39,6 @@ jQuery(function() {
     jQuery('#is_event').on('click', function(){
       jQuery('#place_start_date').prop('disabled', false);
       jQuery('#set_end_date').prop('disabled', false);
-      picker(
-          jQuery('#place_start_date'),
-          jQuery('#set_end_date').is(':checked')
-          );
     });
 
     jQuery('#set_end_date').on('click', function(){
@@ -62,10 +60,7 @@ jQuery(function() {
           );
     });
 
-    picker(
-        jQuery('#search-date-input'),
-        true
-        );
+    picker(jQuery('#place_start_date'), jQuery('#set_end_date').is(':checked'));
 
     jQuery('.contact-information-header').click(function() {
       jQuery('.contact-information').toggle();

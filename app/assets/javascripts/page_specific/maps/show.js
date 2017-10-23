@@ -73,6 +73,7 @@ jQuery(function() {
 
       layer.on('click', function(e) {
         showPlacesListPanel();
+        resizeSidePanel();
         zoomTo(e.latlng.lat, e.latlng.lng);
 
         var accordionItemHeading = jQuery('#heading' + feature.id);
@@ -406,9 +407,8 @@ jQuery(function() {
 
     function eventDateRange() {
       var dateRange = window.event_date_range.split(',');
-      var startDate = moment(dateRange[0]).utc();
-      var endDate = moment(dateRange[1]).utc();
-
+      var startDate = moment(dateRange[0], 'YYYY-MM-DD hh:mm:ss').utc();
+      var endDate = moment(dateRange[1], 'YYYY-MM-DD hh:mm:ss').utc();
       return {'startDate': startDate, 'endDate': endDate};
     }
 

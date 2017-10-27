@@ -15,6 +15,7 @@
 //= require daterangepicker
 
 //= require ./page_specific/maps/show/_map_overlays
+//= require place_form
 
 jQuery(function() {
   if (window.history.length === 1) {
@@ -51,24 +52,6 @@ jQuery(function() {
         'color': false
       }
     });
-  });
-
-  jQuery('.description-header').click(function() {
-    jQuery(this).siblings('.description-editor').toggleClass('hidden-description');
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
-  });
-
-  jQuery('.contact-information-header').click(function() {
-    jQuery('.contact-information').toggle();
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
-  });
-
-  jQuery('.date-information-header').click(function() {
-    jQuery('.date-information').toggle();
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
-    jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
   });
 
   // Deactivate "send copy to sender" option if no email address is present
@@ -149,36 +132,6 @@ jQuery(function() {
     hideMapElements();
   });
 
-  // ----- MAP EMBEDDING
-  function updateIframeString(element) {
-    var iframeString = jQuery('#iframe_src').val()
-    var attribute = element.data('target');
-    var newValue = element.val();
-    var oldValMatcher= new RegExp(attribute + '="\\d*"');
-    var newValueString = attribute + '="' + newValue + '"';
-
-    jQuery('.modal-content #iframe_src').val(iframeString.replace(oldValMatcher, newValueString)).trigger('change');
-  }
-
-  function updateValues(element) {
-    var attribute = element.data('target');
-    var newValue = element.val();
-
-    jQuery('.embed-map .modal-content .text-field').each( function() {
-      if (jQuery(this).data('target') === attribute ) {
-        jQuery(this).val(newValue).change();
-      }
-    });
-  }
-
-  jQuery('.embed-form-element').on('change', function() {
-    var element = jQuery(this);
-
-    updateIframeString(element);
-    updateValues(element);
-  });
-
-
   // copy to clipboard
   jQuery('.modal-content .clipboard-btn').on('click', function() {
     var inputVal = jQuery(this).parent().prev().val();
@@ -196,47 +149,6 @@ jQuery(function() {
     catch (err) {
       alert('please press Ctrl/Cmd+C to copy');
     }
-  });
-
-  // ------ MAP SHARING
-  jQuery('.share-admin-link').on('click', function(){
-    jQuery('.modal-content #map_admins').toggle();
-  });
-
-  jQuery('.modal-content .invite-form-field').on('input', function(){
-    var parentModal = jQuery(this).closest('.share-map-modal');
-    var bla1 = parentModal.find('#map_guests').val();
-    var bla2 = parentModal.find('#map_admins').val();
-    var hasMapGuestInvitees = bla1 === '' || bla1 === undefined ? false : true;
-    var hasMapAdminInvitees = bla2 === '' || bla2 === undefined ? false : true;
-
-    if ( hasMapGuestInvitees || hasMapAdminInvitees ) {
-      jQuery('.modal-content #submit_invitations').prop('disabled', false);
-      jQuery('.modal-content .captcha').fadeIn(350);
-    } else {
-      jQuery('.modal-content #submit_invitations').prop('disabled', true);
-      jQuery('.modal-content .captcha').fadeOut(350);
-    }
-  });
-
-  jQuery('.modal-content #submit_invitations').on('click', function() {
-    var mapId = jQuery(this).data('map-id');
-    var parentModal = jQuery(this).closest('.share-map-modal');
-    var mapGuestInvitees = parentModal.find('#map_guests').val();
-    var mapAdminInvitees = parentModal.find('#map_admins').val();
-
-    jQuery.ajax({
-      url: '/share_map/' + mapId,
-      data: { map_admins: mapAdminInvitees, map_guests: mapGuestInvitees, id: mapId },
-      type: 'POST',
-      context: this,
-      success: function() {
-        jQuery(this).closest('.share-map-modal').modal('hide');
-      },
-      error: function() {
-        alert('Something went wrong!')
-      }
-    })
   });
 
   // FOOTER ACTIONS

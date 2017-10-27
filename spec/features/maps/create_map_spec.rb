@@ -2,7 +2,7 @@ feature 'Create Map', js: true do
   context 'Tagging support' do
     scenario 'Do not show tagging support on new map form' do
       visit new_map_path
-      
+
       expect(page).not_to have_css('#tag_maintainance')
     end
   end
@@ -30,6 +30,8 @@ feature 'Create Map', js: true do
       fill_in_valid_map_attributes
       execute_script("jQuery('.footer').css('display', 'none')") # circumvent button finding prob
       click_on('Create Map')
+      expect(page).to have_content('Map successfully created!')
+
       map = Map.find_by(secret_token: 'secret_token')
 
       expect(map).to be_a(Map)
@@ -42,8 +44,9 @@ feature 'Create Map', js: true do
       fill_in_valid_map_attributes
 
       click_on('Create Map')
-      map = Map.find_by(secret_token: 'secret_token')
+      expect(page).to have_content('Map successfully created!')
 
+      map = Map.find_by(secret_token: 'secret_token')
       expect(map).to be_a(Map)
       expect(map.is_public).to be false
       expect(map.user).to be_nil
@@ -52,16 +55,16 @@ feature 'Create Map', js: true do
 
   context 'Public Map' do
     scenario 'as guest user', js_errors: false do
-      skip 'Timing issues here'
       visit new_map_path
       fill_in_valid_map_attributes
-      click_on('Privacy')
+      click_on('Publication settings')
       page.find('#map_is_public').trigger('click')
       fill_in('map_maintainer_email_address', with: 'foo@bar.com')
       fill_in('map_public_token', with: 'public_token')
-      click_on('Properties')
 
       click_on('Create Map')
+      expect(page).to have_content('Map successfully created!')
+
       map = Map.find_by(public_token: 'public_token')
 
       expect(map).to be_a(Map)

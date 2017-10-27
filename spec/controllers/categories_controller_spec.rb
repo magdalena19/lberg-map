@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe CategoriesController, type: :controller do
   before do
     @map = create :map, :full_public
-    @category = create :category, name_de: 'GermanName', name_en: 'EnglishName', map: @map 
+    @category = create :category, name_de: 'GermanName', name_en: 'EnglishName', map: @map
   end
 
   describe 'GET #index' do
-    it "returns all categories in map as json" do
+    it 'returns all categories in map as json' do
       xhr :get, :index, map_token: @map.secret_token
-
       expectation = { 'name_en' => 'EnglishName', 'name_de' => 'GermanName', 'categoryId' => @category.id, 'poiCount' => 0 }
+      
       expect(JSON.parse(response.body).first).to include expectation
     end
   end

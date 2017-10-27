@@ -15,20 +15,35 @@ module CapybaraHelpers
     click_on 'Login'
   end
 
-  def create_place_as_user(place_name: 'SomePlace', map_token:)
+  def create_place_as_user(map_token:)
     login_as_user
-    visit new_place_path(map_token: map_token)
+    create_place(map_token: map_token)
+  end
+
+  def open_new_place_modal(map_token:)
+    visit map_path(map_token: map_token)
+    find(:css, '.add-place-button').trigger('click')
+    find(:css, '.add-place-manually').trigger('click')
+  end
+
+  def create_place(map_token:)
+    visit map_path(map_token: @map.secret_token)
+    find(:css, '.add-place-button').trigger('click')
+    find(:css, '.add-place-manually').trigger('click')
     fill_in_valid_place_information
-    fill_in('place_name', with: place_name)
     find(:css, '.submit-place-button').trigger('click')
   end
 
-  def create_place_as_guest(place_name: 'SomePlace', map_token:)
-    visit new_place_path(map_token: map_token)
-    fill_in_valid_place_information
-    fill_in('place_name', with: place_name)
-    
-    find(:css, '.submit-place-button').trigger('click')
+  def open_edit_place_modal(id:)
+    find("div.edit-place[place_id='#{id}']", visible: false).trigger('click') #Find correct edit button
+  end
+
+  def update_place_name(map_token:, id:, name:)
+      visit map_path(map_token: map_token)
+      open_edit_place_modal(id: id)
+      fill_in('place_name', with: name)
+      click_on('Update Place')
+      wait_for_ajax
   end
 
   def fill_in_valid_place_information
@@ -82,19 +97,19 @@ module CapybaraHelpers
     switch = find('.show-events-toggle', visible: false)
     switch.trigger('click') unless switch.checked?
   end
-  
+
   def hide_events
     show_display_options
     switch = find('.show-events-toggle', visible: false)
     switch.trigger('click') if switch.checked?
   end
-  
+
   def show_places
     show_display_options
     switch = find('.show-places-toggle', visible: false)
     switch.trigger('click') unless switch.checked?
   end
-  
+
   def hide_places
     show_display_options
     switch = find('.show-places-toggle', visible: false)

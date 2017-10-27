@@ -37,7 +37,7 @@ module MapAccessGateway
     set_map
     map_access_via_secret_link && @map.password_protected? && !map_in_session_cache
   end
-  
+
   # CAPTCHA
   def captcha_valid?
     if Admin::Setting.captcha_system == 'recaptcha'

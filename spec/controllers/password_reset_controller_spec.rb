@@ -65,30 +65,33 @@ describe PasswordResetController do
   end
 
   context 'PATCH #set_new_password' do
-    context 'passwords match' do
-      before do
-        @user = create :user
-        @user.create_digest_for(attribute: 'password_reset')
-        @user.save
-      end
-
-      it 'sets new passwords if inputs match' do
-        # patch :reset_password, 
-      end
-
-      it 'alerts success'
-      it 'redirects to root url' do
-
-      end
-
+    before do
+      @user = create :user
+      @user.create_digest_for(attribute: 'password_reset')
+      @user.save
     end
 
-    context 'new passwords do not match' do
-      it 'alerts that passwords do not match' do
+    context 'Authentication' do
+      it 'Cannot change password without auth token' do
+        patch :set_new_password, id: @user.id, new_password: { password: 'change', password_confirmation: 'change' }
 
+        expect(@user.reload.authenticated?(attribute: 'password', token: 'change')).not_to be true
       end
-      it 'renders reset form' do
 
+      it 'Cannot change password with other users auth token' do
+        user2 = create :user
+        user2.create_digest_for(attribute: 'password_reset')
+        user2.save
+
+        patch :set_new_password, id: @user.id, token: user2.password_reset_token, new_password: { password: 'change', password_confirmation: 'change' }
+
+        expect(@user.reload.authenticated?(attribute: 'password', token: 'change')).not_to be true
+      end
+
+      it 'Can change password with correct auth token' do
+        patch :set_new_password, id: @user.id, token: @user.password_reset_token, new_password: { password: 'change', password_confirmation: 'change' }
+
+        expect(@user.reload.authenticated?(attribute: 'password', token: 'change')).to be true
       end
     end
   end

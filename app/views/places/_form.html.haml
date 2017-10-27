@@ -1,11 +1,11 @@
-= form_for(@place, url: @url) do |f|
+= form_for(@place, url: @url, remote: true) do |f|
   .row
     .col-xs-12
       - if @place.unreviewed_version
         .red currently under review
 
     -# ADDRESS
-    .col-md-6
+    .col-xs-12
       %h4.header-row= t('.address_data')
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
@@ -58,7 +58,7 @@
 
   -# DATE INFORMATION
   .row
-    .col-md-6
+    .col-xs-12
       %h4.header-row.date-information-header
         .toggle-switch
           = t('.date_information')
@@ -116,9 +116,9 @@
               = f.text_area column.to_sym, class: "wysihtml5 description-area #{column}"
 
   -# CAPTCHA
-  .row
+  .row.captcha-row
     .col-md-6
-      = recaptcha_tags(hl: I18n.locale) unless @current_user.signed_in?
+      = display_captcha unless @current_user.signed_in?
 
   -# BUTTONS
   .row.button-row
@@ -139,30 +139,4 @@
   window.end_date = '#{@place.end_date}';
   window.with_end_date = #{@place.end_date.present?}
   window.available_place_colors = #{Place.available_colors}
-  window.default_poi_color= #{Admin::Setting.default_poi_color}
-
-  jQuery(function() {
-    if (window.is_event == true) {
-      var start_date = moment(window.start_date).utc().format('DD-MM-YYYY HH:mm');
-      var end_date = moment(window.end_date).utc().format('DD-MM-YYYY HH:mm');
-      var date_string = end_date ? start_date + ' - ' + end_date : start_date
-
-      jQuery('#place_start_date')
-      .prop('disabled', false)
-      .val(date_string)
-      .trigger('change')
-      .daterangepicker({
-        "singleDatePicker": !window.with_end_date,
-        "showDropdowns": true,
-        "showWeekNumbers": true,
-        "timePicker": true,
-        "timePicker24Hour": true,
-        "timePickerIncrement": 15,
-        "linkedCalendars": false,
-        "showCustomRangeLabel": false,
-        "locale": {
-          format: 'DD.MM.YYYY h:mm A'
-        }
-      });
-    }
-  });
+  window.default_poi_color = '#{Admin::Setting.default_poi_color}'

@@ -6,18 +6,18 @@ feature 'Modify place categories', js: true do
   feature 'Modify categories via place modification' do
     before do
       @place = create :place, :reviewed, categories_string: 'Hospital, Playground', map: @map
+      visit map_path(map_token: @map.secret_token)
     end
 
     scenario 'create category if not there and properly update place categories' do
-      # login_as_user
-      visit edit_place_path(id: @place.id, map_token: @map.public_token)
-
+      open_edit_place_modal(id: @place.id)
       fill_in('place_categories_string', with: 'Hospital, Lawyer')
       click_on('Update Place')
-      new_category_string = @place.reload.category_names.join(',')
+      show_places_list_panel
+      find('div.name').trigger('click')
+      view_category_string = find('div.category-names').text.split(' | ')
 
-      expect(@map.category_names).to include('Lawyer')
-      expect(new_category_string).to eq 'Hospital,Lawyer'
+      expect(view_category_string.sort).to eq ['Hospital', 'Lawyer']
     end
   end
 

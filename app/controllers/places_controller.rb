@@ -9,7 +9,7 @@ class PlacesController < ApplicationController
 
   before_action :set_map
   before_action :auth_map, if: :needs_to_be_unlocked?
-  before_action :require_login, only: [:destroy]
+  before_action :require_privileged_map_access, only: [:destroy]
   before_action :set_place, only: [:edit, :update, :destroy]
   before_action :can_update?, only: [:update]
   before_action :reverse_geocode, only: [:new], if: :supplied_coords?

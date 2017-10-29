@@ -62,6 +62,13 @@ module MapAccessGateway
     current_user == @map.user
   end
 
+  def require_privileged_map_access
+    unless has_privileged_map_access
+      flash[:danger] = t('errors.messages.access_restricted')
+      redirect_to map_path(map_token: @map.public_token)
+    end
+  end
+
   def has_privileged_map_access
     set_map
     map_access_via_secret_link || owns_map

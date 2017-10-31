@@ -65,9 +65,11 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'guard'
+  gem 'parallel_tests'
   gem 'poltergeist' # headless javascript testing
   gem 'rspec-rails'
   gem 'rspec-sidekiq'
   gem 'shoulda'
   gem 'simplecov'
+  gem 'zeus-parallel_tests'
 end

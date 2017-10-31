@@ -14,7 +14,7 @@ feature 'Edit event', :js do
     click_on 'Apply'
     open_edit_place_modal(id: event.id)
     page.find(:css, '.date-information-header').trigger('click')
-#
+
     expect(page.find('#is_event')).to be_checked
   end
 end

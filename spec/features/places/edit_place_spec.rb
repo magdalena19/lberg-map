@@ -10,18 +10,13 @@ feature 'Edit place', :js do
       open_edit_place_modal(id: @place.id)
     end
 
-    scenario 'Do valid place update as user and show in index afterwards' do
+    scenario 'Do valid place update as user and show in places list panel properly' do
       fill_in('place_name', with: 'CHANGE')
-      click_on('Update Place')
-      expect(page).to have_content('Successfully updated!')
+      find('.submit-place-button').trigger('click')
+      expect(page).not_to have_css('.place-modal') # Wait until modal is closed
+      show_place_details(name: 'CHANGE')
 
-      show_places_list_panel
-
-      expect(page).to have_css('div.name', text: 'CHANGE')
-    end
-
-    scenario 'Display category names in edit field' do
-      expect(page.find('#place_categories_string').value).to eq 'Café, Playground'
+      expect(page.find('.category-names').text).to eq 'Café | Playground'
     end
   end
 
@@ -32,7 +27,6 @@ feature 'Edit place', :js do
       open_edit_place_modal(id: @place.id)
       fill_in('place_name', with: 'Some changes')
       click_on('Update Place')
-      sleep(1)
     end
 
     scenario 'Do valid place update as guest and show in index afterwards as to be reviewed' do

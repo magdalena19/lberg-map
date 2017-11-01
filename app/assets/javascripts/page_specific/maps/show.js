@@ -511,24 +511,27 @@ jQuery(function() {
     }
 
     // UPDATE CONTENT AFTER POI MANIPULATION
+    function flashResults(message) {
+      var flashMessage = '<div role="alert" class="alert alert-success" id="flash-messages">' + message + '</div>';
+      jQuery('.map-flash').html(flashMessage).show().fadeOut(4000);
+    }
+
+    function displayFormErrors(message) {
+      var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';
+      jQuery('.modal-body').prepend(flashMessage);
+    }
+
     jQuery(document).ajaxComplete(function( event, xhr, settings ) {
       var response = xhr.responseJSON;
       if (['POST', 'DELETE'].indexOf(settings.type) != -1) {
-        if ([200, 201].indexOf(xhr.status) != -1) {
-          if (xhr.status == 200) {
-            var alertText = 'Successfully updated!'
-          } else if (xhr.status == 201) {
-            var alertText = 'Successfully created!'
-          };
+        if (xhr.status == 200) {
           jQuery('.modal').modal('hide');
           window.places = response.places;
           updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
-          var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + response.success_message + '</div>';
-          jQuery('.map-flash').html(flashMessage).show().fadeOut(4000);
+          flashResults(response.message)
           if (response.coordinates) { map.panTo(response.coordinates) };
         } else {
-          var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';
-          jQuery('.modal-body').prepend(flashMessage);
+          displayFormErrors(xhr.responseText) // Assume form error if response != 200
         }
       };
     });

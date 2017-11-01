@@ -32,15 +32,17 @@ class PlacesController < ApplicationController
   end
 
   def update
-    if @params_to_commit.any? && @place.update(@params_to_commit)
+    if @params_to_commit.any? && @place.update_attributes(@params_to_commit)
       AttributeSetter::Place.set_attributes_after_update(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
 
       respond_to do |format|
-        format.json { render json: {
-          places: places_to_show.map(&:geojson),
-          coordinates: [@place.latitude, @place.longitude],
-          success_message: 'Successfully updated!'
-        }, status: 200 }
+        format.json do
+          render json: {
+            places: places_to_show.map(&:geojson),
+            coordinates: [@place.latitude, @place.longitude],
+            message: 'Successfully updated!' },
+            status: 200
+        end
       end
     else
       respond_to do |format|
@@ -63,11 +65,13 @@ class PlacesController < ApplicationController
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
 
       respond_to do |format|
-        format.json { render json: {
-          places: places_to_show.map(&:geojson),
-          coordinates: [@place.latitude, @place.longitude],
-          success_message: 'Successfully created!'
-        }, status: 201 }
+        format.json do
+          render json: {
+            places: places_to_show.map(&:geojson),
+            coordinates: [@place.latitude, @place.longitude],
+            message: 'Successfully created!' },
+            status: 200
+        end
       end
     else
       respond_to do |format|
@@ -80,7 +84,10 @@ class PlacesController < ApplicationController
     respond_to do |format|
       if @place.destroy
         format.json do
-          render json: places_to_show.map(&:geojson), status: 200
+          render json: {
+            places: places_to_show.map(&:geojson),
+            message: 'Successfully deleted!' },
+            status: 200
         end
         format.html do
           redirect_to map_path(map_token: request[:map_token])

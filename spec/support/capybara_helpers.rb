@@ -72,6 +72,13 @@ module CapybaraHelpers
     find(:css, '.show-places-index').trigger('click')
   end
 
+  def delete_place(name:)
+    show_place_details(name: name)
+    page.accept_confirm do
+      find('.delete-place').trigger('click')
+    end
+  end
+
   # RIGHT SIDEBAR ACTIONS
   def show_map_controls
     page.find('.toggle-panel').trigger('click') unless page.has_css?('.map-controls-container')

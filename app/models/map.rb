@@ -156,8 +156,8 @@ class Map < ActiveRecord::Base
     user
   end
 
-  def owned_by(owner:)
-    owner.registered? ? owner.id == user.id : false
+  def owned_by?(user:)
+    user.registered? && owner&.id == user.id 
   end
 
   def supported_languages_string

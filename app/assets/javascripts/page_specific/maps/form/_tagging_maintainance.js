@@ -68,7 +68,10 @@ jQuery(function() {
     });
   }
 
-  receiveTags();
+  // Receive tags only if map_token is set
+  if(window.map_token !== ''){
+    receiveTags();
+  }
 
   //--- CREATE tags
   jQuery('.toggle-create-tag-modal').on('click', function() {

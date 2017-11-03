@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/galetahub/simple-captcha.git
+  remote: https://github.com/galetahub/simple-captcha.git
   revision: 2602bf19a63df25929960b5a7721a9d265281ec1
   specs:
     simple_captcha (0.1.6)
@@ -503,4 +503,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.16.0.pre.2
+   1.16.0

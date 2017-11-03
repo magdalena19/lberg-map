@@ -1,12 +1,12 @@
 en:
   delivery_gul:
-    send_copy_to_sender:
+    maintainer_mail_copy_to_sender:
       info_text: 'This is a copy of the message you have sent to us'
       request_copy_prefix: 'Copy of your request on'
-    send_to_maintainer:
+    mail_to_maintainer:
       info_text: 'The following message has been sent via the contact form'
       contact_form: 'contact form'
-    send_welcome_mail:
+    welcome_mail:
       greeter: 'Hello %{name},'
       content: 'You have successfully registered on %{app_title}. You will find an overview of all your personal maps following %{link}'
       footer: 'Regards, \n your admins'

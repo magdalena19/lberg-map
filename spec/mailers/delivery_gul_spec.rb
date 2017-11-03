@@ -6,7 +6,7 @@ describe DeliveryGul do
   end
 
   it 'send copy to sender' do
-    email = DeliveryGul.send_copy_to_sender(@message).deliver_now
+    email = DeliveryGul.maintainer_mail_copy_to_sender(@message).deliver_now
 
     expect(ActionMailer::Base.deliveries.empty?).to be false
     expect(email.from).to eq [@map.maintainer_email_address]
@@ -15,7 +15,7 @@ describe DeliveryGul do
   end
 
   it 'send to maintainer' do
-    email = DeliveryGul.send_to_maintainer(@message).deliver_now
+    email = DeliveryGul.mail_to_maintainer(@message).deliver_now
 
     expect(ActionMailer::Base.deliveries.empty?).to be false
     expect(email.from).to eq [@map.maintainer_email_address]
@@ -59,7 +59,7 @@ describe DeliveryGul do
       create :settings, admin_email_address: 'admin@foo.bar'
       user = create :user, email: 'user@foo.bar'
       user.create_digest_for(attribute: 'password_reset')
-      email = DeliveryGul.send_password_reset_link(user).deliver_now
+      email = DeliveryGul.password_reset_mail(user).deliver_now
 
       expect(ActionMailer::Base.deliveries.empty?).to be false
       expect(email.from).to eq [Admin::Setting.admin_email_address]
@@ -71,7 +71,7 @@ describe DeliveryGul do
     it 'send welcome message' do
       create :settings, admin_email_address: 'admin@foo.bar'
       user = create :user, email: 'user@foo.bar'
-      email = DeliveryGul.send_welcome_mail(user_id: user.id).deliver_now
+      email = DeliveryGul.welcome_mail(user_id: user.id).deliver_now
 
       expect(ActionMailer::Base.deliveries.empty?).to be false
       expect(email.from).to eq [Admin::Setting.admin_email_address]

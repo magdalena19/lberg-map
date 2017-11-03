@@ -1,5 +1,5 @@
 class DeliveryGul < ApplicationMailer
-  def send_copy_to_sender(message)
+  def maintainer_mail_copy_to_sender(message)
     @message = message
     @map = Map.find(message.map_id)
     mail(
@@ -9,7 +9,7 @@ class DeliveryGul < ApplicationMailer
     )
   end
 
-  def send_to_maintainer(message)
+  def mail_to_maintainer(message)
     @message = message
     @map = Map.find(message.map_id)
     mail(
@@ -19,7 +19,7 @@ class DeliveryGul < ApplicationMailer
     )
   end
 
-  def send_welcome_mail(user_id:)
+  def welcome_mail(user_id:)
     @user = User.find(user_id)
     mail(
       from: Admin::Setting.admin_email_address,
@@ -28,7 +28,7 @@ class DeliveryGul < ApplicationMailer
     )
   end
 
-  def send_password_reset_link(user)
+  def password_reset_mail(user)
     @user = user
     @password_reset_link = reset_password_url id: @user.id, token: @user.password_reset_token
     mail(from: Admin::Setting.admin_email_address, to: user.email, subject: "Password reset for #{Admin::Setting.app_title}")

@@ -16,7 +16,10 @@ feature 'Edit place', :js do
       expect(page).not_to have_css('.place-modal') # Wait until modal is closed
       show_place_details(name: 'CHANGE')
 
-      expect(page.find('.category-names').text).to eq 'Café | Playground'
+      place_categories = @place.categories.map(&:name).sort
+      displayed_categories = page.find('.category-names').text.split(' | ').sort
+
+      expect(displayed_categories).to eq place_categories
     end
   end
 

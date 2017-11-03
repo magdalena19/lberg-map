@@ -1,65 +1,100 @@
 feature 'Create event', :js do
   before do
     map = create :map, :full_public, maintainer_email_address: 'foo@bar.org'
-    open_new_place_modal(map_token: map.public_token)
-  end
-
-  scenario 'can check place to be an event' do
-    page.find(:css, '.contact-information-header').trigger('click')
-
-    expect(page).to have_css('#is_event', visible: false)
-  end
-
-  scenario 'event flag is false by default' do
-    expect(page.find('#is_event', visible: false)).not_to be_checked
-  end
-
-  scenario 'can enter dates if place is flagged as event' do
-    page.find(:css, '.date-information-header').trigger('click')
-    page.find('#is_event').trigger('click')
-    
-    expect(page).to have_css('#place_start_date')
+    open_new_place_modal(map_token: map.secret_token)
+    fill_in_valid_place_information(name: 'Place')
+    show_date_form
+    check_date_flag
   end
 
   scenario 'can set single date' do
-    page.find(:css, '.date-information-header').trigger('click')
-    fill_in_valid_place_information
-    page.find('#is_event').trigger('click')
+    set_start_date(day: '2', month: '1', year: '2017', hours: '22', minutes: '0')
+    find('.applyBtn').click
+    create_place
 
-    expect(page).to have_css('#set_end_date')
-  end
+    show_places_list_panel
+    set_date_filter_range(range: '01.01.2017 22:00 - 03.01.2017 22:00')
 
-  scenario 'unchecking end date shows single date picker' do
-    skip('Problem with day of date when testing at specific dates of month itself, weird...')
-    fill_in_valid_place_information
-    fill_in_valid_place_information
-    page.find('#place_event').trigger('click')
-    expect(page.find('#set_end_date')).not_to be_checked
-    page.find('#place_start_date').trigger('click')
-    expect(page).to have_css('.single')
-    within('.left') { find('td', text: '23').trigger('click')  }
-    click_on('Apply')
-    
-    click_button('Create Place')
+    find('.name', text: 'Place').trigger('click')
+    date = find('.event').text
 
-    new_place = Place.last
-    expect(new_place.start_date).to be_a(Time)
-    expect(new_place.end_date).to be_nil
+    expect(date).to eq "02-01-2017 22:00"
   end
   
-  scenario 'checking end date shows date range picker' do
-    skip('Works live, dunno why not here...')
-    fill_in_valid_place_information
-    page.find('#place_event').trigger('click')
-    page.find('#set_end_date').trigger('click')
-    page.find('#place_start_date').trigger('click')
-    within('.left') { find('td', text: '15').trigger('click')  }
-    within('.right') { find('td', text: '21').trigger('click') }
-    
-    click_button('Create Place')
-    new_place = Place.last
+  scenario 'can set start and end date' do
+    has_end_date
+    set_start_date(day: '2', month: '1', year: '2017', hours: '22', minutes: '0')
+    set_end_date(day: '3', month: '1', year: '2017', hours: '22', minutes: '0')
+    find('.applyBtn').click
+    create_place
 
-    expect(new_place.start_date).to be_a(Time)
-    expect(new_place.end_date).to be_a(Time)
+    show_places_list_panel
+    set_date_filter_range(range: '01.01.2017 22:00 - 04.01.2017 22:00')
+
+    find('.name', text: 'Place').trigger('click')
+    date = find('.event').text
+
+    expect(date).to eq "02-01-2017 22:00 - 03-01-2017 22:00"
+  end
+
+  private
+  
+  # Date filter field
+  def set_date_filter_range(range:)
+    fill_in('search-date-input', with: range)
+    find('.applyBtn').trigger('click')
+  end
+
+  # Date setting helpers (-> place/event form)
+  def show_date_form
+    page.find('.date-information-header').trigger('click')
+  end
+
+  def check_date_flag
+    page.find('#is_event').trigger('click')
+  end
+
+  def has_end_date
+    checkbox = page.find('#set_end_date')
+    checkbox.trigger('click') unless checkbox.checked?
+  end
+
+  def set_start_date(day:, month:, year:, hours:, minutes:)
+    set_date(position: 'left', day: day, month: month, year: year, hours: hours, minutes: minutes)
+  end
+
+  def set_end_date(day:, month:, year:, hours:, minutes:)
+    set_date(position: 'right', day: day, month: month, year: year, hours: hours, minutes: minutes)
+  end
+
+  def set_date(position:, day:, month:, year:, hours:, minutes:)
+    page.find('#place_start_date').trigger('click')
+    within(".#{position}") do
+      set_month(month: month)
+      set_year(year: year)
+      set_day(day: day)
+      set_time(hours: hours, minutes: minutes)
+    end
+  end
+
+  def set_day(day:)
+    find_all('td.available:not(.off)', text: /\A#{day}\z/).first.click
+  end
+
+  def set_month(month:)
+    find('.monthselect').find(:xpath, "option[#{month}]").select_option
+  end
+
+  def set_year(year:)
+    find('.yearselect').find("option[value='#{year}']").select_option
+  end
+
+  def set_time(hours:, minutes:)
+    find('.hourselect').find("option[value='#{hours}']").select_option
+    find('.minuteselect').find("option[value='#{minutes}']").select_option
+  end
+
+  def create_place
+    click_button('Create Place')
   end
 end

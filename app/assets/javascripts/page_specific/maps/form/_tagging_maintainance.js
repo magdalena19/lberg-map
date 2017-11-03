@@ -84,7 +84,7 @@ jQuery(function() {
       return jQuery(input).val() !== '' || undefined;
     });
 
-    if (inputsFilled.includes(true)) {
+    if (inputsFilled.indexOf(true) != -1) {
       submitButton.removeAttr('disabled')
     } else {
       submitButton.attr('disabled', 'disabled')
@@ -182,14 +182,14 @@ jQuery(function() {
 
     // Traverse and query all inputs for changes
     var inputsChanged = jQuery.map(inputs, function(input) {
-      return jQuery(input).val() !== jQuery(input).data('original-value')
+      return jQuery(input).val() !== jQuery(input).data('original-value');
     });
 
     // Enable / disable update button if any input has changes
-    if (inputsChanged.includes(true)) {
-      updateButton.removeAttr('disabled')
+    if (inputsChanged.indexOf(true) != -1) {
+      updateButton.removeAttr('disabled');
     } else {
-      updateButton.attr('disabled', 'disabled')
+      updateButton.attr('disabled', 'disabled');
     }
   });
 

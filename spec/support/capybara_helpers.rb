@@ -15,6 +15,7 @@ module CapybaraHelpers
     click_on 'Login'
   end
 
+  # PLACE CREATION HELPERS
   def create_place_as_user(map_token:)
     login_as_user
     create_place(map_token: map_token)
@@ -45,8 +46,8 @@ module CapybaraHelpers
       click_on('Update Place')
   end
 
-  def fill_in_valid_place_information
-    fill_in('place_name', with: 'Any place')
+  def fill_in_valid_place_information(name: 'Any place')
+    fill_in('place_name', with: name)
     fill_in('place_street', with: 'Magdalenenstr.')
     fill_in('place_house_number', with: '19')
     fill_in('place_postal_code', with: '10963')
@@ -67,9 +68,25 @@ module CapybaraHelpers
     fill_in('place_end_date_time', with: '23:00')
   end
 
-  def show_places_index
-    show_map_controls
-    find(:css, '.show-places-index').trigger('click')
+  # MAP FORM HELPERS
+  def create_map
+    click_on('Create Map')
+    find('.alert', text: 'Map successfully created!')
+  end
+
+  def update_map
+    click_on('Update Map')
+    find('.alert', text: 'Changes saved!')
+  end
+
+  # PLACES LIST PANEL ACTIONS
+  def show_places_list_panel
+    page.find('.toggle-panel').trigger('click')
+  end
+
+  def show_place_details(name:)
+    show_places_list_panel
+    find('.name', text: name).trigger('click')
   end
 
   def delete_place(name:)
@@ -87,10 +104,6 @@ module CapybaraHelpers
   def show_display_options
     show_map_controls
     find(:css, '.toggle-display-options').trigger('click')
-  end
-
-  def show_places_list_panel
-    page.find('.toggle-panel').trigger('click') if page.has_css?('.map-controls-container')
   end
 
   def show_places_index

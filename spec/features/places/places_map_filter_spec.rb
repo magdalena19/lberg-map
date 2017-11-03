@@ -1,4 +1,4 @@
-# note that these tests can fail due to lacking or slow internet connection
+#  note that these tests can fail due to lacking or slow internet connection
 # since leaflet marker are displayed not before map tiles are loaded
 feature 'Places map filter', js: true do
   before do
@@ -34,7 +34,6 @@ feature 'Places map filter', js: true do
     show_places_list_panel
     fill_in('search-date-input', with: '01.06.2015 19:00 - 02.08.2015 11:00')
     click_on 'Apply'
-    show_places_list_panel
 
     expect(page).to have_content 'AdventurePark'
     expect(page).to have_content 'Playpital'

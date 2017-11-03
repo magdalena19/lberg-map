@@ -101,6 +101,16 @@ describe UsersController do
         expect(response).to render_template :sign_up
       end
     end
+
+    context 'Admin user' do
+      it 'can add new users without activation token' do
+        login_as create :user, :admin
+
+        expect {
+          post :create, user: attributes_for(:user, name: 'AnotherUser', password: 'secret', password_confirmation: 'secret')
+        }.to change { User.count }.by(1)
+      end
+    end
   end
 
   context 'PATCH #update' do

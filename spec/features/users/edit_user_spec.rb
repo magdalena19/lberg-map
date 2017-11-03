@@ -1,17 +1,4 @@
 feature 'Edit user', :js do
-  scenario 'it updates user settings' do
-    login_as_user
-    user = User.first
-    visit edit_user_path(id: user.id)
-
-    fill_in('user_name', with: 'AnotherName')
-    fill_in('user_email', with: 'blubb@blobb.org')
-    click_on('Update credentials')
-
-    expect(user.reload.name).to eq 'AnotherName'
-    expect(user.reload.email).to eq 'blubb@blobb.org'
-  end
-
   scenario 'it flashes warning if passwords do not match' do
     login_as_user
     user = User.first

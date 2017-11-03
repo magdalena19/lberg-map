@@ -4,20 +4,6 @@ feature 'Create place', :js do
   end
 
   context 'As privileged user' do
-    scenario 'should create new categories if not existent already' do
-      expect(Category.count).to eq 0
-      visit map_path(map_token: @map.secret_token)
-      find(:css, '.add-place-button').trigger('click')
-      find(:css, '.add-place-manually').trigger('click')
-      fill_in_valid_place_information
-      fill_in('place_categories_string', with: 'Hospital, Cafe')
-      find(:css, '.submit-place-button').trigger('click')
-      sleep(1)
-
-      expect(Category.count).to eq 2
-      expect(Place.last.categories.sort_by(&:id).to_a).to eq Category.all.sort_by(&:id)
-    end
-
     scenario 'can insert place manually as user' do
       create_place_as_user(map_token: @map.secret_token)
 
@@ -33,16 +19,6 @@ feature 'Create place', :js do
 
       page.find_all('.glyphicon-triangle-bottom').last.trigger('click')
       expect(page).to have_css('.wysihtml5-toolbar', count: 2)
-    end
-
-    scenario 'Commits hidden geofeatures district, federal state and country' do
-      create_place_as_user(map_token: @map.secret_token)
-      sleep(1)
-      new_place = Place.find_by(name: 'Any place')
-
-      expect(new_place.district).to eq 'Lichtenberg'
-      expect(new_place.federal_state).to eq 'Berlin'
-      expect(new_place.country).to eq 'Germany'
     end
   end
 

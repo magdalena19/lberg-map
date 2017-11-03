@@ -135,8 +135,8 @@
 
 :javascript
   window.is_event = #{@place.event};
-  window.start_date = '#{@place.start_date}';
-  window.end_date = '#{@place.end_date}';
+  window.start_date = '#{@place.start_date || Date.today}';
+  window.end_date = '#{@place.end_date || Date.tomorrow}';
   window.with_end_date = #{@place.end_date.present?}
   window.available_place_colors = #{Place.available_colors}
   window.default_poi_color = '#{Admin::Setting.default_poi_color}'

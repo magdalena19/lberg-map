@@ -52,7 +52,7 @@ describe PasswordResetController do
       expect(response).to redirect_to root_url
       expect(flash[:danger]).to eq 'Password reset link invalid!'
     end
-
+#
     it 'does not accept tokens older than 24hrs as valid' do
       user.create_digest_for(attribute: 'password_reset')
       user.password_reset_timestamp = Time.now - 25.hours

@@ -65,30 +65,44 @@ describe PasswordResetController do
   end
 
   context 'PATCH #set_new_password' do
+    before do
+      @user = create :user, password: 'foofoo', password_confirmation: 'foofoo'
+      @user.create_digest_for(attribute: 'password_reset')
+      @user.save
+    end
+
     context 'passwords match' do
-      before do
-        @user = create :user
-        @user.create_digest_for(attribute: 'password_reset')
-        @user.save
-      end
-
       it 'sets new passwords if inputs match' do
-        # patch :reset_password, 
+        old_digest = @user.password_digest
+
+        patch :set_new_password, id: @user.id, token: @user.password_reset_token,
+          new_password: { password: 'Some passwd', password_confirmation: 'Some passwd' }
+
+        expect(@user.reload.password_digest).to_not eq old_digest
+        expect(response).to redirect_to root_url
       end
-
-      it 'alerts success'
-      it 'redirects to root url' do
-
-      end
-
     end
 
     context 'new passwords do not match' do
-      it 'alerts that passwords do not match' do
+      it 'does not change password' do
+        old_digest = @user.password_digest
 
+        patch :set_new_password, id: @user.id, token: @user.password_reset_token,
+          new_password: { password: 'Some passwd', password_confirmation: 'Some other passwd' }
+
+        expect(@user.reload.password_digest).to eq old_digest
       end
-      it 'renders reset form' do
+    end
 
+    context 'endpoint protection' do
+      it 'cannot access endpoint if not authenticated' do
+        old_digest = @user.password_digest
+
+        patch :set_new_password, new_password: {
+          password: 'Some passwd', password_confirmation: 'Some passwd' }
+
+        expect(response).to redirect_to root_url
+        expect(@user.reload.password_digest).to eq old_digest
       end
     end
   end

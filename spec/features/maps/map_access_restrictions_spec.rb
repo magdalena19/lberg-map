@@ -29,15 +29,13 @@ feature 'Map privacy settings', :js do
       visit map_path(map_token: @map.public_token)
     end
 
-    scenario 'Cannot insert places / events via form', js_errors: false do
-      show_places_list_panel
-
-      expect(page).not_to have_css('.place-control-container')
+    scenario 'Cannot insert places / events via place controls' do
+      expect(page).not_to have_css('.add-place-button')
     end
 
-    scenario 'Cannot edit places / events via place via sidebar' do
+    scenario 'Cannot edit places / events via places side panel' do
       show_places_list_panel
-      find_all('.places-list-panel .name').first.trigger('click')
+      find('.name', text: 'Playpital').trigger('click')
 
       expect(page).not_to have_css('.glyphicon-pencil')
     end

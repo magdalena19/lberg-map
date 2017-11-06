@@ -1,3 +1,6 @@
 --color
 --require spec_helper
 --require rails_helper
+
+--format progress
+--format ParallelTests::RSpec::SummaryLogger --out tmp/spec_summary.log

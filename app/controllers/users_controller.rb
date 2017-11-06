@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_login, only: [:edit, :update]
-  before_action :require_to_be_same_user, only: [:edit, :update]
+  before_action :require_to_be_same_user_or_admin, only: [:edit, :update]
   before_action :can_create?, only: [:create]
 
   def index
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :activation_token)
   end
 
-  def require_to_be_same_user
+  def require_to_be_same_user_or_admin
     user_to_be_edited = User.find(url_options[:_recall][:id])
     redirect_to root_url unless user_to_be_edited.id == current_user.id || @current_user.admin?
   end

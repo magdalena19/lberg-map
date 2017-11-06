@@ -1,35 +1,32 @@
 -# SHARE MAP MODAL
--# handle form requests as ajax calls in application.js
-
-.modal.fade.share-map-modal{role: 'dialog', id: "share_map_#{map.id}"}
+.modal.fade.share-map{role: 'dialog', id: "share_map_#{map.id}"}
   .modal-dialog
     .modal-content
       .modal-header
         %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
         %h4.modal-title= t('.share_map')
       .modal-body
-        - if map.is_public?
-          .row
-            .col-md-12.col-xs-12
-              = label_tag  map.is_public? ? t('.share_with_guests') : t('.not_a_public_map')
-              = text_field_tag 'map_guests', '', placeholder: t('.email_address_list'), class: 'form-control invite-form-field', id: 'map_guests'
-          .spacer-row
+        .row.margin-below
+          .col-xs-12
+            %h4
+              - if map.is_public?
+                %b= t('.public_link')
+                %p= link_to map_url(map_token: map.public_token), map_url(map_token: map.public_token)
+              - else
+                %p= t('.not_a_public_map')
 
+        - if has_privileged_map_access?(map: map)
+          .row.margin-below
+            .col-xs-12
+              %b.red
+                = t('.admin_link')
+                = " (#{t('.admin_link_warning')})"
+              %p= link_to map_url(map_token: map.secret_token), map_url(map_token: map.secret_token)
+          %hr
 
-        .row
-          .col-md-12.share-admin-link-form
-            = label_tag '', t('.share_secret_link', link: link_to(t('.admin_link'), '#', class: 'share-admin-link')).html_safe
-            - if has_privileged_map_access?(map: map)
-              = text_field_tag 'map_admins', '', placeholder: t('.email_address_list'), class: 'form-control invite-form-field'
-
-        -# CAPTCHA
-        .captcha
-          .spacer-row
-          .row
-            .col-md-6
-              = display_captcha
-
-      .modal-footer
-        .row
-          .col-xs-6.col-sm-4.col-md-3.pull-right
-            = submit_tag t('buttons.invite_to_map'), class: 'btn btn-success', id: 'submit_invitations', data: { id: map.id}, disabled: true
+        .row.margin-below
+          .col-xs-12
+            %h4
+              %b= t('.embed_map_via_iframe')
+            %code
+              = "<iframe src=" + '"' + "#{root_url}/#{map.public_token}/embedded?iframe=true" + '"' + ' width="600" height="600"></iframe>'

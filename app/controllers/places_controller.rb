@@ -9,7 +9,7 @@ class PlacesController < ApplicationController
 
   before_action :set_map
   before_action :auth_map, if: :needs_to_be_unlocked?
-  before_action :require_login, only: [:destroy]
+  before_action :require_privileged_map_access, only: [:destroy]
   before_action :set_place, only: [:edit, :update, :destroy]
   before_action :can_update?, only: [:update]
   before_action :reverse_geocode, only: [:new], if: :supplied_coords?
@@ -32,13 +32,22 @@ class PlacesController < ApplicationController
   end
 
   def update
-    if @params_to_commit.any? && @place.update(@params_to_commit)
+    if @params_to_commit.any? && @place.update_attributes(@params_to_commit)
       AttributeSetter::Place.set_attributes_after_update(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
-      flash[:success] = t('.changes_saved')
-      redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude)
+
+      respond_to do |format|
+        format.json do
+          render json: {
+            places: places_to_show.map(&:geojson),
+            coordinates: [@place.latitude, @place.longitude],
+            message: 'Successfully updated!' },
+            status: 200
+        end
+      end
     else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
-      render :edit, status: 400
+      respond_to do |format|
+        format.json { render json: @place.errors.full_messages.to_sentence, status: 403 }
+      end
     end
   end
 
@@ -54,11 +63,20 @@ class PlacesController < ApplicationController
 
     if can_commit_to?(model: @place) && @place.save
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
-      flash[:success] = t('.created')
-      redirect_to map_url(map_token: request[:map_token], latitude: @place.latitude, longitude: @place.longitude)
+
+      respond_to do |format|
+        format.json do
+          render json: {
+            places: places_to_show.map(&:geojson),
+            coordinates: [@place.latitude, @place.longitude],
+            message: 'Successfully created!' },
+            status: 200
+        end
+      end
     else
-      flash.now[:danger] = @place.errors.full_messages.to_sentence
-      render :new, status: 400
+      respond_to do |format|
+        format.json { render json: @place.errors.full_messages.to_sentence, status: 403 }
+      end
     end
   end
 
@@ -66,7 +84,10 @@ class PlacesController < ApplicationController
     respond_to do |format|
       if @place.destroy
         format.json do
-          render json: {}, status: :ok
+          render json: {
+            places: places_to_show.map(&:geojson),
+            message: 'Successfully deleted!' },
+            status: 200
         end
         format.html do
           redirect_to map_path(map_token: request[:map_token])
@@ -79,7 +100,7 @@ class PlacesController < ApplicationController
   private
 
   def places_to_show
-    (@map.reviewed_places + items_from_session).uniq
+    (@map.reviewed_places + @map.reviewed_events + items_from_session).uniq
   end
 
   def modify_params
@@ -113,7 +134,7 @@ class PlacesController < ApplicationController
   end
 
   def reverse_geocode
-    results = 
+    results =
       if supplied_address?
         params
       else

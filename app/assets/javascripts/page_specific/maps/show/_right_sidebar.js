@@ -50,14 +50,24 @@ jQuery(function() {
 
     // confirmation button
     jQuery('.confirmation-button-container').fadeIn();
+    var removeConfirmationButtons = function() {
+      map.off('click', confirmClickEvent)
+      jQuery('.confirmation-button-container').fadeOut();
+      map.removeLayer(locationMarker);
+      jQuery('.leaflet-overlay-pane').css('cursor', 'inherit');
+      showMapElements();
+    };
+
     jQuery('#confirmation-button-yes').click(function() {
+      removeConfirmationButtons();
+
       var address = {latitude: lat, longitude: lon};
       if (geocoding_result) {
         jQuery.extend(address, geocoding_result.properties.address);
         hideAddressSearchBar();
       }
 
-      jQuery('.confirmation-button-container').fadeOut();
+      // Generate URL
       url = '/' + window.map_token + '/places/new?';
 
       // Generate URL
@@ -65,17 +75,12 @@ jQuery(function() {
         url += prop + '=' + address[prop] + '&';
       });
 
-      // Redirect
-      window.location.href = url;
+      jQuery.ajax({ url: url + 'remote=true' });
     });
 
     // cancel button
     jQuery('#confirmation-button-no').click(function() {
-      map.off('click', confirmClickEvent)
-      jQuery('.confirmation-button-container').fadeOut();
-      map.removeLayer(locationMarker);
-      jQuery('.leaflet-overlay-pane').css('cursor', 'inherit');
-      showMapElements();
+      removeConfirmationButtons();
       fit_to_bbox();
     });
   }
@@ -87,14 +92,14 @@ jQuery(function() {
 
   // INSERT PLACE MANUALLY
   jQuery('.add-place-manually').on('click', function() {
-    window.location.href = '/' + window.map_token + '/places/new';
+    jQuery.ajax({ url: '/' + window.map_token + '/places/new?remote=true' });
   });
 
   // ADD PLACE VIA ONCLICK
   jQuery('.add-place-via-click').click(function(){
     hideMapElements();
     jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
-    map.on('click', confirmClickEvent);   
+    map.on('click', confirmClickEvent);
   });
 
 

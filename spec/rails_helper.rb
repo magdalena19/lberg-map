@@ -1,4 +1,3 @@
-ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
@@ -36,7 +35,7 @@ Geocoder::Lookup::Test.set_default_stub(
       'country' => 'Germany',
       'type' => 'house',
       'boundingbox' => [52.5, 52.3, 13.0, 12.5] }
-    }
+  }
   ]
 )
 
@@ -46,10 +45,11 @@ end
 
 # CAPYBARA configuration
 Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app,
-                                      phantomjs_options: ['--ignore-ssl-errors=true'],
-                                      js_errors: false,
-                                      inspector: true)
+  Capybara::Poltergeist::Driver.new(app,
+                                    phantomjs_options: ['--ignore-ssl-errors=true'],
+                                    js_errors: false,
+                                    window_size: [1200, 1200],
+                                    inspector: true)
 end
 
 Capybara.configure do |config|
@@ -58,11 +58,11 @@ Capybara.configure do |config|
 end
 
 RSpec.configure do |config|
+  config.use_transactional_fixtures = false
+
   config.before(:each) do
     create :settings
   end
-
-  config.use_transactional_fixtures = false
 
   config.before(:suite) do
     DatabaseCleaner.clean

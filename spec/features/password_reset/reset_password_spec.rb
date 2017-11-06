@@ -1,4 +1,4 @@
-feature 'Reset password' do
+feature 'Reset password', js: true do
   before do
     @user = create :user
     @user.create_digest_for(attribute: 'password_reset')
@@ -7,7 +7,7 @@ feature 'Reset password' do
     visit reset_password_path id: @user.id, token: @user.password_reset_token
   end
 
-  scenario 'Resets password if inputs match', js: true do
+  scenario 'Resets password if inputs match' do
     fill_in('new_password_password', with: 'new_secret')
     fill_in('new_password_password_confirmation', with: 'new_secret')
     click_on('Reset password')
@@ -17,15 +17,7 @@ feature 'Reset password' do
     expect(page).to have_css('.alert-success', text: 'The new password has been set successfully!')
   end
 
-  scenario 'Does alert if inputs do not match', js: true do
-    fill_in('new_password_password', with: 'new_secret')
-    fill_in('new_password_password_confirmation', with: 'i_do_not_match')
-    click_on('Reset password')
-
-    expect(page).to have_css('.alert-danger', text: 'Passwords do not match!')
-  end
-
-  scenario 'Does not redirect if inputs do not match', js: true do
+  scenario 'Does alert if inputs do not match' do
     fill_in('new_password_password', with: 'new_secret')
     fill_in('new_password_password_confirmation', with: 'i_do_not_match')
     click_on('Reset password')

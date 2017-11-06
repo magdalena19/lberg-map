@@ -1,7 +1,7 @@
 class PasswordResetController < ApplicationController
   before_action :set_user, only: [:reset_password, :set_new_password]
   before_action :set_user_by_email, only: [:create_password_reset]
-  before_action :authenticated?, only: [:reset_password]
+  before_action :authenticated?, only: [:reset_password, :set_new_password]
 
   def request_password_reset
   end

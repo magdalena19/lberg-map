@@ -1,16 +1,9 @@
-feature 'Request password reset' do
+feature 'Request password reset', js: true do
   before do
     create :settings
   end
 
-  scenario 'Has all UI elements', js: true do
-    visit request_password_reset_path
-    
-    expect(page).to have_css("input[placeholder='Your account email address']")
-    expect(page).to have_css("input[value='Send password reset link']")
-  end
-
-  scenario 'Requests password reset link on button click', js: true do
+  scenario 'Requests password reset link on button click' do
     user = create :user, email: 'user@test.com'
     visit request_password_reset_path
     fill_in('password_reset_email', with: user.email)
@@ -20,7 +13,7 @@ feature 'Request password reset' do
     expect(user.reload.password_reset_digest).to be_a(String)
   end
 
-  scenario 'Does alert if no matching account found', js: true do
+  scenario 'Does alert if no matching account found' do
     visit request_password_reset_path
     fill_in('password_reset_email', with: 'unknown@test.com')
     click_on('Send password reset link')

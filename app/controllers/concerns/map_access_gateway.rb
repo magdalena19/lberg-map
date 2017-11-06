@@ -37,7 +37,7 @@ module MapAccessGateway
     set_map
     map_access_via_secret_link && @map.password_protected? && !map_in_session_cache
   end
-  
+
   # CAPTCHA
   def captcha_valid?
     if Admin::Setting.captcha_system == 'recaptcha'
@@ -60,6 +60,13 @@ module MapAccessGateway
   def owns_map
     set_map
     current_user == @map.user
+  end
+
+  def require_privileged_map_access
+    unless has_privileged_map_access
+      flash[:danger] = t('errors.messages.access_restricted')
+      redirect_to map_path(map_token: @map.public_token)
+    end
   end
 
   def has_privileged_map_access

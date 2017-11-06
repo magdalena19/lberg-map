@@ -4,13 +4,14 @@ jQuery(function() {
   var mapControls = jQuery('.map-controls-container');
 
   // Disable default password modal click behaviour
-  $('.map-password-dialog').modal({
+  jQuery('.map-password-dialog').modal({
     backdrop: 'static',
     keyboard: false
   })
 
   hideMapElements = function() {
     placesListPanel.hide();
+    placesListPanelToggle.hide();
     mapControls.hide();
     hideFilterField();
     hideMapTrays()
@@ -18,6 +19,7 @@ jQuery(function() {
 
   showMapElements = function() {
     showFilterField();
+    placesListPanelToggle.show();
     mapControls.hasClass('active') && showMapControls();
     placesListPanel.hasClass('active') && showPlacesListPanel();
   };

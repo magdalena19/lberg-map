@@ -1,22 +1,20 @@
 feature 'Edit description' do
   scenario 'Do not show guest edits in place list', :js do
-    skip 'Map rendering issue'
     map = create :map, :full_public
-    place = create :place, :reviewed, map: map
+    place = create :place, :reviewed, map: map, name: 'SomePlace', description: 'Some description'
 
-    visit edit_place_path id: place.id, map_token: map.public_token
+    visit map_path(map_token: map.public_token)
+    open_edit_place_modal(id: place.id)
     find('h4', text: 'English description').trigger('click')
     fill_in_description_field('Changed description')
     
     click_on('Update Place')
 
     Capybara.reset_sessions!
-    expect(map.reviewed_places.count).to be 1
+    visit map_path(map_token: map.public_token)
+    show_place_details(name: 'SomePlace')
 
-    show_places_index(map_token: @map.public_token)
-    expect(page).to have_content(place.name)
-    page.find('.glyphicon-triangle-bottom').trigger('click')
-    expect(page).not_to have_content('Changed description')
+    expect(page).to have_content('Some description')
   end
 
   private

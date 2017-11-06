@@ -224,6 +224,9 @@ GEM
       activerecord (>= 3.0, < 6.0)
       activesupport (>= 3.0, < 6.0)
       request_store (~> 1.1)
+    parallel (1.12.0)
+    parallel_tests (2.17.0)
+      parallel
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.20.0)
@@ -419,6 +422,11 @@ GEM
     ya2yaml (0.31)
     yandex-translator (0.3.2)
       httparty (>= 0.13.4)
+    zeus (0.15.14)
+      method_source (>= 0.6.7)
+    zeus-parallel_tests (0.3.2)
+      parallel_tests (>= 0.11.3)
+      zeus (>= 0.13.0)
 
 PLATFORMS
   ruby
@@ -457,6 +465,7 @@ DEPENDENCIES
   lorem_ipsum_amet
   momentjs-rails
   paper_trail
+  parallel_tests
   pg
   phantomjs_polyfill-rails
   poltergeist
@@ -485,6 +494,7 @@ DEPENDENCIES
   web-console (~> 2.0)
   will_paginate (~> 3.1.0)
   yandex-translator
+  zeus-parallel_tests
 
 BUNDLED WITH
-   1.15.3
+   1.16.0.pre.2

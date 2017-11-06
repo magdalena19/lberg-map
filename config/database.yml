@@ -9,7 +9,7 @@ development:
 
 test:
   <<: *default
-  database: ratmap_test
+  database: ratmap_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 production:
   <<: *default

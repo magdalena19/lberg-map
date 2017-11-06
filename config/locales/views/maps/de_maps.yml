@@ -61,18 +61,13 @@ de:
         add_new_tag: 'Tag hinzufügen'
         headline: 'Vorhandene Tags'
     modals:
-      embed_map_modal:
-        embed_map: 'Karten einbetten'
-        width: 'Breite'
-        height: 'Höhe'
       share_map_modal:
-        share_secret_link: 'Teile den %{link} mit anderen'
-        admin_link: 'Administrations-link'
+        public_link: 'Öffentlicher Link'
+        admin_link: 'Admin-Link'
         admin_link_warning: 'Achtung: Leute mit diesem Link haben volle Zugriffsrechte!'
-        share_with_guests: 'Zeige anderen Menschen, was du kartiert hast:'
-        email_address_list: 'Liste von Email-Addressen, zB foo@bar.org, batz@bar.org'
         share_map: 'Karte teilen'
-        not_a_public_map: 'Private Karte, kann nicht mit Gästen geteilt werden!'
+        not_a_public_map: 'Private Karte, kann nur mit Adminrechten besucht werden.'
+        embed_map_via_iframe: 'Karte als iFrame einbetten'
     show:
       places_list_panel:
         show_events: 'Events'

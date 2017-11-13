@@ -17,8 +17,8 @@
         - unless on_map?
           .header-img
             %h1= yield :header
-        = render 'layouts/flash_messages'
         = yield
+        = render 'layouts/flash_messages'
 
     .footer.navbar-fixed-bottom
       .container

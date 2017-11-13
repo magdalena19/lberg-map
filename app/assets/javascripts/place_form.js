@@ -5,8 +5,10 @@ jQuery(function() {
 
     // Place color
     jQuery('.color-picker').spectrum({
-      showPaletteOnly: true,
       showPalette:true,
+      showPaletteOnly: true,
+      clickoutFiresChange: true,
+      preferredFormat: 'name',
       palette: [
         window.available_place_colors
       ]

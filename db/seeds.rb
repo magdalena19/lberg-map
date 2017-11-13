@@ -3,7 +3,6 @@ require 'poi_repository'
 # Destroy all DB elements first
 User.destroy_all
 Category.destroy_all
-Announcement.destroy_all
 Category.destroy_all
 Place.destroy_all
 Map.destroy_all
@@ -27,4 +26,3 @@ User.create(id: 5001,
 
 # Seed random data, see /lib/mass_seed_*.rb for definitions
 MassSeedPoints.generate(number_of_points: 300, city: 'Berlin')
-#MassSeedAnnouncements.generate(number_of_announcements: 10)

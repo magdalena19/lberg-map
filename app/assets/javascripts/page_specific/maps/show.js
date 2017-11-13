@@ -77,16 +77,15 @@ jQuery(function() {
         zoomTo(e.latlng.lat, e.latlng.lng);
 
         var accordionItemHeading = jQuery('#heading' + feature.id);
-        var headingLink = accordionItemHeading.find('a');
-        if (headingLink.hasClass('collapsed')) {
-          headingLink.click();
+        if (accordionItemHeading.hasClass('collapsed')) {
+          accordionItemHeading.click();
           var list = jQuery('.places-list-panel');
-          list.scrollTo(accordionItemHeading.parent(), {offset: -5});
+          list.scrollTo(accordionItemHeading, {offset: -5});
         }
       });
     };
 
-    jQuery('.places-list-panel').on('click', 'a', function() {
+    jQuery('.places-list-panel').on('click', '.panel-heading', function() {
       var lat = jQuery(this).attr('lat');
       var lon = jQuery(this).attr('lon');
 
@@ -323,8 +322,8 @@ jQuery(function() {
 
       item.removeClass('template');
       item.find('.panel-heading').addClass(panelType);
-      item.find('.panel-heading').attr('id', 'heading' + feature.id);
-      item.find('a')
+      item.find('.panel-heading')
+        .attr('id', 'heading' + feature.id)
         .attr('href', '#collapse' + feature.id)
         .attr('aria-controls', 'collapse' + feature.id)
         .attr('lon', feature.geometry.coordinates[0])

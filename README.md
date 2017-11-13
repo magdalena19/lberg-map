@@ -20,26 +20,21 @@ Check out the **[Demo](https://korner.lynx.uberspace.de)** either as
 * Access a [password-protected map](https://korner.lynx.uberspace.de/en/secret5) with password 'secret'
   
 ## **System prerequisits**
-  
-  #### **Ruby**
-  
+#### **Ruby**
   This application was written and tested under Ruby version 2.3.1. Installation via [RVM](https://rvm.io/) recommended. 
   
   _Note that you have to upgrade to Rails 4.2.8+ if you want to use Ruby v2.4+ due to [compatibility issues](https://weblog.rubyonrails.org/2017/2/21/Rails-4-2-8-has-been-released/)!_
   
-  #### **Databases**
-	* **[PostgreSQL](https://www.postgresql.org/)** (9.3 or a later version), the most relevant packages on a UNIX/Linux based system are `postgresql-server-dev-9.[version-no]`, `postgresql-9.[version-no]`
-		* `sudo apt install postgresql`
-	* **[Redis](https://redis.io/)** The application makes use of background processing in some parts, hence it is neccessary to to install and run an instance.
-		* `sudo apt-get install redis-server`
+#### **Databases**
+* **[PostgreSQL](https://www.postgresql.org/)** (9.3 or a later version), the most relevant packages on a UNIX/Linux based system are `postgresql-server-dev-9.[version-no]`, `postgresql-9.[version-no]`
+	* `sudo apt install postgresql`
+* **[Redis](https://redis.io/)** The application makes use of background processing in some parts, hence it is neccessary to to install and run an instance.
+	* `sudo apt-get install redis-server`
   
-  #### **Other dependencies**
-  
+#### **Other dependencies**
   * [Imagemagik](https://www.imagemagick.org/) for normal captchas
 	* `sudo apt install imagemagick`
   
-
-
 
 ## **Application configuration**
 Check out this [wiki page](https://github.com/magdalena19/lberg-map/wiki/Application-configuration) for further information on ratMap configuration.
@@ -75,12 +70,26 @@ Check out this [wiki page](https://github.com/magdalena19/lberg-map/wiki/Applica
 	```
 	redis-server &  
 	```
-* Start the Unicorn rack server `bundle exec`
-Test that your instance is running via `export SECRET_KEY_BASE=test123 && rails s`
 
 * Start Sidekiq `bundle exec sidekiq &`
 	* The app uses [Sidekiq](https://sidekiq.org/) for background processing of machine-translations and email transport. Sidekiq will look for a running redis instance (Default: port 6379). You can start the app using . You might want to consider creating a separate service.
 
+* Start the Unicorn rack server `bundle exec`
+Test that your instance is running via `export SECRET_KEY_BASE=test123 && rails s`
+## **Installation with docker**
+A docker and docker-compose file is included in our repo to simplify to deployment.
+* Clone the repository `git clone https://github.com/magdalena19/lberg-map.git`
+* Configure the .env file
+	```
+	cp sample.env .env
+	vim .env
+	```
+* Build the ratmap docker image `docker-compose build`
+* Start the containers `docker-compose up -d`	
+
+## **Configure Nginx/SSL, Backup the database**
+* [Nginx/SSL](https://github.com/magdalena19/ratMap/wiki/Nginx-SSL-Sample-Config)
+* [Database Backup](https://github.com/magdalena19/ratMap/wiki/Database-Backup)
 
 ## Development
 In order to **contribute** to the project you need to install the following software, otherwise testing might not work properly

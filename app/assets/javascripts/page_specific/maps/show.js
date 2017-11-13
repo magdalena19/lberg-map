@@ -77,16 +77,15 @@ jQuery(function() {
         zoomTo(e.latlng.lat, e.latlng.lng);
 
         var accordionItemHeading = jQuery('#heading' + feature.id);
-        var headingLink = accordionItemHeading.find('a');
-        if (headingLink.hasClass('collapsed')) {
-          headingLink.click();
+        if (accordionItemHeading.hasClass('collapsed')) {
+          accordionItemHeading.click();
           var list = jQuery('.places-list-panel');
-          list.scrollTo(accordionItemHeading.parent(), {offset: -5});
+          list.scrollTo(accordionItemHeading, {offset: -5});
         }
       });
     };
 
-    jQuery('.places-list-panel').on('click', 'a', function() {
+    jQuery('.places-list-panel').on('click', '.panel-heading', function() {
       var lat = jQuery(this).attr('lat');
       var lon = jQuery(this).attr('lon');
 
@@ -323,17 +322,17 @@ jQuery(function() {
 
       item.removeClass('template');
       item.find('.panel-heading').addClass(panelType);
-      item.find('.panel-heading').attr('id', 'heading' + feature.id);
-      item.find('a')
+      item.find('.panel-heading')
+        .attr('id', 'heading' + feature.id)
         .attr('href', '#collapse' + feature.id)
         .attr('aria-controls', 'collapse' + feature.id)
         .attr('lon', feature.geometry.coordinates[0])
         .attr('lat', feature.geometry.coordinates[1]);
       item.find('.name').html(feature.properties.name);
       if (feature.is_event === true) {
-        item.find('.place_type').addClass('fa-calendar ' + panelType);
+        item.find('.place_type').addClass('fa fa-calendar ' + panelType);
       } else {
-        item.find('.place_type').addClass('glyphicon-home ' + panelType);
+        item.find('.place_type').addClass('fa fa-home ' + panelType);
       }
       item.find('.panel-collapse')
         .attr('id', 'collapse' + feature.id)
@@ -516,9 +515,11 @@ jQuery(function() {
       jQuery('.map-flash').html(flashMessage).show().fadeOut(4000);
     }
 
-    function displayFormErrors(message) {
-      var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';
+    function displayFormErrors(message) {      
+      var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + message + '</div>';
+      
       jQuery('.modal-body').prepend(flashMessage);
+      jQuery('.modal').scrollTo('.alert', {offset: -10});
     }
 
     jQuery(document).ajaxComplete(function( event, xhr, settings ) {

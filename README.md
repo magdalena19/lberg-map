@@ -22,6 +22,8 @@ Check out the **[Demo](https://korner.lynx.uberspace.de)** either as
 ## **System prerequisits**
 #### **Ruby**
   This application was written and tested under Ruby version 2.3.1. Installation via [RVM](https://rvm.io/) recommended. 
+	
+	
   
   _Note that you have to upgrade to Rails 4.2.8+ if you want to use Ruby v2.4+ due to [compatibility issues](https://weblog.rubyonrails.org/2017/2/21/Rails-4-2-8-has-been-released/)!_
   
@@ -32,6 +34,9 @@ Check out the **[Demo](https://korner.lynx.uberspace.de)** either as
 	* `sudo apt-get install redis-server`
   
 #### **Other dependencies**
+	* Deps currently nessaceray but ugly
+		* `sudo apt install postgresql-server-dev-9.6`
+		* `sudo apt install nodejs`
   * [Imagemagik](https://www.imagemagick.org/) for normal captchas
 	* `sudo apt install imagemagick`
   
@@ -43,6 +48,10 @@ Check out this [wiki page](https://github.com/magdalena19/lberg-map/wiki/Applica
     ```
     git clone https://github.com/magdalena19/lberg-map.git
     cd lberg-map
+    rvm install 2.3.1
+    rvm use ruby-2.3.3
+    rvm create gemset ratmap
+    rvm gemset use ratmapp
     gem install bundler
     bundle
     ```
@@ -52,10 +61,14 @@ Check out this [wiki page](https://github.com/magdalena19/lberg-map/wiki/Applica
 	vim .env
 	export $(cat .env | grep -v ^# | xargs)
 	```
-* Create **postgresql** user
+* Create **postgresql** user with pw
 	```
 	sudo su postgres
-	createuser <your_user> -d
+	createuser <your_user> -d -W
+	```
+	* Allow password login in `/etc/postgresql/9.1/main/pg_hba.conf`
+	```
+	 local   all             all                                     md5
 	```
 * Create the **postgresql** database, load the db schema and precompile the assets with 
 	* rails setup script `bin/setup`
@@ -68,14 +81,14 @@ Check out this [wiki page](https://github.com/magdalena19/lberg-map/wiki/Applica
 	
 * Start Redis either manually or create a dedicated service
 	```
-	redis-server &  
+	systemctl start redis.service  	
 	```
 
 * Start Sidekiq `bundle exec sidekiq &`
 	* The app uses [Sidekiq](https://sidekiq.org/) for background processing of machine-translations and email transport. Sidekiq will look for a running redis instance (Default: port 6379). You can start the app using . You might want to consider creating a separate service.
 
-* Start the Unicorn rack server `bundle exec`
-Test that your instance is running via `export SECRET_KEY_BASE=test123 && rails s`
+* Start the Unicorn rack server `bundle exec unicorn -c config/unicorn.rb`
+
 ## **Installation with docker**
 A docker and docker-compose file is included in our repo to simplify to deployment.
 * Clone the repository `git clone https://github.com/magdalena19/lberg-map.git`

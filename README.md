@@ -28,61 +28,67 @@ Check out the **[Demo](https://korner.lynx.uberspace.de)** either as
   _Note that you have to upgrade to Rails 4.2.8+ if you want to use Ruby v2.4+ due to [compatibility issues](https://weblog.rubyonrails.org/2017/2/21/Rails-4-2-8-has-been-released/)!_
   
   #### **Databases**
-   
-  Get **[PostgreSQL](https://www.postgresql.org/)** (9.3 or a later version), the most relevant packages on a UNIX/Linux based system are `postgresql-server-dev-9.[version-no]`, `postgresql-9.[version-no]`
-
-  The application makes use of background processing in some parts, hence it is neccessary to to install and run an instance of **[Redis](https://redis.io/)**. Install Redis under Debian/Ubuntu using `sudo apt-get install redis-server`
+	* **[PostgreSQL](https://www.postgresql.org/)** (9.3 or a later version), the most relevant packages on a UNIX/Linux based system are `postgresql-server-dev-9.[version-no]`, `postgresql-9.[version-no]`
+		* `sudo apt install postgresql`
+	* **[Redis](https://redis.io/)** The application makes use of background processing in some parts, hence it is neccessary to to install and run an instance.
+		* `sudo apt-get install redis-server`
   
   #### **Other dependencies**
   
-  * [Imagemagik](https://www.imagemagick.org/) for captcha
+  * [Imagemagik](https://www.imagemagick.org/) for normal captchas
+	* `sudo apt install imagemagick`
   
-  In order to **contribute** to the project you need to install the following software, otherwise testing might not work properly
+
+
+
+## **Application configuration**
+Check out this [wiki page](https://github.com/magdalena19/lberg-map/wiki/Application-configuration) for further information on ratMap configuration.
+## **Application installation**
+* Clone the repository and install gems
+    ```
+    git clone https://github.com/magdalena19/lberg-map.git
+    cd lberg-map
+    gem install bundler
+    bundle
+    ```
+* Configure and export environment variables
+	```
+	cp sample.env .env
+	vim .env
+	export $(cat .env | grep -v ^# | xargs)
+	```
+* Create **postgresql** user
+	```
+	sudo su postgres
+	createuser <your_user> -d
+	```
+* Create the **postgresql** database, load the db schema and precompile the assets with 
+	* rails setup script `bin/setup`
+	* manually with rake
+	```
+	bundle exec rake [db:drop] db:create db:schema:load [RAILS_ENV=environment]
+	bundle exec rake assets:clobber assets:precompile
+	```
+	* Load test points (optional) `bundle exec rake db:seed [RAILS_ENV=environment]` 
+	
+* Start Redis either manually or create a dedicated service
+	```
+	redis-server &  
+	```
+* Start the Unicorn rack server `bundle exec`
+Test that your instance is running via `export SECRET_KEY_BASE=test123 && rails s`
+
+* Start Sidekiq `bundle exec sidekiq &`
+	* The app uses [Sidekiq](https://sidekiq.org/) for background processing of machine-translations and email transport. Sidekiq will look for a running redis instance (Default: port 6379). You can start the app using . You might want to consider creating a separate service.
+
+
+## Development
+In order to **contribute** to the project you need to install the following software, otherwise testing might not work properly
   
   * Native binaries for [QT](https://www.qt.io/) (qt4-dev-tools, libqt4-dev, libqt4-core libqt4-gui)
   * A Javascript framework like [nodejs](https://nodejs.org/)
 
   Under Debian based systems (Debian, Ubuntu, etc.) you can install everything via
-
-    sudo apt-get install qt4-dev-tools libqt4-dev libqt4-core libqt4-gui nodejs imagemagick
-
-
-## **Database setup**
-#### **PostgreSQL**
-Create a postgresql user
-
-    sudo su postgres
-    createuser <your_user> -d
-
-_Note: For deployment you might want to `export RAILS_ENV=production` within your shell environment if you do not wish to specify the production environment for all preceding commands_
-
-Then create the database and load the latest DB schema in development and production environment. You can either run `./bin/setup` or setup the DB manually via
-
-    bundle exec rake [db:drop] db:create db:schema:load [RAILS_ENV=environment]
-    
-If you want to load some seed data do the following
-
-    bundle exec rake db:seed [RAILS_ENV=environment]
-
-
-#### **Redis**
-Start Redis either manually or create a dedicated service
-```
-redis-server &  
-```
-## **Application installation**
-Clone the repository and install gems
-
-```
-git clone https://github.com/magdalena19/lberg-map.git
-cd lberg-map
-gem install bundler
-bundle
-```
-Test that your instance is running via `export SECRET_KEY_BASE=test123 && rails s`
-
-#### Sidekiq
-The app uses [Sidekiq](https://sidekiq.org/) for background processing of machine-translations and email transport. Sidekiq will look for a running redis instance (Default: port 6379). You can start the app using `bundle exec sidekiq &`. You might want to consider creating a separate service.
-
-## **Application configuration**
-Check out this [wiki page](https://github.com/magdalena19/lberg-map/wiki/Application-configuration) for further information on ratMap configuration.
+	```
+	sudo apt-get install qt4-dev-tools libqt4-dev libqt4-core libqt4-gui nodejs 
+	```

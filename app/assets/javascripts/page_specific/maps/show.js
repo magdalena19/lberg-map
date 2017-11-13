@@ -515,9 +515,11 @@ jQuery(function() {
       jQuery('.map-flash').html(flashMessage).show().fadeOut(4000);
     }
 
-    function displayFormErrors(message) {
-      var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + xhr.responseText + '</div>';
+    function displayFormErrors(message) {      
+      var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + message + '</div>';
+      
       jQuery('.modal-body').prepend(flashMessage);
+      jQuery('.modal').scrollTo('.alert', {offset: -10});
     }
 
     jQuery(document).ajaxComplete(function( event, xhr, settings ) {

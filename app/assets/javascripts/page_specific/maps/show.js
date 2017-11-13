@@ -331,9 +331,9 @@ jQuery(function() {
         .attr('lat', feature.geometry.coordinates[1]);
       item.find('.name').html(feature.properties.name);
       if (feature.is_event === true) {
-        item.find('.place_type').addClass('fa-calendar ' + panelType);
+        item.find('.place_type').addClass('fa fa-calendar ' + panelType);
       } else {
-        item.find('.place_type').addClass('glyphicon-home ' + panelType);
+        item.find('.place_type').addClass('fa fa-home ' + panelType);
       }
       item.find('.panel-collapse')
         .attr('id', 'collapse' + feature.id)

@@ -99,8 +99,11 @@ class Map < ActiveRecord::Base
   end
 
   def all_events_date_range
-    min = places.pluck(:start_date).compact.sort.first
-    max = places.pluck(:end_date).compact.sort.last
+    min_start_date = places.pluck(:start_date).compact.sort.first
+    max_end_date = places.pluck(:end_date).compact.sort.last
+
+    min = min_start_date || Time.now
+    max = max_end_date || (min_start_date&.+ 1.year) || (Time.now + 10.year)
 
     [min, max].join(',')
   end

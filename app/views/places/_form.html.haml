@@ -131,7 +131,7 @@
         = f.hidden_field :country, value: @place.country || @geocoded[:country]
       = f.submit class: 'btn btn-primary btn-success place-form-button submit-place-button'
     .col-xs-6.col-sm-4.col-md-3
-      = link_to t('buttons.back'), '', class: 'btn btn-primary btn-danger place-form-button back-button'
+      = link_to t('buttons.cancel'), '', data: { dismiss: 'modal' }, class: 'btn btn-primary btn-danger place-form-button'
 
 :javascript
   window.is_event = #{@place.event};

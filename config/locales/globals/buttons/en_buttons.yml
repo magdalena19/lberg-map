@@ -1,6 +1,6 @@
 en:
   buttons:
-    cancel: 'Back to map'
+    cancel: 'Cancel'
     close: 'Close'
     back: 'Back'
     delete: 'Delete'

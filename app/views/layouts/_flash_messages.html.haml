@@ -1,4 +1,7 @@
 - flash.each do |type, msg|
+  - on_map_class = on_map? ? 'overlay map-flash' : ''
+  - classes = "alert-#{type} #{on_map_class}"
+
   .container
-    .alert{class: "alert-#{type}", role: 'alert', id: 'flash-messages'}
+    .alert{class: classes, role: 'alert', id: 'flash-messages'}
       = msg

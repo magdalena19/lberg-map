@@ -8,7 +8,6 @@ class Map < ActiveRecord::Base
 
   has_many :places, dependent: :destroy
   has_many :categories, dependent: :destroy
-  has_many :messages, dependent: :destroy
   belongs_to :user
 
   before_validation :sanitize_description

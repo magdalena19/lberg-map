@@ -52,9 +52,9 @@ class MapsController < ApplicationController
       end
       format.html do
         if params[:iframe] == 'true'
-          render layout: 'iframe'
+          render layout: 'iframe/iframe'
         else
-          render layout: 'application'
+          render layout: 'map/map'
         end
       end
     end

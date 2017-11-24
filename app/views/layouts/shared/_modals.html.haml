@@ -6,7 +6,7 @@
         %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
         %h4.modal-title= t('.app_imprint')
       .modal-body
-        %p= Admin::Setting.app_imprint.html_safe
+        %p= Admin::Setting.app_imprint&.html_safe
 
 -# App privacy policy
 .modal.fade{role: 'dialog', id: 'app_privacy_policy' }
@@ -16,7 +16,7 @@
         %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
         %h4.modal-title= t('.app_privacy_policy')
       .modal-body
-        %p= Admin::Setting.app_privacy_policy.html_safe
+        %p= Admin::Setting.app_privacy_policy&.html_safe
 
 #explanation-modal.modal.fade{role: 'dialog'}
   .modal-dialog

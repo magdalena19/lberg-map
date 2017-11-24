@@ -25,4 +25,4 @@ User.create(id: 5001,
 # PoiRepository.import_from_csv('./db/initPois.csv', 'Berlin')
 
 # Seed random data, see /lib/mass_seed_*.rb for definitions
-MassSeedPoints.generate(number_of_points: 300, city: 'Berlin')
+MassSeedPoints.generate(number_of_points: 10000, city: 'Berlin')

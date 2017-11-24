@@ -58,7 +58,7 @@ jQuery(function() {
       showMapElements();
     };
 
-    jQuery('#confirmation-button-yes').click(function() {
+    jQuery('#confirmation-button-yes').unbind('click').click(function() {
       removeConfirmationButtons();
 
       var address = {latitude: lat, longitude: lon};

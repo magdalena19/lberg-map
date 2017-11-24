@@ -18,6 +18,8 @@
 //= require wysiwyg
 //= require tagging
 //= require place_form
+//= require navbar
+//= require footer
 
 jQuery(function() {
   if (window.history.length === 1) {
@@ -97,15 +99,6 @@ jQuery(function() {
     }
   });
 
-  // FOOTER ACTIONS
-  jQuery('.app_imprint_toggle').on('click', function(){
-    jQuery('#app_imprint').modal('show');
-  });
-
-  jQuery('.app_privacy_policy_toggle').on('click', function(){
-    jQuery('#app_privacy_policy').modal('show');
-  });
-
   // EXPLANATION MODALS
   var explanationIcon = jQuery('.explanation');
   explanationIcon.addClass('glyphicon glyphicon-question-sign');
@@ -132,13 +125,4 @@ jQuery(function() {
     // Consume the event to avoid it being handled twice
     event.preventDefault();
   }, true);
-
-  // color logo
-  var logo = jQuery('.navbar-logo');
-  var words = logo.text().split(' ');
-  logo.empty();
-  jQuery.each(words, function(i, word) {
-    var color = i % 2 == 0 ? 'green' : 'lilac'
-    logo.append("<div class='navbar-logo-" + color + "'>" + word + "</div>");
-  });
 });

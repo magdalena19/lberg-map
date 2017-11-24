@@ -200,14 +200,16 @@ jQuery(function() {
 
   jQuery('.control-button[tray]').on('click', function(){
     jQuery('.right-sidebar-tray').hide();
-    var topPos = jQuery(this).children().offset().top;
     var trayName = jQuery(this).attr('tray');
     var tray = jQuery(trayName);
     var trayClosed = tray.hasClass('closed');
+    var toggleHeight = jQuery(this).height();
 
     if (trayClosed) {
-      tray.offset({top: topPos});
       tray.removeClass('closed').show();
+      var trayHeight = tray.height();
+      var topPos = jQuery(this).children().offset().top - trayHeight + toggleHeight;
+      tray.offset({top: topPos});
     } else {
       tray.addClass('closed').hide();
     }

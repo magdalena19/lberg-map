@@ -65,9 +65,9 @@ en:
         public_link: 'Public link'
         admin_link: 'Adminstration link'
         admin_link_warning: 'Warning: People using this link have full access rights!'
-        not_a_public_map: 'Private map; cannot only be used by admins'
+        not_a_public_map: 'Private map; can only be used by admins'
         share_map: 'Share map'
-        embed_map_via_iframe: 'Karte als iFrame einbetten'
+        embed_map_via_iframe: 'Embed map via iframe'
     show:
       places_list_panel:
         show_events: 'Events'

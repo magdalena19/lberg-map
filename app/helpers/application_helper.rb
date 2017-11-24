@@ -8,10 +8,6 @@ module ApplicationHelper
     javascript_include_tag("page_specific/#{controller_name}/#{action_name}") if File.exist?(file)
   end
 
-  def on_map?
-    'maps/show' == "#{controller_name}/#{action_name}" || 'choose_locale' == action_name
-  end
-
   def current_map
     token = request[:map_token]
     Map.find_by(secret_token: token) || Map.find_by(public_token: token) if token
@@ -19,9 +15,9 @@ module ApplicationHelper
 
   def display_captcha
     if Admin::Setting.captcha_system == 'recaptcha'
-      return raw recaptcha_tags(hl: I18n.locale)
+      raw recaptcha_tags(hl: I18n.locale)
     else
-      return raw show_simple_captcha
+      raw show_simple_captcha
     end
   end
 end

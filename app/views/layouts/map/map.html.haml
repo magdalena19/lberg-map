@@ -11,19 +11,15 @@
   %body
     %noscript
       This site is built on JavaScript. Please activate...
+    = render 'layouts/navbar/navbar'
     .container-full.main-container
-      = render 'layouts/flash_messages'
-      = yield
+      .starter-template
+        = yield
+        = render 'layouts/shared/flash_messages'
 
-    .footer.navbar-fixed-bottom
-      .container
-        .pull-left
-          %i
-            powered by
-          = link_to 'ratMap', 'https://github.com/magdalena19/lberg-map', style: 'font-size: large; font-weight: bold;'
-        .pull-right
-          %span.app_imprint_toggle{style: 'cursor: pointer;'}= t('.app_imprint')
-          = ' | '
-          %span.app_privacy_policy_toggle{style: 'cursor: pointer;'}= t('.app_privacy_policy')
+      = render 'layouts/footer/footer'
 
-= render partial: 'layouts/modals'
+= render partial: 'layouts/shared/modals'
+
+:javascript
+  window.delete_confirmation_text = '#{t('prompts.confirm_delete')}'

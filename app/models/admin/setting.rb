@@ -25,11 +25,11 @@ class Admin::Setting < ActiveRecord::Base
   end
 
   def self.all_settings
-    self.last.attributes.except("id")
+    last.attributes.except('id')
   end
 
   def self.working_translation_engines
-    engines = self.translation_engines.select do |engine|
+    engines = translation_engines.select do |engine|
       AutoTranslate::Helpers.translation_engine_working?(engine: engine)
     end
     engines.unshift 'none'
@@ -51,8 +51,6 @@ class Admin::Setting < ActiveRecord::Base
       last.send(attribute)
     end
   end
-
-  private
 
   def self.translation_engines
     %w[google bing yandex]

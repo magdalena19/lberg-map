@@ -19,9 +19,9 @@ module ApplicationHelper
 
   def display_captcha
     if Admin::Setting.captcha_system == 'recaptcha'
-      return raw recaptcha_tags(hl: I18n.locale)
+      raw recaptcha_tags(hl: I18n.locale)
     else
-      return raw show_simple_captcha
+      raw show_simple_captcha
     end
   end
 end

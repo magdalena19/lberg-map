@@ -21,6 +21,7 @@ module PlaceGeocoding
   end
 
   def self.prepare(search_results:)
+    # Prepare results
     search_results = OpenStruct.new search_results
     {
       latitude: search_results.lat,
@@ -29,8 +30,8 @@ module PlaceGeocoding
       street: search_results.street || search_results.road || (search_results.address['street'] || search_results.address['road'] if search_results.address),
       postal_code: search_results.postcode || (search_results.address['postcode'] if search_results.address),
       district: search_results.city_district || search_results.suburb || search_results.district || (search_results.address['city_district'] || search_results.address['suburb '] || search_results.address['district'] if search_results.address),
-      city: search_results.village || search_results.town || search_results.state || (search_results.address['village'] || search_results.address['town'] || search_results.address['state'] if search_results.address),
-      federal_state: search_results.state || (search_results.address['state'] if search_results.address),
+      city: search_results.city || search_results.town || search_results.village || (search_results.address['city'] || search_results.address['town'] || search_results.address['village'] if search_results.address),
+      federal_state: search_results.state || (search_results.address['state'] || search_results.address['county'] if search_results.address),
       country: search_results.country || (search_results.address['country'] if search_results.address)
     }
   end

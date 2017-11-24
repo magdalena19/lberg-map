@@ -58,7 +58,7 @@ jQuery(function() {
       showMapElements();
     };
 
-    jQuery('#confirmation-button-yes').click(function() {
+    jQuery('#confirmation-button-yes').unbind('click').click(function() {
       removeConfirmationButtons();
 
       var address = {latitude: lat, longitude: lon};
@@ -133,6 +133,7 @@ jQuery(function() {
       lat = geocoding_result.properties.lat;
       lon = geocoding_result.properties.lon;
       hideAddressSearchBar();
+      hideMapElements();
       confirmPlaceInsert(lat, lon, geocoding_result);
     };
   });

@@ -39,7 +39,6 @@ class Place < ActiveRecord::Base
 
   ## VALIDATIONS
   validates :name, presence: true
-  validates :postal_code, german_postal_code: true, if: 'postal_code.present?'
   validates :email, email_format: true, if: 'email.present?'
   validates :phone, phone_number_format: true, if: 'phone.present?'
   validates :homepage, url_format: true, if: 'homepage.present?'

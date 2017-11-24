@@ -14,7 +14,7 @@ jQuery(function() {
     placesListPanelToggle.hide();
     mapControls.hide();
     hideFilterField();
-    hideMapTrays()
+    hideMapTrays();
   };
 
   showMapElements = function() {
@@ -69,7 +69,6 @@ jQuery(function() {
     jQuery('.address-search-bar-container').append(leaflet_control);
     jQuery('.fade-background').show();
     hideMapElements();
-    placesListPanelToggle.hide();
   }
 
   showPlacesListPanel = function() {

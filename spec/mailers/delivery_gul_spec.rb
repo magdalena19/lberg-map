@@ -2,25 +2,6 @@ describe DeliveryGul do
   before do
     @map = create :map, :full_public, maintainer_email_address: 'maintainer@map.org'
     @anonymous_map = create :map, :full_public
-    @message = create :message, map: @map, sender_name: 'Me', sender_email: 'foo@bar.org', subject: 'it subject', text: 'Test text'
-  end
-
-  it 'send copy to sender' do
-    email = DeliveryGul.send_copy_to_sender(@message).deliver_now
-
-    expect(ActionMailer::Base.deliveries.empty?).to be false
-    expect(email.from).to eq [@map.maintainer_email_address]
-    expect(email.to).to eq ['foo@bar.org']
-    expect(email.subject).to eq "Copy of your request on #{@map.title}"
-  end
-
-  it 'send to maintainer' do
-    email = DeliveryGul.send_to_maintainer(@message).deliver_now
-
-    expect(ActionMailer::Base.deliveries.empty?).to be false
-    expect(email.from).to eq [@map.maintainer_email_address]
-    expect(email.to).to eq [@map.maintainer_email_address]
-    expect(email.subject).to eq "[#{@map.title} contact form] #{@message.subject}"
   end
 
   context 'Map invitation' do

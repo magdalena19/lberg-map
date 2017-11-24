@@ -9,16 +9,6 @@ module CustomValidators
     end
   end
 
-  class GermanPostalCodeValidator < ActiveModel::EachValidator
-    POSTAL_CODE_REGEX = /\A\d{5}\z/
-
-    def validate_each(record, attribute, value)
-      unless value =~ POSTAL_CODE_REGEX
-        record.errors[attribute] << I18n.t('postal_code.formats.invalid')
-      end
-    end
-  end
-
   class UrlFormatValidator < ActiveModel::EachValidator
     URL_REGEX = %r[\A​(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*)\z]
 

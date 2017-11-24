@@ -133,6 +133,7 @@ jQuery(function() {
       lat = geocoding_result.properties.lat;
       lon = geocoding_result.properties.lon;
       hideAddressSearchBar();
+      hideMapElements();
       confirmPlaceInsert(lat, lon, geocoding_result);
     };
   });

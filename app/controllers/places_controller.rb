@@ -141,6 +141,7 @@ class PlacesController < ApplicationController
         query = params[:latitude].to_s + ',' + params[:longitude].to_s
         Geocoder.search(query).first.data
       end
+
     @geocoded = PlaceGeocoding.prepare(search_results: results)
   end
 

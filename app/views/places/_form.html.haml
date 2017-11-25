@@ -90,7 +90,7 @@
   .row
     .col-xs-12
       %h4.header-row= t('.place_descriptions')
-    - @place.map.supported_languages.in_groups_of(2, false).each do |group|
+    - @place.map.supported_languages.in_groups_of(2, false).each_with_index do |group|
       - group.each do |lang|
         - locale != lang ? hidden = 'hidden-description' : hidden = ''
         - column = "description_#{lang}"
@@ -104,7 +104,7 @@
             - else
               %h4.description-header
                 %span.glyphicon.glyphicon-triangle-bottom{style: 'font-size: 14px;'}
-          .description-editor{dir: "#{'rtl' if lang == 'ar'}", class: hidden}
+          .description-editor{dir: "#{'rtl' if lang == 'ar'}", class: (hidden if @place.map.supported_languages.length > 1)}
             - if translation && translation.versions.length > 1
               %br
               .red= t('currently_under_review')

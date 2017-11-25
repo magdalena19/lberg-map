@@ -14,8 +14,9 @@
     = render 'layouts/navbar/navbar'
     .container-full.main-container
       .starter-template
-        .header-img
-          %h1= yield :header
+        - unless on_map?
+          .header-img
+            %h1= yield :header
         = render 'layouts/shared/flash_messages'
         = yield
 

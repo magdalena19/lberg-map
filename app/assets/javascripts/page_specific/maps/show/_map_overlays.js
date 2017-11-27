@@ -67,6 +67,7 @@ jQuery(function() {
     var leaflet_control = jQuery('.leaflet-control');
     leaflet_control.remove();
     jQuery('.address-search-bar-container').append(leaflet_control);
+    jQuery('.leaflet-control-geocoder-form > input').focus();
     jQuery('.fade-background').show();
     hideMapElements();
   }

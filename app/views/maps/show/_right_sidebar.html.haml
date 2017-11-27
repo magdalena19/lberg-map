@@ -51,6 +51,9 @@
       %span.control-button.toggle-display-options{data: { toggle: 'tooltip', placement: 'left' }, title: t('.display_options'), tray: '.display-options-tray'}
         .glyphicon.fa.fa-eye
 
+      %span.control-button.search-address{title: t('.search_address')}
+        .glyphicon.fa.fa-search
+
     .overlay.control-container.map-info-container
       %span.control-button.show-map-description{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_map_description')}
         .glyphicon.fa.fa-info
@@ -61,9 +64,6 @@
       %span.glyphicon.control-button.choose-background-layer{data: { toggle: 'tooltip', placement: 'left' }, title: t('.choose_background_layer'), tray: '.tile-layers-tray'}
         = image_tag('buttons/tile_layers_button.svg')
 
-      -# %span.control-button.show-places-index{data: { toggle: 'tooltip', placement: 'left' }, title: t('.show_places_list')}
-      -#   .glyphicon.fa.fa-list-alt
-      -#
     - if can_contribute?
       .overlay.control-container.place-control-container
         %span.control-button.add-place-button{data: { toggle: 'tooltip', placement: 'left' }, title: t('.new_place'), tray: '.create-place-methods-tray' }

@@ -38,16 +38,18 @@ jQuery(function() {
 
   // --- PLACE INSERT BUTTONS
   // INSERT CONFIRMATION ACTION
-  var locationMarker;
-
-  function confirmPlaceInsert(lat, lon, geocoding_result) {
-    // display marker
+  function setViewAndMarkWithDot(lat, lon) {
     map.setView([lat, lon], 18);
     if (locationMarker) {
       map.removeLayer(locationMarker);
     }
     locationMarker = L.circleMarker([lat, lon]).addTo(map);
+  };
 
+  var locationMarker;
+
+  function confirmPlaceInsert(lat, lon, geocoding_result) {
+    setViewAndMarkWithDot(lat, lon);
     // confirmation button
     jQuery('.confirmation-button-container').fadeIn();
     var removeConfirmationButtons = function() {
@@ -138,6 +140,27 @@ jQuery(function() {
     };
   });
 
+  // ADDRESS SEARCH ONLY
+  jQuery('.search-address').on('click', function() {
+    hideMapElements();
+
+    geocode_field = L.Control.geocoder({
+      position: 'bottomright',
+      collapsed: false
+    }).addTo(map);
+
+    showAddressSearchBar();
+
+    geocode_field.markGeocode = function(geocoding_result) {
+      lat = geocoding_result.properties.lat;
+      lon = geocoding_result.properties.lon;
+      // display marker
+      setViewAndMarkWithDot(lat, lon);
+      hideAddressSearchBar();
+      showMapElements();
+    };
+  });
+
   jQuery('.fade-background').on('click', function() {
     hideAddressSearchBar();
     showMapElements();
@@ -155,10 +178,6 @@ jQuery(function() {
   });
 
   // Show / Hide geolocation
-  function zoomTo(lat, lon) {
-    map.setView([lat, lon], 18);
-  }
-
   jQuery('.show-current-position-toggle').on('click', function() {
     function showPosition(position) {
       lat = position.coords.latitude;
@@ -170,7 +189,7 @@ jQuery(function() {
 
       // Zoom in if no POIs on map
       if (cluster.getLayers().length === 0) {
-        zoomTo(lat, lon);
+        map.setView([lat, lon], 18);
       }
     }
 

@@ -1,17 +1,17 @@
 @import 'colors';
 
 .template {
-	display: none;
+  display: none;
 }
 
 .toggle-panel {
-	top: 50%;
-	background: rgba(white, 0.9);
-	padding: 10px 5px;
-	color: $grey;
-	font-size: 22px;
-	display: none;
-	cursor: pointer;
+  top: 50%;
+  background: rgba(white, 0.9);
+  padding: 10px 5px;
+  color: $grey;
+  font-size: 22px;
+  display: none;
+  cursor: pointer;
 }
 
 .places-list-panel {
@@ -106,9 +106,6 @@
     }
 
     .description {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
       padding: 15px;
       margin-top: 2px;
       margin-bottom: 5px;

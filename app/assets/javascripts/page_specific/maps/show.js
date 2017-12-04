@@ -496,8 +496,10 @@ jQuery(function() {
         data: {
           locale: window.locale
         },
-        success: function(result) {
-          window.places = result;
+        success: function(response) {
+          window.places = response.places;
+          window.categories = response.categories;
+          initCategoryInput(window.categories);
           loadAndFilterPlaces();
           showMapElements();
           jQuery('.loading').hide();
@@ -515,9 +517,9 @@ jQuery(function() {
       jQuery('.map-flash').html(flashMessage).show().fadeOut(4000);
     }
 
-    function displayFormErrors(message) {      
+    function displayFormErrors(message) {
       var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + message + '</div>';
-      
+
       jQuery('.modal-body').prepend(flashMessage);
       jQuery('.modal').scrollTo('.alert', {offset: -10});
     }
@@ -528,9 +530,11 @@ jQuery(function() {
         if (xhr.status == 200) {
           jQuery('.modal').modal('hide');
           window.places = response.places;
+          window.categories = response.categories;
           updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
-          flashResults(response.message)
+          flashResults(response.message);
           if (response.coordinates) { map.panTo(response.coordinates) };
+          initCategoryInput(window.categories);
         } else {
           displayFormErrors(xhr.responseText) // Assume form error if response != 200
         }

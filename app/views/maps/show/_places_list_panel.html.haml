@@ -2,7 +2,7 @@
   .row.search-field
     .col-xs-12
       .search-input
-        %input#search-input.category-input.form-control{'data-list' => @map.category_names.join(','), 'autocomplete' => 'off', placeholder: (t('static_pages.map.search_placeholder'))}
+        %input#search-input.category-input.form-control{'autocomplete' => 'off', placeholder: (t('static_pages.map.search_placeholder'))}
         .empty-text-filter.input-icon.glyphicon.glyphicon-remove-sign
 
   .row.filter-date-row

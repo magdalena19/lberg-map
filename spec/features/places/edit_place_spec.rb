@@ -10,16 +10,18 @@ feature 'Edit place', :js do
       open_edit_place_modal(id: @place.id)
     end
 
-    scenario 'Do valid place update as user and show in places list panel properly' do
+    scenario 'Do valid place update as user, show in places list panel properly and give correct tag proposals' do
       fill_in('place_name', with: 'CHANGE')
+      fill_in('place_categories_string', with: 'Gehirnzelle, Flaschenhals')
       find('.submit-place-button').trigger('click')
       expect(page).not_to have_css('.place-modal') # Wait until modal is closed
       show_place_details(name: 'CHANGE')
 
-      place_categories = @place.categories.map(&:name).sort
-      displayed_categories = page.find('.category-names').text.split(' | ').sort
+      expect(page.find('.category-names').text).to eq 'Flaschenhals | Gehirnzelle'
 
-      expect(displayed_categories).to eq place_categories
+      find('#search-input').trigger('click')
+      expect(page).to have_css('li', text: 'Gehirnzelle')
+      expect(page).to have_css('li', text: 'Flaschenhals')
     end
   end
 

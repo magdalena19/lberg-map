@@ -50,6 +50,12 @@ RSpec.describe Map, type: :model do
   end
 
   context 'Validations' do
+    it 'should not accept POI colors not in #Place.available_colors' do
+      map = build :map, :full_public, default_poi_color: 'some invalid color'
+
+      expect(map).not_to be_valid
+    end
+
     it 'validates map maintainer email address if present' do
       map = build :map, maintainer_email_address: 'foo@bar'
       expect(map).not_to be_valid

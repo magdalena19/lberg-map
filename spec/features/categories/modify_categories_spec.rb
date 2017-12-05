@@ -13,6 +13,7 @@ feature 'Modify place categories', js: true do
       open_edit_place_modal(id: @place.id)
       fill_in('place_categories_string', with: 'Hospital, Lawyer')
       click_on('Update Place')
+      sleep(1)
       show_places_list_panel
       find('div.name').trigger('click')
       view_category_string = find('div.category-names').text.split(' | ')

@@ -1,0 +1,16 @@
+.tab-pane.active#map_display_settings
+  -# Coloring
+  .row
+    .spacer-row
+      .col-xs-12
+        .checkbox
+          %label
+            = f.check_box :multi_color_pois
+            = f.label :multi_color_pois
+
+      .col-xs-12
+        = f.text_field :default_poi_color, class: 'color-picker', value: @map.default_poi_color || Place.available_colors.first
+        = f.label :default_poi_color
+
+:javascript
+  window.available_place_colors = #{Place.available_colors}

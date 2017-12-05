@@ -52,21 +52,4 @@ RSpec.describe Admin::SettingsController, type: :controller do
       end
     end
   end
-
-  describe 'PATCH #update' do
-    it 'updates default POI color' do
-      patch :update, admin_setting: { default_poi_color: 'purple' }
-
-      expect(Admin::Setting.default_poi_color).to eq 'purple'
-    end
-
-    it 'updates multi color poi flag' do
-      patch :update, admin_setting: { multi_color_pois: false}
-
-      expect(Admin::Setting.multi_color_pois).to eq false
-    end
-
-    context 'rejects update' do
-    end
-  end
 end

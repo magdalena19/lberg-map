@@ -12,6 +12,9 @@
           %a{'data-toggle' => 'tab', href: '#base_settings'}
             = t('.base_settings')
         %li.nav
+          %a{'data-toggle' => 'tab', href: '#map_display_settings'}
+            = t('.display_settings')
+        %li.nav
           %a{'data-toggle' => 'tab', href: '#publication_settings'}
             = t('.publication_settings')
         %li.nav
@@ -24,6 +27,7 @@
 
       .tab-content
         = render partial: 'maps/form/form_base_settings_tab', locals: { f: f }
+        = render partial: 'maps/form/form_display_settings_tab', locals: { f: f }
         = render partial: 'maps/form/form_publication_settings_tab', locals: { f: f }
         = render partial: 'maps/form/form_language_settings_tab', locals: { f: f }
         - unless @map.new_record?

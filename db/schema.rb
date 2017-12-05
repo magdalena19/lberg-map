@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712213709) do
+ActiveRecord::Schema.define(version: 20171128214133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,8 +34,6 @@ ActiveRecord::Schema.define(version: 20170712213709) do
     t.text    "app_privacy_policy"
     t.text    "app_imprint"
     t.string  "captcha_system",         default: "recaptcha"
-    t.boolean "multi_color_pois",       default: true,            null: false
-    t.string  "default_poi_color",      default: "red",           null: false
     t.integer "expiry_days",            default: 30,              null: false
   end
 
@@ -102,6 +100,8 @@ ActiveRecord::Schema.define(version: 20170712213709) do
     t.text     "supported_languages",      default: ["en"], null: false, array: true
     t.string   "password_digest"
     t.date     "last_visit"
+    t.boolean  "multi_color_pois",         default: true,   null: false
+    t.string   "default_poi_color",        default: "red",  null: false
   end
 
   add_index "maps", ["user_id"], name: "index_maps_on_user_id", using: :btree

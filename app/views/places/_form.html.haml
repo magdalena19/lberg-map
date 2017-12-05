@@ -9,7 +9,7 @@
       %h4.header-row= t('.address_data')
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
-        - if Admin::Setting.multi_color_pois
+        - if @map.multi_color_pois
           .col-xs-10
             = f.label :name, t('.place_name') + '*'
             = f.text_field :name, class: 'form-control', disabled: @place.unreviewed_version
@@ -139,4 +139,4 @@
   window.end_date = '#{@place.end_date || Date.tomorrow}';
   window.with_end_date = #{@place.end_date.present?}
   window.available_place_colors = #{Place.available_colors}
-  window.default_poi_color = '#{Admin::Setting.default_poi_color}'
+  window.default_poi_color = '#{@map.default_poi_color}'

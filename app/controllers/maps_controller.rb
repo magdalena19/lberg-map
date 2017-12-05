@@ -189,6 +189,8 @@ class MapsController < ApplicationController
       :auto_translate,
       :password,
       :password_confirmation,
+      :multi_color_pois,
+      :default_poi_color,
       :translation_engine,
       supported_languages: []
     )

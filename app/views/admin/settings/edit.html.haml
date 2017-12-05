@@ -57,23 +57,11 @@
             %h4 Color setup
 
           .col-xs-12
-            .checkbox
-              %label
-                = f.check_box :multi_color_pois
-                = f.label :multi_color_pois
-
-          .col-xs-12
-            .checkbox
-              = f.text_field :default_poi_color, class: 'color-picker', value: @settings_hash[:default_poi_color] || Place.available_colors.first
-              = f.label :default_poi_color
-
-          .col-xs-12
             %h3 Maps
 
           .col-xs-12
             = f.label :expiry_days
             = f.number_field :expiry_days, class: 'form-control'
-
 
 
       -# SECURITY SETTINGS
@@ -91,9 +79,6 @@
                   .success-icon.fa.fa-check-circle
                 .status-text
 
-
-
-
     -# BUTTONS
     .spacer-row
     .row
@@ -104,4 +89,3 @@
 
 :javascript
   window.fetch_captcha_translation = '#{t('.fetching_captcha_status')}'
-  window.available_place_colors = #{Place.available_colors}

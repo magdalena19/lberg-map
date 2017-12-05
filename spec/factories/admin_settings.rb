@@ -6,8 +6,6 @@ FactoryGirl.define do
     app_imprint ''
     app_privacy_policy ''
     captcha_system 'recaptcha'
-    default_poi_color Place.available_colors.first
-    multi_color_pois true
     expiry_days 30
   end
 end

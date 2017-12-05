@@ -21,6 +21,7 @@ class Map < ActiveRecord::Base
   validates :supported_languages, presence: true
   validates :password, length: { minimum: 5 }, if: :password
   validates :password, confirmation: true, if: :password
+  validates :default_poi_color, inclusion: { in: Place.available_colors }
   validate :secret_token_unique, if: :secret_token_changed
   validate :public_token_unique, if: 'public_token.present? && public_token_changed'
 

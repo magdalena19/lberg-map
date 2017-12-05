@@ -2,6 +2,18 @@
 
 // MAP FORM FUNCTIONALITY
 jQuery(function() {
+  //
+  // Place color
+  jQuery('.color-picker').spectrum({
+    showPalette:true,
+      showPaletteOnly: true,
+      clickoutFiresChange: true,
+    preferredFormat: 'name',
+      palette: [
+        window.available_place_colors
+      ]
+  });
+
 
   // Password
   jQuery('.password-checkbox').on('click', 'input', function() {

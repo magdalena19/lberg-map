@@ -35,11 +35,10 @@ feature 'Map form', js: true do
   context 'Map creation' do
     before do
       execute_script("jQuery('.footer').css('display', 'none')") # circumvent button finding prob
+      visit new_map_path
     end
 
     scenario 'Check form features' do
-      visit new_map_path
-
       # SPEC INTERFACE
       # Base setup
       click_on('Base setup')

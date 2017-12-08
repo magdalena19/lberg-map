@@ -1,4 +1,6 @@
 module PlaceGeocoding
+  PROBLEMATIC_CITIES = %w[Berlin]
+
   def address_changed?
     street_changed? || city_changed? || house_number_changed? || postal_code_changed?
   end
@@ -22,18 +24,21 @@ module PlaceGeocoding
 
   def self.prepare(search_results:)
     # Prepare results
-    search_results = OpenStruct.new search_results
-    {
-      latitude: search_results.lat,
-      longitude: search_results.lon,
-      house_number: search_results.house_number || (search_results.address['house_number'] if search_results.address),
-      street: search_results.street || search_results.road || (search_results.address['street'] || search_results.address['road'] if search_results.address),
-      postal_code: search_results.postcode || (search_results.address['postcode'] if search_results.address),
-      district: search_results.city_district || search_results.suburb || search_results.district || (search_results.address['city_district'] || search_results.address['suburb '] || search_results.address['district'] if search_results.address),
-      city: search_results.city || search_results.town || search_results.village || (search_results.address['city'] || search_results.address['town'] || search_results.address['village'] if search_results.address),
-      federal_state: search_results.state || (search_results.address['state'] || search_results.address['county'] if search_results.address),
-      country: search_results.country || (search_results.address['country'] if search_results.address)
+    s = OpenStruct.new search_results
+    ret = {
+      latitude: s.lat,
+      longitude: s.lon,
+      house_number: s.house_number || (s.address['house_number'] if s.address),
+      street: s.street || s.road || s.pedestrian || (s.address['street'] || s.address['road'] || s.address['pedestrian'] if s.address),
+      postal_code: s.postcode || (s.address['postcode'] if s.address),
+      district: s.city_district || s.suburb || s.district || (s.address['city_district'] || s.address['suburb '] || s.address['district'] if s.address),
+      city: s.city || s.town || s.village || (s.address['city'] || s.address['town'] || s.address['village'] if s.address),
+      federal_state: s.state || (s.address['state'] || s.address['county'] if s.address),
+      country: s.country || (s.address['country'] if s.address)
     }
+
+    ret[:city] = ret[:federal_state] if PROBLEMATIC_CITIES.include? ret[:federal_state]
+    ret
   end
 
   def update_geofeatures_if_missing

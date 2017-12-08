@@ -131,7 +131,7 @@ class PlacesController < ApplicationController
 
   # Check if any parts of an address have been submitted
   def supplied_address?
-    params[:road] || params[:suburb] || params[:city_district] || params[:state] || params[:postcode] || params[:country]
+    (params[:road] && params[:postcode]) || (params[:road] && params[:city])
   end
 
   def reverse_geocode

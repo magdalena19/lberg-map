@@ -106,18 +106,6 @@ ActiveRecord::Schema.define(version: 20171128214133) do
 
   add_index "maps", ["user_id"], name: "index_maps_on_user_id", using: :btree
 
-  create_table "messages", force: :cascade do |t|
-    t.string   "sender_name"
-    t.string   "sender_email"
-    t.string   "subject"
-    t.text     "text"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "map_id"
-  end
-
-  add_index "messages", ["map_id"], name: "index_messages_on_map_id", using: :btree
-
   create_table "place_categories", force: :cascade do |t|
     t.integer  "place_id"
     t.integer  "category_id"
@@ -205,7 +193,6 @@ ActiveRecord::Schema.define(version: 20171128214133) do
   add_foreign_key "announcements", "maps"
   add_foreign_key "categories", "maps"
   add_foreign_key "maps", "users"
-  add_foreign_key "messages", "maps"
   add_foreign_key "place_categories", "categories"
   add_foreign_key "place_categories", "places"
   add_foreign_key "places", "maps"

@@ -132,7 +132,7 @@ class Place < ActiveRecord::Base
       phone: phone,
       email: email,
       homepage: homepage,
-      description: reviewed_description&.html_safe,
+      description: reviewed_description&.html_safe || I18n.t('.maps.show.places_list_panel.no_description_yet'),
       category_names: categories.map(&:name).join(' | '),
       is_event: event,
       color: color,

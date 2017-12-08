@@ -49,11 +49,6 @@ jQuery(function() {
     var autotranslatedPrefix = "<p><i>" + window.autotranslated_label + ": </i></p>";
     var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";
 
-    function zoomTo(lat, lon) {
-      var latlng = {'lat': lat, 'lon': lon}
-      map.setView(latlng, 16);
-    }
-
     var onEachFeature = function(feature, layer) {
       addToPlacesList(feature);
       var prop = feature.properties;
@@ -74,7 +69,6 @@ jQuery(function() {
       layer.on('click', function(e) {
         showPlacesListPanel();
         resizeSidePanel();
-        zoomTo(e.latlng.lat, e.latlng.lng);
 
         var accordionItemHeading = jQuery('#heading' + feature.id);
         if (accordionItemHeading.hasClass('collapsed')) {
@@ -85,12 +79,19 @@ jQuery(function() {
       });
     };
 
-    jQuery('.places-list-panel').on('click', '.panel-heading', function() {
-      var lat = jQuery(this).attr('lat');
-      var lon = jQuery(this).attr('lon');
-
-      zoomTo(lat, lon);
-    });
+    jQuery('.places-list-panel')
+      .on('click', '.panel-heading', function() {
+        var lat = jQuery(this).attr('lat');
+        var lon = jQuery(this).attr('lon');
+        var latlng = {'lat': lat, 'lon': lon}
+        map.setView(latlng, map.getZoom());
+      })
+      .on('click', '.zoom-to-place', function() {
+        var lat = jQuery(this).attr('lat');
+        var lon = jQuery(this).attr('lon');
+        var latlng = {'lat': lat, 'lon': lon}
+        map.setView(latlng, Math.max(map.getZoom(), 16));
+      });
 
     // do not use the simpler .click function due to dynamic creation
     jQuery('body').on('click', '.edit-place', function() {
@@ -361,6 +362,8 @@ jQuery(function() {
         event_container.append("<div class='event'><div class='glyphicon fa fa-calendar'></div>" + date_string + "</div>");
       }
       item.find('.category-names').append(feature.properties.category_names);
+      item.find('.zoom-to-place').attr('lon', feature.geometry.coordinates[0])
+                                 .attr('lat', feature.geometry.coordinates[1]);
       item.find('.edit-place').attr('place_id', feature.id);
       item.find('.delete-place').attr('place_id', feature.id);
       jQuery('.places-list-accordion').append(item);

@@ -269,7 +269,7 @@ jQuery(function() {
       var filterField = jQuery('.filter-field');
       var buttons = jQuery('.button-container');
       var toggle = jQuery('.toggle-panel');
-      panel.css('top', filterField.outerHeight() + navbarHeight + 3);
+      panel.css('top', filterField.outerHeight() + navbarHeight);
       panel.height(jQuery(document).height() - filterField.outerHeight() - navbarHeight - footerHeight - 33);
       if (panel.is(':visible')) {
         jQuery('.toggle-panel').css('left', panel.outerWidth());

@@ -11,7 +11,7 @@ jQuery(function() {
   var FALLBACK_TILE_SERVER = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
 
   var addMap = function(map, url, center, zoom) {
-    map.baseLayer = L.tileLayer(url, {attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'});
+    map.baseLayer = L.tileLayer(url, {attribution: 'Source: Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'});
     map.addLayer(map.baseLayer);
     map.setView(center, zoom);
   };

@@ -159,7 +159,7 @@ class Map < ActiveRecord::Base
   end
 
   def owned_by?(user:)
-    user.registered? && owner&.id == user.id 
+    user.registered? && owner&.id == user.id
   end
 
   def supported_languages_string
@@ -189,18 +189,23 @@ class Map < ActiveRecord::Base
   TILE_LAYERS = {
     'ESRI World Imagery' => {
       url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+      attribution: 'Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
       image_url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/#{TILE_POSITION[:z]}/#{TILE_POSITION[:y]}/#{TILE_POSITION[:x]}"
     },
     'ESRI Topo' => {
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-      attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community',
+      attribution: 'Source: Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community',
       image_url: "http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/#{TILE_POSITION[:z]}/#{TILE_POSITION[:y]}/#{TILE_POSITION[:x]}"
     },
     'ESRI Grey' => {
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
-      attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+      attribution: 'Source: Esri, DeLorme, NAVTEQ',
       image_url: "http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/#{TILE_POSITION[:z]}/#{TILE_POSITION[:y]}/#{TILE_POSITION[:x]}"
+    },
+    'Stamen Terrain' => {
+      url: 'http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg',
+      attribution: "Map tiles by <a href='http://stamen.com'>Stamen Design</a>, under <a href='http://creativecommons.org/licenses/by/3.0'>CC BY 3.0</a>. Data by <a href='http://openstreetmap.org'>OpenStreetMap</a>, under <a href='http://www.openstreetmap.org/copyright'>ODbL</a>.",
+      image_url: "http://tile.stamen.com/terrain/#{TILE_POSITION[:z]}/#{TILE_POSITION[:x]}/#{TILE_POSITION[:y]}.jpg"
     }
   }.freeze
 end

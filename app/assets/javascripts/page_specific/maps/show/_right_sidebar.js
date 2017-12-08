@@ -237,7 +237,7 @@ jQuery(function() {
   // Toggle tile layer selection
   jQuery('.select-tile-layer').on('click', function(){
     var url = jQuery(this).data('url');
-    var attr = jQuery(this).data('attr');
+    var attr = jQuery(this).data('attribution');
     oldLayer = map.baseLayer;
     map.baseLayer = L.tileLayer(url, {attribution: attr});
     map.addLayer(map.baseLayer);

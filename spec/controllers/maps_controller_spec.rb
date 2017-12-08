@@ -53,7 +53,7 @@ RSpec.describe MapsController, type: :controller do
       it 'Does not demand password via public link' do
         create :place, :reviewed, map: @map
         xhr :get, :show, format: :json, map_token: @map.public_token
-        coordinates_from_json = JSON.parse(response.body).first['geometry']['coordinates']
+        coordinates_from_json = JSON.parse(response.body)['places'].first['geometry']['coordinates']
 
         expect(response.status).to eq 200
         expect(coordinates_from_json).to eq [13.45, 52.5]

@@ -1,5 +1,5 @@
 jQuery(function() {
-  window.initCategoryInput = function() {
+  window.initCategoryInput = function(origList) {
     jQuery('.category-input').each(function() {
       var input = this;
       var categoryList = new Awesomplete(input, {
@@ -15,9 +15,9 @@ jQuery(function() {
 
       function proposeTags(inputField) {
         // Determine diff of category and input words array
-        var origList = jQuery(inputField).data('list').replace(/ /g, '').split(',');
+
         var inputWords = jQuery(inputField)[0].value.replace(/ /g, '').split(',');
-        var diff = origList.filter(function(n) {
+        var diff = origList.split(',').filter(function(n) {
           return inputWords.indexOf(n) === -1;
         });
 
@@ -39,6 +39,4 @@ jQuery(function() {
       });
     });
   };
-
-  initCategoryInput();
 });

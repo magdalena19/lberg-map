@@ -1,7 +1,7 @@
 jQuery(function() {
   jQuery('.place-modal').on('show.bs.modal', function () {
     initWysiwyg();
-    initCategoryInput();
+    initCategoryInput(window.categories);
 
     // Place color
     jQuery('.color-picker').spectrum({

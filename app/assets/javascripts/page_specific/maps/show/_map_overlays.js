@@ -58,13 +58,13 @@ jQuery(function() {
   };
 
   hideAddressSearchBar = function() {
-    jQuery('.leaflet-control').remove();
+    jQuery('.leaflet-control-geocoder').remove();
     jQuery('.fade-background').hide();
     placesListPanelToggle.show();
   };
 
   showAddressSearchBar = function() {
-    var leaflet_control = jQuery('.leaflet-control');
+    var leaflet_control = jQuery('.leaflet-control-geocoder');
     leaflet_control.remove();
     jQuery('.address-search-bar-container').append(leaflet_control);
     jQuery('.leaflet-control-geocoder-form > input').focus();

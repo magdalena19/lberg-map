@@ -30,16 +30,6 @@ jQuery(function() {
     }
   });
 
-  // Toggle translation engine selection if auto-translate checked
-  jQuery('#map_auto_translate').on('click', function() {
-    var checked = $(this).is(':checked');
-    if (checked) {
-      jQuery('#map_translation_engine').show(350);
-    } else {
-      jQuery('#map_translation_engine').hide(350);
-    }
-  });
-
   // Toggle publication settings if publication checked
   function toggleIfChecked(checkbox, divToToggle) {
     var checked = jQuery(checkbox).is(':checked');

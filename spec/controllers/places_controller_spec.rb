@@ -109,14 +109,6 @@ describe PlacesController do
       }.to change{ Place.count }.by(1)
     end
 
-    it 'Enqueues auto_translation task after create' do
-      Sidekiq::Testing.fake! do
-        expect {
-          xhr :post, :create, place: attributes_for(:place, :unreviewed), map_token: map.public_token
-        }.to change { TranslationWorker.jobs.size }.by(3)
-      end
-    end
-
     it 'creates category that is not there' do
       Category.create name: 'OldCat', map: map
       new_place = create :place, :unreviewed, categories_string: 'NewCat', map: map
@@ -124,22 +116,6 @@ describe PlacesController do
       xhr :post, :create, place: extract_attributes(new_place), map_token: map.secret_token
 
       expect(Category.all.map(&:name)).to include('NewCat')
-    end
-
-    it 'Does not enqueue auto_translation unless true in settings' do
-      map = create :map, auto_translate: false
-      Sidekiq::Testing.fake! do
-        expect {
-          xhr :post, :create, place: attributes_for(:place, :unreviewed), map_token: map.secret_token
-        }.to change { TranslationWorker.jobs.size }.by(0)
-      end
-    end
-
-    it 'Does not enqueue auto_translation unless true in settings' do
-      place = create :place, :reviewed, map: create(:map, :full_public)
-      xhr :patch, :update, id: place.id, place: attributes_for(:place, :reviewed), map_token: place.map.secret_token
-
-      expect(place.reload.versions.count).to eq 1
     end
 
     context 'Restricted public maps' do
@@ -186,18 +162,6 @@ describe PlacesController do
         it 'have no version history' do
           @valid_new_place.translations.each do |translation|
             expect(translation.versions.length).to be 1
-          end
-        end
-
-        it 'have correct auto-translation flags' do
-          auto_translations = @valid_new_place.translations.reject { |t| t.locale == :en }
-
-          @valid_new_place.translations.each do |translation|
-            if auto_translations.include? translation
-              expect(translation.auto_translated).to be true
-            else
-              expect(translation.auto_translated).to be false
-            end
           end
         end
       end
@@ -250,18 +214,6 @@ describe PlacesController do
       it 'have no version history' do
         @valid_new_place.translations.each do |translation|
           expect(translation.versions.count).to be 1
-        end
-      end
-
-      it 'have correct auto-translation flags' do
-        auto_translations = @valid_new_place.translations.reject { |t| t.locale == :en }
-
-        @valid_new_place.translations.each do |translation|
-          if auto_translations.include? translation
-            expect(translation.auto_translated).to be true
-          else
-            expect(translation.auto_translated).not_to be true
-          end
         end
       end
 

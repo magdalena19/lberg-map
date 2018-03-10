@@ -18,7 +18,9 @@ module PlaceAuditing
 
   def reviewed_description
     translation = translation_from_current_locale
-    if translation.versions.count > 1
+    if translation.nil?
+      I18n.t('places.no_reviewed_description')
+    elsif translation.versions.count > 1
       translation.versions[1].reify.description
     else
       translation.reviewed ? translation.description : I18n.t('places.no_reviewed_description')

@@ -57,11 +57,7 @@
         %h3= t('.descriptions')
       .col-xs-12
         - @unreviewed_place.translations.each do |t|
-          %div{class: "auto-translated-#{t.auto_translated}"}
-            - if t.auto_translated
-              .btn.btn-xs.btn-danger
-                = t('.automatic translation') 
-              %br= t.description.html_safe
+          %br= t.description.try(:html_safe) || ''
           %hr
   .row
     .col-xs-12

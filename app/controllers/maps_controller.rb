@@ -173,9 +173,6 @@ class MapsController < ApplicationController
   end
 
   def map_params
-    # Modify params auto_translate flag according to chosen translation engine
-    params[:map]['auto_translate'] = params[:map]['translation_engine'] == 'none' ? false : true
-
     # White-list params
     params.require(:map).permit(
       :title,
@@ -186,7 +183,6 @@ class MapsController < ApplicationController
       :public_token,
       :secret_token,
       :allow_guest_commits,
-      :auto_translate,
       :password,
       :password_confirmation,
       :multi_color_pois,

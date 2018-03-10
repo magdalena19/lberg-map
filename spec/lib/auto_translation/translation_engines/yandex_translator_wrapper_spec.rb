@@ -1,3 +1,0 @@
-describe YandexTranslatorWrapper do
-
-end

@@ -2,16 +2,12 @@ require 'place/categorizing'
 require 'place/geocoding'
 require 'place/place_auditing'
 require 'place/place_translations_auditing'
-require 'place/place_background_translation'
 require 'place/place_model_helpers'
 require 'validators/custom_validators'
-require 'auto_translation/auto_translate'
 require 'sanitize'
 
 class Place < ActiveRecord::Base
-  include AutoTranslate
   include Categorizing
-  include PlaceBackgroundTranslation
   include PlaceTranslationsAuditing
   include PlaceGeocoding
   include PlaceAuditing
@@ -61,7 +57,6 @@ class Place < ActiveRecord::Base
   after_validation :enforce_ssl_on_urls, on: [:create, :update], if: 'homepage.present?'
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
-  after_create :enqueue_auto_translation, if: 'map.auto_translate'
   after_create :set_description_reviewed_flags
   after_save :set_categories
 
@@ -133,7 +128,7 @@ class Place < ActiveRecord::Base
       email: email,
       homepage: homepage,
       description: reviewed_description&.html_safe || I18n.t('.maps.show.places_list_panel.no_description_yet'),
-      category_names: categories.map(&:name).join(' | '),
+      category_names: categories.map(&:name).map(&:to_s).sort.join(' | '),
       is_event: event,
       color: color,
       reviewed: reviewed

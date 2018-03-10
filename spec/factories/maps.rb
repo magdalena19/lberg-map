@@ -13,8 +13,6 @@ FactoryGirl.define do
     trait :public_guest_map do
       title 'PublicGuestMap'
       is_public true
-      auto_translate true
-      translation_engine 'bing'
       allow_guest_commits true
       public_token { SecureRandom.urlsafe_base64(24) }
       user nil
@@ -23,8 +21,6 @@ FactoryGirl.define do
     trait :full_public do
       title 'PublicMap'
       is_public true
-      auto_translate true
-      translation_engine 'bing'
       allow_guest_commits true
       public_token { SecureRandom.urlsafe_base64(24) }
     end
@@ -32,8 +28,6 @@ FactoryGirl.define do
     trait :restricted_access do
       title 'RestrictedAccessMap'
       is_public true
-      auto_translate true
-      translation_engine 'bing'
       allow_guest_commits false
       public_token { SecureRandom.urlsafe_base64(24) }
     end
@@ -47,7 +41,6 @@ FactoryGirl.define do
     trait :top_secret do
       title 'TopSecretMap'
       is_public false
-      auto_translate false
       allow_guest_commits false
     end
   end

@@ -46,26 +46,9 @@ module MassSeedPoints
       { latitude: rand(lats.min..lats.max), longitude: rand(longs.min..longs.max) }
     end
 
-    # Generator methods for points and categories
-    def update_place_translations_attr(place:)
-      place.translations.each do |translation|
-        translation.without_versioning do
-          translation.update_attributes(auto_translated: [true, false].sample, reviewed: [true, false].sample)
-        end
-      end
-    end
-
     def place_to_event(place:)
       start_date = Date.today - rand(0..365)
       end_date = start_date + rand(5..100)
-
-      place.without_versioning do
-        place.update_attributes(
-          start_date: start_date.to_time,
-          end_date: end_date.to_time,
-          event: true
-        )
-      end
     end
 
     def generate_point(boundaries:, map:)
@@ -99,8 +82,6 @@ module MassSeedPoints
       if [true, false].sample
         place_to_event(place: @place)
       end
-
-      update_place_translations_attr(place: @place)
     end
 
     # Quick'n dirty, otherwise parse locale files for categories
@@ -124,12 +105,12 @@ module MassSeedPoints
     def generate_maps
       owner = User.find_by(name: 'user') || User.find_by(name: 'admin')
 
-      Map.create(title: 'Private map', maintainer_email_address: 'foo@bar.com', description: 'This is a private map', auto_translate: true, is_public: false, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret1', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)))
-      Map.create(title: 'Restricted access map', maintainer_email_address: 'foo@bar.org', description: 'This is a map under restricted access', auto_translate: true, is_public: true, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret2', user_id: owner.id, public_token: 'public2', supported_languages: I18n.available_locales.sample(rand(1..2)))
-      Map.create(title: 'Public map', maintainer_email_address: 'foo@bar.org', description: 'This is a fully public map', auto_translate: true, is_public: true, allow_guest_commits: true, translation_engine: 'bing', secret_token: 'secret4', user_id: owner.id, public_token: 'public3', supported_languages: I18n.available_locales.sample(rand(1..2)))
+      Map.create(title: 'Private map', maintainer_email_address: 'foo@bar.com', description: 'This is a private map', is_public: false, allow_guest_commits: false, secret_token: 'secret1', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)))
+      Map.create(title: 'Restricted access map', maintainer_email_address: 'foo@bar.org', description: 'This is a map under restricted access', is_public: true, allow_guest_commits: false, secret_token: 'secret2', user_id: owner.id, public_token: 'public2', supported_languages: I18n.available_locales.sample(rand(1..2)))
+      Map.create(title: 'Public map', maintainer_email_address: 'foo@bar.org', description: 'This is a fully public map', is_public: true, allow_guest_commits: true, secret_token: 'secret4', user_id: owner.id, public_token: 'public3', supported_languages: I18n.available_locales.sample(rand(1..2)))
 
       # Create password protected map
-      Map.create(title: 'Password', maintainer_email_address: 'foo@bar.com', description: 'This is a password protected map', auto_translate: true, is_public: false, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret5', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)), password: 'secret', password_confirmation: 'secret')
+      Map.create(title: 'Password', maintainer_email_address: 'foo@bar.com', description: 'This is a password protected map', is_public: false, allow_guest_commits: false, secret_token: 'secret5', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)), password: 'secret', password_confirmation: 'secret')
     end
 
     def generate(number_of_points:, city:)
@@ -144,7 +125,7 @@ module MassSeedPoints
       generate_maps
 
       # Generate expired map in order to test rake task in ENV
-      Map.create(title: 'Expired map', maintainer_email_address: 'foo@bar.com', description: 'This is an expired map', auto_translate: true, is_public: false, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret6', user: nil, supported_languages: I18n.available_locales.sample(rand(1..2)), last_visit: Date.today - 3000.days)
+      Map.create(title: 'Expired map', maintainer_email_address: 'foo@bar.com', description: 'This is an expired map', is_public: false, allow_guest_commits: false, secret_token: 'secret6', user: nil, supported_languages: I18n.available_locales.sample(rand(1..2)), last_visit: Date.today - 3000.days)
 
       # Create all categories listed in translation YAML files
       Map.all.each do |map|

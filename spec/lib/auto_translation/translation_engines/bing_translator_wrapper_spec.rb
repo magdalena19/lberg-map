@@ -1,3 +1,0 @@
-describe BingTranslatorWrapper do
-
-end

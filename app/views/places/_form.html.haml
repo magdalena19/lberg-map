@@ -109,9 +109,6 @@
               %br
               .red= t('currently_under_review')
               = f.text_area column.to_sym, class: "description-area locked-description", disabled: true
-            - elsif translation && translation.auto_translated
-              %i (#{t('.auto_translated')})
-              = f.text_area column.to_sym, class: "wysihtml5 description-area #{column}"
             - else
               = f.text_area column.to_sym, class: "wysihtml5 description-area #{column}"
 

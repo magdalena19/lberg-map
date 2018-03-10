@@ -1,37 +1,4 @@
 feature 'Map form', js: true do
-  context 'Translation engines' do
-    before do
-      enable_all_translation_engines
-    end
-
-    scenario 'Selection list has correct translation engine value when editing existing map' do
-      map = create :map, :full_public, translation_engine: 'google', auto_translate: true
-      visit edit_map_path(map_token: map.secret_token)
-      click_on('Multi-language support')
-      translation_engine = page.find('#map_translation_engine', visible: false).value
-
-      expect(translation_engine).to eq 'google'
-    end
-
-    scenario 'Selection list shows no translation engine if none selected when editing existing map' do
-      map = create :map, :full_public, translation_engine: 'none', auto_translate: false
-      visit edit_map_path(map_token: map.secret_token)
-      click_on('Multi-language support')
-      translation_engine = page.find('#map_translation_engine', visible: false).value
-
-      expect(translation_engine).to eq 'none'
-    end
-
-    scenario 'Selection list shows none by default if translation engine is not set at all' do
-      map = create :map, :full_public, translation_engine: '', auto_translate: false
-      visit edit_map_path(map_token: map.secret_token)
-      click_on('Multi-language support')
-      translation_engine = page.find('#map_translation_engine', visible: false).value
-
-      expect(translation_engine).to eq 'none'
-    end
-  end
-
   context 'Map creation' do
     before do
       execute_script("jQuery('.footer').css('display', 'none')") # circumvent button finding prob
@@ -80,6 +47,6 @@ feature 'Map form', js: true do
   end
 
   def publish_checkbox
-    find('#map_is_public')   
+    find('#map_is_public')
   end
 end

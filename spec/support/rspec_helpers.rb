@@ -32,25 +32,4 @@ module RSpecHelpers
       }]
     )
   end
-
-  # Mock auto-translation engine API keys
-  def enable_all_translation_engines
-    mock_bing_api_keys
-    mock_google_api_keys
-    mock_yandex_api_keys
-  end
-
-  def mock_bing_api_keys
-    ENV['bing_id'] = 'something'
-    ENV['bing_secret'] = 'something'
-    ENV['microsoft_account_key'] = 'something'
-  end
-
-  def mock_yandex_api_keys
-    ENV['yandex_secret'] = 'something'
-  end
-
-  def mock_google_api_keys
-    ENV['google_translate_secret'] = 'something'
-  end
 end

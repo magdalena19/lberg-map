@@ -15,7 +15,6 @@ class Map < ActiveRecord::Base
   before_validation lambda { password_digest = 'no password set' }
 
   validates :maintainer_email_address, email_format: true, if: 'maintainer_email_address.present?'
-  validates :translation_engine, presence: true, inclusion: { in: %w[bing yandex google] }, if: 'auto_translate'
   validates :secret_token, presence: true
   validates :title, length: { maximum: 25 }
   validates :supported_languages, presence: true

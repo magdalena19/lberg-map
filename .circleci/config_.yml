@@ -1,0 +1,59 @@
+version:                 2
+jobs:
+  build:
+    working_directory:   ~/innobooking
+    docker:
+      - image:           circleci/ruby:2.4.2-stretch-node-browsers # User BROWSER image in order to have phantomjs available
+        environment:
+          PGHOST:        127.0.0.1
+          PGUSER:        innobooking
+          RAILS_ENV:     test
+
+      - image:           circleci/postgres:9.6-alpine
+        environment:
+          POSTGRES_USER: innobooking
+          POSTGRES_DB:   innobooking_test
+
+    steps:
+      - checkout
+
+
+      - type: cache-restore
+          name: Restore bundle cache
+          key: innobooking-{{ checksum "Gemfile.lock" }}
+
+      - type: cache-restore
+          name: Restore yarn cache
+          key: innobooking--{{ checksum "yarn.lock" }}
+
+      - run:
+          name:          Bundle Install
+          command:       bin/bundle install --path vendor/bundle --jobs 4 --retry 3
+
+      - run:
+          name:          Install JS dependencies via yarn
+          command:       yarn install
+
+      - run:
+          name:          Wait for db
+          command:       dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - save_cache:
+          name:          Store bundle cache
+          key:           innobooking-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - save_cache:
+          name:          Store node modules cache
+          key:           innobooking-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+
+      - run:
+          name:          Database setup
+          command:       bin/rake db:schema:load --trace
+
+      - run:
+          name:          Run tests
+          command:       rspec

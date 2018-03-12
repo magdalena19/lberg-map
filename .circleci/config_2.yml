@@ -1,0 +1,47 @@
+version:                 2
+jobs:
+  build:
+    working_directory:   ~/ratmap
+    docker:
+      - image:           circleci/ruby:2.3.1-stretch-node-browsers # User BROWSER image in order to have phantomjs available
+        environment:
+          PGHOST:        127.0.0.1
+          PGUSER:        ratmap
+          RAILS_ENV:     test
+
+      - image:           circleci/postgres:9.6-alpine
+        environment:
+          POSTGRES_USER: ratmap
+          POSTGRES_DB:   ratmap_test
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - gem-cache-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-{{ .Branch }}
+            - gem-cache
+
+      - run: bundle install --path vendor/bundle
+
+      - save_cache:
+          key: gem-cache-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Database setup
+          command: bin/rails db:schema:load --trace
+
+      - run:
+          name: Precompile assets
+          command: bundle exec rake assets:precompile
+
+      - run:
+          name: Run rspec
+          command: bundle exec rspec

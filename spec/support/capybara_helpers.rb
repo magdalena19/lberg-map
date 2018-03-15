@@ -16,22 +16,25 @@ module CapybaraHelpers
   end
 
   # PLACE CREATION HELPERS
-  def create_place_as_user(map_token:)
+  def create_place_as_user(map_token:, name: 'Any place')
     login_as_user
-    create_place(map_token: map_token)
+    create_place(map_token: map_token, name: name)
   end
 
   def open_new_place_modal(map_token:)
     visit map_path(map_token: map_token)
     find(:css, '.add-place-button').trigger('click')
-    find(:css, '.add-place-manually').trigger('click')
+    within('.create-place-methods-tray') do
+      find('.add-place-manually').trigger('click')
+    end
+    expect(page).to have_css '.modal-dialog'
   end
 
-  def create_place(map_token:)
+  def create_place(map_token:, name: 'Any place')
     visit map_path(map_token: @map.secret_token)
     find(:css, '.add-place-button').trigger('click')
     find(:css, '.add-place-manually').trigger('click')
-    fill_in_valid_place_information
+    fill_in_valid_place_information(name: name)
     find(:css, '.submit-place-button').trigger('click')
   end
 
@@ -40,10 +43,10 @@ module CapybaraHelpers
   end
 
   def update_place_name(map_token:, id:, name:)
-      visit map_path(map_token: map_token)
-      open_edit_place_modal(id: id)
-      fill_in('place_name', with: name)
-      click_on('Update Place')
+    visit map_path(map_token: map_token)
+    open_edit_place_modal(id: id)
+    fill_in('place_name', with: name)
+    click_on('Update Place')
   end
 
   def fill_in_valid_place_information(name: 'Any place')
@@ -86,7 +89,7 @@ module CapybaraHelpers
 
   def show_place_details(name:)
     show_places_list_panel
-    find('.name', text: name).trigger('click')
+    find('div.name', text: name).trigger('click')
   end
 
   def delete_place(name:)

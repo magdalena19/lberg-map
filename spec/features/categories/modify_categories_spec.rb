@@ -9,16 +9,9 @@ feature 'Modify place categories', js: true do
       visit map_path(map_token: @map.secret_token)
     end
 
-    scenario 'create category if not there and properly update place categories' do
-      open_edit_place_modal(id: @place.id)
-      fill_in('place_categories_string', with: 'Hospital, Lawyer')
-      click_on('Update Place')
-      sleep(1)
-      show_places_list_panel
-      find('div.name').trigger('click')
-      view_category_string = find('div.category-names').text.split(' | ')
-
-      expect(view_category_string.sort).to eq ['Hospital', 'Lawyer']
+    scenario 'create category if not there and show in category suggestion' do
+      add_new_category_via_place_form
+      suggest_new_category_in_search_field
     end
   end
 
@@ -29,30 +22,41 @@ feature 'Modify place categories', js: true do
       click_on('Tags')
     end
 
-    scenario 'remove category via interface' do
-      page.accept_confirm do
-        find('.delete-tag-button').trigger('click')
-      end
-      sleep(1)
-
-      expect(page).not_to have_css('.name_en')
-    end
-
-    scenario 'Update category via interface' do
-      find('.name_en').set("Changed")
-      find('.update-tag-button').trigger('click')
-      sleep(1)
-      new_value = find('.name_en').value
-      
-      expect(new_value).to eq 'Changed'
+    scenario 'Update and remove category via interface' do
+      change_category_name_and_see_change("Changed")
+      remove_category_and_do_not_find_respective_input_field
     end
   end
 
-  context 'Add categories via tagging maintainance form' do
-    # TODO implment that!
-    scenario 'can add categories to new maps' do
-      skip 'To be implemented'
-      visit new_map_path
+  private
+
+  def add_new_category_via_place_form
+    open_edit_place_modal(id: @place.id)
+    fill_in('place_categories_string', with: 'Hospital, Lawyer')
+    click_on('Update Place')
+  end
+
+  def suggest_new_category_in_search_field
+    sleep(1)
+    find('#search-input').trigger('click')
+    expect(page).to have_content 'Lawyer'
+  end
+
+  def change_category_name_and_see_change(new_val)
+    find('.name_en').set(new_val)
+    find('.update-tag-button').trigger('click')
+    sleep(0.1)
+    new_value = find('.name_en').value
+
+    expect(new_value).to eq 'Changed'
+  end
+
+  def remove_category_and_do_not_find_respective_input_field
+    page.accept_confirm do
+      find('.delete-tag-button').trigger('click')
     end
+    sleep(0.1)
+
+    expect(page).not_to have_css('.name_en')
   end
 end

@@ -24,15 +24,17 @@ feature 'Review place', :js do
       @place.update(reviewed: false)
     end
 
-    scenario 'Show guest edits in review index and review place' do
-      visit places_review_index_path(map_token: @map.secret_token)
-
-      expect(page).to have_css('td', text: 'Some reviewed place')
+    scenario 'Can review guest edits properly' do
+      shows_guest_edits_in_review_index_and_review_page
     end
 
-    scenario 'Shows correct details to be reviewed' do
-      visit review_place_path(id: @place.id, map_token: @map.secret_token)
+    private
+    
+    def shows_guest_edits_in_review_index_and_review_page
+      visit places_review_index_path(map_token: @map.secret_token)
+      expect(page).to have_css('td', text: 'Some reviewed place')
 
+      visit review_place_path(id: @place.id, map_token: @map.secret_token)
       expect(page).to have_content('GUEST CHANGE')
     end
   end

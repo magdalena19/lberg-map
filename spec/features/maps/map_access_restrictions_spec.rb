@@ -29,15 +29,22 @@ feature 'Map privacy settings', :js do
       visit map_path(map_token: @map.public_token)
     end
 
-    scenario 'Cannot insert places / events via place controls' do
-      expect(page).not_to have_css('.add-place-button')
+    scenario 'Cannot insert and edit POIs' do
+      assert_cannot_insert_places_via_place_controls
+      assert_cannot_insert_places_via_places_side_panel
     end
+  end
 
-    scenario 'Cannot edit places / events via places side panel' do
-      show_places_list_panel
-      find('.name', text: 'Playpital').trigger('click')
+  private
 
-      expect(page).not_to have_css('.glyphicon-pencil')
-    end
+  def assert_cannot_insert_places_via_place_controls
+    expect(page).not_to have_css('.add-place-button')
+  end
+
+  def assert_cannot_insert_places_via_places_side_panel
+    show_places_list_panel
+    find('.name', text: 'Playpital').trigger('click')
+
+    expect(page).not_to have_css('.glyphicon-pencil')
   end
 end

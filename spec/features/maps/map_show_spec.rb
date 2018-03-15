@@ -7,7 +7,14 @@ feature 'Map', js: true do
       @place = create :place, :reviewed, map: @map, name: 'SomePlace'
     end
 
-    scenario 'has place edit buttons fur guest users' do
+    scenario 'find edit and review buttons for different access levels' do
+      find_place_edit_button_for_guest_users
+      find_review_button_for_privileged_users
+    end
+
+    private
+
+    def find_place_edit_button_for_guest_users
       visit map_path(map_token: @map.public_token)
       show_place_details(name: 'SomePlace')
 
@@ -15,11 +22,12 @@ feature 'Map', js: true do
       expect(page).not_to have_css('.review_places_button')
     end
 
-    scenario 'has review button in navbar for privileged users' do
+    def find_review_button_for_privileged_users
       visit map_path(map_token: @map.secret_token)
 
       expect(page).to have_css('.review-places-button')
     end
+
   end
 
   context 'Restricted access map' do

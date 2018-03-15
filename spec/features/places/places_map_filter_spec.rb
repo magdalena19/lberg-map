@@ -108,6 +108,5 @@ feature 'Places map filter', js: true do
 
     expect(page).not_to have_content 'AdventurePark'
     expect(page).to have_content 'Mr Bean'
-
   end
 end

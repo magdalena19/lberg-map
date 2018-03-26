@@ -14,7 +14,7 @@ module Categorizing
       if matches.any?
         res << matches
       else
-        new_category = map.categories.create(name: category_name)
+        new_category = map.categories.create(name: category_name, marker_color: 'purple', marker_icon_class: 'fa-star', marker_shape: 'square')
         res << new_category
       end
     end

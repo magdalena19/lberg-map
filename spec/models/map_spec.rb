@@ -48,12 +48,6 @@ RSpec.describe Map, type: :model do
   end
 
   context 'Validations' do
-    it 'should not accept POI colors not in #Place.available_colors' do
-      map = build :map, :full_public, default_poi_color: 'some invalid color'
-
-      expect(map).not_to be_valid
-    end
-
     it 'validates map maintainer email address if present' do
       map = build :map, maintainer_email_address: 'foo@bar'
       expect(map).not_to be_valid
@@ -78,20 +72,20 @@ RSpec.describe Map, type: :model do
 
     it 'cannot have no supported_languages' do
       map = build :map, :full_public, supported_languages: []
-      
+
       expect(map).not_to be_valid
     end
 
     context 'Password protection' do
       it 'Map password has to be longer or equal 5 chars' do
         map = build :map, :full_public, password: '1234', password_confirmation: '1234'
-      
+
         expect(map).not_to be_valid
       end
 
       it 'Does not accept unequal passwords' do
         map = build :map, :full_public, password: 'abcdef', password_confirmation: 'Something different'
-      
+
         expect(map).not_to be_valid
       end
     end
@@ -103,9 +97,9 @@ RSpec.describe Map, type: :model do
     end
   end
 
-  context 'Instance methods' do 
+  context 'Instance methods' do
     before do
-      @map = create :map, :full_public 
+      @map = create :map, :full_public
       @reviewed_places = create_list :place, 4, :reviewed, map: @map
       @unreviewed_places = create_list :place, 2, :unreviewed , map: @map
       @reviewed_events = create_list :event, 5, map: @map

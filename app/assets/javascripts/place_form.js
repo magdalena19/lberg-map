@@ -1,24 +1,13 @@
 jQuery(function() {
-  jQuery('.place-modal').on('show.bs.modal', function () {
+  jQuery('.place-modal').on('show.bs.modal', function() {
     initWysiwyg();
     initCategoryInput(window.categories);
-
-    // Place color
-    jQuery('.color-picker').spectrum({
-      showPalette:true,
-      showPaletteOnly: true,
-      clickoutFiresChange: true,
-      preferredFormat: 'name',
-      palette: [
-        window.available_place_colors
-      ]
-    });
 
     // Place events
     var picker = function(div, with_end_date) {
       div.daterangepicker({
-        "startDate": moment(window.start_date,'YYYY-MM-DD hh:mm:ss').utc(),
-        "endDate": moment(window.end_date,'YYYY-MM-DD hh:mm:ss').utc(),
+        "startDate": moment(window.start_date, 'YYYY-MM-DD hh:mm:ss').utc(),
+        "endDate": moment(window.end_date, 'YYYY-MM-DD hh:mm:ss').utc(),
         "singleDatePicker": !with_end_date,
         "showDropdowns": true,
         "showWeekNumbers": true,
@@ -33,17 +22,17 @@ jQuery(function() {
       });
     };
 
-    jQuery('#is_place').on('click', function(){
+    jQuery('#is_place').on('click', function() {
       jQuery('#place_start_date').prop('disabled', true);
       jQuery('#set_end_date').prop('disabled', true);
     });
 
-    jQuery('#is_event').on('click', function(){
+    jQuery('#is_event').on('click', function() {
       jQuery('#place_start_date').prop('disabled', false);
       jQuery('#set_end_date').prop('disabled', false);
     });
 
-    jQuery('#set_end_date').on('click', function(){
+    jQuery('#set_end_date').on('click', function() {
       var with_end_date = jQuery(this).prop('checked');
       var date_input = jQuery('#place_start_date');
       var orig_value = date_input.val();
@@ -57,9 +46,9 @@ jQuery(function() {
       }
 
       picker(
-          jQuery('#place_start_date'),
-          with_end_date
-          );
+        jQuery('#place_start_date'),
+        with_end_date
+      );
     });
 
     picker(jQuery('#place_start_date'), jQuery('#set_end_date').is(':checked'));

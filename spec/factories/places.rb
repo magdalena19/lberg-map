@@ -19,7 +19,6 @@ FactoryGirl.define do
     phone '03081618254'
     event false
     categories_string 'Playground,Hospital'
-    color Place.available_colors.sample(1).first
     map
 
     after(:create) { |place| set_reviewed_on_translations(place) }

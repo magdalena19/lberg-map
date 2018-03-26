@@ -1,0 +1,16 @@
+#icon-selection-modal {
+  .font-awesome-icon {
+    cursor: pointer;
+    padding: 5px;
+    &:hover {
+      background-color: lightgrey;
+    }
+    icon {
+      font-size: 30px;
+      width: 100%;
+    }
+    span {
+      width: 100%;
+    }
+  }
+}

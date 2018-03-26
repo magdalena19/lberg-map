@@ -74,7 +74,6 @@ module MassSeedPoints
                                  categories_string: categories_string,
                                  event: false,
                                  reviewed: reviewed_status,
-                                 color: Place.available_colors.sample(1).first,
                                  created_at: created_at,
                                  updated_at: updated_at)
 
@@ -87,19 +86,26 @@ module MassSeedPoints
     # Quick'n dirty, otherwise parse locale files for categories
     def populate_predefined_categories(map:)
       map.categories.create(name_en: 'Playground', locale: 'en',
-                            name_de: 'Spielplatz', locale: 'de')
+                            name_de: 'Spielplatz', locale: 'de',
+                            marker_shape: 'star', marker_color: 'red', marker_icon_class: 'fa-star')
       map.categories.create(name_en: 'Lawyer', locale: 'en',
-                            name_de: 'Anwalt', locale: 'de')
+                            name_de: 'Anwalt', locale: 'de',
+                            marker_shape: 'circle', marker_color: 'purple', marker_icon_class: 'fa-home')
       map.categories.create(name_en: 'Hospital', locale: 'en',
-                            name_de: 'Krankenhaus', locale: 'de')
+                            name_de: 'Krankenhaus', locale: 'de',
+                            marker_shape: 'penta', marker_color: 'yellow', marker_icon_class: 'fa-edit')
       map.categories.create(name_en: 'Drugstore', locale: 'en',
-                            name_de: 'Apotheke', locale: 'de')
+                            name_de: 'Apotheke', locale: 'de',
+                            marker_shape: 'star', marker_color: 'black', marker_icon_class: 'fa-star')
       map.categories.create(name_en: 'Cafe', locale: 'en',
-                            name_de: 'Café', locale: 'de')
+                            name_de: 'Café', locale: 'de',
+                            marker_shape: 'square', marker_color: 'white', marker_icon_class: 'fa-star')
       map.categories.create(name_en: 'Consultation', locale: 'en',
-                            name_de: 'Beratung', locale: 'de')
+                            name_de: 'Beratung', locale: 'de',
+                            marker_shape: 'circle', marker_color: 'orange', marker_icon_class: 'fa-star')
       map.categories.create(name_en: 'Event location', locale: 'en',
-                            name_de: 'Veranstaltungsort', locale: 'de')
+                            name_de: 'Veranstaltungsort', locale: 'de',
+                            marker_shape: 'star', marker_color: 'red', marker_icon_class: 'fa-star')
     end
 
     def generate_maps

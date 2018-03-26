@@ -23,7 +23,7 @@ describe PlacesController do
 
     it 'can post color' do
       expect {
-        xhr :post, :create, map_token: map.public_token, place: attributes_for(:place, :unreviewed, color: Place.available_colors.first)
+        xhr :post, :create, map_token: map.public_token, place: attributes_for(:place, :unreviewed)
       }.to change { Place.count }.by(1)
     end
   end

@@ -160,7 +160,6 @@ class PlacesController < ApplicationController
       :phone, :homepage, :email,
       :event, :start_date,
       :categories_string,
-      :color
     )
   end
 end

@@ -19,15 +19,6 @@ class Place < ActiveRecord::Base
   split_accessor :start_date
   split_accessor :end_date
 
-  # PLACE COLORS
-  COLORS_AVAILABLE = [
-    'red', 'darkorange', 'orange', 'yellow', 'darkblue', 'purple', 'violet', 'pink', 'darkgreen', 'green', 'lightgreen'
-  ].freeze
-
-  def self.available_colors
-    COLORS_AVAILABLE
-  end
-
   ## ASSOCIATIONS
   belongs_to :map
   has_many :place_category, dependent: :nullify
@@ -39,7 +30,6 @@ class Place < ActiveRecord::Base
   validates :phone, phone_number_format: true, if: 'phone.present?'
   validates :homepage, url_format: true, if: 'homepage.present?'
   validate :end_date, :is_after_start_date?, if: 'start_date.present? && end_date.present?'
-  validates :color, inclusion: { in: COLORS_AVAILABLE }
 
   def is_after_start_date?
     if end_date < start_date
@@ -124,6 +114,10 @@ class Place < ActiveRecord::Base
     }
   end
 
+  def main_category
+    categories&.first
+  end
+
   def properties
     {
       name: name,
@@ -135,10 +129,12 @@ class Place < ActiveRecord::Base
       email: email,
       homepage: homepage,
       description: displayed_description,
-      category_names: categories.map(&:name).map(&:to_s).sort.join(' | '),
+      category_names: categories.map(&:name).map(&:to_s).join(' | '),
       is_event: event,
-      color: color,
-      reviewed: reviewed
+      reviewed: reviewed,
+      marker_color: main_category&.marker_color,
+      marker_icon_class: main_category&.marker_icon_class,
+      marker_shape: main_category&.marker_shape,
     }
   end
 end

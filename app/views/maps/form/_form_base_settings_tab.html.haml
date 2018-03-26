@@ -41,6 +41,3 @@
           .description-editor
             = f.label :description, t('.description')
             = f.text_area :description, class: "wysihtml5 description-area"
-
-:javascript
-  window.available_place_colors = #{Place.available_colors}

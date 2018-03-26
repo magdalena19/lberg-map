@@ -116,22 +116,14 @@ textarea {
 
 .categories {
   .category {
-    @mixin highlight() {
-      background-color: #808080;
-      color: #f3f3f3;
-    }
-
     cursor: pointer;
     margin: 3px;
     background-color: #d4d4d4;
     color: #a0a0a0;
 
-    &:hover {
-      @include highlight();
-    }
-
     &.selected {
-      @include highlight();
+      background-color: #808080;
+      color: #f3f3f3;
     }
   }
 }

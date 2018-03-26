@@ -8,7 +8,13 @@ class Category < ActiveRecord::Base
   translates :name
   globalize_accessors
 
+  default_scope { order(priority: :asc) }
+
   # VALIDATIONS
+  validates :priority, presence: true
+  validates :marker_shape, presence: true
+  validates :marker_color, presence: true
+  validates :marker_icon_class, presence: true
   validate :any_name_present
 
   def any_name_present

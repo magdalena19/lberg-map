@@ -91,15 +91,18 @@ class MapsController < ApplicationController
   end
 
   def edit
+    5.times { @map.categories.build(priority: nil) }
     @url = { action: :update, controller: :maps, map_token: @map.secret_token } # Specify this so map form does commit to correct route...
   end
 
   def update
     if can_commit_to?(model: @map) && @map.update_attributes(map_params)
       flash[:success] = t('.changes_saved')
-      redirect_to maps_url
+      redirect_to map_path(@map.secret_token)
     else
       flash.now[:danger] = @map.errors.full_messages.to_sentence
+      5.times { @map.categories.build(priority: nil) }
+      @url = { action: :update, controller: :maps, map_token: @map.secret_token }
       render :edit, status: 400
     end
   end
@@ -172,6 +175,16 @@ class MapsController < ApplicationController
     redirect_to landing_page_url
   end
 
+  def category_attributes
+    attributes = %i[id marker_color marker_shape marker_icon_class priority _destroy]
+    if @map
+      @map.supported_languages.each do |language|
+        attributes << "name_#{language}".to_sym
+      end
+    end
+    attributes
+  end
+
   def map_params
     # White-list params
     params.require(:map).permit(
@@ -185,10 +198,9 @@ class MapsController < ApplicationController
       :allow_guest_commits,
       :password,
       :password_confirmation,
-      :multi_color_pois,
-      :default_poi_color,
       :translation_engine,
-      supported_languages: []
+      supported_languages: [],
+      categories_attributes: category_attributes
     )
   end
 end

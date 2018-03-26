@@ -9,17 +9,9 @@
       %h4.header-row= t('.address_data')
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
-        - if @map.multi_color_pois
-          .col-xs-10
-            = f.label :name, t('.place_name') + '*'
-            = f.text_field :name, class: 'form-control', disabled: @place.unreviewed_version
-          .col-xs-2
-            = f.label :color, t('.place_color')
-            = f.text_field :color, class: 'color-picker', value: @place.color || Place.available_colors.first
-        - else
-          .col-xs-12
-            = f.label :name, t('.place_name') + '*'
-            = f.text_field :name, class: 'form-control', disabled: @place.unreviewed_version
+        .col-xs-12
+          = f.label :name, t('.place_name') + '*'
+          = f.text_field :name, class: 'form-control', disabled: @place.unreviewed_version
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:street)}"}
         .col-xs-8
@@ -132,5 +124,3 @@
   window.start_date = '#{@place.start_date || Date.today}';
   window.end_date = '#{@place.end_date || Date.tomorrow}';
   window.with_end_date = #{@place.end_date.present?}
-  window.available_place_colors = #{Place.available_colors}
-  window.default_poi_color = '#{@map.default_poi_color}'

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe CategoriesController, type: :controller do
   before do
     @map = create :map, :full_public
-    @category = create :category, name_de: 'GermanName', name_en: 'EnglishName', map: @map 
+    @category = create :category, name_de: 'GermanName', name_en: 'EnglishName', map: @map
   end
 
   describe 'GET #index' do
@@ -16,12 +16,6 @@ RSpec.describe CategoriesController, type: :controller do
   end
 
   describe 'POST #create' do
-    it 'creates category for map' do
-      expect do
-        xhr :post, :create, category: { name_en: 'SomeEnglishName', name_de: 'SomeGermanName' }, map_token: @map.secret_token
-      end.to change { Category.count }.by(1)
-    end
-
     it 'associates with correct map' do
       xhr :post, :create, category: { name_en: 'SomeEnglishName', name_de: 'SomeGermanName' }, map_token: @map.secret_token
 

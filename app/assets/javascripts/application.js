@@ -36,15 +36,15 @@ jQuery(function() {
     window.history.back();
   });
 
-  jQuery(window).resize(function(){
+  jQuery(window).resize(function() {
     var navbarHeight = jQuery('.navbar').height();
     jQuery('.main-container').css('margin-top', navbarHeight + 15);
   }).resize();
 
   // RESPONSIVE HEIGHT
-  jQuery(window).resize(function(){
+  jQuery(window).resize(function() {
     var navbarHeight = jQuery('.navbar').height();
-    jQuery('.map-container').height(jQuery(window).height()).css('margin-top', - (navbarHeight + 15));
+    jQuery('.map-container').height(jQuery(window).height()).css('margin-top', -(navbarHeight + 15));
   }).resize();
 
   // Enable bootstrap tooltips

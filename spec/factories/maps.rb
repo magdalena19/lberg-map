@@ -6,8 +6,6 @@ FactoryGirl.define do
     maintainer_email_address 'foo@bar.org'
     secret_token { SecureRandom.urlsafe_base64(24) }
     supported_languages I18n.available_locales
-    multi_color_pois true
-    default_poi_color 'red'
     user
 
     trait :public_guest_map do

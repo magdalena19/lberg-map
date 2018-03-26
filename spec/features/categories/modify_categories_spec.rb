@@ -1,65 +1,69 @@
 feature 'Modify place categories', js: true do
   before do
     @map = create :map, :full_public
+    @place = create :place, :reviewed, categories_string: 'Playground', map: @map
   end
 
-  context 'via place modification' do
-    before do
-      @place = create :place, :reviewed, categories_string: 'Hospital, Playground', map: @map
-      visit map_path(map_token: @map.secret_token)
-    end
-
-    scenario 'create category if not there and show in category suggestion' do
-      skip "To be implemented"
-
-      add_new_category_via_place_form
-      sleep(1)
-      expect(Category.count).to eq 3
-    end
-  end
-
-  context 'via tagging maintainance form' do
-    before do
-      @place = create :place, :reviewed, categories_string: 'Hospital', map: @map
-      visit edit_map_path(map_token: @map.secret_token)
-      click_on('Tags')
-    end
-
-    scenario 'Update and remove category via interface' do
-      change_category_name_and_see_change("Changed")
-      remove_category_and_do_not_find_respective_input_field
-    end
+  scenario 'Update and remove category via interface' do
+    add_new_category
+    assign_category_to_place
+    change_priority_order_of_categories
+    get_error_after_invalid_category_manipulation
+    delete_category
   end
 
   private
 
-  def add_new_category_via_place_form
-    open_edit_place_modal(id: @place.id)
-    fill_in('place_categories_string', with: 'Hospital, Lawyer')
-    click_on('Update Place')
+  def add_new_category
+    visit_category_editor
+    fill_in('map_categories_attributes_1_name_en', with: 'Hospital')
+    select('red', from: 'map_categories_attributes_1_marker_color')
+    select('circle', from: 'map_categories_attributes_1_marker_shape')
+    find('#map_categories_attributes_1_marker_icon_class').trigger('click')
+    find('.fa-ambulance').trigger('click')
+    find('.submit-place-button').trigger('click')
+    expect(page).to have_content('Changes saved')
   end
 
-  def suggest_new_category_in_search_field
-    sleep(1)
-    find('#search-input').trigger('click')
-    expect(page).to have_content 'Lawyer'
+  def assign_category_to_place
+    find('.extra-marker-square-purple').trigger('click')
+    expect(page).to have_content('Playground')
+    find('.edit-place').trigger('click')
+    find('.category.badge', text: 'Hospital').trigger('click')
+    find('.submit-place-button').trigger('click')
   end
 
-  def change_category_name_and_see_change(new_val)
-    find('.name_en').set(new_val)
-    find('.update-tag-button').trigger('click')
-    sleep(0.1)
-    new_value = find('.name_en').value
-
-    expect(new_value).to eq 'Changed'
+  def change_priority_order_of_categories
+    visit_category_editor
+    first('.category-down').trigger('click')
+    find('.submit-place-button').trigger('click')
+    find('.extra-marker-circle-red').trigger('click')
+    expect(page).to have_content('Hospital | Playground')
   end
 
-  def remove_category_and_do_not_find_respective_input_field
-    page.accept_confirm do
-      find('.delete-tag-button').trigger('click')
-    end
-    sleep(0.1)
+  def get_error_after_invalid_category_manipulation
+    visit_category_editor
+    fill_in('map_categories_attributes_0_name_en', with: '')
+    find('.submit-place-button').trigger('click')
+    expect(page).to have_content('Categories name translation missing')
+    click_on('Tags')
+    sleep 0.2
+    fill_in('map_categories_attributes_1_name_en', with: 'Playground')
+  end
 
-    expect(page).not_to have_css('.name_en')
+  def delete_category
+    first('.delete-category').trigger('click')
+    find('.submit-place-button').trigger('click')
+    sleep 1
+    screenshot_and_open_image
+    find('.extra-marker-square-purple').trigger('click')
+    expect(page).to_not have_content('Hospital | Playground')
+    expect(page).to have_content('Playground')
+  end
+
+  def visit_category_editor
+    visit edit_map_path(map_token: @map.secret_token)
+    click_on('Tags')
+    sleep 0.2
   end
 end

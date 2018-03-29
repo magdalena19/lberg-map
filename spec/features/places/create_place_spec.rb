@@ -1,6 +1,7 @@
 feature 'Create place', :js do
   before do
     @map = create :map, :full_public
+    create :place, map: @map, name: 'Foo'
   end
 
   context 'As privileged user' do
@@ -9,7 +10,7 @@ feature 'Create place', :js do
 
       show_place_details(name: 'Foo')
       expect(page).to have_css('.leaflet-marker-icon', count: 1)
-      expect(page).to have_css('.glyphicon-pencil')
+      expect(page).to have_css('.fa-pencil')
     end
   end
 

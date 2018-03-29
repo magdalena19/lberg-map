@@ -10,7 +10,8 @@ feature 'Modify place categories', js: true do
     end
 
     scenario 'create category if not there and show in category suggestion' do
-      skip ''
+      skip "To be implemented"
+
       add_new_category_via_place_form
       sleep(1)
       expect(Category.count).to eq 3

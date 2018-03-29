@@ -32,10 +32,15 @@ module CapybaraHelpers
 
   def create_place(map_token:, name: 'Any place')
     visit map_path(map_token: @map.secret_token)
-    find(:css, '.add-place-button').trigger('click')
-    find(:css, '.add-place-manually').trigger('click')
+    add_place_manually
     fill_in_valid_place_information(name: name)
     find(:css, '.submit-place-button').trigger('click')
+  end
+
+  def add_place_manually
+    find('.add-place-button').trigger('click')
+    find('.add-place-manually').trigger('click')
+    find('.place-modal', visible: true, wait: 5)
   end
 
   def open_edit_place_modal(id:)
@@ -59,7 +64,13 @@ module CapybaraHelpers
     fill_in('place_email', with: 'schnipp@schnapp.com')
     fill_in('place_homepage', with: 'http://schnapp.com')
     fill_in('place_phone', with: '03081763253')
-    fill_in('place_categories_string', with: 'Hospital, Cafe')
+    click_categories(%w(Hospital Playground))
+  end
+
+  def click_categories(categories)
+    categories.each do |c|
+      page.find(".category[data-category='#{c}']").trigger('click')
+    end
   end
 
   def fill_in_valid_date_information

@@ -1,5 +1,54 @@
 jQuery(function() {
   window.initCategoryInput = function(origList) {
+    var categoriesField = $('.place-modal input#place_categories_string');
+    var selectedCategories = categoriesField.data('categories');
+
+    // Place form tagging
+    function isSelected(category) {
+      return selectedCategories.indexOf(category) != -1;
+    }
+
+    function createBadge(category) {
+      var categoryElement = document.createElement("span");
+      var selectionStatus = isSelected(category) ? 'selected' : 'deselected'
+
+      categoryElement.classList.add('category', 'badge', selectionStatus);
+      categoryElement.innerHTML = category;
+      categoryElement.dataset.category = category;
+      return categoryElement;
+    }
+
+    function toggleSelection(category) {
+      $(category).toggleClass('selected');
+      $(category).toggleClass('deselected');
+      updateCategoriesFormField(category.dataset.category);
+    }
+
+    function updateCategoriesFormField(category) {
+      if (isSelected(category)) {
+        selectedCategories.splice($.inArray(category, selectedCategories), 1);
+      } else {
+        selectedCategories.push(category);
+      }
+
+      var newCategoriesString = $.unique(selectedCategories).join(',');
+      categoriesField.val(newCategoriesString)
+    }
+
+    $('.categories').each(function() {
+      var that = $(this);
+      var categories = origList.split(',');
+      $.each(categories, function(i, category) {
+        that.append(createBadge(category));
+      })
+    });
+
+    $('.category').on('click', function() {
+      toggleSelection(this);
+    })
+
+
+    // Map search field tagging
     jQuery('.category-input').each(function() {
       var input = this;
       var categoryList = new Awesomplete(input, {

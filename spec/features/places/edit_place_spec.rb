@@ -1,7 +1,8 @@
 feature 'Edit place', :js do
   before do
     @map = create :map, :full_public
-    @place = create :place, :reviewed, categories_string: 'Café, Playground', map: @map
+    @place = create :place, :reviewed, categories_string: 'Cafe, Playground', map: @map
+    create :place, :reviewed, categories_string: 'Flaschenhals, Gehirnzelle', map: @map
   end
 
   context 'as privileged user' do
@@ -10,18 +11,13 @@ feature 'Edit place', :js do
       open_edit_place_modal(id: @place.id)
     end
 
-    scenario 'Do valid place update as user, show in places list panel properly and give correct tag proposals' do
+    scenario 'Do valid place update on attributes and categories as user' do
       fill_in('place_name', with: 'CHANGE')
-      fill_in('place_categories_string', with: 'Gehirnzelle, Flaschenhals')
+      click_categories(%w(Gehirnzelle Flaschenhals Cafe Playground))
       find('.submit-place-button').trigger('click')
-      expect(page).not_to have_css('.place-modal') # Wait until modal is closed
       show_place_details(name: 'CHANGE')
 
       expect(page.find('.category-names').text).to eq 'Flaschenhals | Gehirnzelle'
-
-      find('#search-input').trigger('click')
-      expect(page).to have_css('li', text: 'Gehirnzelle')
-      expect(page).to have_css('li', text: 'Flaschenhals')
     end
   end
 

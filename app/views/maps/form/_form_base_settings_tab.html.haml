@@ -10,7 +10,7 @@
           .col-xs-12
             .input-group
               %span.input-group-addon#addon_secret= request.base_url
-              = f.text_field :secret_token, value: SecureRandom.urlsafe_base64(24), class: 'form-control', placeholder: t('.secret_token'), aria: { describedby: '#addon_secret'}
+              = f.text_field :secret_token, value: @map.secret_token || SecureRandom.urlsafe_base64(24), class: 'form-control', placeholder: t('.secret_token'), aria: { describedby: '#addon_secret'}
 
   -# Password field
   .row

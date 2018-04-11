@@ -31,7 +31,7 @@ module CapybaraHelpers
   end
 
   def create_place(map_token:, name: 'Any place')
-    visit map_path(map_token: @map.secret_token)
+    visit map_path(map_token: map_token)
     find(:css, '.add-place-button').trigger('click')
     find(:css, '.add-place-manually').trigger('click')
     fill_in_valid_place_information(name: name)
@@ -60,6 +60,7 @@ module CapybaraHelpers
     fill_in('place_homepage', with: 'http://schnapp.com')
     fill_in('place_phone', with: '03081763253')
     fill_in('place_categories_string', with: 'Hospital, Cafe')
+    fill_in_description_field(content: 'This is a test description', language: :en)
   end
 
   def fill_in_valid_date_information
@@ -69,6 +70,24 @@ module CapybaraHelpers
     fill_in('place_start_date_time', with: '01:00')
     fill_in('place_end_date_date', with: '01.01.2018')
     fill_in('place_end_date_time', with: '23:00')
+  end
+
+  def fill_in_description_field(content:, language: :en)
+    # bootsy builds text area via iframe
+    trigger_description_field_if_not_shown(language: language)
+    within_frame(find('.wysihtml5-sandbox')) do
+      query = "document.querySelector('.description-area').innerHTML = '#{content}'"
+      page.execute_script(query)
+    end
+  end
+
+  def trigger_description_field_if_not_shown(language: :en)
+    selector = "description_#{language}"
+    begin
+      find(selector)
+    rescue Capybara::ElementNotFound => e
+      find("#description-header-#{language}").trigger('click')
+    end
   end
 
   # MAP FORM HELPERS

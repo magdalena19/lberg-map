@@ -18,7 +18,7 @@
             .col-xs-12
               .input-group
                 %span.input-group-addon#addon_public= request.base_url
-                = f.text_field :public_token, value: SecureRandom.urlsafe_base64(24), class: 'form-control', placeholder: t('.public_token'), aria: { describedby: '#addon_public'}
+                = f.text_field :public_token, value: @map.public_token || SecureRandom.urlsafe_base64(24), class: 'form-control', placeholder: t('.public_token'), aria: { describedby: '#addon_public'}
 
     .row
       .spacer-row

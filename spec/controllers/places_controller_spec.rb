@@ -182,9 +182,11 @@ describe PlacesController do
       end
     end
 
-    context 'Place created by registered user' do
+    context 'Place created by privileged user' do
       before do
-        login_as create :user
+        user = create :user
+        map = create :map, :full_public,  user: user
+        login_as user
         post_valid_place(map_token: map.public_token)
         @valid_new_place = Place.last
       end
@@ -200,7 +202,9 @@ describe PlacesController do
 
     context 'Place-translations created by authorized user' do
       before do
-        login_as create :user, email: 'foo@bar.org'
+        user = create :user
+        map = create :map, :full_public,  user: user
+        login_as user
         post_valid_place(map_token: map.public_token)
         @valid_new_place = Place.last
       end

@@ -15,7 +15,7 @@ class PlacesController < ApplicationController
   before_action :reverse_geocode, only: [:new], if: :supplied_coords?
   before_action :modify_params, only: [:create, :update]
 
-  after_action :store_in_session_cookie, only: [:create, :update]
+  # after_action :store_in_session_cookie, only: [:create, :update]
 
   def index
     @places = @map.reviewed_places + @map.reviewed_events
@@ -34,6 +34,7 @@ class PlacesController < ApplicationController
   def update
     if @params_to_commit.any? && @place.update_attributes(@params_to_commit)
       AttributeSetter::Place.set_attributes_after_update(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
+      store_in_session_cookie
 
       respond_to do |format|
         format.json do
@@ -64,6 +65,7 @@ class PlacesController < ApplicationController
 
     if can_commit_to?(model: @place) && @place.save
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
+      store_in_session_cookie
 
       respond_to do |format|
         format.json do
@@ -122,6 +124,7 @@ class PlacesController < ApplicationController
 
   def store_in_session_cookie
     session[:places] << @place.id unless has_privileged_map_access
+    session[:places].uniq
   end
 
   # Reverse geocoding

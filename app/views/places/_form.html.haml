@@ -96,14 +96,9 @@
         - column = "description_#{lang}"
         - translation = @place.translations.find_by(locale: lang)
         .col-xs-12
-          .description-header
+          .description-header{id: "description-header-#{lang}"}
             %h4= t(column)
-            - if locale != lang
-              %h4.description-header
-                %span.glyphicon.glyphicon-triangle-top{style: 'font-size: 14px;'}
-            - else
-              %h4.description-header
-                %span.glyphicon.glyphicon-triangle-bottom{style: 'font-size: 14px;'}
+            %span.glyphicon{style: 'font-size: 14px;', class: "glyphicon-triangle-#{locale != lang ? 'top' : 'bottom'}"}
           .description-editor{dir: "#{'rtl' if lang == 'ar'}", class: (hidden if @place.map.supported_languages.length > 1)}
             - if translation && translation.versions.length > 1
               %br

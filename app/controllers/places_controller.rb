@@ -33,7 +33,7 @@ class PlacesController < ApplicationController
 
   def update
     if @params_to_commit.any? && @place.update_attributes(@params_to_commit)
-      AttributeSetter::Place.set_attributes_after_update(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
+      AttributeSetter::Place.set_attributes_after_update(place: @place, params: @params_to_commit, privileged: has_privileged_map_access)
       store_in_session_cookie
 
       respond_to do |format|
@@ -64,7 +64,7 @@ class PlacesController < ApplicationController
     @place.longitude ||= params[:place][:longitude]
 
     if can_commit_to?(model: @place) && @place.save
-      AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, signed_in: @current_user.signed_in?)
+      AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, privileged: has_privileged_map_access)
       store_in_session_cookie
 
       respond_to do |format|

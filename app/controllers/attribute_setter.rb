@@ -1,19 +1,19 @@
 module AttributeSetter
   module Place
     class << self
-      def set_attributes_after_update(place:, params:, signed_in:)
+      def set_attributes_after_update(place:, params:, privileged:)
         @place = place
         @params = params
-        @signed_in = signed_in
+        @privileged = privileged
         update_translations_reviewed_flag if translation_attributes_changed?
         update_place_reviewed_flag if place_attributes_changed?
-        place.destroy_all_updates if @signed_in
+        place.destroy_all_updates if privileged
       end
 
-      def set_attributes_after_create(place:, params:, signed_in:)
+      def set_attributes_after_create(place:, params:, privileged:)
         @place = place
         @params = params
-        @signed_in = signed_in
+        @privileged = privileged
         set_inital_reviewed_flags
       end
 
@@ -22,8 +22,8 @@ module AttributeSetter
       def update_translations_reviewed_flag
         locales_from_place_params.each do |locale|
           translation = @place.translations.find_by_locale(locale)
-          translation.update_attributes(reviewed: @signed_in)
-          @place.destroy_all_updates(translation) if @signed_in
+          translation.update_attributes(reviewed: @privileged)
+          @place.destroy_all_updates(translation) if @privileged
         end
       end
 
@@ -48,7 +48,7 @@ module AttributeSetter
 
       # Update reviewed flags depending on login status
       def update_place_reviewed_flag
-        @place.update_attributes(reviewed: @signed_in)
+        @place.update_attributes(reviewed: @privileged)
       end
 
       # Set reviewed flags depending on login status during creation
@@ -56,7 +56,7 @@ module AttributeSetter
         update_place_reviewed_flag
         @place.destroy_all_updates
         @place.translations.each do |translation|
-          translation.update!(reviewed: @signed_in)
+          translation.update!(reviewed: @privileged)
         end
       end
     end

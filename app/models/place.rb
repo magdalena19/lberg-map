@@ -89,6 +89,13 @@ class Place < ActiveRecord::Base
     return address
   end
 
+  # Use this to pass conditional description text (either description itself or information that no translation is present)
+  def displayed_description
+    reviewed_description.present? ?
+      reviewed_description.html_safe :
+      I18n.t('.maps.show.places_list_panel.no_description_yet')
+  end
+
   ## MODEL AUDITING
   # Hack categories auditing which is experimental for n:n-relations => audit categories_string, which is DB column
   has_paper_trail on: [:create, :update], ignore: [:reviewed, :description, :categories]
@@ -127,7 +134,7 @@ class Place < ActiveRecord::Base
       phone: phone,
       email: email,
       homepage: homepage,
-      description: reviewed_description&.html_safe || I18n.t('.maps.show.places_list_panel.no_description_yet'),
+      description: displayed_description,
       category_names: categories.map(&:name).map(&:to_s).sort.join(' | '),
       is_event: event,
       color: color,

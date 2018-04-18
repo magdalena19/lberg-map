@@ -2,6 +2,8 @@ require 'sidekiq/web'
 require 'routing/access_constraints'
 
 Rails.application.routes.draw do
+  default_url_options protocol: :https
+
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
   get '', to: 'static_pages#choose_locale'

@@ -363,7 +363,7 @@ jQuery(function() {
       }
       item.find('.category-names').append(feature.properties.category_names);
       item.find('.zoom-to-place').attr('lon', feature.geometry.coordinates[0])
-                                 .attr('lat', feature.geometry.coordinates[1]);
+        .attr('lat', feature.geometry.coordinates[1]);
       item.find('.edit-place').attr('place_id', feature.id);
       item.find('.delete-place').attr('place_id', feature.id);
       jQuery('.places-list-accordion').append(item);

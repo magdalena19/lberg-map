@@ -72,6 +72,7 @@ class PlacesController < ApplicationController
           render json: {
             places: places_to_show.map(&:geojson),
             coordinates: [@place.latitude, @place.longitude],
+            categories: @map.category_names.join(','),
             message: 'Successfully created!' },
             status: 200
         end

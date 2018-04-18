@@ -1,23 +1,23 @@
 feature 'Create place', :js do
   before do
     @map = create :map, :full_public
+    create :place, map: @map, name: 'Foo'
   end
 
   context 'As privileged user' do
     scenario 'can insert place manually as user' do
       create_place_as_user(map_token: @map.public_token, name: 'Foo')
 
-      expect(page).to have_css('.extra-marker-star-black', count: 1)
+      expect(page).to have_css('.leaflet-marker-icon', count: 1)
       expect(Place.find_by_name('Foo').reviewed).to be false
     end
 
     scenario 'insert places as guest on non-owned maps via public link' do
-      create_place_as_user(map_token: @map.secret_token, name: 'Foo')
+      create_place_as_user(map_token: @map.public_token, name: 'Foo')
       show_place_details(name: 'Foo')
 
-      expect(page).to have_content 'This is a test description'
-      expect(page).to have_css('.leaflet-marker-icon', count: 1)
-      expect(page).to have_css('.glyphicon-pencil')
+      expect(page).to have_content 'No reviewed description yet'
+      expect(page).to have_css('.extra-marker-star-black', count: 1)
     end
   end
 
@@ -27,7 +27,7 @@ feature 'Create place', :js do
       show_place_details(name: 'Foo')
 
       expect(page).to have_content 'No reviewed description yet'
-      expect(page).to have_css('.leaflet-marker-icon', count: 1)
+      expect(page).to have_css('.extra-marker-star-black', count: 1)
     end
 
     scenario 'see guests session places on map' do

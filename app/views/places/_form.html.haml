@@ -83,8 +83,10 @@
   -# TAGS
   .row
     .col-xs-12
+      -# TODO Clarify behavior for non-reviewed POIs
       %h4.header-row= t('.place_categories')
-      = f.text_field :categories_string, placeholder: t('.categories_placeholder'), class: 'form-control category-input', disabled: @place.unreviewed_version, value: (@place.categories ? @place.categories.map(&:name).sort.join(', ') : nil), data: { 'list' => @map.category_names.join(',') }, autocomplete: :off
+      .categories
+        = f.hidden_field :categories_string, data: {categories: @place.categories.map(&:name).sort}
 
   -# DESCRIPTIONS
   .row

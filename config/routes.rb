@@ -2,7 +2,7 @@ require 'sidekiq/web'
 require 'routing/access_constraints'
 
 Rails.application.routes.draw do
-  default_url_options protocol: :https
+  default_url_options protocol: :https if Rails.env == 'production'
 
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 

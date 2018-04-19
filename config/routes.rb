@@ -2,6 +2,8 @@ require 'sidekiq/web'
 require 'routing/access_constraints'
 
 Rails.application.routes.draw do
+  default_url_options protocol: :https if Rails.env == 'production'
+
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
   get '', to: 'static_pages#choose_locale'
@@ -29,7 +31,7 @@ Rails.application.routes.draw do
       get '' , to: 'maps#show', as: :map
       get '/embedded', to: 'maps#show', as: :map_embedded
       get '/edit', to: 'maps#edit', as: :edit_map
-      patch '', to: 'maps#update'
+      patch '/edit', to: 'maps#update'
       delete '', to: 'maps#destroy', as: :destroy_map
       get '/unlock', to: 'maps#unlock'
 

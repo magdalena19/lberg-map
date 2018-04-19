@@ -1,24 +1,4 @@
 class DeliveryGul < ApplicationMailer
-  def send_copy_to_sender(message)
-    @message = message
-    @map = Map.find(message.map_id)
-    mail(
-      from: @map.maintainer_email_address,
-      to: @message.sender_email,
-      subject: "#{t('.request_copy_prefix')} #{@map.title}"
-    )
-  end
-
-  def send_to_maintainer(message)
-    @message = message
-    @map = Map.find(message.map_id)
-    mail(
-      from: @map.maintainer_email_address,
-      to: @map.maintainer_email_address,
-      subject: "[#{@map.title} #{t('.contact_form')}] #{@message.subject}"
-    )
-  end
-
   def send_welcome_mail(user_id:)
     @user = User.find(user_id)
     mail(

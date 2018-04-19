@@ -5,37 +5,14 @@
 
 jQuery(function() {
   // Marker icons
-  function place_icon(color) {
+  function icon(iconColor, iconClass, iconShape, reviewed) {
     return L.ExtraMarkers.icon({
       prefix: 'fa',
-      icon: 'fa-home',
-      markerColor: color
-    });
-  }
-
-  function event_icon(color) {
-    return L.ExtraMarkers.icon({
-      prefix: 'fa',
-      icon: 'fa-calendar',
-      markerColor: color
-    });
-  }
-
-  function session_event_icon(color) {
-    return L.ExtraMarkers.icon({
-      prefix: 'fa',
-      icon: 'fa-calendar',
-      shape: 'star',
-      markerColor: 'black'
-    });
-  }
-
-  function session_place_icon(color) {
-    return L.ExtraMarkers.icon({
-      prefix: 'fa',
-      icon: 'fa-home',
-      shape: 'star',
-      markerColor: 'black'
+      icon: iconClass,
+      shape: iconShape,
+      markerColor: iconColor,
+      iconColor: 'white',
+      extraClasses: reviewed ? '' : 'unreviewed-marker'
     });
   }
 
@@ -49,54 +26,53 @@ jQuery(function() {
     var autotranslatedPrefix = "<p><i>" + window.autotranslated_label + ": </i></p>";
     var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";
 
-    function zoomTo(lat, lon) {
-      var latlng = {'lat': lat, 'lon': lon}
-      map.setView(latlng, 16);
-    }
-
     var onEachFeature = function(feature, layer) {
       addToPlacesList(feature);
       var prop = feature.properties;
-      if (prop.reviewed === false) {
-        if (prop.is_event === true) {
-          layer.setIcon(session_event_icon(prop.color));
-        } else {
-          layer.setIcon(session_place_icon(prop.color));
-        }
-      } else {
-        if (prop.is_event === true) {
-          layer.setIcon(event_icon(prop.color));
-        } else {
-          layer.setIcon(place_icon(prop.color));
-        }
-      }
+      layer.setIcon(icon(prop.marker_color, prop.marker_icon_class, prop.marker_shape, prop.reviewed === true));
 
       layer.on('click', function(e) {
         showPlacesListPanel();
         resizeSidePanel();
-        zoomTo(e.latlng.lat, e.latlng.lng);
 
         var accordionItemHeading = jQuery('#heading' + feature.id);
         if (accordionItemHeading.hasClass('collapsed')) {
           accordionItemHeading.click();
           var list = jQuery('.places-list-panel');
-          list.scrollTo(accordionItemHeading, {offset: -5});
+          list.scrollTo(accordionItemHeading, {
+            offset: -5
+          });
         }
       });
     };
 
-    jQuery('.places-list-panel').on('click', '.panel-heading', function() {
-      var lat = jQuery(this).attr('lat');
-      var lon = jQuery(this).attr('lon');
-
-      zoomTo(lat, lon);
-    });
+    jQuery('.places-list-panel')
+      .on('click', '.panel-heading', function() {
+        var lat = jQuery(this).attr('lat');
+        var lon = jQuery(this).attr('lon');
+        var latlng = {
+          'lat': lat,
+          'lon': lon
+        }
+        map.setView(latlng, map.getZoom());
+      })
+      .on('click', '.zoom-to-place', function() {
+        var lat = jQuery(this).attr('lat');
+        var lon = jQuery(this).attr('lon');
+        var latlng = {
+          'lat': lat,
+          'lon': lon
+        }
+        map.setView(latlng, Math.max(map.getZoom(), 16));
+      });
 
     // do not use the simpler .click function due to dynamic creation
     jQuery('body').on('click', '.edit-place', function() {
       var placeId = jQuery(this).attr('place_id');
       var url = '/' + window.map_token + '/places/' + placeId + '/edit';
-      jQuery.ajax({ url: url + '?remote=true' });
+      jQuery.ajax({
+        url: url + '?remote=true'
+      });
     });
 
     jQuery('body').on('click', '.delete-place', function() {
@@ -116,7 +92,9 @@ jQuery(function() {
     var updatePlaces = function(json, options) {
       jQuery('.places-list-accordion').empty();
 
-      if (json.length == 0) { jQuery('.places-list-accordion').append('No places yet!') };
+      if (json.length == 0) {
+        jQuery('.places-list-accordion').append('No places yet!')
+      };
 
       if (typeof cluster !== 'undefined') {
         map.removeLayer(cluster);
@@ -131,8 +109,10 @@ jQuery(function() {
       });
 
       var marker = L.geoJson(json, {
-        pointToLayer: function (feature, latlng) {
-          return L.marker(latlng, {icon: place_icon});
+        pointToLayer: function(feature, latlng) {
+          return L.marker(latlng, {
+            icon: icon
+          });
         },
         onEachFeature: onEachFeature
       });
@@ -161,7 +141,7 @@ jQuery(function() {
         var words = wordGroup.split('OR');
         jQuery(words).each(function(index, word) {
           word = word.trim().toLowerCase();
-          if ( string.indexOf(word) >= 0 ) {
+          if (string.indexOf(word) >= 0) {
             match = true;
             return false; // return false to quit loop
           }
@@ -172,21 +152,25 @@ jQuery(function() {
 
     var textFilter = function(json) {
       var text = jQuery('#search-input').val();
-      if (!text) { return json; }
+      if (!text) {
+        return json;
+      }
 
       var filteredJson = [];
       var wordGroups = text.
-        replace(';', ',').
-        replace(', ', ',').
-        split(',').
-        filter(Boolean);
+      replace(';', ',').
+      replace(', ', ',').
+      split(',').
+      filter(Boolean);
 
       // Parse every json element for occurences of separated search string
-      jQuery(json).each(function (id, feature) {
+      jQuery(json).each(function(id, feature) {
         var matches = jQuery.map(wordGroups, function(wordGroup) {
           return wordPresent(wordGroup, feature);
         });
-        if ( matches.every( function(match) { return match === true } ) ) {
+        if (matches.every(function(match) {
+            return match === true
+          })) {
           filteredJson.push(feature);
         }
       });
@@ -203,7 +187,7 @@ jQuery(function() {
 
     var dateFilter = function(json) {
       // Check if shall filter by date, pass unfiltered json if not...
-      if ( !showEvents() ) {
+      if (!showEvents()) {
         return json;
       } else {
         var filteredJson = [];
@@ -213,14 +197,14 @@ jQuery(function() {
         var startDate = forceUTC(daterange.startDate);
         var endDate = forceUTC(daterange.endDate);
 
-        jQuery(json).each(function (id, feature) {
+        jQuery(json).each(function(id, feature) {
           var featureStartDate = moment(feature.start_date);
           var featureEndDate = moment(feature.end_date);
 
           if (
-            ( featureStartDate >= startDate && featureStartDate <= endDate ) ||
-            ( featureEndDate >= startDate && featureEndDate <= endDate ) ||
-            ( !feature.is_event && showPlaces() )
+            (featureStartDate >= startDate && featureStartDate <= endDate) ||
+            (featureEndDate >= startDate && featureEndDate <= endDate) ||
+            (!feature.is_event && showPlaces())
           ) {
             filteredJson.push(feature);
           }
@@ -231,7 +215,7 @@ jQuery(function() {
 
     // PLACE TYPE FILTER
     function showFeature(feature) {
-      if ( (feature.is_event && showEvents()) || (!feature.is_event && showPlaces()) ) {
+      if ((feature.is_event && showEvents()) || (!feature.is_event && showPlaces())) {
         return true;
       } else {
         return false;
@@ -240,7 +224,7 @@ jQuery(function() {
 
     var placeTypeFilter = function(json) {
       var filteredJson = [];
-      jQuery(json).each(function (id, feature) {
+      jQuery(json).each(function(id, feature) {
         if (showFeature(feature)) {
           filteredJson.push(feature);
         }
@@ -249,7 +233,9 @@ jQuery(function() {
     };
 
     var loadAndFilterPlaces = function() {
-      updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))), {fitBounds: true});
+      updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))), {
+        fitBounds: true
+      });
     };
 
     // external request
@@ -269,7 +255,7 @@ jQuery(function() {
       var filterField = jQuery('.filter-field');
       var buttons = jQuery('.button-container');
       var toggle = jQuery('.toggle-panel');
-      panel.css('top', filterField.outerHeight() + navbarHeight + 3);
+      panel.css('top', filterField.outerHeight() + navbarHeight);
       panel.height(jQuery(document).height() - filterField.outerHeight() - navbarHeight - footerHeight - 33);
       if (panel.is(':visible')) {
         jQuery('.toggle-panel').css('left', panel.outerWidth());
@@ -284,7 +270,7 @@ jQuery(function() {
       }
     };
 
-    jQuery(window).resize(function(){
+    jQuery(window).resize(function() {
       resizeSidePanel();
     }).resize();
 
@@ -296,7 +282,9 @@ jQuery(function() {
         showMapControls();
       } else {
         showPlacesListPanel();
-        if (window.innerWidth < 600) { hideMapControls() };
+        if (window.innerWidth < 600) {
+          hideMapControls()
+        };
       }
     });
 
@@ -307,9 +295,9 @@ jQuery(function() {
       needsBlackFont = ['orange', 'yellow', 'lightgreen', 'violet', 'pink'];
 
       if (needsWhiteFont.includes(backgroundColor)) {
-        return('white');
+        return ('white');
       } else {
-        return('black');
+        return ('black');
       }
     }
 
@@ -341,19 +329,19 @@ jQuery(function() {
 
 
       // Add place information sub-panels
-      if(feature.properties.address !== '') {
+      if (feature.properties.address !== '') {
         contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-record'></div>" + feature.properties.address + "</div>");
       }
-      if(feature.properties.phone !== '') {
+      if (feature.properties.phone !== '') {
         contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-earphone'></div>" + feature.properties.phone + "</div>");
       }
-      if(feature.properties.email !== '') {
+      if (feature.properties.email !== '') {
         contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-envelope'></div>" + feature.properties.email + "</div>");
       }
-      if(feature.properties.homepage !== '') {
+      if (feature.properties.homepage !== '') {
         contact.append("<div class='item-panel " + panelType + "'><div class='glyphicon glyphicon-home'></div>" + feature.properties.homepage + "</div>");
       }
-      if(feature.start_date !== null) {
+      if (feature.start_date !== null) {
         moment.locale('en');
         var startDate = moment(feature.start_date).utc().format('DD-MM-YYYY HH:mm');
         var endDate = moment(feature.end_date).utc().format('DD-MM-YYYY HH:mm');
@@ -361,6 +349,8 @@ jQuery(function() {
         event_container.append("<div class='event'><div class='glyphicon fa fa-calendar'></div>" + date_string + "</div>");
       }
       item.find('.category-names').append(feature.properties.category_names);
+      item.find('.zoom-to-place').attr('lon', feature.geometry.coordinates[0])
+        .attr('lat', feature.geometry.coordinates[1]);
       item.find('.edit-place').attr('place_id', feature.id);
       item.find('.delete-place').attr('place_id', feature.id);
       jQuery('.places-list-accordion').append(item);
@@ -376,16 +366,16 @@ jQuery(function() {
         loadAndFilterPlaces();
       })
 
-      .on('input', function(){
-        var timeout;
-        if (timeout !== undefined) {
-          clearTimeout(timeout);
-        } else {
-          timeout = setTimeout(function () {
-            loadAndFilterPlaces();
-          }, 350);
-        }
-      });
+    .on('input', function() {
+      var timeout;
+      if (timeout !== undefined) {
+        clearTimeout(timeout);
+      } else {
+        timeout = setTimeout(function() {
+          loadAndFilterPlaces();
+        }, 350);
+      }
+    });
 
     jQuery('.empty-text-filter').click(function() {
       jQuery('.category-input').val('');
@@ -408,7 +398,10 @@ jQuery(function() {
       var dateRange = window.event_date_range.split(',');
       var startDate = moment(dateRange[0], 'YYYY-MM-DD hh:mm:ss').utc();
       var endDate = moment(dateRange[1], 'YYYY-MM-DD hh:mm:ss').utc();
-      return {'startDate': startDate, 'endDate': endDate};
+      return {
+        'startDate': startDate,
+        'endDate': endDate
+      };
     }
 
     function appendDateRangePicker() {
@@ -420,7 +413,9 @@ jQuery(function() {
         "timePicker": true,
         "timePicker24Hour": true,
         "timePickerIncrement": 15,
-        "locale": { "format": 'DD.MM.YYYY HH:mm' }
+        "locale": {
+          "format": 'DD.MM.YYYY HH:mm'
+        }
       }).on('apply.daterangepicker', function() {
         loadAndFilterPlaces();
       });
@@ -428,12 +423,12 @@ jQuery(function() {
 
 
     // Initially feed correct date range of all events if events are to be shown
-    if ( showEvents() ) {
+    if (showEvents()) {
       appendDateRangePicker();
     }
 
     jQuery('.show-events-toggle').click(function() {
-      if ( showEvents() ) {
+      if (showEvents()) {
         jQuery('.filter-date-row').show();
         appendDateRangePicker();
       } else {
@@ -450,10 +445,12 @@ jQuery(function() {
     hideMapElements();
 
     // CHECK IF MAP IS LOCKED VIA PASSWORD
-    jQuery.when( $.ajax( {
+    jQuery.when($.ajax({
       url: '/needs_unlock',
-      data: { map_token: window.map_token }
-    }) ).then( function(data) {
+      data: {
+        map_token: window.map_token
+      }
+    })).then(function(data) {
       if (data.needs_unlock) {
         showPasswordPrompt();
       } else {
@@ -470,7 +467,9 @@ jQuery(function() {
 
         jQuery.ajax({
           url: '/' + window.map_token + '/unlock',
-          data: { password: password },
+          data: {
+            password: password
+          },
           dataType: 'script',
           success: function() {
             getPois()
@@ -489,6 +488,7 @@ jQuery(function() {
 
     // RECEIVE POIS
     jQuery('.fade-background').show();
+
     function getPois() {
       jQuery.ajax({
         url: '/' + window.map_token,
@@ -496,8 +496,10 @@ jQuery(function() {
         data: {
           locale: window.locale
         },
-        success: function(result) {
-          window.places = result;
+        success: function(response) {
+          window.places = response.places;
+          window.categories = response.categories;
+          initCategoryInput(window.categories);
           loadAndFilterPlaces();
           showMapElements();
           jQuery('.loading').hide();
@@ -515,22 +517,28 @@ jQuery(function() {
       jQuery('.map-flash').html(flashMessage).show().fadeOut(4000);
     }
 
-    function displayFormErrors(message) {      
+    function displayFormErrors(message) {
       var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + message + '</div>';
-      
+
       jQuery('.modal-body').prepend(flashMessage);
-      jQuery('.modal').scrollTo('.alert', {offset: -10});
+      jQuery('.modal').scrollTo('.alert', {
+        offset: -10
+      });
     }
 
-    jQuery(document).ajaxComplete(function( event, xhr, settings ) {
+    jQuery(document).ajaxComplete(function(event, xhr, settings) {
       var response = xhr.responseJSON;
       if (['POST', 'DELETE'].indexOf(settings.type) != -1) {
         if (xhr.status == 200) {
           jQuery('.modal').modal('hide');
           window.places = response.places;
+          window.categories = response.categories;
           updatePlaces(dateFilter(textFilter(placeTypeFilter(window.places))));
-          flashResults(response.message)
-          if (response.coordinates) { map.panTo(response.coordinates) };
+          flashResults(response.message);
+          if (response.coordinates) {
+            map.panTo(response.coordinates)
+          };
+          initCategoryInput(window.categories);
         } else {
           displayFormErrors(xhr.responseText) // Assume form error if response != 200
         }

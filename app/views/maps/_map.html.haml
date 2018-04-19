@@ -10,7 +10,7 @@
         = map.title.present? ? map.title : t('.no_title')
       .col-xs-4.map_buttons_container
         %ul.nav.nav-pills.map_buttons
-          %li.glyphicon.glyphicon-info-sign.map-modal-button{ data: { target: 'map_description', 'map-id' => map.id}}
+          %li.glyphicon.fa.fa-info-circle.map-modal-button{ data: { target: 'map_description', 'map-id' => map.id}}
           %li.dropdown
             %a.dropdown-toggle.fa.fa-cog.map_settings_button{ 'data-toggle': 'dropdown', href: '#map_settings' }
             %ul.dropdown-menu
@@ -27,12 +27,12 @@
               = t('.password_protected')
         .map-access-level-container
           %div{class: map_access_level(map: map)}
-            .glyphicon.fa-universal-access.pull-left
+            .glyphicon.fa.fa-universal-access.pull-left
             = map.is_public? ? t('.public_map') : t('.private_map')
         .map-access-level-container
           - if map.allow_guest_commits
             .allow_guest_commits
-              .glyphicon.glyphicon-pencil.pull-left
+              .glyphicon.fa.fa-pencil.pull-left
               = "#{map.allow_guest_commits? ? t('.guest_commits_allowed') : t('.guest_commits_not_allowed') }"
 
         .map-specs
@@ -49,9 +49,4 @@
           %p
             .glyphicon.fa.fa-language
               %i= map.supported_languages_string
-
-          %p
-            .glyphicon.fa.fa-globe
-            = map.auto_translate ? t('.autotranslation_on') + " (#{map.translation_engine.capitalize})" : t('(.autotranslation_off')
-
   .spacer-row

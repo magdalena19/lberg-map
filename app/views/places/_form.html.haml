@@ -9,17 +9,9 @@
       %h4.header-row= t('.address_data')
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:name)}"}
-        - if Admin::Setting.multi_color_pois
-          .col-xs-10
-            = f.label :name, t('.place_name') + '*'
-            = f.text_field :name, class: 'form-control', disabled: @place.unreviewed_version
-          .col-xs-2
-            = f.label :color, t('.place_color')
-            = f.text_field :color, class: 'color-picker', value: @place.color || Place.available_colors.first
-        - else
-          .col-xs-12
-            = f.label :name, t('.place_name') + '*'
-            = f.text_field :name, class: 'form-control', disabled: @place.unreviewed_version
+        .col-xs-12
+          = f.label :name, t('.place_name') + '*'
+          = f.text_field :name, class: 'form-control', disabled: @place.unreviewed_version
 
       %fieldset{class: "form-group row #{'has-error' if f.object.errors.include?(:street)}"}
         .col-xs-8
@@ -83,8 +75,10 @@
   -# TAGS
   .row
     .col-xs-12
+      -# TODO Clarify behavior for non-reviewed POIs
       %h4.header-row= t('.place_categories')
-      = f.text_field :categories_string, placeholder: t('.categories_placeholder'), class: 'form-control category-input', disabled: @place.unreviewed_version, value: (@place.categories ? @place.categories.map(&:name).sort.join(', ') : nil), data: { 'list' => @map.category_names.join(',') }, autocomplete: :off
+      .categories
+        = f.hidden_field :categories_string, data: {categories: @place.categories.map(&:name).sort}
 
   -# DESCRIPTIONS
   .row
@@ -96,22 +90,14 @@
         - column = "description_#{lang}"
         - translation = @place.translations.find_by(locale: lang)
         .col-xs-12
-          .description-header
+          .description-header{id: "description-header-#{lang}"}
             %h4= t(column)
-            - if locale != lang
-              %h4.description-header
-                %span.glyphicon.glyphicon-triangle-top{style: 'font-size: 14px;'}
-            - else
-              %h4.description-header
-                %span.glyphicon.glyphicon-triangle-bottom{style: 'font-size: 14px;'}
+            %span.glyphicon{style: 'font-size: 14px;', class: "glyphicon-triangle-#{locale != lang ? 'top' : 'bottom'}"}
           .description-editor{dir: "#{'rtl' if lang == 'ar'}", class: (hidden if @place.map.supported_languages.length > 1)}
             - if translation && translation.versions.length > 1
               %br
               .red= t('currently_under_review')
               = f.text_area column.to_sym, class: "description-area locked-description", disabled: true
-            - elsif translation && translation.auto_translated
-              %i (#{t('.auto_translated')})
-              = f.text_area column.to_sym, class: "wysihtml5 description-area #{column}"
             - else
               = f.text_area column.to_sym, class: "wysihtml5 description-area #{column}"
 
@@ -138,5 +124,3 @@
   window.start_date = '#{@place.start_date || Date.today}';
   window.end_date = '#{@place.end_date || Date.tomorrow}';
   window.with_end_date = #{@place.end_date.present?}
-  window.available_place_colors = #{Place.available_colors}
-  window.default_poi_color = '#{Admin::Setting.default_poi_color}'

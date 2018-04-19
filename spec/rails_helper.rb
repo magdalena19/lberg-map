@@ -7,9 +7,6 @@ require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'pry'
 
-# Custom libraries
-require 'auto_translation/auto_translate'
-
 # Custom helper methods
 require 'support/capybara_helpers'
 require 'support/rspec_helpers'
@@ -38,10 +35,6 @@ Geocoder::Lookup::Test.set_default_stub(
   }
   ]
 )
-
-def stub_autotranslation
-  allow_any_instance_of(AutoTranslate).to receive(:translate).and_return('stubbed autotranslation')
-end
 
 # CAPYBARA configuration
 Capybara.register_driver :poltergeist do |app|
@@ -82,7 +75,6 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
-    stub_autotranslation
     create :settings
   end
 

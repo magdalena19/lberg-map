@@ -2,16 +2,12 @@ require 'place/categorizing'
 require 'place/geocoding'
 require 'place/place_auditing'
 require 'place/place_translations_auditing'
-require 'place/place_background_translation'
 require 'place/place_model_helpers'
 require 'validators/custom_validators'
-require 'auto_translation/auto_translate'
 require 'sanitize'
 
 class Place < ActiveRecord::Base
-  include AutoTranslate
   include Categorizing
-  include PlaceBackgroundTranslation
   include PlaceTranslationsAuditing
   include PlaceGeocoding
   include PlaceAuditing
@@ -22,15 +18,6 @@ class Place < ActiveRecord::Base
   extend TimeSplitter::Accessors
   split_accessor :start_date
   split_accessor :end_date
-
-  # PLACE COLORS
-  COLORS_AVAILABLE = [
-    'red', 'darkorange', 'orange', 'yellow', 'darkblue', 'purple', 'violet', 'pink', 'darkgreen', 'green', 'lightgreen'
-  ].freeze
-
-  def self.available_colors
-    COLORS_AVAILABLE
-  end
 
   ## ASSOCIATIONS
   belongs_to :map
@@ -43,7 +30,6 @@ class Place < ActiveRecord::Base
   validates :phone, phone_number_format: true, if: 'phone.present?'
   validates :homepage, url_format: true, if: 'homepage.present?'
   validate :end_date, :is_after_start_date?, if: 'start_date.present? && end_date.present?'
-  validates :color, inclusion: { in: COLORS_AVAILABLE }
 
   def is_after_start_date?
     if end_date < start_date
@@ -61,7 +47,6 @@ class Place < ActiveRecord::Base
   after_validation :enforce_ssl_on_urls, on: [:create, :update], if: 'homepage.present?'
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
   before_update :geocode_with_nodes, if: :address_changed?
-  after_create :enqueue_auto_translation, if: 'map.auto_translate'
   after_create :set_description_reviewed_flags
   after_save :set_categories
 
@@ -94,6 +79,13 @@ class Place < ActiveRecord::Base
     return address
   end
 
+  # Use this to pass conditional description text (either description itself or information that no translation is present)
+  def displayed_description
+    reviewed_description.present? ?
+      reviewed_description.html_safe :
+      I18n.t('.maps.show.places_list_panel.no_description_yet')
+  end
+
   ## MODEL AUDITING
   # Hack categories auditing which is experimental for n:n-relations => audit categories_string, which is DB column
   has_paper_trail on: [:create, :update], ignore: [:reviewed, :description, :categories]
@@ -122,6 +114,10 @@ class Place < ActiveRecord::Base
     }
   end
 
+  def main_category
+    categories&.first
+  end
+
   def properties
     {
       name: name,
@@ -132,11 +128,13 @@ class Place < ActiveRecord::Base
       phone: phone,
       email: email,
       homepage: homepage,
-      description: reviewed_description&.html_safe,
-      category_names: categories.map(&:name).join(' | '),
+      description: displayed_description,
+      category_names: categories.map(&:name).map(&:to_s).join(' | '),
       is_event: event,
-      color: color,
-      reviewed: reviewed
+      reviewed: reviewed,
+      marker_color: main_category&.marker_color,
+      marker_icon_class: main_category&.marker_icon_class,
+      marker_shape: main_category&.marker_shape,
     }
   end
 end

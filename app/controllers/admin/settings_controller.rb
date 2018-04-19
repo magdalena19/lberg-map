@@ -52,8 +52,6 @@ class Admin::SettingsController < AdminController
       :captcha_system,
       :app_imprint,
       :app_privacy_policy,
-      :multi_color_pois,
-      :default_poi_color,
       :expiry_days
     )
 

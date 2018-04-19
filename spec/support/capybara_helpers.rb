@@ -16,23 +16,31 @@ module CapybaraHelpers
   end
 
   # PLACE CREATION HELPERS
-  def create_place_as_user(map_token:)
+  def create_place_as_user(map_token:, name: 'Any place')
     login_as_user
-    create_place(map_token: map_token)
+    create_place(map_token: map_token, name: name)
   end
 
   def open_new_place_modal(map_token:)
     visit map_path(map_token: map_token)
     find(:css, '.add-place-button').trigger('click')
-    find(:css, '.add-place-manually').trigger('click')
+    within('.create-place-methods-tray') do
+      find('.add-place-manually').trigger('click')
+    end
+    expect(page).to have_css '.modal-dialog'
   end
 
-  def create_place(map_token:)
-    visit map_path(map_token: @map.secret_token)
-    find(:css, '.add-place-button').trigger('click')
-    find(:css, '.add-place-manually').trigger('click')
-    fill_in_valid_place_information
+  def create_place(map_token:, name: 'Any place')
+    visit map_path(map_token: map_token)
+    add_place_manually
+    fill_in_valid_place_information(name: name)
     find(:css, '.submit-place-button').trigger('click')
+  end
+
+  def add_place_manually
+    find('.add-place-button').trigger('click')
+    find('.add-place-manually').trigger('click')
+    find('.place-modal', visible: true, wait: 5)
   end
 
   def open_edit_place_modal(id:)
@@ -40,10 +48,10 @@ module CapybaraHelpers
   end
 
   def update_place_name(map_token:, id:, name:)
-      visit map_path(map_token: map_token)
-      open_edit_place_modal(id: id)
-      fill_in('place_name', with: name)
-      click_on('Update Place')
+    visit map_path(map_token: map_token)
+    open_edit_place_modal(id: id)
+    fill_in('place_name', with: name)
+    click_on('Update Place')
   end
 
   def fill_in_valid_place_information(name: 'Any place')
@@ -56,7 +64,14 @@ module CapybaraHelpers
     fill_in('place_email', with: 'schnipp@schnapp.com')
     fill_in('place_homepage', with: 'http://schnapp.com')
     fill_in('place_phone', with: '03081763253')
-    fill_in('place_categories_string', with: 'Hospital, Cafe')
+    fill_in_description_field(content: 'This is a test description', language: :en)
+    click_categories(%w(Hospital Playground))
+  end
+
+  def click_categories(categories)
+    categories.each do |c|
+      page.find(".category[data-category='#{c}']").trigger('click')
+    end
   end
 
   def fill_in_valid_date_information
@@ -66,6 +81,24 @@ module CapybaraHelpers
     fill_in('place_start_date_time', with: '01:00')
     fill_in('place_end_date_date', with: '01.01.2018')
     fill_in('place_end_date_time', with: '23:00')
+  end
+
+  def fill_in_description_field(content:, language: :en)
+    # bootsy builds text area via iframe
+    trigger_description_field_if_not_shown(language: language)
+    within_frame(find('.wysihtml5-sandbox')) do
+      query = "document.querySelector('.description-area').innerHTML = '#{content}'"
+      page.execute_script(query)
+    end
+  end
+
+  def trigger_description_field_if_not_shown(language: :en)
+    selector = "description_#{language}"
+    begin
+      find(selector)
+    rescue Capybara::ElementNotFound => e
+      find("#description-header-#{language}").trigger('click')
+    end
   end
 
   # MAP FORM HELPERS
@@ -86,7 +119,7 @@ module CapybaraHelpers
 
   def show_place_details(name:)
     show_places_list_panel
-    find('.name', text: name).trigger('click')
+    find('div.name', text: name).trigger('click')
   end
 
   def delete_place(name:)

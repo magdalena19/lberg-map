@@ -1,34 +1,33 @@
 feature 'Create place', :js do
   before do
     @map = create :map, :full_public
+    create :place, map: @map, name: 'Foo'
   end
 
   context 'As privileged user' do
     scenario 'can insert place manually as user' do
-      create_place_as_user(map_token: @map.secret_token)
+      create_place_as_user(map_token: @map.public_token, name: 'Foo')
 
       expect(page).to have_css('.leaflet-marker-icon', count: 1)
-      expect(page).to have_css('.glyphicon-pencil', visible: false)
+      expect(Place.find_by_name('Foo').reviewed).to be false
     end
 
-    scenario 'show only one wysiwyg editor for current locale' do
-      skip 'WYSIWIG EDITOR NOT WORKING'
+    scenario 'insert places as guest on non-owned maps via public link' do
+      create_place_as_user(map_token: @map.public_token, name: 'Foo')
+      show_place_details(name: 'Foo')
 
-      open_new_place_modal(map_token: @map.secret_token)
-      expect(page).to have_css('.wysihtml5-toolbar', count: 1)
-
-      page.find_all('.glyphicon-triangle-bottom').last.trigger('click')
-      expect(page).to have_css('.wysihtml5-toolbar', count: 2)
+      expect(page).to have_content 'No reviewed description yet'
+      expect(page).to have_css('.leaflet-marker-icon', count: 1)
     end
   end
 
   context 'As guest' do
     scenario 'can insert place manually as guest' do
-      skip 'To be implemented'
-      create_place(map_token: @map.public_token)
+      create_place(map_token: @map.public_token, name: 'Foo')
+      show_place_details(name: 'Foo')
 
+      expect(page).to have_content 'No reviewed description yet'
       expect(page).to have_css('.leaflet-marker-icon', count: 1)
-      expect(page).not_to have_css('.glyphicon-pencil', visible: false)
     end
 
     scenario 'see guests session places on map' do

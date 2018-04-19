@@ -9,8 +9,6 @@ RSpec.describe Map, type: :model do
     it { is_expected.to respond_to :public_token }
     it { is_expected.to respond_to :secret_token }
     it { is_expected.to respond_to :maintainer_email_address }
-    it { is_expected.to respond_to :auto_translate }
-    it { is_expected.to respond_to :translation_engine }
     it { is_expected.to respond_to :allow_guest_commits }
     it { is_expected.to respond_to :supported_languages }
     it { is_expected.to respond_to :password_digest }
@@ -37,7 +35,6 @@ RSpec.describe Map, type: :model do
   context 'Associations' do
     it { is_expected.to have_many :places }
     it { is_expected.to have_many :categories }
-    it { is_expected.to have_many :messages }
     it { is_expected.to belong_to :user }
 
     context 'delete map' do
@@ -53,16 +50,6 @@ RSpec.describe Map, type: :model do
   context 'Validations' do
     it 'validates map maintainer email address if present' do
       map = build :map, maintainer_email_address: 'foo@bar'
-      expect(map).not_to be_valid
-    end
-
-    it 'validates translation engine if auto_translation on' do
-      map = build :map, :full_public, translation_engine: ''
-      expect(map).not_to be_valid
-    end
-
-    it 'does not pass invalid translation engines' do
-      map = build :map, :full_public, translation_engine: 'unknownEngine'
       expect(map).not_to be_valid
     end
 
@@ -85,20 +72,20 @@ RSpec.describe Map, type: :model do
 
     it 'cannot have no supported_languages' do
       map = build :map, :full_public, supported_languages: []
-      
+
       expect(map).not_to be_valid
     end
 
     context 'Password protection' do
       it 'Map password has to be longer or equal 5 chars' do
         map = build :map, :full_public, password: '1234', password_confirmation: '1234'
-      
+
         expect(map).not_to be_valid
       end
 
       it 'Does not accept unequal passwords' do
         map = build :map, :full_public, password: 'abcdef', password_confirmation: 'Something different'
-      
+
         expect(map).not_to be_valid
       end
     end
@@ -110,9 +97,9 @@ RSpec.describe Map, type: :model do
     end
   end
 
-  context 'Instance methods' do 
+  context 'Instance methods' do
     before do
-      @map = create :map, :full_public 
+      @map = create :map, :full_public
       @reviewed_places = create_list :place, 4, :reviewed, map: @map
       @unreviewed_places = create_list :place, 2, :unreviewed , map: @map
       @reviewed_events = create_list :event, 5, map: @map

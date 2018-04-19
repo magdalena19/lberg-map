@@ -46,26 +46,9 @@ module MassSeedPoints
       { latitude: rand(lats.min..lats.max), longitude: rand(longs.min..longs.max) }
     end
 
-    # Generator methods for points and categories
-    def update_place_translations_attr(place:)
-      place.translations.each do |translation|
-        translation.without_versioning do
-          translation.update_attributes(auto_translated: [true, false].sample, reviewed: [true, false].sample)
-        end
-      end
-    end
-
     def place_to_event(place:)
       start_date = Date.today - rand(0..365)
       end_date = start_date + rand(5..100)
-
-      place.without_versioning do
-        place.update_attributes(
-          start_date: start_date.to_time,
-          end_date: end_date.to_time,
-          event: true
-        )
-      end
     end
 
     def generate_point(boundaries:, map:)
@@ -91,7 +74,6 @@ module MassSeedPoints
                                  categories_string: categories_string,
                                  event: false,
                                  reviewed: reviewed_status,
-                                 color: Place.available_colors.sample(1).first,
                                  created_at: created_at,
                                  updated_at: updated_at)
 
@@ -99,37 +81,42 @@ module MassSeedPoints
       if [true, false].sample
         place_to_event(place: @place)
       end
-
-      update_place_translations_attr(place: @place)
     end
 
     # Quick'n dirty, otherwise parse locale files for categories
     def populate_predefined_categories(map:)
       map.categories.create(name_en: 'Playground', locale: 'en',
-                            name_de: 'Spielplatz', locale: 'de')
+                            name_de: 'Spielplatz', locale: 'de',
+                            marker_shape: 'star', marker_color: 'red', marker_icon_class: 'fa-star')
       map.categories.create(name_en: 'Lawyer', locale: 'en',
-                            name_de: 'Anwalt', locale: 'de')
+                            name_de: 'Anwalt', locale: 'de',
+                            marker_shape: 'circle', marker_color: 'purple', marker_icon_class: 'fa-home')
       map.categories.create(name_en: 'Hospital', locale: 'en',
-                            name_de: 'Krankenhaus', locale: 'de')
+                            name_de: 'Krankenhaus', locale: 'de',
+                            marker_shape: 'penta', marker_color: 'yellow', marker_icon_class: 'fa-edit')
       map.categories.create(name_en: 'Drugstore', locale: 'en',
-                            name_de: 'Apotheke', locale: 'de')
+                            name_de: 'Apotheke', locale: 'de',
+                            marker_shape: 'star', marker_color: 'black', marker_icon_class: 'fa-star')
       map.categories.create(name_en: 'Cafe', locale: 'en',
-                            name_de: 'Café', locale: 'de')
+                            name_de: 'Café', locale: 'de',
+                            marker_shape: 'square', marker_color: 'white', marker_icon_class: 'fa-star')
       map.categories.create(name_en: 'Consultation', locale: 'en',
-                            name_de: 'Beratung', locale: 'de')
+                            name_de: 'Beratung', locale: 'de',
+                            marker_shape: 'circle', marker_color: 'orange', marker_icon_class: 'fa-star')
       map.categories.create(name_en: 'Event location', locale: 'en',
-                            name_de: 'Veranstaltungsort', locale: 'de')
+                            name_de: 'Veranstaltungsort', locale: 'de',
+                            marker_shape: 'star', marker_color: 'red', marker_icon_class: 'fa-star')
     end
 
     def generate_maps
       owner = User.find_by(name: 'user') || User.find_by(name: 'admin')
 
-      Map.create(title: 'Private map', maintainer_email_address: 'foo@bar.com', description: 'This is a private map', auto_translate: true, is_public: false, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret1', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)))
-      Map.create(title: 'Restricted access map', maintainer_email_address: 'foo@bar.org', description: 'This is a map under restricted access', auto_translate: true, is_public: true, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret2', user_id: owner.id, public_token: 'public2', supported_languages: I18n.available_locales.sample(rand(1..2)))
-      Map.create(title: 'Public map', maintainer_email_address: 'foo@bar.org', description: 'This is a fully public map', auto_translate: true, is_public: true, allow_guest_commits: true, translation_engine: 'bing', secret_token: 'secret4', user_id: owner.id, public_token: 'public3', supported_languages: I18n.available_locales.sample(rand(1..2)))
+      Map.create(title: 'Private map', maintainer_email_address: 'foo@bar.com', description: 'This is a private map', is_public: false, allow_guest_commits: false, secret_token: 'secret1', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)))
+      Map.create(title: 'Restricted access map', maintainer_email_address: 'foo@bar.org', description: 'This is a map under restricted access', is_public: true, allow_guest_commits: false, secret_token: 'secret2', user_id: owner.id, public_token: 'public2', supported_languages: I18n.available_locales.sample(rand(1..2)))
+      Map.create(title: 'Public map', maintainer_email_address: 'foo@bar.org', description: 'This is a fully public map', is_public: true, allow_guest_commits: true, secret_token: 'secret4', user_id: owner.id, public_token: 'public3', supported_languages: I18n.available_locales.sample(rand(1..2)))
 
       # Create password protected map
-      Map.create(title: 'Password', maintainer_email_address: 'foo@bar.com', description: 'This is a password protected map', auto_translate: true, is_public: false, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret5', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)), password: 'secret', password_confirmation: 'secret')
+      Map.create(title: 'Password', maintainer_email_address: 'foo@bar.com', description: 'This is a password protected map', is_public: false, allow_guest_commits: false, secret_token: 'secret5', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)), password: 'secret', password_confirmation: 'secret')
     end
 
     def generate(number_of_points:, city:)
@@ -144,7 +131,7 @@ module MassSeedPoints
       generate_maps
 
       # Generate expired map in order to test rake task in ENV
-      Map.create(title: 'Expired map', maintainer_email_address: 'foo@bar.com', description: 'This is an expired map', auto_translate: true, is_public: false, allow_guest_commits: false, translation_engine: 'bing', secret_token: 'secret6', user: nil, supported_languages: I18n.available_locales.sample(rand(1..2)), last_visit: Date.today - 3000.days)
+      Map.create(title: 'Expired map', maintainer_email_address: 'foo@bar.com', description: 'This is an expired map', is_public: false, allow_guest_commits: false, secret_token: 'secret6', user: nil, supported_languages: I18n.available_locales.sample(rand(1..2)), last_visit: Date.today - 3000.days)
 
       # Create all categories listed in translation YAML files
       Map.all.each do |map|

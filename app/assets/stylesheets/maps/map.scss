@@ -24,6 +24,10 @@
   height:100%;
 }
 
+.unreviewed-marker {
+  opacity: 0.3;
+}
+
 .tooltip-inner {
   max-width: none;
   white-space: nowrap;
@@ -92,8 +96,8 @@
   };
 }
 
-.leaflet-control-attribution {
-  display: none;
+.leaflet-right.leaflet-bottom {
+  bottom: 45px;
 }
 
 .place-list-header-buttons {

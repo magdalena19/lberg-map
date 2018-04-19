@@ -36,16 +36,17 @@ class MapsController < ApplicationController
   # HTTP response does not need to be authenticated as it renders only the template
   # ajax calls
   def show
-    @categories = @map.categories.all
     @latitude = params[:latitude]
     @longitude = params[:longitude]
     @reviewed_places_available = @map.reviewed_places?
-    @reviewed_events_available = @map.reviewed_events?
 
     respond_to do |format|
       format.json do
         if unlocked?
-          render json: places_to_show.map(&:geojson), status: 200
+          render json: {
+            places: places_to_show.map(&:geojson),
+            categories: @map.category_names.join(',')},
+            status: 200
         else
           render nothing: true, status: 401
         end
@@ -90,15 +91,18 @@ class MapsController < ApplicationController
   end
 
   def edit
+    5.times { @map.categories.build(priority: nil) }
     @url = { action: :update, controller: :maps, map_token: @map.secret_token } # Specify this so map form does commit to correct route...
   end
 
   def update
     if can_commit_to?(model: @map) && @map.update_attributes(map_params)
       flash[:success] = t('.changes_saved')
-      redirect_to maps_url
+      redirect_to map_path(@map.secret_token)
     else
       flash.now[:danger] = @map.errors.full_messages.to_sentence
+      5.times { @map.categories.build(priority: nil) }
+      @url = { action: :update, controller: :maps, map_token: @map.secret_token }
       render :edit, status: 400
     end
   end
@@ -171,10 +175,17 @@ class MapsController < ApplicationController
     redirect_to landing_page_url
   end
 
-  def map_params
-    # Modify params auto_translate flag according to chosen translation engine
-    params[:map]['auto_translate'] = params[:map]['translation_engine'] == 'none' ? false : true
+  def category_attributes
+    attributes = %i[id marker_color marker_shape marker_icon_class priority _destroy]
+    if @map
+      @map.supported_languages.each do |language|
+        attributes << "name_#{language}".to_sym
+      end
+    end
+    attributes
+  end
 
+  def map_params
     # White-list params
     params.require(:map).permit(
       :title,
@@ -185,11 +196,11 @@ class MapsController < ApplicationController
       :public_token,
       :secret_token,
       :allow_guest_commits,
-      :auto_translate,
       :password,
       :password_confirmation,
       :translation_engine,
-      supported_languages: []
+      supported_languages: [],
+      categories_attributes: category_attributes
     )
   end
 end

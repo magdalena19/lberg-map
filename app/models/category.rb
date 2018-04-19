@@ -1,19 +1,20 @@
-require 'auto_translation/auto_translate'
-
 class Category < ActiveRecord::Base
-  include AutoTranslate
-
   belongs_to :map
   has_many :place_category, dependent: :nullify
   has_many :places, through: :place_category
 
+  before_create :prepare_for_translation
+
   translates :name
   globalize_accessors
 
-  before_create :prepare_for_autotranslation
-  after_create :enqueue_auto_translation, if: 'map.auto_translate'
+  default_scope { order(priority: :asc) }
 
   # VALIDATIONS
+  validates :priority, presence: true
+  validates :marker_shape, presence: true
+  validates :marker_color, presence: true
+  validates :marker_icon_class, presence: true
   validate :any_name_present
 
   def any_name_present
@@ -25,12 +26,8 @@ class Category < ActiveRecord::Base
     end
   end
 
-  def enqueue_auto_translation
-    TranslationWorker.perform_async('Category', id, map.supported_languages)
-  end
-
   # Set all name columns to empty in order to create translation records on create
-  def prepare_for_autotranslation
+  def prepare_for_translation
     I18n.available_locales.each do |locale|
       next if send("name_#{locale}").present?
       send("name_#{locale}=", '')

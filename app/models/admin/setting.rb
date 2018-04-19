@@ -1,5 +1,4 @@
 require 'validators/custom_validators'
-require 'auto_translation/auto_translate'
 require 'sanitize'
 
 class Admin::Setting < ActiveRecord::Base
@@ -13,7 +12,6 @@ class Admin::Setting < ActiveRecord::Base
   validates :admin_email_address, presence: true, email_format: true
   validates :user_activation_tokens, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :captcha_system, inclusion: { in: %w[recaptcha simple_captcha] }
-  validates :default_poi_color, inclusion: { in: Place.available_colors }
 
   ## SANITIZE
   def sanitize_app_imprint
@@ -50,9 +48,5 @@ class Admin::Setting < ActiveRecord::Base
     define_singleton_method(attribute.to_sym) do
       last.send(attribute)
     end
-  end
-
-  def self.translation_engines
-    %w[google bing yandex]
   end
 end

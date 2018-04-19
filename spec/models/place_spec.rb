@@ -11,19 +11,7 @@ describe Place do
     it { is_expected.to belong_to(:map) }
   end
 
-  context 'Place colors' do
-    it 'queries available place colors' do
-      expect(Place).to respond_to(:available_colors)
-    end
-  end
-
   context 'Validate' do
-    it 'has one of the pre-defined colors' do
-      place.color = 'some invalid color'
-
-      expect(place).to be_invalid
-    end
-
     it 'empty place as invalid' do
       expect(Place.new).not_to be_valid
     end
@@ -106,16 +94,6 @@ describe Place do
       skip('To be defined: Duplicate entries not valid')
     end
 
-    it 'creates and autotranslates categories correctly' do
-      Sidekiq::Testing.inline! do
-        map = create :map, :full_public
-        create :place, :unreviewed, categories_string: 'Foo', map: map
-      end
-
-      expect(Category.count).to be 1
-      expect(Category.first.name_de).to eq 'stubbed autotranslation'
-    end
-
     context 'Geocoding' do
       it 'Place with lat/lon does not need to be geocoded' do
         place = build :place, :unreviewed, latitude: 60.0, longitude: 10.0
@@ -132,19 +110,11 @@ describe Place do
 
       it 'automatically fills empty geofeatures from geocoding lookup' do
         switch_geocoder_stub
-        
+
         place = build :place, :without_coordinates
         expect {
           place.save
         }.to change { place.federal_state }.from(nil).to('Berlin')
-      end
-    end
-
-    it 'does not auto-translate if option is not set' do
-      secret_map = create :map, :top_secret
-      new_place = create :place, :unreviewed, map: secret_map
-      new_place.tap do |place|
-        expect(place.translations.map(&:auto_translated).any?).to be false
       end
     end
   end

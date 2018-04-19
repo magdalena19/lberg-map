@@ -4,7 +4,6 @@ gem 'rails', '4.2.7.1'
 
 gem 'awesomplete'
 gem 'bcrypt', '~> 3.1.7'
-gem 'bing_translator', '~> 5.0.0'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootstrap-wysihtml5-rails'
 gem 'differ'
@@ -46,7 +45,6 @@ gem 'travis'
 gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 gem 'will_paginate', '~> 3.1.0'
-gem 'yandex-translator'
 
 group :development, :test do
   gem 'pry-byebug'

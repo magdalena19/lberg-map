@@ -27,7 +27,7 @@ feature 'Create place', :js do
       show_place_details(name: 'Foo')
 
       expect(page).to have_content 'No reviewed description yet'
-      expect(page).to have_css('.extra-marker-star-black', count: 1)
+      expect(page).to have_css('.leaflet-marker-icon', count: 1)
     end
 
     scenario 'see guests session places on map' do

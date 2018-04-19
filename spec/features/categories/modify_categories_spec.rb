@@ -54,8 +54,6 @@ feature 'Modify place categories', js: true do
   def delete_category
     first('.delete-category').trigger('click')
     find('.submit-place-button').trigger('click')
-    sleep 1
-    screenshot_and_open_image
     find('.extra-marker-square-purple').trigger('click')
     expect(page).to_not have_content('Hospital | Playground')
     expect(page).to have_content('Playground')

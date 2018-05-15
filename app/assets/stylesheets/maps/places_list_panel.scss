@@ -17,11 +17,9 @@
 .places-list-panel {
   overflow-y: auto;
   background-color: rgba(white, 0.9);
-  height: calc(100% - 120px);
   width: 25%;
   min-width: 400px;
   padding: 15px;
-  z-index: 9999;
 
   .fa-home {
     font-size: 17px;

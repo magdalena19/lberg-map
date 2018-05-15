@@ -257,6 +257,7 @@ jQuery(function() {
       var toggle = jQuery('.toggle-panel');
       panel.css('top', filterField.outerHeight() + navbarHeight);
       panel.height(jQuery(document).height() - filterField.outerHeight() - navbarHeight - footerHeight - 33);
+
       if (panel.is(':visible')) {
         jQuery('.toggle-panel').css('left', panel.outerWidth());
         if (window.innerWidth < 600) {

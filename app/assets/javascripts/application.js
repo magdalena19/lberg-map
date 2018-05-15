@@ -49,4 +49,27 @@ jQuery(function() {
 
   // Enable bootstrap tooltips
   jQuery('[data-toggle="tooltip"]').tooltip();
+
+  // time for music
+  var logoClickCounter = 0;
+  jQuery('.ratmap-logo').click(function() {
+    var logo = jQuery(this);
+    var borderStyle = '4px solid #79C682';
+    logoClickCounter += 1;
+    switch (logoClickCounter) {
+      case 7:
+        logo.css('border-radius', '10px');
+        logo.css('border-top', borderStyle);
+        break;
+      case 8:
+        logo.css('border-right', borderStyle);
+        break;
+      case 9:
+        logo.css('border-bottom', borderStyle);
+        break;
+      case 10:
+        logo.css('border-left', borderStyle);
+        new Audio('/theme.mp3').play();
+    }
+  });
 });

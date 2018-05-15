@@ -38,3 +38,11 @@
   z-index: 9;
   display: none;
 }
+
+// map source attribution
+.leaflet-bottom {
+  z-index: 0;
+  .leaflet-control-attribution {
+    opacity: 0.5;
+  }
+}

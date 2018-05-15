@@ -6,12 +6,16 @@
 
 .toggle-panel {
   top: 50%;
-  background: rgba(white, 0.9);
+  background: rgba(darken($lilac, 50%), 0.8);
+  color: $green;
+  border-radius: 0 5px 5px 0;
   padding: 10px 5px;
-  color: $grey;
   font-size: 22px;
   display: none;
   cursor: pointer;
+  &:hover {
+    color: $lilac;
+  }
 }
 
 .places-list-panel {
@@ -33,7 +37,7 @@
     padding: 7px 14px;
     border: none !important;
     cursor: pointer;
-    background: rgba(216, 214, 214, 0.9) !important;
+    background-color: rgba(darken($verylightgrey, 10%), 0.9) !important;
 
     &:hover {
       background-color: lighten($lilac, 5) !important;
@@ -61,11 +65,15 @@
 
   .list-item-category {
     color: white;
-    padding: 6px;
     margin-top: -6px;
     margin-left: -12px;
     border-radius: 3px;
     margin-right: 10px !important;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    width: 28px;
+    height: 28px;
+    text-align: center;
   }
 
   .panel-body {

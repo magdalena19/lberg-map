@@ -132,9 +132,9 @@ class Place < ActiveRecord::Base
       category_names: categories.map(&:name).map(&:to_s).sort.join(' | '),
       is_event: event,
       reviewed: reviewed,
-      marker_color: main_category&.marker_color,
+      marker_color: main_category&.marker_color || 'violet',
       marker_icon_class: main_category&.marker_icon_class,
-      marker_shape: main_category&.marker_shape,
+      marker_shape: main_category&.marker_shape || 'circle',
     }
   end
 end

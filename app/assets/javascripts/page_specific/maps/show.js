@@ -5,13 +5,12 @@
 
 jQuery(function() {
   // Marker icons
-  function icon(iconColor, iconClass, iconShape, reviewed) {
+  function icon(markerColor, iconClass, iconShape, reviewed) {
     return L.ExtraMarkers.icon({
       prefix: 'fa',
       icon: iconClass,
       shape: iconShape,
-      markerColor: iconColor,
-      iconColor: 'white',
+      markerColor: markerColor,
       extraClasses: reviewed ? '' : 'unreviewed-marker'
     });
   }
@@ -22,14 +21,21 @@ jQuery(function() {
 
     addEsriMap([0, 0], 3);
 
-    // still to be used!
-    var autotranslatedPrefix = "<p><i>" + window.autotranslated_label + ": </i></p>";
-    var waitingForReviewSuffix = "<span style='color: #ff6666;'> | " + window.waiting_for_review_label + "</span>";
-
+    var highlightedLayer;
     var onEachFeature = function(feature, layer) {
-      addToPlacesList(feature);
+      layer.highlight = function() {
+        if (highlightedLayer) {
+          var props = highlightedLayer['props'];
+          highlightedLayer['layer'].setIcon(icon(props.marker_color, props.marker_icon_class, props.marker_shape, props.reviewed === true));
+        }
+        highlightedLayer = {layer: layer, props: prop};
+        layer.setIcon(icon('black', prop.marker_icon_class, prop.marker_shape, prop.reviewed === true));
+        map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], map.getZoom());
+      };
+
+      addToPlacesList(feature, layer);
       var prop = feature.properties;
-      layer.setIcon(icon(prop.marker_color, prop.marker_icon_class, prop.marker_shape, prop.reviewed === true));
+      layer.setIcon(icon(prop.marker_color, prop.marker_icon_class, prop.marker_shape, 'white', prop.reviewed === true));
 
       layer.on('click', function(e) {
         showPlacesListPanel();
@@ -47,23 +53,12 @@ jQuery(function() {
     };
 
     jQuery('.places-list-panel')
-      .on('click', '.panel-heading', function() {
-        var lat = jQuery(this).attr('lat');
-        var lon = jQuery(this).attr('lon');
-        var latlng = {
-          'lat': lat,
-          'lon': lon
-        }
-        map.setView(latlng, map.getZoom());
-      })
       .on('click', '.zoom-to-place', function() {
         var lat = jQuery(this).attr('lat');
         var lon = jQuery(this).attr('lon');
-        var latlng = {
-          'lat': lat,
-          'lon': lon
-        }
+        var latlng = {'lat': lat, 'lon': lon}
         map.setView(latlng, Math.max(map.getZoom(), 16));
+        if ($(document).width() < 600) { hidePlacesListPanel(); };
       });
 
     // do not use the simpler .click function due to dynamic creation
@@ -292,7 +287,7 @@ jQuery(function() {
     // FILL PLACES LIST
 
     // Add places to places side panel
-    var addToPlacesList = function(feature) {
+    var addToPlacesList = function(feature, layer) {
       var item = jQuery('.places-list-item.template').clone();
       var contact = item.find('.contact-container');
       var event_container = item.find('.event-container');
@@ -305,7 +300,8 @@ jQuery(function() {
         .attr('href', '#collapse' + feature.id)
         .attr('aria-controls', 'collapse' + feature.id)
         .attr('lon', feature.geometry.coordinates[0])
-        .attr('lat', feature.geometry.coordinates[1])
+        .attr('lat', feature.geometry.coordinates[1]);
+      item.find('.panel-heading').click(function() { layer.highlight() });
 
       item.find('.name').html(feature.properties.name);
       // if (feature.is_event === true) {
@@ -344,8 +340,7 @@ jQuery(function() {
         event_container.append("<div class='event'><div class='glyphicon fa fa-calendar'></div>" + date_string + "</div>");
       }
       item.find('.category-names').append(feature.properties.category_names);
-      item.find('.zoom-to-place').attr('lon', feature.geometry.coordinates[0])
-        .attr('lat', feature.geometry.coordinates[1]);
+      item.find('.zoom-to-place').attr('lon', feature.geometry.coordinates[0]).attr('lat', feature.geometry.coordinates[1]);
       item.find('.edit-place').attr('place_id', feature.id);
       item.find('.delete-place').attr('place_id', feature.id);
       jQuery('.places-list-accordion').append(item);
@@ -546,4 +541,5 @@ jQuery(function() {
       map.fitBounds(cluster.getBounds());
     }
   }
+  ''
 });

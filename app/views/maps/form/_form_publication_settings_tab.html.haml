@@ -4,8 +4,8 @@
     .col-xs-12
       .checkbox
         %label
-          = f.check_box :is_public
-          = t('.is_public')
+          = check_box_tag 'map[is_public]', true, @map.is_public
+        = t('.is_public')
 
   .map-public-settings
     .row
@@ -38,5 +38,5 @@
       .col-xs-12
         .checkbox
           %label
-            = f.check_box :allow_guest_commits
+            = check_box_tag 'map[allow_guest_commits]', true, @map.allow_guest_commits
           = t('.allow_guest_commits')

@@ -10,8 +10,8 @@ Dir.chdir APP_ROOT do
   system "bundle check || bundle install"
 
   puts "\n== Copying sample files =="
-  unless File.exist?("config/application.yml")
-    system "cp config/application.yml.sample config/application.yml"
+  unless File.exist?(".env")
+    system "cp sample.env .env"
   end
 
   puts "\n== Preparing database =="

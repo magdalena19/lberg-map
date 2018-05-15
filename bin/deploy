@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+require 'pathname'
+
+# Check if app has been deployed and deploy if not
+# Setup rvm if needed before start
+# Check if database exists
+# Check if schema is loaded
+# Check if assets are pressent
+
+
+# path to your application root.
+APP_ROOT = Pathname.new File.expand_path('../../',  __FILE__)
+
+Dir.chdir APP_ROOT do
+  unless self.database_exists?
+    puts "\n== No database found. Creating database =="
+    system "bin/rake db:create db:schema:load"
+  end
+
+  unless File.exist?("./public/assets")
+    puts "\n== No Assets found =="
+    system "bin/rake assets:precompile"
+  end
+
+end
+
+def database_exists?
+  begin
+    ActiveRecord::Base.connection
+  rescue ActiveRecord::NoDatabaseError
+    return false
+  else
+    return true
+  end
+end
+
+def read_database_config
+  #TODO get
+end

@@ -23,9 +23,19 @@ jQuery(function() {
     var checked = jQuery(checkbox).is(':checked');
     if (checked) {
       jQuery(divToToggle).show(350);
+      assignPublicToken();
     } else {
       jQuery(divToToggle).hide(350);
+      clearPublicTokenField();
     }
+  }
+
+  function assignPublicToken(){
+    $('#map_public_token').val(window.public_token_proposal).trigger('change');
+  }
+
+  function clearPublicTokenField(){
+    $('#map_public_token').val(null).trigger('change');
   }
 
   jQuery('#map_is_public').on('click', function() {
@@ -34,15 +44,4 @@ jQuery(function() {
 
   // Toggle publication settings initially
   toggleIfChecked('#map_is_public', '.map-public-settings');
-
-  // Generate public token
-  function camelize(string) {
-    return string.toLowerCase().split(' ').join('_');
-  }
-
-  jQuery('#map_title').on('input', function() {
-    title = jQuery(this).val();
-    var public_token_input = jQuery('#map_public_token');
-    public_token_input.val(camelize(title)).trigger('change');
-  });
 })

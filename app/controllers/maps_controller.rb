@@ -186,7 +186,6 @@ class MapsController < ApplicationController
   end
 
   def map_params
-    # White-list params
     params.require(:map).permit(
       :title,
       :description,

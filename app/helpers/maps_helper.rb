@@ -28,4 +28,17 @@ module MapsHelper
       'public-map'
     end
   end
+
+  def propose_public_token
+    if @map.public_token == ('' || nil)
+      camelize(@map.title) || SecureRandom.urlsafe_base64(24) 
+    else
+      @map.public_token
+    end
+  end
+
+  def camelize(title)
+    return nil unless title
+    title.gsub!(/[^0-9A-Za-z.\-]/, '_').downcase
+  end
 end

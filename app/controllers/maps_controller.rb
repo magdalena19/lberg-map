@@ -108,6 +108,7 @@ class MapsController < ApplicationController
   end
 
   def destroy
+    session[:maps]&.delete(@map.id)
     @map.destroy
     flash[:warning] = t('.deleted')
     redirect_to maps_url
@@ -186,7 +187,6 @@ class MapsController < ApplicationController
   end
 
   def map_params
-    # White-list params
     params.require(:map).permit(
       :title,
       :description,

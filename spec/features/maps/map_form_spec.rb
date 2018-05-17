@@ -16,7 +16,28 @@ feature 'Map form', js: true do
       set_map_public_and_visit_and_find_map_container(create(:map, :private))
     end
 
+    scenario 'it creates private map without public token and is_public flag false' do
+      create_new_map_and_expect_public_flags_to_be_nil
+      visit_map_and_do_not_find_embedded_link
+    end
+
     private
+
+    def create_new_map_and_expect_public_flags_to_be_nil
+      Map.destroy_all
+      visit new_map_path
+      click_on 'Create Map'
+      expect(page).to have_css '.map-container'
+      @map = Map.first
+      expect(@map.is_public).not_to be true
+      expect(@map.public_token).to eq ''
+    end
+
+    def visit_map_and_do_not_find_embedded_link
+      visit map_path(map_token: @map.secret_token)
+      find('.share-map').trigger('click')
+      expect(page).not_to have_css('iframe')
+    end
 
     def find_correct_secret_token
       secret_token_field_value = find('#map_secret_token').value

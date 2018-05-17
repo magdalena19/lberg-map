@@ -24,9 +24,10 @@
               %p= link_to map_url(map_token: map.secret_token), map_url(map_token: map.secret_token)
           %hr
 
-        .row.margin-below
-          .col-xs-12
-            %h4
-              %b= t('.embed_map_via_iframe')
-            %code
-              = "<iframe src=" + '"' + "#{root_url}/#{map.public_token}/embedded?iframe=true" + '"' + ' width="600" height="600"></iframe>'
+        - if map.is_public?
+          .row.margin-below
+            .col-xs-12
+              %h4
+                %b= t('.embed_map_via_iframe')
+              %code
+                = "<iframe src=" + '"' + "#{root_url}/#{map.public_token}/embedded?iframe=true" + '"' + ' width="600" height="600"></iframe>'

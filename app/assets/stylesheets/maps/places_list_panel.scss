@@ -34,8 +34,6 @@
     border: none !important;
     cursor: pointer;
 
-    background-color: $lilac!important;
-
     &:hover {
       background-color: lighten($lilac, 5) !important;
     }
@@ -45,7 +43,7 @@
     }
 
     .name {
-      color: white;
+      // color: white;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

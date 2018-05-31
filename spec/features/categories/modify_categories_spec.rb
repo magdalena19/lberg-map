@@ -36,7 +36,8 @@ feature 'Modify place categories', js: true do
   def change_priority_order_of_categories
     visit_category_editor
     first('.category-down').trigger('click')
-    find('.submit-place-button').trigger('click')
+    first('.category-down').trigger('click')
+    click_on 'Update Map'
     find('.extra-marker-circle-red').trigger('click')
     expect(page).to have_content('Hospital | Playground')
   end

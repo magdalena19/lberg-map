@@ -60,6 +60,10 @@ de:
         maintain_tags: 'Tags bearbeiten'
         add_new_tag: 'Tag hinzufügen'
         headline: 'Vorhandene Tags'
+        tag_name: 'Name'
+        marker_color: 'Farbe'
+        marker_shape: 'Form'
+        marker_icon: 'Icon'
     modals:
       share_map_modal:
         public_link: 'Öffentlicher Link'

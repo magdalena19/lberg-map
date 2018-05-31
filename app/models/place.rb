@@ -129,7 +129,7 @@ class Place < ActiveRecord::Base
       email: email,
       homepage: homepage,
       description: displayed_description,
-      category_names: categories.map(&:name).map(&:to_s).join(' | '),
+      category_names: categories.map(&:name).map(&:to_s).sort.join(' | '),
       is_event: event,
       reviewed: reviewed,
       marker_color: main_category&.marker_color,

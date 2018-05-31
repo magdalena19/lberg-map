@@ -365,11 +365,13 @@ jQuery(function() {
         .css('color', bestContrastFontColor(feature.properties.marker_color));
 
       item.find('.name').html(feature.properties.name);
-      if (feature.is_event === true) {
-        item.find('.place_type').addClass('fa fa-calendar ' + panelType);
-      } else {
-        item.find('.place_type').addClass('fa fa-home ' + panelType);
-      }
+      // if (feature.is_event === true) {
+      //   item.find('.place_type').addClass('fa fa-calendar ' + panelType);
+      // } else {
+      //   item.find('.place_type').addClass('fa fa-home ' + panelType);
+      // }
+      item.find('.place_type').addClass('fa ' + feature.properties.marker_icon_class);
+
       item.find('.panel-collapse')
         .attr('id', 'collapse' + feature.id)
         .attr('aria-labelledby', 'heading' + feature.id);

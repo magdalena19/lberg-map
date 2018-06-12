@@ -60,6 +60,10 @@ en:
         maintain_tags: 'Tag settings'
         add_new_tag: 'Add new tag'
         headline: 'Tags on map'
+        tag_name: 'Name'
+        marker_color: 'Color'
+        marker_shape: 'Shape'
+        marker_icon: 'Symbol'
     modals:
       share_map_modal:
         public_link: 'Public link'

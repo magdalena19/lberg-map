@@ -1,36 +1,43 @@
 .tab-pane#tag_maintainance
   = f.fields_for :categories do |builder|
     .row.margin-below.category-setting-row
-      .col-xs-12.col-md-4
-        - @map.supported_languages.each do |language|
-          .input-group
-            %span.input-group-addon= language
-            = builder.text_field "name_#{language}".to_sym, placeholder: "name_#{language}", class: 'form-control'
-      .col-xs-12.col-md-6
-        .row
-          .col-xs-12
-            = builder.select :marker_color, @map.marker_colors, { include_blank: true }, { class: 'form-control' }
-          .col-xs-12
-            = builder.select :marker_shape, @map.marker_shapes, { include_blank: true }, { class: 'form-control' }
-          .col-xs-12
-            = builder.text_field :marker_icon_class, placeholder: 'click here to select', class: 'form-control icon-selection', readonly: true
-            = builder.hidden_field :priority, class: 'priority-field'
-            = builder.check_box '_destroy', {class: 'destroy-checkbox hidden'}, true, false
-      .col-xs-12.col-md-2.category-form-buttons
-        .fa.fa-trash.delete-category
-        .fa.fa-arrow-up.category-up
-        .fa.fa-arrow-down.category-down
+      .panel.panel-default
+        .panel-body.tag-setting
+          .col-xs-12.col-md-4
+            = builder.label t('.tag_name')
+            - @map.supported_languages.each do |language|
+              .input-group.form-group
+                %span.input-group-addon= language
+                = builder.text_field "name_#{language}".to_sym, placeholder: "name_#{language}", class: 'form-control'
 
-.modal.fade#icon-selection-modal{role: 'dialog'}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %span.glyphicon.glyphicon-remove-circle.close{'data-dismiss' => 'modal', type: 'button'}
-        %h4.modal-title select icon
-      .modal-body
-        .row
-          - @map.font_awesome_classes.each do |fa_class|
-            .col-xs-4
-              %p.font-awesome-icon.text-center{'data-fa-class' => fa_class}
-                %icon.fa{class: fa_class}
-                %span= fa_class
+          .col-xs-12.col-md-6
+            .row
+              .col-xs-12
+                = builder.label t('.marker_color')
+                = builder.select :marker_color, @map.marker_colors, { include_blank: true }, { class: 'form-control' }
+              .col-xs-12
+                = builder.label t('.marker_shape')
+                = builder.select :marker_shape, @map.marker_shapes, { include_blank: true }, { class: 'form-control' }
+              .col-xs-12
+                = builder.label t('.marker_icon')
+                = builder.text_field :marker_icon_class, placeholder: 'click here to select', class: 'form-control icon-selection', readonly: true
+                = builder.hidden_field :priority, class: 'priority-field'
+                = builder.check_box '_destroy', {class: 'destroy-checkbox hidden'}, true, false
+          .col-xs-12.col-md-2.category-form-buttons
+            .fa.fa-trash.delete-category
+            .fa.fa-arrow-up.category-up
+            .fa.fa-arrow-down.category-down
+
+    .modal.fade#icon-selection-modal{role: 'dialog'}
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %span.glyphicon.glyphicon-remove-circle.close{'data-dismiss' => 'modal', type: 'button'}
+            %h4.modal-title select icon
+          .modal-body
+            .row
+              - @map.font_awesome_classes.each do |fa_class|
+                .col-xs-4
+                  %p.font-awesome-icon.text-center{'data-fa-class' => fa_class}
+                    %icon.fa{class: fa_class}
+                    %span= fa_class

@@ -290,17 +290,6 @@ jQuery(function() {
     });
 
     // FILL PLACES LIST
-    // Return black or white as font color depending on background color
-    function bestContrastFontColor(backgroundColor) {
-      needsWhiteFont = ['red', 'darkorange', 'darkblue', 'purple', 'darkgreen', 'green'];
-      needsBlackFont = ['orange', 'yellow', 'lightgreen', 'violet', 'pink'];
-
-      if (needsWhiteFont.includes(backgroundColor)) {
-        return ('white');
-      } else {
-        return ('black');
-      }
-    }
 
     // Add places to places side panel
     var addToPlacesList = function(feature) {
@@ -316,13 +305,18 @@ jQuery(function() {
         .attr('href', '#collapse' + feature.id)
         .attr('aria-controls', 'collapse' + feature.id)
         .attr('lon', feature.geometry.coordinates[0])
-        .attr('lat', feature.geometry.coordinates[1]);
+        .attr('lat', feature.geometry.coordinates[1])
+
       item.find('.name').html(feature.properties.name);
-      if (feature.is_event === true) {
-        item.find('.place_type').addClass('fa fa-calendar ' + panelType);
-      } else {
-        item.find('.place_type').addClass('fa fa-home ' + panelType);
-      }
+      // if (feature.is_event === true) {
+      //   item.find('.place_type').addClass('fa fa-calendar ' + panelType);
+      // } else {
+      //   item.find('.place_type').addClass('fa fa-home ' + panelType);
+      // }
+      item.find('.list-item-category')
+        .addClass('fa ' + feature.properties.marker_icon_class)
+        .addClass(feature.properties.marker_color);
+
       item.find('.panel-collapse')
         .attr('id', 'collapse' + feature.id)
         .attr('aria-labelledby', 'heading' + feature.id);

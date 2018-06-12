@@ -136,7 +136,9 @@ jQuery(function() {
       lon = geocoding_result.properties.lon;
       hideAddressSearchBar();
       hideMapElements();
+      jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
       confirmPlaceInsert(lat, lon, geocoding_result);
+      map.on('click', confirmClickEvent);
     };
   });
 

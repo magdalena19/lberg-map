@@ -33,6 +33,7 @@
     padding: 7px 14px;
     border: none !important;
     cursor: pointer;
+    background: rgba(216, 214, 214, 0.9) !important;
 
     &:hover {
       background-color: lighten($lilac, 5) !important;
@@ -43,7 +44,7 @@
     }
 
     .name {
-      // color: white;
+      color: rgba(0, 0, 0, 0.7);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -56,6 +57,15 @@
 
   .place_type {
     padding-right: 10px;
+  }
+
+  .list-item-category {
+    color: white;
+    padding: 6px;
+    margin-top: -6px;
+    margin-left: -12px;
+    border-radius: 3px;
+    margin-right: 10px !important;
   }
 
   .panel-body {

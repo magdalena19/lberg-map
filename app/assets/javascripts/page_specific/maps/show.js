@@ -38,7 +38,7 @@ jQuery(function() {
         var accordionItemHeading = jQuery('#heading' + feature.id);
         if (accordionItemHeading.hasClass('collapsed')) {
           accordionItemHeading.click();
-          var list = jQuery('.places-list-p, anel');
+          var list = jQuery('.places-list-panel');
           list.scrollTo(accordionItemHeading, {
             offset: -5
           });
@@ -158,10 +158,10 @@ jQuery(function() {
 
       var filteredJson = [];
       var wordGroups = text.
-        replace(';', ',').
-        replace(', ', ',').
-        split(',').
-        filter(Boolean);
+      replace(';', ',').
+      replace(', ', ',').
+      split(',').
+      filter(Boolean);
 
       // Parse every json element for occurences of separated search string
       jQuery(json).each(function(id, feature) {
@@ -169,8 +169,8 @@ jQuery(function() {
           return wordPresent(wordGroup, feature);
         });
         if (matches.every(function(match) {
-          return match === true
-        })) {
+            return match === true
+          })) {
           filteredJson.push(feature);
         }
       });
@@ -290,60 +290,6 @@ jQuery(function() {
     });
 
     // FILL PLACES LIST
-    // Return black or white as font color depending on background color
-    // return array of [r,g,b,a] from any valid color. if failed returns undefined
-    function colorValues(color){
-      if (color === '')
-        return;
-
-      if (color.toLowerCase() === 'transparent')
-        return [0, 0, 0, 0];
-
-      if (color[0] === '#'){
-        if (color.length < 7){
-          // convert #RGB and #RGBA to #RRGGBB and #RRGGBBAA
-          color = '#' + color[1] + color[1] + color[2] + color[2] + color[3] + color[3] + (color.length > 4 ? color[4] + color[4] : '');
-        }
-        return [parseInt(color.substr(1, 2), 16),
-          parseInt(color.substr(3, 2), 16),
-          parseInt(color.substr(5, 2), 16),
-          color.length > 7 ? parseInt(color.substr(7, 2), 16)/255 : 1];
-      }
-
-      if (color.indexOf('rgb') === -1){
-        // convert named colors
-        var temp_elem = document.body.appendChild(document.createElement('fictum')); // intentionally use unknown tag to lower chances of css rule override with !important
-        var flag = 'rgb(1, 2, 3)'; // this flag tested on chrome 59, ff 53, ie9, ie10, ie11, edge 14
-        temp_elem.style.color = flag;
-
-        if (temp_elem.style.color !== flag)
-          return; // color set failed - some monstrous css rule is probably taking over the color of our object
-        temp_elem.style.color = color;
-
-        if (temp_elem.style.color === flag || temp_elem.style.color === '')
-          return; // color parse failed
-
-        color = getComputedStyle(temp_elem).color;
-        document.body.removeChild(temp_elem);
-      }
-
-      if (color.indexOf('rgb') === 0){
-        return color.match(/[\.\d]+/g).map(function (a){
-          return +a
-        });
-      }
-    }
-
-    function bestContrastFontColor(backgroundColor) {
-      var needsWhiteFont = ['red', 'darkorange', 'darkblue', 'purple', 'darkgreen', 'green', 'black'];
-      var needsBlackFont = ['orange', 'yellow', 'lightgreen', 'violet', 'pink', 'white'];
-
-      if (needsWhiteFont.indexOf(backgroundColor) < 0) {
-        return ('black');
-      } else {
-        return ('white');
-      }
-    }
 
     // Add places to places side panel
     var addToPlacesList = function(feature) {
@@ -360,9 +306,6 @@ jQuery(function() {
         .attr('aria-controls', 'collapse' + feature.id)
         .attr('lon', feature.geometry.coordinates[0])
         .attr('lat', feature.geometry.coordinates[1])
-        .css('background-color', feature.properties.marker_color)
-        .css('opacity', 0.65)
-        .css('color', bestContrastFontColor(feature.properties.marker_color));
 
       item.find('.name').html(feature.properties.name);
       // if (feature.is_event === true) {
@@ -370,7 +313,9 @@ jQuery(function() {
       // } else {
       //   item.find('.place_type').addClass('fa fa-home ' + panelType);
       // }
-      item.find('.place_type').addClass('fa ' + feature.properties.marker_icon_class);
+      item.find('.list-item-category')
+        .addClass('fa ' + feature.properties.marker_icon_class)
+        .addClass(feature.properties.marker_color);
 
       item.find('.panel-collapse')
         .attr('id', 'collapse' + feature.id)
@@ -416,16 +361,16 @@ jQuery(function() {
         loadAndFilterPlaces();
       })
 
-      .on('input', function() {
-        var timeout;
-        if (timeout !== undefined) {
-          clearTimeout(timeout);
-        } else {
-          timeout = setTimeout(function() {
-            loadAndFilterPlaces();
-          }, 350);
-        }
-      });
+    .on('input', function() {
+      var timeout;
+      if (timeout !== undefined) {
+        clearTimeout(timeout);
+      } else {
+        timeout = setTimeout(function() {
+          loadAndFilterPlaces();
+        }, 350);
+      }
+    });
 
     jQuery('.empty-text-filter').click(function() {
       jQuery('.category-input').val('');

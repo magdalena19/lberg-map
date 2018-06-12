@@ -39,6 +39,6 @@ module MapsHelper
 
   def camelize(title)
     return nil unless title
-    title.gsub!(/[^0-9A-Za-z.\-]/, '_').downcase
+    title.gsub!(/[^0-9A-Za-z.\-]/, '_')&.downcase
   end
 end

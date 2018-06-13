@@ -1,5 +1,9 @@
 @import 'colors';
 
+.leaflet-pane {
+  z-index: 1; // is now 400 by default since leaflet upgrade to 1.3
+}
+
 .extra-marker i {
   &.fa-calendar {
     margin-top: 11px;

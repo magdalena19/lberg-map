@@ -56,7 +56,7 @@ jQuery(function() {
       map.off('click', confirmClickEvent)
       jQuery('.confirmation-button-container').fadeOut();
       map.removeLayer(locationMarker);
-      jQuery('.leaflet-overlay-pane').css('cursor', 'inherit');
+      jQuery('.leaflet-container').css('cursor', 'inherit');
       showMapElements();
     };
 
@@ -100,7 +100,7 @@ jQuery(function() {
   // ADD PLACE VIA ONCLICK
   jQuery('.add-place-via-click').click(function(){
     hideMapElements();
-    jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
+    jQuery('.leaflet-container').css('cursor','crosshair');
     map.on('click', confirmClickEvent);
   });
 
@@ -108,7 +108,7 @@ jQuery(function() {
   // ADD PLACE VIA CURRENT GEOLOCATION
   jQuery('.add-place-via-location').click(function(){
     hideMapElements();
-    jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
+    jQuery('.leaflet-container').css('cursor','crosshair');
     function confirmation(position) {
       confirmPlaceInsert(position.coords.latitude, position.coords.longitude);
     }

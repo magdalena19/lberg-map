@@ -46,7 +46,7 @@ class Place < ActiveRecord::Base
   before_validation :sanitize_descriptions, on: [:create, :update]
   after_validation :enforce_ssl_on_urls, on: [:create, :update], if: 'homepage.present?'
   before_create :geocode_with_nodes, unless: 'lat_lon_present?'
-  before_update :geocode_with_nodes, if: :address_changed?
+  before_update :geocode_with_nodes, if: Proc.new { street_changed? || city_changed? || house_number_changed? || postal_code_changed? }
   after_create :set_description_reviewed_flags
   after_save :set_categories
 

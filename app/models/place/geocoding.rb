@@ -43,7 +43,8 @@ module PlaceGeocoding
 
   def update_geofeatures_if_missing
     @geoms.each do |geo_feature, value|
-      self.send("#{geo_feature}=", value) unless self.send("#{geo_feature}").present?
+      # self.send("#{geo_feature}=", value) unless self.send("#{geo_feature}").present?
+      self.send("#{geo_feature}=", value) if self.send("#{geo_feature}") != value
     end
   end
 end

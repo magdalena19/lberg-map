@@ -11,6 +11,7 @@ module MapAccessGateway
     helper_method :require_login
     helper_method :current_user
     helper_method :can_commit?
+    helper_method :has_privileged_map_access
   end
 
   def set_map

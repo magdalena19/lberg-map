@@ -8,4 +8,4 @@
 
 = render partial: 'layouts/navbar/admin_dropdown' if @current_user.admin?
 = render partial: 'layouts/navbar/user_settings_dropdown'
-= render partial: 'layouts/navbar/map_dropdown' if any_maps_available?
+= render partial: 'layouts/navbar/map_dropdown' if @map && has_privileged_map_access

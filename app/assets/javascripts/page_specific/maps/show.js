@@ -1,4 +1,5 @@
 //= require map_base
+//= require_self
 //= require ./embedding
 //= require ./show/_right_sidebar
 //= require ./show/_map_overlays

@@ -5,13 +5,11 @@ services:
     env_file: .env    
     command: postgres -c config_file=/etc/postgresql.conf
     volumes:
-      - ./postgesqldata/:/var/lib/postgresql/data:rw 
       - ./configEnv/postgresql.conf:/etc/postgresql.conf
       - ./configEnv/pg_backup.config:/etc/default/pg_backup.config
       - ./configEnv/pg_backup_rotated.sh:/usr/bin/pg_backup_rotated.sh
       - ./log/postgresql/:/log/
       - /backup/ratmap/database/:/backup/
-#        - postgesqldata  
     ports:
       - '127.0.0.1:5432:5432'
   redis:
@@ -28,47 +26,14 @@ services:
     command: supervisord -c /etc/supervisor/conf.d/supervisord.conf    
     volumes:
       - .:/ratmap
-      - ./configEnv/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf  
-        #- socketfolder:/var/run/ratmapsocket
+      - ./config/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf  
     ports:
         - '127.0.0.1:30001:30001'
         - '127.0.0.1:30000:30000'
     links:
       - postgresratmap 
       - redis
-#  nginxratmap:
-#    image: nginx
-#    ports:
-#        - '80:80'
-#        - '443:443'  
-#    volumes:
-#        - ./configEnv/nginx_ratmap.conf:/etc/nginx/nginx.conf 
-#        - ./configEnv/nginx_ratmap_site.conf:/etc/nginx/ratmap-map  
-#        - /etc/letsencrypt/:/etc/letsencrypt/  
-#        - ./log/nginx/:/var/log/nginx/  
-#          #        - socketfolder:/var/run/ratmapsocket
-#    links:
-#        - ratmap:ratmap
-volumes:
-  socketfolder: {}
-#  postgesqldata: {}    
 
-#1. docker-compose build create the images
-#2. run init commands
-#    docker-compose exec -T ratmap rake db:create
-#    docker-compose exec -T ratmap rake db:migrate
-#    docker-compose exec -T ratmap rake assets:precompile
-#3. docker-compose up (-d) - start containerts
-#4. docker-compose exec ratmap bash - start bash
-# docker-compose ps / docker ps -a - list stoped containers
-# docker rm/rmi - remove container/image
-# 
-# docker-compose run
 #TODO:
-#* change volume mount in production
-# - mount ro everything mount rw sharred
-#* change port forwarding to socket file
-# 
 #* database backup
-#
 #* watchtower

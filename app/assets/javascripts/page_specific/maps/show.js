@@ -17,8 +17,8 @@ jQuery(function() {
   }
 
   jQuery('#map').each(function() {
-    // move flash message in foreground when map is displayed
-    jQuery('#flash-messages').css('position', 'absolute').css('z-index', '999999');
+    // move static flash message in foreground when map is displayed
+    jQuery('.flash-message').css('position', 'absolute').css('z-index', '999999');
 
     addEsriMap([0, 0], 3);
 
@@ -344,6 +344,12 @@ jQuery(function() {
       item.find('.zoom-to-place').attr('lon', feature.geometry.coordinates[0]).attr('lat', feature.geometry.coordinates[1]);
       item.find('.edit-place').attr('place_id', feature.id);
       item.find('.delete-place').attr('place_id', feature.id);
+
+      if (feature.properties.reviewed === false) {
+        item.css('opacity', '0.6');
+        item.find('.edit-place').hide();
+      };
+
       jQuery('.places-list-accordion').append(item);
     };
 
@@ -467,11 +473,8 @@ jQuery(function() {
             jQuery('.map-password-dialog').modal('hide');
           },
           error: function() {
-            var errorMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">Wrong password</div>'
-            jQuery('.error-messages').append(errorMessage);
-            jQuery('.error-messages #flash-messages').delay(3000).fadeOut(800).promise().done(function() {
-              jQuery(this).remove();
-            });
+            jQuery('.error-message').append('<div role="alert" class="alert alert-danger flash-message">Wrong password</div>');
+            jQuery('.error-message .flash-message').delay(3000).fadeOut(800);
           }
         });
       });
@@ -504,13 +507,11 @@ jQuery(function() {
 
     // UPDATE CONTENT AFTER POI MANIPULATION
     function flashResults(message) {
-      var flashMessage = '<div role="alert" class="alert alert-success" id="flash-messages">' + message + '</div>';
-      jQuery('.map-flash').html(flashMessage).show().fadeOut(4000);
+      jQuery('.map-flash').text(message).show().delay(4000).fadeOut(4000);
     }
 
     function displayFormErrors(message) {
-      var flashMessage = '<div role="alert" class="alert alert-danger" id="flash-messages">' + message + '</div>';
-
+      var flashMessage = '<div role="alert" class="alert alert-danger flash-message">' + message + '</div>';
       jQuery('.modal-body').prepend(flashMessage);
       jQuery('.modal').scrollTo('.alert', {
         offset: -10
@@ -542,5 +543,4 @@ jQuery(function() {
       map.fitBounds(cluster.getBounds());
     }
   }
-  ''
 });

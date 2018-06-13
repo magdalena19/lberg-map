@@ -36,14 +36,16 @@ class PlacesController < ApplicationController
       AttributeSetter::Place.set_attributes_after_update(place: @place, params: @params_to_commit, privileged: has_privileged_map_access)
       store_in_session_cookie
 
+      @place.reviewed ? message = 'Successfully updated!' : message = 'Successfully updated! Waiting for admin`s review...'
       respond_to do |format|
         format.json do
           render json: {
             places: places_to_show.map(&:geojson),
             coordinates: [@place.latitude, @place.longitude],
             categories: @map.category_names.join(','),
-            message: 'Successfully updated!' },
-            status: 200
+            message: message
+          },
+          status: 200
         end
       end
     else
@@ -67,14 +69,16 @@ class PlacesController < ApplicationController
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, privileged: has_privileged_map_access)
       store_in_session_cookie
 
+      @place.reviewed ? message = 'Successfully created!' : message = 'Successfully created! Waiting for admin`s review...'
       respond_to do |format|
         format.json do
           render json: {
             places: places_to_show.map(&:geojson),
             coordinates: [@place.latitude, @place.longitude],
             categories: @map.category_names.join(','),
-            message: 'Successfully created!' },
-            status: 200
+            message: message
+          },
+          status: 200
         end
       end
     else

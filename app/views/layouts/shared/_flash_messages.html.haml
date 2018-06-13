@@ -1,10 +1,8 @@
+.alert.alert-warning.overlay.map-flash.flash-message{role: 'alert', style: 'display: none;'}
+
 - flash.each do |type, msg|
-  - if on_map?
-    .alert{class: "alert-#{type} overlay map-flash", role: 'alert', id: 'flash-messages'}
-      =msg
-  - else
-    .container.alert-container
-      .row
-        .col-xs-12
-          .alert{class: "alert-#{type}", role: 'alert', id: 'flash-messages'}
-            = msg
+  .container.alert-container
+    .row
+      .col-xs-12
+        .alert.flash-message{class: "alert-#{type}", role: 'alert'}
+          = msg

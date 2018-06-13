@@ -28,7 +28,7 @@ jQuery(function() {
     jQuery('.back-button').hide();
   }
 
-  jQuery('#flash-messages').delay(4000).fadeOut(800);
+  jQuery('.flash-message').delay(4000).fadeOut(800);
 
   jQuery('.dropdown-toggle').dropdown();
 

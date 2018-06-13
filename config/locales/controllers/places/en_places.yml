@@ -6,7 +6,8 @@ en:
       preview_mode: 'You are currently in preview mode, changes you make have
       to be reviewed before they become published!'
     update:
-      changes_saved: 'Changes saved!'
+      updated: 'Changes saved!'
+      preview_mode: 'You are currently in preview mode, changes you make have to be reviewed before they become published!'
       invalid_captcha: 'Captcha invalid, please try again...'
     create:
       created: 'Place Successfully created!'

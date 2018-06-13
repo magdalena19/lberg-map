@@ -36,7 +36,7 @@ class PlacesController < ApplicationController
       AttributeSetter::Place.set_attributes_after_update(place: @place, params: @params_to_commit, privileged: has_privileged_map_access)
       store_in_session_cookie
 
-      @place.reviewed ? message = 'Successfully updated!' : message = 'Successfully updated! Waiting for admin`s review...'
+      @place.reviewed ? message = t('.updated') : message = t('.preview_mode')
       respond_to do |format|
         format.json do
           render json: {
@@ -69,7 +69,7 @@ class PlacesController < ApplicationController
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, privileged: has_privileged_map_access)
       store_in_session_cookie
 
-      @place.reviewed ? message = 'Successfully created!' : message = 'Successfully created! Waiting for admin`s review...'
+      @place.reviewed ? message = t('.created') : message = t('.preview_mode')
       respond_to do |format|
         format.json do
           render json: {

@@ -23,6 +23,8 @@
 //= require modals
 //= require landing_page
 
+//= require i18n/translations
+
 jQuery(function() {
   if (window.history.length === 1) {
     jQuery('.back-button').hide();

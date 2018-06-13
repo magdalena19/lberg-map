@@ -36,7 +36,22 @@ jQuery(function() {
   });
 
 
-  // --- PLACE INSERT BUTTONS
+  // --- PLACE INSERT ACTIONS
+  // Add POI via Longpress / long mousedown
+  var mouseDownInterval;
+
+  map.on('mousedown', function(e) {
+    mouseDownInterval = setInterval(function() {
+      confirmPlaceInsert(e.latlng.lat, e.latlng.lng);
+      jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
+      map.on('click', confirmClickEvent);
+    }, 1500);
+  })
+  
+  map.on("mouseup", function() {
+    clearInterval(mouseDownInterval);
+  })
+
   // INSERT CONFIRMATION ACTION
   function setViewAndMarkWithDot(lat, lon) {
     map.setView([lat, lon], 18);

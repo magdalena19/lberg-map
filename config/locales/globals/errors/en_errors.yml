@@ -7,6 +7,10 @@ en:
           has_one: "Cannot delete record because a dependent %{record} exists"
           has_many: "Cannot delete record because dependent %{record} exist"
       models:
+        map:
+          tokens_do_not_differ: 'Admin link and public link must not be the same!'
+          secret_token_not_unique: 'already in use!'
+          public_token_not_unique: 'already in use!'
         place:
           attributes:
             address:

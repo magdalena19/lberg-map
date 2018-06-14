@@ -21,7 +21,44 @@ feature 'Map form', js: true do
       visit_map_and_do_not_find_embedded_link
     end
 
+    scenario 'it can update valid secret token' do
+      set_secret_token_eq_public_token_and_find_error
+      set_valid_secret_token_successfully
+    end
+
+    scenario 'it can update valid public token' do
+      set_public_token_eq_secret_token_and_find_error
+      set_valid_public_token_successfully
+    end
+
     private
+
+    def set_valid_public_token_successfully
+      click_on 'Publication settings'
+      fill_in 'map_public_token', with: 'some_token'
+      click_on 'Update'
+      expect(@map.reload.public_token).to eq 'some_token'
+    end
+
+    def set_valid_secret_token_successfully
+      fill_in 'map_secret_token', with: 'some_token'
+      click_on 'Update'
+      expect(page).to have_css('.alert-success')
+      expect(@map.reload.secret_token).to eq 'some_token'
+    end
+
+    def set_public_token_eq_secret_token_and_find_error
+      click_on 'Publication settings'
+      fill_in 'map_public_token', with: @map.secret_token
+      click_on 'Update'
+      expect(page).to have_css('.alert-danger')
+    end
+
+    def set_secret_token_eq_public_token_and_find_error
+      fill_in 'map_secret_token', with: @map.public_token
+      click_on 'Update'
+      expect(page).to have_css('.alert-danger')
+    end
 
     def create_new_map_and_expect_public_flags_to_be_nil
       Map.destroy_all

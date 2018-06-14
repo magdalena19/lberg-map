@@ -102,7 +102,7 @@ class MapsController < ApplicationController
     else
       flash.now[:danger] = @map.errors.full_messages.to_sentence
       5.times { @map.categories.build(priority: nil) }
-      @url = { action: :update, controller: :maps, map_token: @map.secret_token }
+      @url = { action: :update, controller: :maps, map_token: @map.secret_token_was }
       render :edit, status: 400
     end
   end

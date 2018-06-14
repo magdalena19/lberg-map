@@ -41,14 +41,15 @@ jQuery(function() {
   var mouseDownInterval;
 
   map.on('mousedown', function(e) {
-    mouseDownInterval = setInterval(function() {
+    mouseDownInterval = setTimeout(function() {
+      map.off('click', confirmClickEvent);
+      hideMapElements();
       confirmPlaceInsert(e.latlng.lat, e.latlng.lng);
       jQuery('.leaflet-overlay-pane').css('cursor','crosshair');
-      map.on('click', confirmClickEvent);
-    }, 1500);
+    }, 500);
   })
-  
-  map.on("mouseup", function() {
+
+  map.on('mouseup', function() {
     clearInterval(mouseDownInterval);
   })
 
@@ -68,7 +69,7 @@ jQuery(function() {
     // confirmation button
     jQuery('.confirmation-button-container').fadeIn();
     var removeConfirmationButtons = function() {
-      map.off('click', confirmClickEvent)
+      map.off('click', confirmClickEvent);
       jQuery('.confirmation-button-container').fadeOut();
       map.removeLayer(locationMarker);
       jQuery('.leaflet-container').css('cursor', 'inherit');

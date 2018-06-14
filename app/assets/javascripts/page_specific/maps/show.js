@@ -458,8 +458,7 @@ jQuery(function() {
 
     // PROMPT FOR MAP PASSWORD
     function showPasswordPrompt() {
-      jQuery('.map-password-dialog').modal().show;
-      jQuery('.unlock').on('click', function() {
+      function validatePassword(){
         var password = jQuery('.password-input').val();
 
         jQuery.ajax({
@@ -477,6 +476,18 @@ jQuery(function() {
             jQuery('.error-message .flash-message').delay(3000).fadeOut(800);
           }
         });
+
+      }
+      jQuery('.map-password-dialog').modal().show;
+
+      jQuery('.unlock').on('click', function() {
+        validatePassword();
+      });
+
+      $(".password-input").keyup(function(event) {
+        if (event.keyCode === 13) {
+          validatePassword();
+        }
       });
     }
 

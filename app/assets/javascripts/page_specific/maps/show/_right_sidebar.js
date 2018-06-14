@@ -53,6 +53,10 @@ jQuery(function() {
     clearInterval(mouseDownInterval);
   })
 
+  map.on('zoomstart', function() {
+    clearInterval(mouseDownInterval);
+  });
+
   // INSERT CONFIRMATION ACTION
   function setViewAndMarkWithDot(lat, lon) {
     map.setView([lat, lon], 18);

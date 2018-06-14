@@ -49,13 +49,9 @@ jQuery(function() {
     }, 500);
   })
 
-  map.on('mouseup', function() {
-    clearInterval(mouseDownInterval);
-  })
-
-  map.on('zoomstart', function() {
-    clearInterval(mouseDownInterval);
-  });
+  map.on('mouseup', function() { clearInterval(mouseDownInterval); });
+  map.on('zoomstart', function() { clearInterval(mouseDownInterval); });
+  map.on('move', function() { clearInterval(mouseDownInterval); });
 
   // INSERT CONFIRMATION ACTION
   function setViewAndMarkWithDot(lat, lon) {

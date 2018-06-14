@@ -37,10 +37,12 @@ jQuery(function() {
 
     $('.categories').each(function() {
       var that = $(this);
-      var categories = origList.split(',');
-      $.each(categories, function(i, category) {
-        that.append(createBadge(category));
-      })
+      if (origList) {
+        var categories = origList.split(',');
+        $.each(categories, function(i, category) {
+          that.append(createBadge(category));
+        })
+      }
     });
 
     $('.category').on('click', function() {

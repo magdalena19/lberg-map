@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       get '' , to: 'maps#show', as: :map
       get '/embedded', to: 'maps#show', as: :map_embedded
       get '/edit', to: 'maps#edit', as: :edit_map
-      patch '/edit', to: 'maps#update'
+      patch '', to: 'maps#update'
       delete '', to: 'maps#destroy', as: :destroy_map
       get '/unlock', to: 'maps#unlock'
 

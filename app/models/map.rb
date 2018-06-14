@@ -22,8 +22,9 @@ class Map < ActiveRecord::Base
   validates :supported_languages, presence: true
   validates :password, length: { minimum: 5 }, if: Proc.new { password && password_digest_changed? }
   validates :password, confirmation: true, if: Proc.new { password && password_digest_changed? }
-  validate :secret_token_unique, if: :secret_token_changed
-  validate :public_token_unique, if: 'public_token.present? && public_token_changed'
+  validate :secret_token_valid, if: Proc.new { secret_token_changed? }
+  validate :public_token_valid, if: 'public_token.present? && public_token_changed'
+  validate :map_tokens_differ, if: 'public_token.present? && public_token_changed'
 
   # VALIDATIONS
   def secret_token_changed
@@ -34,15 +35,19 @@ class Map < ActiveRecord::Base
     public_token_changed?
   end
 
-  def secret_token_unique
-    if Map.all.map(&:secret_token).include? secret_token
-      errors.add(:secret_token, I18n.t('.secret_token_not_uniqe'))
-    end
+  def secret_token_valid
+    return nil unless all_tokens.include? secret_token
+    errors.add(:secret_token, I18n.t('activerecord.errors.models.map.secret_token_not_unique'))
   end
 
-  def public_token_unique
-    if Map.all.map(&:public_token).include? public_token
-      errors.add(:public_token, I18n.t('.public_token_not_unique'))
+  def public_token_valid
+    return nil unless all_tokens.include? public_token
+    errors.add(:public_token, I18n.t('activerecord.errors.models.map.public_token_not_unique'))
+  end
+
+  def map_tokens_differ
+    if public_token == secret_token
+      errors.add(:base, I18n.t('activerecord.errors.models.map.tokens_do_not_differ'))
     end
   end
 
@@ -183,6 +188,10 @@ class Map < ActiveRecord::Base
   end
 
   private
+
+  def all_tokens
+    Map.all.map(&:secret_token) + Map.all.map(&:public_token)
+  end
 
   def sanitize_imprint
     self.imprint = sanitize(imprint)

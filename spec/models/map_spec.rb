@@ -48,6 +48,35 @@ RSpec.describe Map, type: :model do
   end
 
   context 'Validations' do
+    context 'Tokens' do
+      let(:map) { build :map }
+      let(:other_map) { create :map, secret_token: 'secret', public_token: 'public' }
+
+      it 'cannot public_token == secret_token' do
+        map.secret_token = 'foo'
+        map.public_token = 'foo'
+
+        expect(map).not_to be_valid
+        expect(map.errors[:base].first).to eq 'Admin link and public link must not be the same!'
+      end
+
+      it 'cannot have public token the is other maps secret token' do
+        map.secret_token = 'other_secret'
+        map.public_token = other_map.secret_token
+
+        expect(map).not_to be_valid
+        expect(map.errors[:public_token].first).to eq 'already in use!'
+      end
+
+      it 'cannot have secret token the is other maps public token' do
+        map.secret_token = other_map.public_token
+        map.public_token = 'secret'
+
+        expect(map).not_to be_valid
+        expect(map.errors[:secret_token].first).to eq 'already in use!'
+      end
+    end
+
     it 'validates map maintainer email address if present' do
       map = build :map, maintainer_email_address: 'foo@bar'
       expect(map).not_to be_valid

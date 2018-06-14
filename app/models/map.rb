@@ -20,8 +20,8 @@ class Map < ActiveRecord::Base
   validates :secret_token, presence: true
   validates :title, length: { maximum: 25 }
   validates :supported_languages, presence: true
-  validates :password, length: { minimum: 5 }, if: :password
-  validates :password, confirmation: true, if: :password
+  validates :password, length: { minimum: 5 }, if: Proc.new { password && password_digest_changed? }
+  validates :password, confirmation: true, if: Proc.new { password && password_digest_changed? }
   validate :secret_token_unique, if: :secret_token_changed
   validate :public_token_unique, if: 'public_token.present? && public_token_changed'
 

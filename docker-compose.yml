@@ -5,9 +5,9 @@ services:
     env_file: .env    
     command: postgres -c config_file=/etc/postgresql.conf
     volumes:
-      - ./configEnv/postgresql.conf:/etc/postgresql.conf
-      - ./configEnv/pg_backup.config:/etc/default/pg_backup.config
-      - ./configEnv/pg_backup_rotated.sh:/usr/bin/pg_backup_rotated.sh
+      - ./config/postgresql.conf:/etc/postgresql.conf
+      - ./config/pg_backup.config:/etc/default/pg_backup.config
+      - ./config/pg_backup_rotated.sh:/usr/bin/pg_backup_rotated.sh
       - ./log/postgresql/:/log/
       - /backup/ratmap/database/:/backup/
     ports:

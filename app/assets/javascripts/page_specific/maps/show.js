@@ -16,9 +16,24 @@ jQuery(function() {
     });
   }
 
+  function checkLocaleSupport() {
+    var currentLocale = window.locale;
+    var supportedLocales = window.map_languages;
+
+    if(supportedLocales.indexOf(currentLocale) === -1){
+      $('.select-other-locale').modal({
+        show: true,
+        backdrop: 'static',
+        keyboard: false
+      });
+    }
+  }
+
   jQuery('#map').each(function() {
     // move static flash message in foreground when map is displayed
     jQuery('.flash-message').css('position', 'absolute').css('z-index', '999999');
+
+    checkLocaleSupport();
 
     addEsriMap([0, 0], 3);
 
@@ -154,10 +169,10 @@ jQuery(function() {
 
       var filteredJson = [];
       var wordGroups = text.
-      replace(';', ',').
-      replace(', ', ',').
-      split(',').
-      filter(Boolean);
+        replace(';', ',').
+        replace(', ', ',').
+        split(',').
+        filter(Boolean);
 
       // Parse every json element for occurences of separated search string
       jQuery(json).each(function(id, feature) {
@@ -165,8 +180,8 @@ jQuery(function() {
           return wordPresent(wordGroup, feature);
         });
         if (matches.every(function(match) {
-            return match === true
-          })) {
+          return match === true
+        })) {
           filteredJson.push(feature);
         }
       });
@@ -363,16 +378,16 @@ jQuery(function() {
         loadAndFilterPlaces();
       })
 
-    .on('input', function() {
-      var timeout;
-      if (timeout !== undefined) {
-        clearTimeout(timeout);
-      } else {
-        timeout = setTimeout(function() {
-          loadAndFilterPlaces();
-        }, 350);
-      }
-    });
+      .on('input', function() {
+        var timeout;
+        if (timeout !== undefined) {
+          clearTimeout(timeout);
+        } else {
+          timeout = setTimeout(function() {
+            loadAndFilterPlaces();
+          }, 350);
+        }
+      });
 
     jQuery('.empty-text-filter').click(function() {
       jQuery('.category-input').val('');

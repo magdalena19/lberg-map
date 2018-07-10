@@ -14,6 +14,7 @@
   = render partial: '/maps/show/places_list_panel'
   = render partial: 'maps/modals/map_description_modal', locals: { map: @map }
   = render partial: 'maps/modals/share_map_modal', locals: { map: @map }
+  = render partial: 'maps/modals/select_other_locale', locals: { map: @map }
 
   -# = render 'places_index_modal'
   - if needs_to_be_unlocked?
@@ -29,6 +30,7 @@
 
 :javascript
   window.locale = '#{locale}';
+  window.map_languages = '#{@map.supported_languages}'
   window.geolocation_error_message_appendix = '#{t('geolocation_error_message_appendix')}';
   window.choose_category = '#{t('choose_category')}';
   window.waiting_for_review_label = '#{t('places.index.waiting_for_review')}';

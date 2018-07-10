@@ -65,6 +65,9 @@ de:
         marker_shape: 'Form'
         marker_icon: 'Icon'
     modals:
+      select_other_locale:
+        title: 'Andere Sprache auswählen'
+        explanation: 'Diese Karte unterstützt nicht die von dir aktivierte Sprache. Wähle bitte eine der folgenden Sprachen, die auf dieser Karte unterstützt werden'
       share_map_modal:
         public_link: 'Öffentlicher Link'
         admin_link: 'Admin-Link'

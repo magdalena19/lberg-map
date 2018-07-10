@@ -5,10 +5,10 @@ feature 'Create event', :js do
     open_new_place_modal(map_token: map.secret_token)
     fill_in_valid_place_information(name: 'Place')
     show_date_form
-    check_date_flag
   end
 
   scenario 'can set single date' do
+    check_date_flag
     set_start_date(day: '2', month: '1', year: '2017', hours: '22', minutes: '0')
     find('.applyBtn').click
     create_place
@@ -21,8 +21,9 @@ feature 'Create event', :js do
 
     expect(date).to eq "02-01-2017 22:00"
   end
-  
+
   scenario 'can set date range' do
+    check_date_flag
     has_end_date
     set_start_date(day: '2', month: '1', year: '2017', hours: '22', minutes: '0')
     set_end_date(day: '3', month: '1', year: '2017', hours: '22', minutes: '0')
@@ -38,8 +39,15 @@ feature 'Create event', :js do
     expect(date).to eq "02-01-2017 22:00 - 03-01-2017 22:00"
   end
 
+  scenario 'does not show date filter field unless event is present' do
+    create_place
+
+    expect(page).to have_css('.leaflet-marker-icon')
+    expect(page).to_not have_css('#search-date-input')
+  end
+
   private
-  
+
   # Date filter field
   def set_date_filter_range(range:)
     fill_in('search-date-input', with: range)

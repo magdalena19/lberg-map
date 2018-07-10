@@ -424,7 +424,7 @@ jQuery(function() {
       appendDateRangePicker();
     }
 
-    jQuery('.show-events-toggle').click(function() {
+    jQuery('.show-events-toggle').on('change', function() {
       if (showEvents()) {
         jQuery('.filter-date-row').show();
         appendDateRangePicker();
@@ -512,6 +512,7 @@ jQuery(function() {
           showPlacesListPanel();
           resizeSidePanel();
           hidePlacesListPanel();
+          activateDateFilterIfEventsPresent(window.places);
         }
       });
     }
@@ -542,12 +543,27 @@ jQuery(function() {
             map.panTo(response.coordinates)
           };
           initCategoryInput(window.categories);
+          activateDateFilterIfEventsPresent(window.places);
         } else {
           displayFormErrors(xhr.responseText) // Assume form error if response != 200
         }
       };
     });
   });
+
+  function activateDateFilterIfEventsPresent(places) {
+    jQuery('.show-events-toggle')
+      .prop('checked', containsEvent(window.places))
+      .change();
+  };
+
+  function containsEvent(places) {
+    var found = false;
+      for(var i = 0; i < places.length; i++) {
+      if (places[i].is_event) { found = true; break; }
+    }
+    return found;
+  };
 
   function fit_to_bbox() {
     if (cluster.getLayers().length > 0) {

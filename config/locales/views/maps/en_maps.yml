@@ -65,6 +65,9 @@ en:
         marker_shape: 'Shape'
         marker_icon: 'Symbol'
     modals:
+      select_other_locale:
+        title: 'Choose another language'
+        explanation: 'This map does not support the language currently activated. Please choose another one from the following supported by the map you are currently visiting...'
       share_map_modal:
         public_link: 'Public link'
         admin_link: 'Adminstration link'

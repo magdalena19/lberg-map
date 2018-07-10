@@ -1,0 +1,13 @@
+-# DESCRIPTION MODAL
+.modal.fade.select-other-locale{role: 'dialog', "data-keyboard" =>"false", "data-backdrop" =>"static", "data-show" => false}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4.modal-title= t('.title')
+      .modal-body
+        %i= t('.explanation')
+        %p
+          - @map.supported_languages.each do |language|
+            .row
+              .col-xs-12
+                = link_to t("languages.#{language}"), map_path(map_token: params[:map_token], locale: language)

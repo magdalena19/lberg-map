@@ -12,6 +12,14 @@ feature 'Map', js: true do
       find_review_button_for_privileged_users
     end
 
+    scenario 'let user select other locale if not supported within map' do
+      map = create :map, :full_public, supported_languages: [:de]
+      visit map_path(map_token: map.public_token, locale: :en)
+
+      expect(page).to have_css 'a', text: 'German'
+      expect(page).not_to have_css 'a', text: 'English'
+    end
+
     private
 
     def find_place_edit_button_for_guest_users

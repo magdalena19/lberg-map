@@ -1,5 +1,6 @@
 require 'sidekiq/web'
 require 'routing/access_constraints'
+require 'routing/locale_constraints'
 
 Rails.application.routes.draw do
   default_url_options protocol: :https if Rails.env == 'production'
@@ -8,7 +9,9 @@ Rails.application.routes.draw do
 
   get '', to: 'static_pages#choose_locale'
 
-  scope '(:locale)', locale: /en|de|fr|ar/ do
+  # Fall back to first supported language on map 
+  # if specific map is requested and requested locale not supported
+  scope '(:locale)', constraints: LocaleConstraints.new do
     root 'static_pages#choose_locale'
     get '/start', to: 'static_pages#landing_page', as: :landing_page
 

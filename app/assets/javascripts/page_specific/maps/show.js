@@ -491,15 +491,17 @@ jQuery(function() {
             jQuery('.error-message .flash-message').delay(3000).fadeOut(800);
           }
         });
-
       }
-      jQuery('.map-password-dialog').modal().show;
+
+      jQuery('.map-password-dialog').each(function(){
+        $('.password-input').focus();
+      })
 
       jQuery('.unlock').on('click', function() {
         validatePassword();
       });
 
-      $(".password-input").keyup(function(event) {
+      $('.password-input').keyup(function(event) {
         if (event.keyCode === 13) {
           validatePassword();
         }

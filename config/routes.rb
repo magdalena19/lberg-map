@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     # Embedded stuff
     scope '/:map_token', constraints: MapAccessRestriction.new do
       get '' , to: 'maps#show', as: :map
+      get '/serve_pois' , to: 'maps#serve_pois'
       get '/embedded', to: 'maps#show', as: :map_embedded
       get '/edit', to: 'maps#edit', as: :edit_map
       patch '', to: 'maps#update'

@@ -35,22 +35,27 @@ class MapsController < ApplicationController
 
   # HTTP response does not need to be authenticated as it renders only the template
   # ajax calls
-  def show
-    @latitude = params[:latitude]
-    @longitude = params[:longitude]
-    @reviewed_places_available = @map.reviewed_places?
-
+  def serve_pois
     respond_to do |format|
       format.json do
         if unlocked?
           render json: {
             places: places_to_show.map(&:geojson),
             categories: @map.category_names.join(',')},
-            status: 200
+          status: 200
         else
           render nothing: true, status: 401
         end
       end
+    end
+  end
+
+  def show
+    @reviewed_places_available = @map.reviewed_places?
+    @latitude = params[:latitude]
+    @longitude = params[:longitude]
+
+    respond_to do |format|
       format.html do
         if params[:iframe] == 'true'
           render layout: 'iframe/iframe'

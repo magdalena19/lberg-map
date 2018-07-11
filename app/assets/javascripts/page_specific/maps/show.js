@@ -513,7 +513,7 @@ jQuery(function() {
 
     function getPois() {
       jQuery.ajax({
-        url: '/' + window.map_token,
+        url: '/' + window.map_token + '/serve_pois',
         dataType: 'json',
         data: {
           locale: window.locale

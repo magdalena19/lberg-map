@@ -14,7 +14,7 @@ services:
     build: db_backup_script 
     env_file: .env    
     volumes:
-        - ./backup:/backups/
+        - /backup/ratmap/database/:/backups/
     links:
         - postgresratmap
 
@@ -38,8 +38,3 @@ services:
       - postgresratmap 
       - redis
 
-#TODO:
-#* change volume mount in production
-# - mount ro everything mount rw sharred
-#* database backup
-#* watchtower

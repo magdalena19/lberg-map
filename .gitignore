@@ -17,7 +17,6 @@ visualization/
 /log/nginx/*
 log/postgresql/*
 pids/*
-backup/*
 /public/assets
 .sass-cache
 tmp/**/*
@@ -34,8 +33,6 @@ tmp/**/*
 /config/application.yml
 .env
 
-# Ignore database content
-postgesqldata/*
 
 # Ignore test coverage report
 /coverage

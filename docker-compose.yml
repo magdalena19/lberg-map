@@ -9,9 +9,9 @@ services:
       - ./log/postgresql/:/log/
     ports:
       - '127.0.0.1:5432:5432'
+
   postgresratmap_backup: 
-    #image: martianrock/pg_backup_rotated
-    build: db_backup_script 
+    image: coderat/docker-pg_backup
     env_file: .env    
     volumes:
         - /backup/ratmap/database/:/backups/

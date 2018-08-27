@@ -33,6 +33,11 @@ jQuery(function() {
     // move static flash message in foreground when map is displayed
     jQuery('.flash-message').css('position', 'absolute').css('z-index', '999999');
 
+    // Display map description on visit if set so...
+    if (window.showMapDescriptionOnVisit) {
+      showMapDescription();
+    }
+
     checkLocaleSupport();
 
     addEsriMap([0, 0], 3);

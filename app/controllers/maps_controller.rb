@@ -190,6 +190,7 @@ class MapsController < ApplicationController
     params.require(:map).permit(
       :title,
       :description,
+      :show_map_description_on_visit,
       :maintainer_email_address,
       :imprint,
       :is_public,

@@ -43,6 +43,7 @@ de:
         title: 'Kartentitel'
         title_placeholder: 'Reisen in Moldawien'
         description: 'Kartenbeschreibung'
+        show_map_description_on_visit: 'Zeige Beschreibung bei Kartenaufruf'
       form_publication_settings_tab:
         public_link: 'Öffentlicher Link'
         public_token: 'Öffentlicher Link zu deiner Karte, zB Reiseziele'

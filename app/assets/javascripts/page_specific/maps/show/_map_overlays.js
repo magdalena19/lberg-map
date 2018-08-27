@@ -91,4 +91,8 @@ jQuery(function() {
     placesListPanelToggle.css('left', 0);
     showMapControls();
   };
+
+  showMapDescription = function() {
+    jQuery('.map-description-modal').modal().show();
+  }
 });

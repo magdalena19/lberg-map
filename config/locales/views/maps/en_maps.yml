@@ -43,6 +43,7 @@ en:
         title: 'Map title'
         title_placeholder: 'Traveling Moldova'
         description: 'Map description (optional)'
+        show_map_description_on_visit: 'Show description on map visit'
       form_publication_settings_tab:
         public_link: 'Public link'
         public_token: 'Public link to your map, e.g. Traveling map'

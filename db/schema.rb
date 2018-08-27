@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180418092915) do
+ActiveRecord::Schema.define(version: 20180827181825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,20 +88,21 @@ ActiveRecord::Schema.define(version: 20180418092915) do
   add_index "category_translations", ["locale"], name: "index_category_translations_on_locale", using: :btree
 
   create_table "maps", force: :cascade do |t|
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.string   "title"
     t.text     "description"
     t.text     "imprint"
-    t.boolean  "is_public",                default: false,  null: false
+    t.boolean  "is_public",                     default: false,  null: false
     t.string   "public_token"
-    t.string   "secret_token",                              null: false
+    t.string   "secret_token",                                   null: false
     t.string   "maintainer_email_address"
     t.boolean  "allow_guest_commits"
     t.integer  "user_id"
-    t.text     "supported_languages",      default: ["en"], null: false, array: true
+    t.text     "supported_languages",           default: ["en"], null: false, array: true
     t.string   "password_digest"
     t.date     "last_visit"
+    t.boolean  "show_map_description_on_visit", default: false,  null: false
   end
 
   add_index "maps", ["user_id"], name: "index_maps_on_user_id", using: :btree
@@ -151,6 +152,7 @@ ActiveRecord::Schema.define(version: 20180418092915) do
     t.string   "district"
     t.string   "federal_state"
     t.integer  "map_id"
+    t.string   "images"
   end
 
   add_index "places", ["map_id"], name: "index_places_on_map_id", using: :btree

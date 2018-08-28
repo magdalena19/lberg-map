@@ -41,3 +41,10 @@
           .description-editor
             = f.label :description, t('.description')
             = f.text_area :description, class: "wysihtml5 description-area"
+
+        .spacer-row
+        .col-xs-12
+          .checkbox
+            %label
+              = check_box_tag 'map[show_map_description_on_visit]', true, @map.show_map_description_on_visit
+            = t('.show_map_description_on_visit')

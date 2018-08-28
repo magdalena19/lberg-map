@@ -232,7 +232,7 @@ jQuery(function() {
 
   // Toggle map info modal
   jQuery('.show-map-description').on('click', function() {
-    jQuery('.map-description-modal').modal().show();
+    showMapDescription();
   });
 
   jQuery('.control-button[tray]').on('click', function(){

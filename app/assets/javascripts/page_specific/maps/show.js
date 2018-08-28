@@ -34,7 +34,8 @@ jQuery(function() {
     jQuery('.flash-message').css('position', 'absolute').css('z-index', '999999');
 
     // Display map description on visit if set so...
-    if (window.showMapDescriptionOnVisit) {
+    console.log(mayShowMapDescription)
+    if (window.mayShowMapDescription) {
       showMapDescription();
     }
 

@@ -39,6 +39,9 @@ class MapsController < ApplicationController
     @latitude = params[:latitude]
     @longitude = params[:longitude]
     @reviewed_places_available = @map.reviewed_places?
+    @show_map_description = @map.show_map_description_on_visit && !visited_maps.include?(@map.id)
+
+    visited_maps << @map.id
 
     respond_to do |format|
       format.json do
@@ -139,6 +142,10 @@ class MapsController < ApplicationController
   end
 
   private
+
+  def visited_maps
+    session[:visited_maps] ||= []
+  end
 
   def update_visit_timestamp
     @map.update_attributes(last_visit: Date.today)

@@ -128,7 +128,7 @@ RSpec.describe MapsController, type: :controller do
 
 
   describe 'GET #index' do
-    let(:user) { create :user, name: 'user' }
+    let(:user) { create :user, name: 'user', email: 'fo123905430@test.com' }
     let(:public_map) { create :map, :full_public, user: user }
     let(:private_map) { create :map, :private, user: user }
 

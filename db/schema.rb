@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180827181825) do
+ActiveRecord::Schema.define(version: 20180830194442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,13 @@ ActiveRecord::Schema.define(version: 20180827181825) do
     t.string   "password_digest"
     t.date     "last_visit"
     t.boolean  "show_map_description_on_visit", default: false,  null: false
+    t.string   "twitter_api_key"
+    t.string   "twitter_api_secret_key"
+    t.string   "twitter_access_token"
+    t.string   "twitter_access_token_secret"
+    t.string   "twitter_autopost_message"
+    t.boolean  "autopost_twitter",              default: false,  null: false
+    t.string   "twitter_hashtags"
   end
 
   add_index "maps", ["user_id"], name: "index_maps_on_user_id", using: :btree

@@ -2,7 +2,7 @@ feature 'Map form', js: true do
   context 'Edit map' do
     before do
       execute_script("jQuery('.footer').css('display', 'none')") # circumvent button finding prob
-      @map = create :map, :full_public
+      @map = create :map, :full_public, :autopost_twitter
       visit edit_map_path(map_token: @map.secret_token)
     end
 
@@ -29,6 +29,13 @@ feature 'Map form', js: true do
     scenario 'it can update valid public token' do
       set_public_token_eq_secret_token_and_find_error
       set_valid_public_token_successfully
+    end
+
+    scenario 'it can toggle twitter autopost' do
+      click_on 'Publication settings'
+      find('#map_autopost_twitter').set(false)
+      click_on 'Update'
+      expect(@map.reload.autopost_twitter).to eq false
     end
 
     private

@@ -113,7 +113,23 @@ module MassSeedPoints
 
       Map.create(title: 'Private map', maintainer_email_address: 'foo@bar.com', description: 'This is a private map', is_public: false, allow_guest_commits: false, secret_token: 'secret1', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)))
       Map.create(title: 'Restricted access map', maintainer_email_address: 'foo@bar.org', description: 'This is a map under restricted access', is_public: true, allow_guest_commits: false, secret_token: 'secret2', user_id: owner.id, public_token: 'public2', supported_languages: I18n.available_locales.sample(rand(1..2)))
-      Map.create(title: 'Public map', maintainer_email_address: 'foo@bar.org', description: 'This is a fully public map', is_public: true, allow_guest_commits: true, secret_token: 'secret4', user_id: owner.id, public_token: 'public3', supported_languages: I18n.available_locales.sample(rand(1..2)))
+      # Twitter tokens encrypted with dev ENV secret key base
+      Map.create(title: 'Public map',
+                 maintainer_email_address: 'foo@bar.org',
+                 description: 'This is a fully public map',
+                 is_public: true,
+                 allow_guest_commits: true,
+                 secret_token: 'secret4',
+                 user_id: owner.id,
+                 public_token: 'public3',
+                 supported_languages: I18n.available_locales.sample(rand(1..2)),
+                 autopost_twitter: true,
+                 twitter_hashtags: '#foo #bar',
+                 twitter_autopost_message: 'Something new happened:',
+                 twitter_access_token: 'D3513E35A67DE845F291B0E748D29B4B',
+                 twitter_access_token_secret: 'D3513E35A67DE845F291B0E748D29B4B',
+                 twitter_api_key: 'D3513E35A67DE845F291B0E748D29B4B',
+                 twitter_api_secret_key: 'D3513E35A67DE845F291B0E748D29B4B')
 
       # Create password protected map
       Map.create(title: 'Password', maintainer_email_address: 'foo@bar.com', description: 'This is a password protected map', is_public: false, allow_guest_commits: false, secret_token: 'secret5', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)), password: 'secret', password_confirmation: 'secret')

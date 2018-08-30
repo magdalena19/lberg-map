@@ -11,7 +11,7 @@ describe MassSeedPoints do
     }.to change { Place.count }.by(1)
   end
 
-  it '0 as points parameter creates no' do
+  it '0 as points parameter creates nothing' do
     expect {
       MassSeedPoints.generate(number_of_points: 0, city: 'Berlin, Lichtenberg')
     }.to change { Place.count }.by(0)

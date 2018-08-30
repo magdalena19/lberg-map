@@ -41,5 +41,16 @@ FactoryGirl.define do
       is_public false
       allow_guest_commits false
     end
+    
+    # Encrypted with test ENV secret key base 
+    trait :autopost_twitter do
+      autopost_twitter true
+      twitter_access_token 'AE49FBF6B59F99D7813E81440DD03A07'
+      twitter_access_token_secret 'AE49FBF6B59F99D7813E81440DD03A07'
+      twitter_api_key 'AE49FBF6B59F99D7813E81440DD03A07'
+      twitter_api_secret_key 'AE49FBF6B59F99D7813E81440DD03A07'
+      twitter_autopost_message "A new place has been inserted"
+      twitter_hashtags "#foo #bar"
+    end
   end
 end

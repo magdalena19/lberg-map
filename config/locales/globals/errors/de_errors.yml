@@ -12,6 +12,7 @@ de:
           tokens_do_not_differ: 'Adminlink und öffentlicher link dürfen nicht gleich sein!'
           secret_token_not_unique: 'bereits vergeben!'
           public_token_not_unique: 'bereits vergeben!'
+          twitter_length_restrictions_violated: 'Automatisch generierte Tweets könnten derzeit das Limit von 140 Zeichen überschreiten. Bitte wähle einen kürzeren Nachrichtentext oder ändere deine Hashtags!'
         place:
           attributes:
             address:

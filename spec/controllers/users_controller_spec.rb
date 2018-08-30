@@ -58,7 +58,7 @@ describe UsersController do
   context 'POST #create' do
     context 'accept request' do
       before do
-        @user = create :user, name: 'oneUser'
+        @user = create :user, name: 'oneUser', email: 'bar109823409234@test.com'
         @token = @user.activation_tokens.first.token
         @maps = create_list :map, 3, :public_guest_map
         session[:maps] = @maps

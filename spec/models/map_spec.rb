@@ -30,7 +30,37 @@ RSpec.describe Map, type: :model do
       map = create :map, :private
       expect(map.secret_token).to be_a(String)
     end
+
+    context 'Twitter' do
+      let(:map) { build :map, :full_public, :autopost_twitter,
+                  twitter_api_key: 'plain',
+                  twitter_api_secret_key: 'plain',
+                  twitter_access_token: 'plain',
+                  twitter_access_token_secret: 'plain' 
+      }
+
+      context 'Token encryption' do
+        it 'encrypts twitter access tokens before_save' do
+          encrypted = 'plain'.encrypt
+          map.save
+
+          expect(map.twitter_api_key).to eq encrypted
+          expect(map.twitter_api_secret_key).to eq encrypted
+          expect(map.twitter_access_token).to eq encrypted
+          expect(map.twitter_access_token_secret).to eq encrypted
+        end
+
+        it 'does not break if a token is nil' do
+          encrypted = 'plain'.encrypt
+          map.twitter_api_key = nil
+          map.save
+
+          expect(map.twitter_api_key).to eq nil
+        end
+      end
+    end
   end
+
 
   context 'Associations' do
     it { is_expected.to have_many :places }
@@ -48,6 +78,17 @@ RSpec.describe Map, type: :model do
   end
 
   context 'Validations' do
+    context 'Twitter' do
+      let(:map) { build :map, :autopost_twitter }
+
+      it 'Respects tweet length maximum of 140 characters' do
+        map.twitter_autopost_message = "A"*80
+        map.twitter_hashtags = "#foo"*10
+
+        expect(map).not_to be_valid
+      end
+    end
+
     context 'Tokens' do
       let(:map) { build :map }
       let(:other_map) { create :map, secret_token: 'secret', public_token: 'public' }
@@ -162,6 +203,12 @@ RSpec.describe Map, type: :model do
 
     it 'returns exact number of unreviewed events' do
       expect(@map.unreviewed_events.count).to eq 1
+    end
+
+    context 'Twitter' do
+      it 'can query twitter access tokens' do
+        expect(@map.twitter_tokens).to be_a Hash
+      end
     end
 
     context 'Password protection' do

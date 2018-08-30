@@ -69,7 +69,9 @@ class PlacesController < ApplicationController
       AttributeSetter::Place.set_attributes_after_create(place: @place, params: @params_to_commit, privileged: has_privileged_map_access)
       store_in_session_cookie
 
-      @place.reviewed ? message = t('.created') : message = t('.preview_mode')
+      message = @place.reviewed ? t('.created') : t('.preview_mode')
+      @place.tweet_place if @place.reviewed
+
       respond_to do |format|
         format.json do
           render json: {

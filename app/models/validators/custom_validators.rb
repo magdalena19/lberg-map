@@ -28,4 +28,20 @@ module CustomValidators
       end
     end
   end
+
+  class IsBase64Validator < ActiveModel::EachValidator
+    def validate_each(record, attribute, value)
+      unless base64?(value)
+        record.errors[attribute] << I18n.t('not_base64_encoded')
+      end
+    end
+
+    private
+
+    def base64?(string)
+      string.split('-').map do |token_part|
+        token_part.is_a?(String) && Base64.encode64(Base64.decode64(token_part)) == token_part
+      end.all?
+    end
+  end
 end

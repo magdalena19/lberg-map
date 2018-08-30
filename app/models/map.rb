@@ -15,6 +15,7 @@ class Map < ActiveRecord::Base
   before_validation :sanitize_description
   before_validation :sanitize_imprint
   before_validation lambda { password_digest = 'no password set' }
+  before_save :encrypt_twitter_tokens
 
   validates :maintainer_email_address, email_format: true, if: 'maintainer_email_address.present?'
   validates :secret_token, presence: true
@@ -25,6 +26,8 @@ class Map < ActiveRecord::Base
   validate :secret_token_valid, if: Proc.new { secret_token_changed? }
   validate :public_token_valid, if: 'public_token.present? && public_token_changed'
   validate :map_tokens_differ, if: 'public_token.present? && public_token_changed'
+
+  validate :tweet_length_restrictions, if: Proc.new { autopost_twitter }
 
   # VALIDATIONS
   def secret_token_changed
@@ -49,6 +52,15 @@ class Map < ActiveRecord::Base
     if public_token == secret_token
       errors.add(:base, I18n.t('activerecord.errors.models.map.tokens_do_not_differ'))
     end
+  end
+
+  def twitter_tokens
+    {
+      twitter_api_key: twitter_api_key&.decrypt,
+      twitter_api_secret_key: twitter_api_secret_key&.decrypt,
+      twitter_access_token: twitter_access_token&.decrypt,
+      twitter_access_token_secret: twitter_access_token_secret&.decrypt
+    }
   end
 
   # CLASS METHODS
@@ -188,6 +200,23 @@ class Map < ActiveRecord::Base
   end
 
   private
+
+  # CALLBACKS
+  def encrypt_twitter_tokens
+    self.twitter_api_key = twitter_api_key.encrypt if twitter_api_key_changed?
+    self.twitter_api_secret_key = twitter_api_secret_key.encrypt if twitter_api_secret_key_changed?
+    self.twitter_access_token = twitter_access_token.encrypt if twitter_access_token_changed?
+    self.twitter_access_token_secret = twitter_access_token_secret.encrypt if twitter_access_token_secret_changed?
+  end
+
+  def tweet_length_restrictions
+    # POI name length max == 50 chars
+    # 3 characters for whitespace and ':'
+    # Tweet must not exceed 140 chars, rejected otherwise
+    unless (twitter_autopost_message.length + twitter_hashtags.length + 50 + 3) <= 140
+      errors.add(:base, I18n.t('activerecord.errors.models.map.twitter_length_restrictions_violated'))
+    end
+  end
 
   def all_tokens
     Map.all.map(&:secret_token) + Map.all.map(&:public_token)

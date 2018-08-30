@@ -11,6 +11,7 @@ en:
           tokens_do_not_differ: 'Admin link and public link must not be the same!'
           secret_token_not_unique: 'already in use!'
           public_token_not_unique: 'already in use!'
+          twitter_length_restrictions_violated: 'Automatically generated tweets could violate the restrictions of 140 characters set by Twitter. Please choose a shorter Message text or change your hashtags!"'
         place:
           attributes:
             address:

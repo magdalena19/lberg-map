@@ -41,4 +41,8 @@ module MapsHelper
     return nil unless title
     title.gsub!(/[^0-9A-Za-z.\-]/, '_')&.downcase
   end
+
+  def mask(token)
+    raw '&bull;&bull;&bull;&bull;&bull;' + token.slice(token.length - 4, token.length) if token
+  end
 end

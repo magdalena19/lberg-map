@@ -41,6 +41,7 @@ gem 'spectrum-rails'
 gem 'time_splitter'
 gem 'translate-rails3', require: 'translate', group: :development
 gem 'travis'
+gem 'twitter'
 gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
 gem 'will_paginate', '~> 3.1.0'

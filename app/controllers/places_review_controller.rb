@@ -14,6 +14,7 @@ class PlacesReviewController < ApplicationController
   def confirm
     if @place.update(reviewed: true) && @place.destroy_all_updates
       flash[:success] = t('.changes_confirmed')
+      @place.tweet_place
     end
     redirect_to places_review_index_url
   end

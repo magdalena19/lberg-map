@@ -49,7 +49,7 @@ class MapsController < ApplicationController
           render json: {
             places: places_to_show.map(&:geojson),
             categories: @map.category_names.join(',')},
-            status: 200
+          status: 200
         else
           render nothing: true, status: 401
         end
@@ -207,6 +207,13 @@ class MapsController < ApplicationController
       :password,
       :password_confirmation,
       :translation_engine,
+      :twitter_api_key,
+      :twitter_api_secret_key,
+      :twitter_access_token,
+      :twitter_access_token_secret,
+      :twitter_autopost_message,
+      :autopost_twitter,
+      :twitter_hashtags,
       supported_languages: [],
       categories_attributes: category_attributes
     )

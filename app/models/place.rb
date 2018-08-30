@@ -3,6 +3,7 @@ require 'place/geocoding'
 require 'place/place_auditing'
 require 'place/place_translations_auditing'
 require 'place/place_model_helpers'
+require 'place/twitter'
 require 'validators/custom_validators'
 require 'sanitize'
 
@@ -14,6 +15,7 @@ class Place < ActiveRecord::Base
   include Sanitization
   include CustomValidators
   include PlaceModelHelpers
+  include Twitter
 
   extend TimeSplitter::Accessors
   split_accessor :start_date
@@ -29,6 +31,7 @@ class Place < ActiveRecord::Base
   validates :email, email_format: true, if: 'email.present?'
   validates :phone, phone_number_format: true, if: 'phone.present?'
   validates :homepage, url_format: true, if: 'homepage.present?'
+  validates :name, length: { minimum: 3, maximum: 50 }
   validate :end_date, :is_after_start_date?, if: 'start_date.present? && end_date.present?'
 
   def is_after_start_date?

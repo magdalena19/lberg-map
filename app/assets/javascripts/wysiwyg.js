@@ -7,7 +7,7 @@ jQuery(function() {
           'emphasis': true,
           'lists': true,
           'html': true,
-          'link': true,
+          'link': false,
           'image': false,
           'color': false
         }

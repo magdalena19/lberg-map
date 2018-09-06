@@ -50,7 +50,6 @@
       .col-xs-12
         .checkbox
           %label
-            -# = f.check_box :autopost_twitter
             = check_box_tag 'map[autopost_twitter]', true, @map.autopost_twitter
           = t('.autopost_twitter')
 

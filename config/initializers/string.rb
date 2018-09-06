@@ -1,5 +1,11 @@
+# Monkey patch encryption on Strings
+# To be used for symmetrical encryption of twitter API tokens
 class String
-  KEY = Rails.application.secrets.secret_key_base
+  # Look for dedicated twitter encryption passphrase, otherwise use Rails secret key base
+  KEY = ENV['TWITTER_TOKEN_ENCRYPTION_PHRASE'] ||
+    ENV['SECRET_KEY_BASE'] || # Production
+    ENV['secret_key_base'] || # Production
+    Rails.application.secrets.secret_key_base # Development
 
   def encrypt(key: KEY)
     begin

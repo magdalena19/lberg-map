@@ -194,6 +194,7 @@ class MapsController < ApplicationController
   end
 
   def map_params
+    binding.pry
     params.require(:map).permit(
       :title,
       :description,

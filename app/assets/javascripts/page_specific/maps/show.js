@@ -424,13 +424,20 @@ jQuery(function() {
 
     function appendDateRangePicker() {
       jQuery('#search-date-input').daterangepicker({
-        "startDate": eventDateRange().startDate,
-        "endDate": eventDateRange().endDate,
-        "showDropdowns": true,
         "showWeekNumbers": true,
         "timePicker": true,
         "timePicker24Hour": true,
         "timePickerIncrement": 15,
+        ranges: {
+          'Today': [moment(), moment()],
+          'This Week': [moment().startOf('week').add(1, 'days'), moment().endOf('week').add(1, 'days')], // Dirty correct for english style start of week
+          '+-15 Days': [moment().subtract(15, 'days'), moment().add(15, 'days')],
+          'This Month': [moment().startOf('month'), moment().endOf('month')]
+          // 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          // 'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+          // 'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          // 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
         "locale": {
           "format": 'DD.MM.YYYY HH:mm'
         }
@@ -582,7 +589,7 @@ jQuery(function() {
 
   function containsEvent(places) {
     var found = false;
-      for(var i = 0; i < places.length; i++) {
+    for(var i = 0; i < places.length; i++) {
       if (places[i].is_event) { found = true; break; }
     }
     return found;

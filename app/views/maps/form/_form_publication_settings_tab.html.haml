@@ -42,49 +42,50 @@
             = check_box_tag 'map[allow_guest_commits]', true, @map.allow_guest_commits
           = t('.allow_guest_commits')
 
-    %hr
+    - if twitter_token_encryption_key?
+      %hr
 
-    %h3 Twitter Settings
-    .row
-      .spacer-row
-      .col-xs-12
-        .checkbox
-          %label
-            = f.check_box :autopost_twitter
-          = t('.autopost_twitter')
-
-    .twitter-settings
+      %h3 Twitter Settings
       .row
         .spacer-row
-        .col-md-12
-          %fieldset{class: "#{'has-error' if f.object.errors.include?(:public_token)}"}
-            .row
-              .col-xs-12
-                = f.label :twitter_autopost_message
-                = f.text_field :twitter_autopost_message, placeholder: "There's something going on foo.org", class: 'form-control'
-            .row
-              .col-xs-12
-                = f.label :twitter_hashtags
-                = f.text_field :twitter_hashtags, placeholder: '#foo #bar', class: 'form-control'
-            .spacer-row
-            .row
-              .col-xs-12
-                %i Format of tweet will be: {Autopost message}: {Place name} {Hashtags}. You've got 87 characters only for hashtags and your personal message text! Otherwise your automatically generated tweets exceed Twitter's length limit of 140 characters
+        .col-xs-12
+          .checkbox
+            %label
+              = check_box_tag 'map[autopost_twitter]', true, @map.autopost_twitter
+            = t('.autopost_twitter')
 
-            .spacer-row
-            .row
-              .col-xs-12.col-md-6
-                = f.label :twitter_api_key
-                = f.text_field :twitter_api_key, class: 'form-control', value: mask(@map.twitter_tokens[:twitter_api_key])
-              .col-xs-12.col-md-6
-                = f.label :twitter_api_secret_key
-                = f.text_field :twitter_api_secret_key, class: 'form-control', value: mask(@map.twitter_tokens[:twitter_api_secret_key])
-              .col-xs-12.col-md-6
-                = f.label :twitter_access_token
-                = f.text_field :twitter_access_token, class: 'form-control', value: mask(@map.twitter_tokens[:twitter_access_token])
-              .col-xs-12.col-md-6
-                = f.label :twitter_access_token_secret
-                = f.text_field :twitter_access_token_secret, class: 'form-control', value: mask(@map.twitter_tokens[:twitter_access_token_secret])
+      .twitter-settings
+        .row
+          .spacer-row
+          .col-md-12
+            %fieldset{class: "#{'has-error' if f.object.errors.include?(:public_token)}"}
+              .row
+                .col-xs-12
+                  = f.label :twitter_autopost_message
+                  = f.text_field :twitter_autopost_message, placeholder: "There's something going on foo.org", class: 'form-control'
+              .row
+                .col-xs-12
+                  = f.label :twitter_hashtags
+                  = f.text_field :twitter_hashtags, placeholder: '#foo #bar', class: 'form-control'
+              .spacer-row
+              .row
+                .col-xs-12
+                  %i Format of tweet will be: {Autopost message}: {Place name} {Hashtags}. You've got 87 characters only for hashtags and your personal message text! Otherwise your automatically generated tweets exceed Twitter's length limit of 140 characters
+
+              .spacer-row
+              .row
+                .col-xs-12.col-md-6
+                  = f.label :twitter_api_key
+                  = f.text_field :twitter_api_key, class: 'form-control', value: mask(@map.twitter_api_key)
+                .col-xs-12.col-md-6
+                  = f.label :twitter_api_secret_key
+                  = f.text_field :twitter_api_secret_key, class: 'form-control', value: mask(@map.twitter_api_secret_key)
+                .col-xs-12.col-md-6
+                  = f.label :twitter_access_token
+                  = f.text_field :twitter_access_token, class: 'form-control', value: mask(@map.twitter_access_token)
+                .col-xs-12.col-md-6
+                  = f.label :twitter_access_token_secret
+                  = f.text_field :twitter_access_token_secret, class: 'form-control', value: mask(@map.twitter_access_token_secret)
 
 :javascript
   window.public_token_proposal= "#{propose_public_token}"

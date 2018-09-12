@@ -126,10 +126,10 @@ module MassSeedPoints
                  autopost_twitter: true,
                  twitter_hashtags: '#foo #bar',
                  twitter_autopost_message: 'Something new happened:',
-                 twitter_access_token: 'D3513E35A67DE845F291B0E748D29B4B',
-                 twitter_access_token_secret: 'D3513E35A67DE845F291B0E748D29B4B',
-                 twitter_api_key: 'D3513E35A67DE845F291B0E748D29B4B',
-                 twitter_api_secret_key: 'D3513E35A67DE845F291B0E748D29B4B')
+                 twitter_access_token: 'TestTest',
+                 twitter_access_token_secret: 'TestTest',
+                 twitter_api_key: 'TestTest',
+                 twitter_api_secret_key: 'TestTest')
 
       # Create password protected map
       Map.create(title: 'Password', maintainer_email_address: 'foo@bar.com', description: 'This is a password protected map', is_public: false, allow_guest_commits: false, secret_token: 'secret5', user_id: owner.id, supported_languages: I18n.available_locales.sample(rand(1..2)), password: 'secret', password_confirmation: 'secret')

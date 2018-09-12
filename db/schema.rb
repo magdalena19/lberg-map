@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180830194442) do
+ActiveRecord::Schema.define(version: 20180912135435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,28 +88,36 @@ ActiveRecord::Schema.define(version: 20180830194442) do
   add_index "category_translations", ["locale"], name: "index_category_translations_on_locale", using: :btree
 
   create_table "maps", force: :cascade do |t|
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.string   "title"
     t.text     "description"
     t.text     "imprint"
-    t.boolean  "is_public",                     default: false,  null: false
+    t.boolean  "is_public",                                default: false,  null: false
     t.string   "public_token"
-    t.string   "secret_token",                                   null: false
+    t.string   "secret_token",                                              null: false
     t.string   "maintainer_email_address"
     t.boolean  "allow_guest_commits"
     t.integer  "user_id"
-    t.text     "supported_languages",           default: ["en"], null: false, array: true
+    t.text     "supported_languages",                      default: ["en"], null: false, array: true
     t.string   "password_digest"
     t.date     "last_visit"
-    t.boolean  "show_map_description_on_visit", default: false,  null: false
+    t.boolean  "show_map_description_on_visit",            default: false,  null: false
     t.string   "twitter_api_key"
     t.string   "twitter_api_secret_key"
     t.string   "twitter_access_token"
     t.string   "twitter_access_token_secret"
     t.string   "twitter_autopost_message"
-    t.boolean  "autopost_twitter",              default: false,  null: false
+    t.boolean  "autopost_twitter",                         default: false,  null: false
     t.string   "twitter_hashtags"
+    t.string   "encrypted_twitter_api_key"
+    t.string   "encrypted_twitter_api_key_iv"
+    t.string   "encrypted_twitter_api_secret_key"
+    t.string   "encrypted_twitter_api_secret_key_iv"
+    t.string   "encrypted_twitter_access_token"
+    t.string   "encrypted_twitter_access_token_iv"
+    t.string   "encrypted_twitter_access_token_secret"
+    t.string   "encrypted_twitter_access_token_secret_iv"
   end
 
   add_index "maps", ["user_id"], name: "index_maps_on_user_id", using: :btree

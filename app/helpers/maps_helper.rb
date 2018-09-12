@@ -43,6 +43,10 @@ module MapsHelper
   end
 
   def mask(token)
-    raw '&bull;&bull;&bull;&bull;&bull;' + token.slice(token.length - 4, token.length) if token
+    '*' * 4  + token.slice(token.length - 4, token.length) if token && token.present?
+  end
+
+  def twitter_token_encryption_key?
+    ENV['TWITTER_TOKEN_ENCRYPTION_PHRASE']
   end
 end

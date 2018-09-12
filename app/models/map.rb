@@ -6,6 +6,11 @@ class Map < ActiveRecord::Base
   include CustomValidators
   include Sanitization
 
+  attr_encrypted :twitter_access_token, key: ENV['TWITTER_TOKEN_ENCRYPTION_PHRASE']
+  attr_encrypted :twitter_access_token_secret, key: ENV['TWITTER_TOKEN_ENCRYPTION_PHRASE']
+  attr_encrypted :twitter_api_key, key: ENV['TWITTER_TOKEN_ENCRYPTION_PHRASE']
+  attr_encrypted :twitter_api_secret_key, key: ENV['TWITTER_TOKEN_ENCRYPTION_PHRASE']
+
   has_many :places, dependent: :destroy
   has_many :categories, dependent: :destroy
   belongs_to :user
@@ -15,7 +20,6 @@ class Map < ActiveRecord::Base
   before_validation :sanitize_description
   before_validation :sanitize_imprint
   before_validation lambda { password_digest = 'no password set' }
-  before_save :encrypt_twitter_tokens
 
   validates :maintainer_email_address, email_format: true, if: 'maintainer_email_address.present?'
   validates :secret_token, presence: true
@@ -52,15 +56,6 @@ class Map < ActiveRecord::Base
     if public_token == secret_token
       errors.add(:base, I18n.t('activerecord.errors.models.map.tokens_do_not_differ'))
     end
-  end
-
-  def twitter_tokens
-    {
-      twitter_api_key: twitter_api_key&.decrypt,
-      twitter_api_secret_key: twitter_api_secret_key&.decrypt,
-      twitter_access_token: twitter_access_token&.decrypt,
-      twitter_access_token_secret: twitter_access_token_secret&.decrypt
-    }
   end
 
   # CLASS METHODS
@@ -200,14 +195,6 @@ class Map < ActiveRecord::Base
   end
 
   private
-
-  # CALLBACKS
-  def encrypt_twitter_tokens
-    self.twitter_api_key = twitter_api_key.encrypt if twitter_api_key_changed?
-    self.twitter_api_secret_key = twitter_api_secret_key.encrypt if twitter_api_secret_key_changed?
-    self.twitter_access_token = twitter_access_token.encrypt if twitter_access_token_changed?
-    self.twitter_access_token_secret = twitter_access_token_secret.encrypt if twitter_access_token_secret_changed?
-  end
 
   def tweet_length_restrictions
     # POI name length max == 50 chars

@@ -31,12 +31,12 @@ feature 'Map form', js: true do
       set_valid_public_token_successfully
     end
 
-    scenario 'it can toggle twitter autopost' do
-      click_on 'Publication settings'
-      find('#map_autopost_twitter').set(false)
-      click_on 'Update'
-      expect(@map.reload.autopost_twitter).to eq false
-    end
+    # scenario 'it can toggle twitter autopost' do
+    #   click_on 'Publication settings'
+    #   find('#map_autopost_twitter').set(false)
+    #   click_on 'Update'
+    #   expect(@map.reload.autopost_twitter).to eq false
+    # end
 
     private
 

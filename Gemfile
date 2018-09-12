@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.7.1'
 
 gem 'awesomplete'
+gem "attr_encrypted", "~> 3.0.0"
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootstrap-wysihtml5-rails'

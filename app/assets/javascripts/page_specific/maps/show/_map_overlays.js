@@ -80,7 +80,7 @@ jQuery(function() {
     placesListPanelToggle.find('.glyphicon').removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
     placesListPanelToggle.show();
     placesListPanelToggle.css('left', placesListPanel.outerWidth());
-    if (window.outerWidth <= 600) {
+    if (window.innerWidth <= 600) {
       hideMapControls();
     }
   };

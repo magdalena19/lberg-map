@@ -12,8 +12,9 @@
     %noscript
       This site is built on JavaScript. Please activate...
     .container-full.main-container
-      = render 'layouts/shared/flash_messages'
-      = yield
+      .starter-template
+        = render 'layouts/shared/flash_messages'
+        = yield
 
     = render 'layouts/footer/footer'
 

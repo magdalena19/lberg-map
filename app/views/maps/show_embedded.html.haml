@@ -15,8 +15,20 @@
   = render partial: 'maps/modals/places_index_modal'
   = render partial: 'maps/modals/map_description_modal', locals: { map: @map }
 
+  - if needs_to_be_unlocked?
+    = render partial: 'maps/modals/map_password_modal'
+
+  .modal.fade.place-modal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %span.glyphicon.glyphicon-remove-circle.close{"data-dismiss" => "modal", :type => "button"}
+          %h4.modal-title Place
+        .modal-body
+
 :javascript
   window.locale = '#{locale}';
+  window.map_languages = '#{@map.supported_languages}'
   window.geolocation_error_message_appendix = '#{t('geolocation_error_message_appendix')}';
   window.choose_category = '#{t('choose_category')}';
   window.waiting_for_review_label = '#{t('places.index.waiting_for_review')}';
@@ -31,3 +43,4 @@
   window.event_date_range = '#{@map.all_events_date_range}';
   window.map_token = '#{request[:map_token]}'
   window.mapId= #{@map.id}
+  window.mayShowMapDescription = #{@show_map_description}

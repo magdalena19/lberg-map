@@ -308,6 +308,14 @@ jQuery(function() {
 
     // FILL PLACES LIST
 
+    var imageTags = function(arrayOfImages) {
+      var tags = '';
+      $(arrayOfImages).each(function(id, image) {
+        tags += '<img src="' + image + '">';
+      });
+      return tags;
+    };
+
     // Add places to places side panel
     var addToPlacesList = function(feature, layer) {
       var item = jQuery('.places-list-item.template').clone();
@@ -370,6 +378,8 @@ jQuery(function() {
         item.css('opacity', '0.6');
         item.find('.edit-place').hide();
       };
+
+      item.find('.images').append(imageTags(feature.properties.images));
 
       jQuery('.places-list-accordion').append(item);
     };

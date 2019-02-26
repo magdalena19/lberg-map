@@ -27,6 +27,7 @@ class PlacesController < ApplicationController
 
   def edit
     redirect_to map_url(map_token: request[:map_token]) if @place.new?
+    5.times { @place.place_attachments.build }
     @url = place_url(id: @place.id, map_token: request[:map_token])
     flash.now[:warning] = t('.preview_mode') unless @current_user.signed_in?
   end
@@ -57,6 +58,8 @@ class PlacesController < ApplicationController
 
   def new
     @place = @map.places.new
+    5.times { @place.place_attachments.build }
+
     flash.now[:warning] = t('.preview_mode') unless @current_user.signed_in?
   end
 
@@ -166,6 +169,7 @@ class PlacesController < ApplicationController
       :phone, :homepage, :email,
       :event, :start_date,
       :categories_string,
+      place_attachments_attributes: [:id, :place_id, :image, :_destroy]
     )
   end
 end

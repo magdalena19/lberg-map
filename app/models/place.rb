@@ -25,6 +25,8 @@ class Place < ActiveRecord::Base
   belongs_to :map
   has_many :place_category, dependent: :nullify
   has_many :categories, through: :place_category, dependent: :nullify
+  has_many :place_attachments
+  accepts_nested_attributes_for :place_attachments, reject_if: :all_blank, allow_destroy: true
 
   ## VALIDATIONS
   validates :name, presence: true
@@ -38,6 +40,10 @@ class Place < ActiveRecord::Base
     if end_date < start_date
       errors.add(:expiration_date, I18n.t('.end_date_before_start_date'))
     end
+  end
+
+  def images
+    place_attachments.map { |a| ActionController::Base.helpers.image_path(a.image) }
   end
 
   ## TRANSLATION
@@ -132,6 +138,7 @@ class Place < ActiveRecord::Base
       email: email,
       homepage: homepage,
       description: displayed_description,
+      images: images,
       category_names: categories.map(&:name).map(&:to_s).sort.join(' | '),
       is_event: event,
       reviewed: reviewed,

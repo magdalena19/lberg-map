@@ -33,6 +33,8 @@ tmp/**/*
 /config/application.yml
 .env
 
+# Ignore image uploads
+public/uploads
 
 # Ignore test coverage report
 /coverage
@@ -48,5 +50,5 @@ public/capybara.html
 .tags*
 tags
 
-# ruby-versio file
+# ruby-version file
 .ruby-version

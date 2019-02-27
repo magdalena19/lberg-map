@@ -178,4 +178,8 @@
     -webkit-transition: none;
     transition: none;
   }
+
+  .slick-prev::before, .slick-next::before {
+    color: black;
+  }
 }

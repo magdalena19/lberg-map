@@ -186,6 +186,8 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-scrollto-rails (1.4.3)
       railties (> 3.1, < 5.0)
+    jquery-slick-rails (1.9.0)
+      railties (>= 3.1)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     js_cookie_rails (2.1.4)
@@ -296,7 +298,6 @@ GEM
     recaptcha (4.3.1)
       json
     redis (3.3.3)
-    remotipart (1.4.2)
     request_store (1.3.2)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
@@ -471,6 +472,7 @@ DEPENDENCIES
   jquery-datatables-rails (~> 3.4.0)
   jquery-rails
   jquery-scrollto-rails
+  jquery-slick-rails
   jquery-ui-rails
   js_cookie_rails
   leaflet-control-geocoder-rails
@@ -487,7 +489,6 @@ DEPENDENCIES
   rails (= 4.2.7.1)
   rails-html-sanitizer
   recaptcha
-  remotipart (~> 1.2)
   responders (~> 2.0)
   rspec-rails
   rspec-sidekiq

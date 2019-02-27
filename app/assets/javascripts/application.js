@@ -13,6 +13,7 @@
 //= require dataTables_responsive
 //= require datetime-moment
 //= require daterangepicker
+//= require jquery.slick
 
 //= require ./page_specific/maps/show/_map_overlays
 //= require wysiwyg

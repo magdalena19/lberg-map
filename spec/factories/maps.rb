@@ -6,6 +6,7 @@ FactoryGirl.define do
     maintainer_email_address 'foo@bar.org'
     secret_token { SecureRandom.urlsafe_base64(24) }
     supported_languages I18n.available_locales
+    images_per_post 3
     user
 
     trait :public_guest_map do
@@ -41,8 +42,8 @@ FactoryGirl.define do
       is_public false
       allow_guest_commits false
     end
-    
-    # Encrypted with test ENV secret key base 
+
+    # Encrypted with test ENV secret key base
     trait :autopost_twitter do
       autopost_twitter true
       twitter_access_token 'AE49FBF6B59F99D7813E81440DD03A07'

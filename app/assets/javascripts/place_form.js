@@ -70,5 +70,37 @@ jQuery(function() {
       jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom');
       jQuery(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
     });
+
+    // attributes has to be submitted via FormData objects to make multiple file upload work
+    // hence we need the following manual ajax submitions overwriting the default form behavior
+    // error handling and  callbacks are handled in .ajaxComplete function somewhere else
+    var ajaxPost = function(url, data) {
+      $.ajax({
+        url: url,
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        data: data,
+      });
+    }
+
+    $('#new_place').on('submit', function(e){
+      e.preventDefault();
+      ajaxPost('/' + window.map_token + '/places', new FormData(this));
+      return false; // prevents default submit
+    });
+
+    $('.edit_place').on('submit', function(e){
+      e.preventDefault();
+      var placeId = jQuery(this).attr('place_id');
+      ajaxPost('/' + window.map_token + '/places/' + placeId, new FormData(this));
+      return false; // prevents default submit
+    });
+
+    jQuery('.destroy-image').click(function() {
+      var $parent = jQuery(this).parents('.image-row');
+      $parent.find('.destroy-checkbox').prop('checked', true);
+      $parent.hide();
+    });
   });
 });

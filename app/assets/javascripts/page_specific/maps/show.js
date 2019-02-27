@@ -34,7 +34,6 @@ jQuery(function() {
     jQuery('.flash-message').css('position', 'absolute').css('z-index', '999999');
 
     // Display map description on visit if set so...
-    console.log(mayShowMapDescription)
     if (window.mayShowMapDescription) {
       showMapDescription();
     }
@@ -308,6 +307,14 @@ jQuery(function() {
 
     // FILL PLACES LIST
 
+    var imageTags = function(arrayOfImages) {
+      var tags = '';
+      $(arrayOfImages).each(function(id, image) {
+        tags += '<div><img src="' + image + '"></div>';
+      });
+      return tags;
+    };
+
     // Add places to places side panel
     var addToPlacesList = function(feature, layer) {
       var item = jQuery('.places-list-item.template').clone();
@@ -324,6 +331,9 @@ jQuery(function() {
         .attr('lon', feature.geometry.coordinates[0])
         .attr('lat', feature.geometry.coordinates[1]);
       item.find('.panel-heading').click(function() { layer.highlight() });
+      item.find('.panel-heading').click(function() {
+        setTimeout(function() { item.find('.images').slick() }, 1)  // timeout to ensure that accordion element is open
+      });
 
       item.find('.name').html(feature.properties.name);
       // if (feature.is_event === true) {
@@ -370,6 +380,8 @@ jQuery(function() {
         item.css('opacity', '0.6');
         item.find('.edit-place').hide();
       };
+
+      item.find('.images').append(imageTags(feature.properties.images));
 
       jQuery('.places-list-accordion').append(item);
     };

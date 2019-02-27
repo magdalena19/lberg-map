@@ -1,4 +1,4 @@
-= form_for(@place, url: @url, remote: true) do |f|
+= form_for(@place, url: @url, multipart: true, remote: true, authenticity_token: true, html: {place_id: @place.id}) do |f|
   .row
     .col-xs-12
       - if @place.unreviewed_version
@@ -100,6 +100,18 @@
               = f.text_area column.to_sym, class: "description-area locked-description", disabled: true
             - else
               = f.text_area column.to_sym, class: "wysihtml5 description-area #{column}"
+
+  -# IMAGES
+  .row
+    .col-xs-12
+      %h4.header-row= t('.images')
+      = f.fields_for :place_attachments do |p|
+        .image-row.margin-below
+          = p.file_field :image
+          - if p.object.image_url
+            .pull-right.destroy-image{style: 'color: red; cursor: pointer;'}= t('.delete-image')
+            = image_tag p.object.image_url
+            = p.check_box '_destroy', {class: 'destroy-checkbox', style: 'display: none;'}, true, false
 
   -# CAPTCHA
   .row.captcha-row

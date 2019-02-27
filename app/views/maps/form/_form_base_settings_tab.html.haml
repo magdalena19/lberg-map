@@ -48,3 +48,6 @@
             %label
               = check_box_tag 'map[show_map_description_on_visit]', true, @map.show_map_description_on_visit
             = t('.show_map_description_on_visit')
+        .col-xs-12.col-sm-4
+          = f.label :images_per_post
+          = f.number_field :images_per_post, class: 'form-control'

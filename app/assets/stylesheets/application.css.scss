@@ -22,6 +22,8 @@
  *= require Control.Geocoder
  *= require spectrum
  *= require leaflet.extra-markers.min
+ *= require slick
+ *= require slick-theme
  *= require_tree .
  *= require_self
  */
@@ -315,4 +317,12 @@ a {
 input[type="checkbox"] {
   position: relative;
   width: 18px;
+}
+
+img {
+  max-width: 100%;
+}
+
+.slick-prev::before, .slick-next::before {
+  color: black;
 }

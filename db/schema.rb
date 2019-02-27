@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190226163800) do
+ActiveRecord::Schema.define(version: 20190227134644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 20190226163800) do
     t.string   "encrypted_twitter_access_token_iv"
     t.string   "encrypted_twitter_access_token_secret"
     t.string   "encrypted_twitter_access_token_secret_iv"
+    t.integer  "images_per_post",                          default: 3,      null: false
   end
 
   add_index "maps", ["user_id"], name: "index_maps_on_user_id", using: :btree

@@ -9,4 +9,12 @@ describe PlaceAttachment do
     expect(@image).to be_valid
     expect(@place.images[0]).to include('ratmap_logo.jpg')
   end
+
+  it 'can only be created as often as map setting allows' do
+    @map = create :map, images_per_post: 2
+    @place = create :place, name: 'New place', map_id: @map.id
+    create :place_attachment, place_id: @place.id
+    create :place_attachment, place_id: @place.id
+    expect(build :place_attachment, place_id: @place.id).to_not be_valid
+  end
 end

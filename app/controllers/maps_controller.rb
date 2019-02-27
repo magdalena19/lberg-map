@@ -214,6 +214,7 @@ class MapsController < ApplicationController
       :twitter_autopost_message,
       :autopost_twitter,
       :twitter_hashtags,
+      :images_per_post,
       supported_languages: [],
       categories_attributes: category_attributes
     )

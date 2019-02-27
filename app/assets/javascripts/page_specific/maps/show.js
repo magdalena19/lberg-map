@@ -332,7 +332,7 @@ jQuery(function() {
         .attr('lat', feature.geometry.coordinates[1]);
       item.find('.panel-heading').click(function() { layer.highlight() });
       item.find('.panel-heading').click(function() {
-        setTimeout(function() { item.find('.images').slick()}, 1)  // timeout to ensure that accordion element is open
+        setTimeout(function() { item.find('.images').slick() }, 1)  // timeout to ensure that accordion element is open
       });
 
       item.find('.name').html(feature.properties.name);

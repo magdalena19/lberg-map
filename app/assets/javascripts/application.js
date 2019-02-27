@@ -75,4 +75,17 @@ jQuery(function() {
         new Audio('/theme.mp3').play();
     }
   });
+
+  // fullscreen image carousel
+  $('body').on('click', '.images img', function() {
+    var images = jQuery(this).closest('.images').find('.slick-slide:not(.slick-cloned)').find('img');
+    $('html').append('<div class="fullscreen-image-slider"><div class="slick-container"></div><div class="close-image-slider">x</div></div>');
+    images.each(function() {
+      var image = jQuery(this).clone();
+      var imageDiv = jQuery("<div></div>").append(image);
+      $('.slick-container').append(imageDiv);
+    });
+    $('.slick-container').slick();
+    $('.close-image-slider').click(function() { $('.fullscreen-image-slider').remove() });
+  });
 });

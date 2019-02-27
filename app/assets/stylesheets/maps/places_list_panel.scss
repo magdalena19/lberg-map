@@ -26,7 +26,10 @@
   padding: 15px;
 
   .images {
-    img { margin-top: 5px; }
+    img {
+      cursor: pointer;
+      margin-top: 5px;
+    }
   }
 
   .fa-home {
@@ -177,9 +180,5 @@
   .collapsing {
     -webkit-transition: none;
     transition: none;
-  }
-
-  .slick-prev::before, .slick-next::before {
-    color: black;
   }
 }

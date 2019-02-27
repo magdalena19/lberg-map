@@ -25,7 +25,7 @@ class Place < ActiveRecord::Base
   belongs_to :map
   has_many :place_category, dependent: :nullify
   has_many :categories, through: :place_category, dependent: :nullify
-  has_many :place_attachments
+  has_many :place_attachments, dependent: :destroy
   accepts_nested_attributes_for :place_attachments, reject_if: :all_blank, allow_destroy: true
 
   ## VALIDATIONS

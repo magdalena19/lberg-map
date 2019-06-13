@@ -36,5 +36,10 @@ module LbergMap
         request_specs: false
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
     end
+
+    # Sentry
+    Raven.configure do
+      config.dsn = "ENV[SENTRY_DSN]"
+    end
   end
 end

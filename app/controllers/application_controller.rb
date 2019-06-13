@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   include MapAccessGateway
 
   before_action :prepare_session
+  before_action :set_raven_context
 
   def prepare_session
     set_locale
@@ -30,5 +31,12 @@ class ApplicationController < ActionController::Base
 
   def items_from_session
     @map.places.where(id: session[:places])
+  end
+
+  private
+
+  def set_raven_context
+    Raven.user_context(id: session[:current_user_id]) # or anything else in session
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end

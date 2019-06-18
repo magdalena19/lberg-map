@@ -48,6 +48,7 @@ gem 'unicorn'
 gem 'will_paginate', '~> 3.1.0'
 gem 'i18n-js'
 gem 'carrierwave'
+gem 'mini_magick'
 gem 'jquery-slick-rails'
 
 group :development, :test do
